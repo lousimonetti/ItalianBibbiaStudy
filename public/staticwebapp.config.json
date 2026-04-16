@@ -1,6 +1,13 @@
 {
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/assets/*", "/*.{js,css,png,svg,ico,webmanifest}"]
+    "exclude": ["/assets/*", "/*.{js,css,png,svg,ico,webmanifest}", "/anki/*"]
+  },
+  "globalHeaders": {
+    "Cache-Control": "public, max-age=0, must-revalidate"
+  },
+  "mimeTypes": {
+    ".webmanifest": "application/manifest+json",
+    ".apkg": "application/octet-stream"
   }
 }

@@ -9,9 +9,12 @@ export function WeekDetail({ week }) {
           <div className="detail-label">Key vocabulary</div>
           <table className="vocab-table">
             <tbody>
-              {week.vocab.map(([it, en, ex], i) => (
+              {week.vocab.map(([it, en, ex, pron], i) => (
                 <tr key={i}>
-                  <td className="vocab-it">{it}</td>
+                  <td className="vocab-it">
+                    {it}
+                    {pron && <span className="vocab-pron">{pron}</span>}
+                  </td>
                   <td className="vocab-en">{en}</td>
                   <td className="vocab-ex">{ex}</td>
                 </tr>
