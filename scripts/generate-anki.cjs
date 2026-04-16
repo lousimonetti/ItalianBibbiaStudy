@@ -3,6 +3,7 @@
 // Outputs .apkg files to public/anki/
 
 'use strict';
+global.Module = { TOTAL_MEMORY: 128 * 1024 * 1024 };
 
 const ApkgExport = require('anki-apkg-export').default;
 const fs = require('fs');
