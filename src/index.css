@@ -683,6 +683,93 @@ body {
 .jrn-saved-indicator { font-size: 11px; color: var(--accent); }
 
 
+/* ── Welcome card ───────────────────────────────────────────────────────────── */
+.welcome-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.welcome-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 6px;
+}
+
+.welcome-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.welcome-dismiss {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 9px;
+  border-radius: 6px;
+  transition: background 0.1s;
+}
+.welcome-dismiss:hover { background: var(--bg); color: var(--text); }
+
+.welcome-body {
+  padding: 0 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.welcome-intro {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.welcome-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 560px) { .welcome-sections { grid-template-columns: 1fr; } }
+
+.welcome-section-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 7px;
+}
+
+.welcome-list {
+  margin: 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12px;
+  color: #555;
+  line-height: 1.55;
+}
+
+.welcome-tip {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--bg);
+  border-radius: 6px;
+  padding: 8px 10px;
+  line-height: 1.55;
+}
+
 /* Pronunciation */
 .vocab-pron {
   display: block;

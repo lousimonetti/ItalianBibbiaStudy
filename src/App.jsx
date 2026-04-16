@@ -6,6 +6,7 @@ import { Phase } from './components/Phase';
 import { GuideSection } from './components/GuideSection';
 import { FlashcardsTab } from './components/FlashcardsTab';
 import { JournalTab } from './components/JournalTab';
+import { WelcomeCard } from './components/WelcomeCard';
 
 const TOTAL = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
 const TABS = ['Tracker', 'Flashcards', 'Journal'];
@@ -77,6 +78,8 @@ export default function App() {
             role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} />
         </div>
       </div>
+
+      <WelcomeCard />
 
       {/* Tab bar */}
       <div className="tab-bar" role="tablist">
