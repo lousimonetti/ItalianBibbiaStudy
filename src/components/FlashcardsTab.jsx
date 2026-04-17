@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { PHASES } from '../data/studyData';
+import { PracticeMode } from './PracticeMode';
 
 const PHASE_FILES = [
   { id: 'p1', label: 'Phase 1 — John (56 cards)',            file: 'phase-1-john',         cards: 56 },
@@ -28,9 +29,30 @@ function AnkiLink({ href, label }) {
 
 export function FlashcardsTab() {
   const [activePhase, setActivePhase] = useState(null);
+  const [mode, setMode] = useState('anki');
 
   return (
     <div className="fc-wrap">
+
+      {/* Mode toggle */}
+      <div className="fc-mode-toggle">
+        <button
+          className={`fc-mode-btn${mode === 'anki' ? ' active' : ''}`}
+          onClick={() => setMode('anki')}
+        >
+          Anki Decks
+        </button>
+        <button
+          className={`fc-mode-btn${mode === 'practice' ? ' active' : ''}`}
+          onClick={() => setMode('practice')}
+        >
+          Practice (built-in)
+        </button>
+      </div>
+
+      {mode === 'practice' && <PracticeMode />}
+
+      {mode === 'anki' && <>
 
       {/* Header */}
       <div className="fc-header">
@@ -120,6 +142,7 @@ export function FlashcardsTab() {
         Each deck imports as a separate sub-deck so your existing Anki cards are not affected.
       </div>
 
+      </>}
     </div>
   );
 }

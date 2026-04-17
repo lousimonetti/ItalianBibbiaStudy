@@ -770,6 +770,249 @@ body {
   line-height: 1.55;
 }
 
+/* ── Flashcard mode toggle ──────────────────────────────────────────────────── */
+.fc-mode-toggle {
+  display: flex;
+  gap: 2px;
+  background: var(--border);
+  border-radius: 10px;
+  padding: 3px;
+  margin-bottom: 20px;
+}
+.fc-mode-btn {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.fc-mode-btn:hover { background: rgba(255,255,255,0.5); color: var(--text); }
+.fc-mode-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+/* ── Practice mode ──────────────────────────────────────────────────────────── */
+.prac-start-screen { display: flex; flex-direction: column; gap: 0; }
+
+.prac-intro-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+.prac-intro-title { font-size: 14px; font-weight: 500; margin-bottom: 5px; }
+.prac-intro-body { font-size: 13px; color: #555; line-height: 1.6; }
+
+.prac-filter-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 10px;
+}
+.prac-filter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+@media (max-width: 440px) { .prac-filter-grid { grid-template-columns: 1fr; } }
+
+.prac-filter-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.prac-filter-btn:hover { border-color: var(--accent); }
+.prac-filter-btn.prac-filter-active { border-color: var(--accent); background: var(--accent-dim); }
+.prac-filter-name { font-size: 13px; font-weight: 500; color: var(--text); }
+.prac-filter-sub { font-size: 11px; color: var(--text-muted); }
+.prac-filter-count { font-size: 12px; color: var(--accent); font-weight: 500; margin-top: 2px; }
+
+.prac-go-btn {
+  width: 100%;
+  padding: 13px;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  background: var(--accent);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.prac-go-btn:hover { opacity: 0.87; }
+
+/* Active session */
+.prac-session { display: flex; flex-direction: column; gap: 0; }
+
+.prac-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.prac-counter { font-size: 13px; color: var(--text-muted); }
+.prac-exit-btn {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.prac-exit-btn:hover { border-color: var(--text-muted); }
+
+.prac-bar-bg {
+  background: var(--border);
+  border-radius: 99px;
+  height: 4px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.prac-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 99px;
+  transition: width 0.35s ease;
+}
+
+/* Card flip */
+.prac-scene {
+  perspective: 700px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+.prac-card {
+  position: relative;
+  min-height: 260px;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 16px;
+}
+.prac-card.prac-flipped { transform: rotateY(180deg); }
+
+.prac-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 28px 24px;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.prac-front {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.prac-back {
+  background: var(--surface);
+  border: 1px solid var(--accent-dim);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transform: rotateY(180deg);
+}
+
+.prac-word {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.2;
+}
+.prac-tap-hint { font-size: 12px; color: var(--text-faint); }
+
+.prac-translation {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text);
+  text-align: center;
+}
+.prac-ipa {
+  font-size: 13px;
+  color: var(--accent);
+  font-family: 'Courier New', monospace;
+}
+.prac-example {
+  font-size: 13px;
+  font-style: italic;
+  color: #666;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.prac-card-meta {
+  font-size: 11px;
+  color: var(--text-faint);
+  text-align: center;
+  margin-bottom: 20px;
+  min-height: 16px;
+}
+
+.prac-actions {
+  display: flex;
+  gap: 10px;
+  padding-top: 4px;
+}
+.prac-again-btn, .prac-known-btn, .prac-reveal-btn {
+  flex: 1;
+  padding: 13px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.prac-again-btn { background: #FDE8E8; color: #991B1B; }
+.prac-known-btn { background: var(--accent-dim); color: var(--accent); }
+.prac-reveal-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); }
+.prac-again-btn:hover, .prac-known-btn:hover, .prac-reveal-btn:hover { opacity: 0.8; }
+
+/* Session end */
+.prac-end {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 40px 16px;
+  text-align: center;
+}
+.prac-end-score {
+  font-size: 56px;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+}
+.prac-end-label { font-size: 16px; color: var(--text); }
+.prac-end-sub { font-size: 13px; color: var(--text-muted); }
+.prac-end-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; justify-content: center; }
+.prac-drill-btn, .prac-restart-btn {
+  padding: 11px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.prac-drill-btn { background: var(--accent); color: white; }
+.prac-restart-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); }
+.prac-drill-btn:hover, .prac-restart-btn:hover { opacity: 0.8; }
+
 /* Pronunciation */
 .vocab-pron {
   display: block;
