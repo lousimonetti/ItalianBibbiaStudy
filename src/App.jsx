@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { PHASES } from './data/studyData';
+import { PHASES, DAILY } from './data/studyData';
 import { useProgress } from './hooks/useProgress';
 import { useInstallPrompt } from './hooks/useInstallPrompt';
+import { getCurrentWeekN, getTodayDayIndex } from './utils/schedule';
 import { Phase } from './components/Phase';
 import { GuideSection } from './components/GuideSection';
 import { FlashcardsTab } from './components/FlashcardsTab';
@@ -9,7 +10,7 @@ import { JournalTab } from './components/JournalTab';
 import { WelcomeCard } from './components/WelcomeCard';
 
 const TOTAL = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
-const TABS = ['Tracker', 'Flashcards', 'Journal'];
+const ALL_WEEKS = PHASES.flatMap(p => p.weeks);
 
 function DownloadIcon() {
   return (
@@ -29,11 +30,94 @@ function OfflineIcon() {
   );
 }
 
+function TrackerIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2 4.5l2.5 2.5 4-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M2 10.5l2.5 2.5 4-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M12 5h1M12 11h1" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+function CardsIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="1" y="5" width="12" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M3.5 5V3.5A1.5 1.5 0 015 2h8a1.5 1.5 0 011.5 1.5V11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+function JournalIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M10.5 2l3.5 3.5-7 7H3.5V9l7-7z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M9 3.5l3.5 3.5" stroke="currentColor" strokeWidth="1.5"/>
+    </svg>
+  );
+}
+
+function TodayCard({ currentWeekN }) {
+  const [schedOpen, setSchedOpen] = useState(false);
+  const week = currentWeekN ? ALL_WEEKS.find(w => w.n === currentWeekN) : null;
+  const todayTask = DAILY[getTodayDayIndex()];
+
+  if (!week) {
+    return (
+      <div className="today-card today-card--inactive">
+        <span className="today-pre-label">Program starts April 13, 2026</span>
+        <span className="today-pre-sub">37 weeks · Easter to Christmas</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="today-card">
+      <div className="today-meta">
+        <span className="today-week-pill">Week {week.n}</span>
+        <span className="today-reading">{week.r}</span>
+        <span className="today-date">{week.d}</span>
+      </div>
+
+      <div className="today-task-row">
+        <span className="today-day-label">{todayTask.day}</span>
+        <span className="today-task-text">{todayTask.task}</span>
+      </div>
+
+      <button className="today-sched-toggle" onClick={() => setSchedOpen(v => !v)}>
+        Full weekly schedule
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: schedOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
+          <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+
+      {schedOpen && (
+        <div className="today-sched">
+          {DAILY.map(({ day, task }) => (
+            <div key={day} className={`today-sched-row${day === todayTask.day ? ' today-sched-row--active' : ''}`}>
+              <span className="today-sched-day">{day}</span>
+              <span className="today-sched-task">{task}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+const TABS = [
+  { id: 'Tracker',    Icon: TrackerIcon },
+  { id: 'Flashcards', Icon: CardsIcon },
+  { id: 'Journal',    Icon: JournalIcon },
+];
+
 export default function App() {
   const { checked, toggle, doneCount, pct } = useProgress(TOTAL);
   const { canInstall, install } = useInstallPrompt();
   const [online, setOnline] = useState(navigator.onLine);
   const [activeTab, setActiveTab] = useState('Tracker');
+  const currentWeekN = getCurrentWeekN();
 
   useEffect(() => {
     const up = () => setOnline(true);
@@ -83,15 +167,16 @@ export default function App() {
 
       {/* Tab bar */}
       <div className="tab-bar" role="tablist">
-        {TABS.map((tab) => (
+        {TABS.map(({ id, Icon }) => (
           <button
-            key={tab}
+            key={id}
             role="tab"
-            aria-selected={activeTab === tab}
-            className={`tab-btn${activeTab === tab ? ' active' : ''}`}
-            onClick={() => setActiveTab(tab)}
+            aria-selected={activeTab === id}
+            className={`tab-btn${activeTab === id ? ' active' : ''}`}
+            onClick={() => setActiveTab(id)}
           >
-            {tab}
+            <Icon />
+            {id}
           </button>
         ))}
       </div>
@@ -99,24 +184,16 @@ export default function App() {
       {/* Tab: Tracker */}
       {activeTab === 'Tracker' && (
         <>
-          <div className="routine">
-            <h2>Daily routine (65 min)</h2>
-            {[
-              ['Babbel lesson — one unit, do not skip ahead', '15 min'],
-              ['Audio passage in Italian — listen without looking anything up', '10 min'],
-              ['Read with parallel Italian / English text (Bible Gateway)', '20 min'],
-              ["Anki — add 5-8 new words from today's passage, then review due cards", '10 min'],
-              ['Writing — expand the current week and use the prompt to write 3-5 Italian sentences in a notebook or notes app', '10 min'],
-            ].map(([label, time]) => (
-              <div className="rrow" key={label}>
-                <span>{label}</span>
-                <span className="rtime">{time}</span>
-              </div>
-            ))}
-          </div>
+          <TodayCard currentWeekN={currentWeekN} />
           <GuideSection />
           {PHASES.map((phase) => (
-            <Phase key={phase.id} phase={phase} checked={checked} onToggle={toggle} />
+            <Phase
+              key={phase.id}
+              phase={phase}
+              checked={checked}
+              onToggle={toggle}
+              currentWeekN={currentWeekN}
+            />
           ))}
         </>
       )}
