@@ -748,6 +748,32 @@ body {
 .jrn-prompt-it { font-size: 12px; font-style: italic; color: var(--text); margin-bottom: 3px; line-height: 1.5; }
 .jrn-prompt-en { font-size: 11px; color: var(--text-muted); }
 
+.jrn-writing-guide {
+  background: var(--bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 9px 12px;
+}
+.jrn-guide-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+.jrn-guide-steps {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: #555;
+  line-height: 1.5;
+}
+
 .jrn-textarea {
   width: 100%;
   min-height: 120px;

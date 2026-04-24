@@ -1,9 +1,9 @@
 export const DAILY = [
   { day: 'Mon', task: 'Babbel lesson + audio listen (no looking up)' },
   { day: 'Tue', task: 'Read chapters with parallel text + Anki new words' },
-  { day: 'Wed', task: 'Re-read + write 3-5 sentences using weekly prompt' },
+  { day: 'Wed', task: 'Re-read + write 3–5 sentences in Italian using this week\'s prompt → Journal tab' },
   { day: 'Thu', task: 'Babbel lesson + full Anki review deck' },
-  { day: 'Fri', task: 'Read next chapter(s) + add vocab + write sentences' },
+  { day: 'Fri', task: 'Read next chapter(s) + add vocab + write 2–3 more Italian sentences' },
   { day: 'Sat', task: 'Anki review + listen to full passage audio again' },
   { day: 'Sun', task: 'Rest — or write a short journal entry in Italian' },
 ];

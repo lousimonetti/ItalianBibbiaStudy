@@ -67,11 +67,20 @@ function WeekJournalRow({ week, entry, onSave }) {
             <div className="jrn-prompt-it">{week.prompt.it}</div>
             <div className="jrn-prompt-en">{week.prompt.en}</div>
           </div>
+          <div className="jrn-writing-guide">
+            <span className="jrn-guide-label">How to write</span>
+            <ol className="jrn-guide-steps">
+              <li>Write in <strong>Italian</strong> — the whole entry, not just the opening sentence.</li>
+              <li>Use the italic sentence above as your first line or inspiration, then continue in your own words.</li>
+              <li>Aim for 3–5 sentences on Wed; a short paragraph on review weeks.</li>
+              <li>Don't translate from English in your head — think of a sentence you know how to write and build from there.</li>
+            </ol>
+          </div>
           <textarea
             className="jrn-textarea"
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            placeholder={`Write 3–5 Italian sentences here. Start from the prompt above, then continue in your own words…`}
+            placeholder="Continua qui in italiano…"
             rows={6}
             autoFocus
           />
@@ -118,7 +127,8 @@ export function JournalTab() {
 
       {/* Note about notes */}
       <div className="jrn-info">
-        Notes save automatically as you type. Export downloads a single markdown file you can paste into Google Docs, OneNote, or any other app.
+        Write in Italian — open any week to see its prompt and a short how-to guide.
+        Notes save automatically as you type. Export downloads a single markdown file you can open in any app.
       </div>
 
       {/* Phase filter */}
