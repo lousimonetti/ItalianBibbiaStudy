@@ -136,6 +136,8 @@ export function PracticeMode() {
             <button className="prac-reveal-btn" onClick={() => setFlipped(true)}>Reveal</button>
           </div>
         )}
+
+        <IPAKeyPanel />
       </div>
     );
   }
