@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { PHASES } from '../data/studyData';
+import { IPAGuide } from './IPAGuide';
 
 function buildCards(phases) {
   const cards = [];
@@ -180,6 +181,28 @@ export function PracticeMode() {
       <button className="prac-go-btn" onClick={() => startSession(filtered)}>
         Start — {filtered.length} cards
       </button>
+
+      <IPAKeyPanel />
+    </div>
+  );
+}
+
+function IPAKeyPanel() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="prac-ipa-panel">
+      <button className="prac-ipa-toggle" onClick={() => setOpen(v => !v)}>
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.4"/>
+          <path d="M8 7v5M8 5v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        </svg>
+        Pronunciation key — what do those symbols mean?
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none"
+          style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s', marginLeft: 'auto' }}>
+          <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+      {open && <IPAGuide compact />}
     </div>
   );
 }

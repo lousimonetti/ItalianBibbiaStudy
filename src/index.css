@@ -252,6 +252,25 @@ body {
 
 .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
 .detail-section { margin-bottom: 0; }
+.detail-label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.detail-label-row .detail-label { margin-bottom: 0; }
+.ipa-hint-btn {
+  font-size: 11px;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  flex-shrink: 0;
+}
+.ipa-inline-panel {
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
 .detail-label {
   font-size: 11px;
   font-weight: 500;
@@ -1126,6 +1145,103 @@ body {
 .prac-drill-btn { background: var(--accent); color: white; }
 .prac-restart-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); }
 .prac-drill-btn:hover, .prac-restart-btn:hover { opacity: 0.8; }
+
+/* ── IPA Guide ──────────────────────────────────────────────────────────────── */
+.ipa-guide-intro {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.ipa-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+.ipa-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ipa-card-top { display: flex; align-items: center; gap: 8px; }
+.ipa-badge {
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 2px 7px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  min-width: 34px;
+  text-align: center;
+}
+.ipa-card-name { font-size: 12px; font-weight: 500; color: var(--text); }
+.ipa-card-sounds { font-size: 12px; color: #555; line-height: 1.4; }
+.ipa-card-example { font-size: 11px; }
+.ipa-card-ex-sym { font-family: 'Courier New', monospace; color: var(--accent); }
+.ipa-card-ex-hint { color: var(--text-faint); }
+
+/* Compact (used in Practice panel and vocab table) */
+.ipa-guide-compact { padding: 10px 12px; }
+.ipa-guide-compact-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.ipa-symbol-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ipa-symbol-row {
+  display: grid;
+  grid-template-columns: 36px 100px 1fr;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 12px;
+}
+.ipa-sym {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 1px 5px;
+  border-radius: 4px;
+  text-align: center;
+}
+.ipa-sym-name { color: var(--text); font-weight: 500; }
+.ipa-sym-sounds { color: #666; }
+
+/* Practice panel toggle */
+.prac-ipa-panel {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+.prac-ipa-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s;
+}
+.prac-ipa-toggle:hover { background: #faf9f7; }
 
 /* Pronunciation */
 .vocab-pron {
