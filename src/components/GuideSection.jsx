@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { IPAGuide } from './IPAGuide';
 
 function GuidePanel({ title, children, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -136,6 +137,11 @@ export function GuideSection() {
                 <li>Parallel reading setup: Open two browser tabs side by side, or use Bible Gateway's parallel view with an English translation on the right.</li>
               </ul>
             </Tool>
+          </GuidePanel>
+
+          {/* IPA guide */}
+          <GuidePanel title="How to read the pronunciations (IPA key)">
+            <IPAGuide />
           </GuidePanel>
 
           {/* Methodology */}

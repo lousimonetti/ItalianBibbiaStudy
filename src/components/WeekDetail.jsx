@@ -1,12 +1,26 @@
+import { useState } from 'react';
 import { DAILY } from '../data/studyData';
+import { IPAGuide } from './IPAGuide';
 
 export function WeekDetail({ week }) {
+  const [ipaOpen, setIpaOpen] = useState(false);
+
   return (
     <div className="detail-panel">
       <div className="detail-grid">
         {/* Vocabulary */}
         <div className="detail-section">
-          <div className="detail-label">Key vocabulary</div>
+          <div className="detail-label-row">
+            <span className="detail-label">Key vocabulary</span>
+            <button className="ipa-hint-btn" onClick={() => setIpaOpen(v => !v)}>
+              {ipaOpen ? 'Hide key' : 'Pronunciation key ?'}
+            </button>
+          </div>
+          {ipaOpen && (
+            <div className="ipa-inline-panel">
+              <IPAGuide compact />
+            </div>
+          )}
           <table className="vocab-table">
             <tbody>
               {week.vocab.map(([it, en, ex, pron], i) => (
