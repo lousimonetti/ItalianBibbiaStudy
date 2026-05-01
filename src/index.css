@@ -1253,3 +1253,133 @@ body {
   margin-top: 1px;
   letter-spacing: 0.01em;
 }
+
+/* ── Pronunciation Practice ─────────────────────────────────────────────────── */
+.pronun-unsupported {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 48px 24px;
+  text-align: center;
+}
+.pronun-unsupported-title { font-size: 16px; font-weight: 500; color: var(--text); }
+.pronun-unsupported-body {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+.pronun-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  text-align: center;
+}
+.pronun-word {
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.2;
+}
+.pronun-ipa {
+  font-size: 14px;
+  color: var(--accent);
+  font-family: 'Courier New', monospace;
+}
+.pronun-translation {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.pronun-mic-area {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.pronun-mic-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 36px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: border-color 0.15s, background 0.15s, color 0.15s, box-shadow 0.15s;
+  min-width: 180px;
+}
+.pronun-mic-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+.pronun-mic-recording {
+  border-color: #e53e3e !important;
+  color: #e53e3e !important;
+  background: #fff5f5 !important;
+  animation: pronun-pulse 1.2s ease-in-out infinite;
+}
+.pronun-mic-processing { opacity: 0.6; cursor: not-allowed; }
+
+@keyframes pronun-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.3); }
+  50%       { box-shadow: 0 0 0 10px rgba(229, 62, 62, 0); }
+}
+
+.pronun-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.pronun-score-badge {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 7px 18px;
+  border-radius: 99px;
+}
+.pronun-score-great { background: #d1fae5; color: #065f46; }
+.pronun-score-good  { background: #fef3c7; color: #92400e; }
+.pronun-score-low   { background: #fee2e2; color: #991b1b; }
+
+.pronun-recognized {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+.pronun-recognized-label { color: var(--text-muted); }
+.pronun-recognized-text  { color: var(--text); font-style: italic; }
+.pronun-recognized-error { font-size: 13px; color: #991b1b; text-align: center; }
+
+.pronun-end-breakdown {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 4px;
+}
+.pronun-breakdown-item {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+.pronun-breakdown-great { background: #d1fae5; color: #065f46; }
+.pronun-breakdown-good  { background: #fef3c7; color: #92400e; }
+.pronun-breakdown-low   { background: #fee2e2; color: #991b1b; }
