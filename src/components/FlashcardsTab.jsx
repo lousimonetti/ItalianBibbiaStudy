@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { PHASES } from '../data/studyData';
 import { PracticeMode } from './PracticeMode';
+import { PronunciationPractice } from './PronunciationPractice';
 
 const PHASE_FILES = [
   { id: 'p1', label: 'Phase 1 — John (56 cards)',            file: 'phase-1-john',         cards: 56 },
@@ -46,11 +47,18 @@ export function FlashcardsTab() {
           className={`fc-mode-btn${mode === 'practice' ? ' active' : ''}`}
           onClick={() => setMode('practice')}
         >
-          Practice (built-in)
+          Practice
+        </button>
+        <button
+          className={`fc-mode-btn${mode === 'pronunciation' ? ' active' : ''}`}
+          onClick={() => setMode('pronunciation')}
+        >
+          Pronunciation
         </button>
       </div>
 
       {mode === 'practice' && <PracticeMode />}
+      {mode === 'pronunciation' && <PronunciationPractice />}
 
       {mode === 'anki' && <>
 
