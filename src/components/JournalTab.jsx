@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { PHASES } from '../data/studyData';
 import { useJournal } from '../hooks/useJournal';
+import { SentenceGuide } from './SentenceGuide';
 
 function ExportIcon() {
   return (
@@ -76,6 +77,7 @@ function WeekJournalRow({ week, entry, onSave }) {
               <li>Don't translate from English in your head — think of a sentence you know how to write and build from there.</li>
             </ol>
           </div>
+          <SentenceGuide />
           <textarea
             className="jrn-textarea"
             value={draft}

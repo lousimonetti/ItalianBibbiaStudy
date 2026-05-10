@@ -1,6 +1,7 @@
 import { useState, useRef, useMemo } from 'react';
 import { PHASES } from '../data/studyData';
 import { IPAGuide } from './IPAGuide';
+import { SpeakerButton } from './SpeakerButton';
 
 function buildCards(phases) {
   const cards = [];
@@ -255,6 +256,7 @@ export function PronunciationPractice() {
         <div className="pronun-card">
           <span className="pronun-word">{card.it}</span>
           <span className="pronun-ipa">{card.ipa}</span>
+          <SpeakerButton word={card.it} size={22} />
           <span className="pronun-translation">{card.en}</span>
         </div>
 

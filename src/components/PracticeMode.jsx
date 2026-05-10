@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { PHASES } from '../data/studyData';
 import { IPAGuide } from './IPAGuide';
+import { SpeakerButton } from './SpeakerButton';
 
 function buildCards(phases) {
   const cards = [];
@@ -114,11 +115,13 @@ export function PracticeMode() {
           <div className={`prac-card${flipped ? ' prac-flipped' : ''}`}>
             <div className="prac-face prac-front">
               <span className="prac-word">{card.it}</span>
+              <SpeakerButton word={card.it} size={22} />
               <span className="prac-tap-hint">tap to reveal</span>
             </div>
             <div className="prac-face prac-back">
               <span className="prac-translation">{card.en}</span>
               <span className="prac-ipa">{card.ipa}</span>
+              <SpeakerButton word={card.it} size={18} />
               <span className="prac-example">"{card.ex}"</span>
             </div>
           </div>
