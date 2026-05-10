@@ -12,11 +12,76 @@ function ExportIcon() {
   );
 }
 
-function WeekJournalRow({ week, entry, onSave }) {
+function GrammarIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2 12L6 4l4 8M3.5 9.5h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M10.5 6.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5c0 .55-.3 1.03-.75 1.29L11 9.5h3"
+        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+async function checkGrammar(text) {
+  const resp = await fetch('https://api.languagetool.org/v2/check', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ text, language: 'it' }),
+  });
+  const data = await resp.json();
+  return data.matches ?? [];
+}
+
+function GrammarPanel({ matches, status, draft, onApply }) {
+  if (status === 'idle') return null;
+
+  return (
+    <div className="grammar-panel">
+      <div className="grammar-panel-header">
+        {status === 'loading' && <span className="grammar-loading">Checking grammar…</span>}
+        {status === 'done' && matches.length === 0 && (
+          <span className="grammar-clear">No issues found</span>
+        )}
+        {status === 'done' && matches.length > 0 && (
+          <span className="grammar-count">
+            {matches.length} suggestion{matches.length !== 1 ? 's' : ''}
+          </span>
+        )}
+      </div>
+      {status === 'done' && matches.map((match, i) => {
+        const flagged = draft.slice(match.offset, match.offset + match.length);
+        return (
+          <div key={i} className="grammar-match">
+            {flagged && <span className="grammar-flagged">"{flagged}"</span>}
+            <span className="grammar-message">{match.message}</span>
+            {match.replacements.length > 0 && (
+              <div className="grammar-replacements">
+                {match.replacements.slice(0, 3).map((r) => (
+                  <button
+                    key={r.value}
+                    className="grammar-replacement-btn"
+                    onClick={() => onApply(match, r.value)}
+                  >
+                    {r.value}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function WeekJournalRow({ week, entry, onSave, grammarEnabled }) {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(entry?.text ?? '');
   const [saved, setSaved] = useState(false);
+  const [grammarMatches, setGrammarMatches] = useState([]);
+  const [grammarStatus, setGrammarStatus] = useState('idle'); // idle | loading | done
   const timerRef = useRef(null);
+  const grammarTimerRef = useRef(null);
   const hasContent = !!entry?.text?.trim();
 
   // Auto-save with 800ms debounce
@@ -32,6 +97,38 @@ function WeekJournalRow({ week, entry, onSave }) {
     }, 800);
     return () => clearTimeout(timerRef.current);
   }, [draft, open]);
+
+  // Grammar check with 1.5s debounce
+  useEffect(() => {
+    if (!grammarEnabled || !open) {
+      setGrammarMatches([]);
+      setGrammarStatus('idle');
+      clearTimeout(grammarTimerRef.current);
+      return;
+    }
+    if (!draft.trim()) {
+      setGrammarMatches([]);
+      setGrammarStatus('idle');
+      return;
+    }
+    clearTimeout(grammarTimerRef.current);
+    grammarTimerRef.current = setTimeout(async () => {
+      setGrammarStatus('loading');
+      try {
+        const matches = await checkGrammar(draft);
+        setGrammarMatches(matches);
+        setGrammarStatus('done');
+      } catch {
+        setGrammarStatus('idle');
+      }
+    }, 1500);
+    return () => clearTimeout(grammarTimerRef.current);
+  }, [draft, grammarEnabled, open]);
+
+  function applyReplacement(match, value) {
+    const next = draft.slice(0, match.offset) + value + draft.slice(match.offset + match.length);
+    setDraft(next);
+  }
 
   const handleOpen = () => {
     setOpen((v) => !v);
@@ -86,6 +183,12 @@ function WeekJournalRow({ week, entry, onSave }) {
             rows={6}
             autoFocus
           />
+          <GrammarPanel
+            matches={grammarMatches}
+            status={grammarStatus}
+            draft={draft}
+            onApply={applyReplacement}
+          />
           <div className="jrn-editor-footer">
             <span className="jrn-word-count">
               {draft.trim() ? draft.trim().split(/\s+/).length : 0} words
@@ -101,6 +204,7 @@ function WeekJournalRow({ week, entry, onSave }) {
 export function JournalTab() {
   const { entries, setEntry, exportMarkdown, wordCount, weekCount } = useJournal();
   const [filterPhase, setFilterPhase] = useState('all');
+  const [grammarEnabled, setGrammarEnabled] = useState(false);
 
   const filteredPhases = filterPhase === 'all'
     ? PHASES
@@ -120,6 +224,14 @@ export function JournalTab() {
           </div>
         </div>
         <div className="jrn-header-actions">
+          <button
+            className={`jrn-grammar-toggle${grammarEnabled ? ' active' : ''}`}
+            onClick={() => setGrammarEnabled((v) => !v)}
+            title={grammarEnabled ? 'Disable grammar suggestions' : 'Enable grammar suggestions (uses LanguageTool)'}
+          >
+            <GrammarIcon />
+            Grammar
+          </button>
           <button className="jrn-export-btn" onClick={() => exportMarkdown(PHASES)}>
             <ExportIcon />
             Export .md
@@ -171,6 +283,7 @@ export function JournalTab() {
               week={week}
               entry={entries[week.n]}
               onSave={(text) => setEntry(week.n, text)}
+              grammarEnabled={grammarEnabled}
             />
           ))}
         </div>
