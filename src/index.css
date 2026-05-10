@@ -815,6 +815,76 @@ body {
 .jrn-word-count { font-size: 11px; color: var(--text-faint); }
 .jrn-saved-indicator { font-size: 11px; color: var(--accent); }
 
+.jrn-grammar-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 7px 11px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.jrn-grammar-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.jrn-grammar-toggle.active {
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── Grammar panel ──────────────────────────────────────────────────────────── */
+.grammar-panel {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 12px;
+}
+.grammar-panel-header {
+  padding: 7px 12px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.grammar-loading { color: var(--text-faint); }
+.grammar-clear   { color: var(--accent); font-weight: 500; }
+.grammar-count   { color: var(--text-muted); font-weight: 500; }
+
+.grammar-match {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.grammar-match:last-child { border-bottom: none; }
+
+.grammar-flagged {
+  font-style: italic;
+  color: #92400e;
+  background: #fef3c7;
+  border-radius: 3px;
+  padding: 1px 5px;
+  align-self: flex-start;
+}
+.grammar-message { color: #444; line-height: 1.45; }
+
+.grammar-replacements { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 2px; }
+.grammar-replacement-btn {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: none;
+  border-radius: 5px;
+  padding: 3px 9px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.grammar-replacement-btn:hover { opacity: 0.75; }
+
 
 /* ── Welcome card ───────────────────────────────────────────────────────────── */
 .welcome-card {
