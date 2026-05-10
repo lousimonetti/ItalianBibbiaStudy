@@ -129,6 +129,11 @@ export default function App() {
 
   return (
     <div className="container">
+      <div className="tricolor-bar" aria-hidden="true">
+        <div className="tc-green" />
+        <div className="tc-white" />
+        <div className="tc-red" />
+      </div>
       {!online && (
         <div className="offline-banner" role="status">
           <OfflineIcon />
@@ -138,7 +143,7 @@ export default function App() {
 
       <div className="app-header">
         <div className="header-text">
-          <h1>Italian Bible Study</h1>
+          <h1><span className="title-it">Italian</span> Bible Study</h1>
           <p className="tagline">
             37 weeks to Christmas 2026 &mdash; La Bibbia CEI 2008 + Babbel + Anki + iTalki
           </p>

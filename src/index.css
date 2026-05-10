@@ -8,8 +8,10 @@
   --text: #1a1a18;
   --text-muted: #777;
   --text-faint: #aaa;
-  --accent: #1D9E75;
-  --accent-dim: #cce8dd;
+  --accent: #008C45;
+  --accent-dim: #d4edda;
+  --it-red: #CE2B37;
+  --it-red-dim: #fde8ea;
 }
 
 body {
@@ -35,6 +37,18 @@ body {
   margin-bottom: 16px;
 }
 
+/* ── Tricolor bar ───────────────────────────────────────────────────────────── */
+.tricolor-bar {
+  display: flex;
+  height: 5px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.tc-green { flex: 1; background: #008C45; }
+.tc-white { flex: 1; background: #c8c4ba; }
+.tc-red   { flex: 1; background: #CE2B37; }
+
 .app-header {
   display: flex;
   align-items: flex-start;
@@ -42,8 +56,23 @@ body {
   margin-bottom: 20px;
   gap: 12px;
 }
-.header-text h1 { font-size: 22px; font-weight: 500; margin-bottom: 3px; }
-.tagline { font-size: 13px; color: var(--text-muted); }
+.header-text h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.header-text h1::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 56px;
+  margin-top: 7px;
+  background: linear-gradient(to right, #008C45 33.33%, #c8c4ba 33.33% 66.66%, #CE2B37 66.66%);
+  border-radius: 2px;
+}
+.title-it { color: var(--accent); }
+.tagline { font-size: 13px; color: var(--text-muted); margin-top: 10px; }
 
 .install-btn {
   display: flex;
