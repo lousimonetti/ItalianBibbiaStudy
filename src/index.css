@@ -1383,3 +1383,93 @@ body {
 .pronun-breakdown-great { background: #d1fae5; color: #065f46; }
 .pronun-breakdown-good  { background: #fef3c7; color: #92400e; }
 .pronun-breakdown-low   { background: #fee2e2; color: #991b1b; }
+
+/* ── Speaker button ─────────────────────────────────────────────────────────── */
+.speaker-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  color: var(--text-faint);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.speaker-btn:hover {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+.speaker-btn.speaker-speaking {
+  color: var(--accent);
+  background: var(--accent-dim);
+  animation: speaker-pulse 1s ease-in-out infinite;
+}
+@keyframes speaker-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+/* ── Sentence guide (Journal editor) ───────────────────────────────────────── */
+.sent-guide {
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg);
+}
+.sent-guide-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s;
+}
+.sent-guide-toggle:hover { background: #f0ede6; }
+.sent-guide-body {
+  border-top: 1px solid var(--border-subtle);
+}
+.sent-guide-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.sent-guide-row:last-child { border-bottom: none; }
+.sent-guide-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.sent-guide-example {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sent-guide-it {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text);
+  font-weight: 500;
+}
+.sent-guide-en {
+  font-size: 12px;
+  color: var(--text-muted);
+}
