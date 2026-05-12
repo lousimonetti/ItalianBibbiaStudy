@@ -132,10 +132,14 @@ export function GuideSection() {
             <Tool name="La Bibbia CEI 2008" badge="Primary text">
               <p>The CEI 2008 is the standard Catholic Italian Bible and the text all vocabulary and grammar examples in this app are drawn from. Use it as your Italian source; use Bible Gateway for the parallel English.</p>
               <ul>
-                <li>Online: <strong>bibbia.net</strong> or search "CEI 2008" on Bible Gateway and set the Italian CEI version.</li>
-                <li>Audio: Search "Bibbia audio CEI" on YouTube or a podcast app for read-aloud recordings. Listen first without the text open.</li>
-                <li>Parallel reading setup: Open two browser tabs side by side, or use Bible Gateway's parallel view with an English translation on the right.</li>
+                <li><strong>Text (online):</strong> <a href="https://www.lachiesa.it/bibbia/" target="_blank" rel="noreferrer">lachiesa.it/bibbia</a> — CEI 2008 alongside CEI 1974 for comparison. Also on Bible Gateway: select Italian → CEI.</li>
+                <li><strong>Audio — streaming:</strong> <a href="https://www.bibbiaedu.it/CEI2008/" target="_blank" rel="noreferrer">bibbiaedu.it/CEI2008</a> — official CEI/EDB recordings, professional studio quality, chapter by chapter. The best free streaming source.</li>
+                <li><strong>Audio — download (MP3):</strong> <a href="http://www.proclamarelaparola.it/bibbia-in-mp3/" target="_blank" rel="noreferrer">proclamarelaparola.it/bibbia-in-mp3</a> — confirmed CEI 2008, free MP3 per chapter or full-book zip. Download to listen offline or load into an audiobook app.</li>
+                <li><strong>Audio — podcast (Gospels):</strong> The official CEI podcast on Spotify covers all four Gospels in CEI 2008 — search for <em>Vangelo secondo Giovanni CEI 2008</em> or <em>Vangelo secondo Luca CEI 2008</em>. Directly useful for Phases 1 and 2 of this program.</li>
+                <li><strong>Audio — YouTube:</strong> The <em>La Bibbia in Audio</em> playlist (search YouTube) explicitly labels each video CEI 2008, reads cleanly with no music, and works well on a TV or Chromecast.</li>
+                <li><strong>Parallel reading:</strong> Open two browser tabs side by side, or use Bible Gateway's parallel view with an English translation on the right.</li>
               </ul>
+              <Tip>bibbiaedu.it is streaming-only (no download). If you want files for offline use, proclamarelaparola.it is the most complete downloadable CEI 2008 source.</Tip>
             </Tool>
           </GuidePanel>
 
