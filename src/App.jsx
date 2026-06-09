@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { PHASES, DAILY } from './data/studyData';
 import { useProgress } from './hooks/useProgress';
 import { useInstallPrompt } from './hooks/useInstallPrompt';
+import { useTheme } from './hooks/useTheme';
 import { getCurrentWeekN, getTodayDayIndex } from './utils/schedule';
 import { Phase } from './components/Phase';
 import { GuideSection } from './components/GuideSection';
@@ -54,6 +55,25 @@ function JournalIcon() {
     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M10.5 2l3.5 3.5-7 7H3.5V9l7-7z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
       <path d="M9 3.5l3.5 3.5" stroke="currentColor" strokeWidth="1.5"/>
+    </svg>
+  );
+}
+
+function SunIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="8" r="3" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06"
+        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+function MoonIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M13.5 10A6 6 0 016 2.5a6 6 0 100 11 6 6 0 007.5-3.5z"
+        stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
     </svg>
   );
 }
@@ -115,6 +135,7 @@ const TABS = [
 export default function App() {
   const { checked, toggle, doneCount, pct } = useProgress(TOTAL);
   const { canInstall, install } = useInstallPrompt();
+  const { theme, toggleTheme } = useTheme();
   const [online, setOnline] = useState(navigator.onLine);
   const [activeTab, setActiveTab] = useState('Tracker');
   const currentWeekN = getCurrentWeekN();
@@ -148,12 +169,21 @@ export default function App() {
             37 weeks to Christmas 2026 &mdash; La Bibbia CEI 2008 + Babbel + Anki + iTalki
           </p>
         </div>
-        {canInstall && (
-          <button className="install-btn" onClick={install} aria-label="Install app">
-            <DownloadIcon />
-            Add to Home Screen
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+          {canInstall && (
+            <button className="install-btn" onClick={install} aria-label="Install app">
+              <DownloadIcon />
+              Add to Home Screen
+            </button>
+          )}
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
           </button>
-        )}
+        </div>
       </div>
 
       {/* Progress — always visible */}
