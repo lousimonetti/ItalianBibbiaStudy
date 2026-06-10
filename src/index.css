@@ -1291,6 +1291,14 @@ body {
 }
 .prac-card.prac-flipped { transform: rotateY(180deg); }
 
+/* The hidden face must not intercept pointer events — backface-visibility:hidden
+   hides it visually but NOT for clicks/taps. Without this, the hidden face's
+   SpeakerButton absorbs the tap and iOS Safari refuses speechSynthesis because
+   the gesture originated on a non-visible element. */
+.prac-back                       { pointer-events: none; }
+.prac-card.prac-flipped .prac-front { pointer-events: none; }
+.prac-card.prac-flipped .prac-back  { pointer-events: auto; }
+
 .prac-face {
   position: absolute;
   inset: 0;
