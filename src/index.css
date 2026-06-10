@@ -1,5 +1,9 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+button, a, label, input[type='checkbox'] { -webkit-tap-highlight-color: transparent; }
+button, input[type='checkbox'] { touch-action: manipulation; }
+
 :root {
   --bg: #f5f4f0;
   --surface: #ffffff;
@@ -434,6 +438,17 @@ body {
 @media (max-width: 640px) { .detail-grid { grid-template-columns: 1fr; } }
 
 @media (max-width: 600px) {
+  /* Room for the fixed bottom tab bar + notch safe areas */
+  body {
+    padding: 16px
+      max(16px, env(safe-area-inset-right))
+      calc(78px + env(safe-area-inset-bottom))
+      max(16px, env(safe-area-inset-left));
+  }
+
+  .app-header { flex-wrap: wrap; }
+  .header-text h1 { font-size: 22px; }
+
   .col-header,
   .week-main { grid-template-columns: 36px 1fr 24px; }
   .col-header span:nth-child(2),
@@ -442,11 +457,72 @@ body {
   .week-babbel { display: none; }
   .week-reading { grid-column: 2; }
   .today-date { display: none; }
+
+  /* Tab bar becomes a fixed bottom navigation, within thumb reach */
+  .tab-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    margin: 0;
+    border-radius: 0;
+    padding: 6px max(10px, env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.07);
+  }
+  .tab-btn {
+    flex-direction: column;
+    gap: 3px;
+    padding: 7px 4px;
+    font-size: 11px;
+    min-height: 50px;
+  }
+  .tab-btn svg { width: 18px; height: 18px; }
+  .tab-btn.active {
+    background: var(--accent-dim);
+    color: var(--accent);
+    box-shadow: none;
+  }
+
+  /* Stack vocab rows instead of squeezing three columns */
+  .vocab-table tbody { display: block; }
+  .vocab-table tr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 8px;
+    padding: 7px 0;
+  }
+  .vocab-table td { display: block; padding: 0; width: auto; }
+  .vocab-ex { flex-basis: 100%; margin-top: 2px; }
+
+  /* ≥16px prevents iOS Safari from zooming in when the textarea gets focus */
+  .jrn-textarea { font-size: 16px; }
 }
 
 @media (max-width: 380px) {
-  body { padding: 16px 12px; }
+  body { padding-left: 12px; padding-right: 12px; }
   .phase-book { display: none; }
+  .install-btn { font-size: 11px; padding: 6px 10px; }
+}
+
+/* Bigger touch targets on touch devices */
+@media (pointer: coarse) {
+  .ipa-hint-btn,
+  .today-sched-toggle { padding: 6px 0; }
+  .jrn-filter-btn { padding: 9px 14px; }
+  .prac-exit-btn { padding: 8px 13px; }
+  .welcome-dismiss { padding: 8px 12px; }
+  .speaker-btn { width: 40px; height: 40px; }
+  .anki-dl-btn { padding: 9px 13px; }
+  .anki-dl-sm { padding: 8px 11px; }
+  .jrn-export-btn,
+  .jrn-grammar-toggle { padding: 9px 13px; }
+  .fc-mode-btn { padding: 11px 12px; }
+  .grammar-replacement-btn { padding: 6px 11px; }
+  .theme-toggle { width: 38px; height: 38px; }
 }
 
 /* Guide section */
