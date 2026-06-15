@@ -94,6 +94,7 @@ active production. In rough priority order:
    a "words you struggle with" view and feeds the SRS scheduler in #1.
 
 ## Tooling note
+doublecheck the Actions.  
 
 `npm run lint` is currently broken: `eslint.config.js` fails to load with
 `Cannot read properties of undefined (reading 'recommended')` (a plugin/config
