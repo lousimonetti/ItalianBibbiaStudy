@@ -49,3 +49,53 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `generate-anki.cjs` is CommonJS (`require`/`module.exports`). Do not convert it to ESM.
 - `public/staticwebapp.config.json` must exclude `/anki/*` from the SPA `navigationFallback` or `.apkg` downloads break on Azure.
 - Vite is pinned to `^6.x` — `vite-plugin-pwa` does not yet support Vite 8.
+
+## Audio button (`SpeakerButton.jsx`) — status
+
+Validated working via `src/components/SpeakerButton.test.jsx`, which mocks the
+Web Speech API and confirms: Italian-language utterance (`it-IT`), slowed
+`rate: 0.85`, speaking/stop state transitions, click-to-cancel, and error
+recovery. Note for tests: the component reads `'speechSynthesis' in window` at
+module-load time, so the fake API must be installed on `window` **before** the
+component is imported (the test uses a top-level `await import`), and utterance
+callbacks (`onstart`/`onend`/`onerror`) must be wrapped in `act()` so React
+flushes the state updates.
+
+**Known wiring gap:** `SpeakerButton` is only used in Practice
+(`PracticeMode.jsx`) and Pronunciation (`PronunciationPractice.jsx`) modes. The
+Tracker week vocab table (`WeekDetail.jsx`) — the screen read each week — has no
+audio. Wiring it into that table is a small, high-value fix.
+
+## Fluency roadmap — ideas to raise success rate
+
+The app is strong on *exposure* (reading, vocab, downloadable Anki) but thin on
+the levers most tied to fluency: spaced retention, comprehensible listening, and
+active production. In rough priority order:
+
+1. **Spaced repetition in the in-browser Practice mode.** `PracticeMode` is
+   session-only — "Still learning" cards repeat within the session, then reset;
+   there is no per-card memory. A lightweight SM-2/Leitner scheduler (store
+   ease/interval/due-date per word in `localStorage`) is the biggest retention
+   lever and fits the localStorage-only constraint. Today the real SRS only
+   lives in the downloaded Anki decks.
+2. **Fill missing IPA.** 35 of 259 vocab tuples have no IPA (the 4th tuple
+   element), which degrades the pronunciation key and Pronunciation mode display.
+   Re-run `node scripts/generate-pronunciations.cjs` to close the gap.
+3. **Listening / comprehensible-input mode.** Reuse TTS to read example
+   sentences and full verses (not just single words) at adjustable speed.
+4. **Active production, both directions.** Practice is recognition-only
+   (Italian→English, tap to reveal). Add English→Italian recall and cloze /
+   fill-in-the-blank built from the stored example sentences.
+5. **Streaks + daily goal + reminders.** A localStorage streak counter and PWA
+   notifications reinforce the existing `DAILY` schedule; consistency predicts
+   success more than any single feature.
+6. **Persist and surface practice results.** `PracticeMode` and
+   `PronunciationPractice` discard scores at session end. Persisting them unlocks
+   a "words you struggle with" view and feeds the SRS scheduler in #1.
+
+## Tooling note
+
+`npm run lint` is currently broken: `eslint.config.js` fails to load with
+`Cannot read properties of undefined (reading 'recommended')` (a plugin/config
+version mismatch) before any file is linted. Fix the config before relying on
+lint in CI.
