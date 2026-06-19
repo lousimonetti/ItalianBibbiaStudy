@@ -8,11 +8,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev          # dev server at http://localhost:5173 (HMR, no service worker)
 npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
-npm run lint         # eslint
+npm run lint         # eslint (currently broken — see Tooling note)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
+npm test             # vitest run — 93 tests across 6 files, all green
+npm run test:watch   # vitest in watch mode
 ```
 
 The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automatically before every `npm run build`. Run `npm run generate-anki` manually only when iterating on the Flashcards tab during dev.
+
+**Fresh-clone gotcha:** web/remote sessions start with no `node_modules`. Run
+`npm ci` first or `lint`/`test`/`build` fail with `Cannot find package '@eslint/js'`
+(this masks the real lint error documented in the Tooling note below).
 
 **One-time scripts** (not part of the build):
 - `node scripts/generate-pronunciations.cjs` — calls the Anthropic API to generate IPA for all vocab; writes `scripts/pronunciations.json`. Requires `ANTHROPIC_API_KEY` in the environment. Re-run only when vocab changes.
@@ -31,12 +37,15 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `useProgress` — week completion bits in `localStorage` under key `italian-bible-progress`
 - `useJournal` — per-week text entries in `localStorage` under key `italian-bible-journal`; debounced auto-save; exports all entries as a single `.md` file
 - `useInstallPrompt` — captures `beforeinstallprompt` for the Android install button
+- `useTheme` — light/dark toggle persisted in `localStorage` under key `italian-bible-theme`; toggles the `dark` class on `<html>`
+
+All persisted keys are namespaced `italian-bible-*` (`-progress`, `-journal`, `-theme`). Any new feature that persists state should follow that prefix.
 
 **Flashcards tab** (`FlashcardsTab.jsx`) has three modes toggled by local state: *Anki Decks* (download `.apkg` files), *Practice* (`PracticeMode.jsx` — in-browser flip cards with known/again queue, built from all vocab in `PHASES`), and *Pronunciation* (`PronunciationPractice.jsx`).
 
 **Text-to-speech** (`SpeakerButton.jsx`): Uses `window.speechSynthesis` with `lang: 'it-IT'`. No external dependency — falls back silently if the API is unavailable.
 
-**Schedule logic** (`src/utils/schedule.js`): Program start is hardcoded to `Apr 13, 2026`. `getCurrentWeekN()` returns the current week 1–37 based on real date, or `null` if before start or after week 37.
+**Schedule logic** (`src/utils/schedule.js`): Program start is hardcoded to `Apr 13, 2026`. `getCurrentWeekN()` returns the current week 1–37 based on real date, or `null` if before start or after week 37. `getTodayDayIndex()` returns 0=Mon … 6=Sun, used to highlight today's row in `DAILY`.
 
 **PWA / offline**: `vite-plugin-pwa` with `registerType: 'autoUpdate'`. Workbox precaches all JS/CSS/HTML/PNG/SVG assets plus all `.apkg` files. Service worker is disabled in `npm run dev` — use `npm run preview` to test offline behavior.
 
@@ -93,10 +102,31 @@ active production. In rough priority order:
    `PronunciationPractice` discard scores at session end. Persisting them unlocks
    a "words you struggle with" view and feeds the SRS scheduler in #1.
 
-## Tooling note
-doublecheck the Actions.  
+## Verified repo facts (as of this review)
 
-`npm run lint` is currently broken: `eslint.config.js` fails to load with
-`Cannot read properties of undefined (reading 'recommended')` (a plugin/config
-version mismatch) before any file is linted. Fix the config before relying on
-lint in CI.
+- **Data totals:** 4 phases, 37 weeks, **259** vocab tuples. **35** tuples are
+  missing the 4th (IPA) element. **5** weeks carry an `italki` array. These
+  numbers are hardcoded in a few UI strings (e.g. "259 cards" in
+  `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
+  vocab counts change, update those strings too — they are not computed.
+- **Tests:** `npm test` runs 93 vitest tests across 6 files
+  (`SpeakerButton`, `useProgress`, `useJournal`, `studyData`, `pronunciation`,
+  `schedule`), all passing. There is no test runner in CI yet — the Azure
+  workflow only builds and deploys.
+- **CI:** `.github/workflows/azure-static-web-apps-*.yml` builds on every PR to
+  `main` and deploys to production only on push to `main`. It deploys via the
+  `@azure/static-web-apps-cli` (`swa deploy`) rather than the container action
+  to dodge MCR Docker-pull throttling. No per-PR preview envs (free-tier staging
+  cap is 3, CLI has no teardown). It runs `npm ci` then `npm run build` — so a
+  broken build (not lint/test) is what breaks CI.
+
+## Tooling note — `npm run lint` is broken
+
+Confirmed root cause: `eslint.config.js` line 13 references
+`reactHooks.configs.flat.recommended`, but `eslint-plugin-react-hooks@5.2.0`
+does not expose a `.configs.flat` object — `reactHooks.configs.flat` is
+`undefined`, so reading `.recommended` throws
+`Cannot read properties of undefined (reading 'recommended')` before any file is
+linted. Fix: use the flat preset this version actually ships
+(`reactHooks.configs['recommended-latest']`) in the `extends` array, or upgrade
+the plugin. Until then lint cannot be relied on in CI.
