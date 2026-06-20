@@ -4,6 +4,8 @@ import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
 import { UiText } from '../i18n/UiText';
 import { useSrs } from '../hooks/useSrs';
+import { usePronunStats } from '../hooks/usePronunStats';
+import { struggleList } from '../utils/wordStats';
 
 function buildCards(phases) {
   const cards = [];
@@ -57,7 +59,8 @@ export function PracticeMode() {
   const [filter, setFilter] = useState('all');
   const [session, setSession] = useState(null);
   const [flipped, setFlipped] = useState(false);
-  const { recordReview, buildSession, getStats, version } = useSrs();
+  const { recordReview, buildSession, getStats, getStore, version } = useSrs();
+  const { getStore: getPronunStore, version: pronunVersion } = usePronunStats();
 
   const filtered = useMemo(
     () => (filter === 'all' ? ALL_CARDS : ALL_CARDS.filter(c => c.phaseId === filter)),
@@ -71,6 +74,9 @@ export function PracticeMode() {
   const srsStats = useMemo(() => getStats(filtered), [filtered, version]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const dueQueue = useMemo(() => buildSession(filtered), [filtered, version]);
+  // Struggle list combines SRS lapses/ease with pronunciation scores.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const struggles = useMemo(() => struggleList(filtered, getStore(), getPronunStore()), [filtered, version, pronunVersion]);
 
   function startSession(cards) {
     if (!cards.length) return;
@@ -220,7 +226,48 @@ export function PracticeMode() {
         </div>
       )}
 
+      <StrugglePanel
+        struggles={struggles}
+        onDrill={() => startSession(shuffle(struggles.map(s => s.card)))}
+      />
+
       <IPAKeyPanel />
+    </div>
+  );
+}
+
+function StrugglePanel({ struggles, onDrill }) {
+  const [open, setOpen] = useState(false);
+  if (!struggles.length) return null;
+  return (
+    <div className="prac-struggle-panel">
+      <button className="prac-struggle-toggle" onClick={() => setOpen(v => !v)}>
+        <span className="prac-struggle-title">
+          Parole difficili — {struggles.length} word{struggles.length !== 1 ? 's' : ''} you struggle with
+        </span>
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none"
+          style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s', marginLeft: 'auto' }}>
+          <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+      {open && (
+        <div className="prac-struggle-body">
+          <ul className="prac-struggle-list">
+            {struggles.map(({ card, reasons }) => (
+              <li key={card.it} className="prac-struggle-item">
+                <span className="prac-struggle-word">{card.it}</span>
+                <span className="prac-struggle-en">{card.en}</span>
+                {reasons.length > 0 && (
+                  <span className="prac-struggle-reason">{reasons.join(' · ')}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+          <button className="prac-go-btn prac-struggle-drill" onClick={onDrill}>
+            Drill these {struggles.length}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

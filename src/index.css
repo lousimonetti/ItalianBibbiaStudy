@@ -1349,6 +1349,44 @@ body {
 .prac-caught-up { display: flex; flex-direction: column; gap: 8px; }
 .prac-caught-up-msg { font-size: 13px; color: var(--text-muted); text-align: center; }
 
+/* "Words you struggle with" panel */
+.prac-struggle-panel {
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.prac-struggle-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+}
+.prac-struggle-toggle:hover { background: var(--bg); }
+.prac-struggle-body { padding: 4px 14px 14px; }
+.prac-struggle-list { list-style: none; margin: 0 0 12px; padding: 0; }
+.prac-struggle-item {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.prac-struggle-item:last-child { border-bottom: none; }
+.prac-struggle-word { font-weight: 600; font-size: 14px; color: var(--text); }
+.prac-struggle-en { font-size: 13px; color: var(--text-muted); }
+.prac-struggle-reason { font-size: 11px; color: var(--it-red); margin-left: auto; }
+.prac-struggle-drill { margin-top: 2px; }
+
 /* Active session */
 .prac-session { display: flex; flex-direction: column; gap: 0; }
 

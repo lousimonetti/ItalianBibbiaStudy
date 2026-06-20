@@ -38,9 +38,10 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `useJournal` — per-week text entries in `localStorage` under key `italian-bible-journal`; debounced auto-save; exports all entries as a single `.md` file
 - `useInstallPrompt` — captures `beforeinstallprompt` for the Android install button
 - `useTheme` — light/dark toggle persisted in `localStorage` under key `italian-bible-theme`; toggles the `dark` class on `<html>`
-- `useSrs` — spaced-repetition store under key `italian-bible-srs`; React glue over the pure `src/utils/srs.js` (per-word `{ ease, interval, reps, lapses, due, last }`). Keeps the store in a ref + a `version` counter; `recordReview(term, grade)`, `buildSession(cards, opts)`, `getStats(cards)`. Powers Practice mode.
+- `useSrs` — spaced-repetition store under key `italian-bible-srs`; React glue over the pure `src/utils/srs.js` (per-word `{ ease, interval, reps, lapses, due, last }`). Keeps the store in a ref + a `version` counter; `recordReview(term, grade)`, `buildSession(cards, opts)`, `getStats(cards)`, `getStore()`. Powers Practice mode.
+- `usePronunStats` — pronunciation attempts under key `italian-bible-pronun` (per-word `{ attempts, last, best, sum, avg, at }`); `record(term, score)`, `getStore()`. Recorded by Pronunciation mode; combined with the SRS store by `src/utils/wordStats.js` (`struggleList`) to drive the Practice "Parole difficili / words you struggle with" panel.
 
-All persisted keys are namespaced `italian-bible-*` (`-progress`, `-journal`, `-theme`, `-immersion`, `-srs`). Any new feature that persists state should follow that prefix.
+All persisted keys are namespaced `italian-bible-*` (`-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`). Any new feature that persists state should follow that prefix.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
@@ -108,9 +109,12 @@ active production. In rough priority order:
 5. **Streaks + daily goal + reminders.** A localStorage streak counter and PWA
    notifications reinforce the existing `DAILY` schedule; consistency predicts
    success more than any single feature.
-6. **Persist and surface practice results.** `PracticeMode` and
-   `PronunciationPractice` discard scores at session end. Persisting them unlocks
-   a "words you struggle with" view and feeds the SRS scheduler in #1.
+6. ~~**Persist and surface practice results.**~~ **Done (Phase 2 / B2).**
+   Pronunciation attempts now persist (`usePronunStats` → `italian-bible-pronun`).
+   `src/utils/wordStats.js` (`struggleList`) combines SRS lapses/low-ease with
+   weak pronunciation scores into a ranked "Parole difficili" panel on the
+   Practice start screen, with a "Drill these" button that runs an SRS-recorded
+   session of just those words.
 
 ## Verified repo facts (as of this review)
 
