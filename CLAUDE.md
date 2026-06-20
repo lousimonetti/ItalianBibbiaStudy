@@ -2,6 +2,28 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Status & roadmap
+
+- **The immersion/fluency build is complete and merged.** All four workstreams
+  from `plan.md` shipped — **A** immersion (immersion mode, tap-to-translate,
+  Tracker TTS), **B** retention (in-browser SRS + struggle list), **C**
+  production (recall, cloze, listening, journaling scaffold), **D** motivation
+  (streaks + Today checklist, confetti, achievement badges, opt-in reminders) —
+  plus a polish pass (daily new-card cap, wider immersion coverage, tap-to-hear
+  for un-glossed words). `plan.md` is the per-item record (all ✅).
+- **Next direction (not started): `plan-platform.md`** — generalize this finished
+  app into **"CourseKit"**, a fork-and-fill, config-driven template so anyone can
+  build their own N-week (37 / 40 / …) course by editing a `course/` definition
+  instead of components. The engines (`srs`, `cloze`, `answer`, `streak`,
+  `achievements`, the immersion mechanism, `vocabIndex`) are already
+  content-agnostic; the hardcoded surface is **content + locale + branding**
+  (locale `it-IT`/`it` in 4 spots, `schedule.js`, `studyData.js` + the duplicated
+  `generate-anki.cjs` copy, branding prose, and a few computed-but-hardcoded
+  counts). See `plan-platform.md` for the T0–T5 phasing.
+- **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
+  surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
+  hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism).
+
 ## Commands
 
 ```bash
@@ -10,7 +32,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 93 tests across 6 files, all green
+npm test             # vitest run — 159 tests across 15 files, all green
 npm run test:watch   # vitest in watch mode
 ```
 
@@ -140,9 +162,12 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs 93 vitest tests across 6 files
-  (`SpeakerButton`, `useProgress`, `useJournal`, `studyData`, `pronunciation`,
-  `schedule`), all passing.
+- **Tests:** `npm test` runs **159 vitest tests across 15 files**, all passing.
+  Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
+  `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
+  `pronunciation`, `schedule`, `studyData`, plus `SpeakerButton`, `UiText`,
+  `useProgress`, `useJournal`. New non-trivial logic should follow that
+  pure-module-plus-test pattern.
 - **CI:** `.github/workflows/azure-static-web-apps-*.yml` runs `npm ci` →
   `npm run lint` → `npm test` → `npm run build` on every PR to `main`, and
   deploys to production only on push to `main`. It deploys via the
