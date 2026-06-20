@@ -2,7 +2,7 @@ import { useState, useRef, useMemo } from 'react';
 import { PHASES } from '../data/studyData';
 import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
-import { normalize, levenshtein, scorePronunciation } from '../utils/pronunciation';
+import { scorePronunciation } from '../utils/pronunciation';
 
 function buildCards(phases) {
   const cards = [];

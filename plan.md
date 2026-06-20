@@ -146,7 +146,7 @@ phase structure and gives a reason to return.
 
 | Phase | Items | Why first | Rough effort |
 |------|-------|-----------|--------------|
-| **0 — Hygiene** | Fix lint (`reactHooks.configs['recommended-latest']`); add CI test step; A4 IPA backfill | Unblocks reliable CI; cheap data win | S |
+| **0 — Hygiene** ✅ | Fix lint (`reactHooks.configs['recommended-latest']`); add CI lint+test steps; A4 IPA backfill (all 259 tuples now have IPA) | Unblocks reliable CI; cheap data win | S |
 | **1 — Immersion quick wins** | A3 (TTS in Tracker), A2 (tap-to-translate), A1 (immersion toggle) | Highest immersion-per-line; mostly UI | M |
 | **2 — Retention** | B1 (SRS), B2 (persist results) | Biggest fluency lever | M–L |
 | **3 — Production** | C1 (EN→IT + cloze), C2 (listening), C3 (journaling scaffolds) | Builds on SRS + immersion | M–L |

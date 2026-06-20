@@ -10,7 +10,7 @@ export function WelcomeCard() {
   if (dismissed) return null;
 
   function dismiss() {
-    try { localStorage.setItem(STORAGE_KEY, '1'); } catch {}
+    try { localStorage.setItem(STORAGE_KEY, '1'); } catch { /* storage unavailable — degrade silently */ }
     setDismissed(true);
   }
 

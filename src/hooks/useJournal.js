@@ -14,7 +14,7 @@ function load() {
 function save(data) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch {}
+  } catch { /* storage unavailable — degrade silently */ }
 }
 
 export function useJournal() {

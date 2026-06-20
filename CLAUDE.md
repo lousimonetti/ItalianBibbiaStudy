@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev          # dev server at http://localhost:5173 (HMR, no service worker)
 npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
-npm run lint         # eslint (currently broken — see Tooling note)
+npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
 npm test             # vitest run — 93 tests across 6 files, all green
 npm run test:watch   # vitest in watch mode
@@ -29,9 +29,9 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 
 **Tab structure** (`App.jsx`): Three tabs — Tracker, Flashcards, Journal — rendered conditionally by `activeTab` state. No React Router; tab switching unmounts the inactive tab components.
 
-**Data layer** (`src/data/studyData.js`): Single source of truth. Exports `PHASES` (array of 4 phase objects, each with a `weeks` array of 37 total week objects) and `DAILY` (7-item weekly schedule). Each week object contains: `n` (week number 1–37), `d` (date range), `r` (Bible reading), `b` (Babbel topic), `vocab` (array of `[italian, english, example, ipa]` tuples), `grammar` (`{title, body}`), `prompt` (`{it, en}`), `review` (boolean), `italki` (optional string array of conversation-starter questions, only present on review weeks). Anki deck generation reads this same data via `scripts/generate-anki.cjs`.
+**Data layer** (`src/data/studyData.js`): Single source of truth for the React app. Exports `PHASES` (array of 4 phase objects, each with a `weeks` array of 37 total week objects) and `DAILY` (7-item weekly schedule). Each week object contains: `n` (week number 1–37), `d` (date range), `r` (Bible reading), `b` (Babbel topic), `vocab` (array of `[italian, english, example, ipa]` tuples), `grammar` (`{title, body}`), `prompt` (`{it, en}`), `review` (boolean), `italki` (optional string array of conversation-starter questions, only present on review weeks).
 
-**Anki generation** (`scripts/generate-anki.cjs`): Node CJS script (not ESM — Vite plugins are ESM but this runs in Node at build time). Produces 42 `.apkg` files in `public/anki/`: one per week (37), one per phase (4), one complete deck (`complete.apkg`). The vocab tuples from `studyData.js` are the card source.
+**Anki generation** (`scripts/generate-anki.cjs`): Node CJS script (not ESM — Vite plugins are ESM but this runs in Node at build time). Produces 42 `.apkg` files in `public/anki/`: one per week (37), one per phase (4), one complete deck (`complete.apkg`). **Gotcha:** this script does *not* import `studyData.js` — it keeps its own **duplicated inline copy** of the vocab (only `[italian, english, example]`, no IPA) "to keep the script standalone." So Anki cards carry no IPA, and the two vocab copies can drift; if you edit vocab in `studyData.js`, mirror it here (and vice-versa). Output `.apkg` files are also non-deterministic (timestamps/GUIDs) — every `npm run build` rewrites all 42 even with no content change, so don't commit that churn unless the card *content* actually changed.
 
 **Hooks:**
 - `useProgress` — week completion bits in `localStorage` under key `italian-bible-progress`
@@ -87,9 +87,10 @@ active production. In rough priority order:
    ease/interval/due-date per word in `localStorage`) is the biggest retention
    lever and fits the localStorage-only constraint. Today the real SRS only
    lives in the downloaded Anki decks.
-2. **Fill missing IPA.** 35 of 259 vocab tuples have no IPA (the 4th tuple
-   element), which degrades the pronunciation key and Pronunciation mode display.
-   Re-run `node scripts/generate-pronunciations.cjs` to close the gap.
+2. ~~**Fill missing IPA.**~~ **Done (Phase 0).** All 259 vocab tuples now carry
+   IPA. The 35 that were missing already had correct IPA in
+   `scripts/pronunciations.json` — it was a merge gap, not a generation gap, so
+   no API call was needed (the values were merged into `studyData.js` directly).
 3. **Listening / comprehensible-input mode.** Reuse TTS to read example
    sentences and full verses (not just single words) at adjustable speed.
 4. **Active production, both directions.** Practice is recognition-only
@@ -104,29 +105,30 @@ active production. In rough priority order:
 
 ## Verified repo facts (as of this review)
 
-- **Data totals:** 4 phases, 37 weeks, **259** vocab tuples. **35** tuples are
-  missing the 4th (IPA) element. **5** weeks carry an `italki` array. These
-  numbers are hardcoded in a few UI strings (e.g. "259 cards" in
+- **Data totals:** 4 phases, 37 weeks, **259** vocab tuples, **all with IPA** (the
+  4th tuple element) as of Phase 0. **5** weeks carry an `italki` array. The
+  count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
 - **Tests:** `npm test` runs 93 vitest tests across 6 files
   (`SpeakerButton`, `useProgress`, `useJournal`, `studyData`, `pronunciation`,
-  `schedule`), all passing. There is no test runner in CI yet — the Azure
-  workflow only builds and deploys.
-- **CI:** `.github/workflows/azure-static-web-apps-*.yml` builds on every PR to
-  `main` and deploys to production only on push to `main`. It deploys via the
+  `schedule`), all passing.
+- **CI:** `.github/workflows/azure-static-web-apps-*.yml` runs `npm ci` →
+  `npm run lint` → `npm test` → `npm run build` on every PR to `main`, and
+  deploys to production only on push to `main`. It deploys via the
   `@azure/static-web-apps-cli` (`swa deploy`) rather than the container action
   to dodge MCR Docker-pull throttling. No per-PR preview envs (free-tier staging
-  cap is 3, CLI has no teardown). It runs `npm ci` then `npm run build` — so a
-  broken build (not lint/test) is what breaks CI.
+  cap is 3, CLI has no teardown). Lint and test now gate CI alongside the build.
 
-## Tooling note — `npm run lint` is broken
+## Tooling note — `npm run lint` (fixed in Phase 0)
 
-Confirmed root cause: `eslint.config.js` line 13 references
-`reactHooks.configs.flat.recommended`, but `eslint-plugin-react-hooks@5.2.0`
-does not expose a `.configs.flat` object — `reactHooks.configs.flat` is
-`undefined`, so reading `.recommended` throws
-`Cannot read properties of undefined (reading 'recommended')` before any file is
-linted. Fix: use the flat preset this version actually ships
-(`reactHooks.configs['recommended-latest']`) in the `extends` array, or upgrade
-the plugin. Until then lint cannot be relied on in CI.
+`eslint.config.js` previously referenced `reactHooks.configs.flat.recommended`,
+but `eslint-plugin-react-hooks@5.2.0` exposes `recommended-legacy`,
+`recommended`, and `recommended-latest` — there is no `.configs.flat`, so the
+config threw `Cannot read properties of undefined (reading 'recommended')` before
+linting any file. Now fixed to `reactHooks.configs['recommended-latest']`.
+Two further adjustments keep lint green: `no-unused-vars` also takes
+`argsIgnorePattern: '^[A-Z_]'` (so JSX component params like `Icon` aren't
+flagged — there's no `eslint-plugin-react` to teach the base rule that `<Icon/>`
+is a use), and a `**/*.test.{js,jsx}` override adds Node globals (test files use
+`global`).
