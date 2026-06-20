@@ -168,12 +168,18 @@ as click-to-insert chips** (English on hover). Clicking appends to the entry.
 
 ## Workstream D — Motivation & stickiness (make it enticing)
 
-### D1. Streaks, daily goal & progress dashboard
-A `localStorage` streak counter (`italian-bible-streak`) tied to the existing
-`DAILY` schedule, a small daily goal (e.g. *N cards due + 1 journal line*), and a
-"Today" dashboard that turns the current `TodayCard` into an actionable checklist
-(read · review N due cards · write 1 sentence). Consistency predicts success more
-than any single feature.
+### D1. Streaks, daily goal & progress dashboard — ✅ DONE
+A `localStorage` streak counter (`italian-bible-streak`) and a "Today" checklist
+on the `TodayCard`: 🔥 consecutive-day streak (+ best), and three goals —
+**read** (manual tick) · **review flashcards** (auto-ticked on a Practice grade)
+· **write a line in Italian** (auto-ticked on a non-empty journal save). Any
+tracked activity advances the streak; a missed day resets it (best is kept).
+- New: `src/utils/streak.js` (pure — `withActivity`, `setFlag`, `currentStreak`,
+  `todayFlags`; 12 unit tests) and `src/hooks/useStreak.js`.
+- `PracticeMode`/`JournalTab` call `recordActivity(...)` fire-and-forget;
+  `TodayCard` shows the dashboard (it remounts on tab switch, so cross-tab
+  activity is picked up).
+- **Deferred:** PWA notification reminders → D2.
 
 ### D2. PWA reminders
 Opt-in local notifications (Notification API + service worker) to nudge the daily
@@ -199,7 +205,7 @@ phase structure and gives a reason to return.
 | **1 — Immersion quick wins** ✅ | A3 ✅ (TTS in Tracker), A2 ✅ (tap-to-translate), A1 ✅ (immersion toggle) | Highest immersion-per-line; mostly UI | M |
 | **2 — Retention** ✅ | B1 ✅ (SRS), B2 ✅ (persist results + struggle list) | Biggest fluency lever | M–L |
 | **3 — Production** ✅ | C1 ✅ (EN→IT + cloze), C2 ✅ (listening), C3 ✅ (journaling scaffolds) | Builds on SRS + immersion | M–L |
-| **4 — Motivation** | D1 (streaks/dashboard), D3 (micro-interactions), D4 (badges), D2 (reminders) | Compounds everything above | M |
+| **4 — Motivation** | D1 ✅ (streaks/dashboard), D3 (micro-interactions), D4 (badges), D2 (reminders) | Compounds everything above | M |
 
 ## Risks & guardrails
 

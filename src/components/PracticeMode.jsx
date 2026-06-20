@@ -8,6 +8,7 @@ import { usePronunStats } from '../hooks/usePronunStats';
 import { struggleList } from '../utils/wordStats';
 import { makeCloze, isClozeEligible } from '../utils/cloze';
 import { checkAnswer } from '../utils/answer';
+import { recordActivity } from '../utils/streak';
 
 const STYLES = [
   { id: 'recognition', label: 'Recognition', sub: 'IT → EN, tap to reveal' },
@@ -124,12 +125,14 @@ export function PracticeMode() {
 
   function handleKnown() {
     recordReview(session.cards[session.index].it, 'good');
+    recordActivity('practiced');
     setSession(s => ({ ...s, index: s.index + 1, known: s.known + 1 }));
     resetCardUi();
   }
 
   function handleAgain() {
     recordReview(session.cards[session.index].it, 'again');
+    recordActivity('practiced');
     setSession(s => ({ ...s, index: s.index + 1, again: [...s.again, s.cards[s.index]] }));
     resetCardUi();
   }

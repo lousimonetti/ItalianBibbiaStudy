@@ -11,6 +11,7 @@ import { JournalTab } from './components/JournalTab';
 import { WelcomeCard } from './components/WelcomeCard';
 import { useImmersion } from './i18n/ImmersionContext';
 import { UiText } from './i18n/UiText';
+import { useStreak } from './hooks/useStreak';
 
 const TOTAL = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
 const ALL_WEEKS = PHASES.flatMap(p => p.weeks);
@@ -80,6 +81,53 @@ function MoonIcon() {
   );
 }
 
+function FlameIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M8.5 1c.5 2-1 3-1.8 4.2C5.6 7 5 8.2 5 9.7a3 3 0 006 .1c0-1-.4-1.9-1-2.6.2.9-.4 1.6-1 1.8.7-1.3-.1-2.8-1.5-4.1C8.4 3.4 9 2 8.5 1z"/>
+    </svg>
+  );
+}
+
+function GoalCheck({ done }) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+      <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.4" fill={done ? 'currentColor' : 'none'} opacity={done ? 1 : 0.55} />
+      {done && <path d="M5 8l2 2 4-4.5" stroke="var(--surface)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />}
+    </svg>
+  );
+}
+
+function DailyGoals() {
+  const { current, best, flags, tickRead } = useStreak();
+  return (
+    <div className="today-goals">
+      <div className="today-streak" title="Consecutive days you've studied">
+        <FlameIcon />
+        <span className="today-streak-num">{current}</span>
+        <span className="today-streak-label">
+          day{current === 1 ? '' : 's'} streak{best > current ? ` · best ${best}` : ''}
+        </span>
+      </div>
+      <div className="today-checklist">
+        <button
+          className={`today-goal today-goal-action${flags.read ? ' done' : ''}`}
+          onClick={tickRead}
+          disabled={flags.read}
+        >
+          <GoalCheck done={flags.read} /> Read today's passage
+        </button>
+        <div className={`today-goal${flags.practiced ? ' done' : ''}`}>
+          <GoalCheck done={flags.practiced} /> Review flashcards
+        </div>
+        <div className={`today-goal${flags.journaled ? ' done' : ''}`}>
+          <GoalCheck done={flags.journaled} /> Write a line in Italian
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function TodayCard({ currentWeekN }) {
   const [schedOpen, setSchedOpen] = useState(false);
   const week = currentWeekN ? ALL_WEEKS.find(w => w.n === currentWeekN) : null;
@@ -90,6 +138,7 @@ function TodayCard({ currentWeekN }) {
       <div className="today-card today-card--inactive">
         <span className="today-pre-label">Program starts April 13, 2026</span>
         <span className="today-pre-sub">37 weeks · Easter to Christmas</span>
+        <DailyGoals />
       </div>
     );
   }
@@ -106,6 +155,8 @@ function TodayCard({ currentWeekN }) {
         <span className="today-day-label">{todayTask.day}</span>
         <span className="today-task-text">{todayTask.task}</span>
       </div>
+
+      <DailyGoals />
 
       <button className="today-sched-toggle" onClick={() => setSchedOpen(v => !v)}>
         <UiText k="today.fullSchedule" />

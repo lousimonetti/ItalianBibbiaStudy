@@ -284,6 +284,42 @@ body {
 }
 .today-sched-toggle:hover { color: var(--text); }
 
+/* Daily goals + streak (D1) */
+.today-goals {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 11px 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.today-streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--it-red);
+  font-weight: 600;
+  font-size: 13px;
+}
+.today-streak-num { font-size: 15px; }
+.today-streak-label { color: var(--text-muted); font-weight: 500; }
+.today-checklist { display: flex; flex-direction: column; gap: 6px; }
+.today-goal {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+}
+.today-goal-action { cursor: pointer; }
+.today-goal-action:hover:not(.done) { color: var(--text); }
+.today-goal-action:disabled { cursor: default; }
+.today-goal.done { color: var(--accent); text-decoration: line-through; text-decoration-color: var(--text-faint); }
+
 .today-sched { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border-subtle); padding-top: 8px; }
 .today-sched-row { display: flex; gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--border-subtle); font-size: 12px; }
 .today-sched-row:last-child { border-bottom: none; }
