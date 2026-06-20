@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 
 const hasSpeechSynthesis = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
-export function SpeakerButton({ word, size = 20 }) {
+export function SpeakerButton({ word, size = 20, rate = 0.85 }) {
   const [speaking, setSpeaking] = useState(false);
   const utterRef = useRef(null);
 
@@ -17,7 +17,7 @@ export function SpeakerButton({ word, size = 20 }) {
     }
     const utter = new SpeechSynthesisUtterance(word);
     utter.lang = 'it-IT';
-    utter.rate = 0.85;
+    utter.rate = rate;
     utter.onstart = () => setSpeaking(true);
     utter.onend = () => setSpeaking(false);
     utter.onerror = () => setSpeaking(false);

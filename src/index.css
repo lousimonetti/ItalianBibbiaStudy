@@ -1387,8 +1387,8 @@ body {
 .prac-struggle-reason { font-size: 11px; color: var(--it-red); margin-left: auto; }
 .prac-struggle-drill { margin-top: 2px; }
 
-/* Practice style selector (recognition / recall / cloze) */
-.prac-style-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+/* Practice style selector (recognition / recall / cloze / listening) */
+.prac-style-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
 @media (max-width: 440px) { .prac-style-grid { grid-template-columns: 1fr; } }
 .prac-style-btn {
   display: flex;
@@ -1457,6 +1457,23 @@ body {
 .prac-result-ok { font-size: 13px; font-weight: 700; color: var(--accent); }
 .prac-result-no { font-size: 13px; font-weight: 700; color: var(--it-red); }
 .prac-answer { font-size: 20px; font-weight: 600; color: var(--text); }
+.prac-answer-sentence { font-size: 17px; font-style: italic; line-height: 1.4; }
+
+/* Listening (dictation) prompt */
+.prac-listen-prompt { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 8px 0; }
+.prac-listen-prompt .speaker-btn { width: 56px; height: 56px; background: var(--accent-dim); color: var(--accent); }
+.prac-listen-speeds { display: flex; gap: 6px; }
+.prac-speed-btn {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.prac-speed-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 
 /* Active session */
 .prac-session { display: flex; flex-direction: column; gap: 0; }
