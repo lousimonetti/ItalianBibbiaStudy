@@ -4,12 +4,24 @@ import { PracticeMode } from './PracticeMode';
 import { PronunciationPractice } from './PronunciationPractice';
 import { UiText } from '../i18n/UiText';
 
+const phaseCards = (id) => {
+  const phase = PHASES.find((p) => p.id === id);
+  return phase ? phase.weeks.reduce((sum, w) => sum + w.vocab.length, 0) : 0;
+};
+
+// Deck filenames are stable; card counts are derived from the course content.
 const PHASE_FILES = [
-  { id: 'p1', label: 'Phase 1 — John (56 cards)',            file: 'phase-1-john',         cards: 56 },
-  { id: 'p2', label: 'Phase 2 — Luke (70 cards)',            file: 'phase-2-luke',         cards: 70 },
-  { id: 'p3', label: 'Phase 3 — Acts (70 cards)',            file: 'phase-3-acts',         cards: 70 },
-  { id: 'p4', label: 'Phase 4 — Romans & Psalms (63 cards)', file: 'phase-4-romans-psalms',cards: 63 },
-];
+  { id: 'p1', name: 'Phase 1 — John',            file: 'phase-1-john' },
+  { id: 'p2', name: 'Phase 2 — Luke',            file: 'phase-2-luke' },
+  { id: 'p3', name: 'Phase 3 — Acts',            file: 'phase-3-acts' },
+  { id: 'p4', name: 'Phase 4 — Romans & Psalms', file: 'phase-4-romans-psalms' },
+].map((p) => {
+  const cards = phaseCards(p.id);
+  return { ...p, cards, label: `${p.name} (${cards} cards)` };
+});
+
+const TOTAL_CARDS = PHASES.reduce((sum, p) => sum + p.weeks.reduce((a, w) => a + w.vocab.length, 0), 0);
+const TOTAL_WEEKS = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
 
 function DownloadIcon() {
   return (
@@ -67,9 +79,9 @@ export function FlashcardsTab() {
       <div className="fc-header">
         <div>
           <div className="fc-title">Anki Decks</div>
-          <div className="fc-subtitle">259 cards across 37 weeks — import into Anki on any device</div>
+          <div className="fc-subtitle">{TOTAL_CARDS} cards across {TOTAL_WEEKS} weeks — import into Anki on any device</div>
         </div>
-        <AnkiLink href="anki/complete.apkg" label="Download all 259 cards" />
+        <AnkiLink href="anki/complete.apkg" label={`Download all ${TOTAL_CARDS} cards`} />
       </div>
 
       {/* How-to */}

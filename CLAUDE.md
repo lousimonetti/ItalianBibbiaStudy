@@ -11,15 +11,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   (streaks + Today checklist, confetti, achievement badges, opt-in reminders) —
   plus a polish pass (daily new-card cap, wider immersion coverage, tap-to-hear
   for un-glossed words). `plan.md` is the per-item record (all ✅).
-- **Next direction (not started): `plan-platform.md`** — generalize this finished
-  app into **"CourseKit"**, a fork-and-fill, config-driven template so anyone can
-  build their own N-week (37 / 40 / …) course by editing a `course/` definition
-  instead of components. The engines (`srs`, `cloze`, `answer`, `streak`,
-  `achievements`, the immersion mechanism, `vocabIndex`) are already
-  content-agnostic; the hardcoded surface is **content + locale + branding**
-  (locale `it-IT`/`it` in 4 spots, `schedule.js`, `studyData.js` + the duplicated
-  `generate-anki.cjs` copy, branding prose, and a few computed-but-hardcoded
-  counts). See `plan-platform.md` for the T0–T5 phasing.
+- **In progress: `plan-platform.md`** — generalizing this app into **"CourseKit"**,
+  a fork-and-fill, config-driven template so anyone can build their own N-week
+  (37 / 40 / …) course by editing a `course/` definition instead of components.
+  **T0 done:** all course data now lives in `course/` (see Data layer below);
+  `studyData.js` is a back-compat shim; the schedule and the
+  previously-hardcoded counts are derived from the course; `course/validate.js`
+  + `npm run validate-course` guard it. Remaining: T1 locale threading, T2
+  branding/resources, T3 Anki-from-course, T4 authoring kit, T5 (optional)
+  per-course localStorage namespacing + multi-course. (Namespacing was moved from
+  T0 to T5 — it only matters once multiple courses coexist.)
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism).
@@ -32,8 +33,9 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 159 tests across 15 files, all green
+npm test             # vitest run — 164 tests across 16 files, all green
 npm run test:watch   # vitest in watch mode
+npm run validate-course  # validate course/ (config + content) against the schema
 ```
 
 The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automatically before every `npm run build`. Run `npm run generate-anki` manually only when iterating on the Flashcards tab during dev.
@@ -51,7 +53,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 
 **Tab structure** (`App.jsx`): Three tabs — Tracker, Flashcards, Journal — rendered conditionally by `activeTab` state. No React Router; tab switching unmounts the inactive tab components.
 
-**Data layer** (`src/data/studyData.js`): Single source of truth for the React app. Exports `PHASES` (array of 4 phase objects, each with a `weeks` array of 37 total week objects) and `DAILY` (7-item weekly schedule). Each week object contains: `n` (week number 1–37), `d` (date range), `r` (Bible reading), `b` (Babbel topic), `vocab` (array of `[italian, english, example, ipa]` tuples), `grammar` (`{title, body}`), `prompt` (`{it, en}`), `review` (boolean), `italki` (optional string array of conversation-starter questions, only present on review weeks).
+**Data layer** (`course/`, as of T0): the course is defined by `course/config.js` (id, brand, locale, schedule incl. `startDate`/`weeks`/`daily`, resources) and `course/content.js` (`phases`). `course/index.js` resolves them into `course` (+ derived `totals`). `course/validate.js` checks the invariants (`npm run validate-course`, also exercised by `validate.test.js`). `src/data/studyData.js` is now a **back-compat shim** re-exporting `PHASES` (from content), `DAILY` (from `config.schedule.daily`), and `COURSE` — so existing `import { PHASES } from '../data/studyData'` keeps working. Each phase has `id`, `title`, `book`, badge fields, and a `weeks` array; each week: `n` (1–N), `d` (date range), `r` (reading/material), `b` (topic), `vocab` (array of `[target, native, example, ipa?]` tuples — IPA optional), `grammar` (`{title, body}`), `prompt` (`{it, en}`), `review` (boolean), `italki` (optional). The schedule (`schedule.js`) and the previously-hardcoded "259 cards"/"37 weeks" counts are now **derived** from the course, not literals.
 
 **Anki generation** (`scripts/generate-anki.cjs`): Node CJS script (not ESM — Vite plugins are ESM but this runs in Node at build time). Produces 42 `.apkg` files in `public/anki/`: one per week (37), one per phase (4), one complete deck (`complete.apkg`). **Gotcha:** this script does *not* import `studyData.js` — it keeps its own **duplicated inline copy** of the vocab (only `[italian, english, example]`, no IPA) "to keep the script standalone." So Anki cards carry no IPA, and the two vocab copies can drift; if you edit vocab in `studyData.js`, mirror it here (and vice-versa). Output `.apkg` files are also non-deterministic (timestamps/GUIDs) — every `npm run build` rewrites all 42 even with no content change, so don't commit that churn unless the card *content* actually changed.
 

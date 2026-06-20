@@ -1,5 +1,10 @@
-const PROGRAM_START = new Date(2026, 3, 13); // Apr 13, 2026
-const PROGRAM_WEEKS = 37;
+import { config } from '../../course/config';
+
+// Program start + length come from the course schedule. `startDate` is a local
+// 'YYYY-MM-DD' string.
+const [sy, sm, sd] = config.schedule.startDate.split('-').map(Number);
+const PROGRAM_START = new Date(sy, sm - 1, sd);
+const PROGRAM_WEEKS = config.schedule.weeks;
 
 export function getCurrentWeekN() {
   const diff = Date.now() - PROGRAM_START.getTime();

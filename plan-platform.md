@@ -128,19 +128,23 @@ Each phase ships independently, keeps the **Italian Bible course byte-stable**
 (it becomes the bundled reference course), and follows the repo rhythm: pure
 logic in tested modules, build → PR → green → merge.
 
-### T0 — Extract the course (foundational, no behavior change)
-- Create `course/{config.js,content.js,index.js}`; move `studyData.js` data in;
-  re-export from `studyData.js` so existing imports keep working.
-- Add `src/utils/course.js` / `useCourse()` accessor (or just import `course`).
-- **Schedule from config:** `schedule.js` reads `startDate`/`weeks`.
-- **Derive the hardcoded numbers:** replace "259 cards"/"37 weeks" strings with
-  values computed from `course` (total vocab, `schedule.weeks`).
-- **Namespace localStorage per course:** key helper `k(name) =>
-  \`course-${config.id}-${name}\`` (migrate the legacy `italian-bible-*` keys
-  for the reference course so existing users keep their data).
-- New: `course/validate.js` (pure: shape, week-count == `schedule.weeks`, unique
-  `n`, vocab tuple arity, phase totals) + tests. `npm run validate-course`.
-- *Done when:* the IT-Bible app is identical and all data lives in `course/`.
+### T0 — Extract the course (foundational, no behavior change) — ✅ DONE
+- ✅ `course/{config.js,content.js,index.js}` created; the data moved out of
+  `studyData.js`, which is now a back-compat shim re-exporting `PHASES`/`DAILY`/
+  `COURSE` (every existing import still works).
+- ✅ **Schedule from config:** `schedule.js` reads `startDate`/`weeks` from
+  `config.schedule`.
+- ✅ **Derived numbers:** the "259 cards" / "37 weeks" / per-phase counts in
+  `PracticeMode`, `PronunciationPractice`, `FlashcardsTab`, `GuideSection` are
+  now computed from the course.
+- ✅ **Validation:** `course/validate.js` (pure — shape, week-count ==
+  `schedule.weeks`, unique/contiguous `n`, vocab tuple arity) + `validate.test.js`
+  + `npm run validate-course`.
+- **Moved to T5:** per-course localStorage key namespacing. It only matters once
+  multiple courses coexist; a single fork-and-configure deploy keeps the existing
+  keys. Doing it now would mean a migration with no present benefit.
+- *Done:* the IT-Bible app behaves identically (lint clean, 164 tests, build +
+  preview verified); all course data lives in `course/`.
 
 ### T1 — Locale generalization
 - Thread `locale.target` into `SpeakerButton` (+ `rate`), `WordGloss` TTS,
@@ -217,7 +221,7 @@ fixtures/tests):
 
 | Phase | Outcome | Effort |
 |---|---|---|
-| **T0** Extract course + validate + key namespacing | All data in `course/`, numbers derived, app unchanged | M |
+| **T0** ✅ Extract course + validate (numbers derived; namespacing → T5) | All data in `course/`, app unchanged | M |
 | **T1** Locale generalization | Any language's audio/dictation/grammar | M |
 | **T2** Branding & resources | Course's own identity, no IT/Bible prose in code | M |
 | **T3** Anki from course (dedupe) | Decks for any course; tech-debt gone | S–M |

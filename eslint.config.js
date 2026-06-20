@@ -32,4 +32,11 @@ export default defineConfig([
       globals: { ...globals.browser, ...globals.node },
     },
   },
+  {
+    // Build/CLI scripts run in Node.
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      globals: { ...globals.node },
+    },
+  },
 ])
