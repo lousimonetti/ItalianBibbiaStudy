@@ -9,6 +9,8 @@ import { GuideSection } from './components/GuideSection';
 import { FlashcardsTab } from './components/FlashcardsTab';
 import { JournalTab } from './components/JournalTab';
 import { WelcomeCard } from './components/WelcomeCard';
+import { useImmersion } from './i18n/ImmersionContext';
+import { UiText } from './i18n/UiText';
 
 const TOTAL = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
 const ALL_WEEKS = PHASES.flatMap(p => p.weeks);
@@ -95,7 +97,7 @@ function TodayCard({ currentWeekN }) {
   return (
     <div className="today-card">
       <div className="today-meta">
-        <span className="today-week-pill">Week {week.n}</span>
+        <span className="today-week-pill"><UiText k="today.week" /> {week.n}</span>
         <span className="today-reading">{week.r}</span>
         <span className="today-date">{week.d}</span>
       </div>
@@ -106,7 +108,7 @@ function TodayCard({ currentWeekN }) {
       </div>
 
       <button className="today-sched-toggle" onClick={() => setSchedOpen(v => !v)}>
-        Full weekly schedule
+        <UiText k="today.fullSchedule" />
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: schedOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
           <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
@@ -136,6 +138,7 @@ export default function App() {
   const { checked, toggle, doneCount, pct } = useProgress(TOTAL);
   const { canInstall, install } = useInstallPrompt();
   const { theme, toggleTheme } = useTheme();
+  const { immersive, toggle: toggleImmersion } = useImmersion();
   const [online, setOnline] = useState(navigator.onLine);
   const [activeTab, setActiveTab] = useState('Tracker');
   const currentWeekN = getCurrentWeekN();
@@ -177,6 +180,14 @@ export default function App() {
             </button>
           )}
           <button
+            className={`immersion-toggle${immersive ? ' active' : ''}`}
+            onClick={toggleImmersion}
+            aria-label={immersive ? 'Switch interface to English' : "Passa l'interfaccia all'italiano"}
+            title={immersive ? 'Interfaccia: italiano' : 'Interface: English — tap for Italian'}
+          >
+            IT
+          </button>
+          <button
             className="theme-toggle"
             onClick={toggleTheme}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -189,8 +200,8 @@ export default function App() {
       {/* Progress — always visible */}
       <div className="progress-wrap">
         <div className="progress-top">
-          <div className="progress-count">{doneCount} / {TOTAL} weeks</div>
-          <div className="progress-goal">Goal: Dec 25, 2026</div>
+          <div className="progress-count">{doneCount} / {TOTAL} <UiText k="progress.weeks" /></div>
+          <div className="progress-goal"><UiText k="progress.goal" />: Dec 25, 2026</div>
         </div>
         <div className="bar-bg">
           <div className="bar-fill" style={{ width: `${pct}%` }}
@@ -211,7 +222,7 @@ export default function App() {
             onClick={() => setActiveTab(id)}
           >
             <Icon />
-            {id}
+            <UiText k={`tab.${id.toLowerCase()}`} />
           </button>
         ))}
       </div>

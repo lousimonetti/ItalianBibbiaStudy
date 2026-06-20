@@ -178,6 +178,40 @@ body {
 }
 .theme-toggle:hover { background: var(--bg); color: var(--text); border-color: var(--accent); }
 
+/* Immersion-mode (Italian interface) toggle */
+.immersion-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.immersion-toggle:hover { background: var(--bg); color: var(--text); border-color: var(--accent); }
+.immersion-toggle.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Chrome string shown in Italian (immersion on) — faint dotted hint that the
+   English gloss is available on hover/long-press via the title attribute. */
+.ui-it {
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: currentColor;
+}
+
 .progress-wrap { margin-bottom: 24px; }
 .progress-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
 .progress-count { font-size: 20px; font-weight: 500; }
@@ -408,6 +442,53 @@ body {
 .vocab-ex-row { display: inline-flex; align-items: flex-start; gap: 2px; }
 .vocab-it-word .speaker-btn { width: 24px; height: 24px; }
 .vocab-ex-row .speaker-btn { width: 22px; height: 22px; }
+
+/* ── Tap-to-translate (WordGloss / GlossPopover) ───────────────────────────── */
+.gloss-word-wrap { position: relative; display: inline; }
+.gloss-word {
+  font: inherit;
+  font-style: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0 1px;
+  margin: 0;
+  cursor: pointer;
+  border-bottom: 1px dotted var(--accent);
+  transition: color 0.12s, background 0.12s;
+}
+.gloss-word:hover,
+.gloss-word-open {
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-radius: 3px;
+}
+.gloss-pop {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 130px;
+  max-width: 230px;
+  padding: 8px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  white-space: normal;
+  cursor: default;
+}
+.gloss-pop-head { display: inline-flex; align-items: center; gap: 4px; }
+.gloss-pop-it { font-weight: 600; font-size: 13px; color: var(--text); font-style: normal; }
+.gloss-pop-head .speaker-btn { width: 24px; height: 24px; }
+.gloss-pop-en { font-size: 13px; color: var(--text); }
+.gloss-pop-ipa { font-size: 11px; color: var(--text-faint); letter-spacing: 0.01em; }
 
 .grammar-box {
   background: var(--surface);

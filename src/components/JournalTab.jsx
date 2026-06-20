@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { PHASES } from '../data/studyData';
 import { useJournal } from '../hooks/useJournal';
 import { SentenceGuide } from './SentenceGuide';
+import { WordGloss } from './WordGloss';
 
 function ExportIcon() {
   return (
@@ -165,7 +166,7 @@ function WeekJournalRow({ week, entry, onSave, grammarEnabled }) {
       {open && (
         <div className="jrn-editor">
           <div className="jrn-prompt">
-            <div className="jrn-prompt-it">{week.prompt.it}</div>
+            <div className="jrn-prompt-it"><WordGloss text={week.prompt.it} /></div>
             <div className="jrn-prompt-en">{week.prompt.en}</div>
           </div>
           <div className="jrn-writing-guide">
