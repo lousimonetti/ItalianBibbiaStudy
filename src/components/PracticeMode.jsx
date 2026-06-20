@@ -10,6 +10,7 @@ import { makeCloze, isClozeEligible } from '../utils/cloze';
 import { checkAnswer } from '../utils/answer';
 import { recordActivity } from '../utils/streak';
 import { Confetti } from './Confetti';
+import { HAS_IPA } from '../utils/locale';
 
 const STYLES = [
   { id: 'recognition', label: 'Recognition', sub: 'IT → EN, tap to reveal' },
@@ -234,7 +235,7 @@ export function PracticeMode() {
                 ) : (
                   <>
                     <span className="prac-answer">{card.it}</span>
-                    {card.ipa && <span className="prac-ipa">{card.ipa}</span>}
+                    {HAS_IPA && card.ipa && <span className="prac-ipa">{card.ipa}</span>}
                     <SpeakerButton word={card.it} size={18} />
                     {session.style === 'recall' && <span className="prac-example">"{card.ex}"</span>}
                   </>
@@ -257,7 +258,7 @@ export function PracticeMode() {
               </div>
               <div className="prac-face prac-back">
                 <span className="prac-translation">{card.en}</span>
-                <span className="prac-ipa">{card.ipa}</span>
+                {HAS_IPA && <span className="prac-ipa">{card.ipa}</span>}
                 <SpeakerButton word={card.it} size={18} />
                 <span className="prac-example">"{card.ex}"</span>
               </div>
@@ -288,7 +289,7 @@ export function PracticeMode() {
           </div>
         )}
 
-        <IPAKeyPanel />
+        {HAS_IPA && <IPAKeyPanel />}
       </div>
     );
   }
@@ -384,7 +385,7 @@ export function PracticeMode() {
         }}
       />
 
-      <IPAKeyPanel />
+      {HAS_IPA && <IPAKeyPanel />}
     </div>
   );
 }

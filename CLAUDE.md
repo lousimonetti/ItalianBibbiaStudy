@@ -17,10 +17,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   **T0 done:** all course data now lives in `course/` (see Data layer below);
   `studyData.js` is a back-compat shim; the schedule and the
   previously-hardcoded counts are derived from the course; `course/validate.js`
-  + `npm run validate-course` guard it. Remaining: T1 locale threading, T2
-  branding/resources, T3 Anki-from-course, T4 authoring kit, T5 (optional)
-  per-course localStorage namespacing + multi-course. (Namespacing was moved from
-  T0 to T5 — it only matters once multiple courses coexist.)
+  + `npm run validate-course` guard it. **T1 done:** locale (`src/utils/locale.js`)
+  drives TTS/speech-recognition language, LanguageTool language, IPA visibility,
+  and article-stripping from `config.locale`. Remaining: T2 branding/resources,
+  T3 Anki-from-course, T4 authoring kit, T5 (optional) per-course localStorage
+  namespacing + multi-course. (Namespacing was moved from T0 to T5 — it only
+  matters once multiple courses coexist.)
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism).
@@ -72,7 +74,9 @@ All persisted keys are namespaced `italian-bible-*` (`-progress`, `-journal`, `-
 
 **Flashcards tab** (`FlashcardsTab.jsx`) has three modes toggled by local state: *Anki Decks* (download `.apkg` files), *Practice* (`PracticeMode.jsx` — SRS-scheduled, with a style selector for Recognition / Recall / Cloze and a "Parole difficili" struggle panel), and *Pronunciation* (`PronunciationPractice.jsx`).
 
-**Text-to-speech** (`SpeakerButton.jsx`): Uses `window.speechSynthesis` with `lang: 'it-IT'`. Optional `rate` prop (default `0.85`; Listening mode passes a slower rate). No external dependency — falls back silently if the API is unavailable.
+**Text-to-speech** (`SpeakerButton.jsx`): Uses `window.speechSynthesis`; the utterance language is the course locale (`TTS_LANG` from `src/utils/locale.js`, = `config.locale.target`, currently `it-IT`). Optional `rate` prop (default `0.85`; Listening mode passes a slower rate). No external dependency — falls back silently if the API is unavailable.
+
+**Locale (`src/utils/locale.js`, as of T1):** single source for the course's `TTS_LANG`/`NATIVE_LANG`/`GRAMMAR_LANG`/`HAS_IPA` and a `LEADING_ARTICLE` regex built from `config.locale.articles`. `SpeakerButton`, `WordGloss`, and `PronunciationPractice` speak/recognize `TTS_LANG`; `answer.js`/`vocabIndex.js`/`cloze.js` strip articles via `LEADING_ARTICLE`; `HAS_IPA:false` hides the IPA column, pronunciation-key panels, and card-back IPA; `GRAMMAR_LANG:''` hides the Journal grammar toggle. Flipping `config.locale` retargets the language with no component edits.
 
 **Tap-to-translate** (`WordGloss.jsx` + `GlossPopover.jsx`, backed by `src/utils/vocabIndex.js`): wraps an Italian string and makes any word that exists in the vocab index tappable → a popover with Italian + English + IPA + a speaker. `vocabIndex.js` builds a memoized `Map` once from `PHASES`, keyed by both the full term and its article-stripped stem (so "il Verbo" is reachable as "verbo"); `tokenize` preserves the original text exactly and keeps internal apostrophes. Words not in the index aren't glossed but are still **tap-to-hear** (TTS, the `.gloss-tts` span) where speech synthesis is available. Wired into example sentences + writing prompt (`WeekDetail.jsx`) and the Journal prompt (`JournalTab.jsx`). All client-side, works offline.
 
@@ -80,7 +84,7 @@ All persisted keys are namespaced `italian-bible-*` (`-progress`, `-journal`, `-
 
 **PWA / offline**: `vite-plugin-pwa` with `registerType: 'autoUpdate'`. Workbox precaches all JS/CSS/HTML/PNG/SVG assets plus all `.apkg` files. Service worker is disabled in `npm run dev` — use `npm run preview` to test offline behavior.
 
-**Grammar checking** (`JournalTab.jsx`): Calls `https://api.languagetool.org/v2/check` with `language: it`. This is an external API call — it fails offline, which is intentional and expected.
+**Grammar checking** (`JournalTab.jsx`): Calls `https://api.languagetool.org/v2/check` with `language: config.locale.grammarLang` (`it` for the bundled course; `''` hides the Grammar toggle entirely). This is an external API call — it fails offline, which is intentional and expected.
 
 **Journal writing scaffold** (`JournalScaffold.jsx`, Phase 3 / C3): a collapsible "Aiuto per scrivere" panel in each entry with the week's grammar focus, Italian sentence starters, and the week's vocab as click-to-insert chips. `WeekJournalRow`'s `insertText` appends to the draft (existing debounced auto-save + grammar check fire on change). Pure UI over existing week data, works offline.
 

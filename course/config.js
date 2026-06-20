@@ -24,7 +24,7 @@ export const config = {
     grammarLang: 'it', // LanguageTool code ('' disables the Journal grammar check)
     hasIPA: true,      // false ⇒ hide IPA column + pronunciation key
     // Leading articles, for article-stripped vocab matching (answer.js / vocabIndex.js).
-    articles: ['il', 'lo', 'la', 'i', 'gli', 'le', 'un', 'uno', 'una', "l'"],
+    articles: ['gli', 'uno', 'una', 'il', 'lo', 'la', 'le', 'un', 'i', "l'", "un'"],
   },
 
   schedule: {

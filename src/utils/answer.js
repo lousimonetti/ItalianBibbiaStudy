@@ -1,9 +1,9 @@
 import { normalize, levenshtein } from './pronunciation';
+import { LEADING_ARTICLE } from './locale';
 
 // Forgiving typed-answer matching for production practice (EN→IT recall & cloze).
 // Reuses the accent-folding `normalize` and `levenshtein` from pronunciation.js.
-
-const LEADING_ARTICLE = /^(l['’]|gli\s+|le\s+|il\s+|lo\s+|la\s+|i\s+|uno\s+|una\s+|un['’]?\s*)/i;
+// The leading-article matcher comes from the course locale (locale.js).
 
 // Lowercase, fold accents, drop a leading article and surrounding punctuation so
 // "La Luce!" and "luce" compare equal.

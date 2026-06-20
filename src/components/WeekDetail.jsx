@@ -4,6 +4,7 @@ import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
 import { WordGloss } from './WordGloss';
 import { UiText } from '../i18n/UiText';
+import { HAS_IPA } from '../utils/locale';
 
 export function WeekDetail({ week }) {
   const [ipaOpen, setIpaOpen] = useState(false);
@@ -15,11 +16,13 @@ export function WeekDetail({ week }) {
         <div className="detail-section">
           <div className="detail-label-row">
             <span className="detail-label"><UiText k="detail.vocab" /></span>
-            <button className="ipa-hint-btn" onClick={() => setIpaOpen(v => !v)}>
-              {ipaOpen ? 'Hide key' : 'Pronunciation key ?'}
-            </button>
+            {HAS_IPA && (
+              <button className="ipa-hint-btn" onClick={() => setIpaOpen(v => !v)}>
+                {ipaOpen ? 'Hide key' : 'Pronunciation key ?'}
+              </button>
+            )}
           </div>
-          {ipaOpen && (
+          {HAS_IPA && ipaOpen && (
             <div className="ipa-inline-panel">
               <IPAGuide compact />
             </div>
@@ -33,7 +36,7 @@ export function WeekDetail({ week }) {
                       <span>{it}</span>
                       <SpeakerButton word={it} size={15} />
                     </span>
-                    {pron && <span className="vocab-pron">{pron}</span>}
+                    {HAS_IPA && pron && <span className="vocab-pron">{pron}</span>}
                   </td>
                   <td className="vocab-en">{en}</td>
                   <td className="vocab-ex">

@@ -5,7 +5,7 @@
 // example uses a conjugated/derived form), in which case the card is not
 // cloze-eligible.
 
-const LEADING_ARTICLE = /^(l['’]|gli\s+|le\s+|il\s+|lo\s+|la\s+|i\s+|uno\s+|una\s+|un['’]?\s*)/i;
+import { LEADING_ARTICLE } from './locale';
 
 export function makeCloze(term, example) {
   if (!term || !example) return null;
