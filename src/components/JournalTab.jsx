@@ -4,6 +4,7 @@ import { useJournal } from '../hooks/useJournal';
 import { SentenceGuide } from './SentenceGuide';
 import { WordGloss } from './WordGloss';
 import { JournalScaffold } from './JournalScaffold';
+import { recordActivity } from '../utils/streak';
 
 function ExportIcon() {
   return (
@@ -93,6 +94,7 @@ function WeekJournalRow({ week, entry, onSave, grammarEnabled }) {
     timerRef.current = setTimeout(() => {
       if (draft !== (entry?.text ?? '')) {
         onSave(draft);
+        if (draft.trim()) recordActivity('journaled');
         setSaved(true);
         setTimeout(() => setSaved(false), 1500);
       }
