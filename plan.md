@@ -193,10 +193,15 @@ the main progress bar. All honor `prefers-reduced-motion`.
 - New: `src/components/Confetti.jsx` (pure CSS/JS particles, self-unmounting).
 - `PracticeMode` SessionEnd shows the confetti + cheer.
 
-### D4. Achievements / level map
-A visual journey from Easter→Christmas (the 37 weeks) with unlockable badges per
-phase/streak/SRS milestone, persisted in `localStorage`. Reinforces the existing
-phase structure and gives a reason to return.
+### D4. Achievements / level map — ✅ DONE
+A collapsible **"Traguardi"** badge grid on the Tracker (earned count in the
+header). ~11 badges derived from existing stores — week milestones, one per phase
+(every week of the book done), 7- & 30-day streaks, 50/150 words learned, a
+journaling badge, and "Fino a Natale!" for all 37 weeks. Earned state is
+**computed** from `progress`/`srs`/`streak`/`journal` (no new persistence), so it
+stays correct if a store changes.
+- New: `src/utils/achievements.js` (pure `computeAchievements`; 5 tests),
+  `src/hooks/useAchievements.js`, `src/components/Achievements.jsx`.
 
 ---
 
@@ -208,7 +213,7 @@ phase structure and gives a reason to return.
 | **1 — Immersion quick wins** ✅ | A3 ✅ (TTS in Tracker), A2 ✅ (tap-to-translate), A1 ✅ (immersion toggle) | Highest immersion-per-line; mostly UI | M |
 | **2 — Retention** ✅ | B1 ✅ (SRS), B2 ✅ (persist results + struggle list) | Biggest fluency lever | M–L |
 | **3 — Production** ✅ | C1 ✅ (EN→IT + cloze), C2 ✅ (listening), C3 ✅ (journaling scaffolds) | Builds on SRS + immersion | M–L |
-| **4 — Motivation** | D1 ✅ (streaks/dashboard), D3 ✅ (micro-interactions), D4 (badges), D2 (reminders) | Compounds everything above | M |
+| **4 — Motivation** | D1 ✅ (streaks/dashboard), D3 ✅ (micro-interactions), D4 ✅ (badges), D2 (reminders) | Compounds everything above | M |
 
 ## Risks & guardrails
 

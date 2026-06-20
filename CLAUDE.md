@@ -60,6 +60,8 @@ All persisted keys are namespaced `italian-bible-*` (`-progress`, `-journal`, `-
 
 **Journal writing scaffold** (`JournalScaffold.jsx`, Phase 3 / C3): a collapsible "Aiuto per scrivere" panel in each entry with the week's grammar focus, Italian sentence starters, and the week's vocab as click-to-insert chips. `WeekJournalRow`'s `insertText` appends to the draft (existing debounced auto-save + grammar check fire on change). Pure UI over existing week data, works offline.
 
+**Achievements** (`Achievements.jsx` + `src/utils/achievements.js` + `useAchievements`, Phase 4 / D4): a collapsible "Traguardi" badge grid on the Tracker. Earned state is *derived* from the existing stores (`-progress`, `-srs`, `-streak`, `-journal`) — there is **no** `-achievements` key. `useAchievements` reads those stores once on mount (the Tracker remounts on tab switch, refreshing it).
+
 ## Key constraints
 
 - **No backend** — never introduce server-side logic, OAuth flows, or environment secrets. The app must build to a static `dist/` folder.
