@@ -13,6 +13,7 @@ import { useImmersion } from './i18n/ImmersionContext';
 import { UiText } from './i18n/UiText';
 import { useStreak } from './hooks/useStreak';
 import { Achievements } from './components/Achievements';
+import { Reminders } from './components/Reminders';
 
 const TOTAL = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
 const ALL_WEEKS = PHASES.flatMap(p => p.weeks);
@@ -125,6 +126,7 @@ function DailyGoals() {
           <GoalCheck done={flags.journaled} /> Write a line in Italian
         </div>
       </div>
+      <Reminders />
     </div>
   );
 }

@@ -386,6 +386,24 @@ body {
 .today-goal-action:hover:not(.done) { color: var(--text); }
 .today-goal-action:disabled { cursor: default; }
 .today-goal.done { color: var(--accent); text-decoration: line-through; text-decoration-color: var(--text-faint); }
+.today-reminder {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 11px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.today-reminder:hover:not(:disabled) { color: var(--text); border-color: var(--accent); }
+.today-reminder.on { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
+.today-reminder:disabled { opacity: 0.55; cursor: not-allowed; }
 
 .today-sched { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border-subtle); padding-top: 8px; }
 .today-sched-row { display: flex; gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--border-subtle); font-size: 12px; }

@@ -181,9 +181,16 @@ tracked activity advances the streak; a missed day resets it (best is kept).
   activity is picked up).
 - **Deferred:** PWA notification reminders → D2.
 
-### D2. PWA reminders
-Opt-in local notifications (Notification API + service worker) to nudge the daily
-goal. Free, no backend. Gracefully absent where unsupported (iOS web is limited).
+### D2. PWA reminders — ✅ DONE
+An opt-in **"Remind me daily"** toggle on the `TodayCard` that requests
+Notification permission and, while the app is open, nudges once a day if you're
+past your reminder hour (default 7pm) and haven't studied. No backend/push (hard
+constraint), so it's best-effort/local — fires via the service worker's
+`showNotification` (falling back to `new Notification`). Renders nothing where
+the Notification API is unavailable; shows a blocked state if permission is
+denied.
+- New: `src/utils/reminders.js` (pure `shouldNotify`; 7 tests) and
+  `src/components/Reminders.jsx`. Persisted under `italian-bible-reminders`.
 
 ### D3. Celebration & momentum micro-interactions — ✅ DONE
 Tasteful and dependency-free: a **tricolore confetti** burst + an animated
@@ -213,7 +220,7 @@ stays correct if a store changes.
 | **1 — Immersion quick wins** ✅ | A3 ✅ (TTS in Tracker), A2 ✅ (tap-to-translate), A1 ✅ (immersion toggle) | Highest immersion-per-line; mostly UI | M |
 | **2 — Retention** ✅ | B1 ✅ (SRS), B2 ✅ (persist results + struggle list) | Biggest fluency lever | M–L |
 | **3 — Production** ✅ | C1 ✅ (EN→IT + cloze), C2 ✅ (listening), C3 ✅ (journaling scaffolds) | Builds on SRS + immersion | M–L |
-| **4 — Motivation** | D1 ✅ (streaks/dashboard), D3 ✅ (micro-interactions), D4 ✅ (badges), D2 (reminders) | Compounds everything above | M |
+| **4 — Motivation** ✅ | D1 ✅ (streaks/dashboard), D3 ✅ (micro-interactions), D4 ✅ (badges), D2 ✅ (reminders) | Compounds everything above | M |
 
 ## Risks & guardrails
 
