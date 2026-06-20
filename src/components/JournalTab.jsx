@@ -3,6 +3,7 @@ import { PHASES } from '../data/studyData';
 import { useJournal } from '../hooks/useJournal';
 import { SentenceGuide } from './SentenceGuide';
 import { WordGloss } from './WordGloss';
+import { JournalScaffold } from './JournalScaffold';
 
 function ExportIcon() {
   return (
@@ -134,6 +135,10 @@ function WeekJournalRow({ week, entry, onSave, grammarEnabled }) {
     setDraft(next);
   }
 
+  function insertText(text) {
+    setDraft((d) => (d && !/\s$/.test(d) ? d + ' ' : d) + text + ' ');
+  }
+
   const handleOpen = () => {
     setOpen((v) => !v);
     if (!open) setDraft(entry?.text ?? '');
@@ -179,6 +184,7 @@ function WeekJournalRow({ week, entry, onSave, grammarEnabled }) {
             </ol>
           </div>
           <SentenceGuide />
+          <JournalScaffold week={week} onInsert={insertText} />
           <textarea
             className="jrn-textarea"
             value={draft}

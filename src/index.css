@@ -1085,6 +1085,48 @@ body {
 .jrn-textarea:focus { border-color: var(--accent); }
 .jrn-textarea::placeholder { color: var(--text-faint); }
 
+/* Journal writing scaffold (sentence starters + vocab chips) */
+.jrn-scaffold { margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.jrn-scaffold-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+  padding: 9px 12px;
+  background: var(--surface);
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: left;
+}
+.jrn-scaffold-toggle:hover { background: var(--bg); }
+.jrn-scaffold-body { padding: 4px 12px 12px; }
+.jrn-scaffold-grammar { font-size: 12px; color: var(--text-muted); margin: 6px 0 10px; }
+.jrn-scaffold-grammar-label { font-weight: 600; color: var(--text); }
+.jrn-scaffold-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+  margin: 8px 0 5px;
+}
+.jrn-scaffold-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.jrn-chip {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+.jrn-chip:hover { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+.jrn-chip-vocab { font-weight: 500; }
+
 .jrn-editor-footer { display: flex; align-items: center; justify-content: space-between; }
 .jrn-word-count { font-size: 11px; color: var(--text-faint); }
 .jrn-saved-indicator { font-size: 11px; color: var(--accent); }
