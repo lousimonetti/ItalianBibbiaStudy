@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { review, isDue, buildQueue, stats, DAY, DEFAULT_EASE, MIN_EASE } from './srs.js';
+import {
+  review, isDue, buildQueue, stats, newIntroducedToday, newAllowanceToday,
+  DAY, DEFAULT_EASE, MIN_EASE, DAILY_NEW_CAP,
+} from './srs.js';
 
 const NOW = 1_700_000_000_000;
 
@@ -84,6 +87,31 @@ describe('buildQueue', () => {
     const q = buildQueue(cards, store, { now: NOW, newCap: 12, maxSession: 2 });
     expect(q).toHaveLength(2);
     expect(q.map((x) => x.it)).toEqual(['c', 'b']); // most overdue first
+  });
+});
+
+describe('daily new-card cap', () => {
+  it('stamps `created` on first review and preserves it', () => {
+    const c1 = review(undefined, 'good', NOW);
+    expect(c1.created).toBe(NOW);
+    const c2 = review(c1, 'good', NOW + 5 * DAY);
+    expect(c2.created).toBe(NOW); // unchanged
+  });
+
+  it('counts cards introduced on the same local day', () => {
+    const store = {
+      a: review(undefined, 'good', NOW),
+      b: review(undefined, 'again', NOW + 1000),
+      c: review(undefined, 'good', NOW + 2 * DAY), // different day
+    };
+    expect(newIntroducedToday(store, NOW)).toBe(2);
+    expect(newIntroducedToday(store, NOW + 2 * DAY)).toBe(1);
+  });
+
+  it('newAllowanceToday subtracts today\'s new cards from the cap', () => {
+    const store = { a: review(undefined, 'good', NOW), b: review(undefined, 'good', NOW) };
+    expect(newAllowanceToday(store, NOW)).toBe(DAILY_NEW_CAP - 2);
+    expect(newAllowanceToday({}, NOW)).toBe(DAILY_NEW_CAP);
   });
 });
 

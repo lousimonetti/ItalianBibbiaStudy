@@ -307,7 +307,7 @@ export function PracticeMode() {
         </div>
       </div>
 
-      <div className="prac-filter-label">Practice style</div>
+      <div className="prac-filter-label"><UiText k="prac.style" /></div>
       <div className="prac-style-grid">
         {STYLES.map(s => {
           const disabled = s.id === 'cloze' && clozeCards.length === 0;
@@ -326,7 +326,7 @@ export function PracticeMode() {
         })}
       </div>
 
-      <div className="prac-filter-label">Choose cards</div>
+      <div className="prac-filter-label"><UiText k="prac.chooseCards" /></div>
       <div className="prac-filter-grid">
         <button
           className={`prac-filter-btn${filter === 'all' ? ' prac-filter-active' : ''}`}

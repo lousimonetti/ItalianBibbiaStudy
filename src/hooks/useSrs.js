@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback } from 'react';
-import { review, buildQueue, stats } from '../utils/srs';
+import { review, buildQueue, stats, newAllowanceToday } from '../utils/srs';
 
 const STORAGE_KEY = 'italian-bible-srs';
 
@@ -33,7 +33,13 @@ export function useSrs() {
     setVersion((v) => v + 1);
   }, []);
 
-  const buildSession = useCallback((cards, opts) => buildQueue(cards, storeRef.current, opts), []);
+  const buildSession = useCallback((cards, opts = {}) => {
+    // Honor the daily new-card cap across sessions: never introduce more new
+    // cards today than the cap allows.
+    const remaining = newAllowanceToday(storeRef.current);
+    const newCap = Math.min(opts.newCap ?? 12, remaining);
+    return buildQueue(cards, storeRef.current, { ...opts, newCap });
+  }, []);
 
   const getStats = useCallback((cards) => stats(cards, storeRef.current), []);
 
