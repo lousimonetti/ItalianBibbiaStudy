@@ -3,6 +3,7 @@ import { DAILY } from '../data/studyData';
 import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
 import { WordGloss } from './WordGloss';
+import { UiText } from '../i18n/UiText';
 
 export function WeekDetail({ week }) {
   const [ipaOpen, setIpaOpen] = useState(false);
@@ -13,7 +14,7 @@ export function WeekDetail({ week }) {
         {/* Vocabulary */}
         <div className="detail-section">
           <div className="detail-label-row">
-            <span className="detail-label">Key vocabulary</span>
+            <span className="detail-label"><UiText k="detail.vocab" /></span>
             <button className="ipa-hint-btn" onClick={() => setIpaOpen(v => !v)}>
               {ipaOpen ? 'Hide key' : 'Pronunciation key ?'}
             </button>
@@ -52,7 +53,7 @@ export function WeekDetail({ week }) {
         <div>
           {/* Grammar */}
           <div className="detail-section" style={{ marginBottom: 14 }}>
-            <div className="detail-label">Grammar focus</div>
+            <div className="detail-label"><UiText k="detail.grammar" /></div>
             <div className="grammar-box">
               <div className="grammar-title">{week.grammar.title}</div>
               {week.grammar.body}
@@ -61,7 +62,7 @@ export function WeekDetail({ week }) {
 
           {/* Writing prompt */}
           <div className="detail-section">
-            <div className="detail-label">Writing prompt</div>
+            <div className="detail-label"><UiText k="detail.prompt" /></div>
             <div className="prompt-box">
               <div className="prompt-italian"><WordGloss text={week.prompt.it} /></div>
               <div className="prompt-english">{week.prompt.en}</div>
@@ -72,7 +73,7 @@ export function WeekDetail({ week }) {
 
       {/* Daily schedule */}
       <div className="detail-section" style={{ marginTop: 14 }}>
-        <div className="detail-label">Daily schedule</div>
+        <div className="detail-label"><UiText k="detail.schedule" /></div>
         <div className="daily-box">
           {DAILY.map(({ day, task }) => (
             <div className="daily-row" key={day}>
@@ -86,7 +87,7 @@ export function WeekDetail({ week }) {
       {/* iTalki prompts */}
       {week.review && week.italki && (
         <div className="detail-section" style={{ marginTop: 14 }}>
-          <div className="detail-label">iTalki conversation starters</div>
+          <div className="detail-label"><UiText k="detail.italki" /></div>
           <div className="italki-box">
             {week.italki.map((q, i) => (
               <div className="italki-q" key={i}>{q}</div>

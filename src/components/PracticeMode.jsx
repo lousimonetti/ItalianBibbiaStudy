@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { PHASES } from '../data/studyData';
 import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
+import { UiText } from '../i18n/UiText';
 
 function buildCards(phases) {
   const cards = [];
@@ -44,7 +45,7 @@ function SessionEnd({ known, total, againCount, onRestart, onDrillAgain }) {
           </button>
         )}
         <button className="prac-restart-btn" onClick={onRestart}>
-          New session
+          <UiText k="prac.newSession" />
         </button>
       </div>
     </div>
@@ -99,7 +100,7 @@ export function PracticeMode() {
       <div className="prac-session">
         <div className="prac-top-row">
           <span className="prac-counter">{session.index + 1} / {total}</span>
-          <button className="prac-exit-btn" onClick={() => setSession(null)}>Exit</button>
+          <button className="prac-exit-btn" onClick={() => setSession(null)}><UiText k="prac.exit" /></button>
         </div>
 
         <div className="prac-bar-bg">
@@ -116,7 +117,7 @@ export function PracticeMode() {
             <div className="prac-face prac-front">
               <span className="prac-word">{card.it}</span>
               <SpeakerButton word={card.it} size={22} />
-              <span className="prac-tap-hint">tap to reveal</span>
+              <span className="prac-tap-hint"><UiText k="prac.tapHint" /></span>
             </div>
             <div className="prac-face prac-back">
               <span className="prac-translation">{card.en}</span>
@@ -131,12 +132,12 @@ export function PracticeMode() {
 
         {flipped ? (
           <div className="prac-actions">
-            <button className="prac-again-btn" onClick={handleAgain}>Still learning</button>
-            <button className="prac-known-btn" onClick={handleKnown}>Got it ✓</button>
+            <button className="prac-again-btn" onClick={handleAgain}><UiText k="prac.again" /></button>
+            <button className="prac-known-btn" onClick={handleKnown}><UiText k="prac.known" /></button>
           </div>
         ) : (
           <div className="prac-actions">
-            <button className="prac-reveal-btn" onClick={() => setFlipped(true)}>Reveal</button>
+            <button className="prac-reveal-btn" onClick={() => setFlipped(true)}><UiText k="prac.reveal" /></button>
           </div>
         )}
 

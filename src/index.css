@@ -178,6 +178,40 @@ body {
 }
 .theme-toggle:hover { background: var(--bg); color: var(--text); border-color: var(--accent); }
 
+/* Immersion-mode (Italian interface) toggle */
+.immersion-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.immersion-toggle:hover { background: var(--bg); color: var(--text); border-color: var(--accent); }
+.immersion-toggle.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Chrome string shown in Italian (immersion on) — faint dotted hint that the
+   English gloss is available on hover/long-press via the title attribute. */
+.ui-it {
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: currentColor;
+}
+
 .progress-wrap { margin-bottom: 24px; }
 .progress-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
 .progress-count { font-size: 20px; font-weight: 500; }

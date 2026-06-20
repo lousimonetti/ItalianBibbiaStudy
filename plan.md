@@ -25,17 +25,18 @@ These come from `CLAUDE.md` and bound every option below:
   build/offline script** (like `generate-pronunciations.cjs`) and committed —
   never an API call at runtime.
 
-## Where we are today (baseline)
+## Where we are today (updated)
 
 - Three tabs: Tracker, Flashcards (Anki / Practice / Pronunciation), Journal.
-- Strong on **exposure**; thin on **retention, listening, and active production**.
-- UI chrome is almost entirely **English** — not immersive.
-- Practice is **session-only** (no per-card memory) and **recognition-only**
-  (IT→EN, tap to reveal).
-- Scores in Practice & Pronunciation are **discarded** at session end.
-- `SpeakerButton` (it-IT TTS) exists but is **not wired into the Tracker vocab
-  table** (`WeekDetail.jsx`).
-- 35/259 vocab tuples **lack IPA**.
+- Strong on **exposure**; still thin on **retention, listening, and active
+  production** (Workstreams B–C, not yet started).
+- ✅ **Immersion mode** (A1) flips UI chrome to Italian with English glosses.
+- ✅ **Tap-to-translate** (A2) on example sentences + prompts.
+- ✅ **TTS in the Tracker** (A3); `SpeakerButton` now also on the vocab table.
+- ✅ **All 259 vocab tuples have IPA** (Phase 0).
+- Practice is still **session-only** (no per-card memory) and **recognition-only**
+  (IT→EN, tap to reveal) — Workstream B/C target.
+- Scores in Practice & Pronunciation are still **discarded** at session end.
 
 ---
 
@@ -43,15 +44,23 @@ These come from `CLAUDE.md` and bound every option below:
 
 The cheapest, highest-impact immersion wins. Mostly UI + a small data layer.
 
-### A1. "Modalità immersione" (Immersion mode) toggle
-A global switch (persist `italian-bible-immersion`) that flips UI chrome to
-Italian: tab labels (Tracker→*Percorso*, Flashcards→*Schede*, Journal→*Diario*),
-buttons (*Inizia*, *Rivela*, *Ce l'ho fatta*, *Sto ancora imparando*), section
-headers, and the daily schedule. **Comprehensibility guard:** any Italian chrome
-string shows its English on long-press / hover (a tiny `<Gloss it="" en="">`
-component). New learners start with it off; one tap immerses.
-- New: `src/i18n/strings.js` — `{ key: { it, en } }` map; a `useUiLang()` hook.
-- Touches: `App.jsx`, every tab component (swap hardcoded strings for `t(key)`).
+### A1. "Modalità immersione" (Immersion mode) toggle — ✅ DONE
+A header switch (the **IT** pill, persisted `italian-bible-immersion`) flips UI
+chrome to Italian: tab labels (Tracker→*Percorso*, Flashcards→*Schede*,
+Journal→*Diario*), the Flashcards mode toggle, Practice card buttons (*Rivela*,
+*Ce l'ho fatta ✓*, *Sto ancora imparando*), the Tracker section headers, the
+progress bar, and the Today card. **Comprehensibility guard:** every Italian
+chrome string carries its English as a hover/long-press `title` gloss (with a
+faint dotted underline hint). Default is off, so beginners see English; one tap
+immerses.
+- New: `src/i18n/strings.js` (`{ key: { it, en } }` chrome map),
+  `ImmersionContext.js` (`useImmersion` hook + persisted state),
+  `ImmersionProvider.jsx` (wraps `<App>`), `UiText.jsx` (`<UiText k="…" />`).
+  Behaviour locked by `UiText.test.jsx` (4 tests).
+- **Scope (v1):** translated the highest-traffic chrome (tabs, Tracker headers,
+  progress, Flashcards/Practice buttons). Journal/Pronunciation deep chrome and a
+  touch tap-to-reveal popover (beyond the `title` tooltip) are deferred — add
+  keys to `strings.js` and wrap with `<UiText>` to extend coverage.
 
 ### A2. Tap-to-translate everywhere (comprehensible input) — ✅ DONE
 The core "easy to comprehend" lever. Italian words rendered in the app become
@@ -157,7 +166,7 @@ phase structure and gives a reason to return.
 | Phase | Items | Why first | Rough effort |
 |------|-------|-----------|--------------|
 | **0 — Hygiene** ✅ | Fix lint (`reactHooks.configs['recommended-latest']`); add CI lint+test steps; A4 IPA backfill (all 259 tuples now have IPA) | Unblocks reliable CI; cheap data win | S |
-| **1 — Immersion quick wins** | A3 ✅ (TTS in Tracker), A2 ✅ (tap-to-translate), A1 (immersion toggle) | Highest immersion-per-line; mostly UI | M |
+| **1 — Immersion quick wins** ✅ | A3 ✅ (TTS in Tracker), A2 ✅ (tap-to-translate), A1 ✅ (immersion toggle) | Highest immersion-per-line; mostly UI | M |
 | **2 — Retention** | B1 (SRS), B2 (persist results) | Biggest fluency lever | M–L |
 | **3 — Production** | C1 (EN→IT + cloze), C2 (listening), C3 (journaling scaffolds) | Builds on SRS + immersion | M–L |
 | **4 — Motivation** | D1 (streaks/dashboard), D3 (micro-interactions), D4 (badges), D2 (reminders) | Compounds everything above | M |
