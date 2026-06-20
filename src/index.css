@@ -403,6 +403,12 @@ body {
 .vocab-en { color: #666; width: 30%; }
 .vocab-ex { color: #999; font-size: 12px; font-style: italic; width: 30%; }
 
+/* Inline audio in the Tracker vocab table — compact speaker buttons */
+.vocab-it-word { display: inline-flex; align-items: center; gap: 2px; }
+.vocab-ex-row { display: inline-flex; align-items: flex-start; gap: 2px; }
+.vocab-it-word .speaker-btn { width: 24px; height: 24px; }
+.vocab-ex-row .speaker-btn { width: 22px; height: 22px; }
+
 .grammar-box {
   background: var(--surface);
   border: 1px solid var(--border);
