@@ -9,6 +9,7 @@ import { struggleList } from '../utils/wordStats';
 import { makeCloze, isClozeEligible } from '../utils/cloze';
 import { checkAnswer } from '../utils/answer';
 import { recordActivity } from '../utils/streak';
+import { Confetti } from './Confetti';
 
 const STYLES = [
   { id: 'recognition', label: 'Recognition', sub: 'IT → EN, tap to reveal' },
@@ -42,8 +43,15 @@ const ALL_CARDS = buildCards(PHASES);
 
 function SessionEnd({ known, total, againCount, onRestart, onDrillAgain }) {
   const pct = Math.round((known / total) * 100);
+  const cheer = pct >= 90
+    ? { it: 'Perfetto!', en: 'Perfect!' }
+    : pct >= 70
+      ? { it: 'Bravo!', en: 'Well done!' }
+      : { it: 'Continua così!', en: 'Keep it up!' };
   return (
     <div className="prac-end">
+      {pct >= 70 && <Confetti />}
+      <div className="prac-cheer" title={cheer.en}>{cheer.it}</div>
       <div className="prac-end-score">{pct}%</div>
       <div className="prac-end-label">
         {known} of {total} cards known

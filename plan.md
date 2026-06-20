@@ -185,10 +185,13 @@ tracked activity advances the streak; a missed day resets it (best is kept).
 Opt-in local notifications (Notification API + service worker) to nudge the daily
 goal. Free, no backend. Gracefully absent where unsupported (iOS web is limited).
 
-### D3. Celebration & momentum micro-interactions
-Lightweight, tasteful: confetti/tricolor flourish on finishing a session or
-hitting a streak milestone, animated progress bars, encouraging Italian
-micro-copy (*Bravo! · Continua così!*) with English gloss. Pure CSS/JS, no deps.
+### D3. Celebration & momentum micro-interactions — ✅ DONE
+Tasteful and dependency-free: a **tricolore confetti** burst + an animated
+Italian cheer (*Perfetto! / Bravo! / Continua così!*, scaled by score, with an
+English `title` gloss) on finishing a Practice session ≥70%; a subtle shimmer on
+the main progress bar. All honor `prefers-reduced-motion`.
+- New: `src/components/Confetti.jsx` (pure CSS/JS particles, self-unmounting).
+- `PracticeMode` SessionEnd shows the confetti + cheer.
 
 ### D4. Achievements / level map
 A visual journey from Easter→Christmas (the 37 weeks) with unlockable badges per
@@ -205,7 +208,7 @@ phase structure and gives a reason to return.
 | **1 — Immersion quick wins** ✅ | A3 ✅ (TTS in Tracker), A2 ✅ (tap-to-translate), A1 ✅ (immersion toggle) | Highest immersion-per-line; mostly UI | M |
 | **2 — Retention** ✅ | B1 ✅ (SRS), B2 ✅ (persist results + struggle list) | Biggest fluency lever | M–L |
 | **3 — Production** ✅ | C1 ✅ (EN→IT + cloze), C2 ✅ (listening), C3 ✅ (journaling scaffolds) | Builds on SRS + immersion | M–L |
-| **4 — Motivation** | D1 ✅ (streaks/dashboard), D3 (micro-interactions), D4 (badges), D2 (reminders) | Compounds everything above | M |
+| **4 — Motivation** | D1 ✅ (streaks/dashboard), D3 ✅ (micro-interactions), D4 (badges), D2 (reminders) | Compounds everything above | M |
 
 ## Risks & guardrails
 
