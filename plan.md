@@ -1,5 +1,10 @@
 # Plan — Make Italian Bible Study fully immersive, interactive & enticing
 
+> **Status: all four workstreams (A–D) complete and merged.** For the *next*
+> direction — generalizing this finished app into a fork-and-fill template so
+> anyone can build their own N-week course — see **`plan-platform.md`**.
+
+
 **Goal of this feature set:** turn the app from a *study tracker with downloadable
 decks* into an *immersive daily habit* — one where the learner lives a little more
 inside Italian every session, stays motivated to come back, yet never feels lost.
