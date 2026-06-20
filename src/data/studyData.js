@@ -83,7 +83,7 @@ export const PHASES = [
           ['insegnare', 'to teach', 'insegnava nel tempio', '/inseɲˈɲaːɾe/'],
           ['la verità', 'the truth', 'la verità vi farà liberi', '/la veɾiˈta/'],
           ['liberare', 'to set free', 'vi farà liberi', '/libeˈɾaːɾe/'],
-          ['giudicare', 'to judge', "non giudicate secondo l'apparenza"],
+          ['giudicare', 'to judge', "non giudicate secondo l'apparenza", '/dʒudiˈkaːɾe/'],
           ['il peccato', 'sin', 'chi di voi è senza peccato', '/il pekˈkaːto/'],
           ['scrivere', 'to write', 'scriveva per terra', '/ˈskɾiːveɾe/'],
           ['luce del mondo', 'light of the world', 'sono la luce del mondo', '/ˈluːtʃe del ˈmondo/'],
@@ -104,7 +104,7 @@ export const PHASES = [
           ['vedere', 'to see', 'ora vedo', '/veˈdɛːɾe/'],
           ['il buon pastore', 'the good shepherd', 'io sono il buon pastore', '/il ˌbwɔn pasˈtoːɾe/'],
           ['la pecora', 'sheep', 'conosce le mie pecore', '/la ˈpɛːkoɾa/'],
-          ['la tomba', 'tomb', "dov'è il sepolcro?"],
+          ['la tomba', 'tomb', "dov'è il sepolcro?", '/la ˈtomba/'],
           ['risuscitare', 'to raise from dead', 'io sono la risurrezione', '/ɾizuʃʃiˈtaːɾe/'],
           ['piangere', 'to weep', 'Gesù scoppiò in pianto', '/ˈpjandʒeɾe/'],
         ],
@@ -120,11 +120,11 @@ export const PHASES = [
       {
         n: 6, d: 'May 18-24', r: 'John 12-14', b: 'Prepositions and locations', review: false,
         vocab: [
-          ["l'unzione", 'the anointing', "l'unzione a Betania"],
-          ["l'asino", 'the donkey', 'seduto su un asino'],
+          ["l'unzione", 'the anointing', "l'unzione a Betania", '/lunˈtsjone/'],
+          ["l'asino", 'the donkey', 'seduto su un asino', '/ˈlaːzino/'],
           ['lavare i piedi', 'wash feet', 'lavò i piedi ai discepoli', '/laˈvaːɾe i ˈpjɛːdi/'],
           ['il tradimento', 'betrayal', 'annunciò il suo traditore', '/il tɾadiˈmento/'],
-          ['la casa del Padre', "Father's house", 'nella casa del Padre'],
+          ['la casa del Padre', "Father's house", 'nella casa del Padre', '/la ˈkaːza del ˈpaːdɾe/'],
           ['il Paraclito', 'the Paraclete', 'vi manderà il Paraclito', '/il paˈɾaːklito/'],
           ['la via', 'the way', 'io sono la via', '/la ˈviːa/'],
         ],
@@ -160,7 +160,7 @@ export const PHASES = [
       {
         n: 8, d: 'Jun 1-7', r: 'John 18-21', b: 'Review week + first iTalki session', review: true,
         vocab: [
-          ["l'arresto", 'the arrest', "l'arresto nel Getsemani"],
+          ["l'arresto", 'the arrest', "l'arresto nel Getsemani", '/laɾˈɾɛsto/'],
           ['il rinnegamento', 'the denial', 'il rinnegamento di Pietro', '/il ɾinneɡaˈmento/'],
           ['la crocifissione', 'crucifixion', 'portò la sua croce', '/la kɾotʃifisˈsjone/'],
           ['il sepolcro vuoto', 'empty tomb', 'il sepolcro era vuoto', '/il seˈpɔlkɾo ˈvwɔto/'],
@@ -196,13 +196,13 @@ export const PHASES = [
       {
         n: 9, d: 'Jun 8-14', r: 'Luke 1-2', b: 'Past tense: passato prossimo', review: false,
         vocab: [
-          ["l'annuncio", 'the announcement', "l'annunciazione a Maria"],
-          ["l'angelo", 'the angel', "l'angelo Gabriele"],
+          ["l'annuncio", 'the announcement', "l'annunciazione a Maria", '/lanˈnuntʃo/'],
+          ["l'angelo", 'the angel', "l'angelo Gabriele", '/ˈlandʒelo/'],
           ['benedetto', 'blessed', 'benedetta tu fra le donne', '/beneˈdɛtto/'],
           ['la nascita', 'birth', 'la nascita di Gesù', '/la ˈnaʃʃita/'],
           ['la mangiatoia', 'manger', 'lo depose nella mangiatoia', '/la mandʒaˈtɔːja/'],
           ['i pastori', 'shepherds', 'i pastori andarono a Betlemme', '/i pasˈtoːɾi/'],
-          ['il Magnificat', 'Magnificat', "l'anima mia magnifica il Signore"],
+          ['il Magnificat', 'Magnificat', "l'anima mia magnifica il Signore", '/il maɲˈɲifikat/'],
         ],
         grammar: {
           title: 'Passato prossimo — building fluency',
@@ -277,10 +277,10 @@ export const PHASES = [
         n: 13, d: 'Jul 6-12', r: 'Luke 10-11', b: 'Reflexive verbs', review: false,
         vocab: [
           ['il samaritano', 'Samaritan', 'il buon samaritano', '/il samaɾiˈtaːno/'],
-          ['il prossimo', 'neighbor', "chi è il mio prossimo?"],
-          ["l'olio", 'oil', 'versò olio e vino'],
+          ['il prossimo', 'neighbor', "chi è il mio prossimo?", '/il ˈpɾɔssimo/'],
+          ["l'olio", 'oil', 'versò olio e vino', '/ˈlɔːljo/'],
           ['pregare', 'to pray', 'insegnateci a pregare', '/pɾeˈɡaːɾe/'],
-          ['il Padre Nostro', "Lord's Prayer", 'Padre nostro, che sei nei cieli'],
+          ['il Padre Nostro', "Lord's Prayer", 'Padre nostro, che sei nei cieli', '/il ˈpaːdɾe ˈnɔstɾo/'],
           ['chiedere', 'to ask', 'chiedete e vi sarà dato', '/ˈkjɛːdeɾe/'],
           ['il demonio', 'demon', 'scacciava un demonio', '/il deˈmɔːnjo/'],
         ],
@@ -301,7 +301,7 @@ export const PHASES = [
           ['preoccuparsi', 'to worry', 'non preoccupatevi per la vita', '/pɾeokkuˈpaɾsi/'],
           ['il fico', 'fig tree', 'un uomo aveva un fico', '/il ˈfiːko/'],
           ['la porta stretta', 'narrow gate', 'entrate per la porta stretta', '/la ˈpɔɾta ˈstɾɛtta/'],
-          ["l'ipocrita", 'hypocrite', 'ipocriti!'],
+          ["l'ipocrita", 'hypocrite', 'ipocriti!', '/liˈpɔːkɾita/'],
           ['il regno di Dio', 'kingdom of God', 'il regno di Dio è vicino', '/il ˈɾeɲɲo di ˈdiːo/'],
         ],
         grammar: {
@@ -317,7 +317,7 @@ export const PHASES = [
         n: 15, d: 'Jul 20-26', r: 'Luke 14-16', b: 'Conditional: vorrei, sarebbe', review: false,
         vocab: [
           ['il banchetto', 'banquet', 'diede un grande banchetto', '/il baŋˈkɛtto/'],
-          ["l'invitato", 'guest', 'gli invitati non vennero'],
+          ["l'invitato", 'guest', 'gli invitati non vennero', '/linviˈtaːto/'],
           ['la pecora perduta', 'lost sheep', 'se perde una delle cento pecore', '/la ˈpɛːkoɾa peɾˈduːta/'],
           ['il figlio prodigo', 'prodigal son', 'il figlio minore', '/il ˈfiʎʎo ˈpɾɔːdiɡo/'],
           ['il padre misericordioso', 'merciful father', 'gli corse incontro', '/il ˈpaːdɾe mizeɾikoɾˈdjoːzo/'],
@@ -337,7 +337,7 @@ export const PHASES = [
         n: 16, d: 'Jul 27-Aug 2', r: 'Luke 17-18', b: 'Relative pronouns: che, cui', review: false,
         vocab: [
           ['la gratitudine', 'gratitude', 'il samaritano ha reso grazie', '/la ɡɾatiˈtuːdine/'],
-          ["l'umiltà", 'humility', 'chi si umilia sarà esaltato'],
+          ["l'umiltà", 'humility', 'chi si umilia sarà esaltato', '/lumiˈlta/'],
           ['il giudice', 'judge', 'il giudice ingiusto', '/il ˈdʒuːditʃe/'],
           ['la vedova', 'widow', 'la vedova veniva da lui', '/la ˈvɛːdova/'],
           ['il pubblicano', 'tax collector', 'il pubblicano non osava', '/il pubbliˈkaːno/'],
@@ -359,7 +359,7 @@ export const PHASES = [
           ['Zaccheo', 'Zacchaeus', 'Zaccheo era un pubblicano ricco', '/zakˈkɛːo/'],
           ['la salvezza', 'salvation', 'oggi la salvezza è entrata in questa casa', '/la salˈvɛttsa/'],
           ['il tempio', 'temple', 'purificò il tempio', '/il ˈtɛmpjo/'],
-          ["l'asino", 'donkey', 'trovate un asino'],
+          ["l'asino", 'donkey', 'trovate un asino', '/ˈlaːzino/'],
           ['la moneta', 'coin', 'la moneta della vedova', '/la moˈnɛːta/'],
           ['vigilare', 'to watch', 'vigilate e pregate', '/vidʒiˈlaːɾe/'],
           ['la distruzione', 'destruction', 'distruggeranno i tuoi nemici', '/la distɾutˈtsjone/'],
@@ -377,11 +377,11 @@ export const PHASES = [
         n: 18, d: 'Aug 10-16', r: 'Luke 22-24', b: 'Review week + iTalki: discuss Luke', review: true,
         vocab: [
           ['il tradimento', 'betrayal', 'Giuda lo consegnò', '/il tɾadiˈmento/'],
-          ["l'ultima cena", 'Last Supper', 'diede loro il pane'],
+          ["l'ultima cena", 'Last Supper', 'diede loro il pane', '/ˈlultima ˈtʃɛːna/'],
           ['il calice', 'chalice/cup', 'questo calice è la nuova alleanza', '/il ˈkaːlitʃe/'],
           ['la passione', 'passion/suffering', 'la passione di Cristo', '/la pasˈsjone/'],
           ['Emmaus', 'Emmaus', 'la strada di Emmaus', '/emˈmaus/'],
-          ["l'ascensione", 'ascension', 'fu portato in cielo'],
+          ["l'ascensione", 'ascension', 'fu portato in cielo', '/laʃʃenˈsjone/'],
           ['la benedizione', 'blessing', 'li benedì e si allontanò', '/la benediˈtsjone/'],
         ],
         grammar: {
@@ -412,7 +412,7 @@ export const PHASES = [
       {
         n: 19, d: 'Aug 17-23', r: 'Acts 1-3', b: 'Subjunctive mood: intro', review: false,
         vocab: [
-          ["l'ascensione", 'ascension', 'fu elevato in alto'],
+          ["l'ascensione", 'ascension', 'fu elevato in alto', '/laʃʃenˈsjone/'],
           ['la Pentecoste', 'Pentecost', 'il giorno di Pentecoste', '/la penteˈkɔste/'],
           ['lo Spirito Santo', 'Holy Spirit', 'furono tutti pieni di Spirito Santo', '/lo ˈspiːɾito ˈsanto/'],
           ['le lingue di fuoco', 'tongues of fire', 'lingue come di fuoco', '/le ˈliŋɡwe di ˈfwɔːko/'],
@@ -476,7 +476,7 @@ export const PHASES = [
           ['Cornelio', 'Cornelius', 'il centurione Cornelio', '/koɾˈnɛːljo/'],
           ['i pagani', 'Gentiles', 'il vangelo anche ai pagani', '/i paˈɡaːni/'],
           ['il battesimo', 'baptism', 'chi può impedire il battesimo?', '/il batˈtɛːzimo/'],
-          ["l'angelo", 'angel', 'un angelo del Signore apparve'],
+          ["l'angelo", 'angel', 'un angelo del Signore apparve', '/ˈlandʒelo/'],
           ['il carcere', 'prison', 'Pietro era in carcere', '/il ˈkaɾtʃeɾe/'],
           ['Erode', 'Herod', 'Erode lo aveva arrestato', '/eˈɾɔːde/'],
         ],
@@ -516,7 +516,7 @@ export const PHASES = [
           ['il terremoto', 'earthquake', 'ci fu un gran terremoto', '/il teɾɾeˈmɔːto/'],
           ['il carcere', 'prison', 'il custode del carcere', '/il ˈkaɾtʃeɾe/'],
           ['Corinto', 'Corinth', 'giunsero a Corinto', '/koˈɾinto/'],
-          ["l'Areopago", 'Areopagus', "in mezzo all'Areopago"],
+          ["l'Areopago", 'Areopagus', "in mezzo all'Areopago", '/laɾeˈɔːpaɡo/'],
           ['il missionario', 'missionary', 'missionari instancabili', '/il missjoˈnaːɾjo/'],
           ['la sinagoga', 'synagogue', 'ogni sabato nella sinagoga', '/la sinaˈɡɔːɡa/'],
         ],
@@ -534,7 +534,7 @@ export const PHASES = [
         vocab: [
           ['la magia', 'magic', 'bruciarono i libri di magia', '/la ˈmaːdʒa/'],
           ['il tumulto', 'riot', 'il tumulto degli artigiani', '/il tuˈmulto/'],
-          ["l'argentiere", 'silversmith', "Demetrio l'argentiere"],
+          ["l'argentiere", 'silversmith', "Demetrio l'argentiere", '/laɾdʒenˈtjɛːɾe/'],
           ['la profezia', 'prophecy', 'aveva quattro figlie profetesse', '/la pɾofeˈtsiːa/'],
           ['legare', 'to bind', 'lo legheranno e lo consegneranno', '/leˈɡaːɾe/'],
           ['il viaggio', 'the journey', 'ci imbarcammo', '/il ˈvjaddʒo/'],
@@ -558,7 +558,7 @@ export const PHASES = [
           ['il governatore', 'governor', 'il governatore Felice', '/il ɡoveɾnaˈtoːɾe/'],
           ['il processo', 'trial', 'durante il processo', '/il pɾoˈtʃɛsso/'],
           ['il testimone', 'witness', 'sono testimone di queste cose', '/il testiˈmoːne/'],
-          ["l'accusa", 'accusation', 'le accuse contro Paolo'],
+          ["l'accusa", 'accusation', 'le accuse contro Paolo', '/lakˈkuːza/'],
         ],
         grammar: {
           title: 'Registro formale vs informale',
@@ -574,7 +574,7 @@ export const PHASES = [
         vocab: [
           ['Festo', 'Festus', 'il governatore Festo', '/ˈfɛsto/'],
           ['Agrippa', 'Agrippa', 'il re Agrippa', '/aˈɡɾippa/'],
-          ["l'appello", 'appeal', 'ho fatto appello a Cesare'],
+          ["l'appello", 'appeal', 'ho fatto appello a Cesare', '/lapˈpɛllo/'],
           ['la testimonianza', 'testimony', 'la mia testimonianza', '/la testimonˈjantsa/'],
           ['convertirsi', 'to convert', 'perché si convertissero', '/konveɾˈtiɾsi/'],
           ['la luce', 'light', 'una luce dal cielo', '/la ˈluːtʃe/'],
@@ -593,11 +593,11 @@ export const PHASES = [
         n: 28, d: 'Oct 19-25', r: 'Acts 27-28', b: 'Review week + iTalki: discuss Acts', review: true,
         vocab: [
           ['il naufragio', 'shipwreck', 'il naufragio di Paolo', '/il nawˈfɾaːdʒo/'],
-          ["l'isola", 'island', "l'isola di Malta"],
+          ["l'isola", 'island', "l'isola di Malta", '/ˈliːzola/'],
           ['il serpente', 'snake', 'una vipera uscì dal fuoco', '/il seɾˈpɛnte/'],
           ['Roma', 'Rome', 'finalmente arrivammo a Roma', '/ˈɾɔːma/'],
           ['predicare', 'to preach', 'predicava il regno di Dio', '/pɾediˈkaːɾe/'],
-          ["l'impedimento", 'hindrance', 'senza impedimento alcuno'],
+          ["l'impedimento", 'hindrance', 'senza impedimento alcuno', '/limpediˈmento/'],
           ['la nave', 'ship', 'la nave si incagliò', '/la ˈnaːve/'],
         ],
         grammar: {
@@ -631,9 +631,9 @@ export const PHASES = [
           ['il vangelo', 'the gospel', 'il vangelo di Gesù Cristo', '/il vanˈdʒɛːlo/'],
           ['la giustizia', 'righteousness', 'la giustizia di Dio', '/la dʒusˈtiːttsja/'],
           ['il giudizio', 'judgment', 'il giudizio di Dio', '/il dʒuˈdiːttsjo/'],
-          ["l'ira", 'wrath', "l'ira di Dio"],
-          ["l'idolatria", 'idolatry', "caduti nell'idolatria"],
-          ["l'albero", 'tree', 'come albero piantato'],
+          ["l'ira", 'wrath', "l'ira di Dio", '/ˈliːɾa/'],
+          ["l'idolatria", 'idolatry', "caduti nell'idolatria", '/lidolaˈtɾiːa/'],
+          ["l'albero", 'tree', 'come albero piantato', '/ˈlalbeɾo/'],
           ['il cammino', 'the way/path', 'non cammina nel consiglio degli empi', '/il kamˈmiːno/'],
         ],
         grammar: {
@@ -652,7 +652,7 @@ export const PHASES = [
           ['la grazia', 'grace', 'per pura grazia', '/la ˈɡɾattsja/'],
           ['la redenzione', 'redemption', 'la redenzione in Cristo', '/la ɾedenˈtsjone/'],
           ['il pastore', 'shepherd', 'il Signore è il mio pastore', '/il pasˈtoːɾe/'],
-          ["l'abbondanza", 'abundance', 'non manco di nulla'],
+          ["l'abbondanza", 'abundance', 'non manco di nulla', '/labbonˈdantsa/'],
           ['il calice', 'cup', 'il mio calice trabocca', '/il ˈkaːlitʃe/'],
           ['la tenebrosa valle', 'dark valley', 'nella valle oscura', '/la tenebˈɾoːza ˈvalle/'],
         ],
@@ -708,7 +708,7 @@ export const PHASES = [
       {
         n: 33, d: 'Nov 23-29', r: 'Romans 9-10 + Psalm 91', b: 'Idioms and natural spoken patterns', review: false,
         vocab: [
-          ["l'elezione", 'election', "l'elezione per grazia"],
+          ["l'elezione", 'election', "l'elezione per grazia", '/leletˈtsjone/'],
           ['confessare', 'to confess', 'confessa con la tua bocca', '/konfesˈsaːɾe/'],
           ['credere nel cuore', 'believe in heart', 'credere nel cuore', '/ˈkɾɛːdeɾe nel ˈkwɔːɾe/'],
           ['la protezione', 'protection', 'sotto la sua protezione', '/la pɾotetˈtsjone/'],
@@ -748,7 +748,7 @@ export const PHASES = [
       {
         n: 35, d: 'Dec 7-13', r: 'Romans 13-14 + Psalm 121', b: 'Final Babbel units + free conversation', review: false,
         vocab: [
-          ["l'autorità", 'authority', "ogni persona sia sottomessa alle autorità"],
+          ["l'autorità", 'authority', "ogni persona sia sottomessa alle autorità", '/lautoɾiˈta/'],
           ['amare il prossimo', 'love neighbor', 'amerai il prossimo tuo', '/aˈmaːɾe il ˈpɾɔssimo/'],
           ['la coscienza', 'conscience', 'secondo la propria coscienza', '/la koˈʃʃɛntsa/'],
           ['il soccorso', 'help', 'il mio soccorso viene dal Signore', '/il sokˈkɔɾso/'],
@@ -769,7 +769,7 @@ export const PHASES = [
         n: 36, d: 'Dec 14-20', r: 'Romans 15-16 + Psalm 139', b: 'iTalki: full session in Italian only', review: true,
         vocab: [
           ['la speranza', 'hope', 'il Dio della speranza', '/la speˈɾantsa/'],
-          ["l'unità", 'unity', "l'unità tra ebrei e pagani"],
+          ["l'unità", 'unity', "l'unità tra ebrei e pagani", '/luniˈta/'],
           ['i saluti', 'greetings', 'i saluti finali di Paolo', '/i saˈluːti/'],
           ['conoscere', 'to know', 'tu mi conosci', '/koˈnoʃʃeɾe/'],
           ['tessere', 'to weave', 'mi hai tessuto nel seno di mia madre', '/ˈtɛsseɾe/'],
@@ -795,8 +795,8 @@ export const PHASES = [
         n: 37, d: 'Dec 21-27', r: 'Review + Psalm 150', b: 'Buon Natale. Hai finito.', review: true,
         vocab: [
           ['lodare', 'to praise', 'lodate il Signore', '/loˈdaːɾe/'],
-          ["l'alleluja", 'alleluia', 'alleluia!'],
-          ['gli strumenti', 'instruments', "con la tromba, con l'arpa"],
+          ["l'alleluja", 'alleluia', 'alleluia!', '/lalleˈluːja/'],
+          ['gli strumenti', 'instruments', "con la tromba, con l'arpa", '/ʎi stɾuˈmenti/'],
           ['tutta la creazione', 'all creation', 'tutto ciò che respira', '/ˈtutta la kɾeaˈtsjone/'],
           ['la gloria', 'glory', 'gloria a Dio', '/la ˈɡlɔːɾja/'],
           ['il Natale', 'Christmas', 'Buon Natale', '/il naˈtaːle/'],

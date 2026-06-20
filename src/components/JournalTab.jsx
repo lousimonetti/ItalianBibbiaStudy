@@ -96,6 +96,9 @@ function WeekJournalRow({ week, entry, onSave, grammarEnabled }) {
       }
     }, 800);
     return () => clearTimeout(timerRef.current);
+    // Debounce intentionally keys off draft/open only; including onSave/entry
+    // would reset the timer on every save and break the debounce.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [draft, open]);
 
   // Grammar check with 1.5s debounce
