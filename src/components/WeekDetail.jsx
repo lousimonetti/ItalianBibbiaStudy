@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { DAILY } from '../data/studyData';
 import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
+import { WordGloss } from './WordGloss';
 
 export function WeekDetail({ week }) {
   const [ipaOpen, setIpaOpen] = useState(false);
@@ -37,7 +38,7 @@ export function WeekDetail({ week }) {
                   <td className="vocab-ex">
                     {ex && (
                       <span className="vocab-ex-row">
-                        <span>{ex}</span>
+                        <WordGloss text={ex} />
                         <SpeakerButton word={ex} size={13} />
                       </span>
                     )}
@@ -62,7 +63,7 @@ export function WeekDetail({ week }) {
           <div className="detail-section">
             <div className="detail-label">Writing prompt</div>
             <div className="prompt-box">
-              <div className="prompt-italian">{week.prompt.it}</div>
+              <div className="prompt-italian"><WordGloss text={week.prompt.it} /></div>
               <div className="prompt-english">{week.prompt.en}</div>
             </div>
           </div>

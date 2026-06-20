@@ -53,14 +53,23 @@ component). New learners start with it off; one tap immerses.
 - New: `src/i18n/strings.js` — `{ key: { it, en } }` map; a `useUiLang()` hook.
 - Touches: `App.jsx`, every tab component (swap hardcoded strings for `t(key)`).
 
-### A2. Tap-to-translate everywhere (comprehensible input)
-The core "easy to comprehend" lever. Any Italian word/verse rendered in the app
-becomes tappable; tapping reveals English + IPA + a speaker button in a small
-popover, without leaving the page. Built from existing vocab data (we already
-have `[it, en, ex, ipa]`); unknown words fall back to TTS-only.
-- New: `src/components/GlossPopover.jsx` + a `WordGloss` wrapper that tokenizes a
-  sentence and links tokens to the vocab index.
-- Build a vocab lookup index once from `PHASES` (Italian → {en, ipa}).
+### A2. Tap-to-translate everywhere (comprehensible input) — ✅ DONE
+The core "easy to comprehend" lever. Italian words rendered in the app become
+tappable; tapping reveals Italian + English + IPA + a speaker button in a small
+popover, without leaving the page. Built entirely from existing vocab data.
+- New: `src/utils/vocabIndex.js` — memoized `Map` from PHASES (full term **and**
+  article-stripped stem → `{ it, en, ipa }`), plus `lookupWord` and a `tokenize`
+  that preserves text exactly and keeps internal apostrophes (`l'unzione`).
+  Unit-tested in `vocabIndex.test.js` (10 tests).
+- New: `src/components/WordGloss.jsx` (tokenizes a string; only words found in
+  the index become interactive — dotted underline) + `GlossPopover.jsx` (the
+  translation card). Outside-click / Escape closes it.
+- Wired into: Tracker example sentences and writing prompt (`WeekDetail.jsx`)
+  and the Journal prompt (`JournalTab.jsx`).
+- **Known v1 limits (deferred):** conjugated/derived forms ("crede" vs
+  "credere", "adoratori" vs "adorare") and multi-word phrases inside a sentence
+  don't match — those words just render plain. Whole-sentence audio is still
+  available via the A3 speaker.
 
 ### A3. Wire TTS into the Tracker vocab table (known gap) — ✅ DONE
 Added `<SpeakerButton>` to each row of `WeekDetail.jsx`'s vocab table (Italian
@@ -148,7 +157,7 @@ phase structure and gives a reason to return.
 | Phase | Items | Why first | Rough effort |
 |------|-------|-----------|--------------|
 | **0 — Hygiene** ✅ | Fix lint (`reactHooks.configs['recommended-latest']`); add CI lint+test steps; A4 IPA backfill (all 259 tuples now have IPA) | Unblocks reliable CI; cheap data win | S |
-| **1 — Immersion quick wins** | A3 (TTS in Tracker), A2 (tap-to-translate), A1 (immersion toggle) | Highest immersion-per-line; mostly UI | M |
+| **1 — Immersion quick wins** | A3 ✅ (TTS in Tracker), A2 ✅ (tap-to-translate), A1 (immersion toggle) | Highest immersion-per-line; mostly UI | M |
 | **2 — Retention** | B1 (SRS), B2 (persist results) | Biggest fluency lever | M–L |
 | **3 — Production** | C1 (EN→IT + cloze), C2 (listening), C3 (journaling scaffolds) | Builds on SRS + immersion | M–L |
 | **4 — Motivation** | D1 (streaks/dashboard), D3 (micro-interactions), D4 (badges), D2 (reminders) | Compounds everything above | M |
