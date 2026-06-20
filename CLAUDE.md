@@ -47,7 +47,7 @@ All persisted keys are namespaced `italian-bible-*` (`-progress`, `-journal`, `-
 
 **Flashcards tab** (`FlashcardsTab.jsx`) has three modes toggled by local state: *Anki Decks* (download `.apkg` files), *Practice* (`PracticeMode.jsx` — SRS-scheduled, with a style selector for Recognition / Recall / Cloze and a "Parole difficili" struggle panel), and *Pronunciation* (`PronunciationPractice.jsx`).
 
-**Text-to-speech** (`SpeakerButton.jsx`): Uses `window.speechSynthesis` with `lang: 'it-IT'`. No external dependency — falls back silently if the API is unavailable.
+**Text-to-speech** (`SpeakerButton.jsx`): Uses `window.speechSynthesis` with `lang: 'it-IT'`. Optional `rate` prop (default `0.85`; Listening mode passes a slower rate). No external dependency — falls back silently if the API is unavailable.
 
 **Tap-to-translate** (`WordGloss.jsx` + `GlossPopover.jsx`, backed by `src/utils/vocabIndex.js`): wraps an Italian string and makes any word that exists in the vocab index tappable → a popover with Italian + English + IPA + a speaker. `vocabIndex.js` builds a memoized `Map` once from `PHASES`, keyed by both the full term and its article-stripped stem (so "il Verbo" is reachable as "verbo"); `tokenize` preserves the original text exactly and keeps internal apostrophes. Words not in the index render as plain text (no match for conjugations/derived forms — that's an accepted v1 limit). Wired into example sentences + writing prompt (`WeekDetail.jsx`) and the Journal prompt (`JournalTab.jsx`). All client-side, works offline.
 
@@ -101,8 +101,11 @@ active production. In rough priority order:
    IPA. The 35 that were missing already had correct IPA in
    `scripts/pronunciations.json` — it was a merge gap, not a generation gap, so
    no API call was needed (the values were merged into `studyData.js` directly).
-3. **Listening / comprehensible-input mode.** Reuse TTS to read example
-   sentences and full verses (not just single words) at adjustable speed.
+3. ~~**Listening / comprehensible-input mode.**~~ **Done (Phase 3 / C2).** Practice
+   has a *Listening* style: TTS speaks the example **sentence** (not just the
+   word) at adjustable speed (Slow 0.6 / Normal 0.85), you type what you hear,
+   then reveal text + translation and self-grade into the SRS. `SpeakerButton`
+   gained an optional `rate` prop (default 0.85).
 4. ~~**Active production, both directions.**~~ **Done (Phase 3 / C1).** Practice
    now has a style selector: *Recognition* (IT→EN, tap to reveal), *Recall*
    (EN→IT, type it), and *Cloze* (fill the blanked word in the example sentence,

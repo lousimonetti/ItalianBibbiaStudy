@@ -13,6 +13,7 @@ const STYLES = [
   { id: 'recognition', label: 'Recognition', sub: 'IT → EN, tap to reveal' },
   { id: 'recall', label: 'Recall', sub: 'EN → IT, type it' },
   { id: 'cloze', label: 'Cloze', sub: 'fill the blank' },
+  { id: 'listening', label: 'Listening', sub: 'hear it, type it' },
 ];
 
 function buildCards(phases) {
@@ -71,6 +72,7 @@ export function PracticeMode() {
   const [typed, setTyped] = useState('');
   const [checked, setChecked] = useState(false);
   const [correct, setCorrect] = useState(false);
+  const [listenRate, setListenRate] = useState(0.85);
   const { recordReview, buildSession, getStats, getStore, version } = useSrs();
   const { getStore: getPronunStore, version: pronunVersion } = usePronunStats();
 
@@ -112,8 +114,11 @@ export function PracticeMode() {
 
   function handleCheck() {
     const card = session.cards[session.index];
-    const expected = session.style === 'cloze' ? makeCloze(card.it, card.ex).answer : card.it;
-    setCorrect(checkAnswer(expected, typed));
+    // Listening is dictation — reveal and self-grade, no auto-verdict.
+    if (session.style !== 'listening') {
+      const expected = session.style === 'cloze' ? makeCloze(card.it, card.ex).answer : card.it;
+      setCorrect(checkAnswer(expected, typed));
+    }
     setChecked(true);
   }
 
@@ -164,7 +169,21 @@ export function PracticeMode() {
 
         {isTyped ? (
           <div className="prac-typed-card">
-            {session.style === 'cloze' ? (
+            {session.style === 'listening' ? (
+              <div className="prac-listen-prompt">
+                <SpeakerButton word={card.ex} size={30} rate={listenRate} />
+                <div className="prac-listen-speeds">
+                  <button
+                    className={`prac-speed-btn${listenRate === 0.6 ? ' active' : ''}`}
+                    onClick={() => setListenRate(0.6)}
+                  >Slow</button>
+                  <button
+                    className={`prac-speed-btn${listenRate === 0.85 ? ' active' : ''}`}
+                    onClick={() => setListenRate(0.85)}
+                  >Normal</button>
+                </div>
+              </div>
+            ) : session.style === 'cloze' ? (
               <div className="prac-cloze-sentence">
                 {cloze.before}
                 <span className="prac-blank">{checked ? cloze.answer : '____'}</span>
@@ -174,10 +193,12 @@ export function PracticeMode() {
               <div className="prac-recall-prompt">{card.en}</div>
             )}
             <div className="prac-typed-sub">
-              {session.style === 'cloze' ? `Fill the blank — ${card.en}` : 'Type the Italian'}
+              {session.style === 'listening' ? 'Listen and type what you hear'
+                : session.style === 'cloze' ? `Fill the blank — ${card.en}`
+                : 'Type the Italian'}
             </div>
             <input
-              className={`prac-input${checked ? (correct ? ' prac-input-correct' : ' prac-input-wrong') : ''}`}
+              className={`prac-input${checked && session.style !== 'listening' ? (correct ? ' prac-input-correct' : ' prac-input-wrong') : ''}`}
               value={typed}
               onChange={(e) => setTyped(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter' && !checked && typed.trim()) handleCheck(); }}
@@ -188,13 +209,25 @@ export function PracticeMode() {
             />
             {checked && (
               <div className="prac-typed-result">
-                <span className={correct ? 'prac-result-ok' : 'prac-result-no'}>
-                  {correct ? 'Correct!' : 'Not quite'}
-                </span>
-                <span className="prac-answer">{card.it}</span>
-                {card.ipa && <span className="prac-ipa">{card.ipa}</span>}
-                <SpeakerButton word={card.it} size={18} />
-                {session.style === 'recall' && <span className="prac-example">"{card.ex}"</span>}
+                {session.style !== 'listening' && (
+                  <span className={correct ? 'prac-result-ok' : 'prac-result-no'}>
+                    {correct ? 'Correct!' : 'Not quite'}
+                  </span>
+                )}
+                {session.style === 'listening' ? (
+                  <>
+                    <span className="prac-answer prac-answer-sentence">{card.ex}</span>
+                    <span className="prac-translation">{card.en}</span>
+                    <SpeakerButton word={card.ex} size={18} rate={listenRate} />
+                  </>
+                ) : (
+                  <>
+                    <span className="prac-answer">{card.it}</span>
+                    {card.ipa && <span className="prac-ipa">{card.ipa}</span>}
+                    <SpeakerButton word={card.it} size={18} />
+                    {session.style === 'recall' && <span className="prac-example">"{card.ex}"</span>}
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -231,7 +264,13 @@ export function PracticeMode() {
         ) : (
           <div className="prac-actions">
             {isTyped ? (
-              <button className="prac-reveal-btn" onClick={handleCheck} disabled={!typed.trim()}>Check</button>
+              <button
+                className="prac-reveal-btn"
+                onClick={handleCheck}
+                disabled={session.style !== 'listening' && !typed.trim()}
+              >
+                {session.style === 'listening' ? 'Reveal' : 'Check'}
+              </button>
             ) : (
               <button className="prac-reveal-btn" onClick={() => setFlipped(true)}><UiText k="prac.reveal" /></button>
             )}

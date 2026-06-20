@@ -145,11 +145,14 @@ example sentence, e.g. *"In principio era il ____"*). All from existing data.
   feedback; cloze sessions draw only from eligible cards; all styles grade into
   the same SRS store.
 
-### C2. Listening / dictation mode (comprehensible input via ear)
-A mode that **speaks** an example sentence or verse (TTS, adjustable speed; reuse
-`SpeakerButton`'s `rate`) and asks the learner to type or tap what they heard,
-then reveals text + translation. Works fully offline. Extends listening from
-single words to whole sentences.
+### C2. Listening / dictation mode (comprehensible input via ear) — ✅ DONE
+Added a 4th Practice style, **Listening**: TTS speaks the example **sentence** at
+adjustable speed (Slow 0.6 / Normal 0.85), the learner types what they hear, then
+reveals the text + translation and self-grades into the SRS. Works fully offline;
+extends listening from single words to whole sentences.
+- `SpeakerButton.jsx` gained an optional `rate` prop (default 0.85).
+- `PracticeMode.jsx`: listening prompt (play + speed toggle), dictation input,
+  reveal + self-grade. Eligible for all cards (every card has an example).
 
 ### C3. Guided Italian journaling
 The Journal already nudges Italian writing + LanguageTool grammar checks. Add
@@ -190,7 +193,7 @@ phase structure and gives a reason to return.
 | **0 — Hygiene** ✅ | Fix lint (`reactHooks.configs['recommended-latest']`); add CI lint+test steps; A4 IPA backfill (all 259 tuples now have IPA) | Unblocks reliable CI; cheap data win | S |
 | **1 — Immersion quick wins** ✅ | A3 ✅ (TTS in Tracker), A2 ✅ (tap-to-translate), A1 ✅ (immersion toggle) | Highest immersion-per-line; mostly UI | M |
 | **2 — Retention** ✅ | B1 ✅ (SRS), B2 ✅ (persist results + struggle list) | Biggest fluency lever | M–L |
-| **3 — Production** | C1 ✅ (EN→IT + cloze), C2 (listening), C3 (journaling scaffolds) | Builds on SRS + immersion | M–L |
+| **3 — Production** | C1 ✅ (EN→IT + cloze), C2 ✅ (listening), C3 (journaling scaffolds) | Builds on SRS + immersion | M–L |
 | **4 — Motivation** | D1 (streaks/dashboard), D3 (micro-interactions), D4 (badges), D2 (reminders) | Compounds everything above | M |
 
 ## Risks & guardrails
