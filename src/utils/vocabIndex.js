@@ -1,9 +1,9 @@
 import { PHASES } from '../data/studyData';
+import { LEADING_ARTICLE } from './locale';
 
-// A leading Italian article (definite/indefinite) so that a vocab entry like
-// "il Verbo" or "la luce" is also reachable by its bare content word ("verbo",
-// "luce") — which is how the word appears inside an example sentence.
-const LEADING_ARTICLE = /^(l['’]|gli\s+|le\s+|il\s+|lo\s+|la\s+|i\s+|uno\s+|una\s+|un['’]?\s*)/i;
+// LEADING_ARTICLE (from the course locale) lets a vocab entry like "il Verbo" or
+// "la luce" also be reached by its bare content word ("verbo", "luce") — which is
+// how the word appears inside an example sentence.
 
 function clean(s) {
   return s.toLowerCase().trim();

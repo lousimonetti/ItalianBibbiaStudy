@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { tokenize, lookupWord } from '../utils/vocabIndex';
+import { TTS_LANG } from '../utils/locale';
 import { GlossPopover } from './GlossPopover';
 
 const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -8,7 +9,7 @@ function speakWord(text) {
   try {
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'it-IT';
+    u.lang = TTS_LANG;
     u.rate = 0.9;
     window.speechSynthesis.speak(u);
   } catch {

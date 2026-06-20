@@ -4,6 +4,7 @@ import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
 import { scorePronunciation } from '../utils/pronunciation';
 import { usePronunStats } from '../hooks/usePronunStats';
+import { TTS_LANG, HAS_IPA } from '../utils/locale';
 
 function buildCards(phases) {
   const cards = [];
@@ -127,7 +128,7 @@ export function PronunciationPractice() {
 
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     const rec = new SR();
-    rec.lang = 'it-IT';
+    rec.lang = TTS_LANG;
     rec.interimResults = false;
     rec.maxAlternatives = 3;
     recRef.current = rec;
@@ -231,7 +232,7 @@ export function PronunciationPractice() {
 
         <div className="pronun-card">
           <span className="pronun-word">{card.it}</span>
-          <span className="pronun-ipa">{card.ipa}</span>
+          {HAS_IPA && <span className="pronun-ipa">{card.ipa}</span>}
           <SpeakerButton word={card.it} size={22} />
           <span className="pronun-translation">{card.en}</span>
         </div>
@@ -271,7 +272,7 @@ export function PronunciationPractice() {
           </div>
         )}
 
-        <IPAKeyPanel />
+        {HAS_IPA && <IPAKeyPanel />}
       </div>
     );
   }
@@ -318,7 +319,7 @@ export function PronunciationPractice() {
         Start — {filtered.length} cards
       </button>
 
-      <IPAKeyPanel />
+      {HAS_IPA && <IPAKeyPanel />}
     </div>
   );
 }

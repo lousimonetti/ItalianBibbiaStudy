@@ -146,14 +146,19 @@ logic in tested modules, build → PR → green → merge.
 - *Done:* the IT-Bible app behaves identically (lint clean, 164 tests, build +
   preview verified); all course data lives in `course/`.
 
-### T1 — Locale generalization
-- Thread `locale.target` into `SpeakerButton` (+ `rate`), `WordGloss` TTS,
+### T1 — Locale generalization — ✅ DONE
+- ✅ New `src/utils/locale.js` centralizes `TTS_LANG`/`NATIVE_LANG`/`GRAMMAR_LANG`/
+  `HAS_IPA` and a `LEADING_ARTICLE` regex **built from `config.locale.articles`**
+  (longest-first; handles elided `l'`). Generic-by-construction — `locale.test.js`
+  proves it works for IT/ES/FR.
+- ✅ `locale.target` threaded into `SpeakerButton`, `WordGloss` TTS, and
   `PronunciationPractice` (`rec.lang`); `locale.grammarLang` into the Journal
-  check (empty ⇒ hide the Grammar toggle).
-- `hasIPA:false` ⇒ hide the IPA column, pronunciation-key panels, and the IPA on
-  card backs. `answer.js`/`vocabIndex.js` take the article list from `locale`.
-- *Done when:* flipping `locale` to `es-ES`/`fr-FR` makes audio, dictation,
-  recognition, and grammar-check speak the new language with no code edits.
+  check, and the Grammar toggle is hidden when it's empty.
+- ✅ `hasIPA:false` ⇒ hides the IPA column, pronunciation-key panels, and the IPA
+  on card backs (Tracker + Practice + Pronunciation). `answer.js` / `vocabIndex.js`
+  / `cloze.js` now strip articles via the shared `LEADING_ARTICLE`.
+- *Done:* flipping `config.locale` retargets audio, dictation, recognition, and
+  grammar-check with no component edits (lint clean, 168 tests, build + preview).
 
 ### T2 — Branding & resources from config
 - `index.html` title + `App.jsx` header/tagline from `brand`; the ribbon bar and
@@ -222,7 +227,7 @@ fixtures/tests):
 | Phase | Outcome | Effort |
 |---|---|---|
 | **T0** ✅ Extract course + validate (numbers derived; namespacing → T5) | All data in `course/`, app unchanged | M |
-| **T1** Locale generalization | Any language's audio/dictation/grammar | M |
+| **T1** ✅ Locale generalization | Any language's audio/dictation/grammar | M |
 | **T2** Branding & resources | Course's own identity, no IT/Bible prose in code | M |
 | **T3** Anki from course (dedupe) | Decks for any course; tech-debt gone | S–M |
 | **T4** Authoring kit (guide, scaffolder, CSV import, validator) | Non-devs can ship a course | M–L |

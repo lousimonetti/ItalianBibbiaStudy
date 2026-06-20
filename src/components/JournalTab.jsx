@@ -6,6 +6,9 @@ import { WordGloss } from './WordGloss';
 import { JournalScaffold } from './JournalScaffold';
 import { recordActivity } from '../utils/streak';
 import { UiText } from '../i18n/UiText';
+import { GRAMMAR_LANG } from '../utils/locale';
+
+const grammarSupported = !!GRAMMAR_LANG;
 
 function ExportIcon() {
   return (
@@ -30,7 +33,7 @@ async function checkGrammar(text) {
   const resp = await fetch('https://api.languagetool.org/v2/check', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({ text, language: 'it' }),
+    body: new URLSearchParams({ text, language: GRAMMAR_LANG }),
   });
   const data = await resp.json();
   return data.matches ?? [];
@@ -237,14 +240,16 @@ export function JournalTab() {
           </div>
         </div>
         <div className="jrn-header-actions">
-          <button
-            className={`jrn-grammar-toggle${grammarEnabled ? ' active' : ''}`}
-            onClick={() => setGrammarEnabled((v) => !v)}
-            title={grammarEnabled ? 'Disable grammar suggestions' : 'Enable grammar suggestions (uses LanguageTool)'}
-          >
-            <GrammarIcon />
-            <UiText k="jrn.grammar" />
-          </button>
+          {grammarSupported && (
+            <button
+              className={`jrn-grammar-toggle${grammarEnabled ? ' active' : ''}`}
+              onClick={() => setGrammarEnabled((v) => !v)}
+              title={grammarEnabled ? 'Disable grammar suggestions' : 'Enable grammar suggestions (uses LanguageTool)'}
+            >
+              <GrammarIcon />
+              <UiText k="jrn.grammar" />
+            </button>
+          )}
           <button className="jrn-export-btn" onClick={() => exportMarkdown(PHASES)}>
             <ExportIcon />
             <UiText k="jrn.export" />
