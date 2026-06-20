@@ -57,6 +57,8 @@ All persisted keys are namespaced `italian-bible-*` (`-progress`, `-journal`, `-
 
 **Grammar checking** (`JournalTab.jsx`): Calls `https://api.languagetool.org/v2/check` with `language: it`. This is an external API call — it fails offline, which is intentional and expected.
 
+**Journal writing scaffold** (`JournalScaffold.jsx`, Phase 3 / C3): a collapsible "Aiuto per scrivere" panel in each entry with the week's grammar focus, Italian sentence starters, and the week's vocab as click-to-insert chips. `WeekJournalRow`'s `insertText` appends to the draft (existing debounced auto-save + grammar check fire on change). Pure UI over existing week data, works offline.
+
 ## Key constraints
 
 - **No backend** — never introduce server-side logic, OAuth flows, or environment secrets. The app must build to a static `dist/` folder.

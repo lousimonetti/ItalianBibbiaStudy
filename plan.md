@@ -154,10 +154,15 @@ extends listening from single words to whole sentences.
 - `PracticeMode.jsx`: listening prompt (play + speed toggle), dictation input,
   reveal + self-grade. Eligible for all cards (every card has an example).
 
-### C3. Guided Italian journaling
-The Journal already nudges Italian writing + LanguageTool grammar checks. Add
-**sentence starters / scaffolds** pulled from the week's grammar focus and vocab,
-and an inline word-count/streak nudge, to lower the blank-page barrier.
+### C3. Guided Italian journaling — ✅ DONE
+Lowered the blank-page barrier: a collapsible **"Aiuto per scrivere"** scaffold in
+each Journal entry surfaces the week's grammar focus, five Italian **sentence
+starters** (*Oggi ho letto…*, *Ho imparato che…*, …), and the week's **vocabulary
+as click-to-insert chips** (English on hover). Clicking appends to the entry.
+- New: `src/components/JournalScaffold.jsx`.
+- `JournalTab.jsx`: an `insertText` handler appends a starter/word to the draft
+  (auto-save + grammar check already fire on change). The existing word count
+  stays; a streak nudge is Phase 4 (D1).
 
 ---
 
@@ -193,7 +198,7 @@ phase structure and gives a reason to return.
 | **0 — Hygiene** ✅ | Fix lint (`reactHooks.configs['recommended-latest']`); add CI lint+test steps; A4 IPA backfill (all 259 tuples now have IPA) | Unblocks reliable CI; cheap data win | S |
 | **1 — Immersion quick wins** ✅ | A3 ✅ (TTS in Tracker), A2 ✅ (tap-to-translate), A1 ✅ (immersion toggle) | Highest immersion-per-line; mostly UI | M |
 | **2 — Retention** ✅ | B1 ✅ (SRS), B2 ✅ (persist results + struggle list) | Biggest fluency lever | M–L |
-| **3 — Production** | C1 ✅ (EN→IT + cloze), C2 ✅ (listening), C3 (journaling scaffolds) | Builds on SRS + immersion | M–L |
+| **3 — Production** ✅ | C1 ✅ (EN→IT + cloze), C2 ✅ (listening), C3 ✅ (journaling scaffolds) | Builds on SRS + immersion | M–L |
 | **4 — Motivation** | D1 (streaks/dashboard), D3 (micro-interactions), D4 (badges), D2 (reminders) | Compounds everything above | M |
 
 ## Risks & guardrails
