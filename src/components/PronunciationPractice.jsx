@@ -3,6 +3,7 @@ import { PHASES } from '../data/studyData';
 import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
 import { scorePronunciation } from '../utils/pronunciation';
+import { usePronunStats } from '../hooks/usePronunStats';
 
 function buildCards(phases) {
   const cards = [];
@@ -86,6 +87,7 @@ export function PronunciationPractice() {
   const [micState, setMicState] = useState('idle'); // idle | recording | processing
   const [result, setResult] = useState(null); // { recognized, score } | { error }
   const recRef = useRef(null);
+  const { record: recordPronun } = usePronunStats();
 
   const filtered = useMemo(
     () => (filter === 'all' ? ALL_CARDS : ALL_CARDS.filter(c => c.phaseId === filter)),
@@ -164,6 +166,7 @@ export function PronunciationPractice() {
   function handleNext() {
     if (!result) return;
     const card = session.cards[session.index];
+    if (!result.error) recordPronun(card.it, result.score);
     const newScores = [...session.scores, { card, ...result }];
     setSession(s => ({ ...s, index: s.index + 1, scores: newScores }));
     setResult(null);

@@ -37,8 +37,8 @@ These come from `CLAUDE.md` and bound every option below:
 - ✅ **Spaced repetition** (B1): Practice now has per-word memory (SM-2) in
   `localStorage`; sessions serve due cards first.
 - Practice is still **recognition-only** (IT→EN, tap to reveal) — Workstream C.
-- Pronunciation scores are still **discarded** at session end (B2 will persist a
-  "struggle words" view and feed the scheduler).
+- ✅ **Results persist** (B2): pronunciation scores saved; a "Parole difficili"
+  panel surfaces struggling words and drills them through the SRS.
 
 ---
 
@@ -114,10 +114,16 @@ lowers ease, resets the streak, and makes the card due immediately.
 - **Deferred:** a true *daily* new-card cap (v1 caps per session) and surfacing
   the schedule outside Practice — that's B2 (persist & surface results).
 
-### B2. Persist & surface results → "Parole difficili" (struggle list)
-Stop discarding Practice/Pronunciation scores. Persist attempts and surface a
-"words you struggle with" view; feed it straight into B1's queue. Unlocks a
-visible sense of progress and targeted drilling.
+### B2. Persist & surface results → "Parole difficili" (struggle list) — ✅ DONE
+Pronunciation attempts now persist (`usePronunStats` → `italian-bible-pronun`:
+per-word attempts/last/best/avg). `src/utils/wordStats.js` (`struggleList`, pure,
+6 tests) ranks words by combining SRS lapses + low ease with weak pronunciation
+scores. A collapsible **"Parole difficili"** panel on the Practice start screen
+lists them with reasons and a **"Drill these"** button that runs an SRS-recorded
+session of just those words — feeding straight back into B1's scheduler.
+- New: `src/utils/wordStats.js` (+ test), `src/hooks/usePronunStats.js`.
+- Touched: `PronunciationPractice.jsx` (record each score), `PracticeMode.jsx`
+  (struggle panel), `useSrs.js` (`getStore()` accessor).
 
 ---
 
@@ -175,7 +181,7 @@ phase structure and gives a reason to return.
 |------|-------|-----------|--------------|
 | **0 — Hygiene** ✅ | Fix lint (`reactHooks.configs['recommended-latest']`); add CI lint+test steps; A4 IPA backfill (all 259 tuples now have IPA) | Unblocks reliable CI; cheap data win | S |
 | **1 — Immersion quick wins** ✅ | A3 ✅ (TTS in Tracker), A2 ✅ (tap-to-translate), A1 ✅ (immersion toggle) | Highest immersion-per-line; mostly UI | M |
-| **2 — Retention** | B1 ✅ (SRS), B2 (persist results) | Biggest fluency lever | M–L |
+| **2 — Retention** ✅ | B1 ✅ (SRS), B2 ✅ (persist results + struggle list) | Biggest fluency lever | M–L |
 | **3 — Production** | C1 (EN→IT + cloze), C2 (listening), C3 (journaling scaffolds) | Builds on SRS + immersion | M–L |
 | **4 — Motivation** | D1 (streaks/dashboard), D3 (micro-interactions), D4 (badges), D2 (reminders) | Compounds everything above | M |
 

@@ -37,5 +37,7 @@ export function useSrs() {
 
   const getStats = useCallback((cards) => stats(cards, storeRef.current), []);
 
-  return { recordReview, buildSession, getStats, version };
+  const getStore = useCallback(() => storeRef.current, []);
+
+  return { recordReview, buildSession, getStats, getStore, version };
 }
