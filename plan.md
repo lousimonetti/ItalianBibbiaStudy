@@ -62,10 +62,11 @@ have `[it, en, ex, ipa]`); unknown words fall back to TTS-only.
   sentence and links tokens to the vocab index.
 - Build a vocab lookup index once from `PHASES` (Italian → {en, ipa}).
 
-### A3. Wire TTS into the Tracker vocab table (known gap)
-Add `<SpeakerButton>` to each row of `WeekDetail.jsx`'s vocab table and to each
-example sentence. Small, already-flagged, high value — the Tracker is the screen
-read every week and currently has no audio.
+### A3. Wire TTS into the Tracker vocab table (known gap) — ✅ DONE
+Added `<SpeakerButton>` to each row of `WeekDetail.jsx`'s vocab table (Italian
+term, size 15) and to each example sentence (size 13), with compact CSS so the
+dense table layout holds on touch. Small, high value — the Tracker is the screen
+read every week and previously had no audio.
 
 ### A4. Fill the missing IPA
 Re-run `node scripts/generate-pronunciations.cjs` (needs `ANTHROPIC_API_KEY`) to

@@ -70,10 +70,13 @@ component is imported (the test uses a top-level `await import`), and utterance
 callbacks (`onstart`/`onend`/`onerror`) must be wrapped in `act()` so React
 flushes the state updates.
 
-**Known wiring gap:** `SpeakerButton` is only used in Practice
-(`PracticeMode.jsx`) and Pronunciation (`PronunciationPractice.jsx`) modes. The
-Tracker week vocab table (`WeekDetail.jsx`) — the screen read each week — has no
-audio. Wiring it into that table is a small, high-value fix.
+**Wiring (updated):** `SpeakerButton` is used in Practice (`PracticeMode.jsx`),
+Pronunciation (`PronunciationPractice.jsx`), and — as of Phase 1 / A3 — the
+Tracker week vocab table (`WeekDetail.jsx`), where each Italian term and its
+example sentence now has a compact inline speaker. The compact sizing lives in
+`index.css` under `.vocab-it-word .speaker-btn` / `.vocab-ex-row .speaker-btn`
+(specificity beats the `@media (pointer: coarse)` 40px override, so the table
+stays dense on touch).
 
 ## Fluency roadmap — ideas to raise success rate
 
