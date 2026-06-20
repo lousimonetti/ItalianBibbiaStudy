@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { DAILY } from '../data/studyData';
 import { IPAGuide } from './IPAGuide';
+import { SpeakerButton } from './SpeakerButton';
 
 export function WeekDetail({ week }) {
   const [ipaOpen, setIpaOpen] = useState(false);
@@ -26,11 +27,21 @@ export function WeekDetail({ week }) {
               {week.vocab.map(([it, en, ex, pron], i) => (
                 <tr key={i}>
                   <td className="vocab-it">
-                    {it}
+                    <span className="vocab-it-word">
+                      <span>{it}</span>
+                      <SpeakerButton word={it} size={15} />
+                    </span>
                     {pron && <span className="vocab-pron">{pron}</span>}
                   </td>
                   <td className="vocab-en">{en}</td>
-                  <td className="vocab-ex">{ex}</td>
+                  <td className="vocab-ex">
+                    {ex && (
+                      <span className="vocab-ex-row">
+                        <span>{ex}</span>
+                        <SpeakerButton word={ex} size={13} />
+                      </span>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
