@@ -6,6 +6,14 @@ import { UiText } from '../i18n/UiText';
 import { useSrs } from '../hooks/useSrs';
 import { usePronunStats } from '../hooks/usePronunStats';
 import { struggleList } from '../utils/wordStats';
+import { makeCloze, isClozeEligible } from '../utils/cloze';
+import { checkAnswer } from '../utils/answer';
+
+const STYLES = [
+  { id: 'recognition', label: 'Recognition', sub: 'IT → EN, tap to reveal' },
+  { id: 'recall', label: 'Recall', sub: 'EN → IT, type it' },
+  { id: 'cloze', label: 'Cloze', sub: 'fill the blank' },
+];
 
 function buildCards(phases) {
   const cards = [];
@@ -57,8 +65,12 @@ function SessionEnd({ known, total, againCount, onRestart, onDrillAgain }) {
 
 export function PracticeMode() {
   const [filter, setFilter] = useState('all');
+  const [style, setStyle] = useState('recognition');
   const [session, setSession] = useState(null);
   const [flipped, setFlipped] = useState(false);
+  const [typed, setTyped] = useState('');
+  const [checked, setChecked] = useState(false);
+  const [correct, setCorrect] = useState(false);
   const { recordReview, buildSession, getStats, getStore, version } = useSrs();
   const { getStore: getPronunStore, version: pronunVersion } = usePronunStats();
 
@@ -67,6 +79,9 @@ export function PracticeMode() {
     [filter]
   );
 
+  // Cloze only works on cards whose example literally contains the term.
+  const clozeCards = useMemo(() => filtered.filter(isClozeEligible), [filtered]);
+
   // Recompute when the filter changes or after a review. `version` looks unused
   // to the linter, but getStats/buildSession read the SRS store from a ref that
   // mutates on each review — version is what forces the recompute.
@@ -74,26 +89,44 @@ export function PracticeMode() {
   const srsStats = useMemo(() => getStats(filtered), [filtered, version]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const dueQueue = useMemo(() => buildSession(filtered), [filtered, version]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const clozeQueue = useMemo(() => buildSession(clozeCards), [clozeCards, version]);
   // Struggle list combines SRS lapses/ease with pronunciation scores.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const struggles = useMemo(() => struggleList(filtered, getStore(), getPronunStore()), [filtered, version, pronunVersion]);
 
+  const activeQueue = style === 'cloze' ? clozeQueue : dueQueue;
+
+  function resetCardUi() {
+    setFlipped(false);
+    setTyped('');
+    setChecked(false);
+    setCorrect(false);
+  }
+
   function startSession(cards) {
     if (!cards.length) return;
-    setSession({ cards, index: 0, known: 0, again: [] });
-    setFlipped(false);
+    setSession({ cards, index: 0, known: 0, again: [], style });
+    resetCardUi();
+  }
+
+  function handleCheck() {
+    const card = session.cards[session.index];
+    const expected = session.style === 'cloze' ? makeCloze(card.it, card.ex).answer : card.it;
+    setCorrect(checkAnswer(expected, typed));
+    setChecked(true);
   }
 
   function handleKnown() {
     recordReview(session.cards[session.index].it, 'good');
     setSession(s => ({ ...s, index: s.index + 1, known: s.known + 1 }));
-    setFlipped(false);
+    resetCardUi();
   }
 
   function handleAgain() {
     recordReview(session.cards[session.index].it, 'again');
     setSession(s => ({ ...s, index: s.index + 1, again: [...s.again, s.cards[s.index]] }));
-    setFlipped(false);
+    resetCardUi();
   }
 
   // Session complete
@@ -114,6 +147,9 @@ export function PracticeMode() {
     const card = session.cards[session.index];
     const total = session.cards.length;
     const pct = (session.index / total) * 100;
+    const isTyped = session.style !== 'recognition';
+    const cloze = session.style === 'cloze' ? makeCloze(card.it, card.ex) : null;
+    const showGrade = isTyped ? checked : flipped;
 
     return (
       <div className="prac-session">
@@ -126,37 +162,79 @@ export function PracticeMode() {
           <div className="prac-bar-fill" style={{ width: `${pct}%` }} />
         </div>
 
-        <div
-          className={`prac-scene`}
-          onClick={() => !flipped && setFlipped(true)}
-          role="button"
-          aria-label={flipped ? 'Card revealed' : 'Tap to reveal'}
-        >
-          <div className={`prac-card${flipped ? ' prac-flipped' : ''}`}>
-            <div className="prac-face prac-front">
-              <span className="prac-word">{card.it}</span>
-              <SpeakerButton word={card.it} size={22} />
-              <span className="prac-tap-hint"><UiText k="prac.tapHint" /></span>
+        {isTyped ? (
+          <div className="prac-typed-card">
+            {session.style === 'cloze' ? (
+              <div className="prac-cloze-sentence">
+                {cloze.before}
+                <span className="prac-blank">{checked ? cloze.answer : '____'}</span>
+                {cloze.after}
+              </div>
+            ) : (
+              <div className="prac-recall-prompt">{card.en}</div>
+            )}
+            <div className="prac-typed-sub">
+              {session.style === 'cloze' ? `Fill the blank — ${card.en}` : 'Type the Italian'}
             </div>
-            <div className="prac-face prac-back">
-              <span className="prac-translation">{card.en}</span>
-              <span className="prac-ipa">{card.ipa}</span>
-              <SpeakerButton word={card.it} size={18} />
-              <span className="prac-example">"{card.ex}"</span>
+            <input
+              className={`prac-input${checked ? (correct ? ' prac-input-correct' : ' prac-input-wrong') : ''}`}
+              value={typed}
+              onChange={(e) => setTyped(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter' && !checked && typed.trim()) handleCheck(); }}
+              placeholder="Scrivi qui…"
+              autoFocus
+              disabled={checked}
+              aria-label="Your answer"
+            />
+            {checked && (
+              <div className="prac-typed-result">
+                <span className={correct ? 'prac-result-ok' : 'prac-result-no'}>
+                  {correct ? 'Correct!' : 'Not quite'}
+                </span>
+                <span className="prac-answer">{card.it}</span>
+                {card.ipa && <span className="prac-ipa">{card.ipa}</span>}
+                <SpeakerButton word={card.it} size={18} />
+                {session.style === 'recall' && <span className="prac-example">"{card.ex}"</span>}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div
+            className={`prac-scene`}
+            onClick={() => !flipped && setFlipped(true)}
+            role="button"
+            aria-label={flipped ? 'Card revealed' : 'Tap to reveal'}
+          >
+            <div className={`prac-card${flipped ? ' prac-flipped' : ''}`}>
+              <div className="prac-face prac-front">
+                <span className="prac-word">{card.it}</span>
+                <SpeakerButton word={card.it} size={22} />
+                <span className="prac-tap-hint"><UiText k="prac.tapHint" /></span>
+              </div>
+              <div className="prac-face prac-back">
+                <span className="prac-translation">{card.en}</span>
+                <span className="prac-ipa">{card.ipa}</span>
+                <SpeakerButton word={card.it} size={18} />
+                <span className="prac-example">"{card.ex}"</span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         <div className="prac-card-meta">Week {card.weekN} · {card.reading}</div>
 
-        {flipped ? (
+        {showGrade ? (
           <div className="prac-actions">
             <button className="prac-again-btn" onClick={handleAgain}><UiText k="prac.again" /></button>
             <button className="prac-known-btn" onClick={handleKnown}><UiText k="prac.known" /></button>
           </div>
         ) : (
           <div className="prac-actions">
-            <button className="prac-reveal-btn" onClick={() => setFlipped(true)}><UiText k="prac.reveal" /></button>
+            {isTyped ? (
+              <button className="prac-reveal-btn" onClick={handleCheck} disabled={!typed.trim()}>Check</button>
+            ) : (
+              <button className="prac-reveal-btn" onClick={() => setFlipped(true)}><UiText k="prac.reveal" /></button>
+            )}
           </div>
         )}
 
@@ -177,6 +255,25 @@ export function PracticeMode() {
           sooner when you don't), plus a few new ones. Progress is saved on this
           device.
         </div>
+      </div>
+
+      <div className="prac-filter-label">Practice style</div>
+      <div className="prac-style-grid">
+        {STYLES.map(s => {
+          const disabled = s.id === 'cloze' && clozeCards.length === 0;
+          return (
+            <button
+              key={s.id}
+              className={`prac-style-btn${style === s.id ? ' prac-style-active' : ''}`}
+              onClick={() => setStyle(s.id)}
+              disabled={disabled}
+              title={disabled ? 'No cloze-eligible cards in this selection' : undefined}
+            >
+              <span className="prac-style-name">{s.label}</span>
+              <span className="prac-style-sub">{s.sub}</span>
+            </button>
+          );
+        })}
       </div>
 
       <div className="prac-filter-label">Choose cards</div>
@@ -211,24 +308,30 @@ export function PracticeMode() {
         <span className="prac-srs-stat prac-srs-learned">{srsStats.learned} learned</span>
       </div>
 
-      {dueQueue.length > 0 ? (
-        <button className="prac-go-btn" onClick={() => startSession(dueQueue)}>
-          Start — {dueQueue.length} card{dueQueue.length !== 1 ? 's' : ''}
+      {activeQueue.length > 0 ? (
+        <button className="prac-go-btn" onClick={() => startSession(activeQueue)}>
+          Start — {activeQueue.length} card{activeQueue.length !== 1 ? 's' : ''}
         </button>
       ) : (
         <div className="prac-caught-up">
           <div className="prac-caught-up-msg">
             All caught up — nothing due right now. Come back later, or:
           </div>
-          <button className="prac-go-btn prac-go-secondary" onClick={() => startSession(shuffle(filtered))}>
-            Practice all {filtered.length} anyway
+          <button
+            className="prac-go-btn prac-go-secondary"
+            onClick={() => startSession(shuffle(style === 'cloze' ? clozeCards : filtered))}
+          >
+            Practice all {(style === 'cloze' ? clozeCards : filtered).length} anyway
           </button>
         </div>
       )}
 
       <StrugglePanel
         struggles={struggles}
-        onDrill={() => startSession(shuffle(struggles.map(s => s.card)))}
+        onDrill={() => {
+          const cards = struggles.map(s => s.card);
+          startSession(shuffle(style === 'cloze' ? cards.filter(isClozeEligible) : cards));
+        }}
       />
 
       <IPAKeyPanel />

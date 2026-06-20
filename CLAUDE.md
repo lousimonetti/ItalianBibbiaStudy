@@ -45,7 +45,7 @@ All persisted keys are namespaced `italian-bible-*` (`-progress`, `-journal`, `-
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
-**Flashcards tab** (`FlashcardsTab.jsx`) has three modes toggled by local state: *Anki Decks* (download `.apkg` files), *Practice* (`PracticeMode.jsx` — in-browser flip cards with known/again queue, built from all vocab in `PHASES`), and *Pronunciation* (`PronunciationPractice.jsx`).
+**Flashcards tab** (`FlashcardsTab.jsx`) has three modes toggled by local state: *Anki Decks* (download `.apkg` files), *Practice* (`PracticeMode.jsx` — SRS-scheduled, with a style selector for Recognition / Recall / Cloze and a "Parole difficili" struggle panel), and *Pronunciation* (`PronunciationPractice.jsx`).
 
 **Text-to-speech** (`SpeakerButton.jsx`): Uses `window.speechSynthesis` with `lang: 'it-IT'`. No external dependency — falls back silently if the API is unavailable.
 
@@ -103,9 +103,13 @@ active production. In rough priority order:
    no API call was needed (the values were merged into `studyData.js` directly).
 3. **Listening / comprehensible-input mode.** Reuse TTS to read example
    sentences and full verses (not just single words) at adjustable speed.
-4. **Active production, both directions.** Practice is recognition-only
-   (Italian→English, tap to reveal). Add English→Italian recall and cloze /
-   fill-in-the-blank built from the stored example sentences.
+4. ~~**Active production, both directions.**~~ **Done (Phase 3 / C1).** Practice
+   now has a style selector: *Recognition* (IT→EN, tap to reveal), *Recall*
+   (EN→IT, type it), and *Cloze* (fill the blanked word in the example sentence,
+   ~61% of cards eligible). Typed answers use forgiving matching
+   (`src/utils/answer.js` — accent/article-folding + ~20% Levenshtein tolerance,
+   reusing `pronunciation.js`); cloze blanks are built by `src/utils/cloze.js`.
+   All three styles record to the same SRS store.
 5. **Streaks + daily goal + reminders.** A localStorage streak counter and PWA
    notifications reinforce the existing `DAILY` schedule; consistency predicts
    success more than any single feature.

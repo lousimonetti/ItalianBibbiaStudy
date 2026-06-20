@@ -36,7 +36,8 @@ These come from `CLAUDE.md` and bound every option below:
 - ✅ **All 259 vocab tuples have IPA** (Phase 0).
 - ✅ **Spaced repetition** (B1): Practice now has per-word memory (SM-2) in
   `localStorage`; sessions serve due cards first.
-- Practice is still **recognition-only** (IT→EN, tap to reveal) — Workstream C.
+- ✅ **Active production** (C1): Practice has Recognition / Recall (EN→IT typed) /
+  Cloze styles, all grading into the SRS.
 - ✅ **Results persist** (B2): pronunciation scores saved; a "Parole difficili"
   panel surfaces struggling words and drills them through the SRS.
 
@@ -131,11 +132,18 @@ session of just those words — feeding straight back into B1's scheduler.
 
 Today's practice is recognition-only. Fluency needs *production*.
 
-### C1. EN→IT recall + cloze / fill-in-the-blank
-Add card directions to Practice: **EN→IT typed recall** (forgiving match reusing
-`normalize`/`levenshtein` from `utils/pronunciation.js`) and **cloze** built by
-blanking the vocab word inside its stored `example` sentence (e.g. *"In principio
-era il ____"*). All generated from existing data — no new content authoring.
+### C1. EN→IT recall + cloze / fill-in-the-blank — ✅ DONE
+Practice now has a **style selector**: Recognition (existing IT→EN flip),
+**Recall** (EN→IT typed), and **Cloze** (fill the blanked vocab word in its
+example sentence, e.g. *"In principio era il ____"*). All from existing data.
+- New: `src/utils/cloze.js` (`makeCloze`/`isClozeEligible`, blanks the bare
+  content word; ~61% of cards eligible — the rest use a conjugated form) and
+  `src/utils/answer.js` (`canonical`/`checkAnswer` — accent/article-folding +
+  ~20% Levenshtein tolerance, reusing `pronunciation.js`). 9 unit tests across
+  `cloze.test.js` + `answer.test.js`.
+- `PracticeMode.jsx`: style selector, typed-answer card with correct/incorrect
+  feedback; cloze sessions draw only from eligible cards; all styles grade into
+  the same SRS store.
 
 ### C2. Listening / dictation mode (comprehensible input via ear)
 A mode that **speaks** an example sentence or verse (TTS, adjustable speed; reuse
@@ -182,7 +190,7 @@ phase structure and gives a reason to return.
 | **0 — Hygiene** ✅ | Fix lint (`reactHooks.configs['recommended-latest']`); add CI lint+test steps; A4 IPA backfill (all 259 tuples now have IPA) | Unblocks reliable CI; cheap data win | S |
 | **1 — Immersion quick wins** ✅ | A3 ✅ (TTS in Tracker), A2 ✅ (tap-to-translate), A1 ✅ (immersion toggle) | Highest immersion-per-line; mostly UI | M |
 | **2 — Retention** ✅ | B1 ✅ (SRS), B2 ✅ (persist results + struggle list) | Biggest fluency lever | M–L |
-| **3 — Production** | C1 (EN→IT + cloze), C2 (listening), C3 (journaling scaffolds) | Builds on SRS + immersion | M–L |
+| **3 — Production** | C1 ✅ (EN→IT + cloze), C2 (listening), C3 (journaling scaffolds) | Builds on SRS + immersion | M–L |
 | **4 — Motivation** | D1 (streaks/dashboard), D3 (micro-interactions), D4 (badges), D2 (reminders) | Compounds everything above | M |
 
 ## Risks & guardrails
