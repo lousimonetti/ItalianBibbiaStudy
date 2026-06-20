@@ -2,6 +2,20 @@ import { useState, useMemo, useEffect } from 'react';
 import { tokenize, lookupWord } from '../utils/vocabIndex';
 import { GlossPopover } from './GlossPopover';
 
+const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
+
+function speakWord(text) {
+  try {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'it-IT';
+    u.rate = 0.9;
+    window.speechSynthesis.speak(u);
+  } catch {
+    // speech unavailable — ignore
+  }
+}
+
 // Renders an Italian string with known vocabulary words made tappable: tapping
 // a word reveals a popover with its English translation, IPA, and a speaker
 // button (tap-to-translate / comprehensible input). Words not in the vocab
@@ -33,8 +47,24 @@ export function WordGloss({ text }) {
   return (
     <span className="wordgloss">
       {tokens.map((tok, i) => {
-        if (!tok.isWord || !tok.entry) {
-          return <span key={i}>{tok.text}</span>;
+        if (!tok.isWord) return <span key={i}>{tok.text}</span>;
+        // A word with no vocab entry (conjugation, name, function word): no
+        // gloss, but still tap-to-hear when speech synthesis is available.
+        if (!tok.entry) {
+          return ttsSupported ? (
+            <span
+              key={i}
+              className="gloss-tts"
+              role="button"
+              tabIndex={-1}
+              title="Tap to hear"
+              onClick={(e) => { e.stopPropagation(); speakWord(tok.text); }}
+            >
+              {tok.text}
+            </span>
+          ) : (
+            <span key={i}>{tok.text}</span>
+          );
         }
         const open = openKey === i;
         return (

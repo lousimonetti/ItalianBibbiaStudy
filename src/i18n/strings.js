@@ -29,6 +29,15 @@ export const UI_STRINGS = {
   'fc.practice': { it: 'Pratica', en: 'Practice' },
   'fc.pronunciation': { it: 'Pronuncia', en: 'Pronunciation' },
 
+  // Practice start screen
+  'prac.style': { it: 'Stile di pratica', en: 'Practice style' },
+  'prac.chooseCards': { it: 'Scegli le carte', en: 'Choose cards' },
+
+  // Journal header
+  'jrn.title': { it: 'Diario', en: 'Journal' },
+  'jrn.grammar': { it: 'Grammatica', en: 'Grammar' },
+  'jrn.export': { it: 'Esporta .md', en: 'Export .md' },
+
   // Practice flip-card actions
   'prac.reveal': { it: 'Rivela', en: 'Reveal' },
   'prac.known': { it: "Ce l'ho fatta ✓", en: 'Got it ✓' },

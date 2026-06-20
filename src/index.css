@@ -610,6 +610,9 @@ body {
 .gloss-pop-head .speaker-btn { width: 24px; height: 24px; }
 .gloss-pop-en { font-size: 13px; color: var(--text); }
 .gloss-pop-ipa { font-size: 11px; color: var(--text-faint); letter-spacing: 0.01em; }
+/* Un-glossed words: subtle tap-to-hear (no underline, just a faint hover) */
+.gloss-tts { cursor: pointer; border-radius: 3px; transition: background 0.12s; }
+.gloss-tts:hover { background: var(--border-subtle); }
 
 .grammar-box {
   background: var(--surface);

@@ -5,6 +5,7 @@ import { SentenceGuide } from './SentenceGuide';
 import { WordGloss } from './WordGloss';
 import { JournalScaffold } from './JournalScaffold';
 import { recordActivity } from '../utils/streak';
+import { UiText } from '../i18n/UiText';
 
 function ExportIcon() {
   return (
@@ -228,7 +229,7 @@ export function JournalTab() {
       {/* Header */}
       <div className="jrn-header">
         <div>
-          <div className="jrn-title">Journal</div>
+          <div className="jrn-title"><UiText k="jrn.title" /></div>
           <div className="jrn-subtitle">
             {weekCount > 0
               ? `${weekCount} ${weekCount === 1 ? 'week' : 'weeks'} written · ${wordCount.toLocaleString()} words total`
@@ -242,11 +243,11 @@ export function JournalTab() {
             title={grammarEnabled ? 'Disable grammar suggestions' : 'Enable grammar suggestions (uses LanguageTool)'}
           >
             <GrammarIcon />
-            Grammar
+            <UiText k="jrn.grammar" />
           </button>
           <button className="jrn-export-btn" onClick={() => exportMarkdown(PHASES)}>
             <ExportIcon />
-            Export .md
+            <UiText k="jrn.export" />
           </button>
         </div>
       </div>

@@ -60,10 +60,11 @@ immerses.
   `ImmersionContext.js` (`useImmersion` hook + persisted state),
   `ImmersionProvider.jsx` (wraps `<App>`), `UiText.jsx` (`<UiText k="…" />`).
   Behaviour locked by `UiText.test.jsx` (4 tests).
-- **Scope (v1):** translated the highest-traffic chrome (tabs, Tracker headers,
-  progress, Flashcards/Practice buttons). Journal/Pronunciation deep chrome and a
-  touch tap-to-reveal popover (beyond the `title` tooltip) are deferred — add
-  keys to `strings.js` and wrap with `<UiText>` to extend coverage.
+- **Coverage:** tabs, Tracker headers, progress, Today card, Flashcards/Practice
+  buttons, the Practice start-screen labels, and the Journal header (title +
+  Grammar/Export). Extending further is just: add keys to `strings.js` and wrap
+  with `<UiText>`. (A touch tap-to-reveal popover beyond the `title` tooltip is
+  still a possible future enhancement.)
 
 ### A2. Tap-to-translate everywhere (comprehensible input) — ✅ DONE
 The core "easy to comprehend" lever. Italian words rendered in the app become
@@ -78,10 +79,9 @@ popover, without leaving the page. Built entirely from existing vocab data.
   translation card). Outside-click / Escape closes it.
 - Wired into: Tracker example sentences and writing prompt (`WeekDetail.jsx`)
   and the Journal prompt (`JournalTab.jsx`).
-- **Known v1 limits (deferred):** conjugated/derived forms ("crede" vs
-  "credere", "adoratori" vs "adorare") and multi-word phrases inside a sentence
-  don't match — those words just render plain. Whole-sentence audio is still
-  available via the A3 speaker.
+- **Limits:** conjugated/derived forms ("crede" vs "credere") and multi-word
+  phrases inside a sentence aren't *glossed* — but as a follow-up they're now
+  **tap-to-hear** (TTS), so every word has audio even without a translation.
 
 ### A3. Wire TTS into the Tracker vocab table (known gap) — ✅ DONE
 Added `<SpeakerButton>` to each row of `WeekDetail.jsx`'s vocab table (Italian
@@ -112,8 +112,9 @@ lowers ease, resets the streak, and makes the card due immediately.
 - `PracticeMode.jsx` now schedules from the SRS instead of `shuffle()`, records
   each grade, shows due/new/learned counts, and has an "all caught up" state
   with a "practice all anyway" fallback.
-- **Deferred:** a true *daily* new-card cap (v1 caps per session) and surfacing
-  the schedule outside Practice — that's B2 (persist & surface results).
+- **Daily new-card cap added (follow-up):** `srs.js` stamps each card's first
+  review (`created`); `buildSession` caps new cards at `DAILY_NEW_CAP` (15) per
+  calendar day across sessions.
 
 ### B2. Persist & surface results → "Parole difficili" (struggle list) — ✅ DONE
 Pronunciation attempts now persist (`usePronunStats` → `italian-bible-pronun`:
