@@ -295,7 +295,7 @@ export function PronunciationPractice() {
           onClick={() => setFilter('all')}
         >
           <span className="prac-filter-name">All phases</span>
-          <span className="prac-filter-count">259 cards</span>
+          <span className="prac-filter-count">{ALL_CARDS.length} cards</span>
         </button>
         {PHASES.map(p => {
           const count = ALL_CARDS.filter(c => c.phaseId === p.id).length;

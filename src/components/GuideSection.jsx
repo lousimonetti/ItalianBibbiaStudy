@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { IPAGuide } from './IPAGuide';
+import { config } from '../../course/config';
 
 function GuidePanel({ title, children, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -61,7 +62,7 @@ export function GuideSection() {
               Check the box on the left when you've completed the week. Your progress saves automatically and persists between sessions.
             </Step>
             <Step n="3">
-              The progress bar at the top tracks your overall completion across all 37 weeks.
+              The progress bar at the top tracks your overall completion across all {config.schedule.weeks} weeks.
             </Step>
             <Step n="4">
               Weeks marked <span className="review-flag" style={{verticalAlign:'middle'}}>iTalki week</span> include conversation starter questions for your tutoring session. Expand the row to find them.
