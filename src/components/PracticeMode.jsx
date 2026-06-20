@@ -3,6 +3,7 @@ import { PHASES } from '../data/studyData';
 import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
 import { UiText } from '../i18n/UiText';
+import { useSrs } from '../hooks/useSrs';
 
 function buildCards(phases) {
   const cards = [];
@@ -56,23 +57,35 @@ export function PracticeMode() {
   const [filter, setFilter] = useState('all');
   const [session, setSession] = useState(null);
   const [flipped, setFlipped] = useState(false);
+  const { recordReview, buildSession, getStats, version } = useSrs();
 
   const filtered = useMemo(
     () => (filter === 'all' ? ALL_CARDS : ALL_CARDS.filter(c => c.phaseId === filter)),
     [filter]
   );
 
+  // Recompute when the filter changes or after a review. `version` looks unused
+  // to the linter, but getStats/buildSession read the SRS store from a ref that
+  // mutates on each review — version is what forces the recompute.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const srsStats = useMemo(() => getStats(filtered), [filtered, version]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const dueQueue = useMemo(() => buildSession(filtered), [filtered, version]);
+
   function startSession(cards) {
-    setSession({ cards: shuffle(cards), index: 0, known: 0, again: [] });
+    if (!cards.length) return;
+    setSession({ cards, index: 0, known: 0, again: [] });
     setFlipped(false);
   }
 
   function handleKnown() {
+    recordReview(session.cards[session.index].it, 'good');
     setSession(s => ({ ...s, index: s.index + 1, known: s.known + 1 }));
     setFlipped(false);
   }
 
   function handleAgain() {
+    recordReview(session.cards[session.index].it, 'again');
     setSession(s => ({ ...s, index: s.index + 1, again: [...s.again, s.cards[s.index]] }));
     setFlipped(false);
   }
@@ -85,7 +98,7 @@ export function PracticeMode() {
         total={session.cards.length}
         againCount={session.again.length}
         onRestart={() => setSession(null)}
-        onDrillAgain={() => startSession(session.again)}
+        onDrillAgain={() => startSession(shuffle(session.again))}
       />
     );
   }
@@ -150,11 +163,13 @@ export function PracticeMode() {
   return (
     <div className="prac-start-screen">
       <div className="prac-intro-card">
-        <div className="prac-intro-title">Built-in flashcards</div>
+        <div className="prac-intro-title">Built-in flashcards · spaced repetition</div>
         <div className="prac-intro-body">
-          Practice vocabulary in your browser — no Anki needed. Tap a card to
-          reveal the translation, then mark whether you knew it. Cards marked
-          "Still learning" are offered again at the end of each session.
+          Practice vocabulary in your browser — no Anki needed. Each session
+          serves the words you're <strong>due</strong> to review (the scheduler
+          spaces them further apart as you get them right, and brings them back
+          sooner when you don't), plus a few new ones. Progress is saved on this
+          device.
         </div>
       </div>
 
@@ -184,9 +199,26 @@ export function PracticeMode() {
         })}
       </div>
 
-      <button className="prac-go-btn" onClick={() => startSession(filtered)}>
-        Start — {filtered.length} cards
-      </button>
+      <div className="prac-srs-stats">
+        <span className="prac-srs-stat prac-srs-due">{srsStats.due} due</span>
+        <span className="prac-srs-stat prac-srs-new">{srsStats.new} new</span>
+        <span className="prac-srs-stat prac-srs-learned">{srsStats.learned} learned</span>
+      </div>
+
+      {dueQueue.length > 0 ? (
+        <button className="prac-go-btn" onClick={() => startSession(dueQueue)}>
+          Start — {dueQueue.length} card{dueQueue.length !== 1 ? 's' : ''}
+        </button>
+      ) : (
+        <div className="prac-caught-up">
+          <div className="prac-caught-up-msg">
+            All caught up — nothing due right now. Come back later, or:
+          </div>
+          <button className="prac-go-btn prac-go-secondary" onClick={() => startSession(shuffle(filtered))}>
+            Practice all {filtered.length} anyway
+          </button>
+        </div>
+      )}
 
       <IPAKeyPanel />
     </div>

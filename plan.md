@@ -34,9 +34,11 @@ These come from `CLAUDE.md` and bound every option below:
 - ✅ **Tap-to-translate** (A2) on example sentences + prompts.
 - ✅ **TTS in the Tracker** (A3); `SpeakerButton` now also on the vocab table.
 - ✅ **All 259 vocab tuples have IPA** (Phase 0).
-- Practice is still **session-only** (no per-card memory) and **recognition-only**
-  (IT→EN, tap to reveal) — Workstream B/C target.
-- Scores in Practice & Pronunciation are still **discarded** at session end.
+- ✅ **Spaced repetition** (B1): Practice now has per-word memory (SM-2) in
+  `localStorage`; sessions serve due cards first.
+- Practice is still **recognition-only** (IT→EN, tap to reveal) — Workstream C.
+- Pronunciation scores are still **discarded** at session end (B2 will persist a
+  "struggle words" view and feed the scheduler).
 
 ---
 
@@ -96,15 +98,21 @@ Pronunciation mode display app-wide.
 
 ## Workstream B — Retention engine (the biggest fluency lever)
 
-### B1. Lightweight SRS in browser Practice mode
-Replace session-only memory with a persistent **SM-2 / Leitner** scheduler.
-Store per-word `{ ease, interval, due, reps, lapses, lastSeen }` keyed by the
-Italian term in `localStorage` (`italian-bible-srs`). Sessions draw **due** cards
-first, then new ones (configurable daily new-card cap). This is the single change
-most tied to long-term success and fits the localStorage-only constraint.
-- New: `src/utils/srs.js` (pure, fully unit-testable like `pronunciation.js`).
-- New: `src/hooks/useSrs.js`.
-- Refactor `PracticeMode.jsx` to schedule from the SRS instead of `shuffle()`.
+### B1. Lightweight SRS in browser Practice mode — ✅ DONE
+Replaced session-only memory with a persistent **SM-2-flavored** scheduler.
+Per-word `{ ease, interval, reps, lapses, due, last }` keyed by the Italian term
+in `localStorage` (`italian-bible-srs`). Sessions draw **due** cards first
+(earliest due first), then up to `newCap` new ones, capped at `maxSession`.
+"Got it" advances the interval (1d → 3d → interval × ease); "Still learning"
+lowers ease, resets the streak, and makes the card due immediately.
+- New: `src/utils/srs.js` (pure — `review`, `isDue`, `buildQueue`, `stats`;
+  10 unit tests in `srs.test.js`).
+- New: `src/hooks/useSrs.js` (ref-backed store + version counter).
+- `PracticeMode.jsx` now schedules from the SRS instead of `shuffle()`, records
+  each grade, shows due/new/learned counts, and has an "all caught up" state
+  with a "practice all anyway" fallback.
+- **Deferred:** a true *daily* new-card cap (v1 caps per session) and surfacing
+  the schedule outside Practice — that's B2 (persist & surface results).
 
 ### B2. Persist & surface results → "Parole difficili" (struggle list)
 Stop discarding Practice/Pronunciation scores. Persist attempts and surface a
@@ -167,7 +175,7 @@ phase structure and gives a reason to return.
 |------|-------|-----------|--------------|
 | **0 — Hygiene** ✅ | Fix lint (`reactHooks.configs['recommended-latest']`); add CI lint+test steps; A4 IPA backfill (all 259 tuples now have IPA) | Unblocks reliable CI; cheap data win | S |
 | **1 — Immersion quick wins** ✅ | A3 ✅ (TTS in Tracker), A2 ✅ (tap-to-translate), A1 ✅ (immersion toggle) | Highest immersion-per-line; mostly UI | M |
-| **2 — Retention** | B1 (SRS), B2 (persist results) | Biggest fluency lever | M–L |
+| **2 — Retention** | B1 ✅ (SRS), B2 (persist results) | Biggest fluency lever | M–L |
 | **3 — Production** | C1 (EN→IT + cloze), C2 (listening), C3 (journaling scaffolds) | Builds on SRS + immersion | M–L |
 | **4 — Motivation** | D1 (streaks/dashboard), D3 (micro-interactions), D4 (badges), D2 (reminders) | Compounds everything above | M |
 

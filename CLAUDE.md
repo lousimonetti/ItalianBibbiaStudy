@@ -38,8 +38,9 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `useJournal` — per-week text entries in `localStorage` under key `italian-bible-journal`; debounced auto-save; exports all entries as a single `.md` file
 - `useInstallPrompt` — captures `beforeinstallprompt` for the Android install button
 - `useTheme` — light/dark toggle persisted in `localStorage` under key `italian-bible-theme`; toggles the `dark` class on `<html>`
+- `useSrs` — spaced-repetition store under key `italian-bible-srs`; React glue over the pure `src/utils/srs.js` (per-word `{ ease, interval, reps, lapses, due, last }`). Keeps the store in a ref + a `version` counter; `recordReview(term, grade)`, `buildSession(cards, opts)`, `getStats(cards)`. Powers Practice mode.
 
-All persisted keys are namespaced `italian-bible-*` (`-progress`, `-journal`, `-theme`, `-immersion`). Any new feature that persists state should follow that prefix.
+All persisted keys are namespaced `italian-bible-*` (`-progress`, `-journal`, `-theme`, `-immersion`, `-srs`). Any new feature that persists state should follow that prefix.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
@@ -88,12 +89,13 @@ The app is strong on *exposure* (reading, vocab, downloadable Anki) but thin on
 the levers most tied to fluency: spaced retention, comprehensible listening, and
 active production. In rough priority order:
 
-1. **Spaced repetition in the in-browser Practice mode.** `PracticeMode` is
-   session-only — "Still learning" cards repeat within the session, then reset;
-   there is no per-card memory. A lightweight SM-2/Leitner scheduler (store
-   ease/interval/due-date per word in `localStorage`) is the biggest retention
-   lever and fits the localStorage-only constraint. Today the real SRS only
-   lives in the downloaded Anki decks.
+1. ~~**Spaced repetition in the in-browser Practice mode.**~~ **Done (Phase 2 /
+   B1).** `PracticeMode` now schedules from a real SM-2-flavored scheduler
+   (`src/utils/srs.js` + `useSrs`): per-word ease/interval/due persisted in
+   `localStorage` (`italian-bible-srs`). Sessions serve due cards first (earliest
+   first) then a few new ones; "Got it"/"Still learning" grade each card and
+   advance or reset its schedule. Start screen shows due/new/learned counts and
+   an "all caught up" state.
 2. ~~**Fill missing IPA.**~~ **Done (Phase 0).** All 259 vocab tuples now carry
    IPA. The 35 that were missing already had correct IPA in
    `scripts/pronunciations.json` — it was a merge gap, not a generation gap, so
