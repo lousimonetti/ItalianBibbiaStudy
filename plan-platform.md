@@ -1,11 +1,12 @@
 # Plan — Turn this app into **CourseKit**: a config-driven study-app anyone can fork
 
-> **Status: T0–T4 complete and merged — the app is now a usable fork-and-fill
-> template.** Anyone can build their own N-week course (any language, any
-> material) by editing `course/config.js` + `course/content.js` and following
-> `AUTHORING.md` (`npm run new-course` to scaffold, `npm run validate-course` to
-> check) — no component edits. **Only T5 remains, and it's optional** (multiple
-> courses in one deploy + per-course storage namespacing); not pursued for now.
+> **Status: T0–T5 complete — the generalization is done.** The app is a
+> fork-and-fill template: build your own N-week course (any language/material) by
+> editing `courses/<id>/{config,content}.js` and following `AUTHORING.md`
+> (`npm run new-course` to scaffold, `npm run validate-course` to check) — no
+> component edits. **T5** added per-course storage namespacing **and** a runtime
+> multi-course registry + picker. (Remaining nice-to-have: per-course Anki decks —
+> generation currently targets the default course.)
 
 > Companion to `plan.md` (which tracked building the Italian Bible course, now
 > done). This plan is about **generalizing** that finished app into a reusable
@@ -213,9 +214,26 @@ logic in tested modules, build → PR → green → merge.
   guide. Verified end-to-end (scaffold a 6-week/2-phase demo, import a CSV).
 
 ### T5 — (Optional) multiple courses in one deploy
-- A `courses/` registry + a course picker; per-course key namespacing already
-  exists from T0, so progress stays separate. Achievements/streak read the
-  active course. Heavier; only if someone wants a multi-course hub.
+- ✅ **T5a — per-course storage namespacing (DONE):** every persisted store keys
+  off `storageKey(name)` → `config.storagePrefix` (`src/utils/storageKey.js`).
+  The reference course keeps the `italian-bible` prefix (zero migration); a
+  scaffolded course gets `course-<id>`, so forks/courses never collide.
+  Unit-tested (`storageKey.test.js`).
+- ✅ **T5b — runtime multi-course registry + picker (DONE):** course data moved
+  to `courses/<id>/{config,content}.js`; `courses/registry.js` statically bundles
+  all courses and resolves the **active** one from localStorage
+  (`coursekit-active-course`, default = first registered). `course/config.js` +
+  `course/content.js` became thin resolvers re-exporting the active course, so the
+  ~12 static importers transparently follow the selection. `CoursePicker` (header)
+  switches courses via persist + `location.reload()` — every module re-resolves on
+  reload; the picker is hidden with a single course (reference deploy unchanged).
+  `npm run validate-course` now validates **every** registered course. Selection
+  logic is pure + unit-tested (`pickActive`, `registry.test.js`).
+  - **Adding a course:** `npm run new-course -- --id x --out courses/x …`, then
+    import it in `courses/registry.js` and add to `COURSES`.
+  - **Known limit:** Anki deck generation + the Flashcards download list still
+    target the default course only; the in-browser SRS/Practice is the per-course
+    study path. (Multi-course Anki is a small follow-up.)
 
 ## Proving it's generic — example courses
 
@@ -252,7 +270,8 @@ fixtures/tests):
 | **T2** ✅ Branding & resources (chrome; deep guide prose → T4) | Course's own name/tagline/ribbon/tools | M |
 | **T3** ✅ Anki from course (dedupe) | Decks for any course; no vocab drift | S–M |
 | **T4** ✅ Authoring kit (guide, scaffolder, CSV import, validator) | Non-devs can ship a course | M–L |
-| **T5** Multi-course hub (optional) | Several courses, one deploy | L |
+| **T5a** ✅ Per-course storage namespacing | Forks/courses don't collide | S |
+| **T5b** ✅ Multi-course registry + picker | Several courses, one deploy | L |
 
 Recommended order: **T0 → T1 → T2 → T3 → T4** (T5 only on demand). T0 unlocks
 everything; T4 is what makes it truly "pick up and build your own."

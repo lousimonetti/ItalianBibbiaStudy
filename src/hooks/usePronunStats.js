@@ -1,6 +1,8 @@
 import { useRef, useState, useCallback } from 'react';
 
-const STORAGE_KEY = 'italian-bible-pronun';
+import { storageKey } from '../utils/storageKey';
+
+const STORAGE_KEY = storageKey('pronun');
 
 function load() {
   try {

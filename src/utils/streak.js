@@ -6,7 +6,9 @@
 // happened yet). Pure date/streak logic is unit-tested; thin localStorage
 // wrappers live at the bottom.
 
-export const STORAGE_KEY = 'italian-bible-streak';
+import { storageKey } from './storageKey';
+
+export const STORAGE_KEY = storageKey('streak');
 
 export const FLAGS = ['read', 'practiced', 'journaled'];
 

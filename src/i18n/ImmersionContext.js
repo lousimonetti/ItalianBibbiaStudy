@@ -1,6 +1,8 @@
 import { createContext, useContext } from 'react';
 
-export const STORAGE_KEY = 'italian-bible-immersion';
+import { storageKey } from '../utils/storageKey';
+
+export const STORAGE_KEY = storageKey('immersion');
 
 export const ImmersionContext = createContext({ immersive: false, toggle: () => {} });
 

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { config } from '../../course/config';
+import { storageKey } from '../utils/storageKey';
 
-const STORAGE_KEY = 'italian-bible-welcome-seen';
+const STORAGE_KEY = storageKey('welcome-seen');
 
 export function WelcomeCard() {
   const [dismissed, setDismissed] = useState(() => {

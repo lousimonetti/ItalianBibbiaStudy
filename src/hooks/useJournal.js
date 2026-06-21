@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
+import { storageKey, STORAGE_PREFIX } from '../utils/storageKey';
 
-const STORAGE_KEY = 'italian-bible-journal';
+const STORAGE_KEY = storageKey('journal');
 
 function load() {
   try {
@@ -53,7 +54,7 @@ export function useJournal() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'italian-bible-journal.md';
+    a.download = `${STORAGE_PREFIX}-journal.md`;
     a.click();
     URL.revokeObjectURL(url);
   }, [entries]);

@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
+import { storageKey } from '../utils/storageKey';
 
-const STORAGE_KEY = 'italian-bible-progress';
+const STORAGE_KEY = storageKey('progress');
 
 function loadFromStorage() {
   try {

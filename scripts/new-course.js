@@ -44,6 +44,7 @@ function phaseSizes(total, groups) {
 const configTemplate = `// Course configuration — edit me. See course/schema.md and AUTHORING.md.
 export const config = {
   id: ${JSON.stringify(id)},
+  storagePrefix: ${JSON.stringify(`course-${id}`)}, // localStorage namespace (keep unique per course)
 
   brand: {
     name: 'My Course',

@@ -2,7 +2,9 @@
 // (hard constraint), so reminders are best-effort: while the app is open we
 // nudge once a day if you're past your reminder hour and haven't studied yet.
 
-export const STORAGE_KEY = 'italian-bible-reminders';
+import { storageKey } from './storageKey';
+
+export const STORAGE_KEY = storageKey('reminders');
 export const DEFAULT_HOUR = 19; // 7pm
 
 // Should we fire the reminder right now? Pure so it can be unit-tested.

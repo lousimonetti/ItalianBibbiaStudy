@@ -175,6 +175,21 @@ body {
 }
 .theme-toggle:hover { background: var(--bg); color: var(--text); border-color: var(--accent); }
 
+/* Multi-course switcher (only shown when 2+ courses are registered) */
+.course-picker {
+  height: 32px;
+  max-width: 160px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0 8px;
+  cursor: pointer;
+}
+.course-picker:hover { border-color: var(--accent); }
+
 /* Immersion-mode (Italian interface) toggle */
 .immersion-toggle {
   display: flex;

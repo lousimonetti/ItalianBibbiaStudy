@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { PHASES } from '../data/studyData';
 import { computeAchievements } from '../utils/achievements';
 import { loadStreak } from '../utils/streak';
+import { storageKey } from '../utils/storageKey';
 
 function readJSON(key) {
   try {
@@ -15,9 +16,9 @@ function readJSON(key) {
 // Tracker remounts on tab switch, so newly earned badges appear on return.
 export function useAchievements() {
   return useMemo(() => {
-    const progress = readJSON('italian-bible-progress');
-    const srs = readJSON('italian-bible-srs');
-    const journal = readJSON('italian-bible-journal');
+    const progress = readJSON(storageKey('progress'));
+    const srs = readJSON(storageKey('srs'));
+    const journal = readJSON(storageKey('journal'));
     const streak = loadStreak();
     const journaledWeeks = Object.values(journal).filter((e) => e?.text?.trim()).length;
     return computeAchievements(

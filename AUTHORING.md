@@ -96,6 +96,31 @@ Recognition / Recall / Cloze / Listening practice, streaks + Today checklist,
 achievement badges, opt-in reminders, and Anki deck generation
 (`npm run generate-anki`, also part of `npm run build`).
 
+## Multiple courses in one deploy (optional)
+
+Courses live in `courses/<id>/{config.js,content.js}`; `courses/registry.js`
+bundles them and picks the active one (persisted in `localStorage` under
+`coursekit-active-course`). To add a second course:
+
+```bash
+npm run new-course -- --weeks 40 --phases 4 --id spanish-quixote --out courses/spanish-quixote
+# fill it in, then register it:
+```
+```js
+// courses/registry.js
+import { config as quixoteConfig } from './spanish-quixote/config.js';
+import { phases as quixotePhases } from './spanish-quixote/content.js';
+const COURSES = [
+  { config: itBibleConfig, phases: itBiblePhases },
+  { config: quixoteConfig, phases: quixotePhases },   // ← add
+];
+```
+
+With 2+ courses registered, a **course picker** appears in the header; switching
+reloads the app into the selected course, with its own namespaced progress / SRS
+/ streak. `npm run validate-course` checks every registered course. *(Note: Anki
+deck downloads are still generated for the default course only.)*
+
 ## Known rough edges (for now)
 
 - **Immersion-mode chrome** (`src/i18n/strings.js`) is Italian/English. For full
