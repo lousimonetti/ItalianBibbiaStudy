@@ -11,10 +11,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   (streaks + Today checklist, confetti, achievement badges, opt-in reminders) —
   plus a polish pass (daily new-card cap, wider immersion coverage, tap-to-hear
   for un-glossed words). `plan.md` is the per-item record (all ✅).
-- **In progress: `plan-platform.md`** — generalizing this app into **"CourseKit"**,
-  a fork-and-fill, config-driven template so anyone can build their own N-week
-  (37 / 40 / …) course by editing a `course/` definition instead of components.
-  **T0 done:** all course data now lives in `course/` (see Data layer below);
+- **CourseKit generalization (`plan-platform.md`): T0–T4 complete and merged.**
+  The app is now a usable **fork-and-fill, config-driven template** — anyone can
+  build their own N-week (37 / 40 / …) course by editing the `course/` definition
+  and following `AUTHORING.md`, with no component edits.
+  **T0:** all course data lives in `course/` (see Data layer below);
   `studyData.js` is a back-compat shim; the schedule and the
   previously-hardcoded counts are derived from the course; `course/validate.js`
   + `npm run validate-course` guard it. **T1 done:** locale (`src/utils/locale.js`)
@@ -25,12 +26,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   `generate-anki.cjs` sources vocab+IPA from the course via dynamic `import()` (no
   more duplicated inline copy — resolves the issue #37 drift item). **T4 done:**
   the authoring kit — `AUTHORING.md`, `course/schema.md`, `npm run new-course`
-  (scaffolder) and `npm run import-vocab` (CSV→vocab). Remaining: T5 (optional)
-  per-course localStorage namespacing + multi-course. (Namespacing was moved from
-  T0 to T5 — it only matters once multiple courses coexist.) **Note:**
-  `GuideSection.jsx` / `SentenceGuide.jsx` still hold long-form course-specific
-  prose; `AUTHORING.md` tells forks to edit those components (moving them into
-  `course/` is a noted follow-up).
+  (scaffolder) and `npm run import-vocab` (CSV→vocab). **Remaining: only T5, and
+  it's optional** — per-course localStorage namespacing + a multi-course hub;
+  not needed for a single fork-and-fill deploy, and not currently planned.
+  **Note:** `GuideSection.jsx` / `SentenceGuide.jsx` still hold long-form
+  course-specific prose; `AUTHORING.md` tells forks to edit those components
+  (moving them into `course/` is a noted follow-up).
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism).
