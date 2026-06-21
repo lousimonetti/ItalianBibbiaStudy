@@ -176,13 +176,18 @@ logic in tested modules, build → PR → green → merge.
 - *Done:* the app's name, tagline, ribbon, goal, topic label, and tool list all
   come from the course (lint clean, 168 tests, build + preview).
 
-### T3 — Anki generation from the course (also kills tech-debt #37)
-- `generate-anki.cjs` imports `course/content` (stop the duplicated inline copy);
-  deck names/card template/lang from config; emit one deck per phase + complete,
-  sized to `schedule.weeks`. Optionally seed GUIDs/timestamps so unchanged
-  content stops producing diff churn.
-- *Done when:* decks regenerate for any course and the two vocab copies can no
-  longer drift.
+### T3 — Anki generation from the course — ✅ DONE
+- ✅ `generate-anki.cjs` now `await import()`s `course/content.js` + `config.js`
+  (stays CommonJS) — the duplicated inline **`PHASES` and `PRON`/IPA** copies are
+  gone, so the decks can't drift from the app. Cards take IPA from the vocab
+  tuple's 4th element (gated by `config.locale.hasIPA`); deck names from
+  `config.brand.name`; per-phase filenames a stable `DECK_FILES` map; the
+  complete deck is sized to the course's week count.
+- **Deferred:** seeding GUIDs/timestamps for deterministic output (the issue #37
+  churn item) and moving the per-phase deck filenames into config (so
+  `FlashcardsTab` and the generator share one source) — both small follow-ups.
+- *Done:* `npm run generate-anki` rebuilds 42 decks (259 cards) from the course;
+  full `npm run build` (prebuild → generate-anki) passes; card content unchanged.
 
 ### T4 — The authoring kit (the "anyone can pick it up" deliverable)
 - `AUTHORING.md` — a from-scratch guide: clone → edit `course/config.js` →
@@ -235,7 +240,7 @@ fixtures/tests):
 | **T0** ✅ Extract course + validate (numbers derived; namespacing → T5) | All data in `course/`, app unchanged | M |
 | **T1** ✅ Locale generalization | Any language's audio/dictation/grammar | M |
 | **T2** ✅ Branding & resources (chrome; deep guide prose → T4) | Course's own name/tagline/ribbon/tools | M |
-| **T3** Anki from course (dedupe) | Decks for any course; tech-debt gone | S–M |
+| **T3** ✅ Anki from course (dedupe) | Decks for any course; no vocab drift | S–M |
 | **T4** Authoring kit (guide, scaffolder, CSV import, validator) | Non-devs can ship a course | M–L |
 | **T5** Multi-course hub (optional) | Several courses, one deploy | L |
 

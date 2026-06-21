@@ -21,8 +21,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   drives TTS/speech-recognition language, LanguageTool language, IPA visibility,
   and article-stripping from `config.locale`. **T2 done:** branding/resources
   come from `config.brand` (name/tagline/goal/ribbon/topicLabel/about, +
-  `document.title`) and `config.resources` (the WelcomeCard tool list). Remaining:
-  T3 Anki-from-course, T4 authoring kit, T5 (optional) per-course localStorage
+  `document.title`) and `config.resources` (the WelcomeCard tool list). **T3 done:**
+  `generate-anki.cjs` sources vocab+IPA from the course via dynamic `import()` (no
+  more duplicated inline copy — resolves the issue #37 drift item). Remaining:
+  T4 authoring kit, T5 (optional) per-course localStorage
   namespacing + multi-course. (Namespacing was moved from T0 to T5 — it only
   matters once multiple courses coexist.) **Note:** `GuideSection.jsx` still holds
   long-form course-specific methodology prose (Babbel/iTalki/CEI how-tos) — slated
@@ -61,7 +63,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 
 **Data layer** (`course/`, as of T0): the course is defined by `course/config.js` (id, brand, locale, schedule incl. `startDate`/`weeks`/`daily`, resources) and `course/content.js` (`phases`). `course/index.js` resolves them into `course` (+ derived `totals`). `course/validate.js` checks the invariants (`npm run validate-course`, also exercised by `validate.test.js`). `src/data/studyData.js` is now a **back-compat shim** re-exporting `PHASES` (from content), `DAILY` (from `config.schedule.daily`), and `COURSE` — so existing `import { PHASES } from '../data/studyData'` keeps working. Each phase has `id`, `title`, `book`, badge fields, and a `weeks` array; each week: `n` (1–N), `d` (date range), `r` (reading/material), `b` (topic), `vocab` (array of `[target, native, example, ipa?]` tuples — IPA optional), `grammar` (`{title, body}`), `prompt` (`{it, en}`), `review` (boolean), `italki` (optional). The schedule (`schedule.js`) and the previously-hardcoded "259 cards"/"37 weeks" counts are now **derived** from the course, not literals.
 
-**Anki generation** (`scripts/generate-anki.cjs`): Node CJS script (not ESM — Vite plugins are ESM but this runs in Node at build time). Produces 42 `.apkg` files in `public/anki/`: one per week (37), one per phase (4), one complete deck (`complete.apkg`). **Gotcha:** this script does *not* import `studyData.js` — it keeps its own **duplicated inline copy** of the vocab (only `[italian, english, example]`, no IPA) "to keep the script standalone." So Anki cards carry no IPA, and the two vocab copies can drift; if you edit vocab in `studyData.js`, mirror it here (and vice-versa). Output `.apkg` files are also non-deterministic (timestamps/GUIDs) — every `npm run build` rewrites all 42 even with no content change, so don't commit that churn unless the card *content* actually changed.
+**Anki generation** (`scripts/generate-anki.cjs`): Node CJS script (not ESM — Vite plugins are ESM but this runs in Node at build time). Produces 42 `.apkg` files in `public/anki/`: one per week (37), one per phase (4), one complete deck (`complete.apkg`). **As of T3** it sources card data from the course via dynamic `import()` of `course/content.js` + `course/config.js` (no more duplicated inline vocab/IPA copy — they can't drift), staying CommonJS per the repo constraint. Cards carry IPA from the vocab tuple's 4th element when `config.locale.hasIPA`; deck names come from `config.brand.name`; per-phase filenames are a stable `DECK_FILES` map keyed by phase id (still referenced by `FlashcardsTab`). Output `.apkg` files remain non-deterministic (timestamps/GUIDs) — every `npm run build` rewrites all 42 even with no content change, so don't commit that churn unless the card *content* actually changed.
 
 **Hooks:**
 - `useProgress` — week completion bits in `localStorage` under key `italian-bible-progress`
