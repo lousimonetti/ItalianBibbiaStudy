@@ -10,6 +10,8 @@
     "preview": "vite preview",
     "generate-anki": "node scripts/generate-anki.cjs",
     "validate-course": "node scripts/validate-course.js",
+    "new-course": "node scripts/new-course.js",
+    "import-vocab": "node scripts/import-vocab.js",
     "prebuild": "node scripts/patch-sqljs.cjs && node scripts/generate-anki.cjs",
     "patch-sqljs": "node scripts/patch-sqljs.cjs",
     "test": "vitest run",

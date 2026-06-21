@@ -23,12 +23,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   come from `config.brand` (name/tagline/goal/ribbon/topicLabel/about, +
   `document.title`) and `config.resources` (the WelcomeCard tool list). **T3 done:**
   `generate-anki.cjs` sources vocab+IPA from the course via dynamic `import()` (no
-  more duplicated inline copy — resolves the issue #37 drift item). Remaining:
-  T4 authoring kit, T5 (optional) per-course localStorage
-  namespacing + multi-course. (Namespacing was moved from T0 to T5 — it only
-  matters once multiple courses coexist.) **Note:** `GuideSection.jsx` still holds
-  long-form course-specific methodology prose (Babbel/iTalki/CEI how-tos) — slated
-  to move into the course with the T4 authoring kit.
+  more duplicated inline copy — resolves the issue #37 drift item). **T4 done:**
+  the authoring kit — `AUTHORING.md`, `course/schema.md`, `npm run new-course`
+  (scaffolder) and `npm run import-vocab` (CSV→vocab). Remaining: T5 (optional)
+  per-course localStorage namespacing + multi-course. (Namespacing was moved from
+  T0 to T5 — it only matters once multiple courses coexist.) **Note:**
+  `GuideSection.jsx` / `SentenceGuide.jsx` still hold long-form course-specific
+  prose; `AUTHORING.md` tells forks to edit those components (moving them into
+  `course/` is a noted follow-up).
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism).
@@ -44,6 +46,8 @@ npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs v
 npm test             # vitest run — 164 tests across 16 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
+npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
+npm run import-vocab -- vocab.csv   # CSV (week,target,native,example,ipa) → paste-ready vocab
 ```
 
 The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automatically before every `npm run build`. Run `npm run generate-anki` manually only when iterating on the Flashcards tab during dev.
