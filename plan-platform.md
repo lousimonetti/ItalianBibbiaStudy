@@ -1,5 +1,12 @@
 # Plan — Turn this app into **CourseKit**: a config-driven study-app anyone can fork
 
+> **Status: T0–T4 complete and merged — the app is now a usable fork-and-fill
+> template.** Anyone can build their own N-week course (any language, any
+> material) by editing `course/config.js` + `course/content.js` and following
+> `AUTHORING.md` (`npm run new-course` to scaffold, `npm run validate-course` to
+> check) — no component edits. **Only T5 remains, and it's optional** (multiple
+> courses in one deploy + per-course storage namespacing); not pursued for now.
+
 > Companion to `plan.md` (which tracked building the Italian Bible course, now
 > done). This plan is about **generalizing** that finished app into a reusable
 > kit so anyone can define their *own* N-week comprehensible-input course —
