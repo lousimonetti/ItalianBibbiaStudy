@@ -19,10 +19,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   previously-hardcoded counts are derived from the course; `course/validate.js`
   + `npm run validate-course` guard it. **T1 done:** locale (`src/utils/locale.js`)
   drives TTS/speech-recognition language, LanguageTool language, IPA visibility,
-  and article-stripping from `config.locale`. Remaining: T2 branding/resources,
+  and article-stripping from `config.locale`. **T2 done:** branding/resources
+  come from `config.brand` (name/tagline/goal/ribbon/topicLabel/about, +
+  `document.title`) and `config.resources` (the WelcomeCard tool list). Remaining:
   T3 Anki-from-course, T4 authoring kit, T5 (optional) per-course localStorage
   namespacing + multi-course. (Namespacing was moved from T0 to T5 — it only
-  matters once multiple courses coexist.)
+  matters once multiple courses coexist.) **Note:** `GuideSection.jsx` still holds
+  long-form course-specific methodology prose (Babbel/iTalki/CEI how-tos) — slated
+  to move into the course with the T4 authoring kit.
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism).

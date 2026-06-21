@@ -82,7 +82,6 @@ html.dark .pronun-breakdown-low { background: #2e0d10; color: #f87171; }
 html.dark .pronun-recognized-error { color: #f87171; }
 html.dark .tab-btn:hover,
 html.dark .fc-mode-btn:hover { background: rgba(255,255,255,0.07); }
-html.dark .tc-white { background: #4a4840; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -115,9 +114,7 @@ body {
   overflow: hidden;
   margin-bottom: 24px;
 }
-.tc-green { flex: 1; background: #008C45; }
-.tc-white { flex: 1; background: #c8c4ba; }
-.tc-red   { flex: 1; background: #CE2B37; }
+.ribbon-seg { flex: 1; }
 
 .app-header {
   display: flex;
@@ -141,7 +138,7 @@ body {
   background: linear-gradient(to right, #008C45 33.33%, #c8c4ba 33.33% 66.66%, #CE2B37 66.66%);
   border-radius: 2px;
 }
-.title-it { color: var(--accent); }
+.title-accent { color: var(--accent); }
 .tagline { font-size: 13px; color: var(--text-muted); margin-top: 10px; }
 
 .install-btn {
