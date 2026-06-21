@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { PHASES, DAILY } from './data/studyData';
+import { config } from '../course/config';
 import { useProgress } from './hooks/useProgress';
 import { useInstallPrompt } from './hooks/useInstallPrompt';
 import { useTheme } from './hooks/useTheme';
@@ -188,6 +189,17 @@ const TABS = [
   { id: 'Journal',    Icon: JournalIcon },
 ];
 
+// Render the brand name with its first word in the accent colour.
+function renderBrandName(name) {
+  const [first, ...rest] = name.split(' ');
+  return (
+    <>
+      <span className="title-accent">{first}</span>
+      {rest.length ? ` ${rest.join(' ')}` : ''}
+    </>
+  );
+}
+
 export default function App() {
   const { checked, toggle, doneCount, pct } = useProgress(TOTAL);
   const { canInstall, install } = useInstallPrompt();
@@ -208,9 +220,9 @@ export default function App() {
   return (
     <div className="container">
       <div className="tricolor-bar" aria-hidden="true">
-        <div className="tc-green" />
-        <div className="tc-white" />
-        <div className="tc-red" />
+        {config.brand.ribbon.map((c, i) => (
+          <div key={i} className="ribbon-seg" style={{ background: c }} />
+        ))}
       </div>
       {!online && (
         <div className="offline-banner" role="status">
@@ -221,10 +233,8 @@ export default function App() {
 
       <div className="app-header">
         <div className="header-text">
-          <h1><span className="title-it">Italian</span> Bible Study</h1>
-          <p className="tagline">
-            37 weeks to Christmas 2026 &mdash; La Bibbia CEI 2008 + Babbel + Anki + iTalki
-          </p>
+          <h1>{renderBrandName(config.brand.name)}</h1>
+          <p className="tagline">{config.brand.tagline}</p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
           {canInstall && (
@@ -255,7 +265,7 @@ export default function App() {
       <div className="progress-wrap">
         <div className="progress-top">
           <div className="progress-count">{doneCount} / {TOTAL} <UiText k="progress.weeks" /></div>
-          <div className="progress-goal"><UiText k="progress.goal" />: Dec 25, 2026</div>
+          <div className="progress-goal"><UiText k="progress.goal" />: {config.brand.goal}</div>
         </div>
         <div className="bar-bg">
           <div className="bar-fill" style={{ width: `${pct}%` }}

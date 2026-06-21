@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { WeekRow } from './WeekRow';
+import { config } from '../../course/config';
 
 function ChevronIcon({ open }) {
   return (
@@ -35,7 +36,7 @@ export function Phase({ phase, checked, onToggle, currentWeekN }) {
             <span />
             <span>Dates</span>
             <span>Reading</span>
-            <span>Babbel focus</span>
+            <span>{config.brand.topicLabel}</span>
             <span />
           </div>
           {phase.weeks.map((week) => (

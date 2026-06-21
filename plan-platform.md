@@ -160,15 +160,21 @@ logic in tested modules, build → PR → green → merge.
 - *Done:* flipping `config.locale` retargets audio, dictation, recognition, and
   grammar-check with no component edits (lint clean, 168 tests, build + preview).
 
-### T2 — Branding & resources from config
-- `index.html` title + `App.jsx` header/tagline from `brand`; the ribbon bar and
-  accent CSS variables from `brand.ribbon`/`accent` (inject as CSS custom
-  properties at runtime).
-- Render `WelcomeCard`/`GuideSection`/`Phase` "tool" sections from
-  `config.resources[]` instead of hardcoded Babbel/iTalki/CEI prose;
-  `SentenceGuide` examples move into the course (or become optional).
-- *Done when:* the app shows the course's own name, colors, and tools — no
-  "Italian"/"Bible"/"Babbel" left in components.
+### T2 — Branding & resources from config — ✅ DONE (chrome) / partial (deep prose)
+- ✅ `App.jsx` header **name** (first word accented) + **tagline** + progress
+  **goal** from `config.brand`; the ribbon bar renders from `brand.ribbon`;
+  `Phase` topic column from `brand.topicLabel`; `document.title` set from
+  `brand.name` in `main.jsx`.
+- ✅ `WelcomeCard` intro from `config.brand.about` and the tool list from
+  `config.resources[]` (each with `name`/`badge`/`desc`).
+- **Deferred to T4:** accent **CSS variables** stay in `index.css` (light/dark are
+  two values; runtime injection would fight the theme system — a fork edits the
+  two `--accent` lines for now). `GuideSection.jsx`'s long-form methodology prose
+  (Babbel/iTalki/CEI how-tos) and `SentenceGuide` examples remain
+  course-specific; they're better moved into the course alongside the authoring
+  kit (T4), where a `config.guide` blob or course markdown fits naturally.
+- *Done:* the app's name, tagline, ribbon, goal, topic label, and tool list all
+  come from the course (lint clean, 168 tests, build + preview).
 
 ### T3 — Anki generation from the course (also kills tech-debt #37)
 - `generate-anki.cjs` imports `course/content` (stop the duplicated inline copy);
@@ -228,7 +234,7 @@ fixtures/tests):
 |---|---|---|
 | **T0** ✅ Extract course + validate (numbers derived; namespacing → T5) | All data in `course/`, app unchanged | M |
 | **T1** ✅ Locale generalization | Any language's audio/dictation/grammar | M |
-| **T2** Branding & resources | Course's own identity, no IT/Bible prose in code | M |
+| **T2** ✅ Branding & resources (chrome; deep guide prose → T4) | Course's own name/tagline/ribbon/tools | M |
 | **T3** Anki from course (dedupe) | Decks for any course; tech-debt gone | S–M |
 | **T4** Authoring kit (guide, scaffolder, CSV import, validator) | Non-devs can ship a course | M–L |
 | **T5** Multi-course hub (optional) | Several courses, one deploy | L |

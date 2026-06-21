@@ -11,9 +11,15 @@ export const config = {
     name: 'Italian Bible Study',
     tagline: '37 weeks to Christmas 2026 — La Bibbia CEI 2008 + Babbel + Anki + iTalki',
     goal: 'Dec 25, 2026',
+    topicLabel: 'Babbel focus', // column header for each week's topic (week.b)
     accent: '#008C45',
     accentDim: '#d4edda',
     ribbon: ['#008C45', '#c8c4ba', '#CE2B37'], // the tricolore bar
+    // One-paragraph "what is this?" intro shown on the WelcomeCard.
+    about:
+      'A self-paced 37-week Italian language program — Easter to Christmas 2026. ' +
+      'The Italian Bible (La Bibbia CEI 2008) is the primary reading text, supported ' +
+      'by tools for grammar, vocabulary, and conversation.',
   },
 
   // Locale drives TTS, speech-recognition, the grammar check, and whether IPA
@@ -41,10 +47,15 @@ export const config = {
     ],
   },
 
-  // Supporting tools/materials (rendered by the guide/welcome surfaces in T2).
+  // Supporting tools/materials the course uses (rendered on the WelcomeCard).
   resources: [
-    { id: 'text', name: 'La Bibbia CEI 2008', badge: 'Primary text', role: 'reading' },
-    { id: 'srs', name: 'Babbel', badge: '15 min/day', role: 'grammar' },
-    { id: 'talk', name: 'iTalki', badge: 'review weeks', role: 'conversation' },
+    { id: 'text', name: 'La Bibbia CEI 2008', badge: 'Primary text', role: 'reading',
+      desc: 'daily reading through John, Luke, Acts, Romans & Psalms. Rich, repetitive language that builds vocabulary naturally.' },
+    { id: 'grammar', name: 'Babbel', badge: '15 min/day', role: 'grammar',
+      desc: 'one short lesson per day for grammar and pronunciation structure.' },
+    { id: 'srs', name: 'Anki', badge: 'flashcards', role: 'flashcards',
+      desc: 'spaced-repetition flashcards for vocab. Pre-built decks are ready to download.' },
+    { id: 'talk', name: 'iTalki', badge: 'review weeks', role: 'conversation',
+      desc: 'live conversation practice with a tutor, scheduled on review weeks (roughly monthly).' },
   ],
 };
