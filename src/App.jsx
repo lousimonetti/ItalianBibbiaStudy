@@ -15,6 +15,7 @@ import { UiText } from './i18n/UiText';
 import { useStreak } from './hooks/useStreak';
 import { Achievements } from './components/Achievements';
 import { Reminders } from './components/Reminders';
+import { CoursePicker } from './components/CoursePicker';
 
 const TOTAL = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
 const ALL_WEEKS = PHASES.flatMap(p => p.weeks);
@@ -237,6 +238,7 @@ export default function App() {
           <p className="tagline">{config.brand.tagline}</p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+          <CoursePicker />
           {canInstall && (
             <button className="install-btn" onClick={install} aria-label="Install app">
               <DownloadIcon />

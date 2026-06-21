@@ -29,10 +29,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   (scaffolder) and `npm run import-vocab` (CSV→vocab). **T5a done:** per-course
   localStorage namespacing via `storageKey()` / `config.storagePrefix` (reference
   course keeps `italian-bible-*`, zero migration; forks self-namespace).
-  **Remaining: only the optional T5b** — a runtime multi-course *picker* (a
-  course registry + reload-based switching; a deeper change since `config`/`phases`
-  are statically imported across ~12 files). Not needed for a single
-  fork-and-fill deploy, and not currently planned.
+  **T5b done:** a multi-course **registry + picker** — the data moved to
+  `courses/<id>/`, `courses/registry.js` bundles all courses and resolves the
+  active one from localStorage, `course/config.js` + `course/content.js` are now
+  thin resolvers, and `CoursePicker` (header) switches courses (persist + reload;
+  hidden when only one course is registered, so the reference deploy is
+  unchanged). **The whole platform (T0–T5) is complete.** Known limit: Anki deck
+  generation + the Flashcards download list still target the *default* course
+  only (the in-browser Practice/SRS is the per-course study path).
   **Note:** `GuideSection.jsx` / `SentenceGuide.jsx` still hold long-form
   course-specific prose; `AUTHORING.md` tells forks to edit those components
   (moving them into `course/` is a noted follow-up).
@@ -70,7 +74,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 
 **Tab structure** (`App.jsx`): Three tabs — Tracker, Flashcards, Journal — rendered conditionally by `activeTab` state. No React Router; tab switching unmounts the inactive tab components.
 
-**Data layer** (`course/`, as of T0): the course is defined by `course/config.js` (id, brand, locale, schedule incl. `startDate`/`weeks`/`daily`, resources) and `course/content.js` (`phases`). `course/index.js` resolves them into `course` (+ derived `totals`). `course/validate.js` checks the invariants (`npm run validate-course`, also exercised by `validate.test.js`). `src/data/studyData.js` is now a **back-compat shim** re-exporting `PHASES` (from content), `DAILY` (from `config.schedule.daily`), and `COURSE` — so existing `import { PHASES } from '../data/studyData'` keeps working. Each phase has `id`, `title`, `book`, badge fields, and a `weeks` array; each week: `n` (1–N), `d` (date range), `r` (reading/material), `b` (topic), `vocab` (array of `[target, native, example, ipa?]` tuples — IPA optional), `grammar` (`{title, body}`), `prompt` (`{it, en}`), `review` (boolean), `italki` (optional). The schedule (`schedule.js`) and the previously-hardcoded "259 cards"/"37 weeks" counts are now **derived** from the course, not literals.
+**Data layer** (`courses/` + `course/`): each course's data lives in `courses/<id>/{config.js,content.js}` (`config` = id, brand, locale, schedule incl. `startDate`/`weeks`/`daily`, resources; `content` = `phases`). `courses/registry.js` statically bundles all courses and picks the **active** one from localStorage (`coursekit-active-course`); `course/config.js` and `course/content.js` are thin **resolvers** that re-export the active course's `config`/`phases` — so the ~12 files that `import { config } from '../../course/config'` transparently get the active course. Switching courses (`registry.setActiveCourse` / the `CoursePicker`) persists + reloads so every module re-resolves. `course/index.js` resolves config+content into `course` (+ derived `totals`). `course/validate.js` checks the invariants (`npm run validate-course`, also exercised by `validate.test.js`). `src/data/studyData.js` is now a **back-compat shim** re-exporting `PHASES` (from content), `DAILY` (from `config.schedule.daily`), and `COURSE` — so existing `import { PHASES } from '../data/studyData'` keeps working. Each phase has `id`, `title`, `book`, badge fields, and a `weeks` array; each week: `n` (1–N), `d` (date range), `r` (reading/material), `b` (topic), `vocab` (array of `[target, native, example, ipa?]` tuples — IPA optional), `grammar` (`{title, body}`), `prompt` (`{it, en}`), `review` (boolean), `italki` (optional). The schedule (`schedule.js`) and the previously-hardcoded "259 cards"/"37 weeks" counts are now **derived** from the course, not literals.
 
 **Anki generation** (`scripts/generate-anki.cjs`): Node CJS script (not ESM — Vite plugins are ESM but this runs in Node at build time). Produces 42 `.apkg` files in `public/anki/`: one per week (37), one per phase (4), one complete deck (`complete.apkg`). **As of T3** it sources card data from the course via dynamic `import()` of `course/content.js` + `course/config.js` (no more duplicated inline vocab/IPA copy — they can't drift), staying CommonJS per the repo constraint. Cards carry IPA from the vocab tuple's 4th element when `config.locale.hasIPA`; deck names come from `config.brand.name`; per-phase filenames are a stable `DECK_FILES` map keyed by phase id (still referenced by `FlashcardsTab`). Output `.apkg` files remain non-deterministic (timestamps/GUIDs) — every `npm run build` rewrites all 42 even with no content change, so don't commit that churn unless the card *content* actually changed.
 
