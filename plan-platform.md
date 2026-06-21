@@ -189,18 +189,21 @@ logic in tested modules, build → PR → green → merge.
 - *Done:* `npm run generate-anki` rebuilds 42 decks (259 cards) from the course;
   full `npm run build` (prebuild → generate-anki) passes; card content unchanged.
 
-### T4 — The authoring kit (the "anyone can pick it up" deliverable)
-- `AUTHORING.md` — a from-scratch guide: clone → edit `course/config.js` →
-  fill `course/content.js` → `npm run validate-course` → `npm run dev`.
-- `course/schema.md` — documents every field with examples and the validator's
-  rules.
-- **Blank template + scaffolder:** `npm run new-course -- --weeks 40 --phases 4`
-  generates a `course/` skeleton with empty week objects pre-numbered 1..N and
-  phase boilerplate, so authors fill blanks instead of fighting structure.
-- **Spreadsheet on-ramp:** `npm run import-vocab -- vocab.csv` converts a CSV
-  (`week,target,native,example,ipa`) into content — non-coders author in Sheets.
-- Friendly validator output (line-pointed errors, "week 12 is missing `prompt`").
-- *Done when:* a non-developer can produce a runnable course from the guide.
+### T4 — The authoring kit (the "anyone can pick it up" deliverable) — ✅ DONE
+- ✅ `AUTHORING.md` — a from-scratch guide (TL;DR, the two files, spreadsheet
+  on-ramp, what you get free, known rough edges).
+- ✅ `course/schema.md` — field-by-field reference + the validator's rules.
+- ✅ **Scaffolder:** `npm run new-course -- --weeks 40 --phases 4 --id x [--out d]
+  [--force]` writes valid `config.js` + `content.js` skeletons with weeks
+  pre-numbered `1..N` split across phases; refuses to clobber the active course
+  without `--force`.
+- ✅ **Spreadsheet on-ramp:** `npm run import-vocab -- vocab.csv` (a small CSV
+  parser, IPA optional) prints paste-ready `{ weekN: [[...]] }` vocab.
+- ✅ The validator already gives line-pointed errors ("week 12: missing prompt").
+- **Deferred:** moving `GuideSection`/`SentenceGuide` prose into the course
+  (`AUTHORING.md` tells forks to edit those components for now).
+- *Done:* a non-developer can scaffold → fill → validate → run a course from the
+  guide. Verified end-to-end (scaffold a 6-week/2-phase demo, import a CSV).
 
 ### T5 — (Optional) multiple courses in one deploy
 - A `courses/` registry + a course picker; per-course key namespacing already
@@ -241,7 +244,7 @@ fixtures/tests):
 | **T1** ✅ Locale generalization | Any language's audio/dictation/grammar | M |
 | **T2** ✅ Branding & resources (chrome; deep guide prose → T4) | Course's own name/tagline/ribbon/tools | M |
 | **T3** ✅ Anki from course (dedupe) | Decks for any course; no vocab drift | S–M |
-| **T4** Authoring kit (guide, scaffolder, CSV import, validator) | Non-devs can ship a course | M–L |
+| **T4** ✅ Authoring kit (guide, scaffolder, CSV import, validator) | Non-devs can ship a course | M–L |
 | **T5** Multi-course hub (optional) | Several courses, one deploy | L |
 
 Recommended order: **T0 → T1 → T2 → T3 → T4** (T5 only on demand). T0 unlocks
