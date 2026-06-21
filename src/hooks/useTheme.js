@@ -1,6 +1,8 @@
 import { useState, useCallback, useEffect } from 'react';
 
-const STORAGE_KEY = 'italian-bible-theme';
+import { storageKey } from '../utils/storageKey';
+
+const STORAGE_KEY = storageKey('theme');
 
 function loadTheme() {
   try {

@@ -213,9 +213,19 @@ logic in tested modules, build → PR → green → merge.
   guide. Verified end-to-end (scaffold a 6-week/2-phase demo, import a CSV).
 
 ### T5 — (Optional) multiple courses in one deploy
-- A `courses/` registry + a course picker; per-course key namespacing already
-  exists from T0, so progress stays separate. Achievements/streak read the
-  active course. Heavier; only if someone wants a multi-course hub.
+- ✅ **T5a — per-course storage namespacing (DONE):** every persisted store keys
+  off `storageKey(name)` → `config.storagePrefix` (`src/utils/storageKey.js`).
+  The reference course keeps the `italian-bible` prefix (zero migration); a
+  scaffolded course gets `course-<id>`, so forks/courses never collide.
+  Unit-tested (`storageKey.test.js`).
+- ⬜ **T5b — runtime multi-course picker (NOT pursued):** a `courses/` registry +
+  a picker that switches the active course. This is the heavier half: `config`
+  and `phases` are **statically imported** across ~12 files (incl. module-level
+  reads in `locale.js`/`schedule.js`/`vocabIndex.js` and the `studyData` shim), so
+  a runtime switch needs either build-time course selection or a registry +
+  reload-based switching (set active id in localStorage → reload → modules
+  recompute). Only worth it for an actual multi-course hub; namespacing (T5a)
+  already makes that safe whenever it's built.
 
 ## Proving it's generic — example courses
 
@@ -252,7 +262,8 @@ fixtures/tests):
 | **T2** ✅ Branding & resources (chrome; deep guide prose → T4) | Course's own name/tagline/ribbon/tools | M |
 | **T3** ✅ Anki from course (dedupe) | Decks for any course; no vocab drift | S–M |
 | **T4** ✅ Authoring kit (guide, scaffolder, CSV import, validator) | Non-devs can ship a course | M–L |
-| **T5** Multi-course hub (optional) | Several courses, one deploy | L |
+| **T5a** ✅ Per-course storage namespacing | Forks/courses don't collide | S |
+| **T5b** Multi-course hub/picker (optional, not pursued) | Several courses, one deploy | L |
 
 Recommended order: **T0 → T1 → T2 → T3 → T4** (T5 only on demand). T0 unlocks
 everything; T4 is what makes it truly "pick up and build your own."

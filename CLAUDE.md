@@ -26,9 +26,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   `generate-anki.cjs` sources vocab+IPA from the course via dynamic `import()` (no
   more duplicated inline copy — resolves the issue #37 drift item). **T4 done:**
   the authoring kit — `AUTHORING.md`, `course/schema.md`, `npm run new-course`
-  (scaffolder) and `npm run import-vocab` (CSV→vocab). **Remaining: only T5, and
-  it's optional** — per-course localStorage namespacing + a multi-course hub;
-  not needed for a single fork-and-fill deploy, and not currently planned.
+  (scaffolder) and `npm run import-vocab` (CSV→vocab). **T5a done:** per-course
+  localStorage namespacing via `storageKey()` / `config.storagePrefix` (reference
+  course keeps `italian-bible-*`, zero migration; forks self-namespace).
+  **Remaining: only the optional T5b** — a runtime multi-course *picker* (a
+  course registry + reload-based switching; a deeper change since `config`/`phases`
+  are statically imported across ~12 files). Not needed for a single
+  fork-and-fill deploy, and not currently planned.
   **Note:** `GuideSection.jsx` / `SentenceGuide.jsx` still hold long-form
   course-specific prose; `AUTHORING.md` tells forks to edit those components
   (moving them into `course/` is a noted follow-up).
@@ -79,7 +83,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `usePronunStats` — pronunciation attempts under key `italian-bible-pronun` (per-word `{ attempts, last, best, sum, avg, at }`); `record(term, score)`, `getStore()`. Recorded by Pronunciation mode; combined with the SRS store by `src/utils/wordStats.js` (`struggleList`) to drive the Practice "Parole difficili / words you struggle with" panel.
 - `useStreak` — daily streak + today's-goal flags under key `italian-bible-streak`; React glue over pure `src/utils/streak.js` (`{ last, current, best, today: { date, read, practiced, journaled } }`). The dashboard reads it on mount (`TodayCard` remounts on tab switch, picking up activity recorded elsewhere); `recordActivity(flag)` is called fire-and-forget from `PracticeMode` (`'practiced'`) and `JournalTab` (`'journaled'`), and `tickRead` marks the reading box.
 
-All persisted keys are namespaced `italian-bible-*` (`-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`). Any new feature that persists state should follow that prefix.
+All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 

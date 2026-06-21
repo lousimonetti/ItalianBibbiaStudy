@@ -1,7 +1,8 @@
 import { useRef, useState, useCallback } from 'react';
 import { review, buildQueue, stats, newAllowanceToday } from '../utils/srs';
+import { storageKey } from '../utils/storageKey';
 
-const STORAGE_KEY = 'italian-bible-srs';
+const STORAGE_KEY = storageKey('srs');
 
 function load() {
   try {

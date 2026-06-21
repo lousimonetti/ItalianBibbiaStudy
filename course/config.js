@@ -4,8 +4,12 @@
 // course/content.js. See plan-platform.md for the generalization roadmap.
 
 export const config = {
-  // Namespaces decks and (eventually) per-course localStorage keys.
+  // Namespaces decks and per-course localStorage keys.
   id: 'it-bible-cei',
+  // localStorage key prefix. Kept as 'italian-bible' for this reference course so
+  // existing users' data (progress/srs/streak/…) is preserved with no migration.
+  // A scaffolded course gets its own prefix, so forks/courses never collide.
+  storagePrefix: 'italian-bible',
 
   brand: {
     name: 'Italian Bible Study',
