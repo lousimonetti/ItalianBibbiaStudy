@@ -215,6 +215,31 @@ body {
   color: #fff;
 }
 
+/* Global audio-speed control — cycles Slow → Normal → Fast for all spoken audio */
+.audio-speed-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+  padding: 0 9px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.audio-speed-toggle:hover { background: var(--bg); color: var(--text); border-color: var(--accent); }
+.audio-speed-toggle.audio-speed-slow {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.audio-speed-label { line-height: 1; }
+
 /* Chrome string shown in Italian (immersion on) — faint dotted hint that the
    English gloss is available on hover/long-press via the title attribute. */
 .ui-it {
