@@ -9,6 +9,7 @@ import { Phase } from './components/Phase';
 import { GuideSection } from './components/GuideSection';
 import { FlashcardsTab } from './components/FlashcardsTab';
 import { JournalTab } from './components/JournalTab';
+import { PrayersTab } from './components/PrayersTab';
 import { WelcomeCard } from './components/WelcomeCard';
 import { useImmersion } from './i18n/ImmersionContext';
 import { UiText } from './i18n/UiText';
@@ -62,6 +63,16 @@ function JournalIcon() {
     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M10.5 2l3.5 3.5-7 7H3.5V9l7-7z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
       <path d="M9 3.5l3.5 3.5" stroke="currentColor" strokeWidth="1.5"/>
+    </svg>
+  );
+}
+
+function PrayersIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 1.5C8 1.5 4 5 4 8.5a4 4 0 008 0C12 5 8 1.5 8 1.5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M8 14.5v-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M6 14.5h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
   );
 }
@@ -188,6 +199,7 @@ const TABS = [
   { id: 'Tracker',    Icon: TrackerIcon },
   { id: 'Flashcards', Icon: CardsIcon },
   { id: 'Journal',    Icon: JournalIcon },
+  { id: 'Prayers',    Icon: PrayersIcon },
 ];
 
 // Render the brand name with its first word in the accent colour.
@@ -316,6 +328,9 @@ export default function App() {
 
       {/* Tab: Journal */}
       {activeTab === 'Journal' && <JournalTab />}
+
+      {/* Tab: Prayers */}
+      {activeTab === 'Prayers' && <PrayersTab />}
     </div>
   );
 }

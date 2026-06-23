@@ -2177,3 +2177,113 @@ body {
   font-size: 12px;
   color: var(--text-muted);
 }
+
+/* ── Prayers Tab ─────────────────────────────────────────────────────────── */
+.prayers-wrap { display: flex; flex-direction: column; gap: 0; }
+
+.prayers-header {
+  padding: 16px 0 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+.prayers-heading { font-size: 18px; font-weight: 600; }
+.prayers-subheading { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+.prayer-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.prayer-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 13px 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text);
+  gap: 8px;
+}
+.prayer-section-header:hover { background: rgba(0,0,0,0.02); }
+html.dark .prayer-section-header:hover { background: rgba(255,255,255,0.04); }
+
+.prayer-section-titles { display: flex; flex-direction: column; gap: 1px; }
+.prayer-section-title { font-size: 14px; font-weight: 600; }
+.prayer-section-title-en { font-size: 11px; color: var(--text-muted); }
+
+.prayer-section-body { border-top: 1px solid var(--border-subtle); padding: 12px 14px; }
+
+.prayer-section-intro {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+html.dark .prayer-section-intro { color: var(--text-muted); }
+
+.prayer-list { display: flex; flex-direction: column; gap: 10px; }
+
+.prayer-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--bg);
+}
+html.dark .prayer-card { background: rgba(255,255,255,0.02); }
+
+.prayer-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.prayer-card-titles { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.prayer-title-it { font-size: 13px; font-weight: 600; color: var(--accent); }
+.prayer-title-en { font-size: 11px; color: var(--text-muted); }
+
+.prayer-note {
+  font-size: 11px;
+  color: var(--text-faint);
+  font-style: italic;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.prayer-text-it {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.prayer-translation-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 0;
+  margin-bottom: 0;
+}
+.prayer-translation-toggle:hover { color: var(--accent); }
+.prayer-translation-toggle.open { color: var(--accent); }
+
+.prayer-text-en {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-subtle);
+}
+html.dark .prayer-text-en { color: var(--text-muted); }

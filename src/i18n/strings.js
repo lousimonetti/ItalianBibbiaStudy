@@ -8,6 +8,7 @@ export const UI_STRINGS = {
   'tab.tracker': { it: 'Percorso', en: 'Tracker' },
   'tab.flashcards': { it: 'Schede', en: 'Flashcards' },
   'tab.journal': { it: 'Diario', en: 'Journal' },
+  'tab.prayers': { it: 'Preghiere', en: 'Prayers' },
 
   // Progress bar
   'progress.weeks': { it: 'settimane', en: 'weeks' },
