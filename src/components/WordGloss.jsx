@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { tokenize, lookupWord } from '../utils/vocabIndex';
 import { TTS_LANG } from '../utils/locale';
+import { getRate } from '../utils/audioSpeed';
 import { GlossPopover } from './GlossPopover';
 
 const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -10,7 +11,7 @@ function speakWord(text) {
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = TTS_LANG;
-    u.rate = 0.9;
+    u.rate = getRate();
     window.speechSynthesis.speak(u);
   } catch {
     // speech unavailable — ignore

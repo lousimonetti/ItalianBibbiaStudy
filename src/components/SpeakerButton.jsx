@@ -1,13 +1,20 @@
 import { useState, useRef } from 'react';
 import { TTS_LANG } from '../utils/locale';
+import { useAudioSpeed } from '../hooks/useAudioSpeed';
 
 const hasSpeechSynthesis = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
-export function SpeakerButton({ word, size = 20, rate = 0.85 }) {
+// `rate` overrides the global audio-speed preference when provided (e.g. Practice →
+// Listening mode, which has its own per-mode toggle). Otherwise the button follows
+// the app-wide speed set in the header.
+export function SpeakerButton({ word, size = 20, rate }) {
+  const { rate: globalRate } = useAudioSpeed();
   const [speaking, setSpeaking] = useState(false);
   const utterRef = useRef(null);
 
   if (!hasSpeechSynthesis) return null;
+
+  const effectiveRate = rate ?? globalRate;
 
   function handleSpeak(e) {
     e.stopPropagation();
@@ -18,7 +25,7 @@ export function SpeakerButton({ word, size = 20, rate = 0.85 }) {
     }
     const utter = new SpeechSynthesisUtterance(word);
     utter.lang = TTS_LANG;
-    utter.rate = rate;
+    utter.rate = effectiveRate;
     utter.onstart = () => setSpeaking(true);
     utter.onend = () => setSpeaking(false);
     utter.onerror = () => setSpeaking(false);
