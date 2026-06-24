@@ -2288,6 +2288,19 @@ html.dark .prayer-card { background: rgba(255,255,255,0.02); }
   margin-bottom: 8px;
 }
 
+/* Read-along: dim the verse slightly while playing so the spoken word pops. */
+.prayer-text-it.reading { color: var(--text-muted); }
+.prayer-word {
+  border-radius: 3px;
+  padding: 1px 1px;
+  margin: 0 -1px;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+.prayer-word-active {
+  background: var(--accent);
+  color: #fff;
+}
+
 .prayer-translation-toggle {
   display: flex;
   align-items: center;

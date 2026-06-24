@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PRAYER_SECTIONS } from '../data/prayers';
-import { SpeakerButton } from './SpeakerButton';
+import { useReadAlong } from '../hooks/useReadAlong';
 
 function ChevronIcon({ open }) {
   return (
@@ -11,8 +11,35 @@ function ChevronIcon({ open }) {
   );
 }
 
+// Play/stop control that drives the read-along highlight (mirrors SpeakerButton's
+// speaker → stop icon, but reports state up so the prayer text can highlight).
+function ReadAlongButton({ speaking, onToggle }) {
+  const size = 18;
+  return (
+    <button
+      className={`speaker-btn${speaking ? ' speaker-speaking' : ''}`}
+      onClick={onToggle}
+      aria-label={speaking ? 'Stop read-along' : 'Read along'}
+      title={speaking ? 'Stop' : 'Read along'}
+    >
+      {speaking ? (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" />
+        </svg>
+      ) : (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" />
+          <path d="M15.54 8.46a5 5 0 010 7.07" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M19.07 4.93a10 10 0 010 14.14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      )}
+    </button>
+  );
+}
+
 function PrayerCard({ prayer }) {
   const [showEn, setShowEn] = useState(false);
+  const { supported, tokens, activeIndex, speaking, toggle } = useReadAlong(prayer.it);
 
   return (
     <div className="prayer-card">
@@ -21,14 +48,27 @@ function PrayerCard({ prayer }) {
           <span className="prayer-title-it">{prayer.title}</span>
           <span className="prayer-title-en">{prayer.titleEn}</span>
         </div>
-        <SpeakerButton word={prayer.it} size={18} />
+        {supported && <ReadAlongButton speaking={speaking} onToggle={toggle} />}
       </div>
 
       {prayer.note && (
         <p className="prayer-note">{prayer.note}</p>
       )}
 
-      <p className="prayer-text-it">{prayer.it}</p>
+      <p className={`prayer-text-it${speaking ? ' reading' : ''}`}>
+        {tokens.map((t, i) =>
+          t.isWord ? (
+            <span
+              key={i}
+              className={`prayer-word${i === activeIndex ? ' prayer-word-active' : ''}`}
+            >
+              {t.text}
+            </span>
+          ) : (
+            <span key={i}>{t.text}</span>
+          )
+        )}
+      </p>
 
       <button
         className={`prayer-translation-toggle${showEn ? ' open' : ''}`}
