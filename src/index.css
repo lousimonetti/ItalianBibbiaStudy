@@ -175,6 +175,94 @@ body {
 }
 .theme-toggle:hover { background: var(--bg); color: var(--text); border-color: var(--accent); }
 
+/* Cross-device sync */
+.sync-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.sync-toggle:hover { background: var(--bg); color: var(--text); border-color: var(--accent); }
+.sync-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.sync-modal {
+  width: 100%;
+  max-width: 360px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  padding: 16px;
+}
+.sync-modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.sync-modal-head h2 { font-size: 16px; margin: 0; color: var(--text); }
+.sync-close { background: none; border: none; font-size: 24px; line-height: 1; color: var(--text-muted); cursor: pointer; padding: 0 4px; }
+.sync-close:hover { color: var(--text); }
+.sync-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+.sync-tab {
+  flex: 1;
+  padding: 7px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+}
+.sync-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.sync-view { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
+.sync-hint { font-size: 12px; color: var(--text-muted); margin: 0; }
+.sync-qr { align-self: center; border-radius: 8px; background: #fff; padding: 6px; }
+.sync-video { width: 100%; border-radius: 8px; background: #000; aspect-ratio: 1; object-fit: cover; }
+.sync-code {
+  width: 100%;
+  font-family: monospace;
+  font-size: 11px;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  background: var(--bg);
+  color: var(--text);
+  box-sizing: border-box;
+}
+.sync-actions { display: flex; gap: 8px; }
+.sync-btn {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+}
+.sync-btn:hover { border-color: var(--accent); }
+.sync-btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.sync-file-label { display: inline-flex; align-items: center; justify-content: center; }
+.sync-or { font-size: 12px; color: var(--text-faint); text-align: center; }
+.sync-warn { font-size: 12px; color: var(--danger, #c0392b); margin: 0; }
+.sync-foot { font-size: 11px; color: var(--text-faint); margin: 12px 0 0; text-align: center; }
+
 /* Multi-course switcher (only shown when 2+ courses are registered) */
 .course-picker {
   height: 32px;
@@ -647,9 +735,15 @@ body {
 .gloss-pop-head .speaker-btn { width: 24px; height: 24px; }
 .gloss-pop-en { font-size: 13px; color: var(--text); }
 .gloss-pop-ipa { font-size: 11px; color: var(--text-faint); letter-spacing: 0.01em; }
-/* Un-glossed words: subtle tap-to-hear (no underline, just a faint hover) */
-.gloss-tts { cursor: pointer; border-radius: 3px; transition: background 0.12s; }
-.gloss-tts:hover { background: var(--border-subtle); }
+.gloss-pop-approx { color: var(--text-faint); }
+/* Non-vocab words: tappable for auto-generated pronunciation, but a lighter
+   affordance than real vocab glosses so the latter stay visually primary. */
+.gloss-word-plain { border-bottom: 1px dotted var(--border); }
+.gloss-word-plain:hover,
+.gloss-word-plain.gloss-word-open {
+  color: var(--text);
+  background: var(--border-subtle);
+}
 
 .grammar-box {
   background: var(--surface);
