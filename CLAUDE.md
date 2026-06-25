@@ -40,9 +40,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   **Note:** `GuideSection.jsx` / `SentenceGuide.jsx` still hold long-form
   course-specific prose; `AUTHORING.md` tells forks to edit those components
   (moving them into `course/` is a noted follow-up).
+- **Cross-device sync shipped (offline, no backend).** Progress is portable via a
+  versioned `localStorage` snapshot carried by QR code / copy-paste code / `.json`
+  file (`syncSnapshot.js` + `SyncPanel.jsx`). **Online auto-sync** (opt-in BaaS —
+  would relax the no-backend constraint) is planned in `plan-sync.md`. Also shipped:
+  tap **any** Italian word for an auto-generated approximate IPA + audio
+  (`it2ipa.js`, generalized `WordGloss`).
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
-  hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism).
+  hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
+  sync follow-ups in `plan-sync.md` (multi-QR chunking for large snapshots,
+  field-level merge, online auto-sync).
 
 ## Commands
 
@@ -52,7 +60,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 164 tests across 16 files, all green
+npm test             # vitest run — 205 tests across 23 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -97,7 +105,9 @@ All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/ut
 
 **Locale (`src/utils/locale.js`, as of T1):** single source for the course's `TTS_LANG`/`NATIVE_LANG`/`GRAMMAR_LANG`/`HAS_IPA` and a `LEADING_ARTICLE` regex built from `config.locale.articles`. `SpeakerButton`, `WordGloss`, and `PronunciationPractice` speak/recognize `TTS_LANG`; `answer.js`/`vocabIndex.js`/`cloze.js` strip articles via `LEADING_ARTICLE`; `HAS_IPA:false` hides the IPA column, pronunciation-key panels, and card-back IPA; `GRAMMAR_LANG:''` hides the Journal grammar toggle. Flipping `config.locale` retargets the language with no component edits.
 
-**Tap-to-translate** (`WordGloss.jsx` + `GlossPopover.jsx`, backed by `src/utils/vocabIndex.js`): wraps an Italian string and makes any word that exists in the vocab index tappable → a popover with Italian + English + IPA + a speaker. `vocabIndex.js` builds a memoized `Map` once from `PHASES`, keyed by both the full term and its article-stripped stem (so "il Verbo" is reachable as "verbo"); `tokenize` preserves the original text exactly and keeps internal apostrophes. Words not in the index aren't glossed but are still **tap-to-hear** (TTS, the `.gloss-tts` span) where speech synthesis is available. Wired into example sentences + writing prompt (`WeekDetail.jsx`) and the Journal prompt (`JournalTab.jsx`). All client-side, works offline.
+**Tap-to-translate / tap-for-pronunciation** (`WordGloss.jsx` + `GlossPopover.jsx`, backed by `src/utils/vocabIndex.js`): wraps an Italian string and makes **every** word tappable → a popover. Words in the vocab index show Italian + English + stored IPA + a speaker; **any other word** (conjugations, names, function words) shows an **auto-generated approximate IPA** (flagged with `≈`) + a speaker. `vocabIndex.js` builds a memoized `Map` once from `PHASES`, keyed by both the full term and its article-stripped stem (so "il Verbo" is reachable as "verbo"); `tokenize` preserves the original text exactly and keeps internal apostrophes. The on-the-fly IPA comes from `src/utils/it2ipa.js` (`toIPA(word)`, + `it2ipa.test.js`), a pure rule-based Italian grapheme→IPA converter (digraphs gli/gn/sc/ch/gh, soft c/g, geminates, intervocalic-s voicing, accent-mark/penultimate stress) — a broad approximation labelled "approx.", gated on `HAS_IPA`; the TTS audio is the accurate channel. Non-vocab words render with a lighter `.gloss-word-plain` affordance so real glosses stay visually primary. Wired into example sentences + writing prompt (`WeekDetail.jsx`) and the Journal prompt (`JournalTab.jsx`). All client-side, works offline.
+
+**Cross-device sync** (`src/utils/syncSnapshot.js` + `SyncPanel.jsx`, see `plan-sync.md`): progress moves between devices with **no backend** via one versioned snapshot of the active course's `localStorage`. `exportSnapshot()` auto-collects every `STORAGE_PREFIX-*` key (excludes the device-level `coursekit-active-course`); `importSnapshot(snap, { mode:'replace' })` validates version+course and rewrites the keys; `encode`/`decode` compress with `lz-string`. `SyncPanel` (header button → modal) offers export (QR + copy-paste code + `.json` download) and import (camera QR scan via `jsqr`, paste, or file), reloading after import. `qrcode`/`jsqr` are dynamically `import()`ed to stay out of the main bundle. Online auto-sync (BaaS, opt-in — would relax the no-backend constraint) is on the roadmap in `plan-sync.md`.
 
 **Schedule logic** (`src/utils/schedule.js`): Program start is hardcoded to `Apr 13, 2026`. `getCurrentWeekN()` returns the current week 1–37 based on real date, or `null` if before start or after week 37. `getTodayDayIndex()` returns 0=Mon … 6=Sun, used to highlight today's row in `DAILY`.
 
@@ -187,12 +197,12 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **159 vitest tests across 15 files**, all passing.
+- **Tests:** `npm test` runs **205 vitest tests across 23 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
-  `pronunciation`, `schedule`, `studyData`, plus `SpeakerButton`, `UiText`,
-  `useProgress`, `useJournal`. New non-trivial logic should follow that
-  pure-module-plus-test pattern.
+  `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`, plus
+  `SpeakerButton`, `UiText`, `useProgress`, `useJournal`. New non-trivial logic
+  should follow that pure-module-plus-test pattern.
 - **CI:** `.github/workflows/azure-static-web-apps-*.yml` runs `npm ci` →
   `npm run lint` → `npm test` → `npm run build` on every PR to `main`, and
   deploys to production only on push to `main`. It deploys via the

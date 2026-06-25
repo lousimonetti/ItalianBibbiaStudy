@@ -1,35 +1,38 @@
 import { useState, useMemo, useEffect } from 'react';
 import { tokenize, lookupWord } from '../utils/vocabIndex';
-import { TTS_LANG } from '../utils/locale';
-import { getRate } from '../utils/audioSpeed';
+import { HAS_IPA } from '../utils/locale';
+import { toIPA } from '../utils/it2ipa';
 import { GlossPopover } from './GlossPopover';
 
 const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
-function speakWord(text) {
-  try {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = TTS_LANG;
-    u.rate = getRate();
-    window.speechSynthesis.speak(u);
-  } catch {
-    // speech unavailable — ignore
-  }
-}
+// A word is worth a popover if we can show *something* useful: a vocab gloss, or
+// (for any other word) generated IPA and/or speakable audio.
+const canGlossUnknown = ttsSupported || HAS_IPA;
 
-// Renders an Italian string with known vocabulary words made tappable: tapping
-// a word reveals a popover with its English translation, IPA, and a speaker
-// button (tap-to-translate / comprehensible input). Words not in the vocab
-// index render as plain text. The original text is preserved exactly.
+// Renders an Italian string with every word made tappable: tapping a word
+// reveals a popover. Vocab words show their English translation, stored IPA, and
+// a speaker; any other word shows an auto-generated approximate IPA and a speaker
+// (tap-to-translate / pronunciation help). The original text is preserved exactly.
 export function WordGloss({ text }) {
   const [openKey, setOpenKey] = useState(null);
 
   const tokens = useMemo(() => {
-    return tokenize(text).map((tok) => ({
-      ...tok,
-      entry: tok.isWord ? lookupWord(tok.text) : null,
-    }));
+    return tokenize(text).map((tok) => {
+      if (!tok.isWord) return { ...tok, entry: null };
+      const vocab = lookupWord(tok.text);
+      if (vocab) return { ...tok, entry: vocab };
+      // Not in the vocab index: build an on-the-fly pronunciation entry.
+      return {
+        ...tok,
+        entry: {
+          it: tok.text,
+          en: '',
+          ipa: HAS_IPA ? toIPA(tok.text) : '',
+          approx: true,
+        },
+      };
+    });
   }, [text]);
 
   useEffect(() => {
@@ -50,30 +53,17 @@ export function WordGloss({ text }) {
     <span className="wordgloss">
       {tokens.map((tok, i) => {
         if (!tok.isWord) return <span key={i}>{tok.text}</span>;
-        // A word with no vocab entry (conjugation, name, function word): no
-        // gloss, but still tap-to-hear when speech synthesis is available.
-        if (!tok.entry) {
-          return ttsSupported ? (
-            <span
-              key={i}
-              className="gloss-tts"
-              role="button"
-              tabIndex={-1}
-              title="Tap to hear"
-              onClick={(e) => { e.stopPropagation(); speakWord(tok.text); }}
-            >
-              {tok.text}
-            </span>
-          ) : (
-            <span key={i}>{tok.text}</span>
-          );
-        }
+        const isVocab = tok.entry && !tok.entry.approx;
+        // An auto-generated entry is only worth a popover if it has IPA or audio
+        // to show; otherwise render the word as plain text.
+        const hasContent = tok.entry && (isVocab || canGlossUnknown);
+        if (!hasContent) return <span key={i}>{tok.text}</span>;
         const open = openKey === i;
         return (
           <span key={i} className="gloss-word-wrap">
             <button
               type="button"
-              className={`gloss-word${open ? ' gloss-word-open' : ''}`}
+              className={`gloss-word${isVocab ? '' : ' gloss-word-plain'}${open ? ' gloss-word-open' : ''}`}
               aria-expanded={open}
               onClick={(e) => {
                 e.stopPropagation();
