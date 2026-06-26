@@ -49,6 +49,20 @@ phases = [{
     grammar: { title, body },
     prompt: { it, en },               // required — `it`=target, `en`=native
     italki: string[],                 // optional conversation starters
+
+    // ── optional exercise fields (rendered in WeekDetail / speech practice) ──
+    // For the reference course these live in courses/<id>/exercises.js and are
+    // merged onto the week by `n` at the bottom of content.js — but they can
+    // equally be inlined here.
+    passage: {                        // O2 interactive reading + O4 dictogloss
+      ref: string, translation: string,
+      verses: [{ n, t }],             // n = verse number, t = target text
+    },                                // omitted ⇒ falls back to vocab examples
+    drill: [{ q, a, hint }],          // O3 grammar drill; q has a `___` blank
+    comprehension: [                  // O5 reading checks
+      { type: 'tf', it, en, answer: boolean, explain? } |
+      { type: 'mc', it, en, options: string[], answer: index, explain? }
+    ],
   }],
 }]
 ```

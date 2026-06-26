@@ -60,7 +60,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 205 tests across 23 files, all green
+npm test             # vitest run — 237 tests across 27 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -99,7 +99,16 @@ All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/ut
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
-**Flashcards tab** (`FlashcardsTab.jsx`) has three modes toggled by local state: *Anki Decks* (download `.apkg` files), *Practice* (`PracticeMode.jsx` — SRS-scheduled, with a style selector for Recognition / Recall / Cloze and a "Parole difficili" struggle panel), and *Pronunciation* (`PronunciationPractice.jsx`).
+**Flashcards tab** (`FlashcardsTab.jsx`) has three modes toggled by local state: *Anki Decks* (download `.apkg` files), *Practice* (`PracticeMode.jsx` — SRS-scheduled, with a style selector for Recognition / Recall / Cloze / Listening and a "Parole difficili" struggle panel), and *Pronunciation* (`PronunciationPractice.jsx`).
+
+**Reading & comprehension suite (opportunities.md O1–O5, rendered in `WeekDetail.jsx`).** Five research-backed features layered onto each week, all data-driven and degrading gracefully when content is absent:
+- **O2 Interactive reading** (`ReadingPassage.jsx`): renders the week's connected verses with every word tappable (`WordGloss`) + a per-line speaker + a "mark as read" button that ticks the streak's `read` flag. Source is an authored `week.passage` when present, else the vetted vocab example sentences (`src/utils/keyVerses.js` resolves this; full CEI passages were *not* bundled — copyright + free-tier size, and the sandbox blocks Bible APIs — so the `passage` field is a documented upgrade slot).
+- **O5 Comprehension** (`Comprehension.jsx` + `src/utils/comprehension.js`): collapsible true/false + multiple-choice checks (`week.comprehension`), each with an English gloss.
+- **O4 Dictogloss** (`Dictogloss.jsx` + `src/utils/dictogloss.js`): hear a verse → type a reconstruction → word-level diff + recall score (order-independent multiset match, accent/case/punctuation-forgiving). Counts as `practiced` activity.
+- **O3 Grammar drill** (`GrammarDrill.jsx` + `src/utils/grammarDrill.js`): fill-in-the-blank items (`week.drill`) anchored to vetted example sentences so the Italian is correct; answers use the same forgiving `checkAnswer`.
+- **O1 Shadowing**: a second drill type inside `PronunciationPractice.jsx` (toggle *Words* / *Shadowing*) — TTS plays the example **sentence**, the learner repeats it aloud, and the existing speech-recognition pipeline scores the whole sentence. Sentence scores stay session-local (not fed into the per-word struggle list) but still tick the streak.
+
+The per-week `drill`/`comprehension`/`passage` content lives in `courses/it-bible-cei/exercises.js` and is merged onto each week by `n` at the bottom of `content.js` (keeps the large exercise body out of the week definitions). All 37 weeks carry drills + comprehension; the validator ignores these optional fields. Pure modules `keyVerses`/`dictogloss`/`grammarDrill`/`comprehension` each have a sibling test.
 
 **Text-to-speech** (`SpeakerButton.jsx`): Uses `window.speechSynthesis`; the utterance language is the course locale (`TTS_LANG` from `src/utils/locale.js`, = `config.locale.target`, currently `it-IT`). Optional `rate` prop (default `0.85`; Listening mode passes a slower rate). No external dependency — falls back silently if the API is unavailable.
 
@@ -197,10 +206,11 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **205 vitest tests across 23 files**, all passing.
+- **Tests:** `npm test` runs **237 vitest tests across 27 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
-  `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`, plus
+  `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
+  `keyVerses`, `dictogloss`, `grammarDrill`, `comprehension`, plus
   `SpeakerButton`, `UiText`, `useProgress`, `useJournal`. New non-trivial logic
   should follow that pure-module-plus-test pattern.
 - **CI:** `.github/workflows/azure-static-web-apps-*.yml` runs `npm ci` →

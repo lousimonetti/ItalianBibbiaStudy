@@ -4,6 +4,7 @@ import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
 import { scorePronunciation } from '../utils/pronunciation';
 import { usePronunStats } from '../hooks/usePronunStats';
+import { recordActivity } from '../utils/streak';
 import { TTS_LANG, HAS_IPA } from '../utils/locale';
 
 function buildCards(phases) {
@@ -28,7 +29,6 @@ function shuffle(arr) {
 }
 
 const ALL_CARDS = buildCards(PHASES);
-
 
 function getScoreInfo(score) {
   if (score >= 85) return { label: 'Ottimo!', cls: 'pronun-score-great' };
@@ -82,11 +82,21 @@ function IPAKeyPanel() {
   );
 }
 
+// 'word'  — say a single Italian word (default).
+// 'shadow' — O1 shadowing: hear the example sentence, then repeat it aloud. The
+//   recogniser scores the whole sentence. Only cards with an example qualify.
+const DRILLS = [
+  { id: 'word', label: 'Words', sub: 'say each word' },
+  { id: 'shadow', label: 'Shadowing', sub: 'hear a sentence, repeat it' },
+];
+
 export function PronunciationPractice() {
   const [filter, setFilter] = useState('all');
+  const [drill, setDrill] = useState('word');
   const [session, setSession] = useState(null);
   const [micState, setMicState] = useState('idle'); // idle | recording | processing
   const [result, setResult] = useState(null); // { recognized, score } | { error }
+  const [rate, setRate] = useState(0.85);
   const recRef = useRef(null);
   const { record: recordPronun } = usePronunStats();
 
@@ -94,6 +104,12 @@ export function PronunciationPractice() {
     () => (filter === 'all' ? ALL_CARDS : ALL_CARDS.filter(c => c.phaseId === filter)),
     [filter]
   );
+  // Shadowing needs an example sentence to read.
+  const shadowCards = useMemo(() => filtered.filter(c => c.ex && c.ex.trim()), [filtered]);
+  const pool = drill === 'shadow' ? shadowCards : filtered;
+
+  // The text the learner is asked to produce (and is scored against).
+  const targetText = (card) => (session?.drill === 'shadow' ? card.ex : card.it);
 
   if (!hasSpeechRecognition) {
     return (
@@ -114,8 +130,9 @@ export function PronunciationPractice() {
     );
   }
 
-  function startSession(cards) {
-    setSession({ cards: shuffle(cards), index: 0, scores: [] });
+  function startSession(cards, drillType) {
+    if (!cards.length) return;
+    setSession({ cards: shuffle(cards), index: 0, scores: [], drill: drillType });
     setResult(null);
     setMicState('idle');
   }
@@ -139,11 +156,12 @@ export function PronunciationPractice() {
     rec.onresult = (e) => {
       setMicState('processing');
       const card = session.cards[session.index];
+      const target = targetText(card);
       // Try all alternatives, keep the best-scoring one
       let best = { recognized: '', score: 0 };
       for (let i = 0; i < e.results[0].length; i++) {
         const text = e.results[0][i].transcript;
-        const score = scorePronunciation(card.it, text);
+        const score = scorePronunciation(target, text);
         if (score > best.score) best = { recognized: text, score };
       }
       setResult(best);
@@ -167,7 +185,13 @@ export function PronunciationPractice() {
   function handleNext() {
     if (!result) return;
     const card = session.cards[session.index];
-    if (!result.error) recordPronun(card.it, result.score);
+    // Word drill feeds per-word pronun stats (and the struggle list). Shadowing
+    // scores whole sentences, so we keep those session-local to avoid skewing the
+    // per-word stats — but both count as study activity.
+    if (!result.error) {
+      if (session.drill === 'word') recordPronun(card.it, result.score);
+      recordActivity('practiced');
+    }
     const newScores = [...session.scores, { card, ...result }];
     setSession(s => ({ ...s, index: s.index + 1, scores: newScores }));
     setResult(null);
@@ -192,7 +216,9 @@ export function PronunciationPractice() {
     return (
       <div className="prac-end">
         <div className="prac-end-score">{avg}%</div>
-        <div className="prac-end-label">Average pronunciation score</div>
+        <div className="prac-end-label">
+          Average {session.drill === 'shadow' ? 'shadowing' : 'pronunciation'} score
+        </div>
         <div className="pronun-end-breakdown">
           <span className="pronun-breakdown-item pronun-breakdown-great">✓ {excellent} excellent</span>
           <span className="pronun-breakdown-item pronun-breakdown-good">~ {good} good</span>
@@ -200,7 +226,7 @@ export function PronunciationPractice() {
         </div>
         <div className="prac-end-actions">
           {needsWork.length > 0 && (
-            <button className="prac-drill-btn" onClick={() => startSession(needsWork.map(s => s.card))}>
+            <button className="prac-drill-btn" onClick={() => startSession(needsWork.map(s => s.card), session.drill)}>
               Drill {needsWork.length} again
             </button>
           )}
@@ -216,6 +242,7 @@ export function PronunciationPractice() {
     const total = session.cards.length;
     const pct = (session.index / total) * 100;
     const scoreInfo = result && !result.error ? getScoreInfo(result.score) : null;
+    const isShadow = session.drill === 'shadow';
 
     return (
       <div className="prac-session">
@@ -230,12 +257,26 @@ export function PronunciationPractice() {
           <div className="prac-bar-fill" style={{ width: `${pct}%` }} />
         </div>
 
-        <div className="pronun-card">
-          <span className="pronun-word">{card.it}</span>
-          {HAS_IPA && <span className="pronun-ipa">{card.ipa}</span>}
-          <SpeakerButton word={card.it} size={22} />
-          <span className="pronun-translation">{card.en}</span>
-        </div>
+        {isShadow ? (
+          <div className="pronun-card pronun-card-shadow">
+            <div className="pronun-shadow-instr">Listen, then repeat the sentence aloud</div>
+            <div className="pronun-shadow-play">
+              <SpeakerButton word={card.ex} size={30} rate={rate} />
+              <div className="dicto-speeds">
+                <button className={`prac-speed-btn${rate === 0.6 ? ' active' : ''}`} onClick={() => setRate(0.6)}>Slow</button>
+                <button className={`prac-speed-btn${rate === 0.85 ? ' active' : ''}`} onClick={() => setRate(0.85)}>Normal</button>
+              </div>
+            </div>
+            <span className="pronun-shadow-text">{card.ex}</span>
+          </div>
+        ) : (
+          <div className="pronun-card">
+            <span className="pronun-word">{card.it}</span>
+            {HAS_IPA && <span className="pronun-ipa">{card.ipa}</span>}
+            <SpeakerButton word={card.it} size={22} />
+            <span className="pronun-translation">{card.en}</span>
+          </div>
+        )}
 
         <div className="pronun-mic-area">
           <MicButton state={micState} onClick={handleMic} />
@@ -283,10 +324,31 @@ export function PronunciationPractice() {
       <div className="prac-intro-card">
         <div className="prac-intro-title">Pronunciation practice</div>
         <div className="prac-intro-body">
-          Say each Italian word aloud into your microphone. The app listens using
-          your browser's built-in Italian speech recognition and scores how closely
-          your pronunciation matches. Scores above 85% are excellent.
+          Speak aloud into your microphone. The app listens using your browser's
+          built-in Italian speech recognition and scores how closely you match.
+          <strong> Words</strong> drills single terms; <strong>Shadowing</strong> plays
+          a sentence for you to hear and repeat — the highest-leverage way to build
+          rhythm and fluency. Scores above 85% are excellent.
         </div>
+      </div>
+
+      <div className="prac-filter-label">Drill</div>
+      <div className="prac-style-grid">
+        {DRILLS.map(d => {
+          const disabled = d.id === 'shadow' && shadowCards.length === 0;
+          return (
+            <button
+              key={d.id}
+              className={`prac-style-btn${drill === d.id ? ' prac-style-active' : ''}`}
+              onClick={() => setDrill(d.id)}
+              disabled={disabled}
+              title={disabled ? 'No sentences available in this selection' : undefined}
+            >
+              <span className="prac-style-name">{d.label}</span>
+              <span className="prac-style-sub">{d.sub}</span>
+            </button>
+          );
+        })}
       </div>
 
       <div className="prac-filter-label">Choose cards</div>
@@ -315,8 +377,8 @@ export function PronunciationPractice() {
         })}
       </div>
 
-      <button className="prac-go-btn" onClick={() => startSession(filtered)}>
-        Start — {filtered.length} cards
+      <button className="prac-go-btn" onClick={() => startSession(pool, drill)} disabled={!pool.length}>
+        Start — {pool.length} {drill === 'shadow' ? 'sentence' : 'card'}{pool.length !== 1 ? 's' : ''}
       </button>
 
       {HAS_IPA && <IPAKeyPanel />}

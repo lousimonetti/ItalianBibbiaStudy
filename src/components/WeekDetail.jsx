@@ -3,6 +3,10 @@ import { DAILY } from '../data/studyData';
 import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
 import { WordGloss } from './WordGloss';
+import { ReadingPassage } from './ReadingPassage';
+import { Comprehension } from './Comprehension';
+import { Dictogloss } from './Dictogloss';
+import { GrammarDrill } from './GrammarDrill';
 import { UiText } from '../i18n/UiText';
 import { HAS_IPA } from '../utils/locale';
 
@@ -11,6 +15,11 @@ export function WeekDetail({ week }) {
 
   return (
     <div className="detail-panel">
+      {/* Reading & comprehension (O2 / O5 / O4) */}
+      <ReadingPassage week={week} />
+      <Comprehension week={week} />
+      <Dictogloss week={week} />
+
       <div className="detail-grid">
         {/* Vocabulary */}
         <div className="detail-section">
@@ -61,6 +70,8 @@ export function WeekDetail({ week }) {
               <div className="grammar-title">{week.grammar.title}</div>
               {week.grammar.body}
             </div>
+            {/* Grammar drill (O3) */}
+            <GrammarDrill week={week} />
           </div>
 
           {/* Writing prompt */}
