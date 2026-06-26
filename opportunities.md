@@ -8,15 +8,73 @@
 
 ## Implementation status
 
-**The five HIGH-priority items (O1–O5) are implemented and merged into the app.**
-They live in `WeekDetail.jsx` (interactive reading, comprehension, dictogloss,
-grammar drill) and `PronunciationPractice.jsx` (shadowing). Per-week drills and
-comprehension questions are authored for all 37 weeks in
-`courses/it-bible-cei/exercises.js`. One caveat on **O2**: full CEI 2008 passages
-were not bundled (copyright + static free-tier size, and the build sandbox blocks
-Bible APIs), so the reader uses each week's vetted example sentences as the
-interactive passage; the `week.passage` field is wired and documented as a
-drop-in upgrade for public-domain text. The MEDIUM/LOW items below remain open.
+**O1–O5 are fully implemented, tested, and merged.** All 37 weeks carry authored
+drill, comprehension, and passage data in `courses/it-bible-cei/exercises.js`.
+
+| Item | Status | Notes |
+|------|--------|-------|
+| O1 Shadowing | ✅ Complete | Second drill type in `PronunciationPractice.jsx` |
+| O2 Interactive reading | ✅ Complete | `ReadingPassage.jsx` + CEI 2008 passages for all 37 weeks |
+| O3 Grammar drill | ✅ Complete | `GrammarDrill.jsx`, 2 items × 37 weeks |
+| O4 Dictogloss | ✅ Complete | `Dictogloss.jsx`, word-level diff, scored per verse |
+| O5 Comprehension checks | ✅ Complete | `Comprehension.jsx`, 2 items × 37 weeks |
+
+**O2 passages**: CEI 2008 text (4–8 key verses per week) was authored from
+training knowledge and committed to `exercises.js`. The `week.passage` field was
+originally left as a drop-in upgrade slot because the build sandbox blocked all
+external Bible APIs (`api.getbible.net`, `bibbiaedu.it`, `scrutatio.it` — all
+returned 403 via the egress proxy). The passages are now fully populated; if a
+user later wants to verify or replace individual verses against a canonical
+online source, they can update `exercises.js` verse-by-verse — the data shape
+and rendering pipeline are stable.
+
+**O6–O17 remain open.** See the MEDIUM and LOW priority sections below.
+
+---
+
+## Implementation learnings
+
+Recorded here so future sessions don't re-derive these decisions.
+
+**Proxy egress policy blocks all Bible sources.** The Claude Code remote
+environment routes outbound HTTPS through a policy-enforcing proxy that
+whitelists only package registries (npm, pypi, etc.) and Anthropic endpoints.
+`api.getbible.net`, `bibbiaedu.it/CEI2008/`, `scrutatio.it/bibbia/` and
+`bible-api.com` all return 403 at the CONNECT level — not a site auth issue, a
+network policy one. Do not retry these; use training knowledge or have the user
+paste text manually.
+
+**Exercise data stays in `exercises.js`, not `content.js`.** The merge pattern
+(`content.js` maps `rawPhases` and spreads `EXERCISES[week.n]` onto each week)
+keeps the large authored body out of the week definitions and is easy to extend.
+New optional fields (`passage`, `drill`, `comprehension`) are ignored by the
+validator, so adding more exercise types doesn't break validation.
+
+**Node ESM requires explicit `.js` extensions on relative imports.** When
+`content.js` was first changed to `import { EXERCISES } from './exercises'`
+(without `.js`), Node's ESM resolver threw `ERR_MODULE_NOT_FOUND`. Always use
+`./exercises.js` (the explicit extension) in the course data files — Vite handles
+bare imports fine but the Anki generator (`generate-anki.cjs`) and the validator
+both run in Node and need the extension.
+
+**Shadowing scores must not feed `usePronunStats`.** Shadowing scores the whole
+example sentence; per-word pronunciation stats (`usePronunStats`) are keyed by
+the vocabulary term. Mixing sentence-level scores into the per-word store skewed
+the "Parole difficili" struggle list (sentences are harder than words, so all
+items appeared to be struggling). Shadowing calls `recordActivity('practiced')`
+for the streak but does not call `recordPronun`. Word-mode pronunciation still
+feeds both.
+
+**Passage text length for dictogloss.** 4–8 verses per week is the right range.
+Shorter (1–3) doesn't give the dictogloss enough reconstruction challenge; longer
+(10+) makes the verse selector loop feel repetitive. Key-verse excerpts rather
+than continuous chapters also let the passage highlight theologically central
+content, which improves motivation.
+
+**`generate-anki.cjs` churn is non-deterministic.** Every `npm run build`
+rewrites all 42 `.apkg` files with new timestamps/GUIDs even when card content is
+unchanged. Always run `git checkout -- 'public/anki/*.apkg'` before committing if
+the build ran — committing the churn bloats the repo with no content change.
 
 ## What the App Does Well
 
@@ -265,15 +323,38 @@ A known weakness of word-pair SRS is that learners learn to associate cards rath
 
 ---
 
-## Suggested First Three Steps
+## Next steps (post O1–O5)
 
-If prioritising by fluency impact and implementation tractability:
+O1–O5 are shipped. The remaining open items in priority order:
 
-1. **O3 (Grammar Drilling)** — Highest bang-for-buck. Each week already has a `grammar` object. Adding 3–5 drill sentences per week is a data task plus a small UI component. No algorithm work. Directly addresses the "grammar notes are passive" gap with almost no risk.
+1. **O12 (Adaptive New-Card Cap)** — One function change in `srs.js`
+   (`buildSession`) + one string on the Practice start screen. Highest
+   leverage-to-effort ratio of anything remaining. Learners who are mastering
+   cards quickly get more new input; struggling learners get consolidation time.
+   No data authoring required.
 
-2. **O12 (Adaptive New-Card Cap)** — One function change in `srs.js`, one string change in Practice's start screen. Immediately makes the retention engine more responsive to learner performance.
+2. **O9 (Spaced Writing Retrieval)** — Surface the journal entry from 7 and 30
+   days ago as collapsible "Ricorda?" panels on the journal start screen. No new
+   data; `useJournal` and the SRS store already hold everything. Directly
+   exploits the testing effect on the learner's own produced text.
 
-3. **O2 (Interactive Bible Text)** — Unlocks several downstream improvements (O4, O5, O15) and turns the weekly "read" checkbox into genuine comprehensible-input practice within the app. The `WordGloss` infrastructure is already complete; the work is adding the passage text to `content.js` and rendering it.
+3. **O7 (Sentence Scramble)** — Add a "Costruisci" card style in PracticeMode:
+   shuffle the words of an example sentence into chips, learner taps them into
+   order. All sentence data exists. One more `style` case in `PracticeMode.jsx`.
+   Low risk, good syntactic awareness payoff.
+
+4. **O6 (Morphological Awareness)** — Add optional `root`/`family` fields to
+   vocab tuples and surface related forms on card backs and the vocab table.
+   Primarily a data annotation task; the UI extension is small.
+
+5. **O15 (Reading Speed)** — Now that O2 passages are in place, timing time-on-
+   passage and computing words-per-minute is feasible. A simple `Date.now()`
+   delta between "passage loaded" and "mark as read" clicked, stored in
+   `localStorage`, would give a fluency trend chart with no backend.
+
+6. **O10 (Error Type Classification)** — Add 3 quick-tap reason buttons on the
+   "Not quite" reveal screen (spelling / wrong form / blank). Light SRS data
+   extension, no algorithm change.
 
 ---
 

@@ -46,11 +46,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   would relax the no-backend constraint) is planned in `plan-sync.md`. Also shipped:
   tap **any** Italian word for an auto-generated approximate IPA + audio
   (`it2ipa.js`, generalized `WordGloss`).
+- **Reading & comprehension suite (`opportunities.md` O1–O5) complete and
+  merged.** Shadowing (O1), Interactive reading (O2), Grammar drill (O3),
+  Dictogloss (O4), and Comprehension checks (O5) are all live. All 37 weeks carry
+  authored `drill`, `comprehension`, and `passage` data in
+  `courses/it-bible-cei/exercises.js`. CEI 2008 passage text (4–8 key verses per
+  week) was populated from training knowledge after external Bible APIs were found
+  to be blocked by the egress proxy — if individual verses need updating, edit
+  `exercises.js` directly. See `opportunities.md` for the full implementation
+  learnings and remaining open items (O6–O17).
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
   sync follow-ups in `plan-sync.md` (multi-QR chunking for large snapshots,
-  field-level merge, online auto-sync).
+  field-level merge, online auto-sync); fluency follow-ups from `opportunities.md`
+  (O12 adaptive new-card cap, O9 spaced writing retrieval, O7 sentence scramble,
+  O6 morphological awareness, O15 reading speed, O10 error type classification).
 
 ## Commands
 
@@ -102,7 +113,7 @@ All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/ut
 **Flashcards tab** (`FlashcardsTab.jsx`) has three modes toggled by local state: *Anki Decks* (download `.apkg` files), *Practice* (`PracticeMode.jsx` — SRS-scheduled, with a style selector for Recognition / Recall / Cloze / Listening and a "Parole difficili" struggle panel), and *Pronunciation* (`PronunciationPractice.jsx`).
 
 **Reading & comprehension suite (opportunities.md O1–O5, rendered in `WeekDetail.jsx`).** Five research-backed features layered onto each week, all data-driven and degrading gracefully when content is absent:
-- **O2 Interactive reading** (`ReadingPassage.jsx`): renders the week's connected verses with every word tappable (`WordGloss`) + a per-line speaker + a "mark as read" button that ticks the streak's `read` flag. Source is an authored `week.passage` when present, else the vetted vocab example sentences (`src/utils/keyVerses.js` resolves this; full CEI passages were *not* bundled — copyright + free-tier size, and the sandbox blocks Bible APIs — so the `passage` field is a documented upgrade slot).
+- **O2 Interactive reading** (`ReadingPassage.jsx`): renders the week's connected verses with every word tappable (`WordGloss`) + a per-line speaker + a "mark as read" button that ticks the streak's `read` flag. Source is `week.passage` (now authored for all 37 weeks in `exercises.js` — CEI 2008 text, 4–8 key verses per week) with graceful fallback to the week's vetted vocab example sentences via `src/utils/keyVerses.js`. To update or verify individual verses, edit `exercises.js` directly; the egress proxy blocks all external Bible APIs so they cannot be fetched programmatically in this environment.
 - **O5 Comprehension** (`Comprehension.jsx` + `src/utils/comprehension.js`): collapsible true/false + multiple-choice checks (`week.comprehension`), each with an English gloss.
 - **O4 Dictogloss** (`Dictogloss.jsx` + `src/utils/dictogloss.js`): hear a verse → type a reconstruction → word-level diff + recall score (order-independent multiset match, accent/case/punctuation-forgiving). Counts as `practiced` activity.
 - **O3 Grammar drill** (`GrammarDrill.jsx` + `src/utils/grammarDrill.js`): fill-in-the-blank items (`week.drill`) anchored to vetted example sentences so the Italian is correct; answers use the same forgiving `checkAnswer`.
