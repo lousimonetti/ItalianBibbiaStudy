@@ -530,6 +530,18 @@ body {
 .today-reminder.on { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
 .today-reminder:disabled { opacity: 0.55; cursor: not-allowed; }
 
+.today-reminders { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.today-calendar { display: inline-flex; align-items: center; gap: 6px; }
+.today-calendar-link {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--border);
+  transition: color 0.15s, border-color 0.15s;
+}
+.today-calendar-link:hover { color: var(--accent); border-color: var(--accent); }
+
 .today-sched { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border-subtle); padding-top: 8px; }
 .today-sched-row { display: flex; gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--border-subtle); font-size: 12px; }
 .today-sched-row:last-child { border-bottom: none; }
