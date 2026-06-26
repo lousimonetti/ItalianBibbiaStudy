@@ -328,6 +328,33 @@ body {
 }
 .audio-speed-label { line-height: 1; }
 
+.voice-picker {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+  padding: 0 6px 0 9px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.voice-picker:hover { color: var(--text); border-color: var(--accent); }
+.voice-picker-select {
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  max-width: 120px;
+  padding: 0;
+  outline: none;
+}
+
 /* Chrome string shown in Italian (immersion on) — faint dotted hint that the
    English gloss is available on hover/long-press via the title attribute. */
 .ui-it {

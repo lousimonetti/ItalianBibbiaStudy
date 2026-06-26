@@ -19,6 +19,7 @@ import { Reminders } from './components/Reminders';
 import { CalendarReminder } from './components/CalendarReminder';
 import { CoursePicker } from './components/CoursePicker';
 import { AudioSpeedControl } from './components/AudioSpeedControl';
+import { VoicePicker } from './components/VoicePicker';
 import { SyncPanel } from './components/SyncPanel';
 
 const TOTAL = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
@@ -258,6 +259,7 @@ export default function App() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
           <CoursePicker />
           <AudioSpeedControl />
+          <VoicePicker />
           <SyncPanel />
           {canInstall && (
             <button className="install-btn" onClick={install} aria-label="Install app">

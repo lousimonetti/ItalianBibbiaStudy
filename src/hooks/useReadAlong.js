@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 
 import { TTS_LANG } from '../utils/locale';
+import { getSelectedVoice } from '../utils/voicePreference';
 import { tokenizeReadAlong, wordIndexAtChar } from '../utils/readAlong';
 import { useAudioSpeed } from './useAudioSpeed';
 
@@ -33,6 +34,8 @@ export function useReadAlong(text, { rate } = {}) {
     if (speaking) { stop(); return; }
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = TTS_LANG;
+    const voice = getSelectedVoice();
+    if (voice) utter.voice = voice;
     utter.rate = rate ?? globalRate;
     utter.onstart = () => setSpeaking(true);
     utter.onboundary = (e) => {

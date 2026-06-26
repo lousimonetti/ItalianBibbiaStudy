@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { TTS_LANG } from '../utils/locale';
+import { getSelectedVoice } from '../utils/voicePreference';
 import { useAudioSpeed } from '../hooks/useAudioSpeed';
 
 const hasSpeechSynthesis = typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -25,6 +26,8 @@ export function SpeakerButton({ word, size = 20, rate }) {
     }
     const utter = new SpeechSynthesisUtterance(word);
     utter.lang = TTS_LANG;
+    const voice = getSelectedVoice();
+    if (voice) utter.voice = voice;
     utter.rate = effectiveRate;
     utter.onstart = () => setSpeaking(true);
     utter.onend = () => setSpeaking(false);
