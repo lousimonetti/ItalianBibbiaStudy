@@ -7,7 +7,7 @@ const MAP = new Map(Object.entries({
   il: 'the', lo: 'the', la: 'the', i: 'the', gli: 'the', le: 'the',
 
   // --- indefinite articles ---
-  un: 'a', uno: 'a', una: 'a',
+  un: 'a', una: 'a',
 
   // --- prepositions ---
   di: 'of', da: 'from', in: 'in', con: 'with', su: 'on', per: 'for',
@@ -38,10 +38,10 @@ const MAP = new Map(Object.entries({
   allora: 'then', tuttavia: 'however', oppure: 'or else', né: 'neither',
   anche: 'also', pure: 'also', perfino: 'even', persino: 'even',
   anzi: 'rather', cioè: 'that is', ossia: 'namely', ovvero: 'or rather',
-  altrimenti: 'otherwise', nonostante: 'despite', sebbene: 'although',
+  altrimenti: 'otherwise', nonostante: 'despite',
   giacché: 'since', sicché: 'so that',
 
-  // --- personal pronouns (avoid duplicating article keys: lo/gli/le stay as articles) ---
+  // --- personal pronouns (lo/gli/le kept as articles above) ---
   io: 'I', tu: 'you', lui: 'he', lei: 'she', esso: 'it', essa: 'it',
   noi: 'we', voi: 'you', loro: 'they', essi: 'they', esse: 'they',
   me: 'me', te: 'you',
@@ -79,22 +79,21 @@ const MAP = new Map(Object.entries({
   qui: 'here', qua: 'here', là: 'there', lì: 'there',
   ora: 'now', adesso: 'now', poi: 'then', subito: 'immediately',
   presto: 'soon', tardi: 'late', bene: 'well', male: 'badly',
-  così: 'thus', molto: 'very', poco: 'little', troppo: 'too',
-  davvero: 'truly', proprio: 'really', forse: 'perhaps',
+  così: 'thus', davvero: 'truly', proprio: 'really', forse: 'perhaps',
   insieme: 'together', soltanto: 'only', solo: 'only', appena: 'just',
-  quasi: 'almost', abbastanza: 'enough', senza: 'without',
+  quasi: 'almost', abbastanza: 'enough',
   naturalmente: 'naturally', certamente: 'certainly',
   sicuramente: 'surely', veramente: 'truly', finalmente: 'finally',
   principalmente: 'mainly', soprattutto: 'above all',
   particolarmente: 'particularly', specialmente: 'especially',
   volentieri: 'gladly',
 
-  // --- numbers ---
+  // --- numbers (uno as 'one'; sei/secondo handled in verb/preposition sections) ---
   uno: 'one', due: 'two', tre: 'three', quattro: 'four', cinque: 'five',
-  sei: 'six', sette: 'seven', otto: 'eight', nove: 'nine', dieci: 'ten',
+  sette: 'seven', otto: 'eight', nove: 'nine', dieci: 'ten',
   undici: 'eleven', dodici: 'twelve', venti: 'twenty', trenta: 'thirty',
   cento: 'one hundred', mille: 'one thousand', primo: 'first',
-  secondo: 'second', terzo: 'third', quarto: 'fourth', quinto: 'fifth',
+  terzo: 'third', quarto: 'fourth', quinto: 'fifth',
 
   // --- essere (to be) ---
   sono: 'am/are', sei: 'are', è: 'is', siamo: 'we are', siete: 'you are',
@@ -140,18 +139,18 @@ const MAP = new Map(Object.entries({
   verranno: 'will come', verrebbe: 'would come', venga: 'come',
   venendo: 'coming', venuto: 'come', venire: 'to come',
 
-  // --- dare (to give) ---
-  do: 'I give', dai: 'you give', dà: 'gives', diamo: 'we give',
-  date: 'you give', danno: 'they give', diede: 'gave', diedero: 'gave',
+  // --- dare (to give; dai = 'you give' but also contracted prep 'from the', prep wins) ---
+  do: 'I give', dà: 'gives', diamo: 'we give',
+  danno: 'they give', diede: 'gave', diedero: 'gave',
   dava: 'was giving', davano: 'were giving', darà: 'will give',
   daranno: 'will give', darebbe: 'would give', dia: 'give',
   dando: 'giving', dato: 'given', dare: 'to give',
 
-  // --- potere (can/be able) ---
+  // --- potere (can/be able; 'potere' as noun 'power' is in nouns section below) ---
   posso: 'I can', puoi: 'you can', può: 'can', possiamo: 'we can',
   potete: 'you can', possono: 'they can', poteva: 'could', potevo: 'could',
   potevano: 'could', potrà: 'will be able', potrebbe: 'could',
-  possa: 'can', potendo: 'being able', potuto: 'been able', potere: 'to be able',
+  possa: 'can', potendo: 'being able', potuto: 'been able',
 
   // --- volere (to want) ---
   voglio: 'I want', vuoi: 'you want', vuole: 'wants', vogliamo: 'we want',
@@ -171,9 +170,9 @@ const MAP = new Map(Object.entries({
   sapevano: 'knew', saprà: 'will know', saprebbe: 'would know',
   sappia: 'know', sapendo: 'knowing', saputo: 'known', sapere: 'to know',
 
-  // --- stare (to stay/be) ---
+  // --- stare (to stay/be; 'state' already in essere above) ---
   sto: 'I am', stai: 'you are', sta: 'is', stiamo: 'we are',
-  state: 'you are', stanno: 'they are', stava: 'was', stavo: 'was',
+  stanno: 'they are', stava: 'was', stavo: 'was',
   stavano: 'were', starà: 'will be', rimarrà: 'will remain',
   stia: 'be', stando: 'being', rimasto: 'stayed', stare: 'to be',
 
@@ -202,11 +201,10 @@ const MAP = new Map(Object.entries({
   trovava: 'was finding', troverà: 'will find', trovando: 'finding',
   trovato: 'found', trovare: 'to find',
 
-  // --- amare (to love) ---
+  // --- amare (to love; amato/amate as 'beloved' are in adjectives below) ---
   amo: 'I love', ami: 'you love', ama: 'loves', amiamo: 'we love',
   amate: 'you love', amano: 'they love', amò: 'loved', amarono: 'loved',
-  amava: 'loved', amerà: 'will love', amando: 'loving',
-  amato: 'loved', amare: 'to love',
+  amava: 'loved', amerà: 'will love', amando: 'loving', amare: 'to love',
 
   // --- credere (to believe) ---
   credo: 'I believe', credi: 'you believe', crede: 'believes', crediamo: 'we believe',
@@ -250,8 +248,8 @@ const MAP = new Map(Object.entries({
   prendeva: 'was taking', prenderà: 'will take', prendendo: 'taking',
   preso: 'taken', prendere: 'to take',
 
-  // --- portare (to bring/carry) ---
-  porto: 'I bring', porti: 'you bring', porta: 'brings', portiamo: 'we bring',
+  // --- portare (to bring/carry; porta as 'door' is in nouns below) ---
+  porto: 'I bring', porti: 'you bring', portiamo: 'we bring',
   portate: 'you bring', portano: 'they bring', portò: 'brought', portarono: 'brought',
   portava: 'brought', porterà: 'will bring', portando: 'bringing',
   portato: 'brought', portare: 'to bring',
@@ -302,10 +300,10 @@ const MAP = new Map(Object.entries({
   misericordioso: 'merciful', misericordiosa: 'merciful',
   glorioso: 'glorious', gloriosa: 'glorious',
   benedetto: 'blessed', benedetta: 'blessed', benedetti: 'blessed',
-  maledetto: 'cursed', maledetta: 'cursed', amato: 'beloved', amata: 'beloved',
-  amati: 'beloved', amate: 'beloved',
+  maledetto: 'cursed', maledetta: 'cursed',
+  amato: 'beloved', amata: 'beloved', amati: 'beloved',
 
-  // --- common nouns (general) ---
+  // --- common nouns ---
   uomo: 'man', donna: 'woman', bambino: 'child', bambina: 'child',
   figlio: 'son', figlia: 'daughter', figli: 'children', padre: 'father',
   madre: 'mother', fratello: 'brother', sorella: 'sister', servo: 'servant',
@@ -343,11 +341,10 @@ const MAP = new Map(Object.entries({
   vangelo: 'gospel', scrittura: 'scripture', scritture: 'scriptures',
   angelo: 'angel', angeli: 'angels', demonio: 'demon', demoni: 'demons',
   diavolo: 'devil', satana: 'Satan', mondo: 'world', mondi: 'worlds',
-  creazione: 'creation', cielo: 'sky', cieli: 'heavens',
+  creazione: 'creation', cieli: 'heavens',
 
   // --- proper names (biblical) ---
-  gesù: 'Jesus', cristo: 'Christ', dio: 'God', signore: 'Lord',
-  padre: 'Father', figlio: 'Son', spirito: 'Spirit',
+  gesù: 'Jesus', cristo: 'Christ', dio: 'God',
   giovanni: 'John', pietro: 'Peter', paolo: 'Paul', giacomo: 'James',
   maria: 'Mary', giuseppe: 'Joseph', abramo: 'Abraham', mosè: 'Moses',
   davide: 'David', salomone: 'Solomon', isaia: 'Isaiah',
@@ -358,10 +355,9 @@ const MAP = new Map(Object.entries({
   galilea: 'Galilee', giudea: 'Judea', samaria: 'Samaria',
   nazareno: 'Nazarene', galileo: 'Galilean',
 
-  // --- common sentence connectors / phrases (single-word) ---
-  ecco: 'behold', allora: 'then', perciò: 'therefore', pertanto: 'therefore',
-  tuttavia: 'nevertheless', anzitutto: 'first of all', infine: 'finally',
-  poi: 'then', subito: 'immediately', ancora: 'again',
+  // --- discourse connectors ---
+  ecco: 'behold', perciò: 'therefore', pertanto: 'therefore',
+  anzitutto: 'first of all', infine: 'finally',
 }));
 
 // Returns the English gloss for a common Italian word, or null if not found.
