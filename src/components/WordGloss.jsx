@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { tokenize, lookupWord } from '../utils/vocabIndex';
 import { HAS_IPA } from '../utils/locale';
 import { toIPA } from '../utils/it2ipa';
+import { lookupCommon } from '../utils/it2en';
 import { GlossPopover } from './GlossPopover';
 
 const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -23,11 +24,12 @@ export function WordGloss({ text }) {
       const vocab = lookupWord(tok.text);
       if (vocab) return { ...tok, entry: vocab };
       // Not in the vocab index: build an on-the-fly pronunciation entry.
+      const commonEn = lookupCommon(tok.text);
       return {
         ...tok,
         entry: {
           it: tok.text,
-          en: '',
+          en: commonEn || '',
           ipa: HAS_IPA ? toIPA(tok.text) : '',
           approx: true,
         },
