@@ -584,6 +584,446 @@ const MAP = new Map(Object.entries({
   simone: 'Simon', saulo: 'Saul', damasco: 'Damascus',
   gerico: 'Jericho', battista: 'Baptist',
 
+  // --- extended pronouns / determiners ---
+  ciò: 'this/that', coloro: 'those who', colui: 'he who', costui: 'this man',
+  costei: 'this woman', sé: 'himself/herself',
+  niente: 'nothing', nulla: 'nothing',
+  quel: 'that', quei: 'those', quell: 'that', quegli: 'those',
+  più: 'more/no longer', meno: 'less',
+
+  // --- missing avere / essere forms ---
+  avesse: 'had', avessero: 'had', avessi: 'had', avessimo: 'had',
+  fossero: 'were', fossi: 'were',
+  stette: 'stood/stayed', stettero: 'stood/stayed',
+
+  // --- missing mettere forms ---
+  metteranno: 'will put', metterebbe: 'would put', metta: 'put',
+
+  // --- missing trovare forms ---
+  trovavano: 'were finding', troverete: 'you will find', troveranno: 'will find',
+  trovino: 'find', troverei: 'I would find',
+
+  // --- odiare (to hate; odio as 'hatred' is already a noun) ---
+  odi: 'you hate', odia: 'hates', odiamo: 'we hate',
+  odiate: 'you hate', odiano: 'they hate', odiò: 'hated', odiarono: 'hated',
+  odiava: 'hated', odiavano: 'hated', odierà: 'will hate',
+  odieranno: 'will hate', odiare: 'to hate', odiando: 'hating',
+  odiato: 'hated', odiereste: 'you would hate',
+
+  // --- abitare (to live/dwell) ---
+  abito: 'I live', abiti: 'you live', abita: 'lives', abitiamo: 'we live',
+  abitate: 'you live', abitano: 'they live', abitò: 'lived', abitarono: 'lived',
+  abitava: 'lived', abitavano: 'lived', abiterà: 'will live',
+  abiteranno: 'will live', abitando: 'living', abitato: 'inhabited',
+  abitare: 'to live', abitante: 'inhabitant', abitanti: 'inhabitants',
+
+  // --- ascoltare (to listen) ---
+  ascolto: 'I listen', ascolti: 'you listen', ascolta: 'listens',
+  ascoltiamo: 'we listen', ascoltate: 'you listen', ascoltano: 'they listen',
+  ascoltò: 'listened', ascoltarono: 'listened', ascoltava: 'was listening',
+  ascoltavano: 'were listening', ascolterà: 'will listen',
+  ascolteranno: 'will listen', ascoltando: 'listening',
+  ascoltato: 'listened', ascoltare: 'to listen',
+
+  // --- cercare (to seek) ---
+  cerco: 'I seek', cerchi: 'you seek', cerca: 'seeks', cerchiamo: 'we seek',
+  cercate: 'you seek', cercano: 'they seek', cercò: 'sought', cercarono: 'sought',
+  cercava: 'was seeking', cercavano: 'were seeking', cercherà: 'will seek',
+  cercando: 'seeking', cercato: 'sought', cercare: 'to seek',
+
+  // --- cantare (to sing) ---
+  canto: 'I sing', canti: 'you sing', canta: 'sings', cantiamo: 'we sing',
+  cantate: 'you sing', cantano: 'they sing', cantò: 'sang', cantarono: 'sang',
+  cantava: 'was singing', cantavano: 'were singing', canterà: 'will sing',
+  cantando: 'singing', cantato: 'sung', cantare: 'to sing',
+
+  // --- mangiare (to eat) ---
+  mangio: 'I eat', mangi: 'you eat', mangia: 'eats', mangiamo: 'we eat',
+  mangiate: 'you eat', mangiano: 'they eat', mangiò: 'ate', mangiarono: 'ate',
+  mangiava: 'was eating', mangiavano: 'were eating', mangerà: 'will eat',
+  mangerete: 'you will eat', mangeranno: 'will eat', mangiando: 'eating',
+  mangiato: 'eaten', mangiare: 'to eat',
+
+  // --- cadere (to fall) ---
+  cado: 'I fall', cadi: 'you fall', cade: 'falls', cadiamo: 'we fall',
+  cadete: 'you fall', cadono: 'they fall', cadde: 'fell', caddero: 'fell',
+  caddi: 'fell', cadeva: 'was falling', cadrà: 'will fall', cadranno: 'will fall',
+  cadendo: 'falling', caduto: 'fallen', caduti: 'fallen', cadere: 'to fall',
+
+  // --- udire (to hear) ---
+  odo: 'I hear', ude: 'hears', udiamo: 'we hear', udite: 'you hear',
+  odono: 'they hear', udì: 'heard', udirono: 'heard', udii: 'I heard',
+  udiva: 'was hearing', udivano: 'were hearing', udirà: 'will hear',
+  udendo: 'hearing', udito: 'heard', udire: 'to hear', udissi: 'heard',
+
+  // --- vivere (to live; vivo as 'alive' is in adjectives) ---
+  vivi: 'you live', vive: 'lives', viviamo: 'we live',
+  vivete: 'you live', vivono: 'they live', visse: 'lived', vissero: 'lived',
+  viveva: 'was living', vivevano: 'were living', vivrà: 'will live',
+  vivranno: 'will live', vivendo: 'living', vissuto: 'lived',
+  vivente: 'living/the living', viventi: 'the living', vivere: 'to live',
+  vivrai: 'you will live',
+
+  // --- camminare (to walk; cammino/cammini are nouns above) ---
+  cammina: 'walks',
+  camminiamo: 'we walk', camminate: 'you walk', camminano: 'they walk',
+  camminò: 'walked', camminarono: 'walked', camminava: 'was walking',
+  camminavano: 'were walking', camminerà: 'will walk', camminando: 'walking',
+  camminato: 'walked', camminare: 'to walk',
+
+  // --- gettare (to throw/cast) ---
+  getto: 'I throw', getti: 'you throw', getta: 'throws', gettiamo: 'we throw',
+  gettate: 'you throw', gettano: 'they throw', gettò: 'threw', gettarono: 'threw',
+  gettava: 'threw', getterà: 'will throw', gettando: 'throwing',
+  gettato: 'thrown', gettare: 'to throw',
+
+  // --- partire (to leave/depart) ---
+  parto: 'I leave', parti: 'you leave', parte: 'leaves', partiamo: 'we leave',
+  partite: 'you leave', partono: 'they leave', partì: 'departed', partirono: 'departed',
+  partiva: 'was leaving', partirà: 'will leave', partendo: 'leaving',
+  partito: 'departed', partire: 'to leave',
+
+  // --- passare (to pass) ---
+  passo: 'I pass', passi: 'you pass', passa: 'passes', passiamo: 'we pass',
+  passate: 'you pass', passano: 'they pass', passò: 'passed', passarono: 'passed',
+  passava: 'was passing', passavano: 'were passing', passerà: 'will pass',
+  passando: 'passing', passato: 'passed', passare: 'to pass',
+
+  // --- aprire (to open) ---
+  apro: 'I open', apri: 'you open', apre: 'opens', apriamo: 'we open',
+  aprite: 'you open', aprono: 'they open', aprì: 'opened', aprirono: 'opened',
+  apriva: 'was opening', aprirà: 'will open', aprendo: 'opening',
+  aprire: 'to open', aperte: 'opened',
+
+  // --- vegliare (to watch/keep vigil) ---
+  veglio: 'I watch', vegli: 'you watch', veglia: 'watches',
+  vegliamo: 'we watch', vegliate: 'you watch', vegliano: 'they watch',
+  vegliò: 'watched', vegliava: 'was watching', vegliavano: 'were watching',
+  veglierà: 'will watch', vegliando: 'watching', vegliare: 'to watch',
+
+  // --- rallegrarsi (to rejoice) ---
+  rallegro: 'I rejoice', rallegri: 'you rejoice', rallegra: 'rejoices',
+  rallegriamo: 'we rejoice', rallegrino: 'they rejoice',
+  rallegrò: 'rejoiced', rallegrava: 'rejoiced', rallegratevi: 'rejoice',
+  rallegrando: 'rejoicing', rallegrarsi: 'to rejoice', rallegrate: 'rejoice',
+
+  // --- convertire (to convert/turn) ---
+  converto: 'I convert', converti: 'you convert', converte: 'converts',
+  convertiamo: 'we convert', convertite: 'you convert', convertono: 'they convert',
+  convertì: 'converted', convertirono: 'converted', convertiva: 'was converting',
+  convertiranno: 'will convert', convertendo: 'converting',
+  convertito: 'converted', convertire: 'to convert',
+  convertano: 'they may convert', convertitevi: 'convert/turn',
+
+  // --- giustificare (to justify) ---
+  giustifico: 'I justify', giustifica: 'justifies', giustifichiamo: 'we justify',
+  giustificò: 'justified', giustificarono: 'justified', giustificato: 'justified',
+  giustificati: 'justified', giustificata: 'justified', giustificare: 'to justify',
+  giustificandosi: 'justifying himself',
+
+  // --- aggiungere (to add) ---
+  aggiungo: 'I add', aggiungi: 'you add', aggiunge: 'adds', aggiungiamo: 'we add',
+  aggiungete: 'you add', aggiungono: 'they add', aggiunse: 'added',
+  aggiunsero: 'added', aggiungeva: 'was adding', aggiungendo: 'adding',
+  aggiunto: 'added', aggiungere: 'to add', aggiunta: 'added',
+
+  // --- svegliare (to wake up) ---
+  sveglio: 'I wake', svegli: 'you wake', sveglia: 'wakes', svegliamo: 'we wake',
+  svegliate: 'you wake', svegliano: 'they wake', svegliò: 'woke up',
+  svegliava: 'was waking', svegliando: 'waking', svegliato: 'awakened',
+  svegliare: 'to wake', svegliarsi: 'to wake up',
+
+  // --- soffrire (to suffer) ---
+  soffro: 'I suffer', soffri: 'you suffer', soffre: 'suffers',
+  soffriamo: 'we suffer', soffrite: 'you suffer', soffrono: 'they suffer',
+  soffrì: 'suffered', soffrirono: 'suffered', soffriva: 'was suffering',
+  soffrirà: 'will suffer', soffrendo: 'suffering', sofferto: 'suffered',
+  soffrire: 'to suffer',
+
+  // --- more missing nouns ---
+  fame: 'hunger', sete: 'thirst', famiglia: 'family', famiglie: 'families',
+  giovane: 'young man', giovani: 'young people', fanciullo: 'child/boy',
+  fanciulla: 'girl', fanciulli: 'children',
+  vitello: 'calf', vitelli: 'calves',
+  fasce: 'swaddling clothes', sudario: 'burial cloth',
+  bende: 'wrappings', aromi: 'spices', profumo: 'perfume/fragrance',
+  catene: 'chains', catena: 'chain', carceriere: 'jailer',
+  debito: 'debt', debiti: 'debts', decima: 'tithe', decime: 'tithes',
+  espiazione: 'atonement', remissione: 'remission', propiziatone: 'propitiation',
+  anziani: 'elders', anziano: 'elder',
+  sinagoghe: 'synagogues', tempi: 'times', epoche: 'ages',
+  dimore: 'dwelling places', dimora: 'dwelling',
+  digiuno: 'fasting', digiuni: 'fasts',
+  incontro: 'encounter/meeting', mezzo: 'midst/middle',
+  maestro: 'teacher', maestra: 'teacher',
+  sommo: 'high/chief', creatura: 'creature', creature: 'creatures',
+  brigante: 'robber', briganti: 'robbers', ladrone: 'thief', ladroni: 'thieves',
+  vescovo: 'bishop', vescovi: 'bishops', diacono: 'deacon', diaconi: 'deacons',
+  circoncisione: 'circumcision', incirconcisione: 'uncircumcision',
+  giudeo: 'Jew', giudei: 'Jews', greco: 'Greek', greci: 'Greeks',
+  schiavo: 'slave', schiavi: 'slaves', liberto: 'freed person',
+  adulterio: 'adultery', adultero: 'adulterer', adulteri: 'adulterers',
+  omicidio: 'murder', rapina: 'robbery',
+  ebreo: 'Hebrew', ebraico: 'Hebrew',
+  splendore: 'splendor', grandezza: 'greatness', immensità: 'immensity',
+  franchezza: 'boldness', favore: 'favor',
+
+  // --- important adjectives / participles ---
+  scelto: 'chosen', scelta: 'chosen', scelti: 'chosen',
+  consacrato: 'consecrated', consacrata: 'consecrated', consacrati: 'consecrated',
+  predestinato: 'predestined', predestinati: 'predestined',
+  stabilito: 'established/appointed', costituito: 'established',
+  promesso: 'promised',
+  riuniti: 'gathered', riunita: 'gathered',
+  circoncisi: 'circumcised', incirconcisi: 'uncircumcised',
+  propri: 'own', propria: 'own',
+  impaurite: 'frightened', turbato: 'troubled', turbata: 'troubled',
+  chinato: 'bowed', inginocchiato: 'kneeling',
+  vestito: 'dressed/clothed', vestita: 'clothed', vestiti: 'clothed',
+  avvolto: 'wrapped', avvolta: 'wrapped', avvolti: 'wrapped',
+  adagiato: 'laid/placed', adagiata: 'laid',
+
+  // --- important adverbs / fixed phrases ---
+  avanti: 'forward/ahead', noto: 'known', grazie: 'thanks/thank you',
+  alleluia: 'hallelujah', amen: 'amen', rabbi: 'rabbi', rabbuni: 'rabboni',
+  osanna: 'hosanna',
+
+  // --- gridare (to cry out/shout) ---
+  gridi: 'you cry out', gridiamo: 'we cry out',
+  gridano: 'they cry out', gridò: 'cried out', gridarono: 'cried out',
+  gridava: 'cried out', griderà: 'will cry out', gridando: 'crying out',
+  gridare: 'to cry out',
+
+  // --- cominciare (to begin) ---
+  comincio: 'I begin', cominci: 'you begin', comincia: 'begins',
+  cominciamo: 'we begin', cominciate: 'you begin', cominciano: 'they begin',
+  cominciò: 'began', cominciarono: 'began', cominciava: 'was beginning',
+  comincerà: 'will begin', cominciando: 'beginning', cominciato: 'begun',
+  cominciare: 'to begin',
+
+  // --- conoscere (to know) ---
+  conosco: 'I know', conosci: 'you know', conosce: 'knows', conosciamo: 'we know',
+  conoscete: 'you know', conoscono: 'they know', conobbe: 'knew', conobbero: 'knew',
+  conosceva: 'knew', conoscevano: 'knew', conoscerà: 'will know',
+  conoscerete: 'you will know', conosceranno: 'will know',
+  conoscendo: 'knowing', conosciuto: 'known', conoscere: 'to know',
+  conoscessi: 'knew', conoscersi: 'to know each other',
+
+  // --- lasciare (to let/leave) ---
+  lascio: 'I let', lasci: 'you let', lascia: 'lets', lasciamo: 'we let',
+  lasciate: 'you let', lasciano: 'they let', lasciò: 'left', lasciarono: 'left',
+  lasciava: 'was leaving', lascerà: 'will leave', lasciando: 'leaving',
+  lasciato: 'left', lasciare: 'to leave',
+  lasciatelo: 'let him', lasciatevi: 'leave yourselves',
+
+  // --- lavare (to wash) ---
+  lavo: 'I wash', lavi: 'you wash', lava: 'washes', laviamo: 'we wash',
+  lavate: 'you wash', lavano: 'they wash', lavò: 'washed', lavarono: 'washed',
+  lavava: 'was washing', laverà: 'will wash', lavando: 'washing',
+  lavato: 'washed', lavare: 'to wash',
+
+  // --- tenere (to hold/keep) ---
+  tengo: 'I hold', tieni: 'you hold', tiene: 'holds', teniamo: 'we hold',
+  tenete: 'you hold', tengono: 'they hold', tenne: 'held', tennero: 'held',
+  teneva: 'was holding', tenevano: 'were holding', terrà: 'will hold',
+  tenendo: 'holding', tenuto: 'held', tenere: 'to hold',
+
+  // --- uccidere (to kill) ---
+  uccido: 'I kill', uccidi: 'you kill', uccide: 'kills', uccidiamo: 'we kill',
+  uccidete: 'you kill', uccidono: 'they kill', uccise: 'killed', uccisero: 'killed',
+  uccideva: 'was killing', ucciderà: 'will kill', uccidendo: 'killing',
+  ucciso: 'killed', uccisi: 'killed', uccidere: 'to kill',
+
+  // --- liberare (to free) ---
+  liberiamo: 'we free',
+  liberate: 'you free', liberano: 'they free', liberò: 'freed', liberarono: 'freed',
+  liberava: 'was freeing', libererà: 'will free', liberando: 'freeing',
+  liberato: 'freed', liberati: 'freed', liberare: 'to free',
+  liberandoti: 'freeing you', liberatelo: 'free him',
+
+  // --- lodare (to praise) ---
+  lodo: 'I praise', lodi: 'you praise', loda: 'praises', lodiamo: 'we praise',
+  lodate: 'you praise', lodano: 'they praise', lodò: 'praised', lodarono: 'praised',
+  lodava: 'was praising', loderà: 'will praise', lodando: 'praising',
+  lodato: 'praised', lodare: 'to praise', lodatelo: 'praise him',
+
+  // --- proclamare (to proclaim) ---
+  proclamo: 'I proclaim', proclama: 'proclaims', proclamiamo: 'we proclaim',
+  proclamano: 'they proclaim', proclamò: 'proclaimed', proclamerà: 'will proclaim',
+  proclamando: 'proclaiming', proclamato: 'proclaimed', proclamare: 'to proclaim',
+
+  // --- ritornare (to return) ---
+  ritorno: 'I return', ritorni: 'you return', ritorna: 'returns',
+  ritorniamo: 'we return', ritornano: 'they return', ritornò: 'returned',
+  ritornava: 'was returning', ritornerà: 'will return',
+  ritornerò: 'I will return', ritornando: 'returning', ritornato: 'returned',
+  ritornare: 'to return',
+
+  // --- rivelare (to reveal) ---
+  rivelo: 'I reveal', riveli: 'you reveal', rivela: 'reveals', riveliamo: 'we reveal',
+  rivelano: 'they reveal', rivelò: 'revealed', rivelarono: 'revealed',
+  rivelava: 'was revealing', rivelerà: 'will reveal', rivelando: 'revealing',
+  rivelato: 'revealed', rivelare: 'to reveal',
+
+  // --- tremare (to tremble) ---
+  tremo: 'I tremble', tremi: 'you tremble', trema: 'trembles',
+  tremiamo: 'we tremble', tremano: 'they tremble', tremò: 'trembled',
+  tremarono: 'trembled', tremava: 'was trembling', tremerà: 'will tremble',
+  tremando: 'trembling', tremato: 'trembled', tremare: 'to tremble',
+
+  // --- trasformare (to transform) ---
+  trasformo: 'I transform', trasforma: 'transforms', trasformiamo: 'we transform',
+  trasformano: 'they transform', trasformò: 'transformed',
+  trasformerà: 'will transform', trasformando: 'transforming',
+  trasformato: 'transformed', trasformare: 'to transform',
+
+  // --- battezzare (to baptize) ---
+  battezzo: 'I baptize', battezzi: 'you baptize', battezza: 'baptizes',
+  battezziamo: 'we baptize', battezzano: 'they baptize',
+  battezzò: 'baptized', battezzarono: 'baptized', battezzerà: 'will baptize',
+  battezzando: 'baptizing', battezzato: 'baptized', battezzare: 'to baptize',
+
+  // --- imporre (to impose/lay on) ---
+  impongo: 'I impose', imponi: 'you impose', impone: 'imposes',
+  imponiamo: 'we impose', impongono: 'they impose', impose: 'imposed',
+  imposero: 'imposed', imponeva: 'was imposing', imporrà: 'will impose',
+  imponendo: 'imposing', imposto: 'imposed', imporre: 'to impose',
+
+  // --- invocare (to invoke/call upon) ---
+  invoco: 'I invoke', invochi: 'you invoke', invoca: 'invokes',
+  invochiamo: 'we invoke', invocano: 'they invoke', invocò: 'invoked',
+  invocavano: 'were invoking', invocherà: 'will invoke',
+  invocando: 'invoking', invocato: 'invoked', invocare: 'to invoke',
+  invocarlo: 'to invoke him',
+
+  // --- apparire (to appear) ---
+  appaio: 'I appear', appari: 'you appear', appare: 'appears',
+  appariamo: 'we appear', appaiono: 'they appear', apparve: 'appeared',
+  apparvero: 'appeared', appariva: 'was appearing', apparirà: 'will appear',
+  apparendo: 'appearing', apparso: 'appeared', apparire: 'to appear',
+  apparsa: 'appeared',
+
+  // --- mostrare (to show) ---
+  mostro: 'I show', mostri: 'you show', mostra: 'shows', mostriamo: 'we show',
+  mostrano: 'they show', mostrò: 'showed', mostrarono: 'showed',
+  mostrava: 'showed', mostrerà: 'will show', mostrando: 'showing',
+  mostrato: 'shown', mostrare: 'to show',
+
+  // --- missing prendere forms ---
+  prenderò: 'I will take', prenderemo: 'we will take', prenderanno: 'will take',
+
+  // --- more missing nouns ---
+  cose: 'things', porte: 'doors/gates', cuori: 'hearts', segni: 'signs',
+  frutto: 'fruit', frutti: 'fruits',
+  uccelli: 'birds', corvi: 'ravens', colomba: 'dove', colombe: 'doves',
+  tromba: 'trumpet', trombe: 'trumpets', arpa: 'harp', arpe: 'harps',
+  cetra: 'lyre', cetere: 'lyres', cimbali: 'cymbals', timpani: 'tambourines',
+  flauto: 'flute', flauti: 'flutes', strumento: 'instrument',
+  corde: 'strings/cords', suono: 'sound', danza: 'dance', danze: 'dances',
+  inno: 'hymn', inni: 'hymns', salmo: 'psalm', salmi: 'psalms',
+  magazzino: 'storehouse', santuario: 'sanctuary',
+  sicomoro: 'sycamore',
+  pienezza: 'fullness', statura: 'stature',
+  capi: 'leaders/heads', fianco: 'side/flank', chiodi: 'nails', petto: 'chest',
+  anello: 'ring', collo: 'neck', mensa: 'table/banquet', conto: 'account',
+  tralci: 'branches/vines',
+  pungolo: 'goad/sting', strage: 'massacre', stirpe: 'lineage',
+
+  // --- key adjectives / participles still missing ---
+  duro: 'hard', dura: 'hard', duri: 'hard',
+  gran: 'great', grasso: 'fat', grassa: 'fat',
+  esaltato: 'exalted', esaltata: 'exalted', esaltati: 'exalted',
+  infame: 'infamous', solitario: 'solitary', solitaria: 'solitary',
+  interi: 'whole', intera: 'whole',
+  potenti: 'the powerful', oppressi: 'the oppressed',
+  perseguiti: 'persecuted', legati: 'bound',
+  sacro: 'sacred', sacra: 'sacred', sacri: 'sacred', sacre: 'sacred',
+  scritto: 'written', scritta: 'written', scritti: 'written',
+  tentato: 'tempted', tentata: 'tempted', tentati: 'tempted',
+  manifestato: 'manifested', manifestata: 'manifested',
+  santificato: 'sanctified', santificata: 'sanctified', santificati: 'sanctified',
+  costruttori: 'builders', costruttore: 'builder',
+  fuggiti: 'fled', fuggito: 'fled',
+  dissoluto: 'prodigal', dissoluta: 'prodigal',
+  scartato: 'rejected', scartata: 'rejected',
+  unigenito: 'only begotten',
+
+  // --- additional pronouns / adverbs ---
+  alcun: 'some',
+  persone: 'people', compagni: 'companions', amici: 'friends',
+  causa: 'cause/reason', merito: 'merit',
+  mediante: 'through/by means of', gratuitamente: 'freely/without cost',
+  sino: 'up to/until', termine: 'end/term',
+  dito: 'finger', dita: 'fingers',
+  distanza: 'distance', altezza: 'height', profondità: 'depth',
+  estremità: 'ends/extremities', firmamento: 'sky/firmament',
+  splende: 'shines', esiste: 'exists', produce: 'produces',
+  vale: 'is worth', respira: 'breathes', soffia: 'blows',
+
+  // --- missing verb forms from existing paradigms ---
+  annunceranno: 'will proclaim', annuncierà: 'will proclaim',
+  vidi: 'I saw', trovati: 'found',
+  posarono: 'placed', pose: 'placed', posato: 'placed',
+  condotto: 'led', condusse: 'led', condussero: 'led', conduca: 'lead',
+  condurre: 'to lead', conduceva: 'was leading',
+  ordinò: 'ordered', ordinarono: 'ordered', ordina: 'orders', ordinare: 'to order',
+  giunse: 'arrived', giunsero: 'arrived',
+  interrogò: 'questioned', interrogarono: 'questioned', interrogare: 'to question',
+  insegnando: 'teaching', insegnò: 'taught', insegnarono: 'taught',
+  insegnava: 'was teaching', insegnerà: 'will teach',
+  presentò: 'presented', presentarono: 'presented', presenta: 'presents',
+  riversato: 'poured out', riversò: 'poured out',
+  rinnovando: 'renewing', rinnova: 'renews', rinnovarsi: 'to renew',
+  allontanò: 'moved away', allontanarsi: 'to move away',
+  avvolse: 'wrapped', avvolgere: 'to wrap',
+  baciò: 'kissed', baciare: 'to kiss', baciava: 'was kissing',
+  chiuse: 'closed', chiusero: 'closed', chiudeva: 'was closing',
+  chiudere: 'to close',
+  dividevano: 'were dividing', divise: 'divided', dividere: 'to divide',
+  conformatevi: 'conform yourselves', conformarsi: 'to conform',
+  convincere: 'to convince', convinse: 'convinced', convinceva: 'was convincing',
+  esalta: 'exalts', esaltò: 'exalted', esaltare: 'to exalt',
+  batteva: 'was knocking/beating', battono: 'they knock', bussano: 'they knock',
+  bussate: 'knock', bussò: 'knocked',
+  attaccatevi: 'cling to', avvicinarsi: 'to draw near', avvicinò: 'drew near',
+  riacquistò: 'recovered', riacquisti: 'recover', riacquistare: 'to recover',
+  rubare: 'to steal', ruba: 'steals', rubò: 'stole', rubavano: 'were stealing',
+  maledicono: 'they curse', maledire: 'to curse', maleducono: 'they curse',
+  maltrattano: 'they mistreat', maltrattare: 'to mistreat',
+  sciolsero: 'loosened/untied', scioglie: 'loosens', sciogliere: 'to untie',
+  scoppiò: 'burst out', scoppiare: 'to burst',
+  scosse: 'shook', scrollò: 'shook', scuotere: 'to shake',
+  umilia: 'humbles', umiliò: 'humbled', umiliarsi: 'to humble oneself',
+  umiliato: 'humiliated', umiliata: 'humiliated',
+  benedite: 'bless/blessed', benedire: 'to bless', benedì: 'blessed',
+  benedicono: 'they bless',
+  corsa: 'running/race', corse: 'ran', correre: 'to run', correva: 'was running',
+  lavorando: 'working', lavorò: 'worked', lavorare: 'to work', lavora: 'works',
+  insultano: 'they insult', insulteranno: 'will insult', insultare: 'to insult',
+  disprezzeranno: 'will despise', disprezza: 'despises', disprezzare: 'to despise',
+  desiderare: 'to desire', desidera: 'desires', desiderava: 'desired',
+
+  // --- more nouns ---
+  dottore: 'teacher/doctor', dottori: 'teachers', ladri: 'thieves', ladro: 'thief',
+  culto: 'worship', domanda: 'question/request', domande: 'questions',
+  sostanze: 'possessions', proprietà: 'property', pascere: 'to graze/feed',
+  sentimenti: 'feelings', sentimento: 'feeling', maniere: 'manners/ways',
+  imitazione: 'imitation', differenza: 'difference', professione: 'confession/profession',
+  precetto: 'commandment/precept', precetti: 'commandments',
+  ricompensa: 'reward', ricompense: 'rewards', pratica: 'practice',
+  discernere: 'to discern', disegno: 'design/plan',
+  prova: 'test/trial', provata: 'tested/proven',
+  minaccia: 'threat', minacce: 'threats', pericolo: 'danger',
+  viso: 'face', vista: 'sight/vision', sguardo: 'gaze/glance',
+  volte: 'times', vicenda: 'turn/event',
+
+  // --- important adjectives still missing ---
+  rifiutato: 'rejected', rifiutata: 'rejected', rifiutati: 'rejected',
+  presente: 'present', presenti: 'present', preparato: 'prepared',
+  inviato: 'sent', inviati: 'sent', inviata: 'sent',
+  effuso: 'poured out', effusa: 'poured out',
+  fraterno: 'brotherly/fraternal', vicendevole: 'mutual', vicendevoli: 'mutual',
+
   // --- discourse connectors ---
   ecco: 'behold', perciò: 'therefore', pertanto: 'therefore',
   anzitutto: 'first of all', infine: 'finally',
