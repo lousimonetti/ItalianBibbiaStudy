@@ -3,7 +3,9 @@
 // (Was src/data/studyData.js's PHASES; tuple shape unchanged so the engines need
 // no changes: [italian, english, example, ipa?].)
 
-export const phases = [
+import { EXERCISES } from './exercises.js';
+
+const rawPhases = [
   {
     id: 'p1',
     title: 'Phase 1: Foundation',
@@ -815,3 +817,11 @@ export const phases = [
     ],
   },
 ];
+
+// Merge the per-week exercises (drills/comprehension/passage) from exercises.js
+// onto each week by its number, so component code reads them off the week object
+// (week.drill, week.comprehension, week.passage) with no extra plumbing.
+export const phases = rawPhases.map((phase) => ({
+  ...phase,
+  weeks: phase.weeks.map((week) => ({ ...week, ...(EXERCISES[week.n] || {}) })),
+}));

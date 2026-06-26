@@ -2419,3 +2419,227 @@ html.dark .prayer-card { background: rgba(255,255,255,0.02); }
   border-top: 1px solid var(--border-subtle);
 }
 html.dark .prayer-text-en { color: var(--text-muted); }
+
+/* ── Reading passage (O2) ──────────────────────────────────────────────── */
+.reading-section { margin-bottom: 14px; }
+.reading-source { font-size: 11px; color: var(--text-faint); }
+.reading-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.reading-line {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 4px 0;
+  font-size: 14px;
+  line-height: 1.7;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.reading-line:last-child { border-bottom: none; }
+.reading-vnum {
+  font-size: 10px;
+  color: var(--text-faint);
+  min-width: 16px;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  align-self: flex-start;
+  padding-top: 3px;
+}
+.reading-text { flex: 1; color: var(--text); }
+.reading-read-btn {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 7px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+}
+.reading-read-btn:hover { background: var(--accent-dim); }
+.reading-read-done {
+  border-color: var(--border);
+  color: var(--text-muted);
+  cursor: default;
+}
+.reading-read-done:hover { background: transparent; }
+
+/* ── Shared collapsible panel (drill / comprehension / dictogloss) ─────── */
+.drill-panel, .comp-panel, .dicto-section { margin: 12px 0; }
+.drill-toggle, .comp-toggle, .dicto-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+.drill-body, .comp-body, .dicto-body {
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 10px 12px;
+  margin-top: -1px;
+}
+.drill-intro, .comp-intro, .dicto-intro {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+/* ── Grammar drill (O3) ────────────────────────────────────────────────── */
+.drill-row {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.drill-row:last-child { border-bottom: none; }
+.drill-sentence {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text);
+}
+.drill-input {
+  display: inline-block;
+  min-width: 90px;
+  width: 110px;
+  margin: 0 2px;
+  padding: 2px 6px;
+  font-size: 14px;
+  border: none;
+  border-bottom: 2px solid var(--accent);
+  background: var(--accent-dim);
+  border-radius: 4px 4px 0 0;
+  color: var(--text);
+  text-align: center;
+}
+.drill-input:focus { outline: none; background: var(--surface); }
+.drill-input.drill-ok { border-bottom-color: var(--accent); background: var(--accent-dim); }
+.drill-input.drill-no { border-bottom-color: #c0392b; background: rgba(192,57,43,0.1); }
+.drill-hint { font-size: 11px; color: var(--text-faint); margin-top: 4px; font-style: italic; }
+.drill-btn {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+.drill-btn:disabled { opacity: 0.5; cursor: default; }
+.drill-btn-retry { background: transparent; color: var(--accent); }
+.drill-feedback {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 12px;
+}
+.drill-verdict-ok { color: var(--accent); font-weight: 600; }
+.drill-verdict-no { color: #c0392b; font-weight: 600; }
+.drill-answer { font-weight: 600; color: var(--text); }
+.drill-filled { font-style: italic; color: var(--text-muted); }
+
+/* ── Comprehension (O5) ────────────────────────────────────────────────── */
+.comp-row {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.comp-row:last-child { border-bottom: none; }
+.comp-q { font-size: 14px; color: var(--text); line-height: 1.5; }
+.comp-q-en { font-size: 12px; color: var(--text-faint); margin: 2px 0 8px; }
+.comp-tf-btns, .comp-mc-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.comp-mc-opts { flex-direction: column; align-items: stretch; }
+.comp-tf-btn, .comp-mc-btn {
+  font-size: 13px;
+  padding: 6px 16px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+.comp-tf-btn:disabled, .comp-mc-btn:disabled { cursor: default; }
+.comp-ok { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); font-weight: 600; }
+.comp-no { border-color: #c0392b; background: rgba(192,57,43,0.1); color: #c0392b; }
+.comp-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.comp-feedback-ok { color: var(--accent); }
+.comp-feedback-no { color: #c0392b; }
+.comp-explain { font-weight: 400; color: var(--text-muted); }
+
+/* ── Dictogloss (O4) ───────────────────────────────────────────────────── */
+.dicto-counter { font-size: 11px; color: var(--text-faint); margin-bottom: 6px; }
+.dicto-play { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.dicto-speeds { display: flex; gap: 6px; }
+.dicto-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+  resize: vertical;
+}
+.dicto-input:focus { outline: none; border-color: var(--accent); }
+.dicto-btn {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 7px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+}
+.dicto-btn-primary { background: var(--accent); color: #fff; }
+.dicto-btn:disabled { opacity: 0.5; cursor: default; }
+.dicto-result { margin-top: 10px; }
+.dicto-score { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+.dicto-original { font-size: 14px; line-height: 1.8; }
+.dicto-ok { color: var(--text); }
+.dicto-miss {
+  color: #c0392b;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-thickness: 1px;
+}
+.dicto-end { text-align: center; padding: 8px 0; }
+.dicto-end-score { font-size: 32px; font-weight: 800; color: var(--accent); }
+.dicto-end-label { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+
+/* ── Shadowing card (O1) ───────────────────────────────────────────────── */
+.pronun-card-shadow { gap: 8px; }
+.pronun-shadow-instr { font-size: 12px; color: var(--text-muted); }
+.pronun-shadow-play { display: flex; align-items: center; gap: 12px; }
+.pronun-shadow-text {
+  font-size: 16px;
+  font-style: italic;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.5;
+}

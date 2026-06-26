@@ -6,6 +6,18 @@
 
 ---
 
+## Implementation status
+
+**The five HIGH-priority items (O1–O5) are implemented and merged into the app.**
+They live in `WeekDetail.jsx` (interactive reading, comprehension, dictogloss,
+grammar drill) and `PronunciationPractice.jsx` (shadowing). Per-week drills and
+comprehension questions are authored for all 37 weeks in
+`courses/it-bible-cei/exercises.js`. One caveat on **O2**: full CEI 2008 passages
+were not bundled (copyright + static free-tier size, and the build sandbox blocks
+Bible APIs), so the reader uses each week's vetted example sentences as the
+interactive passage; the `week.passage` field is wired and documented as a
+drop-in upgrade for public-domain text. The MEDIUM/LOW items below remain open.
+
 ## What the App Does Well
 
 Before identifying gaps, it's worth naming what's already solid, because these are the right foundations:
