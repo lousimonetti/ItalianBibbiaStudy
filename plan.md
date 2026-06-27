@@ -1,8 +1,32 @@
 # Plan — Make Italian Bible Study fully immersive, interactive & enticing
 
-> **Status: all four workstreams (A–D) complete and merged.** For the *next*
-> direction — generalizing this finished app into a fork-and-fill template so
-> anyone can build their own N-week course — see **`plan-platform.md`**.
+> **Status: all four workstreams (A–D) complete and merged.**
+>
+> **Subsequent plans (in order):**
+> - `plan-platform.md` — CourseKit generalization (T0–T5 complete): config-driven
+>   template, multi-course registry, per-course localStorage namespacing.
+> - `plan-sync.md` — Cross-device sync via QR / code / `.json` (shipped). Online
+>   auto-sync (BaaS opt-in) remains open.
+> - `opportunities.md` — Reading & comprehension suite (O1–O5 shipped): shadowing,
+>   interactive reading, grammar drill, dictogloss, comprehension checks.
+> - `plan-new-session.md` — **New Session / Calendar Reset** (planned). Let any
+>   user start or restart the 37-week program from today without editing source
+>   code. Introduces `src/utils/sessionStart.js` + `schedule.js` refactor +
+>   a "New Session" modal with selective-reset scope (T0–T4).
+> - `plan-ios-app.md` — **iOS / iPadOS App Store app** (planned). React Native +
+>   Expo SDK 52 path: all pure-JS utils port unchanged; `localStorage` →
+>   `AsyncStorage`; `speechSynthesis` → `expo-speech`; adds WidgetKit (Swift
+>   extension), haptics, iCloud opt-in, Siri Shortcuts, iPad sidebar. ~10 weeks.
+> - `plan-ios-swift.md` — **Full SwiftUI rewrite** (planned, alternative to RN).
+>   SwiftUI + SwiftData; concrete Swift ports of all 8 JS utility modules (SRS
+>   SM-2 scheduler, Answer/Levenshtein, Cloze, Streak, ItalianIPA, Schedule);
+>   `AVSpeechSynthesizer`, `SFSpeechRecognizer`, `CoreHaptics`, native WidgetKit,
+>   `AppIntents` (Siri), `NSUbiquitousKeyValueStore` (iCloud). ~8–12 MB binary.
+>   iOS-only; no Android path. ~10–11 weeks.
+> - `wireframes/ios-app-wireframes.html` — browser-renderable phone-frame mockups
+>   for both iOS plans: 7 flows covering Onboarding, Tracker, Week Detail,
+>   Flashcards, Pronunciation, Journal, Settings / New Session sheet, iPadOS
+>   sidebar, and WidgetKit home-screen widgets (small + medium).
 
 
 **Goal of this feature set:** turn the app from a *study tracker with downloadable
@@ -252,3 +276,74 @@ stays correct if a store changes.
 - Unit tests for any non-trivial logic; `npm test` stays green.
 - `npm run build` succeeds (CI deploys from it).
 - Immersion strings carry an English gloss fallback.
+
+---
+
+## Where next — the two major open directions
+
+### 1. New Session / Calendar Reset (`plan-new-session.md`)
+
+The 37-week calendar is currently anchored to a hardcoded `startDate` in the
+course config. Anyone who starts the app late — or wants to restart — has to
+edit source code. The New Session feature writes a `sessionStart` override to
+`localStorage`; `schedule.js` reads that override on every call (not at module
+load, which would cache the old date). Four tasks:
+
+| Task | Scope |
+|------|-------|
+| **T0** | `src/utils/sessionStart.js` get/set/clear + `schedule.js` per-call read |
+| **T1** | `NewSessionModal.jsx` — date picker → date preview → confirm |
+| **T2** | `src/utils/resetSession.js` — selective clear of progress / streak / SRS / journal |
+| **T3** | Dynamic end-date in `TodayCard` and header tagline |
+| **T4** | `sessionStart.test.js`, `resetSession.test.js`, updated `schedule.test.js` |
+
+The reload-after-reset (same pattern as `CoursePicker`) sidesteps caching; the
+per-call read still matters for components that mount mid-session.
+
+---
+
+### 2. iOS / iPadOS App Store app
+
+Two fully-worked paths — pick one:
+
+#### Path A — React Native + Expo (`plan-ios-app.md`)
+
+All pure-JS util modules (`srs.js`, `answer.js`, `cloze.js`, `it2ipa.js`,
+`streak.js`, `achievements.js`, `schedule.js`) port with **zero changes**. Hooks
+are adapted to `AsyncStorage` (same key names → same sync snapshot format →
+web ↔ iOS data portability with no conversion). New native capabilities added
+on top: `expo-speech` (TTS), `@react-native-voice/voice` (speech recognition),
+`expo-notifications` (real push, not best-effort browser), `expo-haptics`,
+WidgetKit (Swift extension sharing an App Group with the RN app).
+
+- Binary: ~50–70 MB. Android path open (same codebase).
+- `eas build` + `eas submit` for App Store distribution.
+- Timeline: ~10 weeks (M0 scaffold → M7 App Store).
+
+#### Path B — Full SwiftUI rewrite (`plan-ios-swift.md`)
+
+All 8 JS utils ported to Swift (function-for-function; see the concrete Swift
+snippets in the plan). SwiftData `@Model` types for SRS cards and journal
+entries; `@AppStorage` for streak, progress bits, theme, session start.
+`AVSpeechSynthesizer` (no bridge), `SFSpeechRecognizer` (more accurate than the
+bridge), native `WidgetKit` `TimelineProvider`, `AppIntents` (Siri Shortcuts),
+`NSUbiquitousKeyValueStore` (iCloud), `CoreHaptics`, `NavigationSplitView`
+(iPad sidebar without any extra library).
+
+- Binary: ~8–12 MB. iOS-only.
+- Same QR sync snapshot format as the web app (interoperable).
+- Timeline: ~10–11 weeks (M0 scaffold → M8 App Store).
+
+#### Decision guide
+
+```
+Android in scope ever?        → React Native
+Want a sub-15 MB binary?      → SwiftUI
+Fastest path to feature parity? → React Native (~1 week saved via JS reuse)
+Best possible native feel?    → SwiftUI
+WidgetKit without a bridge?   → SwiftUI
+```
+
+Both plans share `wireframes/ios-app-wireframes.html` — open it in any browser
+to see all 7 flows (Onboarding, Tracker, Week Detail, Flashcards, Pronunciation,
+Journal, Settings / New Session, iPad sidebar, home-screen widgets).
