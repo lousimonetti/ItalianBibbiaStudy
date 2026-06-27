@@ -55,6 +55,30 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   to be blocked by the egress proxy — if individual verses need updating, edit
   `exercises.js` directly. See `opportunities.md` for the full implementation
   learnings and remaining open items (O6–O17).
+- **New Session / Calendar Reset (`plan-new-session.md`): planned, not started.**
+  Lets any user start (or restart) the 37-week program from today — or any chosen
+  date — without editing source code. Writes a `session-start` override to
+  `localStorage` via a new `src/utils/sessionStart.js`; `schedule.js` reads the
+  override in preference to `config.schedule.startDate`. A "New Session" bottom
+  sheet in Settings (T1) lets users pick a start date, choose which data to reset
+  (progress/streak/SRS intervals/journal, T2), then reloads. `TodayCard` and the
+  header tagline dynamically display the new end date (T3). Full task list in
+  `plan-new-session.md`.
+- **iOS / iPadOS App (`plan-ios-app.md`): planned, not started.**
+  A full native App Store app targeting iOS 15+ built with **React Native + Expo
+  SDK 52** (bare workflow). All pure-JS utility modules (`srs.js`, `answer.js`,
+  `cloze.js`, `it2ipa.js`, `streak.js`, etc.) port with zero changes; hooks are
+  adapted to `AsyncStorage`; `localStorage` → `@react-native-async-storage`;
+  `speechSynthesis` → `expo-speech`; `SpeechRecognition` →
+  `@react-native-voice/voice`; `window.Notification` → `expo-notifications`.
+  iOS-exclusive additions: haptic feedback (card flip, grade, streak milestones),
+  **WidgetKit home-screen widgets** (streak + today's checklist in Swift), Siri
+  Shortcuts, iCloud opt-in backup, Dynamic Type, and an adaptive iPad layout
+  (persistent sidebar via `@react-navigation/drawer`). Milestone timeline ~10 weeks.
+  Visual wireframes are in `wireframes/ios-app-wireframes.html` (open in any
+  browser — covers Onboarding, Tracker, Week Detail, Flashcards, Pronunciation,
+  Journal, Settings, New Session sheet, iPad sidebar, and home-screen widgets).
+  Full architecture and App Store checklist in `plan-ios-app.md`.
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
