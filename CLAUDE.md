@@ -79,6 +79,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   browser — covers Onboarding, Tracker, Week Detail, Flashcards, Pronunciation,
   Journal, Settings, New Session sheet, iPad sidebar, and home-screen widgets).
   Full architecture and App Store checklist in `plan-ios-app.md`.
+  A **full SwiftUI rewrite** alternative is documented in `plan-ios-swift.md`
+  (SwiftUI + SwiftData, AVSpeechSynthesizer, SFSpeechRecognizer, CoreHaptics,
+  native WidgetKit, ~8–12 MB binary, iOS-only). That plan includes concrete Swift
+  ports of all 8 JS utility modules (SRS, Answer, Cloze, Streak, IPA, etc.),
+  SwiftData `@Model` types, WidgetKit `TimelineProvider`, iCloud KV sync, and
+  Siri `AppIntent` stubs. Both plans share the same wireframes
+  (`wireframes/ios-app-wireframes.html`).
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
