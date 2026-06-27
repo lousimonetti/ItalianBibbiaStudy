@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Italian Bible Study — iOS App Wireframes</title>
+<style>
+  /* ── Reset & base ─────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+    background: #1a1a1a;
+    color: #1c1c1e;
+    min-height: 100vh;
+    padding: 40px 24px 80px;
+  }
+  h1 {
+    color: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .subtitle {
+    color: #8e8e93;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .screen-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+    justify-content: center;
+    margin-bottom: 64px;
+  }
+  .screen-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .screen-label {
+    color: #8e8e93;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .flow-label {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    text-align: center;
+    margin-bottom: 24px;
+    padding-top: 8px;
+  }
+  .flow-desc {
+    color: #8e8e93;
+    font-size: 13px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 32px;
+    line-height: 1.5;
+  }
+
+  /* ── Phone frame ──────────────────────────────────────────── */
+  .phone {
+    width: 320px;
+    height: 693px;
+    background: #000;
+    border-radius: 50px;
+    padding: 12px;
+    box-shadow:
+      0 0 0 2px #3a3a3c,
+      0 0 0 4px #1c1c1e,
+      0 24px 48px rgba(0,0,0,0.6);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .phone.ipad {
+    width: 460px;
+    height: 640px;
+    border-radius: 20px;
+  }
+  .phone-inner {
+    width: 100%;
+    height: 100%;
+    background: #f2f2f7;
+    border-radius: 40px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .phone.ipad .phone-inner { border-radius: 12px; }
+
+  /* Dynamic island */
+  .dynamic-island {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 34px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 10;
+  }
+
+  /* ── iOS Chrome ───────────────────────────────────────────── */
+  .status-bar {
+    height: 54px;
+    background: #f2f2f7;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 22px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+    z-index: 5;
+    flex-shrink: 0;
+  }
+  .status-time { font-size: 15px; font-weight: 700; }
+  .status-icons { display: flex; gap: 6px; align-items: center; font-size: 10px; }
+
+  .nav-bar {
+    height: 44px;
+    background: rgba(242,242,247,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 0.5px solid rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    flex-shrink: 0;
+  }
+  .nav-title { font-size: 17px; font-weight: 600; }
+  .nav-action { font-size: 14px; color: #008C45; font-weight: 500; }
+  .nav-back { font-size: 14px; color: #008C45; font-weight: 400; display: flex; align-items: center; gap: 4px; }
+
+  .tab-bar {
+    height: 83px;
+    background: rgba(242,242,247,0.92);
+    backdrop-filter: blur(20px);
+    border-top: 0.5px solid rgba(0,0,0,0.12);
+    display: flex;
+    align-items: flex-start;
+    padding: 8px 0 0;
+    flex-shrink: 0;
+    margin-top: auto;
+  }
+  .tab-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+  .tab-icon {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .tab-text { font-size: 10px; font-weight: 500; color: #8e8e93; }
+  .tab-item.active .tab-text { color: #008C45; }
+  .tab-item.active .tab-icon { color: #008C45; }
+
+  /* ── Content area ─────────────────────────────────────────── */
+  .screen-content {
+    flex: 1;
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Cards & lists */
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    margin: 0 16px 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .card-header {
+    padding: 14px 16px 10px;
+    border-bottom: 0.5px solid #e5e5ea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-title { font-size: 13px; font-weight: 700; text-transform: uppercase; color: #8e8e93; letter-spacing: 0.5px; }
+  .card-body { padding: 12px 16px; }
+  .card-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 0.5px solid #f2f2f7;
+    font-size: 15px;
+  }
+  .card-row:last-child { border-bottom: none; }
+  .card-row-label { color: #1c1c1e; }
+  .card-row-value { color: #8e8e93; font-size: 14px; }
+  .card-row-chevron { color: #c7c7cc; font-size: 14px; }
+
+  /* Section header (iOS style) */
+  .section-header {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6e6e73;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 20px 32px 8px;
+  }
+
+  /* Accent colours */
+  .green { color: #008C45; }
+  .red { color: #ff3b30; }
+  .blue { color: #007aff; }
+  .orange { color: #ff9500; }
+  .purple { color: #af52de; }
+  .gray { color: #8e8e93; }
+
+  /* ── Specific widget designs ──────────────────────────────── */
+
+  /* Today Card */
+  .today-card {
+    background: linear-gradient(135deg, #008C45 0%, #00a854 60%, #2db56a 100%);
+    border-radius: 18px;
+    margin: 12px 16px 0;
+    padding: 16px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .today-card::after {
+    content: '';
+    position: absolute;
+    right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .today-card-week { font-size: 12px; font-weight: 600; opacity: 0.8; letter-spacing: 0.5px; text-transform: uppercase; }
+  .today-card-title { font-size: 20px; font-weight: 700; margin: 4px 0; line-height: 1.1; }
+  .today-card-sub { font-size: 12px; opacity: 0.7; margin-bottom: 16px; }
+  .checklist { display: flex; gap: 8px; flex-wrap: wrap; }
+  .check-item {
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .check-item.done { background: rgba(255,255,255,0.35); }
+  .check-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+  .check-item.done .check-dot { background: #fff; }
+
+  /* Streak strip */
+  .streak-strip {
+    display: flex; gap: 6px; padding: 10px 16px 0;
+  }
+  .streak-box {
+    flex: 1; background: #fff; border-radius: 12px; padding: 10px 8px;
+    text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .streak-num { font-size: 20px; font-weight: 700; color: #ff9500; }
+  .streak-num.green { color: #008C45; }
+  .streak-lbl { font-size: 10px; color: #8e8e93; font-weight: 500; }
+
+  /* Week list item */
+  .week-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; background: #fff;
+    border-bottom: 0.5px solid #f2f2f7;
+  }
+  .week-badge {
+    width: 34px; height: 34px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+  .week-badge.done { background: #008C45; }
+  .week-badge.current { background: #007aff; }
+  .week-badge.future { background: #e5e5ea; color: #8e8e93; }
+  .week-info { flex: 1; min-width: 0; }
+  .week-title { font-size: 15px; font-weight: 600; color: #1c1c1e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .week-sub { font-size: 12px; color: #8e8e93; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .week-chevron { color: #c7c7cc; font-size: 14px; }
+
+  /* SRS / flashcard flip */
+  .srs-card {
+    background: #fff;
+    border-radius: 20px;
+    margin: 12px 16px 0;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    padding: 24px;
+    text-align: center;
+    position: relative;
+  }
+  .srs-type-badge {
+    position: absolute; top: 14px; left: 14px;
+    background: #f2f2f7; border-radius: 8px;
+    padding: 3px 8px; font-size: 11px; font-weight: 600; color: #8e8e93;
+  }
+  .srs-it { font-size: 26px; font-weight: 700; color: #1c1c1e; margin-bottom: 4px; }
+  .srs-ipa { font-size: 14px; color: #8e8e93; margin-bottom: 12px; font-style: italic; }
+  .srs-en { font-size: 17px; color: #008C45; font-weight: 500; }
+  .srs-example { font-size: 13px; color: #6e6e73; margin-top: 10px; line-height: 1.4; font-style: italic; }
+  .srs-bar {
+    display: flex; gap: 2px; padding: 0 16px 4px; margin-top: 6px;
+  }
+  .srs-seg { flex: 1; height: 4px; border-radius: 2px; background: #e5e5ea; }
+  .srs-seg.done { background: #008C45; }
+  .srs-seg.active { background: #007aff; }
+  .grade-buttons {
+    display: flex; gap: 10px; padding: 12px 16px 0; flex-shrink: 0;
+  }
+  .grade-btn {
+    flex: 1; height: 52px; border-radius: 14px; border: none;
+    font-size: 15px; font-weight: 600; cursor: pointer; display: flex;
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 1px;
+  }
+  .grade-btn .lbl { font-size: 10px; font-weight: 500; opacity: 0.7; }
+  .grade-again { background: #ffe5e5; color: #ff3b30; }
+  .grade-hard { background: #fff3e0; color: #ff9500; }
+  .grade-good { background: #e8f5e9; color: #008C45; }
+  .grade-easy { background: #e3f2fd; color: #007aff; }
+
+  /* Pronunciation screen */
+  .mic-circle {
+    width: 96px; height: 96px; border-radius: 50%;
+    background: linear-gradient(135deg, #008C45, #2db56a);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto;
+    font-size: 36px;
+    box-shadow: 0 0 0 12px rgba(0,140,69,0.12), 0 0 0 24px rgba(0,140,69,0.06);
+  }
+  .waveform {
+    display: flex; gap: 3px; align-items: center; justify-content: center;
+    padding: 16px; height: 52px;
+  }
+  .wave-bar {
+    width: 4px; border-radius: 2px; background: #008C45;
+    animation: wave 0.8s ease-in-out infinite alternate;
+  }
+  @keyframes wave {
+    from { height: 6px; }
+    to { height: 28px; }
+  }
+  .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+  .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+  .wave-bar:nth-child(4) { animation-delay: 0.15s; }
+  .wave-bar:nth-child(5) { animation-delay: 0.05s; }
+  .wave-bar:nth-child(6) { animation-delay: 0.25s; }
+  .wave-bar:nth-child(7) { animation-delay: 0.1s; }
+
+  /* Score ring */
+  .score-ring {
+    width: 72px; height: 72px; border-radius: 50%;
+    border: 5px solid #e5e5ea; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .score-ring::before {
+    content: ''; position: absolute; inset: -5px; border-radius: 50%;
+    border: 5px solid transparent;
+    border-top-color: #008C45; border-right-color: #008C45;
+    transform: rotate(-90deg);
+  }
+  .score-num { font-size: 18px; font-weight: 700; color: #008C45; }
+
+  /* Journal */
+  .journal-entry {
+    background: #fff; border-radius: 12px; margin: 0 16px 8px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .journal-week { font-size: 11px; font-weight: 700; color: #8e8e93; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+  .journal-preview { font-size: 14px; color: #1c1c1e; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .journal-date { font-size: 11px; color: #c7c7cc; margin-top: 6px; }
+
+  /* Grammar error underline */
+  .grammar-error { border-bottom: 2px solid #ff9500; }
+
+  /* Tag chips */
+  .chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f2f2f7; border-radius: 20px;
+    padding: 5px 10px; font-size: 12px; font-weight: 500; color: #1c1c1e;
+    margin: 2px;
+  }
+  .chip.green { background: rgba(0,140,69,0.12); color: #008C45; }
+  .chip.blue { background: rgba(0,122,255,0.12); color: #007aff; }
+
+  /* Progress bar */
+  .progress-bar {
+    height: 6px; background: #e5e5ea; border-radius: 3px; overflow: hidden;
+    margin: 6px 0;
+  }
+  .progress-fill { height: 100%; background: #008C45; border-radius: 3px; }
+
+  /* Onboarding */
+  .onboard-art {
+    width: 120px; height: 120px; border-radius: 30px;
+    background: linear-gradient(135deg, #008C45, #CE2B37);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 56px; margin: 0 auto 20px;
+    box-shadow: 0 12px 32px rgba(0,140,69,0.35);
+  }
+  .big-title { font-size: 26px; font-weight: 800; text-align: center; line-height: 1.1; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .big-sub { font-size: 15px; color: #6e6e73; text-align: center; line-height: 1.4; margin-bottom: 24px; padding: 0 16px; }
+  .primary-btn {
+    background: #008C45; color: #fff; border-radius: 14px; border: none;
+    width: calc(100% - 32px); margin: 0 16px; height: 52px;
+    font-size: 17px; font-weight: 600; cursor: pointer; display: block;
+  }
+  .secondary-btn {
+    background: transparent; color: #008C45; border: none;
+    width: calc(100% - 32px); margin: 10px 16px 0; height: 44px;
+    font-size: 15px; font-weight: 500; cursor: pointer; display: block;
+    text-align: center;
+  }
+  .date-picker-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #fff; border-radius: 12px; margin: 0 16px 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .date-picker-label { font-size: 17px; }
+  .date-picker-value { font-size: 17px; color: #008C45; font-weight: 500; }
+
+  /* Segmented control */
+  .seg-control {
+    display: flex; background: #e5e5ea; border-radius: 10px;
+    margin: 12px 16px 0; padding: 2px;
+  }
+  .seg-item {
+    flex: 1; border-radius: 8px; padding: 7px 0;
+    text-align: center; font-size: 13px; font-weight: 600; color: #8e8e93;
+    cursor: pointer;
+  }
+  .seg-item.active { background: #fff; color: #1c1c1e; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+
+  /* iPad sidebar */
+  .ipad-sidebar {
+    width: 280px; background: #f2f2f7;
+    border-right: 0.5px solid #e5e5ea; flex-shrink: 0;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .ipad-sidebar-header {
+    padding: 16px; background: #008C45; color: #fff;
+  }
+  .ipad-sidebar-header .title { font-size: 18px; font-weight: 700; }
+  .ipad-sidebar-header .sub { font-size: 12px; opacity: 0.7; }
+  .ipad-detail {
+    flex: 1; background: #fff; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .ipad-inner { display: flex; flex: 1; overflow: hidden; }
+  .ipad-status { height: 44px; background: #f2f2f7; display: flex; align-items: center; padding: 0 20px; font-size: 13px; font-weight: 600; color: #6e6e73; gap: 16px; flex-shrink: 0; }
+
+  /* Separator */
+  .sep { height: 0.5px; background: #e5e5ea; margin: 0; }
+
+  /* Annotation arrows */
+  .annotations { margin-top: 12px; display: flex; flex-direction: column; gap: 4px; max-width: 320px; }
+  .ann { font-size: 11px; color: #636366; display: flex; align-items: flex-start; gap: 6px; }
+  .ann-dot { width: 5px; height: 5px; border-radius: 50%; background: #8e8e93; margin-top: 4px; flex-shrink: 0; }
+
+  /* Scrollable content area */
+  .scroll-area { overflow-y: auto; flex: 1; }
+
+  /* ── Layout helpers ───────────────────────────────────────── */
+  .row { display: flex; align-items: center; }
+  .col { display: flex; flex-direction: column; }
+  .gap-4 { gap: 4px; } .gap-8 { gap: 8px; } .gap-12 { gap: 12px; }
+  .px-16 { padding-left: 16px; padding-right: 16px; }
+  .py-8 { padding-top: 8px; padding-bottom: 8px; }
+  .mt-8 { margin-top: 8px; }
+  .mt-12 { margin-top: 12px; }
+  .mt-16 { margin-top: 16px; }
+  .fw-600 { font-weight: 600; }
+  .fs-15 { font-size: 15px; }
+  .fs-13 { font-size: 13px; }
+  .fs-11 { font-size: 11px; }
+  .center { text-align: center; }
+  .flex-1 { flex: 1; }
+  .text-gray { color: #8e8e93; }
+  .text-green { color: #008C45; }
+</style>
+</head>
+<body>
+
+<h1>Italian Bible Study · iOS App</h1>
+<p class="subtitle">Wireframes — React Native + Expo · iOS 15+ · iPhone & iPad</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FLOW 1: ONBOARDING                                             -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="flow-label">Flow 1 — Onboarding (first launch only)</div>
+<div class="flow-desc">
+  First launch shows a welcome screen, lets the user pick their program start date, then drops them into the Tracker.
+  Subsequent launches skip directly to the Tracker.
+</div>
+<div class="screen-row">
+
+  <!-- Welcome -->
+  <div class="screen-group">
+    <div class="phone">
+      <div class="dynamic-island"></div>
+      <div class="phone-inner">
+        <div class="status-bar" style="background:#fff;">
+          <span class="status-time">9:41</span>
+          <span class="status-icons">●●● 5G ■</span>
+        </div>
+        <div class="screen-content" style="background:#fff; justify-content:center; padding:0 0 40px;">
+          <div style="padding:32px 0 0;">
+            <div class="onboard-art">📖</div>
+            <div class="big-title">Italian Bible<br>Study</div>
+            <div class="big-sub">A 37-week journey through the Scriptures — from Easter to Christmas 2026.</div>
+            <button class="primary-btn">Start Today</button>
+            <button class="secondary-btn">Choose a start date →</button>
+            <div style="font-size:11px; color:#c7c7cc; text-align:center; margin-top:16px; padding:0 32px;">
+              All study data stays on your device. No account needed.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">1. Welcome</div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div> "Start Today" writes today as session-start and goes to Tracker</div>
+      <div class="ann"><div class="ann-dot"></div> "Choose a start date" shows the date-picker screen</div>
+      <div class="ann"><div class="ann-dot"></div> Shown only once; cleared on first successful navigation</div>
+    </div>
+  </div>
+
+  <!-- Date Picker -->
+  <div class="screen-group">
+    <div class="phone">
+      <div class="dynamic-island"></div>
+      <div class="phone-inner">
+        <div class="status-bar" style="background:#f2f2f7;">
+          <span class="status-time">9:41</span>
+          <span class="status-icons">●●● 5G ■</span>
+        </div>
+        <div class="nav-bar" style="background:#f2f2f7;">
+          <span class="nav-back">‹ Back</span>
+          <span class="nav-title">Program Start</span>
+          <span></span>
+        </div>
+        <div class="screen-content">
+          <div class="section-header">When does your 37-week program begin?</div>
+          <div class="date-picker-row">
+            <span class="date-picker-label">📅 Start date</span>
+            <span class="date-picker-value">Jun 27, 2026</span>
+          </div>
+          <div style="background:#fff; border-radius:14px; margin:0 16px; padding:12px; box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+            <div style="font-size:13px; color:#8e8e93; text-align:center; margin-bottom:8px; font-weight:600;">JUNE 2026</div>
+            <!-- mini calendar grid -->
+            <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px; text-align:center;">
+              <div style="font-size:10px;color:#8e8e93;padding:4px;">S</div><div style="font-size:10px;color:#8e8e93;padding:4px;">M</div><div style="font-size:10px;color:#8e8e93;padding:4px;">T</div><div style="font-size:10px;color:#8e8e93;padding:4px;">W</div><div style="font-size:10px;color:#8e8e93;padding:4px;">T</div><div style="font-size:10px;color:#8e8e93;padding:4px;">F</div><div style="font-size:10px;color:#8e8e93;padding:4px;">S</div>
+              <div style="font-size:13px;padding:6px;color:#c7c7cc;"></div><div style="font-size:13px;padding:6px;color:#1c1c1e;">1</div><div style="font-size:13px;padding:6px;color:#1c1c1e;">2</div><div style="font-size:13px;padding:6px;color:#1c1c1e;">3</div><div style="font-size:13px;padding:6px;color:#1c1c1e;">4</div><div style="font-size:13px;padding:6px;color:#1c1c1e;">5</div><div style="font-size:13px;padding:6px;color:#1c1c1e;">6</div>
+              <div style="font-size:13px;padding:6px;">7</div><div style="font-size:13px;padding:6px;">8</div><div style="font-size:13px;padding:6px;">9</div><div style="font-size:13px;padding:6px;">10</div><div style="font-size:13px;padding:6px;">11</div><div style="font-size:13px;padding:6px;">12</div><div style="font-size:13px;padding:6px;">13</div>
+              <div style="font-size:13px;padding:6px;">14</div><div style="font-size:13px;padding:6px;">15</div><div style="font-size:13px;padding:6px;">16</div><div style="font-size:13px;padding:6px;">17</div><div style="font-size:13px;padding:6px;">18</div><div style="font-size:13px;padding:6px;">19</div><div style="font-size:13px;padding:6px;">20</div>
+              <div style="font-size:13px;padding:6px;">21</div><div style="font-size:13px;padding:6px;">22</div><div style="font-size:13px;padding:6px;">23</div><div style="font-size:13px;padding:6px;">24</div><div style="font-size:13px;padding:6px;">25</div><div style="font-size:13px;padding:6px;">26</div><div style="font-size:13px;padding:6px;background:#008C45;border-radius:50%;color:#fff;font-weight:700;">27</div>
+              <div style="font-size:13px;padding:6px;">28</div><div style="font-size:13px;padding:6px;">29</div><div style="font-size:13px;padding:6px;">30</div>
+            </div>
+          </div>
+          <div style="padding:14px 16px 0; background:rgba(0,140,69,0.08); margin:12px 16px 0; border-radius:12px; font-size:13px; color:#008C45; line-height:1.5;">
+            📅 Your program runs <strong>Jun 27, 2026 → Feb 13, 2027</strong><br>
+            (37 weeks · Week 27: Il giusto vivrà per fede)
+          </div>
+          <button class="primary-btn" style="margin-top:auto; margin-bottom:16px;">Begin program →</button>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">2. Date picker</div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div> Inline calendar — native DatePicker in final build</div>
+      <div class="ann"><div class="ann-dot"></div> Preview shows computed end date + week title</div>
+      <div class="ann"><div class="ann-dot"></div> "Begin program" writes sessionStart to AsyncStorage → reload</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FLOW 2: TRACKER TAB                                            -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="flow-label">Flow 2 — Tracker Tab</div>
+<div class="flow-desc">
+  The default landing tab. Shows the TodayCard with streak + 3-item checklist, then a scrollable phase/week list.
+  Tapping a week opens the Week Detail sheet.
+</div>
+<div class="screen-row">
+
+  <!-- Tracker Home -->
+  <div class="screen-group">
+    <div class="phone">
+      <div class="dynamic-island"></div>
+      <div class="phone-inner">
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <span class="status-icons">●●● 5G ■</span>
+        </div>
+        <div class="nav-bar">
+          <span class="nav-action" style="font-size:18px;">🇮🇹</span>
+          <span class="nav-title">Italian Bible Study</span>
+          <span class="nav-action">⚙</span>
+        </div>
+        <div class="screen-content">
+          <div class="scroll-area">
+            <!-- Today Card -->
+            <div class="today-card">
+              <div class="today-card-week">WEEK 11 · PHASE 2</div>
+              <div class="today-card-title">Il Figlio di Dio</div>
+              <div class="today-card-sub">🔥 12-day streak · Ends Dec 25, 2026</div>
+              <div class="checklist">
+                <div class="check-item done"><div class="check-dot"></div>Read</div>
+                <div class="check-item done"><div class="check-dot"></div>Practice</div>
+                <div class="check-item"><div class="check-dot"></div>Write</div>
+              </div>
+            </div>
+            <!-- Stats strip -->
+            <div class="streak-strip">
+              <div class="streak-box">
+                <div class="streak-num">🔥 12</div>
+                <div class="streak-lbl">Day streak</div>
+              </div>
+              <div class="streak-box">
+                <div class="streak-num green">89</div>
+                <div class="streak-lbl">Cards due</div>
+              </div>
+              <div class="streak-box">
+                <div class="streak-num" style="color:#007aff;">10/37</div>
+                <div class="streak-lbl">Weeks done</div>
+              </div>
+            </div>
+            <!-- Phase header -->
+            <div class="section-header">Phase 2 — Faith Vocabulary</div>
+            <!-- Week list -->
+            <div style="background:#fff; border-radius:14px; margin:0 16px 12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+              <div class="week-item">
+                <div class="week-badge done">10</div>
+                <div class="week-info"><div class="week-title">La Salvezza</div><div class="week-sub">Apr 28 · Romans 3 · Grammar: il presente</div></div>
+                <div class="week-chevron">›</div>
+              </div>
+              <div class="sep"></div>
+              <div class="week-item" style="background:#f0f8f3;">
+                <div class="week-badge current">11</div>
+                <div class="week-info"><div class="week-title">Il Figlio di Dio ← today</div><div class="week-sub">May 4 · John 3 · Grammar: il futuro</div></div>
+                <div class="week-chevron">›</div>
+              </div>
+              <div class="sep"></div>
+              <div class="week-item">
+                <div class="week-badge future">12</div>
+                <div class="week-info"><div class="week-title">La Preghiera</div><div class="week-sub">May 11 · Luke 11 · Grammar: il congiuntivo</div></div>
+                <div class="week-chevron">›</div>
+              </div>
+              <div class="sep"></div>
+              <div class="week-item">
+                <div class="week-badge future">13</div>
+                <div class="week-info"><div class="week-title">Review Week</div><div class="week-sub">May 18 · Review + iTalki</div></div>
+                <div class="week-chevron">›</div>
+              </div>
+            </div>
+          </div>
+          <!-- Tab bar -->
+          <div class="tab-bar">
+            <div class="tab-item active"><div class="tab-icon green">📅</div><div class="tab-text" style="color:#008C45;">Tracker</div></div>
+            <div class="tab-item"><div class="tab-icon">🃏</div><div class="tab-text">Flashcards</div></div>
+            <div class="tab-item"><div class="tab-icon">✏️</div><div class="tab-text">Journal</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">Tracker home</div>
+  </div>
+
+  <!-- Week Detail (sheet) -->
+  <div class="screen-group">
+    <div class="phone">
+      <div class="dynamic-island"></div>
+      <div class="phone-inner">
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <span class="status-icons">●●● 5G ■</span>
+        </div>
+        <div class="nav-bar">
+          <span class="nav-back">‹ Tracker</span>
+          <span class="nav-title">Week 11</span>
+          <span class="nav-action">✓ Done</span>
+        </div>
+        <div class="screen-content">
+          <!-- Segmented -->
+          <div class="seg-control">
+            <div class="seg-item active">Vocab</div>
+            <div class="seg-item">Reading</div>
+            <div class="seg-item">Drills</div>
+          </div>
+          <div class="scroll-area" style="padding-top:12px;">
+            <!-- Vocab section -->
+            <div class="card">
+              <div class="card-header"><span class="card-title">This week's vocab (7 words)</span><span class="nav-action">▶ All</span></div>
+              <div style="display:flex;gap:6px;padding:10px 12px;overflow:hidden;">
+                <div style="background:#f0f8f3;border-radius:10px;padding:8px 10px;min-width:80px;text-align:center;">
+                  <div style="font-size:16px;font-weight:700;color:#1c1c1e;">il Verbo</div>
+                  <div style="font-size:11px;color:#008C45;margin-top:2px;">the Word</div>
+                  <div style="font-size:10px;color:#8e8e93;font-style:italic;">il ˈvɛrbo</div>
+                </div>
+                <div style="background:#f2f2f7;border-radius:10px;padding:8px 10px;min-width:80px;text-align:center;">
+                  <div style="font-size:16px;font-weight:700;color:#1c1c1e;">la luce</div>
+                  <div style="font-size:11px;color:#008C45;margin-top:2px;">the light</div>
+                  <div style="font-size:10px;color:#8e8e93;font-style:italic;">la ˈluːtʃe</div>
+                </div>
+                <div style="background:#f2f2f7;border-radius:10px;padding:8px 10px;min-width:80px;text-align:center;">
+                  <div style="font-size:15px;font-weight:700;color:#1c1c1e;">credere</div>
+                  <div style="font-size:11px;color:#008C45;margin-top:2px;">to believe</div>
+                  <div style="font-size:10px;color:#8e8e93;font-style:italic;">ˈkreːdere</div>
+                </div>
+              </div>
+            </div>
+            <!-- Grammar card -->
+            <div class="card">
+              <div class="card-header"><span class="card-title">Grammar — il futuro</span></div>
+              <div class="card-body" style="font-size:13px;color:#3a3a3c;line-height:1.5;">
+                The future tense in Italian is formed by dropping the -e from the infinitive and adding endings: <span style="color:#008C45;font-weight:600;">-ò, -ai, -à, -emo, -ete, -anno</span>. Irregular verbs like <em>essere</em> and <em>avere</em> use shortened stems.
+              </div>
+            </div>
+            <!-- Reading passage -->
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Reading — John 3:1-8</span>
+                <span style="font-size:18px;">🔊</span>
+              </div>
+              <div class="card-body" style="font-size:14px;line-height:1.7;color:#1c1c1e;">
+                <span style="border-bottom:1px solid #008C45;cursor:pointer;">C'era</span> un uomo dei farisei,
+                <span style="border-bottom:1px solid #008C45;cursor:pointer;">chiamato</span> Nicodemo,
+                un <span style="border-bottom:1px solid #c7c7cc;cursor:pointer;">capo</span> dei Giudei…
+                <div style="margin-top:8px;"><span style="background:#e8f5e9;border-radius:6px;padding:2px 8px;font-size:12px;color:#008C45;font-weight:600;">✓ Marked as read</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">Week Detail</div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div> Segmented: Vocab / Reading / Drills (+ Comprehension)</div>
+      <div class="ann"><div class="ann-dot"></div> Every Italian word is tappable → WordGloss popover</div>
+      <div class="ann"><div class="ann-dot"></div> Speaker button plays TTS for passages & vocab</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FLOW 3: FLASHCARDS TAB                                         -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="flow-label">Flow 3 — Flashcards Tab</div>
+<div class="flow-desc">
+  Mode picker leads to Practice (SRS card flip with style selector) or Pronunciation (mic-based scoring).
+</div>
+<div class="screen-row">
+
+  <!-- Flashcards Home -->
+  <div class="screen-group">
+    <div class="phone">
+      <div class="dynamic-island"></div>
+      <div class="phone-inner">
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <span class="status-icons">●●● 5G ■</span>
+        </div>
+        <div class="nav-bar">
+          <span></span>
+          <span class="nav-title">Flashcards</span>
+          <span class="nav-action">↓ Anki</span>
+        </div>
+        <div class="screen-content">
+          <div class="scroll-area" style="padding-top:4px;">
+            <!-- Stats -->
+            <div class="streak-strip" style="padding:12px 16px 0;">
+              <div class="streak-box"><div class="streak-num" style="color:#ff3b30;">89</div><div class="streak-lbl">Due now</div></div>
+              <div class="streak-box"><div class="streak-num" style="color:#007aff;">15</div><div class="streak-lbl">New today</div></div>
+              <div class="streak-box"><div class="streak-num green">155</div><div class="streak-lbl">Learned</div></div>
+            </div>
+            <!-- Struggle panel -->
+            <div class="section-header">Parole difficili</div>
+            <div style="background:#fff;border-radius:14px;margin:0 16px 8px;padding:10px 14px;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+              <div style="font-size:13px;color:#6e6e73;margin-bottom:8px;">Words you struggle with most:</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                <span class="chip">la grazia</span>
+                <span class="chip">credere</span>
+                <span class="chip">il sacrificio</span>
+                <span class="chip">redimere</span>
+              </div>
+              <button style="margin-top:10px;background:#fff3e0;color:#ff9500;border:none;border-radius:10px;padding:8px 14px;font-size:13px;font-weight:600;width:100%;">Drill these words →</button>
+            </div>
+            <!-- Mode cards -->
+            <div class="section-header">Study mode</div>
+            <div style="display:flex;flex-direction:column;gap:10px;padding:0 16px 16px;">
+              <div style="background:#fff;border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.08);display:flex;align-items:center;gap:14px;">
+                <div style="width:44px;height:44px;border-radius:12px;background:#e8f5e9;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🃏</div>
+                <div style="flex:1;"><div style="font-size:16px;font-weight:600;">Practice</div><div style="font-size:12px;color:#8e8e93;">SRS · Recognition, Recall, Cloze, Listening</div></div>
+                <div style="color:#c7c7cc;">›</div>
+              </div>
+              <div style="background:#fff;border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.08);display:flex;align-items:center;gap:14px;">
+                <div style="width:44px;height:44px;border-radius:12px;background:#f3e8ff;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🎙️</div>
+                <div style="flex:1;"><div style="font-size:16px;font-weight:600;">Pronunciation</div><div style="font-size:12px;color:#8e8e93;">Speak & score · Words and sentences</div></div>
+                <div style="color:#c7c7cc;">›</div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-bar">
+            <div class="tab-item"><div class="tab-icon">📅</div><div class="tab-text">Tracker</div></div>
+            <div class="tab-item active"><div class="tab-icon green">🃏</div><div class="tab-text" style="color:#008C45;">Flashcards</div></div>
+            <div class="tab-item"><div class="tab-icon">✏️</div><div class="tab-text">Journal</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">Flashcards home</div>
+  </div>
+
+  <!-- Practice — card shown -->
+  <div class="screen-group">
+    <div class="phone">
+      <div class="dynamic-island"></div>
+      <div class="phone-inner">
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <span class="status-icons">●●● 5G ■</span>
+        </div>
+        <div class="nav-bar">
+          <span class="nav-back">‹ Flashcards</span>
+          <span class="nav-title">Practice</span>
+          <span class="nav-action" style="font-size:13px;">89 left</span>
+        </div>
+        <div class="screen-content">
+          <!-- Progress bar -->
+          <div class="srs-bar">
+            <div class="srs-seg done"></div><div class="srs-seg done"></div><div class="srs-seg done"></div>
+            <div class="srs-seg active"></div><div class="srs-seg"></div><div class="srs-seg"></div>
+            <div class="srs-seg"></div><div class="srs-seg"></div><div class="srs-seg"></div><div class="srs-seg"></div>
+          </div>
+          <!-- Style selector -->
+          <div class="seg-control" style="margin:10px 16px 0;">
+            <div class="seg-item active">Recall</div>
+            <div class="seg-item">Cloze</div>
+            <div class="seg-item">Listen</div>
+          </div>
+          <!-- Card -->
+          <div class="srs-card" style="margin-top:12px;">
+            <div class="srs-type-badge">EN → IT</div>
+            <div style="font-size:14px;color:#8e8e93;margin-bottom:8px;font-weight:500;">Translate to Italian:</div>
+            <div class="srs-en" style="font-size:22px;font-weight:700;color:#1c1c1e;">"the light"</div>
+            <div style="margin-top:20px;width:100%;">
+              <div style="background:#f2f2f7;border-radius:12px;padding:12px 16px;font-size:18px;color:#008C45;font-weight:600;text-align:center;">la luce ✓</div>
+            </div>
+            <div class="srs-example" style="margin-top:10px;">La luce risplende nelle tenebre.</div>
+          </div>
+          <!-- Grade buttons -->
+          <div class="grade-buttons">
+            <button class="grade-btn grade-again">Again<div class="lbl">1 min</div></button>
+            <button class="grade-btn grade-hard">Hard<div class="lbl">4 min</div></button>
+            <button class="grade-btn grade-good">Good<div class="lbl">1 day</div></button>
+            <button class="grade-btn grade-easy">Easy<div class="lbl">4 days</div></button>
+          </div>
+          <div style="padding:10px 16px 0;font-size:12px;color:#8e8e93;text-align:center;">Tap card to flip · Swipe left = Again</div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">Practice — card revealed</div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div> Card flips with Reanimated 3D rotation</div>
+      <div class="ann"><div class="ann-dot"></div> Haptic tick on flip; success pulse on "Good/Easy"</div>
+      <div class="ann"><div class="ann-dot"></div> Swipe left = Again, swipe right = Good (like Tinder)</div>
+    </div>
+  </div>
+
+  <!-- Pronunciation -->
+  <div class="screen-group">
+    <div class="phone">
+      <div class="dynamic-island"></div>
+      <div class="phone-inner">
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <span class="status-icons">●●● 5G ■</span>
+        </div>
+        <div class="nav-bar">
+          <span class="nav-back">‹ Flashcards</span>
+          <span class="nav-title">Pronunciation</span>
+          <span></span>
+        </div>
+        <div class="screen-content">
+          <div class="seg-control" style="margin:12px 16px 0;">
+            <div class="seg-item active">Words</div>
+            <div class="seg-item">Shadowing</div>
+          </div>
+          <!-- Word card -->
+          <div style="background:#fff;border-radius:20px;margin:12px 16px 0;padding:24px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+            <div style="font-size:28px;font-weight:700;margin-bottom:4px;">la grazia</div>
+            <div style="font-size:15px;color:#8e8e93;font-style:italic;margin-bottom:4px;">la ˈɡraːtsja</div>
+            <div style="font-size:14px;color:#008C45;font-weight:500;margin-bottom:16px;">grace / favour</div>
+            <!-- Speaker button -->
+            <button style="background:#e8f5e9;border:none;border-radius:10px;padding:8px 16px;color:#008C45;font-size:13px;font-weight:600;">🔊 Hear it</button>
+          </div>
+          <!-- Mic -->
+          <div style="text-align:center;padding:20px 0 0;">
+            <div style="font-size:13px;color:#8e8e93;margin-bottom:12px;">Tap to speak ↓</div>
+            <div class="mic-circle">🎙️</div>
+            <div class="waveform">
+              <div class="wave-bar" style="height:14px;"></div>
+              <div class="wave-bar" style="height:24px;"></div>
+              <div class="wave-bar" style="height:20px;"></div>
+              <div class="wave-bar" style="height:30px;"></div>
+              <div class="wave-bar" style="height:18px;"></div>
+              <div class="wave-bar" style="height:26px;"></div>
+              <div class="wave-bar" style="height:16px;"></div>
+            </div>
+            <!-- Score -->
+            <div style="display:flex;align-items:center;justify-content:center;gap:16px;padding:0 32px;">
+              <div class="score-ring"><div class="score-num">88</div></div>
+              <div style="text-align:left;">
+                <div style="font-size:15px;font-weight:600;">Great!</div>
+                <div style="font-size:13px;color:#8e8e93;">Heard: "la grazia"</div>
+                <div style="font-size:12px;color:#008C45;margin-top:2px;">Best: 91 · Avg: 84</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">Pronunciation</div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div> Uses @react-native-voice/voice (iOS Speech framework)</div>
+      <div class="ann"><div class="ann-dot"></div> Score stored in AsyncStorage (usePronunStats)</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FLOW 4: JOURNAL TAB                                            -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="flow-label">Flow 4 — Journal Tab</div>
+<div class="flow-desc">
+  Per-week journal entries with writing scaffold (sentence starters + vocab chips) and optional LanguageTool grammar check.
+</div>
+<div class="screen-row">
+
+  <!-- Journal List -->
+  <div class="screen-group">
+    <div class="phone">
+      <div class="dynamic-island"></div>
+      <div class="phone-inner">
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <span class="status-icons">●●● 5G ■</span>
+        </div>
+        <div class="nav-bar">
+          <span></span>
+          <span class="nav-title">Journal</span>
+          <span class="nav-action">↑ Export</span>
+        </div>
+        <div class="screen-content">
+          <div class="scroll-area" style="padding-top:8px;">
+            <div class="section-header">Recent entries</div>
+            <div class="journal-entry" style="border-left:3px solid #008C45;">
+              <div class="journal-week">WEEK 11 · current</div>
+              <div class="journal-preview">In principio era il Verbo, e il Verbo era presso Dio. Questa settimana ho imparato che la fede...</div>
+              <div class="journal-date">Jun 26, 2026 · 87 words</div>
+            </div>
+            <div class="journal-entry">
+              <div class="journal-week">WEEK 10 · La Salvezza</div>
+              <div class="journal-preview">Ho letto Romani 3 oggi. La salvezza per grazia è un concetto che...</div>
+              <div class="journal-date">Jun 18, 2026 · 124 words</div>
+            </div>
+            <div class="journal-entry">
+              <div class="journal-week">WEEK 9 · La Fede</div>
+              <div class="journal-preview">La parola 'credere' appare molte volte in questa sezione. Credo che...</div>
+              <div class="journal-date">Jun 11, 2026 · 96 words</div>
+            </div>
+            <div class="journal-entry">
+              <div class="journal-week">WEEK 8 · La Preghiera</div>
+              <div class="journal-preview">Questa settimana ho imparato a pregare in italiano. Padre nostro...</div>
+              <div class="journal-date">Jun 4, 2026 · 73 words</div>
+            </div>
+          </div>
+          <div class="tab-bar">
+            <div class="tab-item"><div class="tab-icon">📅</div><div class="tab-text">Tracker</div></div>
+            <div class="tab-item"><div class="tab-icon">🃏</div><div class="tab-text">Flashcards</div></div>
+            <div class="tab-item active"><div class="tab-icon green">✏️</div><div class="tab-text" style="color:#008C45;">Journal</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">Journal list</div>
+  </div>
+
+  <!-- Journal Entry -->
+  <div class="screen-group">
+    <div class="phone">
+      <div class="dynamic-island"></div>
+      <div class="phone-inner">
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <span class="status-icons">●●● 5G ■</span>
+        </div>
+        <div class="nav-bar">
+          <span class="nav-back">‹ Journal</span>
+          <span class="nav-title">Week 11</span>
+          <span class="nav-action">✓ Check</span>
+        </div>
+        <div class="screen-content">
+          <div class="scroll-area">
+            <!-- Scaffold -->
+            <div style="background:#f0f8f3;border-radius:12px;margin:10px 16px 0;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#008C45;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✍️ Aiuto per scrivere</div>
+              <div style="font-size:12px;color:#3a3a3c;margin-bottom:6px;font-style:italic;">"Questa settimana ho imparato…" · "Mi ha colpito…" · "La parola che preferisco è…"</div>
+              <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                <span class="chip green">il Verbo</span>
+                <span class="chip green">la luce</span>
+                <span class="chip green">credere</span>
+                <span class="chip green">la vita</span>
+              </div>
+            </div>
+            <!-- Text area -->
+            <div style="background:#fff;border-radius:12px;margin:8px 16px 0;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.08);min-height:140px;">
+              <div style="font-size:15px;line-height:1.7;color:#1c1c1e;">
+                In principio era <span class="grammar-error">il Verbo</span>, e il Verbo era presso Dio. Questa settimana ho imparato che <span class="grammar-error">la fede</span> non è solo una parola — è una forza <span class="grammar-error">vivo</span>...
+              </div>
+              <div style="height:2px;background:#e5e5ea;border-radius:1px;margin-top:8px;"></div>
+              <div style="height:1px;"></div>
+            </div>
+            <!-- Grammar results -->
+            <div style="background:#fff3e0;border-radius:12px;margin:8px 16px 0;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#ff9500;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">⚠ Grammar (LanguageTool)</div>
+              <div style="font-size:13px;color:#3a3a3c;margin-bottom:4px;"><span style="font-weight:600;">"vivo"</span> → <span style="color:#008C45;">viva</span> (adjective must agree with feminine noun <em>forza</em>)</div>
+              <div style="font-size:11px;color:#8e8e93;">1 suggestion · tap to apply</div>
+            </div>
+            <div style="height:16px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">Journal entry + grammar</div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div> Writing scaffold collapses after first use</div>
+      <div class="ann"><div class="ann-dot"></div> Orange underline = LanguageTool suggestion (opt-in)</div>
+      <div class="ann"><div class="ann-dot"></div> Auto-saves to AsyncStorage on every keystroke (debounced)</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FLOW 5: SETTINGS + NEW SESSION                                 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="flow-label">Flow 5 — Settings + New Session</div>
+<div class="flow-desc">
+  Settings sheet (modal). The "Session" section shows current start/end dates and surfaces the New Session reset flow.
+</div>
+<div class="screen-row">
+
+  <!-- Settings -->
+  <div class="screen-group">
+    <div class="phone">
+      <div class="dynamic-island"></div>
+      <div class="phone-inner">
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <span class="status-icons">●●● 5G ■</span>
+        </div>
+        <div class="nav-bar">
+          <span></span>
+          <span class="nav-title">Settings</span>
+          <span class="nav-action">Done</span>
+        </div>
+        <div class="screen-content">
+          <div class="scroll-area">
+            <div class="section-header">Appearance</div>
+            <div class="card" style="margin:0 16px 0;">
+              <div class="card-row">
+                <span class="card-row-label">Dark mode</span>
+                <span style="font-size:24px;">🌙</span>
+              </div>
+              <div class="card-row">
+                <span class="card-row-label">Immersion mode</span>
+                <span style="font-size:11px;background:#e8f5e9;color:#008C45;border-radius:8px;padding:3px 8px;font-weight:600;">ON</span>
+              </div>
+            </div>
+            <div class="section-header">Session</div>
+            <div class="card" style="margin:0 16px 0;">
+              <div class="card-row">
+                <span class="card-row-label">Program start</span>
+                <span class="card-row-value">Jun 27, 2026</span>
+              </div>
+              <div class="card-row">
+                <span class="card-row-label">Program end</span>
+                <span class="card-row-value">Feb 13, 2027</span>
+              </div>
+              <div class="card-row" style="cursor:pointer;">
+                <span class="card-row-label" style="color:#007aff;">↺ Start a new session</span>
+                <span class="card-row-chevron">›</span>
+              </div>
+            </div>
+            <div class="section-header">Reminders</div>
+            <div class="card" style="margin:0 16px 0;">
+              <div class="card-row">
+                <span class="card-row-label">Daily reminder</span>
+                <span style="font-size:11px;background:#e8f5e9;color:#008C45;border-radius:8px;padding:3px 8px;font-weight:600;">ON</span>
+              </div>
+              <div class="card-row">
+                <span class="card-row-label">Time</span>
+                <span class="card-row-value">8:00 PM</span>
+              </div>
+            </div>
+            <div class="section-header">Sync & Backup</div>
+            <div class="card" style="margin:0 16px 0;">
+              <div class="card-row" style="cursor:pointer;">
+                <span class="card-row-label">Sync via QR / code</span>
+                <span class="card-row-chevron">›</span>
+              </div>
+              <div class="card-row" style="cursor:pointer;">
+                <span class="card-row-label">iCloud Backup</span>
+                <span style="font-size:11px;background:#f2f2f7;color:#8e8e93;border-radius:8px;padding:3px 8px;font-weight:600;">OFF</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">Settings</div>
+  </div>
+
+  <!-- New Session Sheet -->
+  <div class="screen-group">
+    <div class="phone">
+      <div class="dynamic-island"></div>
+      <div class="phone-inner">
+        <div class="status-bar" style="background:#fff;">
+          <span class="status-time">9:41</span>
+          <span class="status-icons">●●● 5G ■</span>
+        </div>
+        <!-- Bottom sheet handle -->
+        <div style="background:#fff;display:flex;justify-content:center;padding:10px 0 6px;">
+          <div style="width:36px;height:4px;border-radius:2px;background:#e5e5ea;"></div>
+        </div>
+        <div style="background:#fff;padding:0 16px 8px;">
+          <div style="font-size:20px;font-weight:700;margin-bottom:4px;">↺ Start a New Session</div>
+          <div style="font-size:14px;color:#8e8e93;line-height:1.4;">Reset your 37-week calendar to a new start date. Choose what to carry over.</div>
+        </div>
+        <div class="screen-content" style="background:#f2f2f7;">
+          <div class="scroll-area">
+            <div class="date-picker-row" style="margin-top:12px;">
+              <span class="date-picker-label">📅 New start date</span>
+              <span class="date-picker-value">Jun 27, 2026</span>
+            </div>
+            <div style="padding:2px 16px 0;font-size:12px;color:#8e8e93;">→ Program ends Feb 13, 2027</div>
+            <div class="section-header">What to reset?</div>
+            <div class="card" style="margin:0 16px 0;">
+              <div class="card-row">
+                <span class="card-row-label">Weekly progress ticks</span>
+                <span style="font-size:22px;">☑️</span>
+              </div>
+              <div class="card-row">
+                <span class="card-row-label">Streak & daily goal</span>
+                <span style="font-size:22px;">☑️</span>
+              </div>
+              <div class="card-row">
+                <span class="card-row-label">SRS card intervals</span>
+                <span style="font-size:22px;">☑️</span>
+              </div>
+              <div class="card-row">
+                <span class="card-row-label">Journal entries</span>
+                <span style="font-size:22px;">🔲</span>
+              </div>
+              <div class="card-row">
+                <span class="card-row-label">Pronunciation history</span>
+                <span style="font-size:22px;">🔲</span>
+              </div>
+            </div>
+            <div style="padding:16px 16px 0;">
+              <button class="primary-btn" style="width:100%;margin:0;border-radius:14px;">Begin new session →</button>
+              <button class="secondary-btn" style="width:100%;margin:10px 0 0;border-radius:14px;border:1px solid #e5e5ea;">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">New Session sheet</div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div> Journal + pronunciation kept by default (hard-won)</div>
+      <div class="ann"><div class="ann-dot"></div> Confirmation writes sessionStart to AsyncStorage + reload</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FLOW 6: iPAD LAYOUT                                            -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="flow-label">Flow 6 — iPadOS Adaptive Layout</div>
+<div class="flow-desc">
+  On regular-width iPad, a persistent sidebar replaces the bottom tab bar.
+  The week list stays visible while Week Detail is shown on the right.
+</div>
+<div class="screen-row">
+
+  <div class="screen-group">
+    <div class="phone ipad">
+      <div class="phone-inner" style="border-radius:12px;">
+        <!-- iPad status bar -->
+        <div class="ipad-status">
+          <span>9:41 AM</span>
+          <span style="flex:1;text-align:center;font-size:14px;font-weight:700;color:#1c1c1e;">Italian Bible Study</span>
+          <span>●●● WiFi ■</span>
+        </div>
+        <div class="ipad-inner">
+          <!-- Sidebar -->
+          <div class="ipad-sidebar">
+            <div class="ipad-sidebar-header">
+              <div class="title">🇮🇹 Week 11</div>
+              <div class="sub">🔥 12 days · 10/37 weeks</div>
+              <!-- Mini checklist -->
+              <div style="display:flex;gap:6px;margin-top:8px;">
+                <span style="background:rgba(255,255,255,0.3);border-radius:6px;padding:2px 8px;font-size:10px;font-weight:600;">✓ Read</span>
+                <span style="background:rgba(255,255,255,0.3);border-radius:6px;padding:2px 8px;font-size:10px;font-weight:600;">✓ Practice</span>
+                <span style="background:rgba(255,255,255,0.15);border-radius:6px;padding:2px 8px;font-size:10px;font-weight:600;">Write</span>
+              </div>
+            </div>
+            <!-- Nav items -->
+            <div style="padding:8px 0;overflow-y:auto;flex:1;">
+              <div style="padding:8px 12px;font-size:11px;font-weight:700;color:#8e8e93;text-transform:uppercase;letter-spacing:0.5px;">Phase 2</div>
+              <div style="padding:10px 16px;display:flex;align-items:center;gap:10px;"><div style="width:24px;height:24px;border-radius:6px;background:#008C45;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;">10</div><div style="font-size:14px;color:#3a3a3c;">La Salvezza</div></div>
+              <div style="padding:10px 16px;display:flex;align-items:center;gap:10px;background:rgba(0,140,69,0.1);border-left:3px solid #008C45;"><div style="width:24px;height:24px;border-radius:6px;background:#007aff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;">11</div><div style="font-size:14px;font-weight:600;color:#1c1c1e;">Il Figlio di Dio</div></div>
+              <div style="padding:10px 16px;display:flex;align-items:center;gap:10px;"><div style="width:24px;height:24px;border-radius:6px;background:#e5e5ea;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#8e8e93;flex-shrink:0;">12</div><div style="font-size:14px;color:#3a3a3c;">La Preghiera</div></div>
+              <div style="padding:10px 16px;display:flex;align-items:center;gap:10px;"><div style="width:24px;height:24px;border-radius:6px;background:#e5e5ea;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#8e8e93;flex-shrink:0;">13</div><div style="font-size:14px;color:#3a3a3c;">Review Week</div></div>
+              <!-- Bottom nav items -->
+              <div style="margin-top:auto;padding:8px 0;border-top:0.5px solid #e5e5ea;">
+                <div style="padding:10px 16px;font-size:14px;color:#3a3a3c;">🃏 Flashcards</div>
+                <div style="padding:10px 16px;font-size:14px;color:#3a3a3c;">✏️ Journal</div>
+                <div style="padding:10px 16px;font-size:14px;color:#3a3a3c;">⚙ Settings</div>
+              </div>
+            </div>
+          </div>
+          <!-- Detail panel -->
+          <div class="ipad-detail">
+            <div style="padding:14px 20px;border-bottom:0.5px solid #e5e5ea;">
+              <div style="font-size:20px;font-weight:700;">Il Figlio di Dio</div>
+              <div style="font-size:13px;color:#8e8e93;">Week 11 · May 4–10 · John 3 · Grammar: il futuro</div>
+            </div>
+            <!-- Seg control -->
+            <div style="display:flex;background:#f2f2f7;padding:2px;margin:12px 16px 0;border-radius:10px;">
+              <div style="flex:1;background:#fff;border-radius:8px;padding:6px;text-align:center;font-size:12px;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.1);">Vocab</div>
+              <div style="flex:1;padding:6px;text-align:center;font-size:12px;font-weight:600;color:#8e8e93;">Reading</div>
+              <div style="flex:1;padding:6px;text-align:center;font-size:12px;font-weight:600;color:#8e8e93;">Drills</div>
+            </div>
+            <!-- Vocab grid -->
+            <div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div style="background:#f0f8f3;border-radius:10px;padding:10px;"><div style="font-size:15px;font-weight:700;">il Verbo</div><div style="font-size:12px;color:#008C45;">the Word</div><div style="font-size:10px;color:#8e8e93;font-style:italic;">il ˈvɛrbo</div></div>
+              <div style="background:#f2f2f7;border-radius:10px;padding:10px;"><div style="font-size:15px;font-weight:700;">la luce</div><div style="font-size:12px;color:#008C45;">the light</div><div style="font-size:10px;color:#8e8e93;font-style:italic;">la ˈluːtʃe</div></div>
+              <div style="background:#f2f2f7;border-radius:10px;padding:10px;"><div style="font-size:15px;font-weight:700;">credere</div><div style="font-size:12px;color:#008C45;">to believe</div><div style="font-size:10px;color:#8e8e93;font-style:italic;">ˈkreːdere</div></div>
+              <div style="background:#f2f2f7;border-radius:10px;padding:10px;"><div style="font-size:15px;font-weight:700;">la vita</div><div style="font-size:12px;color:#008C45;">life</div><div style="font-size:10px;color:#8e8e93;font-style:italic;">la ˈviːta</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">iPadOS — sidebar + detail</div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div> @react-navigation/drawer with permanent sidebar on iPad (regular width)</div>
+      <div class="ann"><div class="ann-dot"></div> Bottom tab bar shown on iPhone (compact width) — same components</div>
+      <div class="ann"><div class="ann-dot"></div> Sidebar auto-collapses in landscape on smaller iPads</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FLOW 7: WIDGETS                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="flow-label">Flow 7 — Home Screen Widgets (WidgetKit)</div>
+<div class="flow-desc">
+  Two widget sizes showing streak and today's study checklist. Built as a Swift Widget Extension sharing
+  data via App Groups (shared UserDefaults).
+</div>
+<div class="screen-row">
+
+  <!-- Small widget -->
+  <div class="screen-group">
+    <div style="width:160px;height:160px;background:linear-gradient(135deg,#008C45,#2db56a);border-radius:26px;padding:14px;box-shadow:0 8px 24px rgba(0,140,69,0.3);display:flex;flex-direction:column;justify-content:space-between;">
+      <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.8);text-transform:uppercase;letter-spacing:0.5px;">Italian Bible</div>
+      <div>
+        <div style="font-size:36px;font-weight:800;color:#fff;line-height:1;">🔥 12</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.75);margin-top:2px;">day streak</div>
+      </div>
+      <div style="display:flex;gap:4px;">
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;font-size:13px;">📖</div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;font-size:13px;">🃏</div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;">✏️</div>
+      </div>
+    </div>
+    <div class="screen-label">Small widget (2×2)</div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div> Green icon = done today · Dim = pending</div>
+    </div>
+  </div>
+
+  <!-- Medium widget -->
+  <div class="screen-group">
+    <div style="width:344px;height:160px;background:#fff;border-radius:26px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,0.15);display:flex;gap:16px;align-items:center;">
+      <!-- Left: streak -->
+      <div style="width:110px;background:linear-gradient(135deg,#008C45,#2db56a);border-radius:18px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">
+        <div style="font-size:32px;font-weight:800;color:#fff;">🔥 12</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.8);margin-top:2px;">day streak</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:4px;">Best: 18</div>
+      </div>
+      <!-- Right: week info -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:4px;">
+        <div style="font-size:11px;font-weight:700;color:#8e8e93;text-transform:uppercase;letter-spacing:0.5px;">WEEK 11</div>
+        <div style="font-size:16px;font-weight:700;color:#1c1c1e;line-height:1.1;">Il Figlio di Dio</div>
+        <div style="font-size:12px;color:#8e8e93;margin-bottom:4px;">Today: Babbel + audio listen</div>
+        <!-- Checklist -->
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;"><div style="width:14px;height:14px;border-radius:4px;background:#008C45;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;">✓</div>Read chapters</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;"><div style="width:14px;height:14px;border-radius:4px;background:#008C45;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;">✓</div>Practice cards</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#8e8e93;"><div style="width:14px;height:14px;border-radius:4px;background:#f2f2f7;"></div>Write in journal</div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">Medium widget (4×2)</div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div> Data shared via App Groups / UserDefaults</div>
+      <div class="ann"><div class="ann-dot"></div> Swift WidgetKit — refreshes hourly</div>
+      <div class="ann"><div class="ann-dot"></div> Tapping opens app to current week</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div style="color:#636366;font-size:12px;text-align:center;margin-top:48px;padding-bottom:24px;line-height:1.8;">
+  Italian Bible Study · iOS App Wireframes<br>
+  React Native + Expo SDK 52 · iOS 15.0+ · iPhone & iPad<br>
+  Reference: <code>plan-ios-app.md</code> · <code>plan-new-session.md</code>
+</div>
+
+</body>
+</html>
