@@ -393,6 +393,21 @@ body {
   color: var(--text-muted);
   font-size: 11px;
 }
+/* On phones the header wraps and the tiny button is a poor anchor, so the
+   right-aligned popover drifts off the left edge. Center it within the viewport
+   (above the bottom tab bar) instead. */
+@media (max-width: 600px) {
+  .voice-help {
+    position: fixed;
+    top: auto;
+    right: auto;
+    left: 50%;
+    bottom: calc(88px + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    width: calc(100vw - 32px);
+    max-width: 360px;
+  }
+}
 
 /* Chrome string shown in Italian (immersion on) — faint dotted hint that the
    English gloss is available on hover/long-press via the title attribute. */
