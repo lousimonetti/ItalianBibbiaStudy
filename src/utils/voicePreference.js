@@ -72,5 +72,6 @@ export function subscribe(listener) {
 // case callers leave `utter.voice` unset and the browser uses its locale default.
 export function getSelectedVoice() {
   if (!current || typeof window === 'undefined' || !('speechSynthesis' in window)) return null;
+  if (typeof window.speechSynthesis.getVoices !== 'function') return null;
   return resolveVoice(window.speechSynthesis.getVoices(), current);
 }

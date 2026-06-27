@@ -355,6 +355,45 @@ body {
   outline: none;
 }
 
+.voice-picker-wrap { position: relative; display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.voice-help-btn {
+  height: 32px;
+  padding: 0 9px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.voice-help-btn:hover { background: var(--bg); color: var(--text); border-color: var(--accent); }
+.voice-help {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 30;
+  width: 260px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.45;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+}
+.voice-help-path {
+  margin: 6px 0;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
 /* Chrome string shown in Italian (immersion on) — faint dotted hint that the
    English gloss is available on hover/long-press via the title attribute. */
 .ui-it {

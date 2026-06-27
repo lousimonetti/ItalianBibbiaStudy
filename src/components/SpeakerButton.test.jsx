@@ -20,13 +20,13 @@ class FakeUtterance {
 }
 
 globalThis.SpeechSynthesisUtterance = FakeUtterance;
-window.speechSynthesis = { speak: vi.fn(), cancel: vi.fn() };
+window.speechSynthesis = { speak: vi.fn(), cancel: vi.fn(), getVoices: () => [] };
 
 const { SpeakerButton } = await import('./SpeakerButton.jsx');
 
 beforeEach(() => {
   lastUtterance = null;
-  window.speechSynthesis = { speak: vi.fn(), cancel: vi.fn() };
+  window.speechSynthesis = { speak: vi.fn(), cancel: vi.fn(), getVoices: () => [] };
 });
 
 afterEach(() => {

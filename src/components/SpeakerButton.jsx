@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { TTS_LANG } from '../utils/locale';
 import { getSelectedVoice } from '../utils/voicePreference';
 import { useAudioSpeed } from '../hooks/useAudioSpeed';
+import { primeVoices } from '../hooks/useVoices';
 
 const hasSpeechSynthesis = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
@@ -34,6 +35,9 @@ export function SpeakerButton({ word, size = 20, rate }) {
     utter.onerror = () => setSpeaking(false);
     utterRef.current = utter;
     window.speechSynthesis.speak(utter);
+    // iOS often only populates the voice list after the first speak() — re-read
+    // so the voice picker fills in.
+    primeVoices();
   }
 
   return (
