@@ -611,6 +611,56 @@ body {
 .today-reminder.on { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
 .today-reminder:disabled { opacity: 0.55; cursor: not-allowed; }
 
+/* "Pensa in italiano" daily micro-prompt */
+.think-prompt { display: flex; flex-direction: column; }
+.think-prompt-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 7px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+.think-prompt-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.think-prompt-it { font-size: 13px; font-style: italic; color: var(--text); }
+.think-prompt-done { font-size: 12px; font-weight: 700; color: var(--accent); }
+.think-prompt-body { display: flex; flex-direction: column; gap: 7px; margin-top: 8px; }
+.think-prompt-hint { font-size: 11.5px; color: var(--text-faint); line-height: 1.45; }
+.think-prompt-scratch {
+  width: 100%;
+  font-size: 13px;
+  padding: 7px 9px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  resize: vertical;
+  font-family: inherit;
+}
+.think-prompt-scratch:focus { outline: none; border-color: var(--accent); }
+.think-prompt-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.think-prompt-done-btn {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: var(--accent-dim);
+  color: var(--accent);
+  cursor: pointer;
+}
+.think-prompt-done-btn:disabled { opacity: 0.7; cursor: default; }
+
 .today-reminders { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .today-calendar { display: inline-flex; align-items: center; gap: 6px; }
 .today-calendar-link {
@@ -1475,6 +1525,111 @@ body {
 .jrn-chip:hover { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
 .jrn-chip-vocab { font-weight: 500; }
 
+/* Spoken journaling (dictation) + 4/3/2 fluency sprint */
+.jrn-dictate-row { display: flex; margin: 8px 0 6px; }
+.jrn-dictate-row:empty { display: none; }
+.dictation-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--accent);
+  cursor: pointer;
+}
+.dictation-btn:hover { border-color: var(--accent); background: var(--accent-dim); }
+.dictation-btn.dictation-live {
+  border-color: var(--it-red);
+  color: var(--it-red);
+  background: var(--it-red-dim);
+  animation: dictate-pulse 1.6s ease-in-out infinite;
+}
+@keyframes dictate-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+
+.sprint-panel { margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.sprint-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+  padding: 9px 12px;
+  background: var(--surface);
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: left;
+}
+.sprint-toggle:hover { background: var(--bg); }
+.sprint-body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 10px; }
+.sprint-explain { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+.sprint-go-btn {
+  align-self: flex-start;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+.sprint-go-btn:hover { filter: brightness(1.08); }
+.sprint-live { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 6px 0; }
+.sprint-clock { font-size: 40px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.sprint-live-meta { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 5px; }
+.sprint-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--it-red);
+  display: inline-block;
+  animation: dictate-pulse 1.2s ease-in-out infinite;
+}
+.sprint-stop-btn {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.sprint-stop-btn:hover { border-color: var(--text-muted); }
+.sprint-table { width: auto; border-collapse: collapse; font-size: 12.5px; }
+.sprint-table th, .sprint-table td { padding: 3px 12px 3px 0; text-align: left; }
+.sprint-table th {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+}
+.sprint-table td { color: var(--text); font-variant-numeric: tabular-nums; }
+.sprint-delta { font-size: 13px; font-weight: 700; color: var(--text-muted); }
+.sprint-delta-up { color: var(--accent); }
+.sprint-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.sprint-insert-btn {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: var(--accent-dim);
+  color: var(--accent);
+  cursor: pointer;
+}
+.sprint-prompt-echo { font-size: 12px; font-style: italic; color: var(--text-faint); }
+
 .jrn-editor-footer { display: flex; align-items: center; justify-content: space-between; }
 .jrn-word-count { font-size: 11px; color: var(--text-faint); }
 .jrn-saved-indicator { font-size: 11px; color: var(--accent); }
@@ -1848,6 +2003,37 @@ body {
 .prac-result-no { font-size: 13px; font-weight: 700; color: var(--it-red); }
 .prac-answer { font-size: 20px; font-weight: 600; color: var(--text); }
 .prac-answer-sentence { font-size: 17px; font-style: italic; line-height: 1.4; }
+
+/* Build (Costruisci — sentence scramble) */
+.prac-build { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.prac-build-picked {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  min-height: 46px;
+  padding: 8px;
+  border: 1.5px dashed var(--border);
+  border-radius: 10px;
+}
+.prac-build-ok { border-color: var(--accent); background: var(--accent-dim); border-style: solid; }
+.prac-build-no { border-color: var(--it-red); background: var(--it-red-dim); border-style: solid; }
+.prac-build-hint { font-size: 12px; color: var(--text-faint); font-style: italic; }
+.prac-build-pool { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.prac-chip {
+  font-size: 15px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+.prac-chip:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.prac-chip:disabled { cursor: default; opacity: 0.85; }
+.prac-chip-picked { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
 
 /* Listening (dictation) prompt */
 .prac-listen-prompt { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 8px 0; }
