@@ -1,5 +1,32 @@
 # plan-speaking.md — Speaking & Thinking Naturally in Italian
 
+## Status
+
+**Phase P1 is implemented, tested, and merged into this branch.**
+
+| Item | Status | Where |
+|------|--------|-------|
+| S7 Think-in-Italian micro-prompt | ✅ P1 | `src/data/thinkPrompts.js` (+test), `ThinkPrompt.jsx` on the Today card |
+| S6 Sentence scramble ("Build") | ✅ P1 | `src/utils/scramble.js` (+test), fifth style in `PracticeMode.jsx` |
+| S4a Spoken journaling | ✅ P1 | `DictationMic.jsx` (+`src/utils/speech.js`) in each `JournalTab` week editor |
+| S4b 4/3/2 fluency sprint | ✅ P1 | `src/utils/fluencySprint.js` (+test), `FluencySprint.jsx` in each week editor |
+| S5 Contrastive traps | ⬜ P2 | not started |
+| S1 Phrase chunks / S3 spoken Q&A / S2 transforms | ⬜ P3 | not started |
+
+P1 implementation notes:
+- `src/utils/speech.js` centralizes SpeechRecognition detection; `DictationMic`
+  auto-restarts recognition on Chrome's silence timeout until the user stops it
+  (guarded by an `activeRef`). All mic components render nothing when the API
+  is unavailable.
+- Sprint transcripts and think-prompt scratch text are deliberately session-local
+  (nothing persisted); rounds with speech tick `practiced`, and inserting a
+  sprint transcript into the journal flows through the existing debounced
+  auto-save (which ticks `journaled`).
+- Build style: chips keep punctuation/capitalization as syntactic hints;
+  eligibility is 4–12 words (`isScrambleEligible`); duplicate words are
+  interchangeable by value in the order check; the shuffle never serves the
+  original order when tokens allow.
+
 **Goal:** close the gap the app doesn't yet cover — producing spontaneous
 Italian and *thinking in Italian grammar* instead of mentally translating from
 English. The app is strong on retention (SRS), comprehension (reading suite),

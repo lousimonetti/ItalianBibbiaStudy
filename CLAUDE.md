@@ -64,18 +64,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   (progress/streak/SRS intervals/journal, T2), then reloads. `TodayCard` and the
   header tagline dynamically display the new end date (T3). Full task list in
   `plan-new-session.md`.
-- **Natural speaking / thinking-in-Italian (`plan-speaking.md`): planned, not
-  started.** Targets the automatization gap — producing spontaneous Italian
-  without translating from English. Seven workstreams: S1 formulaic-chunk
-  library with literal "how Italian construes it" glosses (extends O11), S2
-  Italian-only transformation drills, S3 timed spoken Q&A (third drill in
-  `PronunciationPractice`), S4 spoken journaling + Nation 4/3/2 fluency
-  sprints (no new data), S5 contrastive English-interference trap drills
-  (merges O14), S6 sentence scramble (= O7), S7 daily think-in-Italian
-  micro-prompts on `TodayCard`. Phased P1 (zero-content: S7/S6/S4) → P2 (S5
-  dataset) → P3 (per-week authoring in `exercises.js`: S1/S3/S2). All
-  offline, reusing the existing mic/TTS/SRS/`answer.js` pipelines. Full spec
-  in `plan-speaking.md`.
+- **Natural speaking / thinking-in-Italian (`plan-speaking.md`): P1 shipped,
+  P2–P3 open.** Targets the automatization gap — producing spontaneous Italian
+  without translating from English. **P1 (zero-content) is implemented:**
+  **S7** daily "Pensa in italiano" micro-prompt on the Today card
+  (`src/data/thinkPrompts.js` rotated by day-of-year, `ThinkPrompt.jsx` with a
+  throwaway type/dictate scratch box; done ticks `practiced`); **S6** sentence
+  scramble as a fifth Practice style "Build" (`src/utils/scramble.js`, chip UI
+  in `PracticeMode.jsx`, SRS-graded, eligibility 4–12 words); **S4** spoken
+  journaling (`DictationMic.jsx` — continuous `TTS_LANG` dictation appended to
+  the draft, auto-restarting through Chrome's silence timeout) + Nation 4/3/2
+  fluency sprints (`src/utils/fluencySprint.js` + `FluencySprint.jsx` in each
+  Journal week editor: 60s→45s→30s rounds on the week's prompt, per-round WPM
+  + delta, optional insert-into-journal). SpeechRecognition detection is
+  centralized in `src/utils/speech.js`; mic UI hides when unavailable.
+  Remaining: **P2** S5 contrastive English-interference trap drills (merges
+  O14), **P3** per-week authoring in `exercises.js` — S1 formulaic-chunk
+  library with literal glosses (extends O11), S3 timed spoken Q&A, S2
+  Italian-only transformation drills. Full spec in `plan-speaking.md`.
 - **iOS / iPadOS App (`plan-ios-app.md`): planned, not started.**
   A full native App Store app targeting iOS 15+ built with **React Native + Expo
   SDK 52** (bare workflow). All pure-JS utility modules (`srs.js`, `answer.js`,

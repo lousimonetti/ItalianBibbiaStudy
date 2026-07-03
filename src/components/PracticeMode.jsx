@@ -7,6 +7,7 @@ import { useSrs } from '../hooks/useSrs';
 import { usePronunStats } from '../hooks/usePronunStats';
 import { struggleList } from '../utils/wordStats';
 import { makeCloze, isClozeEligible } from '../utils/cloze';
+import { scrambleTokens, shuffleScramble, sameOrder, isScrambleEligible } from '../utils/scramble';
 import { checkAnswer } from '../utils/answer';
 import { recordActivity } from '../utils/streak';
 import { Confetti } from './Confetti';
@@ -17,6 +18,7 @@ const STYLES = [
   { id: 'recall', label: 'Recall', sub: 'EN → IT, type it' },
   { id: 'cloze', label: 'Cloze', sub: 'fill the blank' },
   { id: 'listening', label: 'Listening', sub: 'hear it, type it' },
+  { id: 'build', label: 'Build', sub: 'order the words' },
 ];
 
 function buildCards(phases) {
@@ -83,6 +85,7 @@ export function PracticeMode() {
   const [checked, setChecked] = useState(false);
   const [correct, setCorrect] = useState(false);
   const [listenRate, setListenRate] = useState(0.85);
+  const [picked, setPicked] = useState([]); // Build style: chip indices in tap order
   const { recordReview, buildSession, getStats, getStore, version } = useSrs();
   const { getStore: getPronunStore, version: pronunVersion } = usePronunStats();
 
@@ -93,6 +96,8 @@ export function PracticeMode() {
 
   // Cloze only works on cards whose example literally contains the term.
   const clozeCards = useMemo(() => filtered.filter(isClozeEligible), [filtered]);
+  // Build works on cards whose example is a reasonable chip count.
+  const buildableCards = useMemo(() => filtered.filter(isScrambleEligible), [filtered]);
 
   // Recompute when the filter changes or after a review. `version` looks unused
   // to the linter, but getStats/buildSession read the SRS store from a ref that
@@ -103,17 +108,30 @@ export function PracticeMode() {
   const dueQueue = useMemo(() => buildSession(filtered), [filtered, version]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const clozeQueue = useMemo(() => buildSession(clozeCards), [clozeCards, version]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const buildQueue = useMemo(() => buildSession(buildableCards), [buildableCards, version]);
   // Struggle list combines SRS lapses/ease with pronunciation scores.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const struggles = useMemo(() => struggleList(filtered, getStore(), getPronunStore()), [filtered, version, pronunVersion]);
 
-  const activeQueue = style === 'cloze' ? clozeQueue : dueQueue;
+  const activeQueue = style === 'cloze' ? clozeQueue : style === 'build' ? buildQueue : dueQueue;
+  // The card pool matching the selected style, for "practice all anyway".
+  const stylePool = style === 'cloze' ? clozeCards : style === 'build' ? buildableCards : filtered;
+
+  const activeCard = session && session.index < session.cards.length ? session.cards[session.index] : null;
+  // Shuffled chips for the Build style — keyed on the card object so ordinary
+  // re-renders don't reshuffle mid-card.
+  const buildChips = useMemo(
+    () => (session?.style === 'build' && activeCard ? shuffleScramble(scrambleTokens(activeCard.ex)) : []),
+    [session?.style, activeCard]
+  );
 
   function resetCardUi() {
     setFlipped(false);
     setTyped('');
     setChecked(false);
     setCorrect(false);
+    setPicked([]);
   }
 
   function startSession(cards) {
@@ -125,7 +143,9 @@ export function PracticeMode() {
   function handleCheck() {
     const card = session.cards[session.index];
     // Listening is dictation — reveal and self-grade, no auto-verdict.
-    if (session.style !== 'listening') {
+    if (session.style === 'build') {
+      setCorrect(sameOrder(scrambleTokens(card.ex), picked.map(i => buildChips[i])));
+    } else if (session.style !== 'listening') {
       const expected = session.style === 'cloze' ? makeCloze(card.it, card.ex).answer : card.it;
       setCorrect(checkAnswer(expected, typed));
     }
@@ -201,15 +221,48 @@ export function PracticeMode() {
                 <span className="prac-blank">{checked ? cloze.answer : '____'}</span>
                 {cloze.after}
               </div>
+            ) : session.style === 'build' ? (
+              <div className="prac-build">
+                <div className={`prac-build-picked${checked ? (correct ? ' prac-build-ok' : ' prac-build-no') : ''}`}>
+                  {picked.length === 0 && (
+                    <span className="prac-build-hint">Tap the words below in order…</span>
+                  )}
+                  {picked.map((ci) => (
+                    <button
+                      key={ci}
+                      className="prac-chip prac-chip-picked"
+                      disabled={checked}
+                      onClick={() => setPicked(p => p.filter(x => x !== ci))}
+                    >
+                      {buildChips[ci]}
+                    </button>
+                  ))}
+                </div>
+                <div className="prac-build-pool">
+                  {buildChips.map((w, ci) =>
+                    picked.includes(ci) ? null : (
+                      <button
+                        key={ci}
+                        className="prac-chip"
+                        disabled={checked}
+                        onClick={() => setPicked(p => [...p, ci])}
+                      >
+                        {w}
+                      </button>
+                    )
+                  )}
+                </div>
+              </div>
             ) : (
               <div className="prac-recall-prompt">{card.en}</div>
             )}
             <div className="prac-typed-sub">
               {session.style === 'listening' ? 'Listen and type what you hear'
                 : session.style === 'cloze' ? `Fill the blank — ${card.en}`
+                : session.style === 'build' ? `Costruisci la frase — build the sentence (${card.it} · ${card.en})`
                 : 'Type the Italian'}
             </div>
-            <input
+            {session.style !== 'build' && <input
               className={`prac-input${checked && session.style !== 'listening' ? (correct ? ' prac-input-correct' : ' prac-input-wrong') : ''}`}
               value={typed}
               onChange={(e) => setTyped(e.target.value)}
@@ -218,7 +271,7 @@ export function PracticeMode() {
               autoFocus
               disabled={checked}
               aria-label="Your answer"
-            />
+            />}
             {checked && (
               <div className="prac-typed-result">
                 {session.style !== 'listening' && (
@@ -231,6 +284,11 @@ export function PracticeMode() {
                     <span className="prac-answer prac-answer-sentence">{card.ex}</span>
                     <span className="prac-translation">{card.en}</span>
                     <SpeakerButton word={card.ex} size={18} rate={listenRate} />
+                  </>
+                ) : session.style === 'build' ? (
+                  <>
+                    <span className="prac-answer prac-answer-sentence">{card.ex}</span>
+                    <SpeakerButton word={card.ex} size={18} />
                   </>
                 ) : (
                   <>
@@ -279,7 +337,11 @@ export function PracticeMode() {
               <button
                 className="prac-reveal-btn"
                 onClick={handleCheck}
-                disabled={session.style !== 'listening' && !typed.trim()}
+                disabled={
+                  session.style === 'build'
+                    ? picked.length !== buildChips.length
+                    : session.style !== 'listening' && !typed.trim()
+                }
               >
                 {session.style === 'listening' ? 'Reveal' : 'Check'}
               </button>
@@ -311,14 +373,16 @@ export function PracticeMode() {
       <div className="prac-filter-label"><UiText k="prac.style" /></div>
       <div className="prac-style-grid">
         {STYLES.map(s => {
-          const disabled = s.id === 'cloze' && clozeCards.length === 0;
+          const disabled =
+            (s.id === 'cloze' && clozeCards.length === 0) ||
+            (s.id === 'build' && buildableCards.length === 0);
           return (
             <button
               key={s.id}
               className={`prac-style-btn${style === s.id ? ' prac-style-active' : ''}`}
               onClick={() => setStyle(s.id)}
               disabled={disabled}
-              title={disabled ? 'No cloze-eligible cards in this selection' : undefined}
+              title={disabled ? 'No eligible cards in this selection' : undefined}
             >
               <span className="prac-style-name">{s.label}</span>
               <span className="prac-style-sub">{s.sub}</span>
@@ -370,9 +434,9 @@ export function PracticeMode() {
           </div>
           <button
             className="prac-go-btn prac-go-secondary"
-            onClick={() => startSession(shuffle(style === 'cloze' ? clozeCards : filtered))}
+            onClick={() => startSession(shuffle(stylePool))}
           >
-            Practice all {(style === 'cloze' ? clozeCards : filtered).length} anyway
+            Practice all {stylePool.length} anyway
           </button>
         </div>
       )}
@@ -381,7 +445,11 @@ export function PracticeMode() {
         struggles={struggles}
         onDrill={() => {
           const cards = struggles.map(s => s.card);
-          startSession(shuffle(style === 'cloze' ? cards.filter(isClozeEligible) : cards));
+          const eligible =
+            style === 'cloze' ? cards.filter(isClozeEligible)
+            : style === 'build' ? cards.filter(isScrambleEligible)
+            : cards;
+          startSession(shuffle(eligible));
         }}
       />
 

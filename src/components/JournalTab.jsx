@@ -4,6 +4,8 @@ import { useJournal } from '../hooks/useJournal';
 import { SentenceGuide } from './SentenceGuide';
 import { WordGloss } from './WordGloss';
 import { JournalScaffold } from './JournalScaffold';
+import { DictationMic } from './DictationMic';
+import { FluencySprint } from './FluencySprint';
 import { recordActivity } from '../utils/streak';
 import { UiText } from '../i18n/UiText';
 import { GRAMMAR_LANG } from '../utils/locale';
@@ -191,6 +193,15 @@ function WeekJournalRow({ week, entry, onSave, grammarEnabled }) {
           </div>
           <SentenceGuide />
           <JournalScaffold week={week} onInsert={insertText} />
+          <FluencySprint week={week} onInsert={insertText} />
+          <div className="jrn-dictate-row">
+            <DictationMic
+              onText={insertText}
+              label="Parla invece di scrivere"
+              stopLabel="Ferma il microfono"
+              title="Dictate in Italian — speak and it types into your entry"
+            />
+          </div>
           <textarea
             className="jrn-textarea"
             value={draft}

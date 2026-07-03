@@ -17,6 +17,7 @@ import { useStreak } from './hooks/useStreak';
 import { Achievements } from './components/Achievements';
 import { Reminders } from './components/Reminders';
 import { CalendarReminder } from './components/CalendarReminder';
+import { ThinkPrompt } from './components/ThinkPrompt';
 import { CoursePicker } from './components/CoursePicker';
 import { AudioSpeedControl } from './components/AudioSpeedControl';
 import { VoicePicker } from './components/VoicePicker';
@@ -143,6 +144,7 @@ function DailyGoals() {
           <GoalCheck done={flags.journaled} /> Write a line in Italian
         </div>
       </div>
+      <ThinkPrompt />
       <div className="today-reminders">
         <Reminders />
         <CalendarReminder />
