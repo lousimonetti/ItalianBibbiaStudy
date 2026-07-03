@@ -64,6 +64,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   (progress/streak/SRS intervals/journal, T2), then reloads. `TodayCard` and the
   header tagline dynamically display the new end date (T3). Full task list in
   `plan-new-session.md`.
+- **Natural speaking / thinking-in-Italian (`plan-speaking.md`): planned, not
+  started.** Targets the automatization gap — producing spontaneous Italian
+  without translating from English. Seven workstreams: S1 formulaic-chunk
+  library with literal "how Italian construes it" glosses (extends O11), S2
+  Italian-only transformation drills, S3 timed spoken Q&A (third drill in
+  `PronunciationPractice`), S4 spoken journaling + Nation 4/3/2 fluency
+  sprints (no new data), S5 contrastive English-interference trap drills
+  (merges O14), S6 sentence scramble (= O7), S7 daily think-in-Italian
+  micro-prompts on `TodayCard`. Phased P1 (zero-content: S7/S6/S4) → P2 (S5
+  dataset) → P3 (per-week authoring in `exercises.js`: S1/S3/S2). All
+  offline, reusing the existing mic/TTS/SRS/`answer.js` pipelines. Full spec
+  in `plan-speaking.md`.
 - **iOS / iPadOS App (`plan-ios-app.md`): planned, not started.**
   A full native App Store app targeting iOS 15+ built with **React Native + Expo
   SDK 52** (bare workflow). All pure-JS utility modules (`srs.js`, `answer.js`,
