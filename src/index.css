@@ -393,6 +393,7 @@ body {
   color: var(--text-muted);
   font-size: 11px;
 }
+.voice-help-note { color: var(--text-faint); font-size: 11px; }
 /* On phones the header wraps and the tiny button is a poor anchor, so the
    right-aligned popover drifts off the left edge. Center it within the viewport
    (above the bottom tab bar) instead. */

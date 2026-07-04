@@ -58,10 +58,14 @@ export function VoicePicker() {
         <div className="voice-help" role="status">
           <strong>Add natural Italian voices</strong> on iPhone/iPad:
           <div className="voice-help-path">
-            Settings → Accessibility → Spoken Content → Voices → Italiano
+            Settings → Accessibility → Read &amp; Speak → Voices → Italiano
           </div>
-          Pick an <strong>Enhanced</strong> or <strong>Premium</strong> voice to download, then
-          reopen this app and tap a speaker — the new voice appears here.
+          <span className="voice-help-note">
+            (On iOS 25 or earlier the menu is called <em>Spoken Content</em>.)
+          </span>{' '}
+          Pick an <strong>Enhanced</strong> or <strong>Premium</strong> voice and tap the
+          download (cloud) icon, then reopen this app and tap a speaker — the new
+          voice appears here.
         </div>
       )}
     </span>
