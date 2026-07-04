@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { PHASES } from '../data/studyData';
 import { PracticeMode } from './PracticeMode';
 import { PronunciationPractice } from './PronunciationPractice';
+import { TrapDrill } from './TrapDrill';
+import { TRAPS } from '../../course/traps';
 import { UiText } from '../i18n/UiText';
 
 const phaseCards = (id) => {
@@ -68,10 +70,19 @@ export function FlashcardsTab() {
         >
           <UiText k="fc.pronunciation" />
         </button>
+        {TRAPS.length > 0 && (
+          <button
+            className={`fc-mode-btn${mode === 'traps' ? ' active' : ''}`}
+            onClick={() => setMode('traps')}
+          >
+            <UiText k="fc.traps" />
+          </button>
+        )}
       </div>
 
       {mode === 'practice' && <PracticeMode />}
       {mode === 'pronunciation' && <PronunciationPractice />}
+      {mode === 'traps' && <TrapDrill />}
 
       {mode === 'anki' && <>
 

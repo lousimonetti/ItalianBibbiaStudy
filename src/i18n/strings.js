@@ -29,6 +29,7 @@ export const UI_STRINGS = {
   'fc.anki': { it: 'Mazzi Anki', en: 'Anki Decks' },
   'fc.practice': { it: 'Pratica', en: 'Practice' },
   'fc.pronunciation': { it: 'Pronuncia', en: 'Pronunciation' },
+  'fc.traps': { it: 'Trappole', en: 'Traps' },
 
   // Practice start screen
   'prac.style': { it: 'Stile di pratica', en: 'Practice style' },

@@ -2,7 +2,7 @@
 
 ## Status
 
-**Phase P1 is implemented, tested, and merged into this branch.**
+**Phases P1 and P2 are implemented, tested, and merged into this branch.**
 
 | Item | Status | Where |
 |------|--------|-------|
@@ -10,7 +10,7 @@
 | S6 Sentence scramble ("Build") | ✅ P1 | `src/utils/scramble.js` (+test), fifth style in `PracticeMode.jsx` |
 | S4a Spoken journaling | ✅ P1 | `DictationMic.jsx` (+`src/utils/speech.js`) in each `JournalTab` week editor |
 | S4b 4/3/2 fluency sprint | ✅ P1 | `src/utils/fluencySprint.js` (+test), `FluencySprint.jsx` in each week editor |
-| S5 Contrastive traps | ⬜ P2 | not started |
+| S5 Contrastive traps ("Trappole") | ✅ P2 | `courses/it-bible-cei/contrastive.js` (56 items), `src/utils/contrastive.js` (+tests), `TrapDrill.jsx` — fourth Flashcards mode |
 | S1 Phrase chunks / S3 spoken Q&A / S2 transforms | ⬜ P3 | not started |
 
 P1 implementation notes:
@@ -26,6 +26,23 @@ P1 implementation notes:
   eligibility is 4–12 words (`isScrambleEligible`); duplicate words are
   interchangeable by value in the order check; the shuffle never serves the
   original order when tokens allow.
+
+P2 implementation notes:
+- The dataset lives in the course (`courses/it-bible-cei/contrastive.js` —
+  56 items, 12 categories) because it's EN→IT specific; the registry entry
+  carries optional `traps`/`trapCategories` and `course/traps.js` resolves
+  them (`[]`/`{}` for courses without one, which hides the Flashcards mode).
+- Verdict ordering matters: predicted `wrongs` are matched *exactly first*
+  (canonically), because interference forms like "mi piace i salmi" sit
+  within the 20% typo fuzz of the correct answer — checked in
+  `contrastive.test.js` across the whole dataset. Fuzzy wrong-matching runs
+  *after* the correct check to catch typo'd trap answers.
+- `canonSentence` deliberately does not strip leading articles (answer.js
+  `canonical` does) — article presence is the point of the possessive traps
+  ("mia madre" vs "la mia madre").
+- Per-category accuracy persists under `storageKey('traps')`;
+  `orderByWeakness` serves never-attempted categories first, then ascending
+  accuracy.
 
 **Goal:** close the gap the app doesn't yet cover — producing spontaneous
 Italian and *thinking in Italian grammar* instead of mentally translating from
