@@ -2884,6 +2884,67 @@ html.dark .prayer-text-en { color: var(--text-muted); }
 .drill-answer { font-weight: 600; color: var(--text); }
 .drill-filled { font-style: italic; color: var(--text-muted); }
 
+/* ── Transformation drill (S2) ─────────────────────────────────────────── */
+.xform-row { padding: 10px 0; border-bottom: 1px solid var(--border-subtle); }
+.xform-row:last-child { border-bottom: none; }
+.xform-instr { font-size: 12px; font-weight: 700; color: var(--accent); }
+.xform-base {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-muted);
+  margin: 3px 0 7px;
+}
+.xform-input {
+  width: 100%;
+  max-width: 340px;
+  padding: 7px 10px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+}
+.xform-input:focus { outline: none; border-color: var(--accent); }
+.xform-input.drill-ok { border-color: var(--accent); background: var(--accent-dim); }
+.xform-input.drill-no { border-color: #c0392b; background: rgba(192,57,43,0.1); }
+.xform-diff { font-size: 13px; line-height: 1.5; }
+.xform-w-ok { color: var(--text-muted); }
+.xform-w-miss { color: #c0392b; font-weight: 700; text-decoration: underline; text-decoration-style: wavy; }
+.xform-answer { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; color: var(--text); }
+
+/* ── Spoken Q&A (S3) ───────────────────────────────────────────────────── */
+.qa-row { padding: 10px 0; border-bottom: 1px solid var(--border-subtle); }
+.qa-row:last-child { border-bottom: none; }
+.qa-question { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--text); margin-bottom: 7px; }
+.qa-listening { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); }
+.qa-clock { font-size: 22px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.qa-live-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--it-red); display: inline-block;
+  animation: dictate-pulse 1.2s ease-in-out infinite;
+}
+.qa-result { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 12px; }
+.qa-heard { font-style: italic; color: var(--text-faint); }
+.qa-model { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; color: var(--text); }
+.qa-override {
+  font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); cursor: pointer;
+}
+.qa-override:disabled { color: var(--accent); border-color: var(--accent); }
+
+/* ── Fixed phrases (S1) ────────────────────────────────────────────────── */
+.phrase-box { display: flex; flex-direction: column; gap: 2px; }
+.phrase-row { padding: 8px 0; border-bottom: 1px solid var(--border-subtle); }
+.phrase-row:last-child { border-bottom: none; }
+.phrase-main { display: flex; align-items: center; gap: 7px; }
+.phrase-it { font-size: 15px; font-weight: 600; color: var(--text); }
+.phrase-glosses { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px; }
+.phrase-en { font-size: 13px; color: var(--text-muted); }
+.phrase-lit { font-size: 12px; font-style: italic; color: var(--accent); }
+
 /* ── Comprehension (O5) ────────────────────────────────────────────────── */
 .comp-row {
   padding: 10px 0;

@@ -22,6 +22,7 @@ export const UI_STRINGS = {
   'detail.vocab': { it: 'Vocabolario chiave', en: 'Key vocabulary' },
   'detail.grammar': { it: 'Focus grammaticale', en: 'Grammar focus' },
   'detail.prompt': { it: 'Spunto di scrittura', en: 'Writing prompt' },
+  'detail.phrases': { it: 'Frasi fisse', en: 'Fixed phrases' },
   'detail.schedule': { it: 'Programma giornaliero', en: 'Daily schedule' },
   'detail.italki': { it: 'Spunti di conversazione iTalki', en: 'iTalki conversation starters' },
 

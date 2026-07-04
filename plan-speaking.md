@@ -2,7 +2,8 @@
 
 ## Status
 
-**Phases P1 and P2 are implemented, tested, and merged into this branch.**
+**Phases P1, P2, and P3 are implemented, tested, and merged into this branch.
+The whole plan-speaking roadmap is complete.**
 
 | Item | Status | Where |
 |------|--------|-------|
@@ -11,7 +12,9 @@
 | S4a Spoken journaling | ✅ P1 | `DictationMic.jsx` (+`src/utils/speech.js`) in each `JournalTab` week editor |
 | S4b 4/3/2 fluency sprint | ✅ P1 | `src/utils/fluencySprint.js` (+test), `FluencySprint.jsx` in each week editor |
 | S5 Contrastive traps ("Trappole") | ✅ P2 | `courses/it-bible-cei/contrastive.js` (56 items), `src/utils/contrastive.js` (+tests), `TrapDrill.jsx` — fourth Flashcards mode |
-| S1 Phrase chunks / S3 spoken Q&A / S2 transforms | ⬜ P3 | not started |
+| S1 Frasi fisse (phrase chunks + literal glosses) | ✅ P3 | `src/utils/chunks.js` (+test), `PhraseList.jsx`; `phrases` authored for all 37 weeks |
+| S2 Trasforma (Italian-only transformation drill) | ✅ P3 | `src/utils/transformDrill.js` (+test), `TransformDrill.jsx` beside GrammarDrill; `transform` × 37 weeks |
+| S3 Rispondi subito (timed spoken Q&A) | ✅ P3 | `src/utils/spokenAnswer.js` (+test), `SpokenQA.jsx` in WeekDetail; `questions` × 37 weeks |
 
 P1 implementation notes:
 - `src/utils/speech.js` centralizes SpeechRecognition detection; `DictationMic`
@@ -43,6 +46,29 @@ P2 implementation notes:
 - Per-category accuracy persists under `storageKey('traps')`;
   `orderByWeakness` serves never-attempted categories first, then ascending
   accuracy.
+
+P3 implementation notes:
+- All per-week content (`phrases`/`transform`/`questions`) is authored in a
+  single `SPEAKING` block at the bottom of `exercises.js` and merged onto
+  `BASE_EXERCISES` by week number — the existing 37 drill/comprehension/passage
+  entries were left untouched. Every item is anchored to that week's vetted
+  CEI passage or example sentences so the Italian is correct.
+- **Transforms are checked by exact canonical token match, NOT `checkAnswer`.**
+  The transformations are themselves often single-character (pastore→pastori,
+  la→le), so the 20% Levenshtein fuzz used by Recall/Cloze would accept the
+  untransformed form. `transformDrill.test.js` pins this; a word-level diff
+  (reused from `dictogloss`) shows which word wasn't transformed on a miss.
+- **S3 is placed per-week in `WeekDetail` (not as a global drill in
+  `PronunciationPractice` as originally sketched)** because the questions are
+  anchored to each week's passage — asking them beside that week's reading
+  keeps the context. It reuses the shared `src/utils/speech.js` recognizer and
+  hides when speech recognition is unavailable.
+- `exercises.speaking.test.js` guards the authored data across all 37 weeks:
+  every transform answer must pass its own checker (and every base must *fail*
+  it, so no transform is a no-op), and every question must be satisfied by its
+  own model/first answer. That test caught three real authoring drifts (weeks
+  24/36/37 where the model sentence used a different verb form than the
+  acceptable short answers).
 
 **Goal:** close the gap the app doesn't yet cover — producing spontaneous
 Italian and *thinking in Italian grammar* instead of mentally translating from

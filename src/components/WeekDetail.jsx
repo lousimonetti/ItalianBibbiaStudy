@@ -7,6 +7,9 @@ import { ReadingPassage } from './ReadingPassage';
 import { Comprehension } from './Comprehension';
 import { Dictogloss } from './Dictogloss';
 import { GrammarDrill } from './GrammarDrill';
+import { TransformDrill } from './TransformDrill';
+import { SpokenQA } from './SpokenQA';
+import { PhraseList } from './PhraseList';
 import { UiText } from '../i18n/UiText';
 import { HAS_IPA } from '../utils/locale';
 
@@ -19,6 +22,8 @@ export function WeekDetail({ week }) {
       <ReadingPassage week={week} />
       <Comprehension week={week} />
       <Dictogloss week={week} />
+      {/* Spoken Q&A about the reading (S3) */}
+      <SpokenQA week={week} />
 
       <div className="detail-grid">
         {/* Vocabulary */}
@@ -70,8 +75,9 @@ export function WeekDetail({ week }) {
               <div className="grammar-title">{week.grammar.title}</div>
               {week.grammar.body}
             </div>
-            {/* Grammar drill (O3) */}
+            {/* Grammar drill (O3) + transformation drill (S2) */}
             <GrammarDrill week={week} />
+            <TransformDrill week={week} />
           </div>
 
           {/* Writing prompt */}
@@ -84,6 +90,9 @@ export function WeekDetail({ week }) {
           </div>
         </div>
       </div>
+
+      {/* Fixed phrases (S1) */}
+      <PhraseList week={week} />
 
       {/* Daily schedule */}
       <div className="detail-section" style={{ marginTop: 14 }}>

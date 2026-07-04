@@ -18,8 +18,17 @@
 //   }
 //   When a `passage` is present the reader (O2), dictogloss (O4) and comprehension
 //   (O5) use it; otherwise they fall back to the week's example sentences.
+//
+// Speaking layer (plan-speaking.md P3), authored in the SPEAKING block below and
+// merged onto each week at export time:
+//   phrases:   [{ it, en, lit? }]        — formulaic chunks (S1); lit is a literal
+//              word-by-word rendering showing how Italian construes the meaning.
+//   transform: [{ instruction, base, answer }] — Italian-only transformation drill
+//              (S2); instruction is in Italian, base/answer are vetted correct.
+//   questions: [{ q, answers:[...], model }]   — timed spoken Q&A about the reading
+//              (S3); answers are acceptable short forms, model a full sentence.
 
-export const EXERCISES = {
+const BASE_EXERCISES = {
   // ── Phase 1: John ─────────────────────────────────────────────────────────
   1: {
     passage: {
@@ -817,3 +826,540 @@ export const EXERCISES = {
     ],
   },
 };
+
+// ── Speaking layer (plan-speaking.md P3) ──────────────────────────────────────
+// phrases / transform / questions per week, anchored to each week's vetted
+// passage and example sentences so the Italian is correct. Merged onto
+// BASE_EXERCISES below.
+const SPEAKING = {
+  1: {
+    phrases: [
+      { it: 'in principio', en: 'in the beginning' },
+      { it: 'il Verbo si fece carne', en: 'the Word became flesh', lit: 'the Word made itself flesh' },
+      { it: 'per mezzo di lui', en: 'through him', lit: 'by means of him' },
+    ],
+    transform: [
+      { instruction: 'Metti al plurale', base: 'La luce splende.', answer: 'Le luci splendono.' },
+      { instruction: 'Rendi negativa', base: 'Le tenebre hanno vinto la luce.', answer: 'Le tenebre non hanno vinto la luce.' },
+    ],
+    questions: [
+      { q: 'Che cosa era in principio?', answers: ['il Verbo', 'il verbo'], model: 'In principio era il Verbo.' },
+      { q: 'Che cosa si fece il Verbo?', answers: ['carne', 'si fece carne'], model: 'Il Verbo si fece carne.' },
+    ],
+  },
+  2: {
+    phrases: [
+      { it: 'in verità, in verità ti dico', en: 'truly, truly I say to you' },
+      { it: 'di nuovo', en: 'again', lit: 'of new' },
+      { it: "dall'alto", en: 'from above' },
+    ],
+    transform: [
+      { instruction: 'Rendi negativa', base: 'Chi crede in lui ha la vita eterna.', answer: 'Chi crede in lui non ha la vita eterna.' },
+      { instruction: 'Metti al futuro', base: 'Dio ama il mondo.', answer: 'Dio amerà il mondo.' },
+    ],
+    questions: [
+      { q: 'Che cosa soffia dove vuole?', answers: ['lo Spirito', 'lo spirito', 'il vento'], model: 'Lo Spirito soffia dove vuole.' },
+      { q: 'Chi ha tanto amato il mondo?', answers: ['Dio'], model: 'Dio ha tanto amato il mondo.' },
+    ],
+  },
+  3: {
+    phrases: [
+      { it: 'il pane della vita', en: 'the bread of life' },
+      { it: 'non... più', en: 'no longer', lit: 'not... more' },
+    ],
+    transform: [
+      { instruction: 'Metti al plurale', base: 'Il padre ha mangiato la manna.', answer: 'I padri hanno mangiato la manna.' },
+      { instruction: 'Metti al futuro', base: 'Chi viene a me non ha fame.', answer: 'Chi viene a me non avrà fame.' },
+    ],
+    questions: [
+      { q: 'Chi è il pane della vita?', answers: ['Gesù', 'io'], model: 'Gesù è il pane della vita.' },
+      { q: 'Dove mangiarono la manna i padri?', answers: ['nel deserto', 'il deserto', 'deserto'], model: 'I padri mangiarono la manna nel deserto.' },
+    ],
+  },
+  4: {
+    phrases: [
+      { it: 'la luce del mondo', en: 'the light of the world' },
+      { it: 'davvero', en: 'truly, really' },
+    ],
+    transform: [
+      { instruction: 'Rendi negativa', base: 'Chi segue me camminerà nelle tenebre.', answer: 'Chi segue me non camminerà nelle tenebre.' },
+      { instruction: 'Metti al plurale', base: 'Il discepolo conosce la verità.', answer: 'I discepoli conoscono la verità.' },
+    ],
+    questions: [
+      { q: 'Che cosa vi farà liberi?', answers: ['la verità', 'la verita', 'verità'], model: 'La verità vi farà liberi.' },
+      { q: 'Chi è la luce del mondo?', answers: ['Gesù', 'io'], model: 'Io sono la luce del mondo.' },
+    ],
+  },
+  5: {
+    phrases: [
+      { it: 'vieni fuori', en: 'come out' },
+      { it: 'anche se', en: 'even if' },
+      { it: 'a gran voce', en: 'in a loud voice' },
+    ],
+    transform: [
+      { instruction: 'Metti al passato prossimo', base: 'Gesù piange.', answer: 'Gesù ha pianto.' },
+      { instruction: 'Rendi negativa', base: 'Chi crede in me morirà in eterno.', answer: 'Chi crede in me non morirà in eterno.' },
+    ],
+    questions: [
+      { q: 'Chi chiamò Gesù dal sepolcro?', answers: ['Lazzaro'], model: 'Gesù chiamò Lazzaro: «Vieni fuori!».' },
+      { q: 'Chi è la risurrezione e la vita?', answers: ['Gesù', 'io'], model: 'Io sono la risurrezione e la vita.' },
+    ],
+  },
+  6: {
+    phrases: [
+      { it: 'la via, la verità e la vita', en: 'the way, the truth and the life' },
+      { it: 'per mezzo di me', en: 'through me', lit: 'by means of me' },
+      { it: 'abbiate fede', en: 'have faith' },
+    ],
+    transform: [
+      { instruction: 'Metti al plurale', base: 'Il discepolo va al Padre.', answer: 'I discepoli vanno al Padre.' },
+      { instruction: 'Metti al passato prossimo', base: 'Gesù lava i piedi ai discepoli.', answer: 'Gesù ha lavato i piedi ai discepoli.' },
+    ],
+    questions: [
+      { q: 'Chi è la via, la verità e la vita?', answers: ['Gesù', 'io'], model: 'Io sono la via, la verità e la vita.' },
+      { q: 'Come si viene al Padre?', answers: ['per mezzo di Gesù', 'per mezzo di me', 'per mezzo di lui'], model: 'Nessuno viene al Padre se non per mezzo di me.' },
+    ],
+  },
+  7: {
+    phrases: [
+      { it: 'la vite vera', en: 'the true vine' },
+      { it: 'gli uni gli altri', en: 'one another' },
+      { it: 'senza di me', en: 'without me' },
+    ],
+    transform: [
+      { instruction: 'Rendi negativa', base: 'Il tralcio può portare frutto da se stesso.', answer: 'Il tralcio non può portare frutto da se stesso.' },
+      { instruction: 'Metti al plurale', base: 'Il tralcio rimane nella vite.', answer: 'I tralci rimangono nella vite.' },
+    ],
+    questions: [
+      { q: 'Chi è la vite vera?', answers: ['Gesù', 'io'], model: 'Io sono la vite vera.' },
+      { q: 'Che cosa non potete fare senza Gesù?', answers: ['nulla', 'niente'], model: 'Senza di me non potete far nulla.' },
+    ],
+  },
+  8: {
+    phrases: [
+      { it: 'Pace a voi', en: 'Peace be with you' },
+      { it: 'Mio Signore e mio Dio', en: 'My Lord and my God' },
+    ],
+    transform: [
+      { instruction: 'Metti al passato prossimo', base: 'Vediamo il Signore.', answer: 'Abbiamo visto il Signore.' },
+      { instruction: 'Rendi negativa', base: 'Tommaso era con loro.', answer: 'Tommaso non era con loro.' },
+    ],
+    questions: [
+      { q: 'Che cosa disse Gesù ai discepoli?', answers: ['Pace a voi', 'pace a voi'], model: 'Gesù disse: «Pace a voi!».' },
+      { q: 'Chi non era con i discepoli quando venne Gesù?', answers: ['Tommaso'], model: 'Tommaso non era con loro.' },
+    ],
+  },
+  9: {
+    phrases: [
+      { it: 'Non temete', en: 'Do not be afraid' },
+      { it: 'Gloria a Dio', en: 'Glory to God' },
+      { it: 'per voi', en: 'for you' },
+    ],
+    transform: [
+      { instruction: 'Metti al futuro', base: 'Trovate un bambino.', answer: 'Troverete un bambino.' },
+      { instruction: 'Metti al plurale', base: 'Il pastore veglia sul gregge.', answer: 'I pastori vegliano sul gregge.' },
+    ],
+    questions: [
+      { q: "Che cosa disse l'angelo ai pastori?", answers: ['Non temete', 'non temete'], model: "L'angelo disse: «Non temete»." },
+      { q: 'Chi è nato nella città di Davide?', answers: ['un Salvatore', 'il Salvatore', 'un salvatore'], model: 'È nato per voi un Salvatore.' },
+    ],
+  },
+  10: {
+    phrases: [
+      { it: 'Sta scritto', en: 'It is written' },
+      { it: 'di solo pane', en: 'on bread alone' },
+    ],
+    transform: [
+      { instruction: 'Rendi negativa', base: "L'uomo vivrà di solo pane.", answer: "L'uomo non vivrà di solo pane." },
+      { instruction: 'Metti al passato prossimo', base: 'Gesù ha fame.', answer: 'Gesù ha avuto fame.' },
+    ],
+    questions: [
+      { q: 'Di che cosa non vive solo l\'uomo?', answers: ['di solo pane', 'pane', 'di pane'], model: 'Non di solo pane vivrà l\'uomo.' },
+      { q: 'Chi fu tentato nel deserto?', answers: ['Gesù'], model: 'Gesù fu tentato nel deserto.' },
+    ],
+  },
+  11: {
+    phrases: [
+      { it: 'Beati voi', en: 'Blessed are you' },
+      { it: 'fate del bene', en: 'do good' },
+    ],
+    transform: [
+      { instruction: 'Metti al plurale', base: 'Il povero è beato.', answer: 'I poveri sono beati.' },
+      { instruction: 'Metti al futuro', base: 'Chi piange ride.', answer: 'Chi piange riderà.' },
+    ],
+    questions: [
+      { q: 'Chi dobbiamo amare secondo Gesù?', answers: ['i nemici', 'i nostri nemici', 'i vostri nemici'], model: 'Amate i vostri nemici.' },
+      { q: 'Chi è beato secondo Gesù?', answers: ['i poveri', 'voi poveri'], model: 'Beati voi, poveri.' },
+    ],
+  },
+  12: {
+    phrases: [
+      { it: 'chi dite che io sia?', en: 'who do you say I am?' },
+      { it: 'il Cristo di Dio', en: 'the Christ of God' },
+    ],
+    transform: [
+      { instruction: 'Metti al passato prossimo', base: 'Pietro risponde a Gesù.', answer: 'Pietro ha risposto a Gesù.' },
+      { instruction: 'Metti al plurale', base: 'Il discepolo è con lui.', answer: 'I discepoli sono con lui.' },
+    ],
+    questions: [
+      { q: 'Che cosa rispose Pietro?', answers: ['il Cristo di Dio', 'il Cristo', 'il cristo di Dio'], model: 'Pietro rispose: «Il Cristo di Dio».' },
+      { q: 'Chi deve soffrire molto?', answers: ["il Figlio dell'uomo", 'Gesù'], model: "Il Figlio dell'uomo deve soffrire molto." },
+    ],
+  },
+  13: {
+    phrases: [
+      { it: 'come te stesso', en: 'as yourself' },
+      { it: 'con tutto il cuore', en: 'with all your heart' },
+    ],
+    transform: [
+      { instruction: 'Metti al futuro', base: 'Ami il Signore.', answer: 'Amerai il Signore.' },
+      { instruction: 'Rendi negativa', base: 'Il samaritano si fermò ad aiutare.', answer: 'Il samaritano non si fermò ad aiutare.' },
+    ],
+    questions: [
+      { q: 'Come dobbiamo amare il prossimo?', answers: ['come te stesso', 'come me stesso', 'come noi stessi'], model: 'Amerai il prossimo tuo come te stesso.' },
+      { q: 'Chi ebbe compassione del ferito?', answers: ['il samaritano', 'il buon samaritano'], model: 'Il samaritano ebbe compassione di lui.' },
+    ],
+  },
+  14: {
+    phrases: [
+      { it: 'non preoccupatevi', en: 'do not worry' },
+      { it: 'più di', en: 'more than' },
+    ],
+    transform: [
+      { instruction: 'Metti al futuro', base: 'Costruisco granai più grandi.', answer: 'Costruirò granai più grandi.' },
+      { instruction: 'Rendi negativa', base: 'La vita dipende dalla ricchezza.', answer: 'La vita non dipende dalla ricchezza.' },
+    ],
+    questions: [
+      { q: 'Che cosa dobbiamo cercare?', answers: ['il regno di Dio', 'il suo regno', 'il regno'], model: 'Cercate il suo regno.' },
+      { q: 'Che cosa vale più del cibo?', answers: ['la vita'], model: 'La vita vale più del cibo.' },
+    ],
+  },
+  15: {
+    phrases: [
+      { it: 'facciamo festa', en: "let's celebrate", lit: 'let us make feast' },
+      { it: 'gli corse incontro', en: 'ran to meet him' },
+    ],
+    transform: [
+      { instruction: 'Metti al passato prossimo', base: 'Il padre abbraccia il figlio.', answer: 'Il padre ha abbracciato il figlio.' },
+      { instruction: 'Metti al plurale', base: 'Il figlio torna dal padre.', answer: 'I figli tornano dal padre.' },
+    ],
+    questions: [
+      { q: "Quanti figli aveva l'uomo?", answers: ['due', 'due figli'], model: 'Un uomo aveva due figli.' },
+      { q: 'Che cosa fece il padre quando vide il figlio?', answers: ['gli corse incontro', 'lo abbracciò', 'corse incontro'], model: 'Il padre gli corse incontro e lo abbracciò.' },
+    ],
+  },
+  16: {
+    phrases: [
+      { it: 'abbi pietà di me', en: 'have mercy on me' },
+      { it: 'a differenza di', en: 'unlike' },
+    ],
+    transform: [
+      { instruction: 'Metti al futuro', base: 'Chi si umilia è esaltato.', answer: 'Chi si umilia sarà esaltato.' },
+      { instruction: 'Metti al plurale', base: "L'uomo salì al tempio a pregare.", answer: 'Gli uomini salirono al tempio a pregare.' },
+    ],
+    questions: [
+      { q: 'Che cosa disse il pubblicano?', answers: ['abbi pietà di me', 'abbi pietà di me peccatore', 'Dio abbi pietà di me'], model: 'Il pubblicano disse: «O Dio, abbi pietà di me peccatore».' },
+      { q: 'Chi sarà esaltato?', answers: ['chi si umilia', "l'umile"], model: 'Chi si umilia sarà esaltato.' },
+    ],
+  },
+  17: {
+    phrases: [
+      { it: 'scendi subito', en: 'come down at once' },
+      { it: 'oggi', en: 'today' },
+    ],
+    transform: [
+      { instruction: 'Metti al passato prossimo', base: 'La salvezza entra in questa casa.', answer: 'La salvezza è entrata in questa casa.' },
+      { instruction: 'Rendi negativa', base: 'Zaccheo riusciva a vedere Gesù.', answer: 'Zaccheo non riusciva a vedere Gesù.' },
+    ],
+    questions: [
+      { q: 'Chi salì sul sicomoro per vedere Gesù?', answers: ['Zaccheo'], model: 'Zaccheo salì sul sicomoro.' },
+      { q: 'Che cosa è entrato oggi in questa casa?', answers: ['la salvezza'], model: 'Oggi la salvezza è entrata in questa casa.' },
+    ],
+  },
+  18: {
+    phrases: [
+      { it: 'è risorto', en: 'he is risen' },
+      { it: 'il primo giorno della settimana', en: 'the first day of the week' },
+    ],
+    transform: [
+      { instruction: 'Metti al plurale', base: 'La donna andò al sepolcro.', answer: 'Le donne andarono al sepolcro.' },
+      { instruction: 'Rendi negativa', base: 'Gesù è qui.', answer: 'Gesù non è qui.' },
+    ],
+    questions: [
+      { q: "Dov'è Gesù secondo l'angelo?", answers: ['non è qui', 'è risorto'], model: 'Non è qui, è risorto.' },
+      { q: 'Che cosa trovarono le donne al sepolcro?', answers: ['la pietra rotolata via', 'il sepolcro vuoto', 'la pietra'], model: 'Trovarono la pietra rotolata via dal sepolcro.' },
+    ],
+  },
+  19: {
+    phrases: [
+      { it: 'Che cosa dobbiamo fare?', en: 'What must we do?' },
+      { it: 'nel nome di Gesù', en: 'in the name of Jesus' },
+    ],
+    transform: [
+      { instruction: 'Metti al futuro', base: 'Ricevete il dono dello Spirito Santo.', answer: 'Riceverete il dono dello Spirito Santo.' },
+      { instruction: 'Metti al plurale', base: "L'apostolo parla in altre lingue.", answer: 'Gli apostoli parlano in altre lingue.' },
+    ],
+    questions: [
+      { q: 'Che cosa chiese la folla a Pietro?', answers: ['che cosa dobbiamo fare', 'cosa dobbiamo fare'], model: 'Chiesero: «Che cosa dobbiamo fare, fratelli?».' },
+      { q: 'Che cosa riceveranno i battezzati?', answers: ['il dono dello Spirito Santo', 'lo Spirito Santo', 'il dono dello spirito santo'], model: 'Riceverete il dono dello Spirito Santo.' },
+    ],
+  },
+  20: {
+    phrases: [
+      { it: 'con franchezza', en: 'boldly', lit: 'with frankness' },
+      { it: "un cuore solo e un'anima sola", en: 'one heart and one soul' },
+    ],
+    transform: [
+      { instruction: 'Rendi negativa', base: "In lui c'è salvezza.", answer: "In lui non c'è salvezza." },
+      { instruction: 'Metti al plurale', base: 'Il credente annunciava la parola.', answer: 'I credenti annunciavano la parola.' },
+    ],
+    questions: [
+      { q: "Dove non c'è salvezza?", answers: ['in nessun altro', 'in nessun altro nome'], model: "In nessun altro c'è salvezza." },
+      { q: 'Come annunciavano la parola di Dio?', answers: ['con franchezza'], model: 'Annunciavano la parola di Dio con franchezza.' },
+    ],
+  },
+  21: {
+    phrases: [
+      { it: 'perché mi perseguiti?', en: 'why do you persecute me?' },
+      { it: 'Chi sei, o Signore?', en: 'Who are you, Lord?' },
+    ],
+    transform: [
+      { instruction: 'Metti al passato prossimo', base: 'Saulo cade a terra.', answer: 'Saulo è caduto a terra.' },
+      { instruction: 'Rendi negativa', base: 'Saulo vede la luce.', answer: 'Saulo non vede la luce.' },
+    ],
+    questions: [
+      { q: 'Chi parlò a Saulo sulla via di Damasco?', answers: ['Gesù', 'il Signore'], model: 'Era Gesù che gli parlava.' },
+      { q: 'Che cosa disse la voce a Saulo?', answers: ['perché mi perseguiti', 'Saulo perché mi perseguiti'], model: '«Saulo, Saulo, perché mi perseguiti?».' },
+    ],
+  },
+  22: {
+    phrases: [
+      { it: 'in verità', en: 'truly' },
+      { it: 'per mezzo di Gesù Cristo', en: 'through Jesus Christ' },
+    ],
+    transform: [
+      { instruction: 'Metti al passato prossimo', base: 'Lo Spirito Santo scende su tutti.', answer: 'Lo Spirito Santo è sceso su tutti.' },
+      { instruction: 'Rendi negativa', base: 'Dio fa preferenza di persone.', answer: 'Dio non fa preferenza di persone.' },
+    ],
+    questions: [
+      { q: 'Dio fa preferenza di persone?', answers: ['no', 'no non fa preferenza', 'Dio non fa preferenza di persone'], model: 'No, Dio non fa preferenza di persone.' },
+      { q: 'Su chi scese lo Spirito Santo?', answers: ['su tutti', 'sui pagani', 'su tutti coloro che ascoltavano'], model: 'Lo Spirito Santo scese su tutti coloro che ascoltavano.' },
+    ],
+  },
+  23: {
+    phrases: [
+      { it: 'la remissione dei peccati', en: 'the forgiveness of sins' },
+      { it: 'chiunque crede', en: 'whoever believes' },
+    ],
+    transform: [
+      { instruction: 'Metti al plurale', base: 'Il pagano ascolta la parola.', answer: 'I pagani ascoltano la parola.' },
+      { instruction: 'Rendi negativa', base: 'Voi vi giudicate degni della vita eterna.', answer: 'Voi non vi giudicate degni della vita eterna.' },
+    ],
+    questions: [
+      { q: 'Chi è giustificato in Cristo?', answers: ['chiunque crede', 'chi crede'], model: 'In lui è giustificato chiunque crede.' },
+      { q: 'A chi si rivolgono ora Paolo e Barnaba?', answers: ['ai pagani', 'i pagani'], model: 'Noi ci rivolgiamo ai pagani.' },
+    ],
+  },
+  24: {
+    phrases: [
+      { it: 'che cosa devo fare?', en: 'what must I do?' },
+      { it: 'stavano pregando', en: 'they were praying' },
+    ],
+    transform: [
+      { instruction: 'Rendi negativa', base: 'Il carceriere si fece del male.', answer: 'Il carceriere non si fece del male.' },
+      { instruction: 'Metti al passato prossimo', base: 'Le porte si aprono.', answer: 'Le porte si sono aperte.' },
+    ],
+    questions: [
+      { q: 'Che cosa chiese il carceriere?', answers: ['che cosa devo fare per essere salvato', 'cosa devo fare per essere salvato', 'che cosa devo fare'], model: 'Chiese: «Che cosa devo fare per essere salvato?».' },
+      { q: 'Che cosa facevano Paolo e Sila in prigione?', answers: ['pregavano e cantavano', 'pregavano', 'cantavano inni'], model: 'Pregavano e cantavano inni a Dio.' },
+    ],
+  },
+  25: {
+    phrases: [
+      { it: 'più... che', en: 'more... than' },
+      { it: 'Vegliate', en: 'Keep watch' },
+    ],
+    transform: [
+      { instruction: 'Metti al plurale', base: 'Il vescovo veglia sul gregge.', answer: 'I vescovi vegliano sul gregge.' },
+      { instruction: 'Metti al passato prossimo', base: 'Ricevo il ministero dal Signore.', answer: 'Ho ricevuto il ministero dal Signore.' },
+    ],
+    questions: [
+      { q: "Dove c'è più gioia, nel dare o nel ricevere?", answers: ['nel dare', 'dare'], model: 'Vi è più gioia nel dare che nel ricevere.' },
+      { q: 'Su che cosa dovevano vegliare gli anziani?', answers: ['sul gregge', 'su tutto il gregge', 'su voi stessi'], model: 'Vegliate su tutto il gregge.' },
+    ],
+  },
+  26: {
+    phrases: [
+      { it: 'che cosa devo fare?', en: 'what must I do?' },
+      { it: 'lava via i tuoi peccati', en: 'wash away your sins' },
+    ],
+    transform: [
+      { instruction: 'Metti al passato prossimo', base: 'Cado a terra.', answer: 'Sono caduto a terra.' },
+      { instruction: 'Metti al plurale', base: 'Il compagno vide la luce.', answer: 'I compagni videro la luce.' },
+    ],
+    questions: [
+      { q: 'Che cosa avvolse Paolo sulla via di Damasco?', answers: ['una grande luce', 'una luce', 'la luce'], model: 'Una grande luce dal cielo mi avvolse.' },
+      { q: 'Chi rispose «Sono Gesù»?', answers: ['il Signore', 'Gesù'], model: 'Mi disse: «Sono Gesù il Nazareno».' },
+    ],
+  },
+  27: {
+    phrases: [
+      { it: 'dalle tenebre alla luce', en: 'from darkness to light' },
+      { it: 'più splendente del sole', en: 'brighter than the sun' },
+    ],
+    transform: [
+      { instruction: 'Rendi negativa', base: 'Paolo si appellò a Cesare.', answer: 'Paolo non si appellò a Cesare.' },
+      { instruction: 'Metti al futuro', base: 'Sei mio testimone.', answer: 'Sarai mio testimone.' },
+    ],
+    questions: [
+      { q: 'A chi si appellò Paolo?', answers: ['a Cesare', 'Cesare'], model: 'Paolo si appellò a Cesare.' },
+      { q: 'Verso che cosa si convertono i pagani?', answers: ['alla luce', 'dalle tenebre alla luce'], model: 'Si convertano dalle tenebre alla luce.' },
+    ],
+  },
+  28: {
+    phrases: [
+      { it: 'senza impedimento', en: 'without hindrance' },
+      { it: 'il regno di Dio', en: 'the kingdom of God' },
+    ],
+    transform: [
+      { instruction: 'Metti al passato prossimo', base: 'Paolo arriva a Roma.', answer: 'Paolo è arrivato a Roma.' },
+      { instruction: 'Metti al plurale', base: 'Il pagano ascolta la salvezza.', answer: 'I pagani ascoltano la salvezza.' },
+    ],
+    questions: [
+      { q: 'A chi viene inviata la salvezza di Dio?', answers: ['ai pagani', 'i pagani'], model: 'Questa salvezza di Dio viene inviata ai pagani.' },
+      { q: 'Quanto tempo rimase Paolo nel suo alloggio?', answers: ['due anni', 'due anni interi'], model: 'Rimase due anni interi.' },
+    ],
+  },
+  29: {
+    phrases: [
+      { it: 'per fede', en: 'by faith' },
+      { it: 'non mi vergogno', en: 'I am not ashamed' },
+    ],
+    transform: [
+      { instruction: 'Metti al futuro', base: 'Il giusto per fede vive.', answer: 'Il giusto per fede vivrà.' },
+      { instruction: 'Rendi negativa', base: "L'uomo segue il consiglio degli empi.", answer: "L'uomo non segue il consiglio degli empi." },
+    ],
+    questions: [
+      { q: 'Come vivrà il giusto?', answers: ['per fede', 'per la fede'], model: 'Il giusto per fede vivrà.' },
+      { q: 'Di che cosa non si vergogna Paolo?', answers: ['del vangelo', 'il vangelo'], model: 'Non mi vergogno del vangelo.' },
+    ],
+  },
+  30: {
+    phrases: [
+      { it: 'per la sua grazia', en: 'by his grace' },
+      { it: 'non manco di nulla', en: 'I lack nothing', lit: 'I do not lack of nothing' },
+    ],
+    transform: [
+      { instruction: 'Metti al passato prossimo', base: 'Tutti peccano.', answer: 'Tutti hanno peccato.' },
+      { instruction: 'Rendi negativa', base: 'Siamo giustificati per le opere.', answer: 'Non siamo giustificati per le opere.' },
+    ],
+    questions: [
+      { q: 'Chi ha peccato secondo Paolo?', answers: ['tutti'], model: 'Tutti hanno peccato.' },
+      { q: 'Chi è il mio pastore?', answers: ['il Signore'], model: 'Il Signore è il mio pastore.' },
+    ],
+  },
+  31: {
+    phrases: [
+      { it: 'in pace con Dio', en: 'at peace with God' },
+      { it: 'per noi', en: 'for us' },
+    ],
+    transform: [
+      { instruction: 'Rendi negativa', base: 'La speranza delude.', answer: 'La speranza non delude.' },
+      { instruction: 'Metti al passato prossimo', base: 'Cristo muore per noi.', answer: 'Cristo è morto per noi.' },
+    ],
+    questions: [
+      { q: 'Che cosa non fa la speranza?', answers: ['non delude', 'deludere'], model: 'La speranza non delude.' },
+      { q: 'Per chi è morto Cristo?', answers: ['per noi', 'per i peccatori'], model: 'Cristo è morto per noi.' },
+    ],
+  },
+  32: {
+    phrases: [
+      { it: 'nessuna condanna', en: 'no condemnation' },
+      { it: 'né... né', en: 'neither... nor' },
+    ],
+    transform: [
+      { instruction: 'Rendi negativa', base: "C'è condanna per quelli in Cristo.", answer: "Non c'è condanna per quelli in Cristo." },
+      { instruction: 'Metti al plurale', base: 'Colui che ama Dio è chiamato.', answer: 'Coloro che amano Dio sono chiamati.' },
+    ],
+    questions: [
+      { q: 'Quanta condanna c\'è per quelli in Cristo?', answers: ['nessuna', 'nessuna condanna'], model: 'Non vi è nessuna condanna per quelli che sono in Cristo Gesù.' },
+      { q: 'Che cosa chiede il salmista a Dio?', answers: ['un cuore puro', 'crea in me un cuore puro'], model: 'Crea in me un cuore puro.' },
+    ],
+  },
+  33: {
+    phrases: [
+      { it: 'con la tua bocca', en: 'with your mouth' },
+      { it: 'chiunque', en: 'whoever' },
+    ],
+    transform: [
+      { instruction: 'Metti al futuro', base: 'Chi crede è salvato.', answer: 'Chi crede sarà salvato.' },
+      { instruction: 'Rendi negativa', base: 'Confessi con la tua bocca.', answer: 'Non confessi con la tua bocca.' },
+    ],
+    questions: [
+      { q: 'Chi sarà salvato?', answers: ['chiunque invoca il nome del Signore', 'chi invoca il nome del Signore', 'chiunque invocherà il nome del Signore'], model: 'Chiunque invocherà il nome del Signore sarà salvato.' },
+      { q: 'Con che cosa si confessa la fede?', answers: ['con la bocca', 'con la tua bocca'], model: 'Con la bocca si fa la professione di fede.' },
+    ],
+  },
+  34: {
+    phrases: [
+      { it: 'gli uni gli altri', en: 'one another' },
+      { it: 'non conformatevi', en: 'do not conform' },
+    ],
+    transform: [
+      { instruction: 'Rendi negativa', base: 'Conformatevi a questo mondo.', answer: 'Non conformatevi a questo mondo.' },
+      { instruction: 'Metti al voi', base: 'Offri il tuo corpo come sacrificio.', answer: 'Offrite i vostri corpi come sacrificio.' },
+    ],
+    questions: [
+      { q: 'A che cosa non dobbiamo conformarci?', answers: ['a questo mondo', 'al mondo', 'questo mondo'], model: 'Non conformatevi a questo mondo.' },
+      { q: 'Come dobbiamo offrire i nostri corpi?', answers: ['come sacrificio vivente', 'come sacrificio', 'un sacrificio vivente'], model: 'Offrite i vostri corpi come sacrificio vivente.' },
+    ],
+  },
+  35: {
+    phrases: [
+      { it: 'come te stesso', en: 'as yourself' },
+      { it: 'il prossimo tuo', en: 'your neighbor' },
+    ],
+    transform: [
+      { instruction: 'Metti al futuro', base: 'Ami il prossimo tuo.', answer: 'Amerai il prossimo tuo.' },
+      { instruction: 'Rendi negativa', base: 'La carità fa male al prossimo.', answer: 'La carità non fa male al prossimo.' },
+    ],
+    questions: [
+      { q: 'Chi dobbiamo amare come noi stessi?', answers: ['il prossimo', 'il nostro prossimo', 'il prossimo nostro'], model: 'Amerai il prossimo tuo come te stesso.' },
+      { q: 'Da dove viene il mio soccorso?', answers: ['dal Signore', 'viene dal Signore'], model: 'Il mio soccorso viene dal Signore.' },
+    ],
+  },
+  36: {
+    phrases: [
+      { it: 'il Dio della speranza', en: 'the God of hope' },
+      { it: 'un solo animo', en: 'one mind', lit: 'a single soul' },
+    ],
+    transform: [
+      { instruction: 'Metti al passato prossimo', base: 'Tu mi tessi nel seno di mia madre.', answer: 'Tu mi hai tessuto nel seno di mia madre.' },
+      { instruction: 'Rendi negativa', base: 'Dio mi conosce.', answer: 'Dio non mi conosce.' },
+    ],
+    questions: [
+      { q: 'Chi è il Dio che ci riempie di gioia e pace?', answers: ['il Dio della speranza', 'Dio della speranza'], model: 'Il Dio della speranza vi riempia di gioia e pace.' },
+      { q: 'Chi ti conosce completamente?', answers: ['Dio', 'il Signore', 'tu Signore'], model: 'Dio mi conosce completamente.' },
+    ],
+  },
+  37: {
+    phrases: [
+      { it: 'Alleluia', en: 'Alleluia (praise the Lord)' },
+      { it: 'ogni essere che respira', en: 'everything that breathes' },
+      { it: 'Buon Natale', en: 'Merry Christmas' },
+    ],
+    transform: [
+      { instruction: 'Metti al plurale', base: 'Lo strumento loda il Signore.', answer: 'Gli strumenti lodano il Signore.' },
+      { instruction: 'Metti al voi', base: 'Loda il Signore.', answer: 'Lodate il Signore.' },
+    ],
+    questions: [
+      { q: 'Chi deve lodare il Signore?', answers: ['ogni essere che respira', 'tutto ciò che respira', 'ogni vivente'], model: 'Ogni essere che respira lodi il Signore.' },
+      { q: 'Con quale strumento si loda Dio nel Salmo 150?', answers: ['la tromba', 'con la tromba', "l'arpa", 'la cetra'], model: 'Lodatelo con la tromba.' },
+    ],
+  },
+};
+
+// Merge the speaking layer onto the base exercises by week number.
+export const EXERCISES = Object.fromEntries(
+  Object.keys(BASE_EXERCISES).map((n) => [n, { ...BASE_EXERCISES[n], ...(SPEAKING[n] || {}) }])
+);
