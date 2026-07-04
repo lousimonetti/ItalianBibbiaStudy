@@ -64,8 +64,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   (progress/streak/SRS intervals/journal, T2), then reloads. `TodayCard` and the
   header tagline dynamically display the new end date (T3). Full task list in
   `plan-new-session.md`.
-- **Natural speaking / thinking-in-Italian (`plan-speaking.md`): P1 shipped,
-  P2–P3 open.** Targets the automatization gap — producing spontaneous Italian
+- **Natural speaking / thinking-in-Italian (`plan-speaking.md`): P1–P3 shipped —
+  the whole roadmap is complete.** Targets the automatization gap — producing spontaneous Italian
   without translating from English. **P1 (zero-content) is implemented:**
   **S7** daily "Pensa in italiano" micro-prompt on the Today card
   (`src/data/thinkPrompts.js` rotated by day-of-year, `ThinkPrompt.jsx` with a
@@ -78,10 +78,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   Journal week editor: 60s→45s→30s rounds on the week's prompt, per-round WPM
   + delta, optional insert-into-journal). SpeechRecognition detection is
   centralized in `src/utils/speech.js`; mic UI hides when unavailable.
-  Remaining: **P2** S5 contrastive English-interference trap drills (merges
-  O14), **P3** per-week authoring in `exercises.js` — S1 formulaic-chunk
-  library with literal glosses (extends O11), S3 timed spoken Q&A, S2
-  Italian-only transformation drills. Full spec in `plan-speaking.md`.
+  **P2 (S5) is implemented:** the "Trappole" drill — a fourth Flashcards mode
+  (`TrapDrill.jsx`, hidden when the course ships no dataset) drilling 56
+  curated English-interference traps in 12 categories (piacere-verbs, clitic
+  placement, null subject, adjective position, articulated prepositions,
+  essere/avere, avere idioms, false friends (= O14), c'è/ci sono, tense+da,
+  possessive articles, no-preposition verbs). Data is course-level
+  (`courses/it-bible-cei/contrastive.js`, resolved via `course/traps.js` +
+  optional registry fields). `src/utils/contrastive.js` holds the verdict
+  logic — predicted wrongs match exactly *before* the fuzzy correct check
+  (interference forms sit within typo tolerance of the right answer), a trap
+  match shows the item's targeted note, and per-category accuracy under
+  `storageKey('traps')` drives weakest-first ordering.
+  **P3 (per-week authoring) is implemented** for all 37 weeks in a single
+  `SPEAKING` block merged onto `BASE_EXERCISES` in `exercises.js`: **S1** Frasi
+  fisse — formulaic chunks with optional literal "how Italian construes it"
+  glosses (`chunks.js` + `PhraseList.jsx`); **S2** Trasforma — Italian-only
+  transformation drills checked by *exact* canonical token match, not the fuzzy
+  `checkAnswer` (single-char transforms like pastore→pastori would otherwise be
+  accepted untransformed), with a `dictogloss` word-diff on a miss
+  (`transformDrill.js` + `TransformDrill.jsx` beside GrammarDrill); **S3**
+  Rispondi subito — timed spoken Q&A about the reading, placed per-week in
+  `WeekDetail` (questions are passage-anchored) reusing `src/utils/speech.js`
+  (`spokenAnswer.js` + `SpokenQA.jsx`). `exercises.speaking.test.js` guards the
+  authored data (every transform answer passes its checker and every base
+  fails it; every question is satisfied by its own model). Full spec in
+  `plan-speaking.md`.
 - **iOS / iPadOS App (`plan-ios-app.md`): planned, not started.**
   A full native App Store app targeting iOS 15+ built with **React Native + Expo
   SDK 52** (bare workflow). All pure-JS utility modules (`srs.js`, `answer.js`,

@@ -10,9 +10,12 @@
 
 import { config as itBibleConfig } from './it-bible-cei/config.js';
 import { phases as itBiblePhases } from './it-bible-cei/content.js';
+import { TRAPS as itBibleTraps, TRAP_CATEGORIES as itBibleTrapCategories } from './it-bible-cei/contrastive.js';
 
+// `traps`/`trapCategories` are optional — the "Trappole" drill hides for
+// courses that don't ship a contrastive dataset.
 const COURSES = [
-  { config: itBibleConfig, phases: itBiblePhases },
+  { config: itBibleConfig, phases: itBiblePhases, traps: itBibleTraps, trapCategories: itBibleTrapCategories },
   // { config: myConfig, phases: myPhases },
 ];
 
