@@ -3034,3 +3034,105 @@ html.dark .prayer-text-en { color: var(--text-muted); }
   text-align: center;
   line-height: 1.5;
 }
+
+/* ── Saints tab (Santo del giorno) ─────────────────────────────────────── */
+.saints-wrap { display: flex; flex-direction: column; gap: 14px; }
+.saints-nav { display: flex; align-items: center; gap: 10px; }
+.saints-nav-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.saints-nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+.saints-nav-center { flex: 1; text-align: center; }
+.saints-date { font-size: 13px; font-weight: 600; color: var(--text); text-transform: capitalize; }
+.saints-today-btn {
+  font-size: 11px;
+  border: none;
+  background: none;
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 2px 0 0;
+}
+.saints-header { text-align: center; }
+.saints-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+.saints-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 4px 0 0;
+}
+.saints-status { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+.saints-status-en { color: var(--text-faint); font-style: italic; }
+.saints-status-offline {
+  padding: 12px 14px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+}
+.saints-cached-note { font-size: 11.5px; color: var(--text-faint); font-style: italic; }
+.saints-story {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  background: var(--surface);
+}
+.saints-story-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.saints-story-sub { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--text-faint); }
+.saints-para {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0 0 10px;
+}
+.saints-para .speaker-btn { margin-left: 6px; vertical-align: middle; }
+.saints-para-en { font-size: 13.5px; color: var(--text-muted); }
+.saints-wiki-link { font-size: 12px; color: var(--accent); text-decoration: none; }
+.saints-wiki-link:hover { text-decoration: underline; }
+.saints-en { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.saints-en-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: none;
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: left;
+}
+.saints-en-toggle:hover { color: var(--accent); }
+.saints-en-body { padding: 10px 16px 12px; }
+.saints-credit { font-size: 10.5px; color: var(--text-faint); text-align: center; }
