@@ -9,6 +9,10 @@ export const UI_STRINGS = {
   'tab.flashcards': { it: 'Schede', en: 'Flashcards' },
   'tab.journal': { it: 'Diario', en: 'Journal' },
   'tab.prayers': { it: 'Preghiere', en: 'Prayers' },
+  'tab.saints': { it: 'Santi', en: 'Saints' },
+
+  // Saints tab
+  'saints.ofTheDay': { it: 'Il santo del giorno', en: 'Saint of the day' },
 
   // Progress bar
   'progress.weeks': { it: 'settimane', en: 'weeks' },
