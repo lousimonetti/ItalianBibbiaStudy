@@ -112,6 +112,20 @@ final class AppModel: ObservableObject {
         theme = Theme(rawValue: WebStore.loadString("theme") ?? "") ?? .system
         sessionStartOverride = WebStore.loadString("session-start")
         reminders = WebStore.loadJSON("reminders", as: ReminderPrefs.self) ?? ReminderPrefs()
+        ensureSessionStart()
+    }
+
+    /// New users start the program the day they first open the app. The
+    /// course config's fixed `startDate` is the web reference deploy's
+    /// calendar — meaningless for an App Store install — so when no
+    /// `session-start` override exists yet, stamp today as day 1 of week 1.
+    /// An explicit choice (Settings → New Session, or a backup import that
+    /// carries its own override) wins and is never overwritten.
+    private func ensureSessionStart() {
+        guard sessionStartOverride == nil else { return }
+        let start = todayStr()
+        sessionStartOverride = start
+        WebStore.saveString("session-start", start)
     }
 
     private func persistTheme() {

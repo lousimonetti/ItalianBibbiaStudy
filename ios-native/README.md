@@ -21,6 +21,13 @@ the web Sync panel imports into iOS Settings → Sync, and vice versa.
 Native extras the web can't do: haptic feedback, real scheduled
 notifications, `AVSpeechSynthesizer` TTS, `SFSpeechRecognizer` scoring.
 
+**First open = day 1.** A new install stamps a `session-start` override at
+first launch, so the 37-week program begins the day the user first opens the
+app (the course config's fixed `startDate` is only the web reference
+deploy's calendar). A one-time welcome sheet says so and points at
+Settings → New Session, which can move the calendar to any date later; a
+backup import that carries its own `session-start` wins.
+
 ## Layout
 
 ```
