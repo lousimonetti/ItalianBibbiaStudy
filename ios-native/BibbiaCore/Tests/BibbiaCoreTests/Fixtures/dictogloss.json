@@ -1,0 +1,176 @@
+[
+ {
+  "original": "In principio era il Verbo, il Verbo era presso Dio e il Verbo era Dio.",
+  "attempt": "In principio era il Verbo, il Verbo era presso Dio e il Verbo era Dio.",
+  "score": 100,
+  "originalOk": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "attemptOk": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ]
+ },
+ {
+  "original": "In principio era il Verbo, il Verbo era presso Dio e il Verbo era Dio.",
+  "attempt": "in principio era il verbo",
+  "score": 33,
+  "originalOk": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "attemptOk": [
+   true,
+   true,
+   true,
+   true,
+   true
+  ]
+ },
+ {
+  "original": "In principio era il Verbo, il Verbo era presso Dio e il Verbo era Dio.",
+  "attempt": "Il Verbo era presso Dio",
+  "score": 33,
+  "originalOk": [
+   false,
+   false,
+   true,
+   true,
+   true,
+   false,
+   false,
+   false,
+   true,
+   true,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "attemptOk": [
+   true,
+   true,
+   true,
+   true,
+   true
+  ]
+ },
+ {
+  "original": "In principio era il Verbo, il Verbo era presso Dio e il Verbo era Dio.",
+  "attempt": "",
+  "score": 0,
+  "originalOk": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "attemptOk": []
+ },
+ {
+  "original": "La luce splende nelle tenebre",
+  "attempt": "la lucé splende nélle tenebre!",
+  "score": 100,
+  "originalOk": [
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "attemptOk": [
+   true,
+   true,
+   true,
+   true,
+   true
+  ]
+ },
+ {
+  "original": "se conoscessi il dono di Dio",
+  "attempt": "il dono di dio se conoscessi",
+  "score": 100,
+  "originalOk": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "attemptOk": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ]
+ },
+ {
+  "original": "la la la",
+  "attempt": "la la",
+  "score": 67,
+  "originalOk": [
+   true,
+   true,
+   false
+  ],
+  "attemptOk": [
+   true,
+   true
+  ]
+ }
+]

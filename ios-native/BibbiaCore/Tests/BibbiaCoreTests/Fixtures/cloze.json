@@ -1,0 +1,1933 @@
+[
+ {
+  "term": "il Verbo",
+  "example": "In principio era il Verbo",
+  "result": {
+   "before": "In principio era il ",
+   "answer": "Verbo",
+   "after": ""
+  }
+ },
+ {
+  "term": "la luce",
+  "example": "La luce splende",
+  "result": {
+   "before": "La ",
+   "answer": "luce",
+   "after": " splende"
+  }
+ },
+ {
+  "term": "le tenebre",
+  "example": "le tenebre non la vinsero",
+  "result": {
+   "before": "le ",
+   "answer": "tenebre",
+   "after": " non la vinsero"
+  }
+ },
+ {
+  "term": "la vita",
+  "example": "in lui era la vita",
+  "result": {
+   "before": "in lui era la ",
+   "answer": "vita",
+   "after": ""
+  }
+ },
+ {
+  "term": "credere",
+  "example": "ha creduto in lui",
+  "result": null
+ },
+ {
+  "term": "il miracolo",
+  "example": "primo dei suoi miracoli",
+  "result": null
+ },
+ {
+  "term": "il mondo",
+  "example": "il mondo è stato fatto per mezzo di lui",
+  "result": {
+   "before": "il ",
+   "answer": "mondo",
+   "after": " è stato fatto per mezzo di lui"
+  }
+ },
+ {
+  "term": "nascere",
+  "example": "bisogna nascere di nuovo",
+  "result": {
+   "before": "bisogna ",
+   "answer": "nascere",
+   "after": " di nuovo"
+  }
+ },
+ {
+  "term": "lo Spirito",
+  "example": "lo Spirito soffia dove vuole",
+  "result": {
+   "before": "lo ",
+   "answer": "Spirito",
+   "after": " soffia dove vuole"
+  }
+ },
+ {
+  "term": "il pozzo",
+  "example": "sedeva presso il pozzo",
+  "result": {
+   "before": "sedeva presso il ",
+   "answer": "pozzo",
+   "after": ""
+  }
+ },
+ {
+  "term": "adorare",
+  "example": "i veri adoratori",
+  "result": null
+ },
+ {
+  "term": "il Salvatore",
+  "example": "il Salvatore del mondo",
+  "result": {
+   "before": "il ",
+   "answer": "Salvatore",
+   "after": " del mondo"
+  }
+ },
+ {
+  "term": "credere",
+  "example": "chi crede in lui",
+  "result": null
+ },
+ {
+  "term": "il dono",
+  "example": "se conoscessi il dono di Dio",
+  "result": {
+   "before": "se conoscessi il ",
+   "answer": "dono",
+   "after": " di Dio"
+  }
+ },
+ {
+  "term": "guarire",
+  "example": "lo ha guarito",
+  "result": null
+ },
+ {
+  "term": "il pane",
+  "example": "sono io il pane della vita",
+  "result": {
+   "before": "sono io il ",
+   "answer": "pane",
+   "after": " della vita"
+  }
+ },
+ {
+  "term": "la folla",
+  "example": "la folla grande lo seguiva",
+  "result": {
+   "before": "la ",
+   "answer": "folla",
+   "after": " grande lo seguiva"
+  }
+ },
+ {
+  "term": "saziarsi",
+  "example": "mangiarono e si saziarono",
+  "result": null
+ },
+ {
+  "term": "la vita eterna",
+  "example": "ha la vita eterna",
+  "result": {
+   "before": "ha la ",
+   "answer": "vita eterna",
+   "after": ""
+  }
+ },
+ {
+  "term": "la manna",
+  "example": "i nostri padri mangiarono la manna",
+  "result": {
+   "before": "i nostri padri mangiarono la ",
+   "answer": "manna",
+   "after": ""
+  }
+ },
+ {
+  "term": "il segno",
+  "example": "quale segno fai tu?",
+  "result": {
+   "before": "quale ",
+   "answer": "segno",
+   "after": " fai tu?"
+  }
+ },
+ {
+  "term": "insegnare",
+  "example": "insegnava nel tempio",
+  "result": null
+ },
+ {
+  "term": "la verità",
+  "example": "la verità vi farà liberi",
+  "result": {
+   "before": "la ",
+   "answer": "verità",
+   "after": " vi farà liberi"
+  }
+ },
+ {
+  "term": "liberare",
+  "example": "vi farà liberi",
+  "result": null
+ },
+ {
+  "term": "giudicare",
+  "example": "non giudicate secondo l'apparenza",
+  "result": null
+ },
+ {
+  "term": "il peccato",
+  "example": "chi di voi è senza peccato",
+  "result": {
+   "before": "chi di voi è senza ",
+   "answer": "peccato",
+   "after": ""
+  }
+ },
+ {
+  "term": "scrivere",
+  "example": "scriveva per terra",
+  "result": null
+ },
+ {
+  "term": "luce del mondo",
+  "example": "sono la luce del mondo",
+  "result": {
+   "before": "sono la ",
+   "answer": "luce del mondo",
+   "after": ""
+  }
+ },
+ {
+  "term": "il cieco",
+  "example": "un uomo cieco dalla nascita",
+  "result": {
+   "before": "un uomo ",
+   "answer": "cieco",
+   "after": " dalla nascita"
+  }
+ },
+ {
+  "term": "vedere",
+  "example": "ora vedo",
+  "result": null
+ },
+ {
+  "term": "il buon pastore",
+  "example": "io sono il buon pastore",
+  "result": {
+   "before": "io sono il ",
+   "answer": "buon pastore",
+   "after": ""
+  }
+ },
+ {
+  "term": "la pecora",
+  "example": "conosce le mie pecore",
+  "result": null
+ },
+ {
+  "term": "la tomba",
+  "example": "dov'è il sepolcro?",
+  "result": null
+ },
+ {
+  "term": "risuscitare",
+  "example": "io sono la risurrezione",
+  "result": null
+ },
+ {
+  "term": "piangere",
+  "example": "Gesù scoppiò in pianto",
+  "result": null
+ },
+ {
+  "term": "l'unzione",
+  "example": "l'unzione a Betania",
+  "result": {
+   "before": "l'",
+   "answer": "unzione",
+   "after": " a Betania"
+  }
+ },
+ {
+  "term": "l'asino",
+  "example": "seduto su un asino",
+  "result": {
+   "before": "seduto su un ",
+   "answer": "asino",
+   "after": ""
+  }
+ },
+ {
+  "term": "lavare i piedi",
+  "example": "lavò i piedi ai discepoli",
+  "result": null
+ },
+ {
+  "term": "il tradimento",
+  "example": "annunciò il suo traditore",
+  "result": null
+ },
+ {
+  "term": "la casa del Padre",
+  "example": "nella casa del Padre",
+  "result": {
+   "before": "nella ",
+   "answer": "casa del Padre",
+   "after": ""
+  }
+ },
+ {
+  "term": "il Paraclito",
+  "example": "vi manderà il Paraclito",
+  "result": {
+   "before": "vi manderà il ",
+   "answer": "Paraclito",
+   "after": ""
+  }
+ },
+ {
+  "term": "la via",
+  "example": "io sono la via",
+  "result": {
+   "before": "io sono la ",
+   "answer": "via",
+   "after": ""
+  }
+ },
+ {
+  "term": "la vite",
+  "example": "io sono la vite vera",
+  "result": {
+   "before": "io sono la ",
+   "answer": "vite",
+   "after": " vera"
+  }
+ },
+ {
+  "term": "il tralcio",
+  "example": "ogni tralcio in me",
+  "result": {
+   "before": "ogni ",
+   "answer": "tralcio",
+   "after": " in me"
+  }
+ },
+ {
+  "term": "portare frutto",
+  "example": "portiate molto frutto",
+  "result": null
+ },
+ {
+  "term": "il comandamento",
+  "example": "questo è il mio comandamento",
+  "result": {
+   "before": "questo è il mio ",
+   "answer": "comandamento",
+   "after": ""
+  }
+ },
+ {
+  "term": "rimanere",
+  "example": "rimanete nel mio amore",
+  "result": null
+ },
+ {
+  "term": "il mondo",
+  "example": "il mondo vi odierà",
+  "result": {
+   "before": "il ",
+   "answer": "mondo",
+   "after": " vi odierà"
+  }
+ },
+ {
+  "term": "la preghiera",
+  "example": "pregò per i suoi discepoli",
+  "result": null
+ },
+ {
+  "term": "l'arresto",
+  "example": "l'arresto nel Getsemani",
+  "result": {
+   "before": "l'",
+   "answer": "arresto",
+   "after": " nel Getsemani"
+  }
+ },
+ {
+  "term": "il rinnegamento",
+  "example": "il rinnegamento di Pietro",
+  "result": {
+   "before": "il ",
+   "answer": "rinnegamento",
+   "after": " di Pietro"
+  }
+ },
+ {
+  "term": "la crocifissione",
+  "example": "portò la sua croce",
+  "result": null
+ },
+ {
+  "term": "il sepolcro vuoto",
+  "example": "il sepolcro era vuoto",
+  "result": null
+ },
+ {
+  "term": "la resurrezione",
+  "example": "sono risorto",
+  "result": null
+ },
+ {
+  "term": "la missione",
+  "example": "come il Padre ha mandato me",
+  "result": null
+ },
+ {
+  "term": "la pace",
+  "example": "la pace sia con voi",
+  "result": {
+   "before": "la ",
+   "answer": "pace",
+   "after": " sia con voi"
+  }
+ },
+ {
+  "term": "l'annuncio",
+  "example": "l'annunciazione a Maria",
+  "result": null
+ },
+ {
+  "term": "l'angelo",
+  "example": "l'angelo Gabriele",
+  "result": {
+   "before": "l'",
+   "answer": "angelo",
+   "after": " Gabriele"
+  }
+ },
+ {
+  "term": "benedetto",
+  "example": "benedetta tu fra le donne",
+  "result": null
+ },
+ {
+  "term": "la nascita",
+  "example": "la nascita di Gesù",
+  "result": {
+   "before": "la ",
+   "answer": "nascita",
+   "after": " di Gesù"
+  }
+ },
+ {
+  "term": "la mangiatoia",
+  "example": "lo depose nella mangiatoia",
+  "result": {
+   "before": "lo depose nella ",
+   "answer": "mangiatoia",
+   "after": ""
+  }
+ },
+ {
+  "term": "i pastori",
+  "example": "i pastori andarono a Betlemme",
+  "result": {
+   "before": "i ",
+   "answer": "pastori",
+   "after": " andarono a Betlemme"
+  }
+ },
+ {
+  "term": "il Magnificat",
+  "example": "l'anima mia magnifica il Signore",
+  "result": null
+ },
+ {
+  "term": "il battesimo",
+  "example": "il battesimo di Gesù",
+  "result": {
+   "before": "il ",
+   "answer": "battesimo",
+   "after": " di Gesù"
+  }
+ },
+ {
+  "term": "il deserto",
+  "example": "quaranta giorni nel deserto",
+  "result": {
+   "before": "quaranta giorni nel ",
+   "answer": "deserto",
+   "after": ""
+  }
+ },
+ {
+  "term": "la tentazione",
+  "example": "le tentazioni del diavolo",
+  "result": null
+ },
+ {
+  "term": "la rete",
+  "example": "gettate le reti",
+  "result": null
+ },
+ {
+  "term": "il lebbroso",
+  "example": "un uomo pieno di lebbra",
+  "result": null
+ },
+ {
+  "term": "perdonare",
+  "example": "ti sono perdonati i peccati",
+  "result": null
+ },
+ {
+  "term": "camminare",
+  "example": "alzati e cammina",
+  "result": null
+ },
+ {
+  "term": "le beatitudini",
+  "example": "beati voi poveri",
+  "result": null
+ },
+ {
+  "term": "il nemico",
+  "example": "amate i vostri nemici",
+  "result": null
+ },
+ {
+  "term": "il centurione",
+  "example": "il servo del centurione",
+  "result": {
+   "before": "il servo del ",
+   "answer": "centurione",
+   "after": ""
+  }
+ },
+ {
+  "term": "la vedova",
+  "example": "la vedova di Naim",
+  "result": {
+   "before": "la ",
+   "answer": "vedova",
+   "after": " di Naim"
+  }
+ },
+ {
+  "term": "il fariseo",
+  "example": "un fariseo lo invitò",
+  "result": {
+   "before": "un ",
+   "answer": "fariseo",
+   "after": " lo invitò"
+  }
+ },
+ {
+  "term": "perdonare",
+  "example": "le sue peccata le sono perdonate",
+  "result": null
+ },
+ {
+  "term": "il profeta",
+  "example": "un grande profeta è sorto",
+  "result": {
+   "before": "un grande ",
+   "answer": "profeta",
+   "after": " è sorto"
+  }
+ },
+ {
+  "term": "la tempesta",
+  "example": "calmò la tempesta",
+  "result": {
+   "before": "calmò la ",
+   "answer": "tempesta",
+   "after": ""
+  }
+ },
+ {
+  "term": "i demoni",
+  "example": "i demoni lo supplicavano",
+  "result": {
+   "before": "i ",
+   "answer": "demoni",
+   "after": " lo supplicavano"
+  }
+ },
+ {
+  "term": "la fede",
+  "example": "la tua fede ti ha salvata",
+  "result": {
+   "before": "la tua ",
+   "answer": "fede",
+   "after": " ti ha salvata"
+  }
+ },
+ {
+  "term": "guarire",
+  "example": "aveva guarito molti",
+  "result": null
+ },
+ {
+  "term": "la trasfigurazione",
+  "example": "la trasfigurazione sul monte",
+  "result": {
+   "before": "la ",
+   "answer": "trasfigurazione",
+   "after": " sul monte"
+  }
+ },
+ {
+  "term": "la croce",
+  "example": "prenda la sua croce",
+  "result": {
+   "before": "prenda la sua ",
+   "answer": "croce",
+   "after": ""
+  }
+ },
+ {
+  "term": "le provviste",
+  "example": "non prendete nulla per il viaggio",
+  "result": null
+ },
+ {
+  "term": "il samaritano",
+  "example": "il buon samaritano",
+  "result": {
+   "before": "il buon ",
+   "answer": "samaritano",
+   "after": ""
+  }
+ },
+ {
+  "term": "il prossimo",
+  "example": "chi è il mio prossimo?",
+  "result": {
+   "before": "chi è il mio ",
+   "answer": "prossimo",
+   "after": "?"
+  }
+ },
+ {
+  "term": "l'olio",
+  "example": "versò olio e vino",
+  "result": {
+   "before": "versò ",
+   "answer": "olio",
+   "after": " e vino"
+  }
+ },
+ {
+  "term": "pregare",
+  "example": "insegnateci a pregare",
+  "result": {
+   "before": "insegnateci a ",
+   "answer": "pregare",
+   "after": ""
+  }
+ },
+ {
+  "term": "il Padre Nostro",
+  "example": "Padre nostro, che sei nei cieli",
+  "result": {
+   "before": "",
+   "answer": "Padre nostro",
+   "after": ", che sei nei cieli"
+  }
+ },
+ {
+  "term": "chiedere",
+  "example": "chiedete e vi sarà dato",
+  "result": null
+ },
+ {
+  "term": "il demonio",
+  "example": "scacciava un demonio",
+  "result": {
+   "before": "scacciava un ",
+   "answer": "demonio",
+   "after": ""
+  }
+ },
+ {
+  "term": "la ricchezza",
+  "example": "la vita non dipende dalla ricchezza",
+  "result": {
+   "before": "la vita non dipende dalla ",
+   "answer": "ricchezza",
+   "after": ""
+  }
+ },
+ {
+  "term": "il granaio",
+  "example": "costruirò granai più grandi",
+  "result": null
+ },
+ {
+  "term": "preoccuparsi",
+  "example": "non preoccupatevi per la vita",
+  "result": null
+ },
+ {
+  "term": "il fico",
+  "example": "un uomo aveva un fico",
+  "result": {
+   "before": "un uomo aveva un ",
+   "answer": "fico",
+   "after": ""
+  }
+ },
+ {
+  "term": "la porta stretta",
+  "example": "entrate per la porta stretta",
+  "result": {
+   "before": "entrate per la ",
+   "answer": "porta stretta",
+   "after": ""
+  }
+ },
+ {
+  "term": "l'ipocrita",
+  "example": "ipocriti!",
+  "result": null
+ },
+ {
+  "term": "il regno di Dio",
+  "example": "il regno di Dio è vicino",
+  "result": {
+   "before": "il ",
+   "answer": "regno di Dio",
+   "after": " è vicino"
+  }
+ },
+ {
+  "term": "il banchetto",
+  "example": "diede un grande banchetto",
+  "result": {
+   "before": "diede un grande ",
+   "answer": "banchetto",
+   "after": ""
+  }
+ },
+ {
+  "term": "l'invitato",
+  "example": "gli invitati non vennero",
+  "result": null
+ },
+ {
+  "term": "la pecora perduta",
+  "example": "se perde una delle cento pecore",
+  "result": null
+ },
+ {
+  "term": "il figlio prodigo",
+  "example": "il figlio minore",
+  "result": null
+ },
+ {
+  "term": "il padre misericordioso",
+  "example": "gli corse incontro",
+  "result": null
+ },
+ {
+  "term": "abbracciare",
+  "example": "lo abbracciò e lo baciò",
+  "result": null
+ },
+ {
+  "term": "la festa",
+  "example": "facciamo festa",
+  "result": {
+   "before": "facciamo ",
+   "answer": "festa",
+   "after": ""
+  }
+ },
+ {
+  "term": "la gratitudine",
+  "example": "il samaritano ha reso grazie",
+  "result": null
+ },
+ {
+  "term": "l'umiltà",
+  "example": "chi si umilia sarà esaltato",
+  "result": null
+ },
+ {
+  "term": "il giudice",
+  "example": "il giudice ingiusto",
+  "result": {
+   "before": "il ",
+   "answer": "giudice",
+   "after": " ingiusto"
+  }
+ },
+ {
+  "term": "la vedova",
+  "example": "la vedova veniva da lui",
+  "result": {
+   "before": "la ",
+   "answer": "vedova",
+   "after": " veniva da lui"
+  }
+ },
+ {
+  "term": "il pubblicano",
+  "example": "il pubblicano non osava",
+  "result": {
+   "before": "il ",
+   "answer": "pubblicano",
+   "after": " non osava"
+  }
+ },
+ {
+  "term": "la fede",
+  "example": "la tua fede ti ha salvato",
+  "result": {
+   "before": "la tua ",
+   "answer": "fede",
+   "after": " ti ha salvato"
+  }
+ },
+ {
+  "term": "i bambini",
+  "example": "lasciate che i bambini vengano",
+  "result": {
+   "before": "lasciate che i ",
+   "answer": "bambini",
+   "after": " vengano"
+  }
+ },
+ {
+  "term": "Zaccheo",
+  "example": "Zaccheo era un pubblicano ricco",
+  "result": {
+   "before": "",
+   "answer": "Zaccheo",
+   "after": " era un pubblicano ricco"
+  }
+ },
+ {
+  "term": "la salvezza",
+  "example": "oggi la salvezza è entrata in questa casa",
+  "result": {
+   "before": "oggi la ",
+   "answer": "salvezza",
+   "after": " è entrata in questa casa"
+  }
+ },
+ {
+  "term": "il tempio",
+  "example": "purificò il tempio",
+  "result": {
+   "before": "purificò il ",
+   "answer": "tempio",
+   "after": ""
+  }
+ },
+ {
+  "term": "l'asino",
+  "example": "trovate un asino",
+  "result": {
+   "before": "trovate un ",
+   "answer": "asino",
+   "after": ""
+  }
+ },
+ {
+  "term": "la moneta",
+  "example": "la moneta della vedova",
+  "result": {
+   "before": "la ",
+   "answer": "moneta",
+   "after": " della vedova"
+  }
+ },
+ {
+  "term": "vigilare",
+  "example": "vigilate e pregate",
+  "result": null
+ },
+ {
+  "term": "la distruzione",
+  "example": "distruggeranno i tuoi nemici",
+  "result": null
+ },
+ {
+  "term": "il tradimento",
+  "example": "Giuda lo consegnò",
+  "result": null
+ },
+ {
+  "term": "l'ultima cena",
+  "example": "diede loro il pane",
+  "result": null
+ },
+ {
+  "term": "il calice",
+  "example": "questo calice è la nuova alleanza",
+  "result": {
+   "before": "questo ",
+   "answer": "calice",
+   "after": " è la nuova alleanza"
+  }
+ },
+ {
+  "term": "la passione",
+  "example": "la passione di Cristo",
+  "result": {
+   "before": "la ",
+   "answer": "passione",
+   "after": " di Cristo"
+  }
+ },
+ {
+  "term": "Emmaus",
+  "example": "la strada di Emmaus",
+  "result": {
+   "before": "la strada di ",
+   "answer": "Emmaus",
+   "after": ""
+  }
+ },
+ {
+  "term": "l'ascensione",
+  "example": "fu portato in cielo",
+  "result": null
+ },
+ {
+  "term": "la benedizione",
+  "example": "li benedì e si allontanò",
+  "result": null
+ },
+ {
+  "term": "l'ascensione",
+  "example": "fu elevato in alto",
+  "result": null
+ },
+ {
+  "term": "la Pentecoste",
+  "example": "il giorno di Pentecoste",
+  "result": {
+   "before": "il giorno di ",
+   "answer": "Pentecoste",
+   "after": ""
+  }
+ },
+ {
+  "term": "lo Spirito Santo",
+  "example": "furono tutti pieni di Spirito Santo",
+  "result": {
+   "before": "furono tutti pieni di ",
+   "answer": "Spirito Santo",
+   "after": ""
+  }
+ },
+ {
+  "term": "le lingue di fuoco",
+  "example": "lingue come di fuoco",
+  "result": null
+ },
+ {
+  "term": "battezzarsi",
+  "example": "battezzatevi",
+  "result": null
+ },
+ {
+  "term": "il peccato",
+  "example": "per la remissione dei peccati",
+  "result": null
+ },
+ {
+  "term": "la comunità",
+  "example": "erano assidui nella comunione",
+  "result": null
+ },
+ {
+  "term": "la guarigione",
+  "example": "la guarigione dello storpio",
+  "result": {
+   "before": "la ",
+   "answer": "guarigione",
+   "after": " dello storpio"
+  }
+ },
+ {
+  "term": "la prigione",
+  "example": "li gettarono in prigione",
+  "result": {
+   "before": "li gettarono in ",
+   "answer": "prigione",
+   "after": ""
+  }
+ },
+ {
+  "term": "Anania",
+  "example": "Anania con Saffira sua moglie",
+  "result": {
+   "before": "",
+   "answer": "Anania",
+   "after": " con Saffira sua moglie"
+  }
+ },
+ {
+  "term": "mentire",
+  "example": "hai mentito allo Spirito Santo",
+  "result": null
+ },
+ {
+  "term": "i diaconi",
+  "example": "scelsero sette uomini",
+  "result": null
+ },
+ {
+  "term": "Stefano",
+  "example": "Stefano era pieno di grazia",
+  "result": {
+   "before": "",
+   "answer": "Stefano",
+   "after": " era pieno di grazia"
+  }
+ },
+ {
+  "term": "la persecuzione",
+  "example": "scoppiò una grande persecuzione",
+  "result": {
+   "before": "scoppiò una grande ",
+   "answer": "persecuzione",
+   "after": ""
+  }
+ },
+ {
+  "term": "il martirio",
+  "example": "la morte di Stefano",
+  "result": null
+ },
+ {
+  "term": "la lapidazione",
+  "example": "lo lapidavano",
+  "result": null
+ },
+ {
+  "term": "Saulo",
+  "example": "Saulo approvava la sua uccisione",
+  "result": {
+   "before": "",
+   "answer": "Saulo",
+   "after": " approvava la sua uccisione"
+  }
+ },
+ {
+  "term": "la conversione",
+  "example": "la conversione di Paolo",
+  "result": {
+   "before": "la ",
+   "answer": "conversione",
+   "after": " di Paolo"
+  }
+ },
+ {
+  "term": "la via di Damasco",
+  "example": "sulla via di Damasco",
+  "result": {
+   "before": "sulla ",
+   "answer": "via di Damasco",
+   "after": ""
+  }
+ },
+ {
+  "term": "cieco",
+  "example": "per tre giorni non vide nulla",
+  "result": null
+ },
+ {
+  "term": "il battesimo",
+  "example": "fu battezzato",
+  "result": null
+ },
+ {
+  "term": "la visione",
+  "example": "Pietro ebbe una visione",
+  "result": {
+   "before": "Pietro ebbe una ",
+   "answer": "visione",
+   "after": ""
+  }
+ },
+ {
+  "term": "Cornelio",
+  "example": "il centurione Cornelio",
+  "result": {
+   "before": "il centurione ",
+   "answer": "Cornelio",
+   "after": ""
+  }
+ },
+ {
+  "term": "i pagani",
+  "example": "il vangelo anche ai pagani",
+  "result": {
+   "before": "il vangelo anche ai ",
+   "answer": "pagani",
+   "after": ""
+  }
+ },
+ {
+  "term": "il battesimo",
+  "example": "chi può impedire il battesimo?",
+  "result": {
+   "before": "chi può impedire il ",
+   "answer": "battesimo",
+   "after": "?"
+  }
+ },
+ {
+  "term": "l'angelo",
+  "example": "un angelo del Signore apparve",
+  "result": {
+   "before": "un ",
+   "answer": "angelo",
+   "after": " del Signore apparve"
+  }
+ },
+ {
+  "term": "il carcere",
+  "example": "Pietro era in carcere",
+  "result": {
+   "before": "Pietro era in ",
+   "answer": "carcere",
+   "after": ""
+  }
+ },
+ {
+  "term": "Erode",
+  "example": "Erode lo aveva arrestato",
+  "result": {
+   "before": "",
+   "answer": "Erode",
+   "after": " lo aveva arrestato"
+  }
+ },
+ {
+  "term": "il viaggio missionario",
+  "example": "il primo viaggio",
+  "result": null
+ },
+ {
+  "term": "Barnaba",
+  "example": "Barnaba e Paolo",
+  "result": {
+   "before": "",
+   "answer": "Barnaba",
+   "after": " e Paolo"
+  }
+ },
+ {
+  "term": "la sinagoga",
+  "example": "entrarono nella sinagoga",
+  "result": {
+   "before": "entrarono nella ",
+   "answer": "sinagoga",
+   "after": ""
+  }
+ },
+ {
+  "term": "il concilio",
+  "example": "il concilio di Gerusalemme",
+  "result": {
+   "before": "il ",
+   "answer": "concilio",
+   "after": " di Gerusalemme"
+  }
+ },
+ {
+  "term": "la circoncisione",
+  "example": "la questione della circoncisione",
+  "result": {
+   "before": "la questione della ",
+   "answer": "circoncisione",
+   "after": ""
+  }
+ },
+ {
+  "term": "la grazia",
+  "example": "vivere nella grazia di Dio",
+  "result": {
+   "before": "vivere nella ",
+   "answer": "grazia",
+   "after": " di Dio"
+  }
+ },
+ {
+  "term": "annunciare",
+  "example": "annunciarono la parola di Dio",
+  "result": null
+ },
+ {
+  "term": "Lidia",
+  "example": "Lidia apriva il cuore",
+  "result": {
+   "before": "",
+   "answer": "Lidia",
+   "after": " apriva il cuore"
+  }
+ },
+ {
+  "term": "il terremoto",
+  "example": "ci fu un gran terremoto",
+  "result": {
+   "before": "ci fu un gran ",
+   "answer": "terremoto",
+   "after": ""
+  }
+ },
+ {
+  "term": "il carcere",
+  "example": "il custode del carcere",
+  "result": {
+   "before": "il custode del ",
+   "answer": "carcere",
+   "after": ""
+  }
+ },
+ {
+  "term": "Corinto",
+  "example": "giunsero a Corinto",
+  "result": {
+   "before": "giunsero a ",
+   "answer": "Corinto",
+   "after": ""
+  }
+ },
+ {
+  "term": "l'Areopago",
+  "example": "in mezzo all'Areopago",
+  "result": {
+   "before": "in mezzo all'",
+   "answer": "Areopago",
+   "after": ""
+  }
+ },
+ {
+  "term": "il missionario",
+  "example": "missionari instancabili",
+  "result": null
+ },
+ {
+  "term": "la sinagoga",
+  "example": "ogni sabato nella sinagoga",
+  "result": {
+   "before": "ogni sabato nella ",
+   "answer": "sinagoga",
+   "after": ""
+  }
+ },
+ {
+  "term": "la magia",
+  "example": "bruciarono i libri di magia",
+  "result": {
+   "before": "bruciarono i libri di ",
+   "answer": "magia",
+   "after": ""
+  }
+ },
+ {
+  "term": "il tumulto",
+  "example": "il tumulto degli artigiani",
+  "result": {
+   "before": "il ",
+   "answer": "tumulto",
+   "after": " degli artigiani"
+  }
+ },
+ {
+  "term": "l'argentiere",
+  "example": "Demetrio l'argentiere",
+  "result": {
+   "before": "Demetrio l'",
+   "answer": "argentiere",
+   "after": ""
+  }
+ },
+ {
+  "term": "la profezia",
+  "example": "aveva quattro figlie profetesse",
+  "result": null
+ },
+ {
+  "term": "legare",
+  "example": "lo legheranno e lo consegneranno",
+  "result": null
+ },
+ {
+  "term": "il viaggio",
+  "example": "ci imbarcammo",
+  "result": null
+ },
+ {
+  "term": "lo Spirito",
+  "example": "lo Spirito Santo mi attesta",
+  "result": {
+   "before": "lo ",
+   "answer": "Spirito",
+   "after": " Santo mi attesta"
+  }
+ },
+ {
+  "term": "la difesa",
+  "example": "la difesa di Paolo",
+  "result": {
+   "before": "la ",
+   "answer": "difesa",
+   "after": " di Paolo"
+  }
+ },
+ {
+  "term": "il sinedrio",
+  "example": "davanti al sinedrio",
+  "result": {
+   "before": "davanti al ",
+   "answer": "sinedrio",
+   "after": ""
+  }
+ },
+ {
+  "term": "la congiura",
+  "example": "una congiura contro Paolo",
+  "result": {
+   "before": "una ",
+   "answer": "congiura",
+   "after": " contro Paolo"
+  }
+ },
+ {
+  "term": "il governatore",
+  "example": "il governatore Felice",
+  "result": {
+   "before": "il ",
+   "answer": "governatore",
+   "after": " Felice"
+  }
+ },
+ {
+  "term": "il processo",
+  "example": "durante il processo",
+  "result": {
+   "before": "durante il ",
+   "answer": "processo",
+   "after": ""
+  }
+ },
+ {
+  "term": "il testimone",
+  "example": "sono testimone di queste cose",
+  "result": {
+   "before": "sono ",
+   "answer": "testimone",
+   "after": " di queste cose"
+  }
+ },
+ {
+  "term": "l'accusa",
+  "example": "le accuse contro Paolo",
+  "result": null
+ },
+ {
+  "term": "Festo",
+  "example": "il governatore Festo",
+  "result": {
+   "before": "il governatore ",
+   "answer": "Festo",
+   "after": ""
+  }
+ },
+ {
+  "term": "Agrippa",
+  "example": "il re Agrippa",
+  "result": {
+   "before": "il re ",
+   "answer": "Agrippa",
+   "after": ""
+  }
+ },
+ {
+  "term": "l'appello",
+  "example": "ho fatto appello a Cesare",
+  "result": {
+   "before": "ho fatto ",
+   "answer": "appello",
+   "after": " a Cesare"
+  }
+ },
+ {
+  "term": "la testimonianza",
+  "example": "la mia testimonianza",
+  "result": {
+   "before": "la mia ",
+   "answer": "testimonianza",
+   "after": ""
+  }
+ },
+ {
+  "term": "convertirsi",
+  "example": "perché si convertissero",
+  "result": null
+ },
+ {
+  "term": "la luce",
+  "example": "una luce dal cielo",
+  "result": {
+   "before": "una ",
+   "answer": "luce",
+   "after": " dal cielo"
+  }
+ },
+ {
+  "term": "la grazia",
+  "example": "grazie alla grazia di Dio",
+  "result": {
+   "before": "grazie alla ",
+   "answer": "grazia",
+   "after": " di Dio"
+  }
+ },
+ {
+  "term": "il naufragio",
+  "example": "il naufragio di Paolo",
+  "result": {
+   "before": "il ",
+   "answer": "naufragio",
+   "after": " di Paolo"
+  }
+ },
+ {
+  "term": "l'isola",
+  "example": "l'isola di Malta",
+  "result": {
+   "before": "l'",
+   "answer": "isola",
+   "after": " di Malta"
+  }
+ },
+ {
+  "term": "il serpente",
+  "example": "una vipera uscì dal fuoco",
+  "result": null
+ },
+ {
+  "term": "Roma",
+  "example": "finalmente arrivammo a Roma",
+  "result": {
+   "before": "finalmente arrivammo a ",
+   "answer": "Roma",
+   "after": ""
+  }
+ },
+ {
+  "term": "predicare",
+  "example": "predicava il regno di Dio",
+  "result": null
+ },
+ {
+  "term": "l'impedimento",
+  "example": "senza impedimento alcuno",
+  "result": {
+   "before": "senza ",
+   "answer": "impedimento",
+   "after": " alcuno"
+  }
+ },
+ {
+  "term": "la nave",
+  "example": "la nave si incagliò",
+  "result": {
+   "before": "la ",
+   "answer": "nave",
+   "after": " si incagliò"
+  }
+ },
+ {
+  "term": "il vangelo",
+  "example": "il vangelo di Gesù Cristo",
+  "result": {
+   "before": "il ",
+   "answer": "vangelo",
+   "after": " di Gesù Cristo"
+  }
+ },
+ {
+  "term": "la giustizia",
+  "example": "la giustizia di Dio",
+  "result": {
+   "before": "la ",
+   "answer": "giustizia",
+   "after": " di Dio"
+  }
+ },
+ {
+  "term": "il giudizio",
+  "example": "il giudizio di Dio",
+  "result": {
+   "before": "il ",
+   "answer": "giudizio",
+   "after": " di Dio"
+  }
+ },
+ {
+  "term": "l'ira",
+  "example": "l'ira di Dio",
+  "result": {
+   "before": "l'",
+   "answer": "ira",
+   "after": " di Dio"
+  }
+ },
+ {
+  "term": "l'idolatria",
+  "example": "caduti nell'idolatria",
+  "result": {
+   "before": "caduti nell'",
+   "answer": "idolatria",
+   "after": ""
+  }
+ },
+ {
+  "term": "l'albero",
+  "example": "come albero piantato",
+  "result": {
+   "before": "come ",
+   "answer": "albero",
+   "after": " piantato"
+  }
+ },
+ {
+  "term": "il cammino",
+  "example": "non cammina nel consiglio degli empi",
+  "result": null
+ },
+ {
+  "term": "la fede",
+  "example": "giustificati per fede",
+  "result": {
+   "before": "giustificati per ",
+   "answer": "fede",
+   "after": ""
+  }
+ },
+ {
+  "term": "la grazia",
+  "example": "per pura grazia",
+  "result": {
+   "before": "per pura ",
+   "answer": "grazia",
+   "after": ""
+  }
+ },
+ {
+  "term": "la redenzione",
+  "example": "la redenzione in Cristo",
+  "result": {
+   "before": "la ",
+   "answer": "redenzione",
+   "after": " in Cristo"
+  }
+ },
+ {
+  "term": "il pastore",
+  "example": "il Signore è il mio pastore",
+  "result": {
+   "before": "il Signore è il mio ",
+   "answer": "pastore",
+   "after": ""
+  }
+ },
+ {
+  "term": "l'abbondanza",
+  "example": "non manco di nulla",
+  "result": null
+ },
+ {
+  "term": "il calice",
+  "example": "il mio calice trabocca",
+  "result": {
+   "before": "il mio ",
+   "answer": "calice",
+   "after": " trabocca"
+  }
+ },
+ {
+  "term": "la tenebrosa valle",
+  "example": "nella valle oscura",
+  "result": null
+ },
+ {
+  "term": "la pace",
+  "example": "abbiamo pace con Dio",
+  "result": {
+   "before": "abbiamo ",
+   "answer": "pace",
+   "after": " con Dio"
+  }
+ },
+ {
+  "term": "la sofferenza",
+  "example": "glorificarci nelle sofferenze",
+  "result": null
+ },
+ {
+  "term": "la speranza",
+  "example": "la speranza non delude",
+  "result": {
+   "before": "la ",
+   "answer": "speranza",
+   "after": " non delude"
+  }
+ },
+ {
+  "term": "il rifugio",
+  "example": "Dio è il nostro rifugio",
+  "result": {
+   "before": "Dio è il nostro ",
+   "answer": "rifugio",
+   "after": ""
+  }
+ },
+ {
+  "term": "la forza",
+  "example": "la nostra forza",
+  "result": {
+   "before": "la nostra ",
+   "answer": "forza",
+   "after": ""
+  }
+ },
+ {
+  "term": "il battesimo",
+  "example": "siamo stati battezzati in Cristo",
+  "result": null
+ },
+ {
+  "term": "la morte",
+  "example": "morti al peccato",
+  "result": null
+ },
+ {
+  "term": "la carne",
+  "example": "la legge della carne",
+  "result": {
+   "before": "la legge della ",
+   "answer": "carne",
+   "after": ""
+  }
+ },
+ {
+  "term": "la condanna",
+  "example": "nessuna condanna per quelli in Cristo",
+  "result": {
+   "before": "nessuna ",
+   "answer": "condanna",
+   "after": " per quelli in Cristo"
+  }
+ },
+ {
+  "term": "la figliolanza",
+  "example": "lo spirito di adozione filiale",
+  "result": null
+ },
+ {
+  "term": "la creazione",
+  "example": "tutta la creazione geme",
+  "result": {
+   "before": "tutta la ",
+   "answer": "creazione",
+   "after": " geme"
+  }
+ },
+ {
+  "term": "la misericordia",
+  "example": "abbi pietà di me",
+  "result": null
+ },
+ {
+  "term": "il cuore",
+  "example": "crea in me un cuore puro",
+  "result": {
+   "before": "crea in me un ",
+   "answer": "cuore",
+   "after": " puro"
+  }
+ },
+ {
+  "term": "il peccato",
+  "example": "mondami dalla mia colpa",
+  "result": null
+ },
+ {
+  "term": "l'elezione",
+  "example": "l'elezione per grazia",
+  "result": {
+   "before": "l'",
+   "answer": "elezione",
+   "after": " per grazia"
+  }
+ },
+ {
+  "term": "confessare",
+  "example": "confessa con la tua bocca",
+  "result": null
+ },
+ {
+  "term": "credere nel cuore",
+  "example": "credere nel cuore",
+  "result": {
+   "before": "",
+   "answer": "credere nel cuore",
+   "after": ""
+  }
+ },
+ {
+  "term": "la protezione",
+  "example": "sotto la sua protezione",
+  "result": {
+   "before": "sotto la sua ",
+   "answer": "protezione",
+   "after": ""
+  }
+ },
+ {
+  "term": "il nome del Signore",
+  "example": "chiunque invoca il nome del Signore",
+  "result": {
+   "before": "chiunque invoca il ",
+   "answer": "nome del Signore",
+   "after": ""
+  }
+ },
+ {
+  "term": "essere salvato",
+  "example": "sarà salvato",
+  "result": null
+ },
+ {
+  "term": "il messaggero",
+  "example": "come udranno senza un messaggero?",
+  "result": {
+   "before": "come udranno senza un ",
+   "answer": "messaggero",
+   "after": "?"
+  }
+ },
+ {
+  "term": "il mistero",
+  "example": "il mistero di Israele",
+  "result": {
+   "before": "il ",
+   "answer": "mistero",
+   "after": " di Israele"
+  }
+ },
+ {
+  "term": "il corpo di Cristo",
+  "example": "un solo corpo in Cristo",
+  "result": null
+ },
+ {
+  "term": "i doni",
+  "example": "doni diversi secondo la grazia",
+  "result": {
+   "before": "",
+   "answer": "doni",
+   "after": " diversi secondo la grazia"
+  }
+ },
+ {
+  "term": "la Parola",
+  "example": "la tua Parola è una lampada",
+  "result": {
+   "before": "la tua ",
+   "answer": "Parola",
+   "after": " è una lampada"
+  }
+ },
+ {
+  "term": "il sentiero",
+  "example": "luce sul mio sentiero",
+  "result": {
+   "before": "luce sul mio ",
+   "answer": "sentiero",
+   "after": ""
+  }
+ },
+ {
+  "term": "offrire",
+  "example": "offrite i vostri corpi come sacrificio",
+  "result": null
+ },
+ {
+  "term": "rinnovarsi",
+  "example": "rinnovatevi nella mente",
+  "result": null
+ },
+ {
+  "term": "l'autorità",
+  "example": "ogni persona sia sottomessa alle autorità",
+  "result": {
+   "before": "ogni persona sia sottomessa alle ",
+   "answer": "autorità",
+   "after": ""
+  }
+ },
+ {
+  "term": "amare il prossimo",
+  "example": "amerai il prossimo tuo",
+  "result": null
+ },
+ {
+  "term": "la coscienza",
+  "example": "secondo la propria coscienza",
+  "result": {
+   "before": "secondo la propria ",
+   "answer": "coscienza",
+   "after": ""
+  }
+ },
+ {
+  "term": "il soccorso",
+  "example": "il mio soccorso viene dal Signore",
+  "result": {
+   "before": "il mio ",
+   "answer": "soccorso",
+   "after": " viene dal Signore"
+  }
+ },
+ {
+  "term": "vegliare",
+  "example": "non si assopisce, non dorme",
+  "result": null
+ },
+ {
+  "term": "il custode",
+  "example": "il Signore è il tuo custode",
+  "result": {
+   "before": "il Signore è il tuo ",
+   "answer": "custode",
+   "after": ""
+  }
+ },
+ {
+  "term": "il viaggio",
+  "example": "il Signore protegge la tua vita",
+  "result": null
+ },
+ {
+  "term": "la speranza",
+  "example": "il Dio della speranza",
+  "result": {
+   "before": "il Dio della ",
+   "answer": "speranza",
+   "after": ""
+  }
+ },
+ {
+  "term": "l'unità",
+  "example": "l'unità tra ebrei e pagani",
+  "result": {
+   "before": "l'",
+   "answer": "unità",
+   "after": " tra ebrei e pagani"
+  }
+ },
+ {
+  "term": "i saluti",
+  "example": "i saluti finali di Paolo",
+  "result": {
+   "before": "i ",
+   "answer": "saluti",
+   "after": " finali di Paolo"
+  }
+ },
+ {
+  "term": "conoscere",
+  "example": "tu mi conosci",
+  "result": null
+ },
+ {
+  "term": "tessere",
+  "example": "mi hai tessuto nel seno di mia madre",
+  "result": null
+ },
+ {
+  "term": "fuggire",
+  "example": "dove fuggirò dalla tua presenza?",
+  "result": null
+ },
+ {
+  "term": "meraviglioso",
+  "example": "meravigliose sono le tue opere",
+  "result": null
+ },
+ {
+  "term": "lodare",
+  "example": "lodate il Signore",
+  "result": null
+ },
+ {
+  "term": "l'alleluja",
+  "example": "alleluia!",
+  "result": null
+ },
+ {
+  "term": "gli strumenti",
+  "example": "con la tromba, con l'arpa",
+  "result": null
+ },
+ {
+  "term": "tutta la creazione",
+  "example": "tutto ciò che respira",
+  "result": null
+ },
+ {
+  "term": "la gloria",
+  "example": "gloria a Dio",
+  "result": {
+   "before": "",
+   "answer": "gloria",
+   "after": " a Dio"
+  }
+ },
+ {
+  "term": "il Natale",
+  "example": "Buon Natale",
+  "result": {
+   "before": "Buon ",
+   "answer": "Natale",
+   "after": ""
+  }
+ },
+ {
+  "term": "la fine",
+  "example": "sei arrivato alla fine",
+  "result": {
+   "before": "sei arrivato alla ",
+   "answer": "fine",
+   "after": ""
+  }
+ }
+]

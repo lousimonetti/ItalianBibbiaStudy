@@ -1,0 +1,364 @@
+[
+ {
+  "grades": [
+   "good"
+  ],
+  "now0": 1750000000000,
+  "stepMs": 86400000,
+  "states": [
+   {
+    "ease": 2.5,
+    "interval": 1,
+    "reps": 1,
+    "lapses": 0,
+    "due": 1750086400000,
+    "last": 1750000000000,
+    "created": 1750000000000
+   }
+  ]
+ },
+ {
+  "grades": [
+   "good",
+   "good"
+  ],
+  "now0": 1750000000000,
+  "stepMs": 86400000,
+  "states": [
+   {
+    "ease": 2.5,
+    "interval": 1,
+    "reps": 1,
+    "lapses": 0,
+    "due": 1750086400000,
+    "last": 1750000000000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.5,
+    "interval": 3,
+    "reps": 2,
+    "lapses": 0,
+    "due": 1750345600000,
+    "last": 1750086400000,
+    "created": 1750000000000
+   }
+  ]
+ },
+ {
+  "grades": [
+   "good",
+   "good",
+   "good"
+  ],
+  "now0": 1750000000000,
+  "stepMs": 86400000,
+  "states": [
+   {
+    "ease": 2.5,
+    "interval": 1,
+    "reps": 1,
+    "lapses": 0,
+    "due": 1750086400000,
+    "last": 1750000000000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.5,
+    "interval": 3,
+    "reps": 2,
+    "lapses": 0,
+    "due": 1750345600000,
+    "last": 1750086400000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.5,
+    "interval": 8,
+    "reps": 3,
+    "lapses": 0,
+    "due": 1750864000000,
+    "last": 1750172800000,
+    "created": 1750000000000
+   }
+  ]
+ },
+ {
+  "grades": [
+   "good",
+   "good",
+   "good",
+   "good"
+  ],
+  "now0": 1750000000000,
+  "stepMs": 86400000,
+  "states": [
+   {
+    "ease": 2.5,
+    "interval": 1,
+    "reps": 1,
+    "lapses": 0,
+    "due": 1750086400000,
+    "last": 1750000000000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.5,
+    "interval": 3,
+    "reps": 2,
+    "lapses": 0,
+    "due": 1750345600000,
+    "last": 1750086400000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.5,
+    "interval": 8,
+    "reps": 3,
+    "lapses": 0,
+    "due": 1750864000000,
+    "last": 1750172800000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.5,
+    "interval": 20,
+    "reps": 4,
+    "lapses": 0,
+    "due": 1751987200000,
+    "last": 1750259200000,
+    "created": 1750000000000
+   }
+  ]
+ },
+ {
+  "grades": [
+   "again"
+  ],
+  "now0": 1750000000000,
+  "stepMs": 86400000,
+  "states": [
+   {
+    "ease": 2.3,
+    "interval": 0,
+    "reps": 0,
+    "lapses": 1,
+    "due": 1750000000000,
+    "last": 1750000000000,
+    "created": 1750000000000
+   }
+  ]
+ },
+ {
+  "grades": [
+   "again",
+   "again",
+   "again"
+  ],
+  "now0": 1750000000000,
+  "stepMs": 86400000,
+  "states": [
+   {
+    "ease": 2.3,
+    "interval": 0,
+    "reps": 0,
+    "lapses": 1,
+    "due": 1750000000000,
+    "last": 1750000000000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.0999999999999996,
+    "interval": 0,
+    "reps": 0,
+    "lapses": 2,
+    "due": 1750086400000,
+    "last": 1750086400000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 1.8999999999999997,
+    "interval": 0,
+    "reps": 0,
+    "lapses": 3,
+    "due": 1750172800000,
+    "last": 1750172800000,
+    "created": 1750000000000
+   }
+  ]
+ },
+ {
+  "grades": [
+   "good",
+   "again",
+   "good"
+  ],
+  "now0": 1750000000000,
+  "stepMs": 86400000,
+  "states": [
+   {
+    "ease": 2.5,
+    "interval": 1,
+    "reps": 1,
+    "lapses": 0,
+    "due": 1750086400000,
+    "last": 1750000000000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.3,
+    "interval": 0,
+    "reps": 0,
+    "lapses": 1,
+    "due": 1750086400000,
+    "last": 1750086400000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.3,
+    "interval": 1,
+    "reps": 1,
+    "lapses": 1,
+    "due": 1750259200000,
+    "last": 1750172800000,
+    "created": 1750000000000
+   }
+  ]
+ },
+ {
+  "grades": [
+   "good",
+   "good",
+   "again",
+   "good",
+   "good"
+  ],
+  "now0": 1750000000000,
+  "stepMs": 86400000,
+  "states": [
+   {
+    "ease": 2.5,
+    "interval": 1,
+    "reps": 1,
+    "lapses": 0,
+    "due": 1750086400000,
+    "last": 1750000000000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.5,
+    "interval": 3,
+    "reps": 2,
+    "lapses": 0,
+    "due": 1750345600000,
+    "last": 1750086400000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.3,
+    "interval": 0,
+    "reps": 0,
+    "lapses": 1,
+    "due": 1750172800000,
+    "last": 1750172800000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.3,
+    "interval": 1,
+    "reps": 1,
+    "lapses": 1,
+    "due": 1750345600000,
+    "last": 1750259200000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.3,
+    "interval": 3,
+    "reps": 2,
+    "lapses": 1,
+    "due": 1750604800000,
+    "last": 1750345600000,
+    "created": 1750000000000
+   }
+  ]
+ },
+ {
+  "grades": [
+   "good",
+   "good",
+   "good",
+   "again",
+   "good",
+   "good",
+   "good"
+  ],
+  "now0": 1750000000000,
+  "stepMs": 86400000,
+  "states": [
+   {
+    "ease": 2.5,
+    "interval": 1,
+    "reps": 1,
+    "lapses": 0,
+    "due": 1750086400000,
+    "last": 1750000000000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.5,
+    "interval": 3,
+    "reps": 2,
+    "lapses": 0,
+    "due": 1750345600000,
+    "last": 1750086400000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.5,
+    "interval": 8,
+    "reps": 3,
+    "lapses": 0,
+    "due": 1750864000000,
+    "last": 1750172800000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.3,
+    "interval": 0,
+    "reps": 0,
+    "lapses": 1,
+    "due": 1750259200000,
+    "last": 1750259200000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.3,
+    "interval": 1,
+    "reps": 1,
+    "lapses": 1,
+    "due": 1750432000000,
+    "last": 1750345600000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.3,
+    "interval": 3,
+    "reps": 2,
+    "lapses": 1,
+    "due": 1750691200000,
+    "last": 1750432000000,
+    "created": 1750000000000
+   },
+   {
+    "ease": 2.3,
+    "interval": 7,
+    "reps": 3,
+    "lapses": 1,
+    "due": 1751123200000,
+    "last": 1750518400000,
+    "created": 1750000000000
+   }
+  ]
+ }
+]

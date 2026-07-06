@@ -1,0 +1,5918 @@
+{
+ "id": "it-bible-cei",
+ "brand": {
+  "name": "Italian Bible Study",
+  "tagline": "37 weeks to Christmas 2026 — La Bibbia CEI 2008 + Babbel + Anki + iTalki",
+  "goal": "Dec 25, 2026",
+  "topicLabel": "Babbel focus",
+  "about": "A self-paced 37-week Italian language program — Easter to Christmas 2026. The Italian Bible (La Bibbia CEI 2008) is the primary reading text, supported by tools for grammar, vocabulary, and conversation."
+ },
+ "locale": {
+  "target": "it-IT",
+  "native": "en",
+  "grammarLang": "it",
+  "hasIPA": true,
+  "articles": [
+   "gli",
+   "uno",
+   "una",
+   "il",
+   "lo",
+   "la",
+   "le",
+   "un",
+   "i",
+   "l'",
+   "un'"
+  ]
+ },
+ "schedule": {
+  "startDate": "2026-04-13",
+  "weeks": 37,
+  "daily": [
+   {
+    "day": "Mon",
+    "task": "Babbel lesson + audio listen (no looking up)"
+   },
+   {
+    "day": "Tue",
+    "task": "Read chapters with parallel text + Anki new words"
+   },
+   {
+    "day": "Wed",
+    "task": "Re-read + write 3–5 sentences in Italian using this week's prompt → Journal tab"
+   },
+   {
+    "day": "Thu",
+    "task": "Babbel lesson + full Anki review deck"
+   },
+   {
+    "day": "Fri",
+    "task": "Read next chapter(s) + add vocab + write 2–3 more Italian sentences"
+   },
+   {
+    "day": "Sat",
+    "task": "Anki review + listen to full passage audio again"
+   },
+   {
+    "day": "Sun",
+    "task": "Rest — or write a short journal entry in Italian"
+   }
+  ]
+ },
+ "resources": [
+  {
+   "id": "text",
+   "name": "La Bibbia CEI 2008",
+   "badge": "Primary text",
+   "role": "reading",
+   "desc": "daily reading through John, Luke, Acts, Romans & Psalms. Rich, repetitive language that builds vocabulary naturally."
+  },
+  {
+   "id": "grammar",
+   "name": "Babbel",
+   "badge": "15 min/day",
+   "role": "grammar",
+   "desc": "one short lesson per day for grammar and pronunciation structure."
+  },
+  {
+   "id": "srs",
+   "name": "Anki",
+   "badge": "flashcards",
+   "role": "flashcards",
+   "desc": "spaced-repetition flashcards for vocab. Pre-built decks are ready to download."
+  },
+  {
+   "id": "talk",
+   "name": "iTalki",
+   "badge": "review weeks",
+   "role": "conversation",
+   "desc": "live conversation practice with a tutor, scheduled on review weeks (roughly monthly)."
+  }
+ ],
+ "phases": [
+  {
+   "id": "p1",
+   "title": "Phase 1: Foundation",
+   "book": "Gospel of John",
+   "badgeLabel": "Beginner",
+   "weeks": [
+    {
+     "n": 1,
+     "d": "Apr 13-19",
+     "r": "John 1-2",
+     "b": "Greetings, nouns, basic articles",
+     "review": false,
+     "vocab": [
+      {
+       "it": "il Verbo",
+       "en": "the Word",
+       "ex": "In principio era il Verbo",
+       "ipa": "/il ˈvɛrbo/"
+      },
+      {
+       "it": "la luce",
+       "en": "the light",
+       "ex": "La luce splende",
+       "ipa": "/la ˈluːtʃe/"
+      },
+      {
+       "it": "le tenebre",
+       "en": "the darkness",
+       "ex": "le tenebre non la vinsero",
+       "ipa": "/le ˈtɛːnebɾe/"
+      },
+      {
+       "it": "la vita",
+       "en": "life",
+       "ex": "in lui era la vita",
+       "ipa": "/la ˈviːta/"
+      },
+      {
+       "it": "credere",
+       "en": "to believe",
+       "ex": "ha creduto in lui",
+       "ipa": "/ˈkɾɛːdeɾe/"
+      },
+      {
+       "it": "il miracolo",
+       "en": "the miracle",
+       "ex": "primo dei suoi miracoli",
+       "ipa": "/il miˈɾaːkolo/"
+      },
+      {
+       "it": "il mondo",
+       "en": "the world",
+       "ex": "il mondo è stato fatto per mezzo di lui",
+       "ipa": "/il ˈmondo/"
+      }
+     ],
+     "grammar": {
+      "title": "essere e avere — your two foundation verbs",
+      "body": "Every Italian sentence runs on these. \"Dio è amore\" uses essere; \"Gesù ha detto\" uses avere. In John 1, you'll see \"era\" (was) and \"aveva\" (had) constantly. Spot them as you read and note whether they describe state (essere) or action/possession (avere)."
+     },
+     "prompt": {
+      "it": "In principio, Dio ha creato il mondo con la sua Parola.",
+      "en": "Write about the opening of John 1 in your own words — what did the Word do?"
+     },
+     "passage": {
+      "ref": "Giovanni 1,1-5.14",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "In principio era il Verbo, il Verbo era presso Dio e il Verbo era Dio."
+       },
+       {
+        "n": 2,
+        "t": "Egli era in principio presso Dio:"
+       },
+       {
+        "n": 3,
+        "t": "tutto è stato fatto per mezzo di lui, e senza di lui niente è stato fatto di tutto ciò che esiste."
+       },
+       {
+        "n": 4,
+        "t": "In lui era la vita e la vita era la luce degli uomini;"
+       },
+       {
+        "n": 5,
+        "t": "la luce splende nelle tenebre, e le tenebre non l'hanno vinta."
+       },
+       {
+        "n": 14,
+        "t": "Il Verbo si fece carne e venne ad abitare in mezzo a noi; e noi abbiamo contemplato la sua gloria, gloria come del Figlio unigenito che viene dal Padre, pieno di grazia e di verità."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "In principio ___ il Verbo.",
+       "a": "era",
+       "hint": "essere — \"was\" (a state)"
+      },
+      {
+       "q": "___ creduto in lui.",
+       "a": "ha",
+       "hint": "avere — forms the past tense with the participle"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "In principio era il Verbo.",
+       "en": "In the beginning was the Word.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Le tenebre hanno vinto la luce.",
+       "en": "The darkness overcame the light.",
+       "explain": "\"Le tenebre non la vinsero\" — the darkness did not overcome it.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "in principio",
+       "en": "in the beginning"
+      },
+      {
+       "it": "il Verbo si fece carne",
+       "en": "the Word became flesh",
+       "lit": "the Word made itself flesh"
+      },
+      {
+       "it": "per mezzo di lui",
+       "en": "through him",
+       "lit": "by means of him"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al plurale",
+       "base": "La luce splende.",
+       "answer": "Le luci splendono."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "Le tenebre hanno vinto la luce.",
+       "answer": "Le tenebre non hanno vinto la luce."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Che cosa era in principio?",
+       "answers": [
+        "il Verbo",
+        "il verbo"
+       ],
+       "model": "In principio era il Verbo."
+      },
+      {
+       "q": "Che cosa si fece il Verbo?",
+       "answers": [
+        "carne",
+        "si fece carne"
+       ],
+       "model": "Il Verbo si fece carne."
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "d": "Apr 20-26",
+     "r": "John 3-4",
+     "b": "Present tense verbs",
+     "review": false,
+     "vocab": [
+      {
+       "it": "nascere",
+       "en": "to be born",
+       "ex": "bisogna nascere di nuovo",
+       "ipa": "/ˈnaʃʃeɾe/"
+      },
+      {
+       "it": "lo Spirito",
+       "en": "the Spirit",
+       "ex": "lo Spirito soffia dove vuole",
+       "ipa": "/lo ˈspiːɾito/"
+      },
+      {
+       "it": "il pozzo",
+       "en": "the well",
+       "ex": "sedeva presso il pozzo",
+       "ipa": "/il ˈpɔttso/"
+      },
+      {
+       "it": "adorare",
+       "en": "to worship",
+       "ex": "i veri adoratori",
+       "ipa": "/adoˈɾaːɾe/"
+      },
+      {
+       "it": "il Salvatore",
+       "en": "the Savior",
+       "ex": "il Salvatore del mondo",
+       "ipa": "/il salvaˈtoːɾe/"
+      },
+      {
+       "it": "credere",
+       "en": "to believe",
+       "ex": "chi crede in lui",
+       "ipa": "/ˈkɾɛːdeɾe/"
+      },
+      {
+       "it": "il dono",
+       "en": "the gift",
+       "ex": "se conoscessi il dono di Dio",
+       "ipa": "/il ˈdoːno/"
+      }
+     ],
+     "grammar": {
+      "title": "Present tense -are / -ere / -ire verb endings",
+      "body": "Three verb families, each with a pattern. Adorare (to worship): adoro, adori, adora, adoriamo. Credere (to believe): credo, credi, crede, crediamo. Nascere (to be born) is -ere but irregular. As you read John 3-4, underline every present tense verb and identify its family."
+     },
+     "prompt": {
+      "it": "Descrivi l'incontro tra Gesù e la donna samaritana al pozzo.",
+      "en": "Describe the meeting between Jesus and the Samaritan woman at the well."
+     },
+     "passage": {
+      "ref": "Giovanni 3,1-3.5.8.16",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "C'era tra i farisei un uomo di nome Nicodemo, un capo dei Giudei."
+       },
+       {
+        "n": 2,
+        "t": "Egli andò da Gesù di notte e gli disse: «Rabbi, sappiamo che sei un maestro venuto da Dio; nessuno infatti può fare i segni che tu fai, se Dio non è con lui»."
+       },
+       {
+        "n": 3,
+        "t": "Gli rispose Gesù: «In verità, in verità ti dico, se uno non nasce dall'alto, non può vedere il regno di Dio»."
+       },
+       {
+        "n": 5,
+        "t": "Rispose Gesù: «In verità, in verità ti dico, se uno non nasce da acqua e da Spirito, non può entrare nel regno di Dio."
+       },
+       {
+        "n": 8,
+        "t": "Il vento soffia dove vuole e ne odi la voce, ma non sai da dove viene né dove va: così è chiunque è nato dallo Spirito»."
+       },
+       {
+        "n": 16,
+        "t": "Dio infatti ha tanto amato il mondo da dare il Figlio unigenito, perché chiunque crede in lui non vada perduto, ma abbia la vita eterna."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Lo Spirito ___ dove vuole.",
+       "a": "soffia",
+       "hint": "soffiare → present, 3rd person"
+      },
+      {
+       "q": "Chi ___ in lui ha la vita.",
+       "a": "crede",
+       "hint": "credere → crede (3rd person present)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Per entrare nel regno di Dio bisogna nascere di nuovo.",
+       "en": "To enter the kingdom of God one must be born again.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Gesù incontrò la donna samaritana al fiume Giordano.",
+       "en": "Jesus met the Samaritan woman at the river Jordan.",
+       "explain": "Era presso il pozzo — at the well, not the river.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "in verità, in verità ti dico",
+       "en": "truly, truly I say to you"
+      },
+      {
+       "it": "di nuovo",
+       "en": "again",
+       "lit": "of new"
+      },
+      {
+       "it": "dall'alto",
+       "en": "from above"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Rendi negativa",
+       "base": "Chi crede in lui ha la vita eterna.",
+       "answer": "Chi crede in lui non ha la vita eterna."
+      },
+      {
+       "instruction": "Metti al futuro",
+       "base": "Dio ama il mondo.",
+       "answer": "Dio amerà il mondo."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Che cosa soffia dove vuole?",
+       "answers": [
+        "lo Spirito",
+        "lo spirito",
+        "il vento"
+       ],
+       "model": "Lo Spirito soffia dove vuole."
+      },
+      {
+       "q": "Chi ha tanto amato il mondo?",
+       "answers": [
+        "Dio"
+       ],
+       "model": "Dio ha tanto amato il mondo."
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "d": "Apr 27-May 3",
+     "r": "John 5-6",
+     "b": "Numbers, time expressions",
+     "review": false,
+     "vocab": [
+      {
+       "it": "guarire",
+       "en": "to heal",
+       "ex": "lo ha guarito",
+       "ipa": "/ɡwaˈɾiːɾe/"
+      },
+      {
+       "it": "il pane",
+       "en": "bread",
+       "ex": "sono io il pane della vita",
+       "ipa": "/il ˈpaːne/"
+      },
+      {
+       "it": "la folla",
+       "en": "the crowd",
+       "ex": "la folla grande lo seguiva",
+       "ipa": "/la ˈfɔlla/"
+      },
+      {
+       "it": "saziarsi",
+       "en": "to be satisfied",
+       "ex": "mangiarono e si saziarono",
+       "ipa": "/sattsˈjaɾsi/"
+      },
+      {
+       "it": "la vita eterna",
+       "en": "eternal life",
+       "ex": "ha la vita eterna",
+       "ipa": "/la ˈviːta eˈtɛɾna/"
+      },
+      {
+       "it": "la manna",
+       "en": "manna",
+       "ex": "i nostri padri mangiarono la manna",
+       "ipa": "/la ˈmanna/"
+      },
+      {
+       "it": "il segno",
+       "en": "the sign",
+       "ex": "quale segno fai tu?",
+       "ipa": "/il ˈseɲɲo/"
+      }
+     ],
+     "grammar": {
+      "title": "c'è / ci sono — \"there is / there are\"",
+      "body": "\"C'è un ragazzo qui\" (There is a boy here). \"Ci sono cinque pani\" (There are five loaves). You'll see this throughout the feeding of the 5,000 in John 6. Practice: \"C'erano cinquemila uomini. C'erano cinque pani e due pesci.\""
+     },
+     "prompt": {
+      "it": "C'era una grande folla. Gesù ha preso cinque pani e due pesci e ha sfamato tutti.",
+      "en": "Write about the multiplication of loaves — what happened and what did people think?"
+     },
+     "passage": {
+      "ref": "Giovanni 6,35.48-51",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 35,
+        "t": "Gesù disse loro: «Io sono il pane della vita; chi viene a me non avrà più fame e chi crede in me non avrà più sete."
+       },
+       {
+        "n": 48,
+        "t": "Io sono il pane della vita."
+       },
+       {
+        "n": 49,
+        "t": "I vostri padri hanno mangiato la manna nel deserto e sono morti;"
+       },
+       {
+        "n": 50,
+        "t": "questo è il pane che discende dal cielo, perché chi ne mangia non muoia."
+       },
+       {
+        "n": 51,
+        "t": "Io sono il pane vivo, disceso dal cielo. Se uno mangia di questo pane vivrà in eterno e il pane che io darò è la mia carne per la vita del mondo»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "___ cinque pani e due pesci.",
+       "a": "C'erano",
+       "hint": "\"ci sono\" in the past — there were"
+      },
+      {
+       "q": "Sono io il ___ della vita.",
+       "a": "pane",
+       "hint": "bread (il pane)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Gesù sfamò una grande folla con cinque pani e due pesci.",
+       "en": "Jesus fed a large crowd with five loaves and two fish.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Dopo il miracolo la folla rimase affamata.",
+       "en": "After the miracle the crowd stayed hungry.",
+       "explain": "\"Mangiarono e si saziarono\" — they ate and were satisfied.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "il pane della vita",
+       "en": "the bread of life"
+      },
+      {
+       "it": "non... più",
+       "en": "no longer",
+       "lit": "not... more"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il padre ha mangiato la manna.",
+       "answer": "I padri hanno mangiato la manna."
+      },
+      {
+       "instruction": "Metti al futuro",
+       "base": "Chi viene a me non ha fame.",
+       "answer": "Chi viene a me non avrà fame."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi è il pane della vita?",
+       "answers": [
+        "Gesù",
+        "io"
+       ],
+       "model": "Gesù è il pane della vita."
+      },
+      {
+       "q": "Dove mangiarono la manna i padri?",
+       "answers": [
+        "nel deserto",
+        "il deserto",
+        "deserto"
+       ],
+       "model": "I padri mangiarono la manna nel deserto."
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "d": "May 4-10",
+     "r": "John 7-8",
+     "b": "Adjectives, sentence structure",
+     "review": false,
+     "vocab": [
+      {
+       "it": "insegnare",
+       "en": "to teach",
+       "ex": "insegnava nel tempio",
+       "ipa": "/inseɲˈɲaːɾe/"
+      },
+      {
+       "it": "la verità",
+       "en": "the truth",
+       "ex": "la verità vi farà liberi",
+       "ipa": "/la veɾiˈta/"
+      },
+      {
+       "it": "liberare",
+       "en": "to set free",
+       "ex": "vi farà liberi",
+       "ipa": "/libeˈɾaːɾe/"
+      },
+      {
+       "it": "giudicare",
+       "en": "to judge",
+       "ex": "non giudicate secondo l'apparenza",
+       "ipa": "/dʒudiˈkaːɾe/"
+      },
+      {
+       "it": "il peccato",
+       "en": "sin",
+       "ex": "chi di voi è senza peccato",
+       "ipa": "/il pekˈkaːto/"
+      },
+      {
+       "it": "scrivere",
+       "en": "to write",
+       "ex": "scriveva per terra",
+       "ipa": "/ˈskɾiːveɾe/"
+      },
+      {
+       "it": "luce del mondo",
+       "en": "light of the world",
+       "ex": "sono la luce del mondo",
+       "ipa": "/ˈluːtʃe del ˈmondo/"
+      }
+     ],
+     "grammar": {
+      "title": "Adjective agreement — gender and number",
+      "body": "Italian adjectives agree with the noun they describe. \"Il figlio libero\" but \"la donna libera.\" Every time you add a word to Anki, note whether it's masculine or feminine."
+     },
+     "prompt": {
+      "it": "Gesù ha detto: \"Io sono la luce del mondo. Chi mi segue non camminerà nelle tenebre.\"",
+      "en": "Write Jesus's \"I am the light\" statement and explain what it means to you."
+     },
+     "passage": {
+      "ref": "Giovanni 8,12.31-32.36",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 12,
+        "t": "Gesù parlò loro di nuovo: «Io sono la luce del mondo; chi segue me non camminerà nelle tenebre, ma avrà la luce della vita»."
+       },
+       {
+        "n": 31,
+        "t": "Gesù allora disse ai Giudei che credevano in lui: «Se rimanete nella mia parola, siete davvero miei discepoli;"
+       },
+       {
+        "n": 32,
+        "t": "conoscerete la verità e la verità vi farà liberi»."
+       },
+       {
+        "n": 36,
+        "t": "Se dunque il Figlio vi farà liberi, sarete liberi davvero."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "La verità vi farà ___.",
+       "a": "liberi",
+       "hint": "agrees with \"voi\" — masculine plural"
+      },
+      {
+       "q": "Io sono la ___ del mondo.",
+       "a": "luce",
+       "hint": "light (la luce, feminine)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Gesù insegnava nel tempio.",
+       "en": "Jesus was teaching in the temple.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Gesù condannò la donna sorpresa in adulterio.",
+       "en": "Jesus condemned the woman caught in adultery.",
+       "explain": "\"Neanch'io ti condanno\" — neither do I condemn you.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "la luce del mondo",
+       "en": "the light of the world"
+      },
+      {
+       "it": "davvero",
+       "en": "truly, really"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Rendi negativa",
+       "base": "Chi segue me camminerà nelle tenebre.",
+       "answer": "Chi segue me non camminerà nelle tenebre."
+      },
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il discepolo conosce la verità.",
+       "answer": "I discepoli conoscono la verità."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Che cosa vi farà liberi?",
+       "answers": [
+        "la verità",
+        "la verita",
+        "verità"
+       ],
+       "model": "La verità vi farà liberi."
+      },
+      {
+       "q": "Chi è la luce del mondo?",
+       "answers": [
+        "Gesù",
+        "io"
+       ],
+       "model": "Io sono la luce del mondo."
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "d": "May 11-17",
+     "r": "John 9-11",
+     "b": "Questions and negation",
+     "review": false,
+     "vocab": [
+      {
+       "it": "il cieco",
+       "en": "blind man",
+       "ex": "un uomo cieco dalla nascita",
+       "ipa": "/il ˈtʃɛːko/"
+      },
+      {
+       "it": "vedere",
+       "en": "to see",
+       "ex": "ora vedo",
+       "ipa": "/veˈdɛːɾe/"
+      },
+      {
+       "it": "il buon pastore",
+       "en": "the good shepherd",
+       "ex": "io sono il buon pastore",
+       "ipa": "/il ˌbwɔn pasˈtoːɾe/"
+      },
+      {
+       "it": "la pecora",
+       "en": "sheep",
+       "ex": "conosce le mie pecore",
+       "ipa": "/la ˈpɛːkoɾa/"
+      },
+      {
+       "it": "la tomba",
+       "en": "tomb",
+       "ex": "dov'è il sepolcro?",
+       "ipa": "/la ˈtomba/"
+      },
+      {
+       "it": "risuscitare",
+       "en": "to raise from dead",
+       "ex": "io sono la risurrezione",
+       "ipa": "/ɾizuʃʃiˈtaːɾe/"
+      },
+      {
+       "it": "piangere",
+       "en": "to weep",
+       "ex": "Gesù scoppiò in pianto",
+       "ipa": "/ˈpjandʒeɾe/"
+      }
+     ],
+     "grammar": {
+      "title": "Question formation and negation",
+      "body": "\"Chi?\" (who), \"Dove?\" (where), \"Come?\" (how), \"Perché?\" (why), \"Quando?\" (when). Negation: non before the verb, always. \"Non capisco,\" \"non so,\" \"non ho visto.\""
+     },
+     "prompt": {
+      "it": "Gesù ha chiamato: \"Lazzaro, vieni fuori!\" E il morto è uscito dal sepolcro.",
+      "en": "Write the scene of Lazarus's resurrection — include what Jesus said and how people responded."
+     },
+     "passage": {
+      "ref": "Giovanni 11,25-26.35.43-44",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 25,
+        "t": "Gesù le disse: «Io sono la risurrezione e la vita; chi crede in me, anche se muore, vivrà;"
+       },
+       {
+        "n": 26,
+        "t": "chiunque vive e crede in me, non morirà in eterno. Credi questo?»"
+       },
+       {
+        "n": 35,
+        "t": "Gesù scoppiò in pianto."
+       },
+       {
+        "n": 43,
+        "t": "Detto questo, gridò a gran voce: «Lazzaro, vieni fuori!»."
+       },
+       {
+        "n": 44,
+        "t": "Il morto uscì, i piedi e le mani legati con bende, e il viso avvolto da un sudario. Gesù disse loro: «Liberatelo e lasciatelo andare»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Io sono il buon ___.",
+       "a": "pastore",
+       "hint": "shepherd (il pastore)"
+      },
+      {
+       "q": "Gesù scoppiò in ___.",
+       "a": "pianto",
+       "hint": "piangere → il pianto (weeping)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Gesù guarì un uomo cieco dalla nascita.",
+       "en": "Jesus healed a man blind from birth.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Quando Lazzaro morì, Gesù rimase indifferente.",
+       "en": "When Lazarus died, Jesus stayed indifferent.",
+       "explain": "Gesù scoppiò in pianto — Jesus wept.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "vieni fuori",
+       "en": "come out"
+      },
+      {
+       "it": "anche se",
+       "en": "even if"
+      },
+      {
+       "it": "a gran voce",
+       "en": "in a loud voice"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Gesù piange.",
+       "answer": "Gesù ha pianto."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "Chi crede in me morirà in eterno.",
+       "answer": "Chi crede in me non morirà in eterno."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi chiamò Gesù dal sepolcro?",
+       "answers": [
+        "Lazzaro"
+       ],
+       "model": "Gesù chiamò Lazzaro: «Vieni fuori!»."
+      },
+      {
+       "q": "Chi è la risurrezione e la vita?",
+       "answers": [
+        "Gesù",
+        "io"
+       ],
+       "model": "Io sono la risurrezione e la vita."
+      }
+     ]
+    },
+    {
+     "n": 6,
+     "d": "May 18-24",
+     "r": "John 12-14",
+     "b": "Prepositions and locations",
+     "review": false,
+     "vocab": [
+      {
+       "it": "l'unzione",
+       "en": "the anointing",
+       "ex": "l'unzione a Betania",
+       "ipa": "/lunˈtsjone/"
+      },
+      {
+       "it": "l'asino",
+       "en": "the donkey",
+       "ex": "seduto su un asino",
+       "ipa": "/ˈlaːzino/"
+      },
+      {
+       "it": "lavare i piedi",
+       "en": "wash feet",
+       "ex": "lavò i piedi ai discepoli",
+       "ipa": "/laˈvaːɾe i ˈpjɛːdi/"
+      },
+      {
+       "it": "il tradimento",
+       "en": "betrayal",
+       "ex": "annunciò il suo traditore",
+       "ipa": "/il tɾadiˈmento/"
+      },
+      {
+       "it": "la casa del Padre",
+       "en": "Father's house",
+       "ex": "nella casa del Padre",
+       "ipa": "/la ˈkaːza del ˈpaːdɾe/"
+      },
+      {
+       "it": "il Paraclito",
+       "en": "the Paraclete",
+       "ex": "vi manderà il Paraclito",
+       "ipa": "/il paˈɾaːklito/"
+      },
+      {
+       "it": "la via",
+       "en": "the way",
+       "ex": "io sono la via",
+       "ipa": "/la ˈviːa/"
+      }
+     ],
+     "grammar": {
+      "title": "Prepositions: di, a, da, in, con, su, per",
+      "body": "\"A Betania\" (in Bethany), \"nella casa\" (in the house), \"per voi\" (for you). Note how prepositions combine with articles: a + il = al, di + il = del, in + il = nel."
+     },
+     "prompt": {
+      "it": "Gesù ha detto: \"Io sono la via, la verità e la vita. Nessuno viene al Padre se non per mezzo di me.\"",
+      "en": "Write what the \"I am the way\" statement means in your own words, using Italian."
+     },
+     "passage": {
+      "ref": "Giovanni 14,1-3.6",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "«Non sia turbato il vostro cuore. Abbiate fede in Dio e abbiate fede anche in me."
+       },
+       {
+        "n": 2,
+        "t": "Nella casa del Padre mio vi sono molte dimore. Se no, vi avrei mai detto: \"Vado a prepararvi un posto\"?"
+       },
+       {
+        "n": 3,
+        "t": "Quando sarò andato e vi avrò preparato un posto, ritornerò e vi prenderò con me, perché siate anche voi dove sono io."
+       },
+       {
+        "n": 6,
+        "t": "Gli disse Gesù: «Io sono la via, la verità e la vita. Nessuno viene al Padre se non per mezzo di me."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Io sono la ___, la verità e la vita.",
+       "a": "via",
+       "hint": "the way (la via)"
+      },
+      {
+       "q": "Lavò i ___ ai discepoli.",
+       "a": "piedi",
+       "hint": "feet (i piedi) — note di/a + article"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Gesù lavò i piedi ai suoi discepoli.",
+       "en": "Jesus washed his disciples' feet.",
+       "answerBool": true
+      },
+      {
+       "type": "mc",
+       "it": "Gesù entrò a Gerusalemme seduto su…",
+       "en": "Jesus entered Jerusalem seated on…",
+       "options": [
+        "un cavallo",
+        "un asino",
+        "un carro"
+       ],
+       "explain": "\"seduto su un asino\" — on a donkey.",
+       "answerIndex": 1
+      }
+     ],
+     "phrases": [
+      {
+       "it": "la via, la verità e la vita",
+       "en": "the way, the truth and the life"
+      },
+      {
+       "it": "per mezzo di me",
+       "en": "through me",
+       "lit": "by means of me"
+      },
+      {
+       "it": "abbiate fede",
+       "en": "have faith"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il discepolo va al Padre.",
+       "answer": "I discepoli vanno al Padre."
+      },
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Gesù lava i piedi ai discepoli.",
+       "answer": "Gesù ha lavato i piedi ai discepoli."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi è la via, la verità e la vita?",
+       "answers": [
+        "Gesù",
+        "io"
+       ],
+       "model": "Io sono la via, la verità e la vita."
+      },
+      {
+       "q": "Come si viene al Padre?",
+       "answers": [
+        "per mezzo di Gesù",
+        "per mezzo di me",
+        "per mezzo di lui"
+       ],
+       "model": "Nessuno viene al Padre se non per mezzo di me."
+      }
+     ]
+    },
+    {
+     "n": 7,
+     "d": "May 25-31",
+     "r": "John 15-17",
+     "b": "Modal verbs: potere, dovere, volere",
+     "review": false,
+     "vocab": [
+      {
+       "it": "la vite",
+       "en": "the vine",
+       "ex": "io sono la vite vera",
+       "ipa": "/la ˈviːte/"
+      },
+      {
+       "it": "il tralcio",
+       "en": "the branch",
+       "ex": "ogni tralcio in me",
+       "ipa": "/il ˈtɾaltʃo/"
+      },
+      {
+       "it": "portare frutto",
+       "en": "to bear fruit",
+       "ex": "portiate molto frutto",
+       "ipa": "/poɾˈtaːɾe ˈfɾutto/"
+      },
+      {
+       "it": "il comandamento",
+       "en": "commandment",
+       "ex": "questo è il mio comandamento",
+       "ipa": "/il komandaˈmento/"
+      },
+      {
+       "it": "rimanere",
+       "en": "to remain",
+       "ex": "rimanete nel mio amore",
+       "ipa": "/ɾimaˈnɛːɾe/"
+      },
+      {
+       "it": "il mondo",
+       "en": "the world",
+       "ex": "il mondo vi odierà",
+       "ipa": "/il ˈmondo/"
+      },
+      {
+       "it": "la preghiera",
+       "en": "prayer",
+       "ex": "pregò per i suoi discepoli",
+       "ipa": "/la pɾeˈɡjɛːɾa/"
+      }
+     ],
+     "grammar": {
+      "title": "Modal verbs: potere, dovere, volere",
+      "body": "\"Posso\" (I can), \"devo\" (I must), \"voglio\" (I want). These always pair with an infinitive: \"posso fare\" (I can do), \"devo partire\" (I must leave), \"volete rimanere?\" (do you want to stay?)"
+     },
+     "prompt": {
+      "it": "Gesù ha detto: \"Rimanete nel mio amore. Senza di me non potete fare nulla.\"",
+      "en": "Write about the vine and branches image — what does it mean to \"remain\" in Jesus?"
+     },
+     "passage": {
+      "ref": "Giovanni 15,1.4-5.12-13",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "«Io sono la vite vera e il Padre mio è l'agricoltore."
+       },
+       {
+        "n": 4,
+        "t": "Rimanete in me e io in voi. Come il tralcio non può portare frutto da se stesso se non rimane nella vite, così neanche voi se non rimanete in me."
+       },
+       {
+        "n": 5,
+        "t": "Io sono la vite, voi i tralci. Chi rimane in me e io in lui, porta molto frutto, perché senza di me non potete far nulla."
+       },
+       {
+        "n": 12,
+        "t": "Questo è il mio comandamento: che vi amiate gli uni gli altri come io ho amato voi."
+       },
+       {
+        "n": 13,
+        "t": "Nessuno ha un amore più grande di questo: dare la sua vita per i propri amici."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Io sono la ___ vera.",
+       "a": "vite",
+       "hint": "the vine (la vite)"
+      },
+      {
+       "q": "___ nel mio amore.",
+       "a": "Rimanete",
+       "hint": "rimanere → voi imperative (remain)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Gesù si paragona alla vite e i discepoli ai tralci.",
+       "en": "Jesus compares himself to the vine and the disciples to the branches.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Gesù disse che il mondo avrebbe amato i suoi discepoli.",
+       "en": "Jesus said the world would love his disciples.",
+       "explain": "\"Il mondo vi odierà\" — the world will hate you.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "la vite vera",
+       "en": "the true vine"
+      },
+      {
+       "it": "gli uni gli altri",
+       "en": "one another"
+      },
+      {
+       "it": "senza di me",
+       "en": "without me"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Rendi negativa",
+       "base": "Il tralcio può portare frutto da se stesso.",
+       "answer": "Il tralcio non può portare frutto da se stesso."
+      },
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il tralcio rimane nella vite.",
+       "answer": "I tralci rimangono nella vite."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi è la vite vera?",
+       "answers": [
+        "Gesù",
+        "io"
+       ],
+       "model": "Io sono la vite vera."
+      },
+      {
+       "q": "Che cosa non potete fare senza Gesù?",
+       "answers": [
+        "nulla",
+        "niente"
+       ],
+       "model": "Senza di me non potete far nulla."
+      }
+     ]
+    },
+    {
+     "n": 8,
+     "d": "Jun 1-7",
+     "r": "John 18-21",
+     "b": "Review week + first iTalki session",
+     "review": true,
+     "vocab": [
+      {
+       "it": "l'arresto",
+       "en": "the arrest",
+       "ex": "l'arresto nel Getsemani",
+       "ipa": "/laɾˈɾɛsto/"
+      },
+      {
+       "it": "il rinnegamento",
+       "en": "the denial",
+       "ex": "il rinnegamento di Pietro",
+       "ipa": "/il ɾinneɡaˈmento/"
+      },
+      {
+       "it": "la crocifissione",
+       "en": "crucifixion",
+       "ex": "portò la sua croce",
+       "ipa": "/la kɾotʃifisˈsjone/"
+      },
+      {
+       "it": "il sepolcro vuoto",
+       "en": "empty tomb",
+       "ex": "il sepolcro era vuoto",
+       "ipa": "/il seˈpɔlkɾo ˈvwɔto/"
+      },
+      {
+       "it": "la resurrezione",
+       "en": "the resurrection",
+       "ex": "sono risorto",
+       "ipa": "/la ɾezuɾɾetˈtsjone/"
+      },
+      {
+       "it": "la missione",
+       "en": "the mission",
+       "ex": "come il Padre ha mandato me",
+       "ipa": "/la misˈsjone/"
+      },
+      {
+       "it": "la pace",
+       "en": "peace",
+       "ex": "la pace sia con voi",
+       "ipa": "/la ˈpaːtʃe/"
+      }
+     ],
+     "grammar": {
+      "title": "Passato prossimo — your first past tense",
+      "body": "Formed with avere/essere + past participle. \"Ha detto\" (he said), \"è risorto\" (he rose). Movement/change verbs use essere: \"è venuto,\" \"è uscito,\" \"è morto.\" Action verbs use avere: \"ha portato,\" \"ha detto,\" \"ha mostrato.\""
+     },
+     "prompt": {
+      "it": "Descrivi il giorno della resurrezione: Maria Maddalena è andata al sepolcro e ha trovato la pietra spostata.",
+      "en": "Describe the resurrection morning from Mary Magdalene's perspective."
+     },
+     "italki": [
+      "Racconta la storia del vangelo di Giovanni in 5 frasi.",
+      "Qual è il tuo brano preferito di Giovanni e perché?",
+      "Descrivi Gesù usando solo aggettivi italiani che hai imparato.",
+      "Come ti senti a leggere la Bibbia in italiano?"
+     ],
+     "passage": {
+      "ref": "Giovanni 20,19-21.24-25.28",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 19,
+        "t": "La sera di quel giorno, il primo della settimana, mentre erano chiuse le porte del luogo dove si trovavano i discepoli per timore dei Giudei, venne Gesù, stette in mezzo e disse loro: «Pace a voi!»."
+       },
+       {
+        "n": 20,
+        "t": "Detto questo, mostrò loro le mani e il fianco. E i discepoli gioirono al vedere il Signore."
+       },
+       {
+        "n": 21,
+        "t": "Gesù disse loro di nuovo: «Pace a voi! Come il Padre ha mandato me, anche io mando voi»."
+       },
+       {
+        "n": 24,
+        "t": "Tommaso, uno dei Dodici, chiamato Dìdimo, non era con loro quando venne Gesù."
+       },
+       {
+        "n": 25,
+        "t": "Gli dicevano gli altri discepoli: «Abbiamo visto il Signore!». Ma egli disse loro: «Se non vedo nelle sue mani il segno dei chiodi e non metto il mio dito nel segno dei chiodi e non metto la mia mano nel suo fianco, io non credo»."
+       },
+       {
+        "n": 28,
+        "t": "Rispose Tommaso: «Mio Signore e mio Dio!»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "La ___ sia con voi.",
+       "a": "pace",
+       "hint": "peace (la pace)"
+      },
+      {
+       "q": "Il sepolcro ___ vuoto.",
+       "a": "era",
+       "hint": "essere, imperfect — was"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Pietro rinnegò Gesù.",
+       "en": "Peter denied Jesus.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Le donne trovarono il sepolcro ancora chiuso e pieno.",
+       "en": "The women found the tomb still closed and full.",
+       "explain": "Il sepolcro era vuoto — the tomb was empty.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "Pace a voi",
+       "en": "Peace be with you"
+      },
+      {
+       "it": "Mio Signore e mio Dio",
+       "en": "My Lord and my God"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Vediamo il Signore.",
+       "answer": "Abbiamo visto il Signore."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "Tommaso era con loro.",
+       "answer": "Tommaso non era con loro."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Che cosa disse Gesù ai discepoli?",
+       "answers": [
+        "Pace a voi",
+        "pace a voi"
+       ],
+       "model": "Gesù disse: «Pace a voi!»."
+      },
+      {
+       "q": "Chi non era con i discepoli quando venne Gesù?",
+       "answers": [
+        "Tommaso"
+       ],
+       "model": "Tommaso non era con loro."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2",
+   "title": "Phase 2: Growth",
+   "book": "Gospel of Luke",
+   "badgeLabel": "Intermediate",
+   "weeks": [
+    {
+     "n": 9,
+     "d": "Jun 8-14",
+     "r": "Luke 1-2",
+     "b": "Past tense: passato prossimo",
+     "review": false,
+     "vocab": [
+      {
+       "it": "l'annuncio",
+       "en": "the announcement",
+       "ex": "l'annunciazione a Maria",
+       "ipa": "/lanˈnuntʃo/"
+      },
+      {
+       "it": "l'angelo",
+       "en": "the angel",
+       "ex": "l'angelo Gabriele",
+       "ipa": "/ˈlandʒelo/"
+      },
+      {
+       "it": "benedetto",
+       "en": "blessed",
+       "ex": "benedetta tu fra le donne",
+       "ipa": "/beneˈdɛtto/"
+      },
+      {
+       "it": "la nascita",
+       "en": "birth",
+       "ex": "la nascita di Gesù",
+       "ipa": "/la ˈnaʃʃita/"
+      },
+      {
+       "it": "la mangiatoia",
+       "en": "manger",
+       "ex": "lo depose nella mangiatoia",
+       "ipa": "/la mandʒaˈtɔːja/"
+      },
+      {
+       "it": "i pastori",
+       "en": "shepherds",
+       "ex": "i pastori andarono a Betlemme",
+       "ipa": "/i pasˈtoːɾi/"
+      },
+      {
+       "it": "il Magnificat",
+       "en": "Magnificat",
+       "ex": "l'anima mia magnifica il Signore",
+       "ipa": "/il maɲˈɲifikat/"
+      }
+     ],
+     "grammar": {
+      "title": "Passato prossimo — building fluency",
+      "body": "Focus on essere verbs: \"è nato\" (was born), \"è venuto\" (came), \"sono andati\" (they went), \"è tornata\" (she returned). Before reading, predict which verbs will use essere versus avere — then verify."
+     },
+     "prompt": {
+      "it": "L'angelo ha detto a Maria: \"Non temere, Maria. Darai alla luce un figlio e lo chiamerai Gesù.\"",
+      "en": "Write the Annunciation scene. What did Mary say? How did she feel?"
+     },
+     "passage": {
+      "ref": "Luca 2,8-14",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 8,
+        "t": "C'erano in quella regione alcuni pastori che, pernottando all'aperto, vegliavano tutta la notte sul loro gregge."
+       },
+       {
+        "n": 9,
+        "t": "Un angelo del Signore si presentò a loro e la gloria del Signore li avvolse di luce. Essi furono presi da grande timore,"
+       },
+       {
+        "n": 10,
+        "t": "ma l'angelo disse loro: «Non temete: ecco, vi annuncio una grande gioia, che sarà di tutto il popolo:"
+       },
+       {
+        "n": 11,
+        "t": "oggi, nella città di Davide, è nato per voi un Salvatore, che è Cristo Signore."
+       },
+       {
+        "n": 12,
+        "t": "Questo per voi il segno: troverete un bambino avvolto in fasce, adagiato in una mangiatoia»."
+       },
+       {
+        "n": 14,
+        "t": "«Gloria a Dio nel più alto dei cieli e sulla terra pace agli uomini, che egli ama»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "L'angelo disse a Maria: «Non ___».",
+       "a": "temere",
+       "hint": "temere — infinitive after \"non\" (do not fear)"
+      },
+      {
+       "q": "L'anima mia ___ il Signore.",
+       "a": "magnifica",
+       "hint": "magnificare → present (the Magnificat)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "L'angelo Gabriele annunciò a Maria la nascita di Gesù.",
+       "en": "The angel Gabriel announced to Mary the birth of Jesus.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Gesù nacque in un palazzo a Gerusalemme.",
+       "en": "Jesus was born in a palace in Jerusalem.",
+       "explain": "\"Lo depose nella mangiatoia\" a Betlemme — in a manger in Bethlehem.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "Non temete",
+       "en": "Do not be afraid"
+      },
+      {
+       "it": "Gloria a Dio",
+       "en": "Glory to God"
+      },
+      {
+       "it": "per voi",
+       "en": "for you"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al futuro",
+       "base": "Trovate un bambino.",
+       "answer": "Troverete un bambino."
+      },
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il pastore veglia sul gregge.",
+       "answer": "I pastori vegliano sul gregge."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Che cosa disse l'angelo ai pastori?",
+       "answers": [
+        "Non temete",
+        "non temete"
+       ],
+       "model": "L'angelo disse: «Non temete»."
+      },
+      {
+       "q": "Chi è nato nella città di Davide?",
+       "answers": [
+        "un Salvatore",
+        "il Salvatore",
+        "un salvatore"
+       ],
+       "model": "È nato per voi un Salvatore."
+      }
+     ]
+    },
+    {
+     "n": 10,
+     "d": "Jun 15-21",
+     "r": "Luke 3-5",
+     "b": "Irregular past tense verbs",
+     "review": false,
+     "vocab": [
+      {
+       "it": "il battesimo",
+       "en": "baptism",
+       "ex": "il battesimo di Gesù",
+       "ipa": "/il batˈtɛːzimo/"
+      },
+      {
+       "it": "il deserto",
+       "en": "desert",
+       "ex": "quaranta giorni nel deserto",
+       "ipa": "/il deˈzɛɾto/"
+      },
+      {
+       "it": "la tentazione",
+       "en": "temptation",
+       "ex": "le tentazioni del diavolo",
+       "ipa": "/la tentaˈtsjone/"
+      },
+      {
+       "it": "la rete",
+       "en": "net",
+       "ex": "gettate le reti",
+       "ipa": "/la ˈɾɛːte/"
+      },
+      {
+       "it": "il lebbroso",
+       "en": "leper",
+       "ex": "un uomo pieno di lebbra",
+       "ipa": "/il lebˈbɾoːzo/"
+      },
+      {
+       "it": "perdonare",
+       "en": "to forgive",
+       "ex": "ti sono perdonati i peccati",
+       "ipa": "/peɾdoˈnaːɾe/"
+      },
+      {
+       "it": "camminare",
+       "en": "to walk",
+       "ex": "alzati e cammina",
+       "ipa": "/kammiˈnaːɾe/"
+      }
+     ],
+     "grammar": {
+      "title": "Irregular past participles",
+      "body": "Many common verbs break the rules. Fare → fatto, dire → detto, vedere → visto, venire → venuto, essere → stato, aprire → aperto. Create an Anki card for each irregular participle you encounter — this is rote memorisation, no shortcut."
+     },
+     "prompt": {
+      "it": "Gesù è stato tentato nel deserto per quaranta giorni. Il diavolo ha detto... ma Gesù ha risposto...",
+      "en": "Write the temptation scene — Jesus's three responses to the devil."
+     },
+     "passage": {
+      "ref": "Luca 4,1-4.18-19",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "Gesù, pieno di Spirito Santo, si allontanò dal Giordano e fu condotto dallo Spirito nel deserto"
+       },
+       {
+        "n": 2,
+        "t": "per quaranta giorni, tentato dal diavolo. Non mangiò nulla in quei giorni, poi quando furono terminati, ebbe fame."
+       },
+       {
+        "n": 3,
+        "t": "Il diavolo gli disse: «Se tu sei Figlio di Dio, di' a questa pietra che diventi pane»."
+       },
+       {
+        "n": 4,
+        "t": "Gesù gli rispose: «Sta scritto: \"Non di solo pane vivrà l'uomo\"»."
+       },
+       {
+        "n": 18,
+        "t": "«Lo Spirito del Signore è sopra di me; per questo mi ha consacrato con l'unzione e mi ha mandato a portare ai poveri il lieto annuncio, a proclamare ai prigionieri la liberazione e ai ciechi la vista, a rimettere in libertà gli oppressi,"
+       },
+       {
+        "n": 19,
+        "t": "a proclamare l'anno di grazia del Signore»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Gesù è ___ tentato nel deserto.",
+       "a": "stato",
+       "hint": "essere + participle — passive/past \"was tempted\""
+      },
+      {
+       "q": "Alzati e ___.",
+       "a": "cammina",
+       "hint": "camminare → tu imperative (walk)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Gesù fu tentato nel deserto per quaranta giorni.",
+       "en": "Jesus was tempted in the desert for forty days.",
+       "answerBool": true
+      },
+      {
+       "type": "mc",
+       "it": "Sul lago Gesù disse ai pescatori di…",
+       "en": "At the lake Jesus told the fishermen to…",
+       "options": [
+        "riparare le barche",
+        "gettare le reti",
+        "tornare a casa"
+       ],
+       "explain": "\"Gettate le reti\" — cast the nets.",
+       "answerIndex": 1
+      }
+     ],
+     "phrases": [
+      {
+       "it": "Sta scritto",
+       "en": "It is written"
+      },
+      {
+       "it": "di solo pane",
+       "en": "on bread alone"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Rendi negativa",
+       "base": "L'uomo vivrà di solo pane.",
+       "answer": "L'uomo non vivrà di solo pane."
+      },
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Gesù ha fame.",
+       "answer": "Gesù ha avuto fame."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Di che cosa non vive solo l'uomo?",
+       "answers": [
+        "di solo pane",
+        "pane",
+        "di pane"
+       ],
+       "model": "Non di solo pane vivrà l'uomo."
+      },
+      {
+       "q": "Chi fu tentato nel deserto?",
+       "answers": [
+        "Gesù"
+       ],
+       "model": "Gesù fu tentato nel deserto."
+      }
+     ]
+    },
+    {
+     "n": 11,
+     "d": "Jun 22-28",
+     "r": "Luke 6-7",
+     "b": "Imperfect tense: imperfetto",
+     "review": false,
+     "vocab": [
+      {
+       "it": "le beatitudini",
+       "en": "the beatitudes",
+       "ex": "beati voi poveri",
+       "ipa": "/le beatituˈdiːni/"
+      },
+      {
+       "it": "il nemico",
+       "en": "the enemy",
+       "ex": "amate i vostri nemici",
+       "ipa": "/il neˈmiːko/"
+      },
+      {
+       "it": "il centurione",
+       "en": "centurion",
+       "ex": "il servo del centurione",
+       "ipa": "/il tʃentuˈɾjone/"
+      },
+      {
+       "it": "la vedova",
+       "en": "widow",
+       "ex": "la vedova di Naim",
+       "ipa": "/la ˈvɛːdova/"
+      },
+      {
+       "it": "il fariseo",
+       "en": "Pharisee",
+       "ex": "un fariseo lo invitò",
+       "ipa": "/il faɾiˈzɛːo/"
+      },
+      {
+       "it": "perdonare",
+       "en": "to forgive",
+       "ex": "le sue peccata le sono perdonate",
+       "ipa": "/peɾdoˈnaːɾe/"
+      },
+      {
+       "it": "il profeta",
+       "en": "the prophet",
+       "ex": "un grande profeta è sorto",
+       "ipa": "/il pɾoˈfɛːta/"
+      }
+     ],
+     "grammar": {
+      "title": "Imperfetto — ongoing past action",
+      "body": "Where passato prossimo says \"it happened,\" imperfetto says \"it was happening.\" \"Gesù insegnava\" (Jesus was teaching). \"La folla lo ascoltava\" (the crowd was listening). Luke uses imperfetto for background and passato prossimo for key events."
+     },
+     "prompt": {
+      "it": "Gesù insegnava sulla montagna. Le folle lo ascoltavano. Diceva: \"Amate i vostri nemici.\"",
+      "en": "Write the Sermon on the Plain — use imperfetto for background and passato prossimo for specific actions."
+     },
+     "passage": {
+      "ref": "Luca 6,20-23.27-28",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 20,
+        "t": "Alzando gli occhi verso i suoi discepoli, Gesù diceva: «Beati voi, poveri, perché vostro è il regno di Dio."
+       },
+       {
+        "n": 21,
+        "t": "Beati voi, che ora avete fame, perché sarete saziati. Beati voi, che ora piangete, perché riderete."
+       },
+       {
+        "n": 22,
+        "t": "Beati voi, quando gli uomini vi odieranno e quando vi metteranno al bando e vi insulteranno e disprezzeranno il vostro nome come infame, a causa del Figlio dell'uomo."
+       },
+       {
+        "n": 23,
+        "t": "Rallegratevi in quel giorno ed esultate perché la vostra ricompensa è grande nel cielo."
+       },
+       {
+        "n": 27,
+        "t": "Ma a voi che ascoltate, io dico: amate i vostri nemici, fate del bene a quelli che vi odiano,"
+       },
+       {
+        "n": 28,
+        "t": "benedite coloro che vi maledicono, pregate per coloro che vi maltrattano."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Amate i vostri ___.",
+       "a": "nemici",
+       "hint": "enemies (i nemici) — love your enemies"
+      },
+      {
+       "q": "Gesù ___ sulla montagna.",
+       "a": "insegnava",
+       "hint": "imperfetto — ongoing past (was teaching)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Gesù disse: «Beati voi poveri».",
+       "en": "Jesus said: \"Blessed are you who are poor.\"",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Gesù insegnò a odiare i nemici.",
+       "en": "Jesus taught to hate one's enemies.",
+       "explain": "\"Amate i vostri nemici\" — love your enemies.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "Beati voi",
+       "en": "Blessed are you"
+      },
+      {
+       "it": "fate del bene",
+       "en": "do good"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il povero è beato.",
+       "answer": "I poveri sono beati."
+      },
+      {
+       "instruction": "Metti al futuro",
+       "base": "Chi piange ride.",
+       "answer": "Chi piange riderà."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi dobbiamo amare secondo Gesù?",
+       "answers": [
+        "i nemici",
+        "i nostri nemici",
+        "i vostri nemici"
+       ],
+       "model": "Amate i vostri nemici."
+      },
+      {
+       "q": "Chi è beato secondo Gesù?",
+       "answers": [
+        "i poveri",
+        "voi poveri"
+       ],
+       "model": "Beati voi, poveri."
+      }
+     ]
+    },
+    {
+     "n": 12,
+     "d": "Jun 29-Jul 5",
+     "r": "Luke 8-9",
+     "b": "Object pronouns",
+     "review": false,
+     "vocab": [
+      {
+       "it": "la tempesta",
+       "en": "storm",
+       "ex": "calmò la tempesta",
+       "ipa": "/la temˈpɛsta/"
+      },
+      {
+       "it": "i demoni",
+       "en": "demons",
+       "ex": "i demoni lo supplicavano",
+       "ipa": "/i ˈdɛːmoni/"
+      },
+      {
+       "it": "la fede",
+       "en": "faith",
+       "ex": "la tua fede ti ha salvata",
+       "ipa": "/la ˈfɛːde/"
+      },
+      {
+       "it": "guarire",
+       "en": "to heal",
+       "ex": "aveva guarito molti",
+       "ipa": "/ɡwaˈɾiːɾe/"
+      },
+      {
+       "it": "la trasfigurazione",
+       "en": "transfiguration",
+       "ex": "la trasfigurazione sul monte",
+       "ipa": "/la tɾazfiɡuɾaˈtsjone/"
+      },
+      {
+       "it": "la croce",
+       "en": "cross",
+       "ex": "prenda la sua croce",
+       "ipa": "/la ˈkɾoːtʃe/"
+      },
+      {
+       "it": "le provviste",
+       "en": "provisions",
+       "ex": "non prendete nulla per il viaggio",
+       "ipa": "/le pɾovˈviste/"
+      }
+     ],
+     "grammar": {
+      "title": "Direct object pronouns: lo, la, li, le",
+      "body": "\"Lo ha guarito\" (he healed him). \"La folla lo seguiva\" (the crowd followed him). \"Li ha mandati\" (he sent them). The pronoun goes before the conjugated verb in Italian, not after."
+     },
+     "prompt": {
+      "it": "Gesù ha calmato la tempesta. I discepoli avevano paura, ma Gesù li ha rassicurati.",
+      "en": "Write the calming of the storm — who was afraid, what did Jesus do, how did people respond?"
+     },
+     "passage": {
+      "ref": "Luca 9,18-22",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 18,
+        "t": "Un giorno Gesù si trovava in un luogo solitario a pregare. I discepoli erano con lui ed egli pose loro questa domanda: «Le folle, chi dicono che io sia?»."
+       },
+       {
+        "n": 19,
+        "t": "Essi risposero: «Giovanni il Battista; altri dicono Elìa; altri ancora che un antico profeta è risorto»."
+       },
+       {
+        "n": 20,
+        "t": "Allora li interrogò: «Ma voi, chi dite che io sia?». Pietro rispose: «Il Cristo di Dio»."
+       },
+       {
+        "n": 21,
+        "t": "Egli ordinò loro severamente di non riferirlo ad alcuno."
+       },
+       {
+        "n": 22,
+        "t": "«Il Figlio dell'uomo», disse, «deve soffrire molto, essere rifiutato dagli anziani, dai capi dei sacerdoti e dagli scribi, venire ucciso e risorgere il terzo giorno»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Gesù ___ la tempesta.",
+       "a": "calmò",
+       "hint": "calmare → passato remoto (calmed)"
+      },
+      {
+       "q": "La tua fede ti ___ salvata.",
+       "a": "ha",
+       "hint": "avere — passato prossimo \"has saved you\""
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Gesù calmò la tempesta sul lago.",
+       "en": "Jesus calmed the storm on the lake.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "I discepoli non ebbero mai paura durante la tempesta.",
+       "en": "The disciples were never afraid during the storm.",
+       "explain": "Avevano paura — they were afraid.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "chi dite che io sia?",
+       "en": "who do you say I am?"
+      },
+      {
+       "it": "il Cristo di Dio",
+       "en": "the Christ of God"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Pietro risponde a Gesù.",
+       "answer": "Pietro ha risposto a Gesù."
+      },
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il discepolo è con lui.",
+       "answer": "I discepoli sono con lui."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Che cosa rispose Pietro?",
+       "answers": [
+        "il Cristo di Dio",
+        "il Cristo",
+        "il cristo di Dio"
+       ],
+       "model": "Pietro rispose: «Il Cristo di Dio»."
+      },
+      {
+       "q": "Chi deve soffrire molto?",
+       "answers": [
+        "il Figlio dell'uomo",
+        "Gesù"
+       ],
+       "model": "Il Figlio dell'uomo deve soffrire molto."
+      }
+     ]
+    },
+    {
+     "n": 13,
+     "d": "Jul 6-12",
+     "r": "Luke 10-11",
+     "b": "Reflexive verbs",
+     "review": false,
+     "vocab": [
+      {
+       "it": "il samaritano",
+       "en": "Samaritan",
+       "ex": "il buon samaritano",
+       "ipa": "/il samaɾiˈtaːno/"
+      },
+      {
+       "it": "il prossimo",
+       "en": "neighbor",
+       "ex": "chi è il mio prossimo?",
+       "ipa": "/il ˈpɾɔssimo/"
+      },
+      {
+       "it": "l'olio",
+       "en": "oil",
+       "ex": "versò olio e vino",
+       "ipa": "/ˈlɔːljo/"
+      },
+      {
+       "it": "pregare",
+       "en": "to pray",
+       "ex": "insegnateci a pregare",
+       "ipa": "/pɾeˈɡaːɾe/"
+      },
+      {
+       "it": "il Padre Nostro",
+       "en": "Lord's Prayer",
+       "ex": "Padre nostro, che sei nei cieli",
+       "ipa": "/il ˈpaːdɾe ˈnɔstɾo/"
+      },
+      {
+       "it": "chiedere",
+       "en": "to ask",
+       "ex": "chiedete e vi sarà dato",
+       "ipa": "/ˈkjɛːdeɾe/"
+      },
+      {
+       "it": "il demonio",
+       "en": "demon",
+       "ex": "scacciava un demonio",
+       "ipa": "/il deˈmɔːnjo/"
+      }
+     ],
+     "grammar": {
+      "title": "Reflexive verbs — actions done to oneself",
+      "body": "\"Alzarsi\" (to get up), \"chiamarsi\" (to be called), \"fermarsi\" (to stop). The pronoun matches the subject: mi, ti, si, ci, vi, si. \"Si è fermato\" (he stopped himself)."
+     },
+     "prompt": {
+      "it": "Un uomo si è avvicinato a Gesù e ha chiesto: \"Chi è il mio prossimo?\" Gesù ha raccontato la storia del buon samaritano.",
+      "en": "Retell the Good Samaritan parable in Italian. Who stopped? Who passed by?"
+     },
+     "passage": {
+      "ref": "Luca 10,25-28.36-37",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 25,
+        "t": "Ed ecco, un dottore della Legge si alzò per metterlo alla prova e chiese: «Maestro, che cosa devo fare per ereditare la vita eterna?»."
+       },
+       {
+        "n": 26,
+        "t": "Gesù gli disse: «Che cosa sta scritto nella Legge? Come leggi?»."
+       },
+       {
+        "n": 27,
+        "t": "Costui rispose: «Amerai il Signore tuo Dio con tutto il tuo cuore, con tutta la tua anima, con tutta la tua forza e con tutta la tua mente, e il tuo prossimo come te stesso»."
+       },
+       {
+        "n": 28,
+        "t": "Gli disse: «Hai risposto bene; fa' questo e vivrai»."
+       },
+       {
+        "n": 36,
+        "t": "«Chi di questi tre ti sembra sia stato il prossimo di colui che è caduto nelle mani dei briganti?»."
+       },
+       {
+        "n": 37,
+        "t": "Quello rispose: «Chi ha avuto compassione di lui». Gesù gli disse: «Va' e anche tu fa' così»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "___ e vi sarà dato.",
+       "a": "Chiedete",
+       "hint": "chiedere → voi imperative (ask)"
+      },
+      {
+       "q": "Versò ___ e vino sulle ferite.",
+       "a": "olio",
+       "hint": "l'olio (oil) — the Good Samaritan"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Il buon samaritano si fermò ad aiutare il ferito.",
+       "en": "The Good Samaritan stopped to help the wounded man.",
+       "answerBool": true
+      },
+      {
+       "type": "mc",
+       "it": "I discepoli chiesero a Gesù di insegnare loro a…",
+       "en": "The disciples asked Jesus to teach them to…",
+       "options": [
+        "pregare",
+        "guarire",
+        "digiunare"
+       ],
+       "explain": "\"Insegnateci a pregare\" — teach us to pray.",
+       "answerIndex": 0
+      }
+     ],
+     "phrases": [
+      {
+       "it": "come te stesso",
+       "en": "as yourself"
+      },
+      {
+       "it": "con tutto il cuore",
+       "en": "with all your heart"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al futuro",
+       "base": "Ami il Signore.",
+       "answer": "Amerai il Signore."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "Il samaritano si fermò ad aiutare.",
+       "answer": "Il samaritano non si fermò ad aiutare."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Come dobbiamo amare il prossimo?",
+       "answers": [
+        "come te stesso",
+        "come me stesso",
+        "come noi stessi"
+       ],
+       "model": "Amerai il prossimo tuo come te stesso."
+      },
+      {
+       "q": "Chi ebbe compassione del ferito?",
+       "answers": [
+        "il samaritano",
+        "il buon samaritano"
+       ],
+       "model": "Il samaritano ebbe compassione di lui."
+      }
+     ]
+    },
+    {
+     "n": 14,
+     "d": "Jul 13-19",
+     "r": "Luke 12-13",
+     "b": "Future tense",
+     "review": false,
+     "vocab": [
+      {
+       "it": "la ricchezza",
+       "en": "wealth",
+       "ex": "la vita non dipende dalla ricchezza",
+       "ipa": "/la ɾikˈkɛttsa/"
+      },
+      {
+       "it": "il granaio",
+       "en": "granary",
+       "ex": "costruirò granai più grandi",
+       "ipa": "/il ɡɾaˈnaːjo/"
+      },
+      {
+       "it": "preoccuparsi",
+       "en": "to worry",
+       "ex": "non preoccupatevi per la vita",
+       "ipa": "/pɾeokkuˈpaɾsi/"
+      },
+      {
+       "it": "il fico",
+       "en": "fig tree",
+       "ex": "un uomo aveva un fico",
+       "ipa": "/il ˈfiːko/"
+      },
+      {
+       "it": "la porta stretta",
+       "en": "narrow gate",
+       "ex": "entrate per la porta stretta",
+       "ipa": "/la ˈpɔɾta ˈstɾɛtta/"
+      },
+      {
+       "it": "l'ipocrita",
+       "en": "hypocrite",
+       "ex": "ipocriti!",
+       "ipa": "/liˈpɔːkɾita/"
+      },
+      {
+       "it": "il regno di Dio",
+       "en": "kingdom of God",
+       "ex": "il regno di Dio è vicino",
+       "ipa": "/il ˈɾeɲɲo di ˈdiːo/"
+      }
+     ],
+     "grammar": {
+      "title": "Futuro semplice — the future tense",
+      "body": "Add -rò, -rai, -rà, -remo, -rete, -ranno to the infinitive stem. Parlare → parlerò. Irregular stems: essere → sarò, avere → avrò, fare → farò, venire → verrò."
+     },
+     "prompt": {
+      "it": "L'uomo ricco ha detto: \"Costruirò granai più grandi. Dirò alla mia anima: mangia, bevi, goditi la vita.\"",
+      "en": "Write the parable of the rich fool. What did he plan? What happened instead?"
+     },
+     "passage": {
+      "ref": "Luca 12,22-25.31",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 22,
+        "t": "Poi disse ai discepoli: «Per questo io vi dico: non preoccupatevi per la vita, di quello che mangerete; né per il corpo, di quello che indosserete."
+       },
+       {
+        "n": 23,
+        "t": "La vita vale più del cibo e il corpo vale più del vestito."
+       },
+       {
+        "n": 24,
+        "t": "Considerate i corvi: non seminano e non mietono, non hanno magazzino né granaio, eppure Dio li nutre. Quanto più valete voi degli uccelli!"
+       },
+       {
+        "n": 25,
+        "t": "Chi di voi, per quanto si preoccupi, può aggiungere un'ora sola alla sua vita?"
+       },
+       {
+        "n": 31,
+        "t": "Cercate piuttosto il suo regno, e queste cose vi saranno date in aggiunta."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Non ___ per la vita.",
+       "a": "preoccupatevi",
+       "hint": "preoccuparsi → voi imperative (do not worry)"
+      },
+      {
+       "q": "___ granai più grandi.",
+       "a": "Costruirò",
+       "hint": "costruire → futuro (I will build)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "L'uomo ricco volle costruire granai più grandi.",
+       "en": "The rich man wanted to build bigger barns.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Gesù disse di entrare per la porta larga.",
+       "en": "Jesus said to enter through the wide gate.",
+       "explain": "\"Entrate per la porta stretta\" — the narrow gate.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "non preoccupatevi",
+       "en": "do not worry"
+      },
+      {
+       "it": "più di",
+       "en": "more than"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al futuro",
+       "base": "Costruisco granai più grandi.",
+       "answer": "Costruirò granai più grandi."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "La vita dipende dalla ricchezza.",
+       "answer": "La vita non dipende dalla ricchezza."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Che cosa dobbiamo cercare?",
+       "answers": [
+        "il regno di Dio",
+        "il suo regno",
+        "il regno"
+       ],
+       "model": "Cercate il suo regno."
+      },
+      {
+       "q": "Che cosa vale più del cibo?",
+       "answers": [
+        "la vita"
+       ],
+       "model": "La vita vale più del cibo."
+      }
+     ]
+    },
+    {
+     "n": 15,
+     "d": "Jul 20-26",
+     "r": "Luke 14-16",
+     "b": "Conditional: vorrei, sarebbe",
+     "review": false,
+     "vocab": [
+      {
+       "it": "il banchetto",
+       "en": "banquet",
+       "ex": "diede un grande banchetto",
+       "ipa": "/il baŋˈkɛtto/"
+      },
+      {
+       "it": "l'invitato",
+       "en": "guest",
+       "ex": "gli invitati non vennero",
+       "ipa": "/linviˈtaːto/"
+      },
+      {
+       "it": "la pecora perduta",
+       "en": "lost sheep",
+       "ex": "se perde una delle cento pecore",
+       "ipa": "/la ˈpɛːkoɾa peɾˈduːta/"
+      },
+      {
+       "it": "il figlio prodigo",
+       "en": "prodigal son",
+       "ex": "il figlio minore",
+       "ipa": "/il ˈfiʎʎo ˈpɾɔːdiɡo/"
+      },
+      {
+       "it": "il padre misericordioso",
+       "en": "merciful father",
+       "ex": "gli corse incontro",
+       "ipa": "/il ˈpaːdɾe mizeɾikoɾˈdjoːzo/"
+      },
+      {
+       "it": "abbracciare",
+       "en": "to embrace",
+       "ex": "lo abbracciò e lo baciò",
+       "ipa": "/abbɾatˈtʃaːɾe/"
+      },
+      {
+       "it": "la festa",
+       "en": "the celebration",
+       "ex": "facciamo festa",
+       "ipa": "/la ˈfɛsta/"
+      }
+     ],
+     "grammar": {
+      "title": "Condizionale — \"would\" and \"could\"",
+      "body": "\"Vorrei\" (I would like), \"sarebbe\" (it would be), \"potrei\" (I could), \"dovresti\" (you should). Formed by adding -rei, -resti, -rebbe endings."
+     },
+     "prompt": {
+      "it": "Il padre ha visto il figlio da lontano. Ha avuto compassione, è corso incontro a lui e lo ha abbracciato.",
+      "en": "Write the moment the prodigal son returns home from the father's perspective."
+     },
+     "passage": {
+      "ref": "Luca 15,11-13.20.22-24",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 11,
+        "t": "Gesù disse ancora: «Un uomo aveva due figli."
+       },
+       {
+        "n": 12,
+        "t": "Il più giovane di loro disse al padre: \"Padre, dammi la parte di patrimonio che mi spetta\". Ed egli divise tra loro le sue sostanze."
+       },
+       {
+        "n": 13,
+        "t": "Pochi giorni dopo, il figlio più giovane, raccolte tutte le sue cose, partì per un paese lontano e là sperperò il suo patrimonio vivendo in modo dissoluto."
+       },
+       {
+        "n": 20,
+        "t": "Si alzò e tornò da suo padre. Quando era ancora lontano, suo padre lo vide, ebbe compassione, gli corse incontro, gli si gettò al collo e lo baciò."
+       },
+       {
+        "n": 22,
+        "t": "Il padre disse ai servi: \"Presto, portate qui il vestito più bello e fateglielo indossare, mettetegli l'anello al dito e i sandali ai piedi."
+       },
+       {
+        "n": 23,
+        "t": "Prendete il vitello grasso, ammazzatelo, mangiamo e facciamo festa,"
+       },
+       {
+        "n": 24,
+        "t": "perché questo mio figlio era morto ed è tornato in vita, era perduto ed è stato ritrovato\". E cominciarono a far festa."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Il padre lo ___ e lo baciò.",
+       "a": "abbracciò",
+       "hint": "abbracciare → passato remoto (embraced)"
+      },
+      {
+       "q": "___ festa!",
+       "a": "Facciamo",
+       "hint": "fare → noi (let's celebrate)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Il padre corse incontro al figlio prodigo e lo abbracciò.",
+       "en": "The father ran to meet the prodigal son and embraced him.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Il padre rifiutò di accogliere il figlio tornato a casa.",
+       "en": "The father refused to welcome the returning son.",
+       "explain": "Gli corse incontro e fece festa — he ran to him and celebrated.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "facciamo festa",
+       "en": "let's celebrate",
+       "lit": "let us make feast"
+      },
+      {
+       "it": "gli corse incontro",
+       "en": "ran to meet him"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Il padre abbraccia il figlio.",
+       "answer": "Il padre ha abbracciato il figlio."
+      },
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il figlio torna dal padre.",
+       "answer": "I figli tornano dal padre."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Quanti figli aveva l'uomo?",
+       "answers": [
+        "due",
+        "due figli"
+       ],
+       "model": "Un uomo aveva due figli."
+      },
+      {
+       "q": "Che cosa fece il padre quando vide il figlio?",
+       "answers": [
+        "gli corse incontro",
+        "lo abbracciò",
+        "corse incontro"
+       ],
+       "model": "Il padre gli corse incontro e lo abbracciò."
+      }
+     ]
+    },
+    {
+     "n": 16,
+     "d": "Jul 27-Aug 2",
+     "r": "Luke 17-18",
+     "b": "Relative pronouns: che, cui",
+     "review": false,
+     "vocab": [
+      {
+       "it": "la gratitudine",
+       "en": "gratitude",
+       "ex": "il samaritano ha reso grazie",
+       "ipa": "/la ɡɾatiˈtuːdine/"
+      },
+      {
+       "it": "l'umiltà",
+       "en": "humility",
+       "ex": "chi si umilia sarà esaltato",
+       "ipa": "/lumiˈlta/"
+      },
+      {
+       "it": "il giudice",
+       "en": "judge",
+       "ex": "il giudice ingiusto",
+       "ipa": "/il ˈdʒuːditʃe/"
+      },
+      {
+       "it": "la vedova",
+       "en": "widow",
+       "ex": "la vedova veniva da lui",
+       "ipa": "/la ˈvɛːdova/"
+      },
+      {
+       "it": "il pubblicano",
+       "en": "tax collector",
+       "ex": "il pubblicano non osava",
+       "ipa": "/il pubbliˈkaːno/"
+      },
+      {
+       "it": "la fede",
+       "en": "faith",
+       "ex": "la tua fede ti ha salvato",
+       "ipa": "/la ˈfɛːde/"
+      },
+      {
+       "it": "i bambini",
+       "en": "children",
+       "ex": "lasciate che i bambini vengano",
+       "ipa": "/i bamˈbiːni/"
+      }
+     ],
+     "grammar": {
+      "title": "Relative pronouns: che and cui",
+      "body": "\"Che\" replaces a subject or direct object: \"il giudice che non temeva Dio.\" \"Cui\" replaces an indirect object after a preposition: \"la donna di cui parlava.\""
+     },
+     "prompt": {
+      "it": "Il fariseo pregava: \"Grazie, Dio, perché non sono come gli altri uomini.\" Il pubblicano diceva: \"Dio, abbi pietà di me peccatore.\"",
+      "en": "Compare the Pharisee and the tax collector's prayers. Who went home justified?"
+     },
+     "passage": {
+      "ref": "Luca 18,10-14",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 10,
+        "t": "«Due uomini salirono al tempio a pregare: uno era fariseo e l'altro pubblicano."
+       },
+       {
+        "n": 11,
+        "t": "Il fariseo, stando in piedi, pregava così tra sé: \"O Dio, ti rendo grazie perché non sono come gli altri uomini, ladri, ingiusti, adùlteri, e neppure come questo pubblicano."
+       },
+       {
+        "n": 12,
+        "t": "Digiuno due volte alla settimana e pago le decime di tutto quello che possiedo\"."
+       },
+       {
+        "n": 13,
+        "t": "Il pubblicano invece, fermatosi a distanza, non osava nemmeno alzare gli occhi al cielo, ma si batteva il petto dicendo: \"O Dio, abbi pietà di me peccatore\"."
+       },
+       {
+        "n": 14,
+        "t": "Io vi dico: questi, a differenza dell'altro, tornò a casa sua giustificato, perché chiunque si esalta sarà umiliato, chi invece si umilia sarà esaltato»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Chi si umilia ___ esaltato.",
+       "a": "sarà",
+       "hint": "essere → futuro (will be)"
+      },
+      {
+       "q": "Lasciate che i ___ vengano a me.",
+       "a": "bambini",
+       "hint": "children (i bambini)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Il pubblicano pregò: «Dio, abbi pietà di me peccatore».",
+       "en": "The tax collector prayed: \"God, have mercy on me a sinner.\"",
+       "answerBool": true
+      },
+      {
+       "type": "mc",
+       "it": "Chi tornò a casa giustificato?",
+       "en": "Who went home justified?",
+       "options": [
+        "il fariseo",
+        "il pubblicano",
+        "nessuno dei due"
+       ],
+       "explain": "Il pubblicano, perché si umiliò.",
+       "answerIndex": 1
+      }
+     ],
+     "phrases": [
+      {
+       "it": "abbi pietà di me",
+       "en": "have mercy on me"
+      },
+      {
+       "it": "a differenza di",
+       "en": "unlike"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al futuro",
+       "base": "Chi si umilia è esaltato.",
+       "answer": "Chi si umilia sarà esaltato."
+      },
+      {
+       "instruction": "Metti al plurale",
+       "base": "L'uomo salì al tempio a pregare.",
+       "answer": "Gli uomini salirono al tempio a pregare."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Che cosa disse il pubblicano?",
+       "answers": [
+        "abbi pietà di me",
+        "abbi pietà di me peccatore",
+        "Dio abbi pietà di me"
+       ],
+       "model": "Il pubblicano disse: «O Dio, abbi pietà di me peccatore»."
+      },
+      {
+       "q": "Chi sarà esaltato?",
+       "answers": [
+        "chi si umilia",
+        "l'umile"
+       ],
+       "model": "Chi si umilia sarà esaltato."
+      }
+     ]
+    },
+    {
+     "n": 17,
+     "d": "Aug 3-9",
+     "r": "Luke 19-21",
+     "b": "Compound sentences, connectives",
+     "review": false,
+     "vocab": [
+      {
+       "it": "Zaccheo",
+       "en": "Zacchaeus",
+       "ex": "Zaccheo era un pubblicano ricco",
+       "ipa": "/zakˈkɛːo/"
+      },
+      {
+       "it": "la salvezza",
+       "en": "salvation",
+       "ex": "oggi la salvezza è entrata in questa casa",
+       "ipa": "/la salˈvɛttsa/"
+      },
+      {
+       "it": "il tempio",
+       "en": "temple",
+       "ex": "purificò il tempio",
+       "ipa": "/il ˈtɛmpjo/"
+      },
+      {
+       "it": "l'asino",
+       "en": "donkey",
+       "ex": "trovate un asino",
+       "ipa": "/ˈlaːzino/"
+      },
+      {
+       "it": "la moneta",
+       "en": "coin",
+       "ex": "la moneta della vedova",
+       "ipa": "/la moˈnɛːta/"
+      },
+      {
+       "it": "vigilare",
+       "en": "to watch",
+       "ex": "vigilate e pregate",
+       "ipa": "/vidʒiˈlaːɾe/"
+      },
+      {
+       "it": "la distruzione",
+       "en": "destruction",
+       "ex": "distruggeranno i tuoi nemici",
+       "ipa": "/la distɾutˈtsjone/"
+      }
+     ],
+     "grammar": {
+      "title": "Connectives — linking ideas in Italian",
+      "body": "\"Quindi\" (therefore), \"però\" (however), \"invece\" (instead), \"anche\" (also), \"sia... sia\" (both... and), \"né... né\" (neither... nor), \"poiché\" (since/because)."
+     },
+     "prompt": {
+      "it": "Zaccheo era ricco ma si sentiva solo. Quando Gesù lo ha chiamato, è sceso dall'albero di sicomoro e lo ha accolto con gioia.",
+      "en": "Write Zacchaeus's story — include his motivation, the encounter, and his response."
+     },
+     "passage": {
+      "ref": "Luca 19,1-5.9-10",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "Entrato in Gerico, attraversava la città."
+       },
+       {
+        "n": 2,
+        "t": "Ed ecco un uomo di nome Zaccheo, capo dei pubblicani e ricco,"
+       },
+       {
+        "n": 3,
+        "t": "cercava di vedere chi fosse Gesù, ma non gli riusciva a causa della folla, perché era piccolo di statura."
+       },
+       {
+        "n": 4,
+        "t": "Allora corse avanti e, per poterlo vedere, salì su un sicomoro, perché doveva passare di là."
+       },
+       {
+        "n": 5,
+        "t": "Quando giunse sul luogo, Gesù alzò lo sguardo e gli disse: «Zaccheo, scendi subito, perché oggi devo fermarmi a casa tua»."
+       },
+       {
+        "n": 9,
+        "t": "Gesù gli disse: «Oggi la salvezza è entrata in questa casa, perché anch'egli è figlio di Abramo;"
+       },
+       {
+        "n": 10,
+        "t": "il Figlio dell'uomo infatti è venuto a cercare e a salvare ciò che era perduto»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Oggi la ___ è entrata in questa casa.",
+       "a": "salvezza",
+       "hint": "salvation (la salvezza)"
+      },
+      {
+       "q": "___ e pregate.",
+       "a": "Vigilate",
+       "hint": "vigilare → voi imperative (watch)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Zaccheo era un pubblicano ricco.",
+       "en": "Zacchaeus was a rich tax collector.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Zaccheo salì su un albero per vedere Gesù.",
+       "en": "Zacchaeus climbed a tree to see Jesus.",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "scendi subito",
+       "en": "come down at once"
+      },
+      {
+       "it": "oggi",
+       "en": "today"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "La salvezza entra in questa casa.",
+       "answer": "La salvezza è entrata in questa casa."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "Zaccheo riusciva a vedere Gesù.",
+       "answer": "Zaccheo non riusciva a vedere Gesù."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi salì sul sicomoro per vedere Gesù?",
+       "answers": [
+        "Zaccheo"
+       ],
+       "model": "Zaccheo salì sul sicomoro."
+      },
+      {
+       "q": "Che cosa è entrato oggi in questa casa?",
+       "answers": [
+        "la salvezza"
+       ],
+       "model": "Oggi la salvezza è entrata in questa casa."
+      }
+     ]
+    },
+    {
+     "n": 18,
+     "d": "Aug 10-16",
+     "r": "Luke 22-24",
+     "b": "Review week + iTalki: discuss Luke",
+     "review": true,
+     "vocab": [
+      {
+       "it": "il tradimento",
+       "en": "betrayal",
+       "ex": "Giuda lo consegnò",
+       "ipa": "/il tɾadiˈmento/"
+      },
+      {
+       "it": "l'ultima cena",
+       "en": "Last Supper",
+       "ex": "diede loro il pane",
+       "ipa": "/ˈlultima ˈtʃɛːna/"
+      },
+      {
+       "it": "il calice",
+       "en": "chalice/cup",
+       "ex": "questo calice è la nuova alleanza",
+       "ipa": "/il ˈkaːlitʃe/"
+      },
+      {
+       "it": "la passione",
+       "en": "passion/suffering",
+       "ex": "la passione di Cristo",
+       "ipa": "/la pasˈsjone/"
+      },
+      {
+       "it": "Emmaus",
+       "en": "Emmaus",
+       "ex": "la strada di Emmaus",
+       "ipa": "/emˈmaus/"
+      },
+      {
+       "it": "l'ascensione",
+       "en": "ascension",
+       "ex": "fu portato in cielo",
+       "ipa": "/laʃʃenˈsjone/"
+      },
+      {
+       "it": "la benedizione",
+       "en": "blessing",
+       "ex": "li benedì e si allontanò",
+       "ipa": "/la benediˈtsjone/"
+      }
+     ],
+     "grammar": {
+      "title": "Putting it all together — a review",
+      "body": "Read Luke 22-24 and deliberately notice: (1) passato prossimo vs imperfetto, (2) reflexive verbs, (3) object pronouns, (4) conditional constructions, (5) relative pronouns. Write a paragraph using at least one of each."
+     },
+     "prompt": {
+      "it": "I discepoli di Emmaus camminavano tristi. Gesù si è avvicinato a loro, ma non lo riconobbero. Li ha accompagnati e spiegato le Scritture.",
+      "en": "Write the full Emmaus road story — the walk, the conversation, the moment of recognition."
+     },
+     "italki": [
+      "Qual è la parabola del vangelo di Luca che ti ha colpito di più?",
+      "Descrivi Gesù come lo vedi nel vangelo di Luca.",
+      "Come descrivi la Pasqua in italiano?",
+      "Cosa hai imparato di nuovo in italiano leggendo la Bibbia?"
+     ],
+     "passage": {
+      "ref": "Luca 24,1-6.34",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "Il primo giorno della settimana, al mattino presto, si recarono al sepolcro portando con sé gli aromi che avevano preparato."
+       },
+       {
+        "n": 2,
+        "t": "Trovarono la pietra rotolata via dal sepolcro;"
+       },
+       {
+        "n": 3,
+        "t": "ma, entrate, non trovarono il corpo del Signore Gesù."
+       },
+       {
+        "n": 4,
+        "t": "Mentre erano ancora incerte, ecco due uomini apparire vicino a loro in abiti sfolgoranti."
+       },
+       {
+        "n": 5,
+        "t": "Le donne, impaurite, tenevano il viso chinato a terra, ed essi dissero loro: «Perché cercate tra i morti colui che è vivo?"
+       },
+       {
+        "n": 6,
+        "t": "Non è qui, è risorto. Ricordatevi come vi parlò quando era ancora in Galilea»."
+       },
+       {
+        "n": 34,
+        "t": "«Davvero il Signore è risorto ed è apparso a Simone!»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Questo calice è la nuova ___.",
+       "a": "alleanza",
+       "hint": "covenant (l'alleanza)"
+      },
+      {
+       "q": "I discepoli ___ tristi verso Emmaus.",
+       "a": "camminavano",
+       "hint": "imperfetto — were walking"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Giuda tradì Gesù.",
+       "en": "Judas betrayed Jesus.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "I discepoli di Emmaus riconobbero subito Gesù.",
+       "en": "The Emmaus disciples recognized Jesus immediately.",
+       "explain": "\"Non lo riconobbero\" — they did not recognize him at first.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "è risorto",
+       "en": "he is risen"
+      },
+      {
+       "it": "il primo giorno della settimana",
+       "en": "the first day of the week"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al plurale",
+       "base": "La donna andò al sepolcro.",
+       "answer": "Le donne andarono al sepolcro."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "Gesù è qui.",
+       "answer": "Gesù non è qui."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Dov'è Gesù secondo l'angelo?",
+       "answers": [
+        "non è qui",
+        "è risorto"
+       ],
+       "model": "Non è qui, è risorto."
+      },
+      {
+       "q": "Che cosa trovarono le donne al sepolcro?",
+       "answers": [
+        "la pietra rotolata via",
+        "il sepolcro vuoto",
+        "la pietra"
+       ],
+       "model": "Trovarono la pietra rotolata via dal sepolcro."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3",
+   "title": "Phase 3: Expansion",
+   "book": "Acts of the Apostles",
+   "badgeLabel": "Upper intermediate",
+   "weeks": [
+    {
+     "n": 19,
+     "d": "Aug 17-23",
+     "r": "Acts 1-3",
+     "b": "Subjunctive mood: intro",
+     "review": false,
+     "vocab": [
+      {
+       "it": "l'ascensione",
+       "en": "ascension",
+       "ex": "fu elevato in alto",
+       "ipa": "/laʃʃenˈsjone/"
+      },
+      {
+       "it": "la Pentecoste",
+       "en": "Pentecost",
+       "ex": "il giorno di Pentecoste",
+       "ipa": "/la penteˈkɔste/"
+      },
+      {
+       "it": "lo Spirito Santo",
+       "en": "Holy Spirit",
+       "ex": "furono tutti pieni di Spirito Santo",
+       "ipa": "/lo ˈspiːɾito ˈsanto/"
+      },
+      {
+       "it": "le lingue di fuoco",
+       "en": "tongues of fire",
+       "ex": "lingue come di fuoco",
+       "ipa": "/le ˈliŋɡwe di ˈfwɔːko/"
+      },
+      {
+       "it": "battezzarsi",
+       "en": "to be baptized",
+       "ex": "battezzatevi",
+       "ipa": "/battedˈdzaɾsi/"
+      },
+      {
+       "it": "il peccato",
+       "en": "sin",
+       "ex": "per la remissione dei peccati",
+       "ipa": "/il pekˈkaːto/"
+      },
+      {
+       "it": "la comunità",
+       "en": "community",
+       "ex": "erano assidui nella comunione",
+       "ipa": "/la komuniˈta/"
+      }
+     ],
+     "grammar": {
+      "title": "Congiuntivo — the subjunctive mood",
+      "body": "Used to express doubt, desire, emotion, or necessity after certain conjunctions: \"affinché\" (so that), \"sebbene\" (although), \"prima che\" (before). The goal this week is recognition — find three subjunctive constructions in Acts 1-3."
+     },
+     "prompt": {
+      "it": "Pietro si alzò e ha parlato alla folla: \"Pentitevi e ognuno di voi sia battezzato nel nome di Gesù Cristo.\"",
+      "en": "Write Peter's Pentecost sermon in summary. What was his message? How did people respond?"
+     },
+     "passage": {
+      "ref": "Atti 2,1-4.37-38",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "Quando venne il giorno di Pentecoste, si trovavano tutti insieme nello stesso luogo."
+       },
+       {
+        "n": 2,
+        "t": "Venne all'improvviso dal cielo un fragore, quasi un vento che si abbatte impetuoso, e riempì tutta la casa dove stavano."
+       },
+       {
+        "n": 3,
+        "t": "Apparvero loro lingue come di fuoco, che si dividevano, e si posarono su ciascuno di loro,"
+       },
+       {
+        "n": 4,
+        "t": "e tutti furono colmati di Spirito Santo e cominciarono a parlare in altre lingue, nel modo in cui lo Spirito dava loro il potere di esprimersi."
+       },
+       {
+        "n": 37,
+        "t": "All'udire questo, si sentirono trafiggere il cuore e dissero a Pietro e agli altri apostoli: «Che cosa dobbiamo fare, fratelli?»."
+       },
+       {
+        "n": 38,
+        "t": "Pietro disse loro: «Convertitevi e ciascuno di voi si faccia battezzare nel nome di Gesù Cristo, per il perdono dei vostri peccati, e riceverete il dono dello Spirito Santo."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Furono tutti pieni di Spirito ___.",
+       "a": "Santo",
+       "hint": "agrees with Spirito — masculine singular"
+      },
+      {
+       "q": "___ e ognuno di voi sia battezzato.",
+       "a": "Pentitevi",
+       "hint": "pentirsi → voi imperative (repent)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Nel giorno di Pentecoste apparvero lingue come di fuoco.",
+       "en": "On Pentecost tongues like fire appeared.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Pietro rimase in silenzio davanti alla folla.",
+       "en": "Peter stayed silent before the crowd.",
+       "explain": "Pietro si alzò e parlò alla folla — Peter stood and spoke.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "Che cosa dobbiamo fare?",
+       "en": "What must we do?"
+      },
+      {
+       "it": "nel nome di Gesù",
+       "en": "in the name of Jesus"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al futuro",
+       "base": "Ricevete il dono dello Spirito Santo.",
+       "answer": "Riceverete il dono dello Spirito Santo."
+      },
+      {
+       "instruction": "Metti al plurale",
+       "base": "L'apostolo parla in altre lingue.",
+       "answer": "Gli apostoli parlano in altre lingue."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Che cosa chiese la folla a Pietro?",
+       "answers": [
+        "che cosa dobbiamo fare",
+        "cosa dobbiamo fare"
+       ],
+       "model": "Chiesero: «Che cosa dobbiamo fare, fratelli?»."
+      },
+      {
+       "q": "Che cosa riceveranno i battezzati?",
+       "answers": [
+        "il dono dello Spirito Santo",
+        "lo Spirito Santo",
+        "il dono dello spirito santo"
+       ],
+       "model": "Riceverete il dono dello Spirito Santo."
+      }
+     ]
+    },
+    {
+     "n": 20,
+     "d": "Aug 24-30",
+     "r": "Acts 4-6",
+     "b": "Subjunctive with doubt and opinion",
+     "review": false,
+     "vocab": [
+      {
+       "it": "la guarigione",
+       "en": "healing",
+       "ex": "la guarigione dello storpio",
+       "ipa": "/la ɡwaɾiˈdʒone/"
+      },
+      {
+       "it": "la prigione",
+       "en": "prison",
+       "ex": "li gettarono in prigione",
+       "ipa": "/la pɾiˈdʒone/"
+      },
+      {
+       "it": "Anania",
+       "en": "Ananias",
+       "ex": "Anania con Saffira sua moglie",
+       "ipa": "/aˈnaːnja/"
+      },
+      {
+       "it": "mentire",
+       "en": "to lie",
+       "ex": "hai mentito allo Spirito Santo",
+       "ipa": "/menˈtiːɾe/"
+      },
+      {
+       "it": "i diaconi",
+       "en": "deacons",
+       "ex": "scelsero sette uomini",
+       "ipa": "/i ˈdjaːkoni/"
+      },
+      {
+       "it": "Stefano",
+       "en": "Stephen",
+       "ex": "Stefano era pieno di grazia",
+       "ipa": "/ˈstɛːfano/"
+      },
+      {
+       "it": "la persecuzione",
+       "en": "persecution",
+       "ex": "scoppiò una grande persecuzione",
+       "ipa": "/la peɾsekutˈtsjone/"
+      }
+     ],
+     "grammar": {
+      "title": "Subjunctive after verbs of doubt and opinion",
+      "body": "\"Penso che\" (I think that), \"credo che\" (I believe that), \"dubito che\" (I doubt that), \"sembra che\" (it seems that) — all trigger subjunctive. \"Credo che Stefano abbia detto la verità.\""
+     },
+     "prompt": {
+      "it": "Pietro ha detto ad Anania: \"Perché Satana ti ha riempito il cuore fino a mentire allo Spirito Santo?\"",
+      "en": "Write the scene of Ananias and Sapphira. What sin did they commit? What was the consequence?"
+     },
+     "passage": {
+      "ref": "Atti 4,11-12.31-33",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 11,
+        "t": "È lui \"la pietra che, scartata da voi costruttori, è diventata la pietra d'angolo\"."
+       },
+       {
+        "n": 12,
+        "t": "In nessun altro c'è salvezza; non vi è infatti, sotto il cielo, altro nome dato agli uomini nel quale è stabilito che noi siamo salvati»."
+       },
+       {
+        "n": 31,
+        "t": "Mentre pregavano, il luogo in cui erano riuniti tremò e tutti furono colmati di Spirito Santo e annunciavano la parola di Dio con franchezza."
+       },
+       {
+        "n": 32,
+        "t": "La moltitudine di coloro che erano diventati credenti aveva un cuore solo e un'anima sola e nessuno considerava sua proprietà quello che gli apparteneva, ma fra loro tutto era comune."
+       },
+       {
+        "n": 33,
+        "t": "Con grande forza gli apostoli davano testimonianza della risurrezione del Signore Gesù, e tutti godevano di grande favore."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Hai ___ allo Spirito Santo.",
+       "a": "mentito",
+       "hint": "mentire → past participle (lied)"
+      },
+      {
+       "q": "Scoppiò una grande ___.",
+       "a": "persecuzione",
+       "hint": "persecution (la persecuzione)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Anania e Saffira mentirono allo Spirito Santo.",
+       "en": "Ananias and Sapphira lied to the Holy Spirit.",
+       "answerBool": true
+      },
+      {
+       "type": "mc",
+       "it": "La comunità scelse sette uomini come…",
+       "en": "The community chose seven men as…",
+       "options": [
+        "apostoli",
+        "diaconi",
+        "profeti"
+       ],
+       "explain": "I diaconi — the deacons.",
+       "answerIndex": 1
+      }
+     ],
+     "phrases": [
+      {
+       "it": "con franchezza",
+       "en": "boldly",
+       "lit": "with frankness"
+      },
+      {
+       "it": "un cuore solo e un'anima sola",
+       "en": "one heart and one soul"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Rendi negativa",
+       "base": "In lui c'è salvezza.",
+       "answer": "In lui non c'è salvezza."
+      },
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il credente annunciava la parola.",
+       "answer": "I credenti annunciavano la parola."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Dove non c'è salvezza?",
+       "answers": [
+        "in nessun altro",
+        "in nessun altro nome"
+       ],
+       "model": "In nessun altro c'è salvezza."
+      },
+      {
+       "q": "Come annunciavano la parola di Dio?",
+       "answers": [
+        "con franchezza"
+       ],
+       "model": "Annunciavano la parola di Dio con franchezza."
+      }
+     ]
+    },
+    {
+     "n": 21,
+     "d": "Aug 31-Sep 6",
+     "r": "Acts 7-9",
+     "b": "Passive voice",
+     "review": false,
+     "vocab": [
+      {
+       "it": "il martirio",
+       "en": "martyrdom",
+       "ex": "la morte di Stefano",
+       "ipa": "/il maɾˈtiːɾjo/"
+      },
+      {
+       "it": "la lapidazione",
+       "en": "stoning",
+       "ex": "lo lapidavano",
+       "ipa": "/la lapidaˈtsjone/"
+      },
+      {
+       "it": "Saulo",
+       "en": "Saul",
+       "ex": "Saulo approvava la sua uccisione",
+       "ipa": "/ˈsaulo/"
+      },
+      {
+       "it": "la conversione",
+       "en": "conversion",
+       "ex": "la conversione di Paolo",
+       "ipa": "/la konveɾˈsjone/"
+      },
+      {
+       "it": "la via di Damasco",
+       "en": "road to Damascus",
+       "ex": "sulla via di Damasco",
+       "ipa": "/la ˈviːa di daˈmasko/"
+      },
+      {
+       "it": "cieco",
+       "en": "blind",
+       "ex": "per tre giorni non vide nulla",
+       "ipa": "/ˈtʃɛːko/"
+      },
+      {
+       "it": "il battesimo",
+       "en": "baptism",
+       "ex": "fu battezzato",
+       "ipa": "/il batˈtɛːzimo/"
+      }
+     ],
+     "grammar": {
+      "title": "Voce passiva — the passive voice",
+      "body": "Active: \"Pietro ha guarito il cieco.\" Passive: \"Il cieco è stato guarito da Pietro.\" Formed with essere + past participle. The participle agrees with the subject in gender and number."
+     },
+     "prompt": {
+      "it": "Saulo cadde a terra e sentì una voce: \"Saulo, Saulo, perché mi perseguiti?\" Era Gesù che gli parlava.",
+      "en": "Write Paul's conversion on the road to Damascus from his own perspective."
+     },
+     "passage": {
+      "ref": "Atti 9,1-6.17-18",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "Saulo frattanto, sempre fremente minaccia e strage contro i discepoli del Signore, si presentò al sommo sacerdote"
+       },
+       {
+        "n": 2,
+        "t": "e gli chiese lettere per le sinagoghe di Damasco, al fine di condurre in catene a Gerusalemme uomini e donne che seguivano questa Via, qualora ne avesse trovati."
+       },
+       {
+        "n": 3,
+        "t": "E mentre era in viaggio e stava per avvicinarsi a Damasco, all'improvviso lo avvolse una luce dal cielo"
+       },
+       {
+        "n": 4,
+        "t": "e cadde a terra e udì una voce che gli diceva: «Saulo, Saulo, perché mi perseguiti?»."
+       },
+       {
+        "n": 5,
+        "t": "Rispose: «Chi sei, o Signore?». Ed egli: «Sono Gesù, che tu perseguiti."
+       },
+       {
+        "n": 6,
+        "t": "Ma àlzati ed entra nella città e ti sarà detto ciò che devi fare»."
+       },
+       {
+        "n": 17,
+        "t": "Allora Ananìa andò, entrò nella casa, gli impose le mani e disse: «Saulo, fratello mio, mi ha mandato a te il Signore Gesù, che ti è apparso sulla strada che percorrevi, perché tu riacquisti la vista e sia colmato di Spirito Santo»."
+       },
+       {
+        "n": 18,
+        "t": "E improvvisamente gli caddero dagli occhi come delle squame e riacquistò la vista; si alzò e fu battezzato."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Saulo, Saulo, perché mi ___?",
+       "a": "perseguiti",
+       "hint": "perseguitare → tu present (persecute)"
+      },
+      {
+       "q": "Per tre giorni non ___ nulla.",
+       "a": "vide",
+       "hint": "vedere → passato remoto (he saw)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Stefano fu lapidato.",
+       "en": "Stephen was stoned.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Saulo si convertì sulla via di Damasco.",
+       "en": "Saul was converted on the road to Damascus.",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "perché mi perseguiti?",
+       "en": "why do you persecute me?"
+      },
+      {
+       "it": "Chi sei, o Signore?",
+       "en": "Who are you, Lord?"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Saulo cade a terra.",
+       "answer": "Saulo è caduto a terra."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "Saulo vede la luce.",
+       "answer": "Saulo non vede la luce."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi parlò a Saulo sulla via di Damasco?",
+       "answers": [
+        "Gesù",
+        "il Signore"
+       ],
+       "model": "Era Gesù che gli parlava."
+      },
+      {
+       "q": "Che cosa disse la voce a Saulo?",
+       "answers": [
+        "perché mi perseguiti",
+        "Saulo perché mi perseguiti"
+       ],
+       "model": "«Saulo, Saulo, perché mi perseguiti?»."
+      }
+     ]
+    },
+    {
+     "n": 22,
+     "d": "Sep 7-13",
+     "r": "Acts 10-12",
+     "b": "Gerund: stare + gerundio",
+     "review": false,
+     "vocab": [
+      {
+       "it": "la visione",
+       "en": "vision",
+       "ex": "Pietro ebbe una visione",
+       "ipa": "/la viˈzjone/"
+      },
+      {
+       "it": "Cornelio",
+       "en": "Cornelius",
+       "ex": "il centurione Cornelio",
+       "ipa": "/koɾˈnɛːljo/"
+      },
+      {
+       "it": "i pagani",
+       "en": "Gentiles",
+       "ex": "il vangelo anche ai pagani",
+       "ipa": "/i paˈɡaːni/"
+      },
+      {
+       "it": "il battesimo",
+       "en": "baptism",
+       "ex": "chi può impedire il battesimo?",
+       "ipa": "/il batˈtɛːzimo/"
+      },
+      {
+       "it": "l'angelo",
+       "en": "angel",
+       "ex": "un angelo del Signore apparve",
+       "ipa": "/ˈlandʒelo/"
+      },
+      {
+       "it": "il carcere",
+       "en": "prison",
+       "ex": "Pietro era in carcere",
+       "ipa": "/il ˈkaɾtʃeɾe/"
+      },
+      {
+       "it": "Erode",
+       "en": "Herod",
+       "ex": "Erode lo aveva arrestato",
+       "ipa": "/eˈɾɔːde/"
+      }
+     ],
+     "grammar": {
+      "title": "Gerundio — ongoing and simultaneous action",
+      "body": "\"Stare + gerundio\" expresses an action in progress: \"stava pregando\" (was praying). The gerund (-ando/-endo) can also express simultaneity: \"uscendo dalla prigione, Pietro vide...\""
+     },
+     "prompt": {
+      "it": "Mentre Pietro stava dormendo in prigione, un angelo del Signore apparve. Lo colpì al fianco e disse: \"Alzati!\"",
+      "en": "Write Peter's escape from prison. Use \"stava + gerundio\" at least twice."
+     },
+     "passage": {
+      "ref": "Atti 10,34-36.44-45",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 34,
+        "t": "Allora Pietro prese la parola e disse: «In verità sto rendendomi conto che Dio non fa preferenza di persone,"
+       },
+       {
+        "n": 35,
+        "t": "ma accoglie chi lo teme e pratica la giustizia, a qualunque nazione appartenga."
+       },
+       {
+        "n": 36,
+        "t": "Questa è la parola che egli ha inviato ai figli d'Israele, annunciando la pace per mezzo di Gesù Cristo: questi è il Signore di tutti."
+       },
+       {
+        "n": 44,
+        "t": "Pietro stava ancora dicendo queste cose, quando lo Spirito Santo scese su tutti coloro che ascoltavano la parola."
+       },
+       {
+        "n": 45,
+        "t": "E i fedeli circoncisi che erano venuti con Pietro furono meravigliati che anche sui pagani si fosse effuso il dono dello Spirito Santo."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Mentre Pietro ___ dormendo, apparve un angelo.",
+       "a": "stava",
+       "hint": "stare + gerundio — was sleeping"
+      },
+      {
+       "q": "Il vangelo anche ai ___.",
+       "a": "pagani",
+       "hint": "the Gentiles (i pagani)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Pietro ebbe una visione prima di incontrare Cornelio.",
+       "en": "Peter had a vision before meeting Cornelius.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Un angelo liberò Pietro dal carcere.",
+       "en": "An angel freed Peter from prison.",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "in verità",
+       "en": "truly"
+      },
+      {
+       "it": "per mezzo di Gesù Cristo",
+       "en": "through Jesus Christ"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Lo Spirito Santo scende su tutti.",
+       "answer": "Lo Spirito Santo è sceso su tutti."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "Dio fa preferenza di persone.",
+       "answer": "Dio non fa preferenza di persone."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Dio fa preferenza di persone?",
+       "answers": [
+        "no",
+        "no non fa preferenza",
+        "Dio non fa preferenza di persone"
+       ],
+       "model": "No, Dio non fa preferenza di persone."
+      },
+      {
+       "q": "Su chi scese lo Spirito Santo?",
+       "answers": [
+        "su tutti",
+        "sui pagani",
+        "su tutti coloro che ascoltavano"
+       ],
+       "model": "Lo Spirito Santo scese su tutti coloro che ascoltavano."
+      }
+     ]
+    },
+    {
+     "n": 23,
+     "d": "Sep 14-20",
+     "r": "Acts 13-15",
+     "b": "Reported speech",
+     "review": false,
+     "vocab": [
+      {
+       "it": "il viaggio missionario",
+       "en": "missionary journey",
+       "ex": "il primo viaggio",
+       "ipa": "/il ˈvjaddʒo missjoˈnaːɾjo/"
+      },
+      {
+       "it": "Barnaba",
+       "en": "Barnabas",
+       "ex": "Barnaba e Paolo",
+       "ipa": "/ˈbaɾnaba/"
+      },
+      {
+       "it": "la sinagoga",
+       "en": "synagogue",
+       "ex": "entrarono nella sinagoga",
+       "ipa": "/la sinaˈɡɔːɡa/"
+      },
+      {
+       "it": "il concilio",
+       "en": "council",
+       "ex": "il concilio di Gerusalemme",
+       "ipa": "/il konˈtʃiːljo/"
+      },
+      {
+       "it": "la circoncisione",
+       "en": "circumcision",
+       "ex": "la questione della circoncisione",
+       "ipa": "/la tʃiɾkontʃiˈzjone/"
+      },
+      {
+       "it": "la grazia",
+       "en": "grace",
+       "ex": "vivere nella grazia di Dio",
+       "ipa": "/la ˈɡɾattsja/"
+      },
+      {
+       "it": "annunciare",
+       "en": "to announce",
+       "ex": "annunciarono la parola di Dio",
+       "ipa": "/annuntˈtʃaːɾe/"
+      }
+     ],
+     "grammar": {
+      "title": "Discorso indiretto — reported speech",
+      "body": "Direct: Paolo disse: \"Credo in Gesù.\" Indirect: Paolo disse che credeva in Gesù. Note the tense shift: present → imperfect, future → conditional. \"Disse che sarebbe tornato.\""
+     },
+     "prompt": {
+      "it": "Paolo ha annunciato nella sinagoga: \"Dio ha resuscitato Gesù dai morti. Per mezzo di lui vi è annunciata la remissione dei peccati.\"",
+      "en": "Write Paul's synagogue sermon in Pisidian Antioch in reported speech form."
+     },
+     "passage": {
+      "ref": "Atti 13,38-39.46-47",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 38,
+        "t": "Sia dunque noto a voi, fratelli, che per mezzo di lui vi è annunciata la remissione dei peccati e che, per quanto riguarda tutte le cose di cui non potevate essere giustificati dalla legge di Mosè,"
+       },
+       {
+        "n": 39,
+        "t": "in lui è giustificato chiunque crede."
+       },
+       {
+        "n": 46,
+        "t": "Paolo e Barnaba con franchezza dichiararono: «Era necessario che fosse annunciata prima di tutto a voi la parola di Dio, ma poiché la respingete e non vi giudicate degni della vita eterna, ecco: noi ci rivolgiamo ai pagani."
+       },
+       {
+        "n": 47,
+        "t": "Così infatti ci ha comandato il Signore: \"Io ti ho posto come luce per le genti, perché tu porti la salvezza sino all'estremità della terra\"»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Annunciarono la ___ di Dio.",
+       "a": "parola",
+       "hint": "the word (la parola)"
+      },
+      {
+       "q": "Il concilio di ___.",
+       "a": "Gerusalemme",
+       "hint": "Jerusalem — the council location"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Barnaba e Paolo partirono per un viaggio missionario.",
+       "en": "Barnabas and Paul set out on a missionary journey.",
+       "answerBool": true
+      },
+      {
+       "type": "mc",
+       "it": "Il concilio di Gerusalemme discusse la questione…",
+       "en": "The Jerusalem council discussed the question of…",
+       "options": [
+        "della circoncisione",
+        "del battesimo",
+        "del digiuno"
+       ],
+       "explain": "La circoncisione dei pagani — circumcision of the Gentiles.",
+       "answerIndex": 0
+      }
+     ],
+     "phrases": [
+      {
+       "it": "la remissione dei peccati",
+       "en": "the forgiveness of sins"
+      },
+      {
+       "it": "chiunque crede",
+       "en": "whoever believes"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il pagano ascolta la parola.",
+       "answer": "I pagani ascoltano la parola."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "Voi vi giudicate degni della vita eterna.",
+       "answer": "Voi non vi giudicate degni della vita eterna."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi è giustificato in Cristo?",
+       "answers": [
+        "chiunque crede",
+        "chi crede"
+       ],
+       "model": "In lui è giustificato chiunque crede."
+      },
+      {
+       "q": "A chi si rivolgono ora Paolo e Barnaba?",
+       "answers": [
+        "ai pagani",
+        "i pagani"
+       ],
+       "model": "Noi ci rivolgiamo ai pagani."
+      }
+     ]
+    },
+    {
+     "n": 24,
+     "d": "Sep 21-27",
+     "r": "Acts 16-18",
+     "b": "Advanced prepositions",
+     "review": false,
+     "vocab": [
+      {
+       "it": "Lidia",
+       "en": "Lydia",
+       "ex": "Lidia apriva il cuore",
+       "ipa": "/ˈliːdja/"
+      },
+      {
+       "it": "il terremoto",
+       "en": "earthquake",
+       "ex": "ci fu un gran terremoto",
+       "ipa": "/il teɾɾeˈmɔːto/"
+      },
+      {
+       "it": "il carcere",
+       "en": "prison",
+       "ex": "il custode del carcere",
+       "ipa": "/il ˈkaɾtʃeɾe/"
+      },
+      {
+       "it": "Corinto",
+       "en": "Corinth",
+       "ex": "giunsero a Corinto",
+       "ipa": "/koˈɾinto/"
+      },
+      {
+       "it": "l'Areopago",
+       "en": "Areopagus",
+       "ex": "in mezzo all'Areopago",
+       "ipa": "/laɾeˈɔːpaɡo/"
+      },
+      {
+       "it": "il missionario",
+       "en": "missionary",
+       "ex": "missionari instancabili",
+       "ipa": "/il missjoˈnaːɾjo/"
+      },
+      {
+       "it": "la sinagoga",
+       "en": "synagogue",
+       "ex": "ogni sabato nella sinagoga",
+       "ipa": "/la sinaˈɡɔːɡa/"
+      }
+     ],
+     "grammar": {
+      "title": "Preposizioni articolate and complex prepositions",
+      "body": "\"Al di là\" (beyond), \"in mezzo a\" (in the middle of), \"davanti a\" (in front of), \"dietro a\" (behind), \"accanto a\" (next to), \"insieme a\" (together with)."
+     },
+     "prompt": {
+      "it": "Paolo si alzò in mezzo all'Areopago e disse: \"Ateniesi, vi vedo in tutto molto religiosi. Ho trovato un altare con l'iscrizione: Al Dio ignoto.\"",
+      "en": "Write Paul's speech in Athens. Who was he addressing? What argument did he make?"
+     },
+     "passage": {
+      "ref": "Atti 16,25-30.34",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 25,
+        "t": "Verso mezzanotte Paolo e Sila stavano pregando e cantando inni a Dio, mentre i prigionieri li ascoltavano."
+       },
+       {
+        "n": 26,
+        "t": "Improvvisamente si verificò un terremoto così forte che furono scosse le fondamenta della prigione; in un istante tutte le porte si aprirono e le catene di tutti si sciolsero."
+       },
+       {
+        "n": 27,
+        "t": "Il carceriere si svegliò e, vedendo aperte le porte della prigione, tirò fuori la spada e stava per uccidersi, pensando che i prigionieri fossero fuggiti."
+       },
+       {
+        "n": 28,
+        "t": "Ma Paolo gridò a gran voce: «Non farti del male, siamo tutti qui!»."
+       },
+       {
+        "n": 29,
+        "t": "Il carceriere allora chiese la luce, si precipitò dentro e, tremante, si gettò ai piedi di Paolo e di Sila;"
+       },
+       {
+        "n": 30,
+        "t": "poi li condusse fuori e disse: «Signori, che cosa devo fare per essere salvato?»."
+       },
+       {
+        "n": 34,
+        "t": "Li condusse a casa sua, apparecchiò la mensa e fu pieno di gioia con tutta la sua famiglia, per aver creduto in Dio."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Paolo si alzò in mezzo ___ Areopago.",
+       "a": "all'",
+       "hint": "a + l' (preposizione articolata)"
+      },
+      {
+       "q": "Giunsero a ___.",
+       "a": "Corinto",
+       "hint": "Corinth"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Lidia aprì il cuore al messaggio di Paolo.",
+       "en": "Lydia opened her heart to Paul's message.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Paolo parlò all'Areopago di Atene.",
+       "en": "Paul spoke at the Areopagus in Athens.",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "che cosa devo fare?",
+       "en": "what must I do?"
+      },
+      {
+       "it": "stavano pregando",
+       "en": "they were praying"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Rendi negativa",
+       "base": "Il carceriere si fece del male.",
+       "answer": "Il carceriere non si fece del male."
+      },
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Le porte si aprono.",
+       "answer": "Le porte si sono aperte."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Che cosa chiese il carceriere?",
+       "answers": [
+        "che cosa devo fare per essere salvato",
+        "cosa devo fare per essere salvato",
+        "che cosa devo fare"
+       ],
+       "model": "Chiese: «Che cosa devo fare per essere salvato?»."
+      },
+      {
+       "q": "Che cosa facevano Paolo e Sila in prigione?",
+       "answers": [
+        "pregavano e cantavano",
+        "pregavano",
+        "cantavano inni"
+       ],
+       "model": "Pregavano e cantavano inni a Dio."
+      }
+     ]
+    },
+    {
+     "n": 25,
+     "d": "Sep 28-Oct 4",
+     "r": "Acts 19-21",
+     "b": "Vocabulary: emotions, belief, community",
+     "review": false,
+     "vocab": [
+      {
+       "it": "la magia",
+       "en": "magic",
+       "ex": "bruciarono i libri di magia",
+       "ipa": "/la ˈmaːdʒa/"
+      },
+      {
+       "it": "il tumulto",
+       "en": "riot",
+       "ex": "il tumulto degli artigiani",
+       "ipa": "/il tuˈmulto/"
+      },
+      {
+       "it": "l'argentiere",
+       "en": "silversmith",
+       "ex": "Demetrio l'argentiere",
+       "ipa": "/laɾdʒenˈtjɛːɾe/"
+      },
+      {
+       "it": "la profezia",
+       "en": "prophecy",
+       "ex": "aveva quattro figlie profetesse",
+       "ipa": "/la pɾofeˈtsiːa/"
+      },
+      {
+       "it": "legare",
+       "en": "to bind",
+       "ex": "lo legheranno e lo consegneranno",
+       "ipa": "/leˈɡaːɾe/"
+      },
+      {
+       "it": "il viaggio",
+       "en": "the journey",
+       "ex": "ci imbarcammo",
+       "ipa": "/il ˈvjaddʒo/"
+      },
+      {
+       "it": "lo Spirito",
+       "en": "the Spirit",
+       "ex": "lo Spirito Santo mi attesta",
+       "ipa": "/lo ˈspiːɾito/"
+      }
+     ],
+     "grammar": {
+      "title": "Vocabulary expansion — emotional and spiritual register",
+      "body": "\"Commuoversi\" (to be moved emotionally), \"rattristarsi\" (to become sad), \"rallegrarsi\" (to rejoice), \"temere\" (to fear/revere), \"sperare\" (to hope), \"fidarsi di\" (to trust in)."
+     },
+     "prompt": {
+      "it": "Paolo disse agli anziani di Efeso: \"Non ho cercato né argento né oro né vesti di nessuno. Sapete che a questi miei bisogni hanno provveduto le mie mani.\"",
+      "en": "Write Paul's farewell speech at Miletus. What did he say about his ministry? How did the elders respond?"
+     },
+     "passage": {
+      "ref": "Atti 20,24.28.35",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 24,
+        "t": "Ma non ritengo la mia vita meritevole di nulla, purché conduca a termine la mia corsa e il ministero che ho ricevuto dal Signore Gesù: rendere testimonianza al vangelo della grazia di Dio."
+       },
+       {
+        "n": 28,
+        "t": "Vegliate su voi stessi e su tutto il gregge, in mezzo al quale lo Spirito Santo vi ha posti come vescovi a pascere la Chiesa di Dio, che egli ha acquistato con il suo sangue."
+       },
+       {
+        "n": 35,
+        "t": "In tutte le maniere vi ho dimostrato che lavorando così si deve soccorrere i deboli, ricordandosi delle parole del Signore Gesù, che disse: \"Vi è più gioia nel dare che nel ricevere\"."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Bruciarono i libri di ___.",
+       "a": "magia",
+       "hint": "magic (la magia)"
+      },
+      {
+       "q": "Non ho cercato né argento né ___.",
+       "a": "oro",
+       "hint": "gold (l'oro) — né… né (neither… nor)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "A Efeso scoppiò un tumulto a causa degli artigiani.",
+       "en": "In Ephesus a riot broke out because of the craftsmen.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Paolo cercò argento e oro per sé.",
+       "en": "Paul sought silver and gold for himself.",
+       "explain": "\"Non ho cercato né argento né oro\" — he sought neither.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "più... che",
+       "en": "more... than"
+      },
+      {
+       "it": "Vegliate",
+       "en": "Keep watch"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il vescovo veglia sul gregge.",
+       "answer": "I vescovi vegliano sul gregge."
+      },
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Ricevo il ministero dal Signore.",
+       "answer": "Ho ricevuto il ministero dal Signore."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Dove c'è più gioia, nel dare o nel ricevere?",
+       "answers": [
+        "nel dare",
+        "dare"
+       ],
+       "model": "Vi è più gioia nel dare che nel ricevere."
+      },
+      {
+       "q": "Su che cosa dovevano vegliare gli anziani?",
+       "answers": [
+        "sul gregge",
+        "su tutto il gregge",
+        "su voi stessi"
+       ],
+       "model": "Vegliate su tutto il gregge."
+      }
+     ]
+    },
+    {
+     "n": 26,
+     "d": "Oct 5-11",
+     "r": "Acts 22-24",
+     "b": "Formal vs informal register",
+     "review": false,
+     "vocab": [
+      {
+       "it": "la difesa",
+       "en": "defense",
+       "ex": "la difesa di Paolo",
+       "ipa": "/la diˈfeːza/"
+      },
+      {
+       "it": "il sinedrio",
+       "en": "Sanhedrin",
+       "ex": "davanti al sinedrio",
+       "ipa": "/il siˈnɛːdɾjo/"
+      },
+      {
+       "it": "la congiura",
+       "en": "conspiracy",
+       "ex": "una congiura contro Paolo",
+       "ipa": "/la konˈdʒuːɾa/"
+      },
+      {
+       "it": "il governatore",
+       "en": "governor",
+       "ex": "il governatore Felice",
+       "ipa": "/il ɡoveɾnaˈtoːɾe/"
+      },
+      {
+       "it": "il processo",
+       "en": "trial",
+       "ex": "durante il processo",
+       "ipa": "/il pɾoˈtʃɛsso/"
+      },
+      {
+       "it": "il testimone",
+       "en": "witness",
+       "ex": "sono testimone di queste cose",
+       "ipa": "/il testiˈmoːne/"
+      },
+      {
+       "it": "l'accusa",
+       "en": "accusation",
+       "ex": "le accuse contro Paolo",
+       "ipa": "/lakˈkuːza/"
+      }
+     ],
+     "grammar": {
+      "title": "Registro formale vs informale",
+      "body": "Paul's speeches are formal public oratory — longer sentences, subjunctive, elevated vocabulary. Notice how Paul addresses different audiences (Jewish crowd vs Roman governor) and shifts his vocabulary accordingly."
+     },
+     "prompt": {
+      "it": "Paolo disse: \"Sono cittadino romano.\" Il tribuno domandò: \"Tu sei romano?\" E Paolo rispose: \"Sì.\"",
+      "en": "Write Paul's defense before Felix in Acts 24. What charges were made? How did Paul respond?"
+     },
+     "passage": {
+      "ref": "Atti 22,6-10.14-16",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 6,
+        "t": "Mentre ero in cammino e mi avvicinavo a Damasco, verso mezzogiorno, all'improvviso una grande luce dal cielo mi avvolse di splendore."
+       },
+       {
+        "n": 7,
+        "t": "Caddi a terra e udii una voce che mi diceva: \"Saulo, Saulo, perché mi perseguiti?\"."
+       },
+       {
+        "n": 8,
+        "t": "Io risposi: \"Chi sei, o Signore?\". Mi disse: \"Sono Gesù il Nazareno, che tu perseguiti\"."
+       },
+       {
+        "n": 9,
+        "t": "Quelli che erano con me videro la luce, ma non udirono la voce di colui che mi parlava."
+       },
+       {
+        "n": 10,
+        "t": "E io dissi: \"Che cosa devo fare, Signore?\". Il Signore mi disse: \"Àlzati, va' a Damasco e là ti sarà detto di tutto ciò che è stabilito che tu faccia\"."
+       },
+       {
+        "n": 14,
+        "t": "Egli disse: \"Il Dio dei nostri padri ti ha predestinato perché tu conoscessi la sua volontà, vedessi il Giusto e udissi la sua voce."
+       },
+       {
+        "n": 15,
+        "t": "Sarai suo testimone davanti a tutti gli uomini di ciò che hai visto e udito."
+       },
+       {
+        "n": 16,
+        "t": "E ora perché esiti? Àlzati, fatti battezzare e lava via i tuoi peccati, invocando il suo nome\"."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Sono ___ romano.",
+       "a": "cittadino",
+       "hint": "citizen (il cittadino)"
+      },
+      {
+       "q": "Le ___ contro Paolo.",
+       "a": "accuse",
+       "hint": "accusations (le accuse, plural)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Paolo dichiarò di essere cittadino romano.",
+       "en": "Paul declared he was a Roman citizen.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Paolo fu processato davanti al governatore Felice.",
+       "en": "Paul was tried before governor Felix.",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "che cosa devo fare?",
+       "en": "what must I do?"
+      },
+      {
+       "it": "lava via i tuoi peccati",
+       "en": "wash away your sins"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Cado a terra.",
+       "answer": "Sono caduto a terra."
+      },
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il compagno vide la luce.",
+       "answer": "I compagni videro la luce."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Che cosa avvolse Paolo sulla via di Damasco?",
+       "answers": [
+        "una grande luce",
+        "una luce",
+        "la luce"
+       ],
+       "model": "Una grande luce dal cielo mi avvolse."
+      },
+      {
+       "q": "Chi rispose «Sono Gesù»?",
+       "answers": [
+        "il Signore",
+        "Gesù"
+       ],
+       "model": "Mi disse: «Sono Gesù il Nazareno»."
+      }
+     ]
+    },
+    {
+     "n": 27,
+     "d": "Oct 12-18",
+     "r": "Acts 25-26",
+     "b": "Complex sentence patterns",
+     "review": false,
+     "vocab": [
+      {
+       "it": "Festo",
+       "en": "Festus",
+       "ex": "il governatore Festo",
+       "ipa": "/ˈfɛsto/"
+      },
+      {
+       "it": "Agrippa",
+       "en": "Agrippa",
+       "ex": "il re Agrippa",
+       "ipa": "/aˈɡɾippa/"
+      },
+      {
+       "it": "l'appello",
+       "en": "appeal",
+       "ex": "ho fatto appello a Cesare",
+       "ipa": "/lapˈpɛllo/"
+      },
+      {
+       "it": "la testimonianza",
+       "en": "testimony",
+       "ex": "la mia testimonianza",
+       "ipa": "/la testimonˈjantsa/"
+      },
+      {
+       "it": "convertirsi",
+       "en": "to convert",
+       "ex": "perché si convertissero",
+       "ipa": "/konveɾˈtiɾsi/"
+      },
+      {
+       "it": "la luce",
+       "en": "light",
+       "ex": "una luce dal cielo",
+       "ipa": "/la ˈluːtʃe/"
+      },
+      {
+       "it": "la grazia",
+       "en": "grace",
+       "ex": "grazie alla grazia di Dio",
+       "ipa": "/la ˈɡɾattsja/"
+      }
+     ],
+     "grammar": {
+      "title": "Periodi ipotetici — complex conditional sentences",
+      "body": "(1) Real: \"Se parli italiano, capisci la Bibbia.\" (2) Unlikely: \"Se parlassi italiano, capirei tutto.\" (3) Impossible/past: \"Se avessi parlato italiano, avrei capito.\""
+     },
+     "prompt": {
+      "it": "Paolo disse ad Agrippa: \"Vorrei a Dio che non solo tu, ma anche tutti coloro che mi ascoltano oggi diventassero come sono io, a parte queste catene!\"",
+      "en": "Write Paul's testimony before King Agrippa. What was his before/after story?"
+     },
+     "passage": {
+      "ref": "Atti 26,12-15.17-18",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 12,
+        "t": "«Con questi poteri mi recai a Damasco con l'autorizzazione e il mandato dei capi dei sacerdoti."
+       },
+       {
+        "n": 13,
+        "t": "E mentre ero in cammino, in pieno giorno, vidi, o re, una luce, più splendente del sole, che veniva dal cielo e avvolse me e i miei compagni di viaggio."
+       },
+       {
+        "n": 14,
+        "t": "Caduti tutti a terra, udii una voce che mi diceva in lingua ebraica: \"Saulo, Saulo, perché mi perseguiti? È duro per te recalcitrare contro il pungolo\"."
+       },
+       {
+        "n": 15,
+        "t": "Io risposi: \"Chi sei, Signore?\". Il Signore disse: \"Sono Gesù, che tu perseguiti."
+       },
+       {
+        "n": 17,
+        "t": "liberandoti dal popolo e dai pagani, verso i quali ora ti mando,"
+       },
+       {
+        "n": 18,
+        "t": "per aprir loro gli occhi, perché si convertano dalle tenebre alla luce e dal potere di Satana a Dio, e ottengano il perdono dei peccati e l'eredità in mezzo a coloro che sono stati santificati per la fede in me»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Ho fatto ___ a Cesare.",
+       "a": "appello",
+       "hint": "l'appello — I have appealed to Caesar"
+      },
+      {
+       "q": "Una ___ dal cielo.",
+       "a": "luce",
+       "hint": "a light (la luce) — Paul's testimony"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Paolo si appellò a Cesare.",
+       "en": "Paul appealed to Caesar.",
+       "answerBool": true
+      },
+      {
+       "type": "mc",
+       "it": "Davanti a chi Paolo rese la sua testimonianza?",
+       "en": "Before whom did Paul give his testimony?",
+       "options": [
+        "il re Agrippa",
+        "Pilato",
+        "il sommo sacerdote"
+       ],
+       "explain": "Il re Agrippa e il governatore Festo.",
+       "answerIndex": 0
+      }
+     ],
+     "phrases": [
+      {
+       "it": "dalle tenebre alla luce",
+       "en": "from darkness to light"
+      },
+      {
+       "it": "più splendente del sole",
+       "en": "brighter than the sun"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Rendi negativa",
+       "base": "Paolo si appellò a Cesare.",
+       "answer": "Paolo non si appellò a Cesare."
+      },
+      {
+       "instruction": "Metti al futuro",
+       "base": "Sei mio testimone.",
+       "answer": "Sarai mio testimone."
+      }
+     ],
+     "questions": [
+      {
+       "q": "A chi si appellò Paolo?",
+       "answers": [
+        "a Cesare",
+        "Cesare"
+       ],
+       "model": "Paolo si appellò a Cesare."
+      },
+      {
+       "q": "Verso che cosa si convertono i pagani?",
+       "answers": [
+        "alla luce",
+        "dalle tenebre alla luce"
+       ],
+       "model": "Si convertano dalle tenebre alla luce."
+      }
+     ]
+    },
+    {
+     "n": 28,
+     "d": "Oct 19-25",
+     "r": "Acts 27-28",
+     "b": "Review week + iTalki: discuss Acts",
+     "review": true,
+     "vocab": [
+      {
+       "it": "il naufragio",
+       "en": "shipwreck",
+       "ex": "il naufragio di Paolo",
+       "ipa": "/il nawˈfɾaːdʒo/"
+      },
+      {
+       "it": "l'isola",
+       "en": "island",
+       "ex": "l'isola di Malta",
+       "ipa": "/ˈliːzola/"
+      },
+      {
+       "it": "il serpente",
+       "en": "snake",
+       "ex": "una vipera uscì dal fuoco",
+       "ipa": "/il seɾˈpɛnte/"
+      },
+      {
+       "it": "Roma",
+       "en": "Rome",
+       "ex": "finalmente arrivammo a Roma",
+       "ipa": "/ˈɾɔːma/"
+      },
+      {
+       "it": "predicare",
+       "en": "to preach",
+       "ex": "predicava il regno di Dio",
+       "ipa": "/pɾediˈkaːɾe/"
+      },
+      {
+       "it": "l'impedimento",
+       "en": "hindrance",
+       "ex": "senza impedimento alcuno",
+       "ipa": "/limpediˈmento/"
+      },
+      {
+       "it": "la nave",
+       "en": "ship",
+       "ex": "la nave si incagliò",
+       "ipa": "/la ˈnaːve/"
+      }
+     ],
+     "grammar": {
+      "title": "Phase 3 grammar review — passive, gerund, subjunctive",
+      "body": "Write three sentences about Acts 27-28 using: (1) passive — \"Paolo fu morso da una vipera\"; (2) gerund — \"stava predicando quando...\"; (3) subjunctive — \"era necessario che Paolo arrivasse a Roma.\""
+     },
+     "prompt": {
+      "it": "La nave si incagliò e tutti dovevano salvarsi a nuoto o su assi. Così tutti si salvarono e arrivarono sani e salvi a Malta.",
+      "en": "Write the shipwreck narrative. Who was on board? What happened? How did Paul encourage them?"
+     },
+     "italki": [
+      "Racconta la storia della conversione di Paolo sulla via di Damasco.",
+      "Chi preferisci tra Pietro e Paolo e perché?",
+      "Descrivi la Pentecoste in italiano.",
+      "Come cambia il tuo italiano quando leggi Atti rispetto al vangelo di Giovanni?"
+     ],
+     "passage": {
+      "ref": "Atti 28,23-24.28.30-31",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 23,
+        "t": "Fissato un giorno, molti vennero da lui nel suo alloggio. Dal mattino fino alla sera egli espose loro il regno di Dio, testimoniando e cercando di convincerli riguardo a Gesù, in base alla legge di Mosè e ai Profeti."
+       },
+       {
+        "n": 24,
+        "t": "Gli uni si lasciarono convincere dalle sue parole, gli altri invece non credettero."
+       },
+       {
+        "n": 28,
+        "t": "Sia dunque noto a voi che questa salvezza di Dio viene inviata ai pagani ed essi la ascolteranno!»."
+       },
+       {
+        "n": 30,
+        "t": "Rimase due anni interi nel suo alloggio in affitto, e accoglieva tutti quelli che venivano da lui,"
+       },
+       {
+        "n": 31,
+        "t": "annunciando il regno di Dio e insegnando le cose riguardanti il Signore Gesù Cristo, con tutta franchezza e senza impedimento."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Finalmente ___ a Roma.",
+       "a": "arrivammo",
+       "hint": "arrivare → passato remoto, noi (we arrived)"
+      },
+      {
+       "q": "La nave si ___.",
+       "a": "incagliò",
+       "hint": "incagliarsi → ran aground (reflexive)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Paolo fece naufragio sull'isola di Malta.",
+       "en": "Paul was shipwrecked on the island of Malta.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Paolo morì durante il naufragio.",
+       "en": "Paul died during the shipwreck.",
+       "explain": "Tutti si salvarono; Paolo arrivò a Roma.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "senza impedimento",
+       "en": "without hindrance"
+      },
+      {
+       "it": "il regno di Dio",
+       "en": "the kingdom of God"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Paolo arriva a Roma.",
+       "answer": "Paolo è arrivato a Roma."
+      },
+      {
+       "instruction": "Metti al plurale",
+       "base": "Il pagano ascolta la salvezza.",
+       "answer": "I pagani ascoltano la salvezza."
+      }
+     ],
+     "questions": [
+      {
+       "q": "A chi viene inviata la salvezza di Dio?",
+       "answers": [
+        "ai pagani",
+        "i pagani"
+       ],
+       "model": "Questa salvezza di Dio viene inviata ai pagani."
+      },
+      {
+       "q": "Quanto tempo rimase Paolo nel suo alloggio?",
+       "answers": [
+        "due anni",
+        "due anni interi"
+       ],
+       "model": "Rimase due anni interi."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4",
+   "title": "Phase 4: Consolidation",
+   "book": "Romans + Selected Psalms",
+   "badgeLabel": "Advanced",
+   "weeks": [
+    {
+     "n": 29,
+     "d": "Oct 26-Nov 1",
+     "r": "Romans 1-2 + Psalm 1",
+     "b": "Theological vocabulary deep dive",
+     "review": false,
+     "vocab": [
+      {
+       "it": "il vangelo",
+       "en": "the gospel",
+       "ex": "il vangelo di Gesù Cristo",
+       "ipa": "/il vanˈdʒɛːlo/"
+      },
+      {
+       "it": "la giustizia",
+       "en": "righteousness",
+       "ex": "la giustizia di Dio",
+       "ipa": "/la dʒusˈtiːttsja/"
+      },
+      {
+       "it": "il giudizio",
+       "en": "judgment",
+       "ex": "il giudizio di Dio",
+       "ipa": "/il dʒuˈdiːttsjo/"
+      },
+      {
+       "it": "l'ira",
+       "en": "wrath",
+       "ex": "l'ira di Dio",
+       "ipa": "/ˈliːɾa/"
+      },
+      {
+       "it": "l'idolatria",
+       "en": "idolatry",
+       "ex": "caduti nell'idolatria",
+       "ipa": "/lidolaˈtɾiːa/"
+      },
+      {
+       "it": "l'albero",
+       "en": "tree",
+       "ex": "come albero piantato",
+       "ipa": "/ˈlalbeɾo/"
+      },
+      {
+       "it": "il cammino",
+       "en": "the way/path",
+       "ex": "non cammina nel consiglio degli empi",
+       "ipa": "/il kamˈmiːno/"
+      }
+     ],
+     "grammar": {
+      "title": "Abstract nouns — building theological vocabulary",
+      "body": "Romans is dense with abstract nouns: la giustizia, la fede, la grazia, la redenzione, la condanna, la salvezza. Map every theological abstract noun and add it to a dedicated Anki deck labelled \"Teologia.\""
+     },
+     "prompt": {
+      "it": "San Paolo scrive: \"Il giusto per fede vivrà.\" Il Salmo 1 dice: \"Beato l'uomo che non segue il consiglio degli empi.\"",
+      "en": "Connect Romans 1 and Psalm 1. What do they share about the righteous person?"
+     },
+     "passage": {
+      "ref": "Romani 1,1-4.16-17",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "Paolo, servo di Cristo Gesù, apostolo per vocazione, scelto per il vangelo di Dio,"
+       },
+       {
+        "n": 2,
+        "t": "che egli aveva promesso per mezzo dei suoi profeti nelle sacre Scritture,"
+       },
+       {
+        "n": 3,
+        "t": "riguardo al Figlio suo — nato dalla stirpe di Davide secondo la carne,"
+       },
+       {
+        "n": 4,
+        "t": "costituito Figlio di Dio con potenza secondo lo Spirito di santità in virtù della risurrezione dai morti, Gesù Cristo nostro Signore —"
+       },
+       {
+        "n": 16,
+        "t": "Io infatti non mi vergogno del vangelo, perché è potenza di Dio per la salvezza di chiunque crede, del Giudeo prima e del Greco."
+       },
+       {
+        "n": 17,
+        "t": "In esso infatti si rivela la giustizia di Dio da fede a fede, come sta scritto: «Il giusto per fede vivrà»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Il giusto per fede ___.",
+       "a": "vivrà",
+       "hint": "vivere → futuro (will live)"
+      },
+      {
+       "q": "Beato l'uomo che non ___ il consiglio degli empi.",
+       "a": "segue",
+       "hint": "seguire → present (follows)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Paolo scrive che il giusto vivrà per fede.",
+       "en": "Paul writes that the righteous will live by faith.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Il Salmo 1 paragona il giusto a un albero piantato.",
+       "en": "Psalm 1 compares the righteous person to a planted tree.",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "per fede",
+       "en": "by faith"
+      },
+      {
+       "it": "non mi vergogno",
+       "en": "I am not ashamed"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al futuro",
+       "base": "Il giusto per fede vive.",
+       "answer": "Il giusto per fede vivrà."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "L'uomo segue il consiglio degli empi.",
+       "answer": "L'uomo non segue il consiglio degli empi."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Come vivrà il giusto?",
+       "answers": [
+        "per fede",
+        "per la fede"
+       ],
+       "model": "Il giusto per fede vivrà."
+      },
+      {
+       "q": "Di che cosa non si vergogna Paolo?",
+       "answers": [
+        "del vangelo",
+        "il vangelo"
+       ],
+       "model": "Non mi vergogno del vangelo."
+      }
+     ]
+    },
+    {
+     "n": 30,
+     "d": "Nov 2-8",
+     "r": "Romans 3-4 + Psalm 23",
+     "b": "Argumentation and discourse connectors",
+     "review": false,
+     "vocab": [
+      {
+       "it": "la fede",
+       "en": "faith",
+       "ex": "giustificati per fede",
+       "ipa": "/la ˈfɛːde/"
+      },
+      {
+       "it": "la grazia",
+       "en": "grace",
+       "ex": "per pura grazia",
+       "ipa": "/la ˈɡɾattsja/"
+      },
+      {
+       "it": "la redenzione",
+       "en": "redemption",
+       "ex": "la redenzione in Cristo",
+       "ipa": "/la ɾedenˈtsjone/"
+      },
+      {
+       "it": "il pastore",
+       "en": "shepherd",
+       "ex": "il Signore è il mio pastore",
+       "ipa": "/il pasˈtoːɾe/"
+      },
+      {
+       "it": "l'abbondanza",
+       "en": "abundance",
+       "ex": "non manco di nulla",
+       "ipa": "/labbonˈdantsa/"
+      },
+      {
+       "it": "il calice",
+       "en": "cup",
+       "ex": "il mio calice trabocca",
+       "ipa": "/il ˈkaːlitʃe/"
+      },
+      {
+       "it": "la tenebrosa valle",
+       "en": "dark valley",
+       "ex": "nella valle oscura",
+       "ipa": "/la tenebˈɾoːza ˈvalle/"
+      }
+     ],
+     "grammar": {
+      "title": "Connettivi argomentativi — building an argument",
+      "body": "\"Dunque\" (therefore), \"pertanto\" (therefore), \"tuttavia\" (however), \"d'altra parte\" (on the other hand), \"anzitutto\" (first of all), \"in conclusione\" (in conclusion). Read Romans 3:21-31 and map his argument."
+     },
+     "prompt": {
+      "it": "Il Signore è il mio pastore: non manco di nulla. Paolo aggiunge: non per le opere della legge, ma per la fede siamo giustificati.",
+      "en": "Connect Paul's argument in Romans 3-4 with the security of Psalm 23. How do they relate?"
+     },
+     "passage": {
+      "ref": "Romani 3,23-26",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 23,
+        "t": "tutti infatti hanno peccato e sono privi della gloria di Dio,"
+       },
+       {
+        "n": 24,
+        "t": "ma sono giustificati gratuitamente per la sua grazia, in virtù della redenzione che è in Cristo Gesù."
+       },
+       {
+        "n": 25,
+        "t": "È lui che Dio ha stabilito come strumento di espiazione per mezzo della fede, nel suo sangue."
+       },
+       {
+        "n": 26,
+        "t": "Egli ha così manifestato la sua giustizia nel tempo presente, per essere lui giusto e per giustificare chi ha fede in Gesù."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Giustificati per ___.",
+       "a": "fede",
+       "hint": "by faith (la fede)"
+      },
+      {
+       "q": "Il Signore è il mio ___.",
+       "a": "pastore",
+       "hint": "shepherd (Psalm 23)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Secondo Paolo siamo giustificati per fede, non per le opere della legge.",
+       "en": "According to Paul we are justified by faith, not by works of the law.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Il Salmo 23 dice: «Il Signore è il mio pastore, non manco di nulla».",
+       "en": "Psalm 23 says: \"The Lord is my shepherd, I lack nothing.\"",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "per la sua grazia",
+       "en": "by his grace"
+      },
+      {
+       "it": "non manco di nulla",
+       "en": "I lack nothing",
+       "lit": "I do not lack of nothing"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Tutti peccano.",
+       "answer": "Tutti hanno peccato."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "Siamo giustificati per le opere.",
+       "answer": "Non siamo giustificati per le opere."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi ha peccato secondo Paolo?",
+       "answers": [
+        "tutti"
+       ],
+       "model": "Tutti hanno peccato."
+      },
+      {
+       "q": "Chi è il mio pastore?",
+       "answers": [
+        "il Signore"
+       ],
+       "model": "Il Signore è il mio pastore."
+      }
+     ]
+    },
+    {
+     "n": 31,
+     "d": "Nov 9-15",
+     "r": "Romans 5-6 + Psalm 46",
+     "b": "Advanced conversation topics",
+     "review": false,
+     "vocab": [
+      {
+       "it": "la pace",
+       "en": "peace",
+       "ex": "abbiamo pace con Dio",
+       "ipa": "/la ˈpaːtʃe/"
+      },
+      {
+       "it": "la sofferenza",
+       "en": "suffering",
+       "ex": "glorificarci nelle sofferenze",
+       "ipa": "/la soffeˈɾɛntsa/"
+      },
+      {
+       "it": "la speranza",
+       "en": "hope",
+       "ex": "la speranza non delude",
+       "ipa": "/la speˈɾantsa/"
+      },
+      {
+       "it": "il rifugio",
+       "en": "refuge",
+       "ex": "Dio è il nostro rifugio",
+       "ipa": "/il ɾiˈfuːdʒo/"
+      },
+      {
+       "it": "la forza",
+       "en": "strength",
+       "ex": "la nostra forza",
+       "ipa": "/la ˈfoɾtsa/"
+      },
+      {
+       "it": "il battesimo",
+       "en": "baptism",
+       "ex": "siamo stati battezzati in Cristo",
+       "ipa": "/il batˈtɛːzimo/"
+      },
+      {
+       "it": "la morte",
+       "en": "death",
+       "ex": "morti al peccato",
+       "ipa": "/la ˈmɔɾte/"
+      }
+     ],
+     "grammar": {
+      "title": "Nuances of the subjunctive — purpose and concession",
+      "body": "\"Perché\" + subjunctive = so that: \"Cristo è morto perché noi vivessimo.\" \"Sebbene\" + subjunctive = although: \"sebbene fossimo peccatori.\""
+     },
+     "prompt": {
+      "it": "Paolo scrive: \"Dunque siamo stati sepolti insieme a lui mediante il battesimo nella morte, affinché come Cristo è risuscitato dai morti... così anche noi camminiamo in una nuova vita.\"",
+      "en": "Explain Paul's baptism theology in Romans 6. What does dying and rising with Christ mean?"
+     },
+     "passage": {
+      "ref": "Romani 5,1-5.8",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "Giustificati dunque per fede, noi siamo in pace con Dio per mezzo del Signore nostro Gesù Cristo."
+       },
+       {
+        "n": 2,
+        "t": "Per mezzo di lui abbiamo anche, mediante la fede, l'accesso a questa grazia nella quale ci troviamo e ci vantiamo nella speranza della gloria di Dio."
+       },
+       {
+        "n": 3,
+        "t": "Non solo questo, ma ci vantiamo anche nelle tribolazioni, sapendo che la tribolazione produce pazienza,"
+       },
+       {
+        "n": 4,
+        "t": "la pazienza una virtù provata e la virtù provata la speranza."
+       },
+       {
+        "n": 5,
+        "t": "La speranza poi non delude, perché l'amore di Dio è stato riversato nei nostri cuori per mezzo dello Spirito Santo che ci è stato dato."
+       },
+       {
+        "n": 8,
+        "t": "Ma Dio dimostra il suo amore verso di noi perché, mentre eravamo ancora peccatori, Cristo è morto per noi."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Abbiamo ___ con Dio.",
+       "a": "pace",
+       "hint": "peace (la pace)"
+      },
+      {
+       "q": "La speranza non ___.",
+       "a": "delude",
+       "hint": "deludere → present (does not disappoint)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Paolo dice che la speranza non delude.",
+       "en": "Paul says that hope does not disappoint.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Il Salmo 46 chiama Dio nostro rifugio e forza.",
+       "en": "Psalm 46 calls God our refuge and strength.",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "in pace con Dio",
+       "en": "at peace with God"
+      },
+      {
+       "it": "per noi",
+       "en": "for us"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Rendi negativa",
+       "base": "La speranza delude.",
+       "answer": "La speranza non delude."
+      },
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Cristo muore per noi.",
+       "answer": "Cristo è morto per noi."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Che cosa non fa la speranza?",
+       "answers": [
+        "non delude",
+        "deludere"
+       ],
+       "model": "La speranza non delude."
+      },
+      {
+       "q": "Per chi è morto Cristo?",
+       "answers": [
+        "per noi",
+        "per i peccatori"
+       ],
+       "model": "Cristo è morto per noi."
+      }
+     ]
+    },
+    {
+     "n": 32,
+     "d": "Nov 16-22",
+     "r": "Romans 7-8 + Psalm 51",
+     "b": "Abstract noun patterns",
+     "review": false,
+     "vocab": [
+      {
+       "it": "la carne",
+       "en": "flesh",
+       "ex": "la legge della carne",
+       "ipa": "/la ˈkaɾne/"
+      },
+      {
+       "it": "la condanna",
+       "en": "condemnation",
+       "ex": "nessuna condanna per quelli in Cristo",
+       "ipa": "/la konˈdanna/"
+      },
+      {
+       "it": "la figliolanza",
+       "en": "sonship",
+       "ex": "lo spirito di adozione filiale",
+       "ipa": "/la fiʎʎoˈlantsa/"
+      },
+      {
+       "it": "la creazione",
+       "en": "creation",
+       "ex": "tutta la creazione geme",
+       "ipa": "/la kɾeaˈtsjone/"
+      },
+      {
+       "it": "la misericordia",
+       "en": "mercy",
+       "ex": "abbi pietà di me",
+       "ipa": "/la mizeɾiˈkɔɾdja/"
+      },
+      {
+       "it": "il cuore",
+       "en": "heart",
+       "ex": "crea in me un cuore puro",
+       "ipa": "/il ˈkwɔːɾe/"
+      },
+      {
+       "it": "il peccato",
+       "en": "sin",
+       "ex": "mondami dalla mia colpa",
+       "ipa": "/il pekˈkaːto/"
+      }
+     ],
+     "grammar": {
+      "title": "Noun derivation — recognise word families",
+      "body": "If you know the verb, you can often guess the noun. Condannare → la condanna. Liberare → la liberazione. Creare → la creazione. For every abstract noun in Romans 7-8, find its verb root and add both to Anki as a pair."
+     },
+     "prompt": {
+      "it": "Paolo grida: \"Sono uno sventurato! Chi mi libererà da questo corpo votato alla morte?\" E poi risponde: \"Grazie a Dio per mezzo di Gesù Cristo nostro Signore!\"",
+      "en": "Write Paul's struggle in Romans 7 and his resolution in 8. What changes between the two chapters?"
+     },
+     "passage": {
+      "ref": "Romani 8,1-2.28.38-39",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "Non vi è dunque nessuna condanna per quelli che sono in Cristo Gesù."
+       },
+       {
+        "n": 2,
+        "t": "La legge dello Spirito, che dà vita in Cristo Gesù, ti ha liberato dalla legge del peccato e della morte."
+       },
+       {
+        "n": 28,
+        "t": "Noi sappiamo inoltre che tutto concorre al bene di coloro che amano Dio, che sono stati chiamati secondo il suo disegno."
+       },
+       {
+        "n": 38,
+        "t": "Io sono infatti persuaso che né morte né vita, né angeli né principati, né presente né avvenire,"
+       },
+       {
+        "n": 39,
+        "t": "né potenze, né altezza né profondità, né alcun'altra creatura potrà mai separarci dall'amore di Dio, che è in Cristo Gesù, nostro Signore."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Nessuna ___ per quelli che sono in Cristo.",
+       "a": "condanna",
+       "hint": "condemnation (la condanna)"
+      },
+      {
+       "q": "Crea in me un ___ puro.",
+       "a": "cuore",
+       "hint": "heart (Psalm 51)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Paolo dice che non c'è più condanna per chi è in Cristo.",
+       "en": "Paul says there is no more condemnation for those in Christ.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Il Salmo 51 chiede a Dio un cuore puro.",
+       "en": "Psalm 51 asks God for a pure heart.",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "nessuna condanna",
+       "en": "no condemnation"
+      },
+      {
+       "it": "né... né",
+       "en": "neither... nor"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Rendi negativa",
+       "base": "C'è condanna per quelli in Cristo.",
+       "answer": "Non c'è condanna per quelli in Cristo."
+      },
+      {
+       "instruction": "Metti al plurale",
+       "base": "Colui che ama Dio è chiamato.",
+       "answer": "Coloro che amano Dio sono chiamati."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Quanta condanna c'è per quelli in Cristo?",
+       "answers": [
+        "nessuna",
+        "nessuna condanna"
+       ],
+       "model": "Non vi è nessuna condanna per quelli che sono in Cristo Gesù."
+      },
+      {
+       "q": "Che cosa chiede il salmista a Dio?",
+       "answers": [
+        "un cuore puro",
+        "crea in me un cuore puro"
+       ],
+       "model": "Crea in me un cuore puro."
+      }
+     ]
+    },
+    {
+     "n": 33,
+     "d": "Nov 23-29",
+     "r": "Romans 9-10 + Psalm 91",
+     "b": "Idioms and natural spoken patterns",
+     "review": false,
+     "vocab": [
+      {
+       "it": "l'elezione",
+       "en": "election",
+       "ex": "l'elezione per grazia",
+       "ipa": "/leletˈtsjone/"
+      },
+      {
+       "it": "confessare",
+       "en": "to confess",
+       "ex": "confessa con la tua bocca",
+       "ipa": "/konfesˈsaːɾe/"
+      },
+      {
+       "it": "credere nel cuore",
+       "en": "believe in heart",
+       "ex": "credere nel cuore",
+       "ipa": "/ˈkɾɛːdeɾe nel ˈkwɔːɾe/"
+      },
+      {
+       "it": "la protezione",
+       "en": "protection",
+       "ex": "sotto la sua protezione",
+       "ipa": "/la pɾotetˈtsjone/"
+      },
+      {
+       "it": "il nome del Signore",
+       "en": "name of the Lord",
+       "ex": "chiunque invoca il nome del Signore",
+       "ipa": "/il ˈnoːme del siˈɲɲoːɾe/"
+      },
+      {
+       "it": "essere salvato",
+       "en": "to be saved",
+       "ex": "sarà salvato",
+       "ipa": "/ˈɛsseɾe salˈvaːto/"
+      },
+      {
+       "it": "il messaggero",
+       "en": "messenger",
+       "ex": "come udranno senza un messaggero?",
+       "ipa": "/il messadˈdʒɛːɾo/"
+      }
+     ],
+     "grammar": {
+      "title": "Idiomatic Italian — phrases that don't translate literally",
+      "body": "\"Avere paura\" (to be afraid). \"Fare del proprio meglio\" (to do one's best). \"Mettersi in cammino\" (to set out). \"Avere a cuore\" (to care deeply about). Italian idioms often use avere where English uses \"to be.\""
+     },
+     "prompt": {
+      "it": "Paolo scrive: \"La Parola è vicina a te, sulla tua bocca e nel tuo cuore.\" Chi invoca il nome del Signore sarà salvato.",
+      "en": "Write Romans 10:8-13 in your own Italian words. What is Paul's point about faith and confession?"
+     },
+     "passage": {
+      "ref": "Romani 10,9-10.13-15",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 9,
+        "t": "Perché se confesserai con la tua bocca che Gesù è il Signore e crederai con il tuo cuore che Dio lo ha risuscitato dai morti, sarai salvato."
+       },
+       {
+        "n": 10,
+        "t": "Con il cuore infatti si crede per ottenere la giustizia e con la bocca si fa la professione di fede per avere la salvezza."
+       },
+       {
+        "n": 13,
+        "t": "Chiunque invocherà il nome del Signore sarà salvato."
+       },
+       {
+        "n": 14,
+        "t": "Ora, come potranno invocarlo senza aver prima creduto in lui? Come potranno credere senza averne sentito parlare? Come potranno sentirne parlare senza uno che lo annunci?"
+       },
+       {
+        "n": 15,
+        "t": "E come lo annunceranno senza essere prima inviati? Come sta scritto: «Come sono belli i piedi di coloro che recano un lieto annuncio di bene!»."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "___ con la tua bocca.",
+       "a": "Confessa",
+       "hint": "confessare → tu imperative (confess)"
+      },
+      {
+       "q": "Chiunque ___ il nome del Signore sarà salvato.",
+       "a": "invoca",
+       "hint": "invocare → present (calls on)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Chiunque invoca il nome del Signore sarà salvato.",
+       "en": "Whoever calls on the name of the Lord will be saved.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Il Salmo 91 parla della protezione di Dio.",
+       "en": "Psalm 91 speaks of God's protection.",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "con la tua bocca",
+       "en": "with your mouth"
+      },
+      {
+       "it": "chiunque",
+       "en": "whoever"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al futuro",
+       "base": "Chi crede è salvato.",
+       "answer": "Chi crede sarà salvato."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "Confessi con la tua bocca.",
+       "answer": "Non confessi con la tua bocca."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi sarà salvato?",
+       "answers": [
+        "chiunque invoca il nome del Signore",
+        "chi invoca il nome del Signore",
+        "chiunque invocherà il nome del Signore"
+       ],
+       "model": "Chiunque invocherà il nome del Signore sarà salvato."
+      },
+      {
+       "q": "Con che cosa si confessa la fede?",
+       "answers": [
+        "con la bocca",
+        "con la tua bocca"
+       ],
+       "model": "Con la bocca si fa la professione di fede."
+      }
+     ]
+    },
+    {
+     "n": 34,
+     "d": "Nov 30-Dec 6",
+     "r": "Romans 11-12 + Psalm 119 (excerpts)",
+     "b": "Review weakest grammar areas",
+     "review": false,
+     "vocab": [
+      {
+       "it": "il mistero",
+       "en": "mystery",
+       "ex": "il mistero di Israele",
+       "ipa": "/il misˈtɛːɾo/"
+      },
+      {
+       "it": "il corpo di Cristo",
+       "en": "body of Christ",
+       "ex": "un solo corpo in Cristo",
+       "ipa": "/il ˈkɔɾpo di ˈkɾisto/"
+      },
+      {
+       "it": "i doni",
+       "en": "gifts",
+       "ex": "doni diversi secondo la grazia",
+       "ipa": "/i ˈdoːni/"
+      },
+      {
+       "it": "la Parola",
+       "en": "the Word",
+       "ex": "la tua Parola è una lampada",
+       "ipa": "/la paˈɾɔːla/"
+      },
+      {
+       "it": "il sentiero",
+       "en": "path",
+       "ex": "luce sul mio sentiero",
+       "ipa": "/il senˈtjɛːɾo/"
+      },
+      {
+       "it": "offrire",
+       "en": "to offer",
+       "ex": "offrite i vostri corpi come sacrificio",
+       "ipa": "/ofˈfɾiːɾe/"
+      },
+      {
+       "it": "rinnovarsi",
+       "en": "to be renewed",
+       "ex": "rinnovatevi nella mente",
+       "ipa": "/ɾinnoˈvaɾsi/"
+      }
+     ],
+     "grammar": {
+      "title": "Targeted grammar review",
+      "body": "Look back through your writing prompts from Weeks 1-33. Which grammar errors keep appearing? Common persistent errors: essere vs avere in past tense, subjunctive formation, agreement of past participles with essere verbs."
+     },
+     "prompt": {
+      "it": "Paolo esorta: \"Non conformatevi a questo mondo, ma trasformatevi rinnovando la vostra mente.\" I Salmi dicono: \"La tua Parola è una lampada per i miei passi.\"",
+      "en": "Connect Romans 12:1-2 and Psalm 119. What do they say about transformation and God's Word?"
+     },
+     "passage": {
+      "ref": "Romani 12,1-2.9-10",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "Vi esorto dunque, fratelli, per la misericordia di Dio, ad offrire i vostri corpi come sacrificio vivente, santo e gradito a Dio; è questo il vostro culto spirituale."
+       },
+       {
+        "n": 2,
+        "t": "Non conformatevi a questo mondo, ma lasciatevi trasformare rinnovando il vostro modo di pensare, per poter discernere la volontà di Dio, ciò che è buono, a lui gradito e perfetto."
+       },
+       {
+        "n": 9,
+        "t": "La carità non sia ipocrita: detestate il male, attaccatevi al bene."
+       },
+       {
+        "n": 10,
+        "t": "Amatevi gli uni gli altri con affetto fraterno, gareggiate nello stimarvi a vicenda."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Non ___ a questo mondo.",
+       "a": "conformatevi",
+       "hint": "conformarsi → voi imperative (do not conform)"
+      },
+      {
+       "q": "La tua Parola è una ___ per i miei passi.",
+       "a": "lampada",
+       "hint": "a lamp (Psalm 119)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Paolo esorta a trasformarsi rinnovando la mente.",
+       "en": "Paul urges transformation by renewing the mind.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Il Salmo 119 chiama la Parola di Dio una lampada per i passi.",
+       "en": "Psalm 119 calls God's Word a lamp for one's steps.",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "gli uni gli altri",
+       "en": "one another"
+      },
+      {
+       "it": "non conformatevi",
+       "en": "do not conform"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Rendi negativa",
+       "base": "Conformatevi a questo mondo.",
+       "answer": "Non conformatevi a questo mondo."
+      },
+      {
+       "instruction": "Metti al voi",
+       "base": "Offri il tuo corpo come sacrificio.",
+       "answer": "Offrite i vostri corpi come sacrificio."
+      }
+     ],
+     "questions": [
+      {
+       "q": "A che cosa non dobbiamo conformarci?",
+       "answers": [
+        "a questo mondo",
+        "al mondo",
+        "questo mondo"
+       ],
+       "model": "Non conformatevi a questo mondo."
+      },
+      {
+       "q": "Come dobbiamo offrire i nostri corpi?",
+       "answers": [
+        "come sacrificio vivente",
+        "come sacrificio",
+        "un sacrificio vivente"
+       ],
+       "model": "Offrite i vostri corpi come sacrificio vivente."
+      }
+     ]
+    },
+    {
+     "n": 35,
+     "d": "Dec 7-13",
+     "r": "Romans 13-14 + Psalm 121",
+     "b": "Final Babbel units + free conversation",
+     "review": false,
+     "vocab": [
+      {
+       "it": "l'autorità",
+       "en": "authority",
+       "ex": "ogni persona sia sottomessa alle autorità",
+       "ipa": "/lautoɾiˈta/"
+      },
+      {
+       "it": "amare il prossimo",
+       "en": "love neighbor",
+       "ex": "amerai il prossimo tuo",
+       "ipa": "/aˈmaːɾe il ˈpɾɔssimo/"
+      },
+      {
+       "it": "la coscienza",
+       "en": "conscience",
+       "ex": "secondo la propria coscienza",
+       "ipa": "/la koˈʃʃɛntsa/"
+      },
+      {
+       "it": "il soccorso",
+       "en": "help",
+       "ex": "il mio soccorso viene dal Signore",
+       "ipa": "/il sokˈkɔɾso/"
+      },
+      {
+       "it": "vegliare",
+       "en": "to watch over",
+       "ex": "non si assopisce, non dorme",
+       "ipa": "/veʎˈʎaːɾe/"
+      },
+      {
+       "it": "il custode",
+       "en": "guardian",
+       "ex": "il Signore è il tuo custode",
+       "ipa": "/il kusˈtoːde/"
+      },
+      {
+       "it": "il viaggio",
+       "en": "journey",
+       "ex": "il Signore protegge la tua vita",
+       "ipa": "/il ˈvjaddʒo/"
+      }
+     ],
+     "grammar": {
+      "title": "Free production — write without a prompt",
+      "body": "Write freely in Italian for 10 minutes each day. No dictionary, no checking. Write what you know. Fluency comes from committing to imperfect output."
+     },
+     "prompt": {
+      "it": "Scrivi liberamente — qualcosa che hai imparato, una preghiera, un pensiero sulla Bibbia in italiano. Nessuna regola oggi.",
+      "en": "Free writing day. Write anything in Italian for 10 minutes without stopping."
+     },
+     "passage": {
+      "ref": "Romani 13,8-10",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 8,
+        "t": "Non abbiate alcun debito con nessuno, se non quello di un amore vicendevole; perché chi ama l'altro ha adempiuto la Legge."
+       },
+       {
+        "n": 9,
+        "t": "Infatti il precetto: Non commettere adulterio, non uccidere, non rubare, non desiderare e qualsiasi altro comandamento, si ricapitola in queste parole: Amerai il prossimo tuo come te stesso."
+       },
+       {
+        "n": 10,
+        "t": "La carità non fa alcun male al prossimo: pienezza della Legge è la carità."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Amerai il ___ tuo.",
+       "a": "prossimo",
+       "hint": "your neighbor (il prossimo)"
+      },
+      {
+       "q": "Il mio ___ viene dal Signore.",
+       "a": "soccorso",
+       "hint": "my help (Psalm 121)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Paolo riassume la legge nell'amore del prossimo.",
+       "en": "Paul sums up the law in love of neighbor.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Il Salmo 121 dice che il custode di Israele non dorme.",
+       "en": "Psalm 121 says Israel's keeper does not sleep.",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "come te stesso",
+       "en": "as yourself"
+      },
+      {
+       "it": "il prossimo tuo",
+       "en": "your neighbor"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al futuro",
+       "base": "Ami il prossimo tuo.",
+       "answer": "Amerai il prossimo tuo."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "La carità fa male al prossimo.",
+       "answer": "La carità non fa male al prossimo."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi dobbiamo amare come noi stessi?",
+       "answers": [
+        "il prossimo",
+        "il nostro prossimo",
+        "il prossimo nostro"
+       ],
+       "model": "Amerai il prossimo tuo come te stesso."
+      },
+      {
+       "q": "Da dove viene il mio soccorso?",
+       "answers": [
+        "dal Signore",
+        "viene dal Signore"
+       ],
+       "model": "Il mio soccorso viene dal Signore."
+      }
+     ]
+    },
+    {
+     "n": 36,
+     "d": "Dec 14-20",
+     "r": "Romans 15-16 + Psalm 139",
+     "b": "iTalki: full session in Italian only",
+     "review": true,
+     "vocab": [
+      {
+       "it": "la speranza",
+       "en": "hope",
+       "ex": "il Dio della speranza",
+       "ipa": "/la speˈɾantsa/"
+      },
+      {
+       "it": "l'unità",
+       "en": "unity",
+       "ex": "l'unità tra ebrei e pagani",
+       "ipa": "/luniˈta/"
+      },
+      {
+       "it": "i saluti",
+       "en": "greetings",
+       "ex": "i saluti finali di Paolo",
+       "ipa": "/i saˈluːti/"
+      },
+      {
+       "it": "conoscere",
+       "en": "to know",
+       "ex": "tu mi conosci",
+       "ipa": "/koˈnoʃʃeɾe/"
+      },
+      {
+       "it": "tessere",
+       "en": "to weave",
+       "ex": "mi hai tessuto nel seno di mia madre",
+       "ipa": "/ˈtɛsseɾe/"
+      },
+      {
+       "it": "fuggire",
+       "en": "to flee",
+       "ex": "dove fuggirò dalla tua presenza?",
+       "ipa": "/fudˈdʒiːɾe/"
+      },
+      {
+       "it": "meraviglioso",
+       "en": "wonderful",
+       "ex": "meravigliose sono le tue opere",
+       "ipa": "/meɾaviʎˈʎoːzo/"
+      }
+     ],
+     "grammar": {
+      "title": "Final review — your full Italian grammar toolkit",
+      "body": "You now have: present, past, imperfect, future, conditional tenses; subjunctive; passive voice; gerund; reflexive verbs; object pronouns; relative pronouns; conditional sentences; formal/informal register; idioms. Write a paragraph using at least six of these deliberately."
+     },
+     "prompt": {
+      "it": "Dio, tu mi conosci. Conosci il mio sedermi e il mio alzarmi. Comprendi da lontano i miei pensieri. Dove potrei andare, lontano dal tuo spirito?",
+      "en": "Write Psalm 139 in your own Italian words. What does it mean to be fully known by God?"
+     },
+     "italki": [
+      "Racconta il tuo percorso di fede in italiano.",
+      "Quale versetto della Bibbia in italiano ti ha cambiato di più?",
+      "Descrivi cosa significa per te studiare la Bibbia in una lingua straniera.",
+      "Fai una domanda al tuo insegnante italiano sulla fede o sulla Bibbia."
+     ],
+     "passage": {
+      "ref": "Romani 15,5-6.13",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 5,
+        "t": "Il Dio della perseveranza e della consolazione vi conceda di avere gli uni verso gli altri gli stessi sentimenti ad imitazione di Cristo Gesù,"
+       },
+       {
+        "n": 6,
+        "t": "perché con un solo animo e una voce sola rendiate gloria a Dio, Padre del Signore nostro Gesù Cristo."
+       },
+       {
+        "n": 13,
+        "t": "Il Dio della speranza vi riempia di ogni gioia e pace nella fede, perché abbondiate nella speranza per la virtù dello Spirito Santo."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "Il Dio della ___.",
+       "a": "speranza",
+       "hint": "of hope (la speranza)"
+      },
+      {
+       "q": "Signore, tu mi ___.",
+       "a": "conosci",
+       "hint": "conoscere → tu present (you know me — Psalm 139)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Il Salmo 139 dice che Dio ci conosce completamente.",
+       "en": "Psalm 139 says God knows us completely.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Paolo termina la lettera ai Romani senza alcun saluto.",
+       "en": "Paul ends Romans with no greetings.",
+       "explain": "Romani 16 è pieno di saluti finali.",
+       "answerBool": false
+      }
+     ],
+     "phrases": [
+      {
+       "it": "il Dio della speranza",
+       "en": "the God of hope"
+      },
+      {
+       "it": "un solo animo",
+       "en": "one mind",
+       "lit": "a single soul"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al passato prossimo",
+       "base": "Tu mi tessi nel seno di mia madre.",
+       "answer": "Tu mi hai tessuto nel seno di mia madre."
+      },
+      {
+       "instruction": "Rendi negativa",
+       "base": "Dio mi conosce.",
+       "answer": "Dio non mi conosce."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi è il Dio che ci riempie di gioia e pace?",
+       "answers": [
+        "il Dio della speranza",
+        "Dio della speranza"
+       ],
+       "model": "Il Dio della speranza vi riempia di gioia e pace."
+      },
+      {
+       "q": "Chi ti conosce completamente?",
+       "answers": [
+        "Dio",
+        "il Signore",
+        "tu Signore"
+       ],
+       "model": "Dio mi conosce completamente."
+      }
+     ]
+    },
+    {
+     "n": 37,
+     "d": "Dec 21-27",
+     "r": "Review + Psalm 150",
+     "b": "Buon Natale. Hai finito.",
+     "review": true,
+     "vocab": [
+      {
+       "it": "lodare",
+       "en": "to praise",
+       "ex": "lodate il Signore",
+       "ipa": "/loˈdaːɾe/"
+      },
+      {
+       "it": "l'alleluja",
+       "en": "alleluia",
+       "ex": "alleluia!",
+       "ipa": "/lalleˈluːja/"
+      },
+      {
+       "it": "gli strumenti",
+       "en": "instruments",
+       "ex": "con la tromba, con l'arpa",
+       "ipa": "/ʎi stɾuˈmenti/"
+      },
+      {
+       "it": "tutta la creazione",
+       "en": "all creation",
+       "ex": "tutto ciò che respira",
+       "ipa": "/ˈtutta la kɾeaˈtsjone/"
+      },
+      {
+       "it": "la gloria",
+       "en": "glory",
+       "ex": "gloria a Dio",
+       "ipa": "/la ˈɡlɔːɾja/"
+      },
+      {
+       "it": "il Natale",
+       "en": "Christmas",
+       "ex": "Buon Natale",
+       "ipa": "/il naˈtaːle/"
+      },
+      {
+       "it": "la fine",
+       "en": "the end",
+       "ex": "sei arrivato alla fine",
+       "ipa": "/la ˈfiːne/"
+      }
+     ],
+     "grammar": {
+      "title": "Celebrazione — you made it",
+      "body": "Psalm 150 is six verses of pure praise, all imperative verbs: lodate (praise), lodatelo (praise him). You have spent 37 weeks learning to read Scripture in Italian. Read Psalm 150 aloud today — slowly, deliberately, in Italian."
+     },
+     "prompt": {
+      "it": "Lodate Dio nel suo santuario. Lodatelo nel firmamento della sua potenza. Tutto ciò che respira lodi il Signore. Alleluia.",
+      "en": "Write a final reflection in Italian: what has this 37-week journey meant to you?"
+     },
+     "italki": [
+      "Racconta in italiano cos'hai imparato in questi 37 settimane.",
+      "Leggi il Salmo 150 in italiano ad alta voce con il tuo insegnante.",
+      "Come vuoi continuare a studiare l'italiano dopo Natale?",
+      "Buon Natale — cosa festeggi oggi?"
+     ],
+     "passage": {
+      "ref": "Salmo 150,1-6",
+      "translation": "CEI 2008",
+      "verses": [
+       {
+        "n": 1,
+        "t": "Alleluia. Lodate Dio nel suo santuario, lodatelo nel firmamento della sua potenza."
+       },
+       {
+        "n": 2,
+        "t": "Lodatelo per le sue opere potenti, lodatelo per la sua grandezza immensa."
+       },
+       {
+        "n": 3,
+        "t": "Lodatelo con il suono della tromba, lodatelo con arpa e cetra."
+       },
+       {
+        "n": 4,
+        "t": "Lodatelo con timpani e danze, lodatelo con corde e flauto."
+       },
+       {
+        "n": 5,
+        "t": "Lodatelo con cimbali sonori, lodatelo con cimbali squillanti."
+       },
+       {
+        "n": 6,
+        "t": "Ogni essere che respira lodi il Signore. Alleluia."
+       }
+      ]
+     },
+     "drill": [
+      {
+       "q": "___ il Signore.",
+       "a": "Lodate",
+       "hint": "lodare → voi imperative (praise — Psalm 150)"
+      },
+      {
+       "q": "Tutto ciò che respira ___ il Signore.",
+       "a": "lodi",
+       "hint": "lodare → subjunctive/imperative wish (let it praise)"
+      }
+     ],
+     "comprehension": [
+      {
+       "type": "tf",
+       "it": "Il Salmo 150 è un salmo di lode a Dio.",
+       "en": "Psalm 150 is a psalm of praise to God.",
+       "answerBool": true
+      },
+      {
+       "type": "tf",
+       "it": "Hai completato 37 settimane di lettura della Bibbia in italiano.",
+       "en": "You have completed 37 weeks of reading the Bible in Italian.",
+       "answerBool": true
+      }
+     ],
+     "phrases": [
+      {
+       "it": "Alleluia",
+       "en": "Alleluia (praise the Lord)"
+      },
+      {
+       "it": "ogni essere che respira",
+       "en": "everything that breathes"
+      },
+      {
+       "it": "Buon Natale",
+       "en": "Merry Christmas"
+      }
+     ],
+     "transform": [
+      {
+       "instruction": "Metti al plurale",
+       "base": "Lo strumento loda il Signore.",
+       "answer": "Gli strumenti lodano il Signore."
+      },
+      {
+       "instruction": "Metti al voi",
+       "base": "Loda il Signore.",
+       "answer": "Lodate il Signore."
+      }
+     ],
+     "questions": [
+      {
+       "q": "Chi deve lodare il Signore?",
+       "answers": [
+        "ogni essere che respira",
+        "tutto ciò che respira",
+        "ogni vivente"
+       ],
+       "model": "Ogni essere che respira lodi il Signore."
+      },
+      {
+       "q": "Con quale strumento si loda Dio nel Salmo 150?",
+       "answers": [
+        "la tromba",
+        "con la tromba",
+        "l'arpa",
+        "la cetra"
+       ],
+       "model": "Lodatelo con la tromba."
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

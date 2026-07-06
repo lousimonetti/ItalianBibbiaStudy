@@ -1,0 +1,242 @@
+[
+ {
+  "input": "il Verbo",
+  "out": "verbo"
+ },
+ {
+  "input": "la luce",
+  "out": "luce"
+ },
+ {
+  "input": "le tenebre",
+  "out": "tenebre"
+ },
+ {
+  "input": "la vita",
+  "out": "vita"
+ },
+ {
+  "input": "credere",
+  "out": "credere"
+ },
+ {
+  "input": "il miracolo",
+  "out": "miracolo"
+ },
+ {
+  "input": "il mondo",
+  "out": "mondo"
+ },
+ {
+  "input": "nascere",
+  "out": "nascere"
+ },
+ {
+  "input": "lo Spirito",
+  "out": "spirito"
+ },
+ {
+  "input": "il pozzo",
+  "out": "pozzo"
+ },
+ {
+  "input": "adorare",
+  "out": "adorare"
+ },
+ {
+  "input": "il Salvatore",
+  "out": "salvatore"
+ },
+ {
+  "input": "credere",
+  "out": "credere"
+ },
+ {
+  "input": "il dono",
+  "out": "dono"
+ },
+ {
+  "input": "guarire",
+  "out": "guarire"
+ },
+ {
+  "input": "il pane",
+  "out": "pane"
+ },
+ {
+  "input": "la folla",
+  "out": "folla"
+ },
+ {
+  "input": "saziarsi",
+  "out": "saziarsi"
+ },
+ {
+  "input": "la vita eterna",
+  "out": "vita eterna"
+ },
+ {
+  "input": "la manna",
+  "out": "manna"
+ },
+ {
+  "input": "il segno",
+  "out": "segno"
+ },
+ {
+  "input": "insegnare",
+  "out": "insegnare"
+ },
+ {
+  "input": "la verità",
+  "out": "verita"
+ },
+ {
+  "input": "liberare",
+  "out": "liberare"
+ },
+ {
+  "input": "giudicare",
+  "out": "giudicare"
+ },
+ {
+  "input": "il peccato",
+  "out": "peccato"
+ },
+ {
+  "input": "scrivere",
+  "out": "scrivere"
+ },
+ {
+  "input": "luce del mondo",
+  "out": "luce del mondo"
+ },
+ {
+  "input": "il cieco",
+  "out": "cieco"
+ },
+ {
+  "input": "vedere",
+  "out": "vedere"
+ },
+ {
+  "input": "il buon pastore",
+  "out": "buon pastore"
+ },
+ {
+  "input": "la pecora",
+  "out": "pecora"
+ },
+ {
+  "input": "la tomba",
+  "out": "tomba"
+ },
+ {
+  "input": "risuscitare",
+  "out": "risuscitare"
+ },
+ {
+  "input": "piangere",
+  "out": "piangere"
+ },
+ {
+  "input": "l'unzione",
+  "out": "unzione"
+ },
+ {
+  "input": "l'asino",
+  "out": "asino"
+ },
+ {
+  "input": "lavare i piedi",
+  "out": "lavare i piedi"
+ },
+ {
+  "input": "il tradimento",
+  "out": "tradimento"
+ },
+ {
+  "input": "la casa del Padre",
+  "out": "casa del padre"
+ },
+ {
+  "input": "il Paraclito",
+  "out": "paraclito"
+ },
+ {
+  "input": "la via",
+  "out": "via"
+ },
+ {
+  "input": "la vite",
+  "out": "vite"
+ },
+ {
+  "input": "il tralcio",
+  "out": "tralcio"
+ },
+ {
+  "input": "portare frutto",
+  "out": "portare frutto"
+ },
+ {
+  "input": "il comandamento",
+  "out": "comandamento"
+ },
+ {
+  "input": "rimanere",
+  "out": "rimanere"
+ },
+ {
+  "input": "il mondo",
+  "out": "mondo"
+ },
+ {
+  "input": "la preghiera",
+  "out": "preghiera"
+ },
+ {
+  "input": "l'arresto",
+  "out": "arresto"
+ },
+ {
+  "input": "il rinnegamento",
+  "out": "rinnegamento"
+ },
+ {
+  "input": "la crocifissione",
+  "out": "crocifissione"
+ },
+ {
+  "input": "il sepolcro vuoto",
+  "out": "sepolcro vuoto"
+ },
+ {
+  "input": "la resurrezione",
+  "out": "resurrezione"
+ },
+ {
+  "input": "la missione",
+  "out": "missione"
+ },
+ {
+  "input": "la pace",
+  "out": "pace"
+ },
+ {
+  "input": "l'annuncio",
+  "out": "annuncio"
+ },
+ {
+  "input": "l'angelo",
+  "out": "angelo"
+ },
+ {
+  "input": "benedetto",
+  "out": "benedetto"
+ },
+ {
+  "input": "la nascita",
+  "out": "nascita"
+ }
+]

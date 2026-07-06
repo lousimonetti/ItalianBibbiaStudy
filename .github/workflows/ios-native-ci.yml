@@ -1,0 +1,70 @@
+# CI for the native iOS app (ios-native/).
+#
+# Three jobs:
+#   fixtures-fresh — regenerates course.json + the JS cross-validation
+#     fixtures on Linux and fails if the committed copies are stale, so the
+#     Swift tests always assert against the current web behavior.
+#   core-tests — runs the BibbiaCore XCTest suite (pure logic + fixture
+#     parity) with SwiftPM on macOS. No Xcode project or signing needed.
+#   app-build — generates the Xcode project with XcodeGen and compiles the
+#     SwiftUI app for the iOS Simulator (unsigned), catching view-layer
+#     build breaks.
+
+name: iOS Native CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ios-native/**'
+      - 'courses/**'
+      - 'src/utils/**'
+      - '.github/workflows/ios-native-ci.yml'
+  pull_request:
+    paths:
+      - 'ios-native/**'
+      - 'courses/**'
+      - 'src/utils/**'
+      - '.github/workflows/ios-native-ci.yml'
+
+jobs:
+  fixtures-fresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Regenerate course.json and fixtures from the web modules
+        run: |
+          node ios-native/scripts/export-course-json.mjs
+          node ios-native/scripts/generate-fixtures.mjs
+      - name: Fail if committed copies are stale
+        run: |
+          git diff --exit-code -- ios-native/BibbiaCore || {
+            echo '::error::course.json or fixtures are stale — run the two scripts above and commit the result';
+            exit 1;
+          }
+
+  core-tests:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run BibbiaCore tests (logic ports + JS parity fixtures)
+        run: swift test --package-path ios-native/BibbiaCore
+
+  app-build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate the Xcode project
+        run: xcodegen generate --spec ios-native/project.yml --project ios-native
+      - name: Build for iOS Simulator (unsigned)
+        run: |
+          xcodebuild build \
+            -project ios-native/ItalianBibbiaStudy.xcodeproj \
+            -scheme ItalianBibbiaStudy \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO
