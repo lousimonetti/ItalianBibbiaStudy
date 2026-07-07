@@ -41,4 +41,43 @@ public enum ScheduleLogic {
         guard let start = parseLocalDate(startDate, calendar: calendar) else { return nil }
         return calendar.date(byAdding: .day, value: weeks * 7 - 1, to: start)
     }
+
+    /// The first and last day of week `weekN` (1-based) for a program
+    /// starting on `startDate`.
+    public static func weekDates(startDate: String, weekN: Int,
+                                 calendar: Calendar = .current) -> (start: Date, end: Date)? {
+        guard weekN >= 1,
+              let start = parseLocalDate(startDate, calendar: calendar),
+              let weekStart = calendar.date(byAdding: .day, value: (weekN - 1) * 7, to: start),
+              let weekEnd = calendar.date(byAdding: .day, value: 6, to: weekStart) else {
+            return nil
+        }
+        return (weekStart, weekEnd)
+    }
+
+    // The course content's authored `week.d` style ("Apr 13-19",
+    // "Apr 27-May 3"): 3-letter English month, day-only right side when the
+    // week stays in one month. Fixed table (not DateFormatter) so labels are
+    // stable regardless of device locale and match the authored strings
+    // exactly for the reference calendar.
+    private static let monthAbbrev = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+    /// "Apr 13-19"-style label for week `weekN`, computed from the program's
+    /// effective start date — replaces the authored `week.d` string, which is
+    /// only correct for the reference calendar.
+    public static func weekRangeLabel(startDate: String, weekN: Int,
+                                      calendar: Calendar = .current) -> String? {
+        guard let (weekStart, weekEnd) = weekDates(startDate: startDate, weekN: weekN,
+                                                   calendar: calendar) else { return nil }
+        let s = calendar.dateComponents([.month, .day], from: weekStart)
+        let e = calendar.dateComponents([.month, .day], from: weekEnd)
+        guard let sm = s.month, let sd = s.day, let em = e.month, let ed = e.day else {
+            return nil
+        }
+        if sm == em {
+            return "\(monthAbbrev[sm - 1]) \(sd)-\(ed)"
+        }
+        return "\(monthAbbrev[sm - 1]) \(sd)-\(monthAbbrev[em - 1]) \(ed)"
+    }
 }

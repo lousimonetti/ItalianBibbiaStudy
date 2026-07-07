@@ -125,7 +125,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   Flashcards / Journal / Settings incl. New Session — **new installs
   auto-start the 37 weeks at first open** (`ensureSessionStart()` stamps a
   `session-start` override + one-time welcome sheet; an explicit New Session
-  date or an imported backup's override wins) — real local-notification
+  date or an imported backup's override wins, and per-week date ranges are
+  *computed* from the effective start via `ScheduleLogic.weekRangeLabel`, not
+  the authored `week.d` strings) — real local-notification
   reminders, AVSpeechSynthesizer TTS, SFSpeechRecognizer pronunciation +
   shadowing, haptics, and **backup-file interop with the web app** — stores
   persist as JSON strings in UserDefaults under the same `italian-bible-*`

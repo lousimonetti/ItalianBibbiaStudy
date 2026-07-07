@@ -89,7 +89,7 @@ private struct WeekRow: View {
                     }
                     Text(week.r)
                         .font(.subheadline)
-                    Text("\(week.d) · \(week.b)")
+                    Text("\(model.weekLabel(week.n)) · \(week.b)")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)

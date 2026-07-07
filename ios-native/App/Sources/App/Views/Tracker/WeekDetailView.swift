@@ -10,7 +10,7 @@ struct WeekDetailView: View {
             Section {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(week.r).font(.headline)
-                    Text("\(week.d) · \(week.b)")
+                    Text("\(model.weekLabel(week.n)) · \(week.b)")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }

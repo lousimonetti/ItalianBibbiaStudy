@@ -26,7 +26,12 @@ first launch, so the 37-week program begins the day the user first opens the
 app (the course config's fixed `startDate` is only the web reference
 deploy's calendar). A one-time welcome sheet says so and points at
 Settings → New Session, which can move the calendar to any date later; a
-backup import that carries its own `session-start` wins.
+backup import that carries its own `session-start` wins. Every week's
+displayed date range is **computed** from the effective start date
+(`ScheduleLogic.weekRangeLabel`, same "Apr 13-19" style as the authored
+strings — a test proves the computed labels reproduce all 37 authored
+`week.d` values for the reference calendar), so the whole schedule stays
+correct for any start date.
 
 ## Layout
 

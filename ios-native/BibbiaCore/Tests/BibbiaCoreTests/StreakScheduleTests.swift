@@ -105,6 +105,37 @@ final class ScheduleTests: XCTestCase {
         XCTAssertNil(ScheduleLogic.currentWeekN(startDate: "not-a-date", weeks: 37,
                                                 now: date(2026, 7, 6), calendar: utc))
     }
+
+    func testWeekRangeLabelsReproduceEveryAuthoredCourseString() {
+        // For the reference calendar the computed labels must byte-match the
+        // authored `week.d` strings for all 37 weeks — the dynamic labels
+        // shown for a first-open/New-Session start use the same code path.
+        let start = Course.shared.schedule.startDate
+        for week in Course.shared.allWeeks {
+            XCTAssertEqual(
+                ScheduleLogic.weekRangeLabel(startDate: start, weekN: week.n, calendar: utc),
+                week.d, "week \(week.n)")
+        }
+    }
+
+    func testWeekRangeLabelForATodayStartCrossesMonthAndYear() {
+        // Program started 2026-07-06: week 1 stays in July, week 5 crosses
+        // into August, week 26 wraps the year (Dec 28 – Jan 3).
+        XCTAssertEqual(ScheduleLogic.weekRangeLabel(startDate: "2026-07-06", weekN: 1,
+                                                    calendar: utc), "Jul 6-12")
+        XCTAssertEqual(ScheduleLogic.weekRangeLabel(startDate: "2026-07-06", weekN: 5,
+                                                    calendar: utc), "Aug 3-9")
+        XCTAssertEqual(ScheduleLogic.weekRangeLabel(startDate: "2026-07-06", weekN: 26,
+                                                    calendar: utc), "Dec 28-Jan 3")
+    }
+
+    func testWeekDatesBounds() {
+        let (s, e) = ScheduleLogic.weekDates(startDate: "2026-04-13", weekN: 37, calendar: utc)!
+        XCTAssertEqual(todayStr(s, calendar: utc), "2026-12-21")
+        XCTAssertEqual(todayStr(e, calendar: utc), "2026-12-27")
+        XCTAssertNil(ScheduleLogic.weekDates(startDate: "2026-04-13", weekN: 0, calendar: utc)?.start)
+        XCTAssertNil(ScheduleLogic.weekRangeLabel(startDate: "garbage", weekN: 1, calendar: utc))
+    }
 }
 
 final class RemindersTests: XCTestCase {

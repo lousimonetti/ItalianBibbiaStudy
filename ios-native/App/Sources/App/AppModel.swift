@@ -202,6 +202,14 @@ final class AppModel: ObservableObject {
         ScheduleLogic.endDate(startDate: effectiveStartDate, weeks: course.schedule.weeks)
     }
 
+    /// "Apr 13-19"-style date range for week `n`, computed from the effective
+    /// start date so it stays correct for a first-open or New Session start.
+    /// Falls back to the authored `week.d` string if computation fails.
+    func weekLabel(_ n: Int) -> String {
+        ScheduleLogic.weekRangeLabel(startDate: effectiveStartDate, weekN: n)
+            ?? course.week(n)?.d ?? ""
+    }
+
     struct ResetScope {
         var progress = false
         var streak = false
