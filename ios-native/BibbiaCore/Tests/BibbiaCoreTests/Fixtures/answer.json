@@ -1,0 +1,5202 @@
+[
+ {
+  "expected": "il Verbo",
+  "given": "il Verbo",
+  "ok": true
+ },
+ {
+  "expected": "il Verbo",
+  "given": "Verbo",
+  "ok": true
+ },
+ {
+  "expected": "il Verbo",
+  "given": "il Verb",
+  "ok": true
+ },
+ {
+  "expected": "il Verbo",
+  "given": "the Word",
+  "ok": false
+ },
+ {
+  "expected": "la luce",
+  "given": "la luce",
+  "ok": true
+ },
+ {
+  "expected": "la luce",
+  "given": "luce",
+  "ok": true
+ },
+ {
+  "expected": "la luce",
+  "given": "la luc",
+  "ok": true
+ },
+ {
+  "expected": "la luce",
+  "given": "the light",
+  "ok": false
+ },
+ {
+  "expected": "le tenebre",
+  "given": "le tenebre",
+  "ok": true
+ },
+ {
+  "expected": "le tenebre",
+  "given": "tenebre",
+  "ok": true
+ },
+ {
+  "expected": "le tenebre",
+  "given": "le tenebr",
+  "ok": true
+ },
+ {
+  "expected": "le tenebre",
+  "given": "the darkness",
+  "ok": false
+ },
+ {
+  "expected": "la vita",
+  "given": "la vita",
+  "ok": true
+ },
+ {
+  "expected": "la vita",
+  "given": "vita",
+  "ok": true
+ },
+ {
+  "expected": "la vita",
+  "given": "la vit",
+  "ok": true
+ },
+ {
+  "expected": "la vita",
+  "given": "life",
+  "ok": false
+ },
+ {
+  "expected": "credere",
+  "given": "credere",
+  "ok": true
+ },
+ {
+  "expected": "credere",
+  "given": "credere",
+  "ok": true
+ },
+ {
+  "expected": "credere",
+  "given": "creder",
+  "ok": true
+ },
+ {
+  "expected": "credere",
+  "given": "to believe",
+  "ok": false
+ },
+ {
+  "expected": "il miracolo",
+  "given": "il miracolo",
+  "ok": true
+ },
+ {
+  "expected": "il miracolo",
+  "given": "miracolo",
+  "ok": true
+ },
+ {
+  "expected": "il miracolo",
+  "given": "il miracol",
+  "ok": true
+ },
+ {
+  "expected": "il miracolo",
+  "given": "the miracle",
+  "ok": false
+ },
+ {
+  "expected": "il mondo",
+  "given": "il mondo",
+  "ok": true
+ },
+ {
+  "expected": "il mondo",
+  "given": "mondo",
+  "ok": true
+ },
+ {
+  "expected": "il mondo",
+  "given": "il mond",
+  "ok": true
+ },
+ {
+  "expected": "il mondo",
+  "given": "the world",
+  "ok": false
+ },
+ {
+  "expected": "nascere",
+  "given": "nascere",
+  "ok": true
+ },
+ {
+  "expected": "nascere",
+  "given": "nascere",
+  "ok": true
+ },
+ {
+  "expected": "nascere",
+  "given": "nascer",
+  "ok": true
+ },
+ {
+  "expected": "nascere",
+  "given": "to be born",
+  "ok": false
+ },
+ {
+  "expected": "lo Spirito",
+  "given": "lo Spirito",
+  "ok": true
+ },
+ {
+  "expected": "lo Spirito",
+  "given": "Spirito",
+  "ok": true
+ },
+ {
+  "expected": "lo Spirito",
+  "given": "lo Spirit",
+  "ok": true
+ },
+ {
+  "expected": "lo Spirito",
+  "given": "the Spirit",
+  "ok": false
+ },
+ {
+  "expected": "il pozzo",
+  "given": "il pozzo",
+  "ok": true
+ },
+ {
+  "expected": "il pozzo",
+  "given": "pozzo",
+  "ok": true
+ },
+ {
+  "expected": "il pozzo",
+  "given": "il pozz",
+  "ok": true
+ },
+ {
+  "expected": "il pozzo",
+  "given": "the well",
+  "ok": false
+ },
+ {
+  "expected": "adorare",
+  "given": "adorare",
+  "ok": true
+ },
+ {
+  "expected": "adorare",
+  "given": "adorare",
+  "ok": true
+ },
+ {
+  "expected": "adorare",
+  "given": "adorar",
+  "ok": true
+ },
+ {
+  "expected": "adorare",
+  "given": "to worship",
+  "ok": false
+ },
+ {
+  "expected": "il Salvatore",
+  "given": "il Salvatore",
+  "ok": true
+ },
+ {
+  "expected": "il Salvatore",
+  "given": "Salvatore",
+  "ok": true
+ },
+ {
+  "expected": "il Salvatore",
+  "given": "il Salvator",
+  "ok": true
+ },
+ {
+  "expected": "il Salvatore",
+  "given": "the Savior",
+  "ok": false
+ },
+ {
+  "expected": "credere",
+  "given": "credere",
+  "ok": true
+ },
+ {
+  "expected": "credere",
+  "given": "credere",
+  "ok": true
+ },
+ {
+  "expected": "credere",
+  "given": "creder",
+  "ok": true
+ },
+ {
+  "expected": "credere",
+  "given": "to believe",
+  "ok": false
+ },
+ {
+  "expected": "il dono",
+  "given": "il dono",
+  "ok": true
+ },
+ {
+  "expected": "il dono",
+  "given": "dono",
+  "ok": true
+ },
+ {
+  "expected": "il dono",
+  "given": "il don",
+  "ok": true
+ },
+ {
+  "expected": "il dono",
+  "given": "the gift",
+  "ok": false
+ },
+ {
+  "expected": "guarire",
+  "given": "guarire",
+  "ok": true
+ },
+ {
+  "expected": "guarire",
+  "given": "guarire",
+  "ok": true
+ },
+ {
+  "expected": "guarire",
+  "given": "guarir",
+  "ok": true
+ },
+ {
+  "expected": "guarire",
+  "given": "to heal",
+  "ok": false
+ },
+ {
+  "expected": "il pane",
+  "given": "il pane",
+  "ok": true
+ },
+ {
+  "expected": "il pane",
+  "given": "pane",
+  "ok": true
+ },
+ {
+  "expected": "il pane",
+  "given": "il pan",
+  "ok": true
+ },
+ {
+  "expected": "il pane",
+  "given": "bread",
+  "ok": false
+ },
+ {
+  "expected": "la folla",
+  "given": "la folla",
+  "ok": true
+ },
+ {
+  "expected": "la folla",
+  "given": "folla",
+  "ok": true
+ },
+ {
+  "expected": "la folla",
+  "given": "la foll",
+  "ok": true
+ },
+ {
+  "expected": "la folla",
+  "given": "the crowd",
+  "ok": false
+ },
+ {
+  "expected": "saziarsi",
+  "given": "saziarsi",
+  "ok": true
+ },
+ {
+  "expected": "saziarsi",
+  "given": "saziarsi",
+  "ok": true
+ },
+ {
+  "expected": "saziarsi",
+  "given": "saziars",
+  "ok": true
+ },
+ {
+  "expected": "saziarsi",
+  "given": "to be satisfied",
+  "ok": false
+ },
+ {
+  "expected": "la vita eterna",
+  "given": "la vita eterna",
+  "ok": true
+ },
+ {
+  "expected": "la vita eterna",
+  "given": "vita eterna",
+  "ok": true
+ },
+ {
+  "expected": "la vita eterna",
+  "given": "la vita etern",
+  "ok": true
+ },
+ {
+  "expected": "la vita eterna",
+  "given": "eternal life",
+  "ok": false
+ },
+ {
+  "expected": "la manna",
+  "given": "la manna",
+  "ok": true
+ },
+ {
+  "expected": "la manna",
+  "given": "manna",
+  "ok": true
+ },
+ {
+  "expected": "la manna",
+  "given": "la mann",
+  "ok": true
+ },
+ {
+  "expected": "la manna",
+  "given": "manna",
+  "ok": true
+ },
+ {
+  "expected": "il segno",
+  "given": "il segno",
+  "ok": true
+ },
+ {
+  "expected": "il segno",
+  "given": "segno",
+  "ok": true
+ },
+ {
+  "expected": "il segno",
+  "given": "il segn",
+  "ok": true
+ },
+ {
+  "expected": "il segno",
+  "given": "the sign",
+  "ok": false
+ },
+ {
+  "expected": "insegnare",
+  "given": "insegnare",
+  "ok": true
+ },
+ {
+  "expected": "insegnare",
+  "given": "insegnare",
+  "ok": true
+ },
+ {
+  "expected": "insegnare",
+  "given": "insegnar",
+  "ok": true
+ },
+ {
+  "expected": "insegnare",
+  "given": "to teach",
+  "ok": false
+ },
+ {
+  "expected": "la verità",
+  "given": "la verità",
+  "ok": true
+ },
+ {
+  "expected": "la verità",
+  "given": "verità",
+  "ok": true
+ },
+ {
+  "expected": "la verità",
+  "given": "la verit",
+  "ok": true
+ },
+ {
+  "expected": "la verità",
+  "given": "the truth",
+  "ok": false
+ },
+ {
+  "expected": "liberare",
+  "given": "liberare",
+  "ok": true
+ },
+ {
+  "expected": "liberare",
+  "given": "liberare",
+  "ok": true
+ },
+ {
+  "expected": "liberare",
+  "given": "liberar",
+  "ok": true
+ },
+ {
+  "expected": "liberare",
+  "given": "to set free",
+  "ok": false
+ },
+ {
+  "expected": "giudicare",
+  "given": "giudicare",
+  "ok": true
+ },
+ {
+  "expected": "giudicare",
+  "given": "giudicare",
+  "ok": true
+ },
+ {
+  "expected": "giudicare",
+  "given": "giudicar",
+  "ok": true
+ },
+ {
+  "expected": "giudicare",
+  "given": "to judge",
+  "ok": false
+ },
+ {
+  "expected": "il peccato",
+  "given": "il peccato",
+  "ok": true
+ },
+ {
+  "expected": "il peccato",
+  "given": "peccato",
+  "ok": true
+ },
+ {
+  "expected": "il peccato",
+  "given": "il peccat",
+  "ok": true
+ },
+ {
+  "expected": "il peccato",
+  "given": "sin",
+  "ok": false
+ },
+ {
+  "expected": "scrivere",
+  "given": "scrivere",
+  "ok": true
+ },
+ {
+  "expected": "scrivere",
+  "given": "scrivere",
+  "ok": true
+ },
+ {
+  "expected": "scrivere",
+  "given": "scriver",
+  "ok": true
+ },
+ {
+  "expected": "scrivere",
+  "given": "to write",
+  "ok": false
+ },
+ {
+  "expected": "luce del mondo",
+  "given": "luce del mondo",
+  "ok": true
+ },
+ {
+  "expected": "luce del mondo",
+  "given": "del mondo",
+  "ok": false
+ },
+ {
+  "expected": "luce del mondo",
+  "given": "luce del mond",
+  "ok": true
+ },
+ {
+  "expected": "luce del mondo",
+  "given": "light of the world",
+  "ok": false
+ },
+ {
+  "expected": "il cieco",
+  "given": "il cieco",
+  "ok": true
+ },
+ {
+  "expected": "il cieco",
+  "given": "cieco",
+  "ok": true
+ },
+ {
+  "expected": "il cieco",
+  "given": "il ciec",
+  "ok": true
+ },
+ {
+  "expected": "il cieco",
+  "given": "blind man",
+  "ok": false
+ },
+ {
+  "expected": "vedere",
+  "given": "vedere",
+  "ok": true
+ },
+ {
+  "expected": "vedere",
+  "given": "vedere",
+  "ok": true
+ },
+ {
+  "expected": "vedere",
+  "given": "veder",
+  "ok": true
+ },
+ {
+  "expected": "vedere",
+  "given": "to see",
+  "ok": false
+ },
+ {
+  "expected": "il buon pastore",
+  "given": "il buon pastore",
+  "ok": true
+ },
+ {
+  "expected": "il buon pastore",
+  "given": "buon pastore",
+  "ok": true
+ },
+ {
+  "expected": "il buon pastore",
+  "given": "il buon pastor",
+  "ok": true
+ },
+ {
+  "expected": "il buon pastore",
+  "given": "the good shepherd",
+  "ok": false
+ },
+ {
+  "expected": "la pecora",
+  "given": "la pecora",
+  "ok": true
+ },
+ {
+  "expected": "la pecora",
+  "given": "pecora",
+  "ok": true
+ },
+ {
+  "expected": "la pecora",
+  "given": "la pecor",
+  "ok": true
+ },
+ {
+  "expected": "la pecora",
+  "given": "sheep",
+  "ok": false
+ },
+ {
+  "expected": "la tomba",
+  "given": "la tomba",
+  "ok": true
+ },
+ {
+  "expected": "la tomba",
+  "given": "tomba",
+  "ok": true
+ },
+ {
+  "expected": "la tomba",
+  "given": "la tomb",
+  "ok": true
+ },
+ {
+  "expected": "la tomba",
+  "given": "tomb",
+  "ok": true
+ },
+ {
+  "expected": "risuscitare",
+  "given": "risuscitare",
+  "ok": true
+ },
+ {
+  "expected": "risuscitare",
+  "given": "risuscitare",
+  "ok": true
+ },
+ {
+  "expected": "risuscitare",
+  "given": "risuscitar",
+  "ok": true
+ },
+ {
+  "expected": "risuscitare",
+  "given": "to raise from dead",
+  "ok": false
+ },
+ {
+  "expected": "piangere",
+  "given": "piangere",
+  "ok": true
+ },
+ {
+  "expected": "piangere",
+  "given": "piangere",
+  "ok": true
+ },
+ {
+  "expected": "piangere",
+  "given": "pianger",
+  "ok": true
+ },
+ {
+  "expected": "piangere",
+  "given": "to weep",
+  "ok": false
+ },
+ {
+  "expected": "l'unzione",
+  "given": "l'unzione",
+  "ok": true
+ },
+ {
+  "expected": "l'unzione",
+  "given": "l'unzione",
+  "ok": true
+ },
+ {
+  "expected": "l'unzione",
+  "given": "l'unzion",
+  "ok": true
+ },
+ {
+  "expected": "l'unzione",
+  "given": "the anointing",
+  "ok": false
+ },
+ {
+  "expected": "l'asino",
+  "given": "l'asino",
+  "ok": true
+ },
+ {
+  "expected": "l'asino",
+  "given": "l'asino",
+  "ok": true
+ },
+ {
+  "expected": "l'asino",
+  "given": "l'asin",
+  "ok": true
+ },
+ {
+  "expected": "l'asino",
+  "given": "the donkey",
+  "ok": false
+ },
+ {
+  "expected": "lavare i piedi",
+  "given": "lavare i piedi",
+  "ok": true
+ },
+ {
+  "expected": "lavare i piedi",
+  "given": "i piedi",
+  "ok": false
+ },
+ {
+  "expected": "lavare i piedi",
+  "given": "lavare i pied",
+  "ok": true
+ },
+ {
+  "expected": "lavare i piedi",
+  "given": "wash feet",
+  "ok": false
+ },
+ {
+  "expected": "il tradimento",
+  "given": "il tradimento",
+  "ok": true
+ },
+ {
+  "expected": "il tradimento",
+  "given": "tradimento",
+  "ok": true
+ },
+ {
+  "expected": "il tradimento",
+  "given": "il tradiment",
+  "ok": true
+ },
+ {
+  "expected": "il tradimento",
+  "given": "betrayal",
+  "ok": false
+ },
+ {
+  "expected": "la casa del Padre",
+  "given": "la casa del Padre",
+  "ok": true
+ },
+ {
+  "expected": "la casa del Padre",
+  "given": "casa del Padre",
+  "ok": true
+ },
+ {
+  "expected": "la casa del Padre",
+  "given": "la casa del Padr",
+  "ok": true
+ },
+ {
+  "expected": "la casa del Padre",
+  "given": "Father's house",
+  "ok": false
+ },
+ {
+  "expected": "il Paraclito",
+  "given": "il Paraclito",
+  "ok": true
+ },
+ {
+  "expected": "il Paraclito",
+  "given": "Paraclito",
+  "ok": true
+ },
+ {
+  "expected": "il Paraclito",
+  "given": "il Paraclit",
+  "ok": true
+ },
+ {
+  "expected": "il Paraclito",
+  "given": "the Paraclete",
+  "ok": false
+ },
+ {
+  "expected": "la via",
+  "given": "la via",
+  "ok": true
+ },
+ {
+  "expected": "la via",
+  "given": "via",
+  "ok": true
+ },
+ {
+  "expected": "la via",
+  "given": "la vi",
+  "ok": true
+ },
+ {
+  "expected": "la via",
+  "given": "the way",
+  "ok": false
+ },
+ {
+  "expected": "la vite",
+  "given": "la vite",
+  "ok": true
+ },
+ {
+  "expected": "la vite",
+  "given": "vite",
+  "ok": true
+ },
+ {
+  "expected": "la vite",
+  "given": "la vit",
+  "ok": true
+ },
+ {
+  "expected": "la vite",
+  "given": "the vine",
+  "ok": false
+ },
+ {
+  "expected": "il tralcio",
+  "given": "il tralcio",
+  "ok": true
+ },
+ {
+  "expected": "il tralcio",
+  "given": "tralcio",
+  "ok": true
+ },
+ {
+  "expected": "il tralcio",
+  "given": "il tralci",
+  "ok": true
+ },
+ {
+  "expected": "il tralcio",
+  "given": "the branch",
+  "ok": false
+ },
+ {
+  "expected": "portare frutto",
+  "given": "portare frutto",
+  "ok": true
+ },
+ {
+  "expected": "portare frutto",
+  "given": "frutto",
+  "ok": false
+ },
+ {
+  "expected": "portare frutto",
+  "given": "portare frutt",
+  "ok": true
+ },
+ {
+  "expected": "portare frutto",
+  "given": "to bear fruit",
+  "ok": false
+ },
+ {
+  "expected": "il comandamento",
+  "given": "il comandamento",
+  "ok": true
+ },
+ {
+  "expected": "il comandamento",
+  "given": "comandamento",
+  "ok": true
+ },
+ {
+  "expected": "il comandamento",
+  "given": "il comandament",
+  "ok": true
+ },
+ {
+  "expected": "il comandamento",
+  "given": "commandment",
+  "ok": false
+ },
+ {
+  "expected": "rimanere",
+  "given": "rimanere",
+  "ok": true
+ },
+ {
+  "expected": "rimanere",
+  "given": "rimanere",
+  "ok": true
+ },
+ {
+  "expected": "rimanere",
+  "given": "rimaner",
+  "ok": true
+ },
+ {
+  "expected": "rimanere",
+  "given": "to remain",
+  "ok": false
+ },
+ {
+  "expected": "il mondo",
+  "given": "il mondo",
+  "ok": true
+ },
+ {
+  "expected": "il mondo",
+  "given": "mondo",
+  "ok": true
+ },
+ {
+  "expected": "il mondo",
+  "given": "il mond",
+  "ok": true
+ },
+ {
+  "expected": "il mondo",
+  "given": "the world",
+  "ok": false
+ },
+ {
+  "expected": "la preghiera",
+  "given": "la preghiera",
+  "ok": true
+ },
+ {
+  "expected": "la preghiera",
+  "given": "preghiera",
+  "ok": true
+ },
+ {
+  "expected": "la preghiera",
+  "given": "la preghier",
+  "ok": true
+ },
+ {
+  "expected": "la preghiera",
+  "given": "prayer",
+  "ok": false
+ },
+ {
+  "expected": "l'arresto",
+  "given": "l'arresto",
+  "ok": true
+ },
+ {
+  "expected": "l'arresto",
+  "given": "l'arresto",
+  "ok": true
+ },
+ {
+  "expected": "l'arresto",
+  "given": "l'arrest",
+  "ok": true
+ },
+ {
+  "expected": "l'arresto",
+  "given": "the arrest",
+  "ok": false
+ },
+ {
+  "expected": "il rinnegamento",
+  "given": "il rinnegamento",
+  "ok": true
+ },
+ {
+  "expected": "il rinnegamento",
+  "given": "rinnegamento",
+  "ok": true
+ },
+ {
+  "expected": "il rinnegamento",
+  "given": "il rinnegament",
+  "ok": true
+ },
+ {
+  "expected": "il rinnegamento",
+  "given": "the denial",
+  "ok": false
+ },
+ {
+  "expected": "la crocifissione",
+  "given": "la crocifissione",
+  "ok": true
+ },
+ {
+  "expected": "la crocifissione",
+  "given": "crocifissione",
+  "ok": true
+ },
+ {
+  "expected": "la crocifissione",
+  "given": "la crocifission",
+  "ok": true
+ },
+ {
+  "expected": "la crocifissione",
+  "given": "crucifixion",
+  "ok": false
+ },
+ {
+  "expected": "il sepolcro vuoto",
+  "given": "il sepolcro vuoto",
+  "ok": true
+ },
+ {
+  "expected": "il sepolcro vuoto",
+  "given": "sepolcro vuoto",
+  "ok": true
+ },
+ {
+  "expected": "il sepolcro vuoto",
+  "given": "il sepolcro vuot",
+  "ok": true
+ },
+ {
+  "expected": "il sepolcro vuoto",
+  "given": "empty tomb",
+  "ok": false
+ },
+ {
+  "expected": "la resurrezione",
+  "given": "la resurrezione",
+  "ok": true
+ },
+ {
+  "expected": "la resurrezione",
+  "given": "resurrezione",
+  "ok": true
+ },
+ {
+  "expected": "la resurrezione",
+  "given": "la resurrezion",
+  "ok": true
+ },
+ {
+  "expected": "la resurrezione",
+  "given": "the resurrection",
+  "ok": false
+ },
+ {
+  "expected": "la missione",
+  "given": "la missione",
+  "ok": true
+ },
+ {
+  "expected": "la missione",
+  "given": "missione",
+  "ok": true
+ },
+ {
+  "expected": "la missione",
+  "given": "la mission",
+  "ok": true
+ },
+ {
+  "expected": "la missione",
+  "given": "the mission",
+  "ok": false
+ },
+ {
+  "expected": "la pace",
+  "given": "la pace",
+  "ok": true
+ },
+ {
+  "expected": "la pace",
+  "given": "pace",
+  "ok": true
+ },
+ {
+  "expected": "la pace",
+  "given": "la pac",
+  "ok": true
+ },
+ {
+  "expected": "la pace",
+  "given": "peace",
+  "ok": true
+ },
+ {
+  "expected": "l'annuncio",
+  "given": "l'annuncio",
+  "ok": true
+ },
+ {
+  "expected": "l'annuncio",
+  "given": "l'annuncio",
+  "ok": true
+ },
+ {
+  "expected": "l'annuncio",
+  "given": "l'annunci",
+  "ok": true
+ },
+ {
+  "expected": "l'annuncio",
+  "given": "the announcement",
+  "ok": false
+ },
+ {
+  "expected": "l'angelo",
+  "given": "l'angelo",
+  "ok": true
+ },
+ {
+  "expected": "l'angelo",
+  "given": "l'angelo",
+  "ok": true
+ },
+ {
+  "expected": "l'angelo",
+  "given": "l'angel",
+  "ok": true
+ },
+ {
+  "expected": "l'angelo",
+  "given": "the angel",
+  "ok": false
+ },
+ {
+  "expected": "benedetto",
+  "given": "benedetto",
+  "ok": true
+ },
+ {
+  "expected": "benedetto",
+  "given": "benedetto",
+  "ok": true
+ },
+ {
+  "expected": "benedetto",
+  "given": "benedett",
+  "ok": true
+ },
+ {
+  "expected": "benedetto",
+  "given": "blessed",
+  "ok": false
+ },
+ {
+  "expected": "la nascita",
+  "given": "la nascita",
+  "ok": true
+ },
+ {
+  "expected": "la nascita",
+  "given": "nascita",
+  "ok": true
+ },
+ {
+  "expected": "la nascita",
+  "given": "la nascit",
+  "ok": true
+ },
+ {
+  "expected": "la nascita",
+  "given": "birth",
+  "ok": false
+ },
+ {
+  "expected": "la mangiatoia",
+  "given": "la mangiatoia",
+  "ok": true
+ },
+ {
+  "expected": "la mangiatoia",
+  "given": "mangiatoia",
+  "ok": true
+ },
+ {
+  "expected": "la mangiatoia",
+  "given": "la mangiatoi",
+  "ok": true
+ },
+ {
+  "expected": "la mangiatoia",
+  "given": "manger",
+  "ok": false
+ },
+ {
+  "expected": "i pastori",
+  "given": "i pastori",
+  "ok": true
+ },
+ {
+  "expected": "i pastori",
+  "given": "pastori",
+  "ok": true
+ },
+ {
+  "expected": "i pastori",
+  "given": "i pastor",
+  "ok": true
+ },
+ {
+  "expected": "i pastori",
+  "given": "shepherds",
+  "ok": false
+ },
+ {
+  "expected": "il Magnificat",
+  "given": "il Magnificat",
+  "ok": true
+ },
+ {
+  "expected": "il Magnificat",
+  "given": "Magnificat",
+  "ok": true
+ },
+ {
+  "expected": "il Magnificat",
+  "given": "il Magnifica",
+  "ok": true
+ },
+ {
+  "expected": "il Magnificat",
+  "given": "Magnificat",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "il battesimo",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "battesimo",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "il battesim",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "baptism",
+  "ok": false
+ },
+ {
+  "expected": "il deserto",
+  "given": "il deserto",
+  "ok": true
+ },
+ {
+  "expected": "il deserto",
+  "given": "deserto",
+  "ok": true
+ },
+ {
+  "expected": "il deserto",
+  "given": "il desert",
+  "ok": true
+ },
+ {
+  "expected": "il deserto",
+  "given": "desert",
+  "ok": true
+ },
+ {
+  "expected": "la tentazione",
+  "given": "la tentazione",
+  "ok": true
+ },
+ {
+  "expected": "la tentazione",
+  "given": "tentazione",
+  "ok": true
+ },
+ {
+  "expected": "la tentazione",
+  "given": "la tentazion",
+  "ok": true
+ },
+ {
+  "expected": "la tentazione",
+  "given": "temptation",
+  "ok": false
+ },
+ {
+  "expected": "la rete",
+  "given": "la rete",
+  "ok": true
+ },
+ {
+  "expected": "la rete",
+  "given": "rete",
+  "ok": true
+ },
+ {
+  "expected": "la rete",
+  "given": "la ret",
+  "ok": true
+ },
+ {
+  "expected": "la rete",
+  "given": "net",
+  "ok": false
+ },
+ {
+  "expected": "il lebbroso",
+  "given": "il lebbroso",
+  "ok": true
+ },
+ {
+  "expected": "il lebbroso",
+  "given": "lebbroso",
+  "ok": true
+ },
+ {
+  "expected": "il lebbroso",
+  "given": "il lebbros",
+  "ok": true
+ },
+ {
+  "expected": "il lebbroso",
+  "given": "leper",
+  "ok": false
+ },
+ {
+  "expected": "perdonare",
+  "given": "perdonare",
+  "ok": true
+ },
+ {
+  "expected": "perdonare",
+  "given": "perdonare",
+  "ok": true
+ },
+ {
+  "expected": "perdonare",
+  "given": "perdonar",
+  "ok": true
+ },
+ {
+  "expected": "perdonare",
+  "given": "to forgive",
+  "ok": false
+ },
+ {
+  "expected": "camminare",
+  "given": "camminare",
+  "ok": true
+ },
+ {
+  "expected": "camminare",
+  "given": "camminare",
+  "ok": true
+ },
+ {
+  "expected": "camminare",
+  "given": "camminar",
+  "ok": true
+ },
+ {
+  "expected": "camminare",
+  "given": "to walk",
+  "ok": false
+ },
+ {
+  "expected": "le beatitudini",
+  "given": "le beatitudini",
+  "ok": true
+ },
+ {
+  "expected": "le beatitudini",
+  "given": "beatitudini",
+  "ok": true
+ },
+ {
+  "expected": "le beatitudini",
+  "given": "le beatitudin",
+  "ok": true
+ },
+ {
+  "expected": "le beatitudini",
+  "given": "the beatitudes",
+  "ok": false
+ },
+ {
+  "expected": "il nemico",
+  "given": "il nemico",
+  "ok": true
+ },
+ {
+  "expected": "il nemico",
+  "given": "nemico",
+  "ok": true
+ },
+ {
+  "expected": "il nemico",
+  "given": "il nemic",
+  "ok": true
+ },
+ {
+  "expected": "il nemico",
+  "given": "the enemy",
+  "ok": false
+ },
+ {
+  "expected": "il centurione",
+  "given": "il centurione",
+  "ok": true
+ },
+ {
+  "expected": "il centurione",
+  "given": "centurione",
+  "ok": true
+ },
+ {
+  "expected": "il centurione",
+  "given": "il centurion",
+  "ok": true
+ },
+ {
+  "expected": "il centurione",
+  "given": "centurion",
+  "ok": true
+ },
+ {
+  "expected": "la vedova",
+  "given": "la vedova",
+  "ok": true
+ },
+ {
+  "expected": "la vedova",
+  "given": "vedova",
+  "ok": true
+ },
+ {
+  "expected": "la vedova",
+  "given": "la vedov",
+  "ok": true
+ },
+ {
+  "expected": "la vedova",
+  "given": "widow",
+  "ok": false
+ },
+ {
+  "expected": "il fariseo",
+  "given": "il fariseo",
+  "ok": true
+ },
+ {
+  "expected": "il fariseo",
+  "given": "fariseo",
+  "ok": true
+ },
+ {
+  "expected": "il fariseo",
+  "given": "il farise",
+  "ok": true
+ },
+ {
+  "expected": "il fariseo",
+  "given": "Pharisee",
+  "ok": false
+ },
+ {
+  "expected": "perdonare",
+  "given": "perdonare",
+  "ok": true
+ },
+ {
+  "expected": "perdonare",
+  "given": "perdonare",
+  "ok": true
+ },
+ {
+  "expected": "perdonare",
+  "given": "perdonar",
+  "ok": true
+ },
+ {
+  "expected": "perdonare",
+  "given": "to forgive",
+  "ok": false
+ },
+ {
+  "expected": "il profeta",
+  "given": "il profeta",
+  "ok": true
+ },
+ {
+  "expected": "il profeta",
+  "given": "profeta",
+  "ok": true
+ },
+ {
+  "expected": "il profeta",
+  "given": "il profet",
+  "ok": true
+ },
+ {
+  "expected": "il profeta",
+  "given": "the prophet",
+  "ok": false
+ },
+ {
+  "expected": "la tempesta",
+  "given": "la tempesta",
+  "ok": true
+ },
+ {
+  "expected": "la tempesta",
+  "given": "tempesta",
+  "ok": true
+ },
+ {
+  "expected": "la tempesta",
+  "given": "la tempest",
+  "ok": true
+ },
+ {
+  "expected": "la tempesta",
+  "given": "storm",
+  "ok": false
+ },
+ {
+  "expected": "i demoni",
+  "given": "i demoni",
+  "ok": true
+ },
+ {
+  "expected": "i demoni",
+  "given": "demoni",
+  "ok": true
+ },
+ {
+  "expected": "i demoni",
+  "given": "i demon",
+  "ok": true
+ },
+ {
+  "expected": "i demoni",
+  "given": "demons",
+  "ok": true
+ },
+ {
+  "expected": "la fede",
+  "given": "la fede",
+  "ok": true
+ },
+ {
+  "expected": "la fede",
+  "given": "fede",
+  "ok": true
+ },
+ {
+  "expected": "la fede",
+  "given": "la fed",
+  "ok": true
+ },
+ {
+  "expected": "la fede",
+  "given": "faith",
+  "ok": false
+ },
+ {
+  "expected": "guarire",
+  "given": "guarire",
+  "ok": true
+ },
+ {
+  "expected": "guarire",
+  "given": "guarire",
+  "ok": true
+ },
+ {
+  "expected": "guarire",
+  "given": "guarir",
+  "ok": true
+ },
+ {
+  "expected": "guarire",
+  "given": "to heal",
+  "ok": false
+ },
+ {
+  "expected": "la trasfigurazione",
+  "given": "la trasfigurazione",
+  "ok": true
+ },
+ {
+  "expected": "la trasfigurazione",
+  "given": "trasfigurazione",
+  "ok": true
+ },
+ {
+  "expected": "la trasfigurazione",
+  "given": "la trasfigurazion",
+  "ok": true
+ },
+ {
+  "expected": "la trasfigurazione",
+  "given": "transfiguration",
+  "ok": true
+ },
+ {
+  "expected": "la croce",
+  "given": "la croce",
+  "ok": true
+ },
+ {
+  "expected": "la croce",
+  "given": "croce",
+  "ok": true
+ },
+ {
+  "expected": "la croce",
+  "given": "la croc",
+  "ok": true
+ },
+ {
+  "expected": "la croce",
+  "given": "cross",
+  "ok": false
+ },
+ {
+  "expected": "le provviste",
+  "given": "le provviste",
+  "ok": true
+ },
+ {
+  "expected": "le provviste",
+  "given": "provviste",
+  "ok": true
+ },
+ {
+  "expected": "le provviste",
+  "given": "le provvist",
+  "ok": true
+ },
+ {
+  "expected": "le provviste",
+  "given": "provisions",
+  "ok": false
+ },
+ {
+  "expected": "il samaritano",
+  "given": "il samaritano",
+  "ok": true
+ },
+ {
+  "expected": "il samaritano",
+  "given": "samaritano",
+  "ok": true
+ },
+ {
+  "expected": "il samaritano",
+  "given": "il samaritan",
+  "ok": true
+ },
+ {
+  "expected": "il samaritano",
+  "given": "Samaritan",
+  "ok": true
+ },
+ {
+  "expected": "il prossimo",
+  "given": "il prossimo",
+  "ok": true
+ },
+ {
+  "expected": "il prossimo",
+  "given": "prossimo",
+  "ok": true
+ },
+ {
+  "expected": "il prossimo",
+  "given": "il prossim",
+  "ok": true
+ },
+ {
+  "expected": "il prossimo",
+  "given": "neighbor",
+  "ok": false
+ },
+ {
+  "expected": "l'olio",
+  "given": "l'olio",
+  "ok": true
+ },
+ {
+  "expected": "l'olio",
+  "given": "l'olio",
+  "ok": true
+ },
+ {
+  "expected": "l'olio",
+  "given": "l'oli",
+  "ok": true
+ },
+ {
+  "expected": "l'olio",
+  "given": "oil",
+  "ok": false
+ },
+ {
+  "expected": "pregare",
+  "given": "pregare",
+  "ok": true
+ },
+ {
+  "expected": "pregare",
+  "given": "pregare",
+  "ok": true
+ },
+ {
+  "expected": "pregare",
+  "given": "pregar",
+  "ok": true
+ },
+ {
+  "expected": "pregare",
+  "given": "to pray",
+  "ok": false
+ },
+ {
+  "expected": "il Padre Nostro",
+  "given": "il Padre Nostro",
+  "ok": true
+ },
+ {
+  "expected": "il Padre Nostro",
+  "given": "Padre Nostro",
+  "ok": true
+ },
+ {
+  "expected": "il Padre Nostro",
+  "given": "il Padre Nostr",
+  "ok": true
+ },
+ {
+  "expected": "il Padre Nostro",
+  "given": "Lord's Prayer",
+  "ok": false
+ },
+ {
+  "expected": "chiedere",
+  "given": "chiedere",
+  "ok": true
+ },
+ {
+  "expected": "chiedere",
+  "given": "chiedere",
+  "ok": true
+ },
+ {
+  "expected": "chiedere",
+  "given": "chieder",
+  "ok": true
+ },
+ {
+  "expected": "chiedere",
+  "given": "to ask",
+  "ok": false
+ },
+ {
+  "expected": "il demonio",
+  "given": "il demonio",
+  "ok": true
+ },
+ {
+  "expected": "il demonio",
+  "given": "demonio",
+  "ok": true
+ },
+ {
+  "expected": "il demonio",
+  "given": "il demoni",
+  "ok": true
+ },
+ {
+  "expected": "il demonio",
+  "given": "demon",
+  "ok": false
+ },
+ {
+  "expected": "la ricchezza",
+  "given": "la ricchezza",
+  "ok": true
+ },
+ {
+  "expected": "la ricchezza",
+  "given": "ricchezza",
+  "ok": true
+ },
+ {
+  "expected": "la ricchezza",
+  "given": "la ricchezz",
+  "ok": true
+ },
+ {
+  "expected": "la ricchezza",
+  "given": "wealth",
+  "ok": false
+ },
+ {
+  "expected": "il granaio",
+  "given": "il granaio",
+  "ok": true
+ },
+ {
+  "expected": "il granaio",
+  "given": "granaio",
+  "ok": true
+ },
+ {
+  "expected": "il granaio",
+  "given": "il granai",
+  "ok": true
+ },
+ {
+  "expected": "il granaio",
+  "given": "granary",
+  "ok": false
+ },
+ {
+  "expected": "preoccuparsi",
+  "given": "preoccuparsi",
+  "ok": true
+ },
+ {
+  "expected": "preoccuparsi",
+  "given": "preoccuparsi",
+  "ok": true
+ },
+ {
+  "expected": "preoccuparsi",
+  "given": "preoccupars",
+  "ok": true
+ },
+ {
+  "expected": "preoccuparsi",
+  "given": "to worry",
+  "ok": false
+ },
+ {
+  "expected": "il fico",
+  "given": "il fico",
+  "ok": true
+ },
+ {
+  "expected": "il fico",
+  "given": "fico",
+  "ok": true
+ },
+ {
+  "expected": "il fico",
+  "given": "il fic",
+  "ok": true
+ },
+ {
+  "expected": "il fico",
+  "given": "fig tree",
+  "ok": false
+ },
+ {
+  "expected": "la porta stretta",
+  "given": "la porta stretta",
+  "ok": true
+ },
+ {
+  "expected": "la porta stretta",
+  "given": "porta stretta",
+  "ok": true
+ },
+ {
+  "expected": "la porta stretta",
+  "given": "la porta strett",
+  "ok": true
+ },
+ {
+  "expected": "la porta stretta",
+  "given": "narrow gate",
+  "ok": false
+ },
+ {
+  "expected": "l'ipocrita",
+  "given": "l'ipocrita",
+  "ok": true
+ },
+ {
+  "expected": "l'ipocrita",
+  "given": "l'ipocrita",
+  "ok": true
+ },
+ {
+  "expected": "l'ipocrita",
+  "given": "l'ipocrit",
+  "ok": true
+ },
+ {
+  "expected": "l'ipocrita",
+  "given": "hypocrite",
+  "ok": false
+ },
+ {
+  "expected": "il regno di Dio",
+  "given": "il regno di Dio",
+  "ok": true
+ },
+ {
+  "expected": "il regno di Dio",
+  "given": "regno di Dio",
+  "ok": true
+ },
+ {
+  "expected": "il regno di Dio",
+  "given": "il regno di Di",
+  "ok": true
+ },
+ {
+  "expected": "il regno di Dio",
+  "given": "kingdom of God",
+  "ok": false
+ },
+ {
+  "expected": "il banchetto",
+  "given": "il banchetto",
+  "ok": true
+ },
+ {
+  "expected": "il banchetto",
+  "given": "banchetto",
+  "ok": true
+ },
+ {
+  "expected": "il banchetto",
+  "given": "il banchett",
+  "ok": true
+ },
+ {
+  "expected": "il banchetto",
+  "given": "banquet",
+  "ok": false
+ },
+ {
+  "expected": "l'invitato",
+  "given": "l'invitato",
+  "ok": true
+ },
+ {
+  "expected": "l'invitato",
+  "given": "l'invitato",
+  "ok": true
+ },
+ {
+  "expected": "l'invitato",
+  "given": "l'invitat",
+  "ok": true
+ },
+ {
+  "expected": "l'invitato",
+  "given": "guest",
+  "ok": false
+ },
+ {
+  "expected": "la pecora perduta",
+  "given": "la pecora perduta",
+  "ok": true
+ },
+ {
+  "expected": "la pecora perduta",
+  "given": "pecora perduta",
+  "ok": true
+ },
+ {
+  "expected": "la pecora perduta",
+  "given": "la pecora perdut",
+  "ok": true
+ },
+ {
+  "expected": "la pecora perduta",
+  "given": "lost sheep",
+  "ok": false
+ },
+ {
+  "expected": "il figlio prodigo",
+  "given": "il figlio prodigo",
+  "ok": true
+ },
+ {
+  "expected": "il figlio prodigo",
+  "given": "figlio prodigo",
+  "ok": true
+ },
+ {
+  "expected": "il figlio prodigo",
+  "given": "il figlio prodig",
+  "ok": true
+ },
+ {
+  "expected": "il figlio prodigo",
+  "given": "prodigal son",
+  "ok": false
+ },
+ {
+  "expected": "il padre misericordioso",
+  "given": "il padre misericordioso",
+  "ok": true
+ },
+ {
+  "expected": "il padre misericordioso",
+  "given": "padre misericordioso",
+  "ok": true
+ },
+ {
+  "expected": "il padre misericordioso",
+  "given": "il padre misericordios",
+  "ok": true
+ },
+ {
+  "expected": "il padre misericordioso",
+  "given": "merciful father",
+  "ok": false
+ },
+ {
+  "expected": "abbracciare",
+  "given": "abbracciare",
+  "ok": true
+ },
+ {
+  "expected": "abbracciare",
+  "given": "abbracciare",
+  "ok": true
+ },
+ {
+  "expected": "abbracciare",
+  "given": "abbracciar",
+  "ok": true
+ },
+ {
+  "expected": "abbracciare",
+  "given": "to embrace",
+  "ok": false
+ },
+ {
+  "expected": "la festa",
+  "given": "la festa",
+  "ok": true
+ },
+ {
+  "expected": "la festa",
+  "given": "festa",
+  "ok": true
+ },
+ {
+  "expected": "la festa",
+  "given": "la fest",
+  "ok": true
+ },
+ {
+  "expected": "la festa",
+  "given": "the celebration",
+  "ok": false
+ },
+ {
+  "expected": "la gratitudine",
+  "given": "la gratitudine",
+  "ok": true
+ },
+ {
+  "expected": "la gratitudine",
+  "given": "gratitudine",
+  "ok": true
+ },
+ {
+  "expected": "la gratitudine",
+  "given": "la gratitudin",
+  "ok": true
+ },
+ {
+  "expected": "la gratitudine",
+  "given": "gratitude",
+  "ok": true
+ },
+ {
+  "expected": "l'umiltà",
+  "given": "l'umiltà",
+  "ok": true
+ },
+ {
+  "expected": "l'umiltà",
+  "given": "l'umiltà",
+  "ok": true
+ },
+ {
+  "expected": "l'umiltà",
+  "given": "l'umilt",
+  "ok": true
+ },
+ {
+  "expected": "l'umiltà",
+  "given": "humility",
+  "ok": false
+ },
+ {
+  "expected": "il giudice",
+  "given": "il giudice",
+  "ok": true
+ },
+ {
+  "expected": "il giudice",
+  "given": "giudice",
+  "ok": true
+ },
+ {
+  "expected": "il giudice",
+  "given": "il giudic",
+  "ok": true
+ },
+ {
+  "expected": "il giudice",
+  "given": "judge",
+  "ok": false
+ },
+ {
+  "expected": "la vedova",
+  "given": "la vedova",
+  "ok": true
+ },
+ {
+  "expected": "la vedova",
+  "given": "vedova",
+  "ok": true
+ },
+ {
+  "expected": "la vedova",
+  "given": "la vedov",
+  "ok": true
+ },
+ {
+  "expected": "la vedova",
+  "given": "widow",
+  "ok": false
+ },
+ {
+  "expected": "il pubblicano",
+  "given": "il pubblicano",
+  "ok": true
+ },
+ {
+  "expected": "il pubblicano",
+  "given": "pubblicano",
+  "ok": true
+ },
+ {
+  "expected": "il pubblicano",
+  "given": "il pubblican",
+  "ok": true
+ },
+ {
+  "expected": "il pubblicano",
+  "given": "tax collector",
+  "ok": false
+ },
+ {
+  "expected": "la fede",
+  "given": "la fede",
+  "ok": true
+ },
+ {
+  "expected": "la fede",
+  "given": "fede",
+  "ok": true
+ },
+ {
+  "expected": "la fede",
+  "given": "la fed",
+  "ok": true
+ },
+ {
+  "expected": "la fede",
+  "given": "faith",
+  "ok": false
+ },
+ {
+  "expected": "i bambini",
+  "given": "i bambini",
+  "ok": true
+ },
+ {
+  "expected": "i bambini",
+  "given": "bambini",
+  "ok": true
+ },
+ {
+  "expected": "i bambini",
+  "given": "i bambin",
+  "ok": true
+ },
+ {
+  "expected": "i bambini",
+  "given": "children",
+  "ok": false
+ },
+ {
+  "expected": "Zaccheo",
+  "given": "Zaccheo",
+  "ok": true
+ },
+ {
+  "expected": "Zaccheo",
+  "given": "Zaccheo",
+  "ok": true
+ },
+ {
+  "expected": "Zaccheo",
+  "given": "Zacche",
+  "ok": true
+ },
+ {
+  "expected": "Zaccheo",
+  "given": "Zacchaeus",
+  "ok": false
+ },
+ {
+  "expected": "la salvezza",
+  "given": "la salvezza",
+  "ok": true
+ },
+ {
+  "expected": "la salvezza",
+  "given": "salvezza",
+  "ok": true
+ },
+ {
+  "expected": "la salvezza",
+  "given": "la salvezz",
+  "ok": true
+ },
+ {
+  "expected": "la salvezza",
+  "given": "salvation",
+  "ok": false
+ },
+ {
+  "expected": "il tempio",
+  "given": "il tempio",
+  "ok": true
+ },
+ {
+  "expected": "il tempio",
+  "given": "tempio",
+  "ok": true
+ },
+ {
+  "expected": "il tempio",
+  "given": "il tempi",
+  "ok": true
+ },
+ {
+  "expected": "il tempio",
+  "given": "temple",
+  "ok": false
+ },
+ {
+  "expected": "l'asino",
+  "given": "l'asino",
+  "ok": true
+ },
+ {
+  "expected": "l'asino",
+  "given": "l'asino",
+  "ok": true
+ },
+ {
+  "expected": "l'asino",
+  "given": "l'asin",
+  "ok": true
+ },
+ {
+  "expected": "l'asino",
+  "given": "donkey",
+  "ok": false
+ },
+ {
+  "expected": "la moneta",
+  "given": "la moneta",
+  "ok": true
+ },
+ {
+  "expected": "la moneta",
+  "given": "moneta",
+  "ok": true
+ },
+ {
+  "expected": "la moneta",
+  "given": "la monet",
+  "ok": true
+ },
+ {
+  "expected": "la moneta",
+  "given": "coin",
+  "ok": false
+ },
+ {
+  "expected": "vigilare",
+  "given": "vigilare",
+  "ok": true
+ },
+ {
+  "expected": "vigilare",
+  "given": "vigilare",
+  "ok": true
+ },
+ {
+  "expected": "vigilare",
+  "given": "vigilar",
+  "ok": true
+ },
+ {
+  "expected": "vigilare",
+  "given": "to watch",
+  "ok": false
+ },
+ {
+  "expected": "la distruzione",
+  "given": "la distruzione",
+  "ok": true
+ },
+ {
+  "expected": "la distruzione",
+  "given": "distruzione",
+  "ok": true
+ },
+ {
+  "expected": "la distruzione",
+  "given": "la distruzion",
+  "ok": true
+ },
+ {
+  "expected": "la distruzione",
+  "given": "destruction",
+  "ok": false
+ },
+ {
+  "expected": "il tradimento",
+  "given": "il tradimento",
+  "ok": true
+ },
+ {
+  "expected": "il tradimento",
+  "given": "tradimento",
+  "ok": true
+ },
+ {
+  "expected": "il tradimento",
+  "given": "il tradiment",
+  "ok": true
+ },
+ {
+  "expected": "il tradimento",
+  "given": "betrayal",
+  "ok": false
+ },
+ {
+  "expected": "l'ultima cena",
+  "given": "l'ultima cena",
+  "ok": true
+ },
+ {
+  "expected": "l'ultima cena",
+  "given": "cena",
+  "ok": false
+ },
+ {
+  "expected": "l'ultima cena",
+  "given": "l'ultima cen",
+  "ok": true
+ },
+ {
+  "expected": "l'ultima cena",
+  "given": "Last Supper",
+  "ok": false
+ },
+ {
+  "expected": "il calice",
+  "given": "il calice",
+  "ok": true
+ },
+ {
+  "expected": "il calice",
+  "given": "calice",
+  "ok": true
+ },
+ {
+  "expected": "il calice",
+  "given": "il calic",
+  "ok": true
+ },
+ {
+  "expected": "il calice",
+  "given": "chalice/cup",
+  "ok": false
+ },
+ {
+  "expected": "la passione",
+  "given": "la passione",
+  "ok": true
+ },
+ {
+  "expected": "la passione",
+  "given": "passione",
+  "ok": true
+ },
+ {
+  "expected": "la passione",
+  "given": "la passion",
+  "ok": true
+ },
+ {
+  "expected": "la passione",
+  "given": "passion/suffering",
+  "ok": false
+ },
+ {
+  "expected": "Emmaus",
+  "given": "Emmaus",
+  "ok": true
+ },
+ {
+  "expected": "Emmaus",
+  "given": "Emmaus",
+  "ok": true
+ },
+ {
+  "expected": "Emmaus",
+  "given": "Emmau",
+  "ok": true
+ },
+ {
+  "expected": "Emmaus",
+  "given": "Emmaus",
+  "ok": true
+ },
+ {
+  "expected": "l'ascensione",
+  "given": "l'ascensione",
+  "ok": true
+ },
+ {
+  "expected": "l'ascensione",
+  "given": "l'ascensione",
+  "ok": true
+ },
+ {
+  "expected": "l'ascensione",
+  "given": "l'ascension",
+  "ok": true
+ },
+ {
+  "expected": "l'ascensione",
+  "given": "ascension",
+  "ok": true
+ },
+ {
+  "expected": "la benedizione",
+  "given": "la benedizione",
+  "ok": true
+ },
+ {
+  "expected": "la benedizione",
+  "given": "benedizione",
+  "ok": true
+ },
+ {
+  "expected": "la benedizione",
+  "given": "la benedizion",
+  "ok": true
+ },
+ {
+  "expected": "la benedizione",
+  "given": "blessing",
+  "ok": false
+ },
+ {
+  "expected": "l'ascensione",
+  "given": "l'ascensione",
+  "ok": true
+ },
+ {
+  "expected": "l'ascensione",
+  "given": "l'ascensione",
+  "ok": true
+ },
+ {
+  "expected": "l'ascensione",
+  "given": "l'ascension",
+  "ok": true
+ },
+ {
+  "expected": "l'ascensione",
+  "given": "ascension",
+  "ok": true
+ },
+ {
+  "expected": "la Pentecoste",
+  "given": "la Pentecoste",
+  "ok": true
+ },
+ {
+  "expected": "la Pentecoste",
+  "given": "Pentecoste",
+  "ok": true
+ },
+ {
+  "expected": "la Pentecoste",
+  "given": "la Pentecost",
+  "ok": true
+ },
+ {
+  "expected": "la Pentecoste",
+  "given": "Pentecost",
+  "ok": true
+ },
+ {
+  "expected": "lo Spirito Santo",
+  "given": "lo Spirito Santo",
+  "ok": true
+ },
+ {
+  "expected": "lo Spirito Santo",
+  "given": "Spirito Santo",
+  "ok": true
+ },
+ {
+  "expected": "lo Spirito Santo",
+  "given": "lo Spirito Sant",
+  "ok": true
+ },
+ {
+  "expected": "lo Spirito Santo",
+  "given": "Holy Spirit",
+  "ok": false
+ },
+ {
+  "expected": "le lingue di fuoco",
+  "given": "le lingue di fuoco",
+  "ok": true
+ },
+ {
+  "expected": "le lingue di fuoco",
+  "given": "lingue di fuoco",
+  "ok": true
+ },
+ {
+  "expected": "le lingue di fuoco",
+  "given": "le lingue di fuoc",
+  "ok": true
+ },
+ {
+  "expected": "le lingue di fuoco",
+  "given": "tongues of fire",
+  "ok": false
+ },
+ {
+  "expected": "battezzarsi",
+  "given": "battezzarsi",
+  "ok": true
+ },
+ {
+  "expected": "battezzarsi",
+  "given": "battezzarsi",
+  "ok": true
+ },
+ {
+  "expected": "battezzarsi",
+  "given": "battezzars",
+  "ok": true
+ },
+ {
+  "expected": "battezzarsi",
+  "given": "to be baptized",
+  "ok": false
+ },
+ {
+  "expected": "il peccato",
+  "given": "il peccato",
+  "ok": true
+ },
+ {
+  "expected": "il peccato",
+  "given": "peccato",
+  "ok": true
+ },
+ {
+  "expected": "il peccato",
+  "given": "il peccat",
+  "ok": true
+ },
+ {
+  "expected": "il peccato",
+  "given": "sin",
+  "ok": false
+ },
+ {
+  "expected": "la comunità",
+  "given": "la comunità",
+  "ok": true
+ },
+ {
+  "expected": "la comunità",
+  "given": "comunità",
+  "ok": true
+ },
+ {
+  "expected": "la comunità",
+  "given": "la comunit",
+  "ok": true
+ },
+ {
+  "expected": "la comunità",
+  "given": "community",
+  "ok": false
+ },
+ {
+  "expected": "la guarigione",
+  "given": "la guarigione",
+  "ok": true
+ },
+ {
+  "expected": "la guarigione",
+  "given": "guarigione",
+  "ok": true
+ },
+ {
+  "expected": "la guarigione",
+  "given": "la guarigion",
+  "ok": true
+ },
+ {
+  "expected": "la guarigione",
+  "given": "healing",
+  "ok": false
+ },
+ {
+  "expected": "la prigione",
+  "given": "la prigione",
+  "ok": true
+ },
+ {
+  "expected": "la prigione",
+  "given": "prigione",
+  "ok": true
+ },
+ {
+  "expected": "la prigione",
+  "given": "la prigion",
+  "ok": true
+ },
+ {
+  "expected": "la prigione",
+  "given": "prison",
+  "ok": false
+ },
+ {
+  "expected": "Anania",
+  "given": "Anania",
+  "ok": true
+ },
+ {
+  "expected": "Anania",
+  "given": "Anania",
+  "ok": true
+ },
+ {
+  "expected": "Anania",
+  "given": "Anani",
+  "ok": true
+ },
+ {
+  "expected": "Anania",
+  "given": "Ananias",
+  "ok": true
+ },
+ {
+  "expected": "mentire",
+  "given": "mentire",
+  "ok": true
+ },
+ {
+  "expected": "mentire",
+  "given": "mentire",
+  "ok": true
+ },
+ {
+  "expected": "mentire",
+  "given": "mentir",
+  "ok": true
+ },
+ {
+  "expected": "mentire",
+  "given": "to lie",
+  "ok": false
+ },
+ {
+  "expected": "i diaconi",
+  "given": "i diaconi",
+  "ok": true
+ },
+ {
+  "expected": "i diaconi",
+  "given": "diaconi",
+  "ok": true
+ },
+ {
+  "expected": "i diaconi",
+  "given": "i diacon",
+  "ok": true
+ },
+ {
+  "expected": "i diaconi",
+  "given": "deacons",
+  "ok": false
+ },
+ {
+  "expected": "Stefano",
+  "given": "Stefano",
+  "ok": true
+ },
+ {
+  "expected": "Stefano",
+  "given": "Stefano",
+  "ok": true
+ },
+ {
+  "expected": "Stefano",
+  "given": "Stefan",
+  "ok": true
+ },
+ {
+  "expected": "Stefano",
+  "given": "Stephen",
+  "ok": false
+ },
+ {
+  "expected": "la persecuzione",
+  "given": "la persecuzione",
+  "ok": true
+ },
+ {
+  "expected": "la persecuzione",
+  "given": "persecuzione",
+  "ok": true
+ },
+ {
+  "expected": "la persecuzione",
+  "given": "la persecuzion",
+  "ok": true
+ },
+ {
+  "expected": "la persecuzione",
+  "given": "persecution",
+  "ok": true
+ },
+ {
+  "expected": "il martirio",
+  "given": "il martirio",
+  "ok": true
+ },
+ {
+  "expected": "il martirio",
+  "given": "martirio",
+  "ok": true
+ },
+ {
+  "expected": "il martirio",
+  "given": "il martiri",
+  "ok": true
+ },
+ {
+  "expected": "il martirio",
+  "given": "martyrdom",
+  "ok": false
+ },
+ {
+  "expected": "la lapidazione",
+  "given": "la lapidazione",
+  "ok": true
+ },
+ {
+  "expected": "la lapidazione",
+  "given": "lapidazione",
+  "ok": true
+ },
+ {
+  "expected": "la lapidazione",
+  "given": "la lapidazion",
+  "ok": true
+ },
+ {
+  "expected": "la lapidazione",
+  "given": "stoning",
+  "ok": false
+ },
+ {
+  "expected": "Saulo",
+  "given": "Saulo",
+  "ok": true
+ },
+ {
+  "expected": "Saulo",
+  "given": "Saulo",
+  "ok": true
+ },
+ {
+  "expected": "Saulo",
+  "given": "Saul",
+  "ok": true
+ },
+ {
+  "expected": "Saulo",
+  "given": "Saul",
+  "ok": true
+ },
+ {
+  "expected": "la conversione",
+  "given": "la conversione",
+  "ok": true
+ },
+ {
+  "expected": "la conversione",
+  "given": "conversione",
+  "ok": true
+ },
+ {
+  "expected": "la conversione",
+  "given": "la conversion",
+  "ok": true
+ },
+ {
+  "expected": "la conversione",
+  "given": "conversion",
+  "ok": true
+ },
+ {
+  "expected": "la via di Damasco",
+  "given": "la via di Damasco",
+  "ok": true
+ },
+ {
+  "expected": "la via di Damasco",
+  "given": "via di Damasco",
+  "ok": true
+ },
+ {
+  "expected": "la via di Damasco",
+  "given": "la via di Damasc",
+  "ok": true
+ },
+ {
+  "expected": "la via di Damasco",
+  "given": "road to Damascus",
+  "ok": false
+ },
+ {
+  "expected": "cieco",
+  "given": "cieco",
+  "ok": true
+ },
+ {
+  "expected": "cieco",
+  "given": "cieco",
+  "ok": true
+ },
+ {
+  "expected": "cieco",
+  "given": "ciec",
+  "ok": true
+ },
+ {
+  "expected": "cieco",
+  "given": "blind",
+  "ok": false
+ },
+ {
+  "expected": "il battesimo",
+  "given": "il battesimo",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "battesimo",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "il battesim",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "baptism",
+  "ok": false
+ },
+ {
+  "expected": "la visione",
+  "given": "la visione",
+  "ok": true
+ },
+ {
+  "expected": "la visione",
+  "given": "visione",
+  "ok": true
+ },
+ {
+  "expected": "la visione",
+  "given": "la vision",
+  "ok": true
+ },
+ {
+  "expected": "la visione",
+  "given": "vision",
+  "ok": true
+ },
+ {
+  "expected": "Cornelio",
+  "given": "Cornelio",
+  "ok": true
+ },
+ {
+  "expected": "Cornelio",
+  "given": "Cornelio",
+  "ok": true
+ },
+ {
+  "expected": "Cornelio",
+  "given": "Corneli",
+  "ok": true
+ },
+ {
+  "expected": "Cornelio",
+  "given": "Cornelius",
+  "ok": false
+ },
+ {
+  "expected": "i pagani",
+  "given": "i pagani",
+  "ok": true
+ },
+ {
+  "expected": "i pagani",
+  "given": "pagani",
+  "ok": true
+ },
+ {
+  "expected": "i pagani",
+  "given": "i pagan",
+  "ok": true
+ },
+ {
+  "expected": "i pagani",
+  "given": "Gentiles",
+  "ok": false
+ },
+ {
+  "expected": "il battesimo",
+  "given": "il battesimo",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "battesimo",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "il battesim",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "baptism",
+  "ok": false
+ },
+ {
+  "expected": "l'angelo",
+  "given": "l'angelo",
+  "ok": true
+ },
+ {
+  "expected": "l'angelo",
+  "given": "l'angelo",
+  "ok": true
+ },
+ {
+  "expected": "l'angelo",
+  "given": "l'angel",
+  "ok": true
+ },
+ {
+  "expected": "l'angelo",
+  "given": "angel",
+  "ok": true
+ },
+ {
+  "expected": "il carcere",
+  "given": "il carcere",
+  "ok": true
+ },
+ {
+  "expected": "il carcere",
+  "given": "carcere",
+  "ok": true
+ },
+ {
+  "expected": "il carcere",
+  "given": "il carcer",
+  "ok": true
+ },
+ {
+  "expected": "il carcere",
+  "given": "prison",
+  "ok": false
+ },
+ {
+  "expected": "Erode",
+  "given": "Erode",
+  "ok": true
+ },
+ {
+  "expected": "Erode",
+  "given": "Erode",
+  "ok": true
+ },
+ {
+  "expected": "Erode",
+  "given": "Erod",
+  "ok": true
+ },
+ {
+  "expected": "Erode",
+  "given": "Herod",
+  "ok": false
+ },
+ {
+  "expected": "il viaggio missionario",
+  "given": "il viaggio missionario",
+  "ok": true
+ },
+ {
+  "expected": "il viaggio missionario",
+  "given": "viaggio missionario",
+  "ok": true
+ },
+ {
+  "expected": "il viaggio missionario",
+  "given": "il viaggio missionari",
+  "ok": true
+ },
+ {
+  "expected": "il viaggio missionario",
+  "given": "missionary journey",
+  "ok": false
+ },
+ {
+  "expected": "Barnaba",
+  "given": "Barnaba",
+  "ok": true
+ },
+ {
+  "expected": "Barnaba",
+  "given": "Barnaba",
+  "ok": true
+ },
+ {
+  "expected": "Barnaba",
+  "given": "Barnab",
+  "ok": true
+ },
+ {
+  "expected": "Barnaba",
+  "given": "Barnabas",
+  "ok": true
+ },
+ {
+  "expected": "la sinagoga",
+  "given": "la sinagoga",
+  "ok": true
+ },
+ {
+  "expected": "la sinagoga",
+  "given": "sinagoga",
+  "ok": true
+ },
+ {
+  "expected": "la sinagoga",
+  "given": "la sinagog",
+  "ok": true
+ },
+ {
+  "expected": "la sinagoga",
+  "given": "synagogue",
+  "ok": false
+ },
+ {
+  "expected": "il concilio",
+  "given": "il concilio",
+  "ok": true
+ },
+ {
+  "expected": "il concilio",
+  "given": "concilio",
+  "ok": true
+ },
+ {
+  "expected": "il concilio",
+  "given": "il concili",
+  "ok": true
+ },
+ {
+  "expected": "il concilio",
+  "given": "council",
+  "ok": false
+ },
+ {
+  "expected": "la circoncisione",
+  "given": "la circoncisione",
+  "ok": true
+ },
+ {
+  "expected": "la circoncisione",
+  "given": "circoncisione",
+  "ok": true
+ },
+ {
+  "expected": "la circoncisione",
+  "given": "la circoncision",
+  "ok": true
+ },
+ {
+  "expected": "la circoncisione",
+  "given": "circumcision",
+  "ok": false
+ },
+ {
+  "expected": "la grazia",
+  "given": "la grazia",
+  "ok": true
+ },
+ {
+  "expected": "la grazia",
+  "given": "grazia",
+  "ok": true
+ },
+ {
+  "expected": "la grazia",
+  "given": "la grazi",
+  "ok": true
+ },
+ {
+  "expected": "la grazia",
+  "given": "grace",
+  "ok": false
+ },
+ {
+  "expected": "annunciare",
+  "given": "annunciare",
+  "ok": true
+ },
+ {
+  "expected": "annunciare",
+  "given": "annunciare",
+  "ok": true
+ },
+ {
+  "expected": "annunciare",
+  "given": "annunciar",
+  "ok": true
+ },
+ {
+  "expected": "annunciare",
+  "given": "to announce",
+  "ok": false
+ },
+ {
+  "expected": "Lidia",
+  "given": "Lidia",
+  "ok": true
+ },
+ {
+  "expected": "Lidia",
+  "given": "Lidia",
+  "ok": true
+ },
+ {
+  "expected": "Lidia",
+  "given": "Lidi",
+  "ok": true
+ },
+ {
+  "expected": "Lidia",
+  "given": "Lydia",
+  "ok": true
+ },
+ {
+  "expected": "il terremoto",
+  "given": "il terremoto",
+  "ok": true
+ },
+ {
+  "expected": "il terremoto",
+  "given": "terremoto",
+  "ok": true
+ },
+ {
+  "expected": "il terremoto",
+  "given": "il terremot",
+  "ok": true
+ },
+ {
+  "expected": "il terremoto",
+  "given": "earthquake",
+  "ok": false
+ },
+ {
+  "expected": "il carcere",
+  "given": "il carcere",
+  "ok": true
+ },
+ {
+  "expected": "il carcere",
+  "given": "carcere",
+  "ok": true
+ },
+ {
+  "expected": "il carcere",
+  "given": "il carcer",
+  "ok": true
+ },
+ {
+  "expected": "il carcere",
+  "given": "prison",
+  "ok": false
+ },
+ {
+  "expected": "Corinto",
+  "given": "Corinto",
+  "ok": true
+ },
+ {
+  "expected": "Corinto",
+  "given": "Corinto",
+  "ok": true
+ },
+ {
+  "expected": "Corinto",
+  "given": "Corint",
+  "ok": true
+ },
+ {
+  "expected": "Corinto",
+  "given": "Corinth",
+  "ok": true
+ },
+ {
+  "expected": "l'Areopago",
+  "given": "l'Areopago",
+  "ok": true
+ },
+ {
+  "expected": "l'Areopago",
+  "given": "l'Areopago",
+  "ok": true
+ },
+ {
+  "expected": "l'Areopago",
+  "given": "l'Areopag",
+  "ok": true
+ },
+ {
+  "expected": "l'Areopago",
+  "given": "Areopagus",
+  "ok": false
+ },
+ {
+  "expected": "il missionario",
+  "given": "il missionario",
+  "ok": true
+ },
+ {
+  "expected": "il missionario",
+  "given": "missionario",
+  "ok": true
+ },
+ {
+  "expected": "il missionario",
+  "given": "il missionari",
+  "ok": true
+ },
+ {
+  "expected": "il missionario",
+  "given": "missionary",
+  "ok": true
+ },
+ {
+  "expected": "la sinagoga",
+  "given": "la sinagoga",
+  "ok": true
+ },
+ {
+  "expected": "la sinagoga",
+  "given": "sinagoga",
+  "ok": true
+ },
+ {
+  "expected": "la sinagoga",
+  "given": "la sinagog",
+  "ok": true
+ },
+ {
+  "expected": "la sinagoga",
+  "given": "synagogue",
+  "ok": false
+ },
+ {
+  "expected": "la magia",
+  "given": "la magia",
+  "ok": true
+ },
+ {
+  "expected": "la magia",
+  "given": "magia",
+  "ok": true
+ },
+ {
+  "expected": "la magia",
+  "given": "la magi",
+  "ok": true
+ },
+ {
+  "expected": "la magia",
+  "given": "magic",
+  "ok": true
+ },
+ {
+  "expected": "il tumulto",
+  "given": "il tumulto",
+  "ok": true
+ },
+ {
+  "expected": "il tumulto",
+  "given": "tumulto",
+  "ok": true
+ },
+ {
+  "expected": "il tumulto",
+  "given": "il tumult",
+  "ok": true
+ },
+ {
+  "expected": "il tumulto",
+  "given": "riot",
+  "ok": false
+ },
+ {
+  "expected": "l'argentiere",
+  "given": "l'argentiere",
+  "ok": true
+ },
+ {
+  "expected": "l'argentiere",
+  "given": "l'argentiere",
+  "ok": true
+ },
+ {
+  "expected": "l'argentiere",
+  "given": "l'argentier",
+  "ok": true
+ },
+ {
+  "expected": "l'argentiere",
+  "given": "silversmith",
+  "ok": false
+ },
+ {
+  "expected": "la profezia",
+  "given": "la profezia",
+  "ok": true
+ },
+ {
+  "expected": "la profezia",
+  "given": "profezia",
+  "ok": true
+ },
+ {
+  "expected": "la profezia",
+  "given": "la profezi",
+  "ok": true
+ },
+ {
+  "expected": "la profezia",
+  "given": "prophecy",
+  "ok": false
+ },
+ {
+  "expected": "legare",
+  "given": "legare",
+  "ok": true
+ },
+ {
+  "expected": "legare",
+  "given": "legare",
+  "ok": true
+ },
+ {
+  "expected": "legare",
+  "given": "legar",
+  "ok": true
+ },
+ {
+  "expected": "legare",
+  "given": "to bind",
+  "ok": false
+ },
+ {
+  "expected": "il viaggio",
+  "given": "il viaggio",
+  "ok": true
+ },
+ {
+  "expected": "il viaggio",
+  "given": "viaggio",
+  "ok": true
+ },
+ {
+  "expected": "il viaggio",
+  "given": "il viaggi",
+  "ok": true
+ },
+ {
+  "expected": "il viaggio",
+  "given": "the journey",
+  "ok": false
+ },
+ {
+  "expected": "lo Spirito",
+  "given": "lo Spirito",
+  "ok": true
+ },
+ {
+  "expected": "lo Spirito",
+  "given": "Spirito",
+  "ok": true
+ },
+ {
+  "expected": "lo Spirito",
+  "given": "lo Spirit",
+  "ok": true
+ },
+ {
+  "expected": "lo Spirito",
+  "given": "the Spirit",
+  "ok": false
+ },
+ {
+  "expected": "la difesa",
+  "given": "la difesa",
+  "ok": true
+ },
+ {
+  "expected": "la difesa",
+  "given": "difesa",
+  "ok": true
+ },
+ {
+  "expected": "la difesa",
+  "given": "la difes",
+  "ok": true
+ },
+ {
+  "expected": "la difesa",
+  "given": "defense",
+  "ok": false
+ },
+ {
+  "expected": "il sinedrio",
+  "given": "il sinedrio",
+  "ok": true
+ },
+ {
+  "expected": "il sinedrio",
+  "given": "sinedrio",
+  "ok": true
+ },
+ {
+  "expected": "il sinedrio",
+  "given": "il sinedri",
+  "ok": true
+ },
+ {
+  "expected": "il sinedrio",
+  "given": "Sanhedrin",
+  "ok": false
+ },
+ {
+  "expected": "la congiura",
+  "given": "la congiura",
+  "ok": true
+ },
+ {
+  "expected": "la congiura",
+  "given": "congiura",
+  "ok": true
+ },
+ {
+  "expected": "la congiura",
+  "given": "la congiur",
+  "ok": true
+ },
+ {
+  "expected": "la congiura",
+  "given": "conspiracy",
+  "ok": false
+ },
+ {
+  "expected": "il governatore",
+  "given": "il governatore",
+  "ok": true
+ },
+ {
+  "expected": "il governatore",
+  "given": "governatore",
+  "ok": true
+ },
+ {
+  "expected": "il governatore",
+  "given": "il governator",
+  "ok": true
+ },
+ {
+  "expected": "il governatore",
+  "given": "governor",
+  "ok": false
+ },
+ {
+  "expected": "il processo",
+  "given": "il processo",
+  "ok": true
+ },
+ {
+  "expected": "il processo",
+  "given": "processo",
+  "ok": true
+ },
+ {
+  "expected": "il processo",
+  "given": "il process",
+  "ok": true
+ },
+ {
+  "expected": "il processo",
+  "given": "trial",
+  "ok": false
+ },
+ {
+  "expected": "il testimone",
+  "given": "il testimone",
+  "ok": true
+ },
+ {
+  "expected": "il testimone",
+  "given": "testimone",
+  "ok": true
+ },
+ {
+  "expected": "il testimone",
+  "given": "il testimon",
+  "ok": true
+ },
+ {
+  "expected": "il testimone",
+  "given": "witness",
+  "ok": false
+ },
+ {
+  "expected": "l'accusa",
+  "given": "l'accusa",
+  "ok": true
+ },
+ {
+  "expected": "l'accusa",
+  "given": "l'accusa",
+  "ok": true
+ },
+ {
+  "expected": "l'accusa",
+  "given": "l'accus",
+  "ok": true
+ },
+ {
+  "expected": "l'accusa",
+  "given": "accusation",
+  "ok": false
+ },
+ {
+  "expected": "Festo",
+  "given": "Festo",
+  "ok": true
+ },
+ {
+  "expected": "Festo",
+  "given": "Festo",
+  "ok": true
+ },
+ {
+  "expected": "Festo",
+  "given": "Fest",
+  "ok": true
+ },
+ {
+  "expected": "Festo",
+  "given": "Festus",
+  "ok": false
+ },
+ {
+  "expected": "Agrippa",
+  "given": "Agrippa",
+  "ok": true
+ },
+ {
+  "expected": "Agrippa",
+  "given": "Agrippa",
+  "ok": true
+ },
+ {
+  "expected": "Agrippa",
+  "given": "Agripp",
+  "ok": true
+ },
+ {
+  "expected": "Agrippa",
+  "given": "Agrippa",
+  "ok": true
+ },
+ {
+  "expected": "l'appello",
+  "given": "l'appello",
+  "ok": true
+ },
+ {
+  "expected": "l'appello",
+  "given": "l'appello",
+  "ok": true
+ },
+ {
+  "expected": "l'appello",
+  "given": "l'appell",
+  "ok": true
+ },
+ {
+  "expected": "l'appello",
+  "given": "appeal",
+  "ok": false
+ },
+ {
+  "expected": "la testimonianza",
+  "given": "la testimonianza",
+  "ok": true
+ },
+ {
+  "expected": "la testimonianza",
+  "given": "testimonianza",
+  "ok": true
+ },
+ {
+  "expected": "la testimonianza",
+  "given": "la testimonianz",
+  "ok": true
+ },
+ {
+  "expected": "la testimonianza",
+  "given": "testimony",
+  "ok": false
+ },
+ {
+  "expected": "convertirsi",
+  "given": "convertirsi",
+  "ok": true
+ },
+ {
+  "expected": "convertirsi",
+  "given": "convertirsi",
+  "ok": true
+ },
+ {
+  "expected": "convertirsi",
+  "given": "convertirs",
+  "ok": true
+ },
+ {
+  "expected": "convertirsi",
+  "given": "to convert",
+  "ok": false
+ },
+ {
+  "expected": "la luce",
+  "given": "la luce",
+  "ok": true
+ },
+ {
+  "expected": "la luce",
+  "given": "luce",
+  "ok": true
+ },
+ {
+  "expected": "la luce",
+  "given": "la luc",
+  "ok": true
+ },
+ {
+  "expected": "la luce",
+  "given": "light",
+  "ok": false
+ },
+ {
+  "expected": "la grazia",
+  "given": "la grazia",
+  "ok": true
+ },
+ {
+  "expected": "la grazia",
+  "given": "grazia",
+  "ok": true
+ },
+ {
+  "expected": "la grazia",
+  "given": "la grazi",
+  "ok": true
+ },
+ {
+  "expected": "la grazia",
+  "given": "grace",
+  "ok": false
+ },
+ {
+  "expected": "il naufragio",
+  "given": "il naufragio",
+  "ok": true
+ },
+ {
+  "expected": "il naufragio",
+  "given": "naufragio",
+  "ok": true
+ },
+ {
+  "expected": "il naufragio",
+  "given": "il naufragi",
+  "ok": true
+ },
+ {
+  "expected": "il naufragio",
+  "given": "shipwreck",
+  "ok": false
+ },
+ {
+  "expected": "l'isola",
+  "given": "l'isola",
+  "ok": true
+ },
+ {
+  "expected": "l'isola",
+  "given": "l'isola",
+  "ok": true
+ },
+ {
+  "expected": "l'isola",
+  "given": "l'isol",
+  "ok": true
+ },
+ {
+  "expected": "l'isola",
+  "given": "island",
+  "ok": false
+ },
+ {
+  "expected": "il serpente",
+  "given": "il serpente",
+  "ok": true
+ },
+ {
+  "expected": "il serpente",
+  "given": "serpente",
+  "ok": true
+ },
+ {
+  "expected": "il serpente",
+  "given": "il serpent",
+  "ok": true
+ },
+ {
+  "expected": "il serpente",
+  "given": "snake",
+  "ok": false
+ },
+ {
+  "expected": "Roma",
+  "given": "Roma",
+  "ok": true
+ },
+ {
+  "expected": "Roma",
+  "given": "Roma",
+  "ok": true
+ },
+ {
+  "expected": "Roma",
+  "given": "Rom",
+  "ok": true
+ },
+ {
+  "expected": "Roma",
+  "given": "Rome",
+  "ok": true
+ },
+ {
+  "expected": "predicare",
+  "given": "predicare",
+  "ok": true
+ },
+ {
+  "expected": "predicare",
+  "given": "predicare",
+  "ok": true
+ },
+ {
+  "expected": "predicare",
+  "given": "predicar",
+  "ok": true
+ },
+ {
+  "expected": "predicare",
+  "given": "to preach",
+  "ok": false
+ },
+ {
+  "expected": "l'impedimento",
+  "given": "l'impedimento",
+  "ok": true
+ },
+ {
+  "expected": "l'impedimento",
+  "given": "l'impedimento",
+  "ok": true
+ },
+ {
+  "expected": "l'impedimento",
+  "given": "l'impediment",
+  "ok": true
+ },
+ {
+  "expected": "l'impedimento",
+  "given": "hindrance",
+  "ok": false
+ },
+ {
+  "expected": "la nave",
+  "given": "la nave",
+  "ok": true
+ },
+ {
+  "expected": "la nave",
+  "given": "nave",
+  "ok": true
+ },
+ {
+  "expected": "la nave",
+  "given": "la nav",
+  "ok": true
+ },
+ {
+  "expected": "la nave",
+  "given": "ship",
+  "ok": false
+ },
+ {
+  "expected": "il vangelo",
+  "given": "il vangelo",
+  "ok": true
+ },
+ {
+  "expected": "il vangelo",
+  "given": "vangelo",
+  "ok": true
+ },
+ {
+  "expected": "il vangelo",
+  "given": "il vangel",
+  "ok": true
+ },
+ {
+  "expected": "il vangelo",
+  "given": "the gospel",
+  "ok": false
+ },
+ {
+  "expected": "la giustizia",
+  "given": "la giustizia",
+  "ok": true
+ },
+ {
+  "expected": "la giustizia",
+  "given": "giustizia",
+  "ok": true
+ },
+ {
+  "expected": "la giustizia",
+  "given": "la giustizi",
+  "ok": true
+ },
+ {
+  "expected": "la giustizia",
+  "given": "righteousness",
+  "ok": false
+ },
+ {
+  "expected": "il giudizio",
+  "given": "il giudizio",
+  "ok": true
+ },
+ {
+  "expected": "il giudizio",
+  "given": "giudizio",
+  "ok": true
+ },
+ {
+  "expected": "il giudizio",
+  "given": "il giudizi",
+  "ok": true
+ },
+ {
+  "expected": "il giudizio",
+  "given": "judgment",
+  "ok": false
+ },
+ {
+  "expected": "l'ira",
+  "given": "l'ira",
+  "ok": true
+ },
+ {
+  "expected": "l'ira",
+  "given": "l'ira",
+  "ok": true
+ },
+ {
+  "expected": "l'ira",
+  "given": "l'ir",
+  "ok": true
+ },
+ {
+  "expected": "l'ira",
+  "given": "wrath",
+  "ok": false
+ },
+ {
+  "expected": "l'idolatria",
+  "given": "l'idolatria",
+  "ok": true
+ },
+ {
+  "expected": "l'idolatria",
+  "given": "l'idolatria",
+  "ok": true
+ },
+ {
+  "expected": "l'idolatria",
+  "given": "l'idolatri",
+  "ok": true
+ },
+ {
+  "expected": "l'idolatria",
+  "given": "idolatry",
+  "ok": false
+ },
+ {
+  "expected": "l'albero",
+  "given": "l'albero",
+  "ok": true
+ },
+ {
+  "expected": "l'albero",
+  "given": "l'albero",
+  "ok": true
+ },
+ {
+  "expected": "l'albero",
+  "given": "l'alber",
+  "ok": true
+ },
+ {
+  "expected": "l'albero",
+  "given": "tree",
+  "ok": false
+ },
+ {
+  "expected": "il cammino",
+  "given": "il cammino",
+  "ok": true
+ },
+ {
+  "expected": "il cammino",
+  "given": "cammino",
+  "ok": true
+ },
+ {
+  "expected": "il cammino",
+  "given": "il cammin",
+  "ok": true
+ },
+ {
+  "expected": "il cammino",
+  "given": "the way/path",
+  "ok": false
+ },
+ {
+  "expected": "la fede",
+  "given": "la fede",
+  "ok": true
+ },
+ {
+  "expected": "la fede",
+  "given": "fede",
+  "ok": true
+ },
+ {
+  "expected": "la fede",
+  "given": "la fed",
+  "ok": true
+ },
+ {
+  "expected": "la fede",
+  "given": "faith",
+  "ok": false
+ },
+ {
+  "expected": "la grazia",
+  "given": "la grazia",
+  "ok": true
+ },
+ {
+  "expected": "la grazia",
+  "given": "grazia",
+  "ok": true
+ },
+ {
+  "expected": "la grazia",
+  "given": "la grazi",
+  "ok": true
+ },
+ {
+  "expected": "la grazia",
+  "given": "grace",
+  "ok": false
+ },
+ {
+  "expected": "la redenzione",
+  "given": "la redenzione",
+  "ok": true
+ },
+ {
+  "expected": "la redenzione",
+  "given": "redenzione",
+  "ok": true
+ },
+ {
+  "expected": "la redenzione",
+  "given": "la redenzion",
+  "ok": true
+ },
+ {
+  "expected": "la redenzione",
+  "given": "redemption",
+  "ok": false
+ },
+ {
+  "expected": "il pastore",
+  "given": "il pastore",
+  "ok": true
+ },
+ {
+  "expected": "il pastore",
+  "given": "pastore",
+  "ok": true
+ },
+ {
+  "expected": "il pastore",
+  "given": "il pastor",
+  "ok": true
+ },
+ {
+  "expected": "il pastore",
+  "given": "shepherd",
+  "ok": false
+ },
+ {
+  "expected": "l'abbondanza",
+  "given": "l'abbondanza",
+  "ok": true
+ },
+ {
+  "expected": "l'abbondanza",
+  "given": "l'abbondanza",
+  "ok": true
+ },
+ {
+  "expected": "l'abbondanza",
+  "given": "l'abbondanz",
+  "ok": true
+ },
+ {
+  "expected": "l'abbondanza",
+  "given": "abundance",
+  "ok": false
+ },
+ {
+  "expected": "il calice",
+  "given": "il calice",
+  "ok": true
+ },
+ {
+  "expected": "il calice",
+  "given": "calice",
+  "ok": true
+ },
+ {
+  "expected": "il calice",
+  "given": "il calic",
+  "ok": true
+ },
+ {
+  "expected": "il calice",
+  "given": "cup",
+  "ok": false
+ },
+ {
+  "expected": "la tenebrosa valle",
+  "given": "la tenebrosa valle",
+  "ok": true
+ },
+ {
+  "expected": "la tenebrosa valle",
+  "given": "tenebrosa valle",
+  "ok": true
+ },
+ {
+  "expected": "la tenebrosa valle",
+  "given": "la tenebrosa vall",
+  "ok": true
+ },
+ {
+  "expected": "la tenebrosa valle",
+  "given": "dark valley",
+  "ok": false
+ },
+ {
+  "expected": "la pace",
+  "given": "la pace",
+  "ok": true
+ },
+ {
+  "expected": "la pace",
+  "given": "pace",
+  "ok": true
+ },
+ {
+  "expected": "la pace",
+  "given": "la pac",
+  "ok": true
+ },
+ {
+  "expected": "la pace",
+  "given": "peace",
+  "ok": true
+ },
+ {
+  "expected": "la sofferenza",
+  "given": "la sofferenza",
+  "ok": true
+ },
+ {
+  "expected": "la sofferenza",
+  "given": "sofferenza",
+  "ok": true
+ },
+ {
+  "expected": "la sofferenza",
+  "given": "la sofferenz",
+  "ok": true
+ },
+ {
+  "expected": "la sofferenza",
+  "given": "suffering",
+  "ok": false
+ },
+ {
+  "expected": "la speranza",
+  "given": "la speranza",
+  "ok": true
+ },
+ {
+  "expected": "la speranza",
+  "given": "speranza",
+  "ok": true
+ },
+ {
+  "expected": "la speranza",
+  "given": "la speranz",
+  "ok": true
+ },
+ {
+  "expected": "la speranza",
+  "given": "hope",
+  "ok": false
+ },
+ {
+  "expected": "il rifugio",
+  "given": "il rifugio",
+  "ok": true
+ },
+ {
+  "expected": "il rifugio",
+  "given": "rifugio",
+  "ok": true
+ },
+ {
+  "expected": "il rifugio",
+  "given": "il rifugi",
+  "ok": true
+ },
+ {
+  "expected": "il rifugio",
+  "given": "refuge",
+  "ok": false
+ },
+ {
+  "expected": "la forza",
+  "given": "la forza",
+  "ok": true
+ },
+ {
+  "expected": "la forza",
+  "given": "forza",
+  "ok": true
+ },
+ {
+  "expected": "la forza",
+  "given": "la forz",
+  "ok": true
+ },
+ {
+  "expected": "la forza",
+  "given": "strength",
+  "ok": false
+ },
+ {
+  "expected": "il battesimo",
+  "given": "il battesimo",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "battesimo",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "il battesim",
+  "ok": true
+ },
+ {
+  "expected": "il battesimo",
+  "given": "baptism",
+  "ok": false
+ },
+ {
+  "expected": "la morte",
+  "given": "la morte",
+  "ok": true
+ },
+ {
+  "expected": "la morte",
+  "given": "morte",
+  "ok": true
+ },
+ {
+  "expected": "la morte",
+  "given": "la mort",
+  "ok": true
+ },
+ {
+  "expected": "la morte",
+  "given": "death",
+  "ok": false
+ },
+ {
+  "expected": "la carne",
+  "given": "la carne",
+  "ok": true
+ },
+ {
+  "expected": "la carne",
+  "given": "carne",
+  "ok": true
+ },
+ {
+  "expected": "la carne",
+  "given": "la carn",
+  "ok": true
+ },
+ {
+  "expected": "la carne",
+  "given": "flesh",
+  "ok": false
+ },
+ {
+  "expected": "la condanna",
+  "given": "la condanna",
+  "ok": true
+ },
+ {
+  "expected": "la condanna",
+  "given": "condanna",
+  "ok": true
+ },
+ {
+  "expected": "la condanna",
+  "given": "la condann",
+  "ok": true
+ },
+ {
+  "expected": "la condanna",
+  "given": "condemnation",
+  "ok": false
+ },
+ {
+  "expected": "la figliolanza",
+  "given": "la figliolanza",
+  "ok": true
+ },
+ {
+  "expected": "la figliolanza",
+  "given": "figliolanza",
+  "ok": true
+ },
+ {
+  "expected": "la figliolanza",
+  "given": "la figliolanz",
+  "ok": true
+ },
+ {
+  "expected": "la figliolanza",
+  "given": "sonship",
+  "ok": false
+ },
+ {
+  "expected": "la creazione",
+  "given": "la creazione",
+  "ok": true
+ },
+ {
+  "expected": "la creazione",
+  "given": "creazione",
+  "ok": true
+ },
+ {
+  "expected": "la creazione",
+  "given": "la creazion",
+  "ok": true
+ },
+ {
+  "expected": "la creazione",
+  "given": "creation",
+  "ok": false
+ },
+ {
+  "expected": "la misericordia",
+  "given": "la misericordia",
+  "ok": true
+ },
+ {
+  "expected": "la misericordia",
+  "given": "misericordia",
+  "ok": true
+ },
+ {
+  "expected": "la misericordia",
+  "given": "la misericordi",
+  "ok": true
+ },
+ {
+  "expected": "la misericordia",
+  "given": "mercy",
+  "ok": false
+ },
+ {
+  "expected": "il cuore",
+  "given": "il cuore",
+  "ok": true
+ },
+ {
+  "expected": "il cuore",
+  "given": "cuore",
+  "ok": true
+ },
+ {
+  "expected": "il cuore",
+  "given": "il cuor",
+  "ok": true
+ },
+ {
+  "expected": "il cuore",
+  "given": "heart",
+  "ok": false
+ },
+ {
+  "expected": "il peccato",
+  "given": "il peccato",
+  "ok": true
+ },
+ {
+  "expected": "il peccato",
+  "given": "peccato",
+  "ok": true
+ },
+ {
+  "expected": "il peccato",
+  "given": "il peccat",
+  "ok": true
+ },
+ {
+  "expected": "il peccato",
+  "given": "sin",
+  "ok": false
+ },
+ {
+  "expected": "l'elezione",
+  "given": "l'elezione",
+  "ok": true
+ },
+ {
+  "expected": "l'elezione",
+  "given": "l'elezione",
+  "ok": true
+ },
+ {
+  "expected": "l'elezione",
+  "given": "l'elezion",
+  "ok": true
+ },
+ {
+  "expected": "l'elezione",
+  "given": "election",
+  "ok": false
+ },
+ {
+  "expected": "confessare",
+  "given": "confessare",
+  "ok": true
+ },
+ {
+  "expected": "confessare",
+  "given": "confessare",
+  "ok": true
+ },
+ {
+  "expected": "confessare",
+  "given": "confessar",
+  "ok": true
+ },
+ {
+  "expected": "confessare",
+  "given": "to confess",
+  "ok": false
+ },
+ {
+  "expected": "credere nel cuore",
+  "given": "credere nel cuore",
+  "ok": true
+ },
+ {
+  "expected": "credere nel cuore",
+  "given": "nel cuore",
+  "ok": false
+ },
+ {
+  "expected": "credere nel cuore",
+  "given": "credere nel cuor",
+  "ok": true
+ },
+ {
+  "expected": "credere nel cuore",
+  "given": "believe in heart",
+  "ok": false
+ },
+ {
+  "expected": "la protezione",
+  "given": "la protezione",
+  "ok": true
+ },
+ {
+  "expected": "la protezione",
+  "given": "protezione",
+  "ok": true
+ },
+ {
+  "expected": "la protezione",
+  "given": "la protezion",
+  "ok": true
+ },
+ {
+  "expected": "la protezione",
+  "given": "protection",
+  "ok": false
+ },
+ {
+  "expected": "il nome del Signore",
+  "given": "il nome del Signore",
+  "ok": true
+ },
+ {
+  "expected": "il nome del Signore",
+  "given": "nome del Signore",
+  "ok": true
+ },
+ {
+  "expected": "il nome del Signore",
+  "given": "il nome del Signor",
+  "ok": true
+ },
+ {
+  "expected": "il nome del Signore",
+  "given": "name of the Lord",
+  "ok": false
+ },
+ {
+  "expected": "essere salvato",
+  "given": "essere salvato",
+  "ok": true
+ },
+ {
+  "expected": "essere salvato",
+  "given": "salvato",
+  "ok": false
+ },
+ {
+  "expected": "essere salvato",
+  "given": "essere salvat",
+  "ok": true
+ },
+ {
+  "expected": "essere salvato",
+  "given": "to be saved",
+  "ok": false
+ },
+ {
+  "expected": "il messaggero",
+  "given": "il messaggero",
+  "ok": true
+ },
+ {
+  "expected": "il messaggero",
+  "given": "messaggero",
+  "ok": true
+ },
+ {
+  "expected": "il messaggero",
+  "given": "il messagger",
+  "ok": true
+ },
+ {
+  "expected": "il messaggero",
+  "given": "messenger",
+  "ok": false
+ },
+ {
+  "expected": "il mistero",
+  "given": "il mistero",
+  "ok": true
+ },
+ {
+  "expected": "il mistero",
+  "given": "mistero",
+  "ok": true
+ },
+ {
+  "expected": "il mistero",
+  "given": "il mister",
+  "ok": true
+ },
+ {
+  "expected": "il mistero",
+  "given": "mystery",
+  "ok": false
+ },
+ {
+  "expected": "il corpo di Cristo",
+  "given": "il corpo di Cristo",
+  "ok": true
+ },
+ {
+  "expected": "il corpo di Cristo",
+  "given": "corpo di Cristo",
+  "ok": true
+ },
+ {
+  "expected": "il corpo di Cristo",
+  "given": "il corpo di Crist",
+  "ok": true
+ },
+ {
+  "expected": "il corpo di Cristo",
+  "given": "body of Christ",
+  "ok": false
+ },
+ {
+  "expected": "i doni",
+  "given": "i doni",
+  "ok": true
+ },
+ {
+  "expected": "i doni",
+  "given": "doni",
+  "ok": true
+ },
+ {
+  "expected": "i doni",
+  "given": "i don",
+  "ok": true
+ },
+ {
+  "expected": "i doni",
+  "given": "gifts",
+  "ok": false
+ },
+ {
+  "expected": "la Parola",
+  "given": "la Parola",
+  "ok": true
+ },
+ {
+  "expected": "la Parola",
+  "given": "Parola",
+  "ok": true
+ },
+ {
+  "expected": "la Parola",
+  "given": "la Parol",
+  "ok": true
+ },
+ {
+  "expected": "la Parola",
+  "given": "the Word",
+  "ok": false
+ },
+ {
+  "expected": "il sentiero",
+  "given": "il sentiero",
+  "ok": true
+ },
+ {
+  "expected": "il sentiero",
+  "given": "sentiero",
+  "ok": true
+ },
+ {
+  "expected": "il sentiero",
+  "given": "il sentier",
+  "ok": true
+ },
+ {
+  "expected": "il sentiero",
+  "given": "path",
+  "ok": false
+ },
+ {
+  "expected": "offrire",
+  "given": "offrire",
+  "ok": true
+ },
+ {
+  "expected": "offrire",
+  "given": "offrire",
+  "ok": true
+ },
+ {
+  "expected": "offrire",
+  "given": "offrir",
+  "ok": true
+ },
+ {
+  "expected": "offrire",
+  "given": "to offer",
+  "ok": false
+ },
+ {
+  "expected": "rinnovarsi",
+  "given": "rinnovarsi",
+  "ok": true
+ },
+ {
+  "expected": "rinnovarsi",
+  "given": "rinnovarsi",
+  "ok": true
+ },
+ {
+  "expected": "rinnovarsi",
+  "given": "rinnovars",
+  "ok": true
+ },
+ {
+  "expected": "rinnovarsi",
+  "given": "to be renewed",
+  "ok": false
+ },
+ {
+  "expected": "l'autorità",
+  "given": "l'autorità",
+  "ok": true
+ },
+ {
+  "expected": "l'autorità",
+  "given": "l'autorità",
+  "ok": true
+ },
+ {
+  "expected": "l'autorità",
+  "given": "l'autorit",
+  "ok": true
+ },
+ {
+  "expected": "l'autorità",
+  "given": "authority",
+  "ok": false
+ },
+ {
+  "expected": "amare il prossimo",
+  "given": "amare il prossimo",
+  "ok": true
+ },
+ {
+  "expected": "amare il prossimo",
+  "given": "il prossimo",
+  "ok": false
+ },
+ {
+  "expected": "amare il prossimo",
+  "given": "amare il prossim",
+  "ok": true
+ },
+ {
+  "expected": "amare il prossimo",
+  "given": "love neighbor",
+  "ok": false
+ },
+ {
+  "expected": "la coscienza",
+  "given": "la coscienza",
+  "ok": true
+ },
+ {
+  "expected": "la coscienza",
+  "given": "coscienza",
+  "ok": true
+ },
+ {
+  "expected": "la coscienza",
+  "given": "la coscienz",
+  "ok": true
+ },
+ {
+  "expected": "la coscienza",
+  "given": "conscience",
+  "ok": false
+ },
+ {
+  "expected": "il soccorso",
+  "given": "il soccorso",
+  "ok": true
+ },
+ {
+  "expected": "il soccorso",
+  "given": "soccorso",
+  "ok": true
+ },
+ {
+  "expected": "il soccorso",
+  "given": "il soccors",
+  "ok": true
+ },
+ {
+  "expected": "il soccorso",
+  "given": "help",
+  "ok": false
+ },
+ {
+  "expected": "vegliare",
+  "given": "vegliare",
+  "ok": true
+ },
+ {
+  "expected": "vegliare",
+  "given": "vegliare",
+  "ok": true
+ },
+ {
+  "expected": "vegliare",
+  "given": "vegliar",
+  "ok": true
+ },
+ {
+  "expected": "vegliare",
+  "given": "to watch over",
+  "ok": false
+ },
+ {
+  "expected": "il custode",
+  "given": "il custode",
+  "ok": true
+ },
+ {
+  "expected": "il custode",
+  "given": "custode",
+  "ok": true
+ },
+ {
+  "expected": "il custode",
+  "given": "il custod",
+  "ok": true
+ },
+ {
+  "expected": "il custode",
+  "given": "guardian",
+  "ok": false
+ },
+ {
+  "expected": "il viaggio",
+  "given": "il viaggio",
+  "ok": true
+ },
+ {
+  "expected": "il viaggio",
+  "given": "viaggio",
+  "ok": true
+ },
+ {
+  "expected": "il viaggio",
+  "given": "il viaggi",
+  "ok": true
+ },
+ {
+  "expected": "il viaggio",
+  "given": "journey",
+  "ok": false
+ },
+ {
+  "expected": "la speranza",
+  "given": "la speranza",
+  "ok": true
+ },
+ {
+  "expected": "la speranza",
+  "given": "speranza",
+  "ok": true
+ },
+ {
+  "expected": "la speranza",
+  "given": "la speranz",
+  "ok": true
+ },
+ {
+  "expected": "la speranza",
+  "given": "hope",
+  "ok": false
+ },
+ {
+  "expected": "l'unità",
+  "given": "l'unità",
+  "ok": true
+ },
+ {
+  "expected": "l'unità",
+  "given": "l'unità",
+  "ok": true
+ },
+ {
+  "expected": "l'unità",
+  "given": "l'unit",
+  "ok": true
+ },
+ {
+  "expected": "l'unità",
+  "given": "unity",
+  "ok": true
+ },
+ {
+  "expected": "i saluti",
+  "given": "i saluti",
+  "ok": true
+ },
+ {
+  "expected": "i saluti",
+  "given": "saluti",
+  "ok": true
+ },
+ {
+  "expected": "i saluti",
+  "given": "i salut",
+  "ok": true
+ },
+ {
+  "expected": "i saluti",
+  "given": "greetings",
+  "ok": false
+ },
+ {
+  "expected": "conoscere",
+  "given": "conoscere",
+  "ok": true
+ },
+ {
+  "expected": "conoscere",
+  "given": "conoscere",
+  "ok": true
+ },
+ {
+  "expected": "conoscere",
+  "given": "conoscer",
+  "ok": true
+ },
+ {
+  "expected": "conoscere",
+  "given": "to know",
+  "ok": false
+ },
+ {
+  "expected": "tessere",
+  "given": "tessere",
+  "ok": true
+ },
+ {
+  "expected": "tessere",
+  "given": "tessere",
+  "ok": true
+ },
+ {
+  "expected": "tessere",
+  "given": "tesser",
+  "ok": true
+ },
+ {
+  "expected": "tessere",
+  "given": "to weave",
+  "ok": false
+ },
+ {
+  "expected": "fuggire",
+  "given": "fuggire",
+  "ok": true
+ },
+ {
+  "expected": "fuggire",
+  "given": "fuggire",
+  "ok": true
+ },
+ {
+  "expected": "fuggire",
+  "given": "fuggir",
+  "ok": true
+ },
+ {
+  "expected": "fuggire",
+  "given": "to flee",
+  "ok": false
+ },
+ {
+  "expected": "meraviglioso",
+  "given": "meraviglioso",
+  "ok": true
+ },
+ {
+  "expected": "meraviglioso",
+  "given": "meraviglioso",
+  "ok": true
+ },
+ {
+  "expected": "meraviglioso",
+  "given": "meraviglios",
+  "ok": true
+ },
+ {
+  "expected": "meraviglioso",
+  "given": "wonderful",
+  "ok": false
+ },
+ {
+  "expected": "lodare",
+  "given": "lodare",
+  "ok": true
+ },
+ {
+  "expected": "lodare",
+  "given": "lodare",
+  "ok": true
+ },
+ {
+  "expected": "lodare",
+  "given": "lodar",
+  "ok": true
+ },
+ {
+  "expected": "lodare",
+  "given": "to praise",
+  "ok": false
+ },
+ {
+  "expected": "l'alleluja",
+  "given": "l'alleluja",
+  "ok": true
+ },
+ {
+  "expected": "l'alleluja",
+  "given": "l'alleluja",
+  "ok": true
+ },
+ {
+  "expected": "l'alleluja",
+  "given": "l'alleluj",
+  "ok": true
+ },
+ {
+  "expected": "l'alleluja",
+  "given": "alleluia",
+  "ok": true
+ },
+ {
+  "expected": "gli strumenti",
+  "given": "gli strumenti",
+  "ok": true
+ },
+ {
+  "expected": "gli strumenti",
+  "given": "strumenti",
+  "ok": true
+ },
+ {
+  "expected": "gli strumenti",
+  "given": "gli strument",
+  "ok": true
+ },
+ {
+  "expected": "gli strumenti",
+  "given": "instruments",
+  "ok": false
+ },
+ {
+  "expected": "tutta la creazione",
+  "given": "tutta la creazione",
+  "ok": true
+ },
+ {
+  "expected": "tutta la creazione",
+  "given": "la creazione",
+  "ok": false
+ },
+ {
+  "expected": "tutta la creazione",
+  "given": "tutta la creazion",
+  "ok": true
+ },
+ {
+  "expected": "tutta la creazione",
+  "given": "all creation",
+  "ok": false
+ },
+ {
+  "expected": "la gloria",
+  "given": "la gloria",
+  "ok": true
+ },
+ {
+  "expected": "la gloria",
+  "given": "gloria",
+  "ok": true
+ },
+ {
+  "expected": "la gloria",
+  "given": "la glori",
+  "ok": true
+ },
+ {
+  "expected": "la gloria",
+  "given": "glory",
+  "ok": false
+ },
+ {
+  "expected": "il Natale",
+  "given": "il Natale",
+  "ok": true
+ },
+ {
+  "expected": "il Natale",
+  "given": "Natale",
+  "ok": true
+ },
+ {
+  "expected": "il Natale",
+  "given": "il Natal",
+  "ok": true
+ },
+ {
+  "expected": "il Natale",
+  "given": "Christmas",
+  "ok": false
+ },
+ {
+  "expected": "la fine",
+  "given": "la fine",
+  "ok": true
+ },
+ {
+  "expected": "la fine",
+  "given": "fine",
+  "ok": true
+ },
+ {
+  "expected": "la fine",
+  "given": "la fin",
+  "ok": true
+ },
+ {
+  "expected": "la fine",
+  "given": "the end",
+  "ok": false
+ },
+ {
+  "expected": "la luce",
+  "given": "La Luce!",
+  "ok": true
+ },
+ {
+  "expected": "l'alleluja",
+  "given": "alleluja",
+  "ok": true
+ },
+ {
+  "expected": "credere",
+  "given": "",
+  "ok": false
+ },
+ {
+  "expected": "perché",
+  "given": "perche",
+  "ok": true
+ }
+]

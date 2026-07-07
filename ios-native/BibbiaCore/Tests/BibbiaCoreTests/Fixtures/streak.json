@@ -1,0 +1,233 @@
+[
+ {
+  "name": "first-day",
+  "ops": [
+   {
+    "flag": "read",
+    "today": "2026-07-01"
+   }
+  ],
+  "store": {
+   "current": 1,
+   "best": 1,
+   "last": "2026-07-01",
+   "today": {
+    "date": "2026-07-01",
+    "read": true,
+    "practiced": false,
+    "journaled": false
+   }
+  },
+  "streakOn": "2026-07-01",
+  "streak": 1
+ },
+ {
+  "name": "three-days",
+  "ops": [
+   {
+    "flag": "read",
+    "today": "2026-07-01"
+   },
+   {
+    "flag": "practiced",
+    "today": "2026-07-02"
+   },
+   {
+    "flag": "journaled",
+    "today": "2026-07-03"
+   }
+  ],
+  "store": {
+   "current": 3,
+   "best": 3,
+   "last": "2026-07-03",
+   "today": {
+    "date": "2026-07-03",
+    "read": false,
+    "practiced": false,
+    "journaled": true
+   }
+  },
+  "streakOn": "2026-07-03",
+  "streak": 3
+ },
+ {
+  "name": "next-day-grace",
+  "ops": [
+   {
+    "flag": "read",
+    "today": "2026-07-01"
+   },
+   {
+    "flag": "practiced",
+    "today": "2026-07-02"
+   },
+   {
+    "flag": "journaled",
+    "today": "2026-07-03"
+   }
+  ],
+  "store": {
+   "current": 3,
+   "best": 3,
+   "last": "2026-07-03",
+   "today": {
+    "date": "2026-07-03",
+    "read": false,
+    "practiced": false,
+    "journaled": true
+   }
+  },
+  "streakOn": "2026-07-04",
+  "streak": 3
+ },
+ {
+  "name": "gap-breaks",
+  "ops": [
+   {
+    "flag": "read",
+    "today": "2026-07-01"
+   },
+   {
+    "flag": "practiced",
+    "today": "2026-07-02"
+   },
+   {
+    "flag": "journaled",
+    "today": "2026-07-03"
+   }
+  ],
+  "store": {
+   "current": 3,
+   "best": 3,
+   "last": "2026-07-03",
+   "today": {
+    "date": "2026-07-03",
+    "read": false,
+    "practiced": false,
+    "journaled": true
+   }
+  },
+  "streakOn": "2026-07-06",
+  "streak": 0
+ },
+ {
+  "name": "restart-after-gap",
+  "ops": [
+   {
+    "flag": "read",
+    "today": "2026-07-01"
+   },
+   {
+    "flag": "practiced",
+    "today": "2026-07-02"
+   },
+   {
+    "flag": "journaled",
+    "today": "2026-07-03"
+   },
+   {
+    "flag": "read",
+    "today": "2026-07-06"
+   }
+  ],
+  "store": {
+   "current": 1,
+   "best": 3,
+   "last": "2026-07-06",
+   "today": {
+    "date": "2026-07-06",
+    "read": true,
+    "practiced": false,
+    "journaled": false
+   }
+  },
+  "streakOn": "2026-07-06",
+  "streak": 1
+ },
+ {
+  "name": "month-rollover",
+  "ops": [
+   {
+    "flag": "read",
+    "today": "2026-02-28"
+   },
+   {
+    "flag": "read",
+    "today": "2026-03-01"
+   }
+  ],
+  "store": {
+   "current": 2,
+   "best": 2,
+   "last": "2026-03-01",
+   "today": {
+    "date": "2026-03-01",
+    "read": true,
+    "practiced": false,
+    "journaled": false
+   }
+  },
+  "streakOn": "2026-03-01",
+  "streak": 2
+ },
+ {
+  "name": "same-day-twice",
+  "ops": [
+   {
+    "flag": "read",
+    "today": "2026-07-05"
+   },
+   {
+    "flag": "practiced",
+    "today": "2026-07-05"
+   }
+  ],
+  "store": {
+   "current": 1,
+   "best": 1,
+   "last": "2026-07-05",
+   "today": {
+    "date": "2026-07-05",
+    "read": true,
+    "practiced": true,
+    "journaled": false
+   }
+  },
+  "streakOn": "2026-07-05",
+  "streak": 1
+ },
+ {
+  "name": "flags-roll-over",
+  "ops": [
+   {
+    "flag": "read",
+    "today": "2026-07-05"
+   },
+   {
+    "flag": "practiced",
+    "today": "2026-07-05"
+   }
+  ],
+  "store": {
+   "current": 1,
+   "best": 1,
+   "last": "2026-07-05",
+   "today": {
+    "date": "2026-07-05",
+    "read": true,
+    "practiced": true,
+    "journaled": false
+   }
+  },
+  "streakOn": "2026-07-06",
+  "streak": 1,
+  "flagsOn": "2026-07-06",
+  "flags": {
+   "date": "2026-07-06",
+   "read": false,
+   "practiced": false,
+   "journaled": false
+  }
+ }
+]

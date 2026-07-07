@@ -1,0 +1,1217 @@
+[
+ {
+  "target": "il Verbo",
+  "recognized": "il Verbo",
+  "score": 100
+ },
+ {
+  "target": "il Verbo",
+  "recognized": "the Word",
+  "score": 13
+ },
+ {
+  "target": "In principio era il Verbo",
+  "recognized": "In principio era il",
+  "score": 76
+ },
+ {
+  "target": "la luce",
+  "recognized": "la luce",
+  "score": 100
+ },
+ {
+  "target": "la luce",
+  "recognized": "the light",
+  "score": 22
+ },
+ {
+  "target": "La luce splende",
+  "recognized": "La luce",
+  "score": 47
+ },
+ {
+  "target": "le tenebre",
+  "recognized": "le tenebre",
+  "score": 100
+ },
+ {
+  "target": "le tenebre",
+  "recognized": "the darkness",
+  "score": 25
+ },
+ {
+  "target": "le tenebre non la vinsero",
+  "recognized": "le tenebre non la",
+  "score": 68
+ },
+ {
+  "target": "la vita",
+  "recognized": "la vita",
+  "score": 100
+ },
+ {
+  "target": "la vita",
+  "recognized": "life",
+  "score": 29
+ },
+ {
+  "target": "in lui era la vita",
+  "recognized": "in lui era la",
+  "score": 72
+ },
+ {
+  "target": "credere",
+  "recognized": "credere",
+  "score": 100
+ },
+ {
+  "target": "credere",
+  "recognized": "to believe",
+  "score": 30
+ },
+ {
+  "target": "ha creduto in lui",
+  "recognized": "ha creduto in",
+  "score": 76
+ },
+ {
+  "target": "il miracolo",
+  "recognized": "il miracolo",
+  "score": 100
+ },
+ {
+  "target": "il miracolo",
+  "recognized": "the miracle",
+  "score": 55
+ },
+ {
+  "target": "primo dei suoi miracoli",
+  "recognized": "primo dei suoi",
+  "score": 61
+ },
+ {
+  "target": "il mondo",
+  "recognized": "il mondo",
+  "score": 100
+ },
+ {
+  "target": "il mondo",
+  "recognized": "the world",
+  "score": 22
+ },
+ {
+  "target": "il mondo è stato fatto per mezzo di lui",
+  "recognized": "il mondo è stato fatto per mezzo di",
+  "score": 90
+ },
+ {
+  "target": "nascere",
+  "recognized": "nascere",
+  "score": 100
+ },
+ {
+  "target": "nascere",
+  "recognized": "to be born",
+  "score": 20
+ },
+ {
+  "target": "bisogna nascere di nuovo",
+  "recognized": "bisogna nascere di",
+  "score": 75
+ },
+ {
+  "target": "lo Spirito",
+  "recognized": "lo Spirito",
+  "score": 100
+ },
+ {
+  "target": "lo Spirito",
+  "recognized": "the Spirit",
+  "score": 60
+ },
+ {
+  "target": "lo Spirito soffia dove vuole",
+  "recognized": "lo Spirito soffia dove",
+  "score": 79
+ },
+ {
+  "target": "il pozzo",
+  "recognized": "il pozzo",
+  "score": 100
+ },
+ {
+  "target": "il pozzo",
+  "recognized": "the well",
+  "score": 0
+ },
+ {
+  "target": "sedeva presso il pozzo",
+  "recognized": "sedeva presso il",
+  "score": 73
+ },
+ {
+  "target": "adorare",
+  "recognized": "adorare",
+  "score": 100
+ },
+ {
+  "target": "adorare",
+  "recognized": "to worship",
+  "score": 20
+ },
+ {
+  "target": "i veri adoratori",
+  "recognized": "i veri",
+  "score": 38
+ },
+ {
+  "target": "il Salvatore",
+  "recognized": "il Salvatore",
+  "score": 100
+ },
+ {
+  "target": "il Salvatore",
+  "recognized": "the Savior",
+  "score": 42
+ },
+ {
+  "target": "il Salvatore del mondo",
+  "recognized": "il Salvatore del",
+  "score": 73
+ },
+ {
+  "target": "credere",
+  "recognized": "credere",
+  "score": 100
+ },
+ {
+  "target": "credere",
+  "recognized": "to believe",
+  "score": 30
+ },
+ {
+  "target": "chi crede in lui",
+  "recognized": "chi crede in",
+  "score": 75
+ },
+ {
+  "target": "il dono",
+  "recognized": "il dono",
+  "score": 100
+ },
+ {
+  "target": "il dono",
+  "recognized": "the gift",
+  "score": 13
+ },
+ {
+  "target": "se conoscessi il dono di Dio",
+  "recognized": "se conoscessi il dono di",
+  "score": 86
+ },
+ {
+  "target": "guarire",
+  "recognized": "guarire",
+  "score": 100
+ },
+ {
+  "target": "guarire",
+  "recognized": "to heal",
+  "score": 0
+ },
+ {
+  "target": "lo ha guarito",
+  "recognized": "lo ha",
+  "score": 38
+ },
+ {
+  "target": "il pane",
+  "recognized": "il pane",
+  "score": 100
+ },
+ {
+  "target": "il pane",
+  "recognized": "bread",
+  "score": 14
+ },
+ {
+  "target": "sono io il pane della vita",
+  "recognized": "sono io il pane della",
+  "score": 81
+ },
+ {
+  "target": "la folla",
+  "recognized": "la folla",
+  "score": 100
+ },
+ {
+  "target": "la folla",
+  "recognized": "the crowd",
+  "score": 11
+ },
+ {
+  "target": "la folla grande lo seguiva",
+  "recognized": "la folla grande lo",
+  "score": 69
+ },
+ {
+  "target": "saziarsi",
+  "recognized": "saziarsi",
+  "score": 100
+ },
+ {
+  "target": "saziarsi",
+  "recognized": "to be satisfied",
+  "score": 20
+ },
+ {
+  "target": "mangiarono e si saziarono",
+  "recognized": "mangiarono e si",
+  "score": 60
+ },
+ {
+  "target": "la vita eterna",
+  "recognized": "la vita eterna",
+  "score": 100
+ },
+ {
+  "target": "la vita eterna",
+  "recognized": "eternal life",
+  "score": 7
+ },
+ {
+  "target": "ha la vita eterna",
+  "recognized": "ha la vita",
+  "score": 59
+ },
+ {
+  "target": "la manna",
+  "recognized": "la manna",
+  "score": 100
+ },
+ {
+  "target": "la manna",
+  "recognized": "manna",
+  "score": 63
+ },
+ {
+  "target": "i nostri padri mangiarono la manna",
+  "recognized": "i nostri padri mangiarono la",
+  "score": 82
+ },
+ {
+  "target": "il segno",
+  "recognized": "il segno",
+  "score": 100
+ },
+ {
+  "target": "il segno",
+  "recognized": "the sign",
+  "score": 38
+ },
+ {
+  "target": "quale segno fai tu?",
+  "recognized": "quale segno fai",
+  "score": 79
+ },
+ {
+  "target": "insegnare",
+  "recognized": "insegnare",
+  "score": 100
+ },
+ {
+  "target": "insegnare",
+  "recognized": "to teach",
+  "score": 11
+ },
+ {
+  "target": "insegnava nel tempio",
+  "recognized": "insegnava nel",
+  "score": 65
+ },
+ {
+  "target": "la verità",
+  "recognized": "la verità",
+  "score": 100
+ },
+ {
+  "target": "la verità",
+  "recognized": "the truth",
+  "score": 22
+ },
+ {
+  "target": "la verità vi farà liberi",
+  "recognized": "la verità vi farà",
+  "score": 71
+ },
+ {
+  "target": "liberare",
+  "recognized": "liberare",
+  "score": 100
+ },
+ {
+  "target": "liberare",
+  "recognized": "to set free",
+  "score": 27
+ },
+ {
+  "target": "vi farà liberi",
+  "recognized": "vi farà",
+  "score": 50
+ },
+ {
+  "target": "giudicare",
+  "recognized": "giudicare",
+  "score": 100
+ },
+ {
+  "target": "giudicare",
+  "recognized": "to judge",
+  "score": 11
+ },
+ {
+  "target": "non giudicate secondo l'apparenza",
+  "recognized": "non giudicate secondo",
+  "score": 64
+ },
+ {
+  "target": "il peccato",
+  "recognized": "il peccato",
+  "score": 100
+ },
+ {
+  "target": "il peccato",
+  "recognized": "sin",
+  "score": 0
+ },
+ {
+  "target": "chi di voi è senza peccato",
+  "recognized": "chi di voi è senza",
+  "score": 69
+ },
+ {
+  "target": "scrivere",
+  "recognized": "scrivere",
+  "score": 100
+ },
+ {
+  "target": "scrivere",
+  "recognized": "to write",
+  "score": 13
+ },
+ {
+  "target": "scriveva per terra",
+  "recognized": "scriveva per",
+  "score": 67
+ },
+ {
+  "target": "luce del mondo",
+  "recognized": "luce del mondo",
+  "score": 100
+ },
+ {
+  "target": "luce del mondo",
+  "recognized": "light of the world",
+  "score": 22
+ },
+ {
+  "target": "sono la luce del mondo",
+  "recognized": "sono la luce del",
+  "score": 73
+ },
+ {
+  "target": "il cieco",
+  "recognized": "il cieco",
+  "score": 100
+ },
+ {
+  "target": "il cieco",
+  "recognized": "blind man",
+  "score": 11
+ },
+ {
+  "target": "un uomo cieco dalla nascita",
+  "recognized": "un uomo cieco dalla",
+  "score": 70
+ },
+ {
+  "target": "vedere",
+  "recognized": "vedere",
+  "score": 100
+ },
+ {
+  "target": "vedere",
+  "recognized": "to see",
+  "score": 17
+ },
+ {
+  "target": "ora vedo",
+  "recognized": "ora",
+  "score": 38
+ },
+ {
+  "target": "il buon pastore",
+  "recognized": "il buon pastore",
+  "score": 100
+ },
+ {
+  "target": "il buon pastore",
+  "recognized": "the good shepherd",
+  "score": 24
+ },
+ {
+  "target": "io sono il buon pastore",
+  "recognized": "io sono il buon",
+  "score": 65
+ },
+ {
+  "target": "la pecora",
+  "recognized": "la pecora",
+  "score": 100
+ },
+ {
+  "target": "la pecora",
+  "recognized": "sheep",
+  "score": 11
+ },
+ {
+  "target": "conosce le mie pecore",
+  "recognized": "conosce le mie",
+  "score": 67
+ },
+ {
+  "target": "la tomba",
+  "recognized": "la tomba",
+  "score": 100
+ },
+ {
+  "target": "la tomba",
+  "recognized": "tomb",
+  "score": 50
+ },
+ {
+  "target": "dov'è il sepolcro?",
+  "recognized": "dov'è il",
+  "score": 44
+ },
+ {
+  "target": "risuscitare",
+  "recognized": "risuscitare",
+  "score": 100
+ },
+ {
+  "target": "risuscitare",
+  "recognized": "to raise from dead",
+  "score": 22
+ },
+ {
+  "target": "io sono la risurrezione",
+  "recognized": "io sono la",
+  "score": 43
+ },
+ {
+  "target": "piangere",
+  "recognized": "piangere",
+  "score": 100
+ },
+ {
+  "target": "piangere",
+  "recognized": "to weep",
+  "score": 13
+ },
+ {
+  "target": "Gesù scoppiò in pianto",
+  "recognized": "Gesù scoppiò in",
+  "score": 68
+ },
+ {
+  "target": "l'unzione",
+  "recognized": "l'unzione",
+  "score": 100
+ },
+ {
+  "target": "l'unzione",
+  "recognized": "the anointing",
+  "score": 23
+ },
+ {
+  "target": "l'unzione a Betania",
+  "recognized": "l'unzione a",
+  "score": 58
+ },
+ {
+  "target": "l'asino",
+  "recognized": "l'asino",
+  "score": 100
+ },
+ {
+  "target": "l'asino",
+  "recognized": "the donkey",
+  "score": 10
+ },
+ {
+  "target": "seduto su un asino",
+  "recognized": "seduto su un",
+  "score": 67
+ },
+ {
+  "target": "lavare i piedi",
+  "recognized": "lavare i piedi",
+  "score": 100
+ },
+ {
+  "target": "lavare i piedi",
+  "recognized": "wash feet",
+  "score": 21
+ },
+ {
+  "target": "lavò i piedi ai discepoli",
+  "recognized": "lavò i piedi ai",
+  "score": 60
+ },
+ {
+  "target": "il tradimento",
+  "recognized": "il tradimento",
+  "score": 100
+ },
+ {
+  "target": "il tradimento",
+  "recognized": "betrayal",
+  "score": 23
+ },
+ {
+  "target": "annunciò il suo traditore",
+  "recognized": "annunciò il suo",
+  "score": 60
+ },
+ {
+  "target": "la casa del Padre",
+  "recognized": "la casa del Padre",
+  "score": 100
+ },
+ {
+  "target": "la casa del Padre",
+  "recognized": "Father's house",
+  "score": 18
+ },
+ {
+  "target": "nella casa del Padre",
+  "recognized": "nella casa del",
+  "score": 70
+ },
+ {
+  "target": "il Paraclito",
+  "recognized": "il Paraclito",
+  "score": 100
+ },
+ {
+  "target": "il Paraclito",
+  "recognized": "the Paraclete",
+  "score": 62
+ },
+ {
+  "target": "vi manderà il Paraclito",
+  "recognized": "vi manderà il",
+  "score": 57
+ },
+ {
+  "target": "la via",
+  "recognized": "la via",
+  "score": 100
+ },
+ {
+  "target": "la via",
+  "recognized": "the way",
+  "score": 14
+ },
+ {
+  "target": "io sono la via",
+  "recognized": "io sono la",
+  "score": 71
+ },
+ {
+  "target": "la vite",
+  "recognized": "la vite",
+  "score": 100
+ },
+ {
+  "target": "la vite",
+  "recognized": "the vine",
+  "score": 50
+ },
+ {
+  "target": "io sono la vite vera",
+  "recognized": "io sono la vite",
+  "score": 75
+ },
+ {
+  "target": "il tralcio",
+  "recognized": "il tralcio",
+  "score": 100
+ },
+ {
+  "target": "il tralcio",
+  "recognized": "the branch",
+  "score": 30
+ },
+ {
+  "target": "ogni tralcio in me",
+  "recognized": "ogni tralcio in",
+  "score": 83
+ },
+ {
+  "target": "portare frutto",
+  "recognized": "portare frutto",
+  "score": 100
+ },
+ {
+  "target": "portare frutto",
+  "recognized": "to bear fruit",
+  "score": 50
+ },
+ {
+  "target": "portiate molto frutto",
+  "recognized": "portiate molto",
+  "score": 67
+ },
+ {
+  "target": "il comandamento",
+  "recognized": "il comandamento",
+  "score": 100
+ },
+ {
+  "target": "il comandamento",
+  "recognized": "commandment",
+  "score": 60
+ },
+ {
+  "target": "questo è il mio comandamento",
+  "recognized": "questo è il mio",
+  "score": 54
+ },
+ {
+  "target": "rimanere",
+  "recognized": "rimanere",
+  "score": 100
+ },
+ {
+  "target": "rimanere",
+  "recognized": "to remain",
+  "score": 11
+ },
+ {
+  "target": "rimanete nel mio amore",
+  "recognized": "rimanete nel mio",
+  "score": 73
+ },
+ {
+  "target": "il mondo",
+  "recognized": "il mondo",
+  "score": 100
+ },
+ {
+  "target": "il mondo",
+  "recognized": "the world",
+  "score": 22
+ },
+ {
+  "target": "il mondo vi odierà",
+  "recognized": "il mondo vi",
+  "score": 61
+ },
+ {
+  "target": "la preghiera",
+  "recognized": "la preghiera",
+  "score": 100
+ },
+ {
+  "target": "la preghiera",
+  "recognized": "prayer",
+  "score": 33
+ },
+ {
+  "target": "pregò per i suoi discepoli",
+  "recognized": "pregò per i suoi",
+  "score": 62
+ },
+ {
+  "target": "l'arresto",
+  "recognized": "l'arresto",
+  "score": 100
+ },
+ {
+  "target": "l'arresto",
+  "recognized": "the arrest",
+  "score": 50
+ },
+ {
+  "target": "l'arresto nel Getsemani",
+  "recognized": "l'arresto nel",
+  "score": 57
+ },
+ {
+  "target": "il rinnegamento",
+  "recognized": "il rinnegamento",
+  "score": 100
+ },
+ {
+  "target": "il rinnegamento",
+  "recognized": "the denial",
+  "score": 13
+ },
+ {
+  "target": "il rinnegamento di Pietro",
+  "recognized": "il rinnegamento di",
+  "score": 72
+ },
+ {
+  "target": "la crocifissione",
+  "recognized": "la crocifissione",
+  "score": 100
+ },
+ {
+  "target": "la crocifissione",
+  "recognized": "crucifixion",
+  "score": 56
+ },
+ {
+  "target": "portò la sua croce",
+  "recognized": "portò la sua",
+  "score": 67
+ },
+ {
+  "target": "il sepolcro vuoto",
+  "recognized": "il sepolcro vuoto",
+  "score": 100
+ },
+ {
+  "target": "il sepolcro vuoto",
+  "recognized": "empty tomb",
+  "score": 18
+ },
+ {
+  "target": "il sepolcro era vuoto",
+  "recognized": "il sepolcro era",
+  "score": 71
+ },
+ {
+  "target": "la resurrezione",
+  "recognized": "la resurrezione",
+  "score": 100
+ },
+ {
+  "target": "la resurrezione",
+  "recognized": "the resurrection",
+  "score": 63
+ },
+ {
+  "target": "sono risorto",
+  "recognized": "sono",
+  "score": 33
+ },
+ {
+  "target": "la missione",
+  "recognized": "la missione",
+  "score": 100
+ },
+ {
+  "target": "la missione",
+  "recognized": "the mission",
+  "score": 64
+ },
+ {
+  "target": "come il Padre ha mandato me",
+  "recognized": "come il Padre ha mandato",
+  "score": 89
+ },
+ {
+  "target": "la pace",
+  "recognized": "la pace",
+  "score": 100
+ },
+ {
+  "target": "la pace",
+  "recognized": "peace",
+  "score": 43
+ },
+ {
+  "target": "la pace sia con voi",
+  "recognized": "la pace sia con",
+  "score": 79
+ },
+ {
+  "target": "l'annuncio",
+  "recognized": "l'annuncio",
+  "score": 100
+ },
+ {
+  "target": "l'annuncio",
+  "recognized": "the announcement",
+  "score": 38
+ },
+ {
+  "target": "l'annunciazione a Maria",
+  "recognized": "l'annunciazione a",
+  "score": 74
+ },
+ {
+  "target": "l'angelo",
+  "recognized": "l'angelo",
+  "score": 100
+ },
+ {
+  "target": "l'angelo",
+  "recognized": "the angel",
+  "score": 44
+ },
+ {
+  "target": "l'angelo Gabriele",
+  "recognized": "l'angelo",
+  "score": 47
+ },
+ {
+  "target": "benedetto",
+  "recognized": "benedetto",
+  "score": 100
+ },
+ {
+  "target": "benedetto",
+  "recognized": "blessed",
+  "score": 22
+ },
+ {
+  "target": "benedetta tu fra le donne",
+  "recognized": "benedetta tu fra le",
+  "score": 76
+ },
+ {
+  "target": "la nascita",
+  "recognized": "la nascita",
+  "score": 100
+ },
+ {
+  "target": "la nascita",
+  "recognized": "birth",
+  "score": 10
+ },
+ {
+  "target": "la nascita di Gesù",
+  "recognized": "la nascita di",
+  "score": 72
+ },
+ {
+  "target": "la mangiatoia",
+  "recognized": "la mangiatoia",
+  "score": 100
+ },
+ {
+  "target": "la mangiatoia",
+  "recognized": "manger",
+  "score": 31
+ },
+ {
+  "target": "lo depose nella mangiatoia",
+  "recognized": "lo depose nella",
+  "score": 58
+ },
+ {
+  "target": "i pastori",
+  "recognized": "i pastori",
+  "score": 100
+ },
+ {
+  "target": "i pastori",
+  "recognized": "shepherds",
+  "score": 0
+ },
+ {
+  "target": "i pastori andarono a Betlemme",
+  "recognized": "i pastori andarono a",
+  "score": 69
+ },
+ {
+  "target": "il Magnificat",
+  "recognized": "il Magnificat",
+  "score": 100
+ },
+ {
+  "target": "il Magnificat",
+  "recognized": "Magnificat",
+  "score": 77
+ },
+ {
+  "target": "l'anima mia magnifica il Signore",
+  "recognized": "l'anima mia magnifica il",
+  "score": 75
+ },
+ {
+  "target": "il battesimo",
+  "recognized": "il battesimo",
+  "score": 100
+ },
+ {
+  "target": "il battesimo",
+  "recognized": "baptism",
+  "score": 42
+ },
+ {
+  "target": "il battesimo di Gesù",
+  "recognized": "il battesimo di",
+  "score": 75
+ },
+ {
+  "target": "il deserto",
+  "recognized": "il deserto",
+  "score": 100
+ },
+ {
+  "target": "il deserto",
+  "recognized": "desert",
+  "score": 60
+ },
+ {
+  "target": "quaranta giorni nel deserto",
+  "recognized": "quaranta giorni nel",
+  "score": 70
+ },
+ {
+  "target": "la tentazione",
+  "recognized": "la tentazione",
+  "score": 100
+ },
+ {
+  "target": "la tentazione",
+  "recognized": "temptation",
+  "score": 46
+ },
+ {
+  "target": "le tentazioni del diavolo",
+  "recognized": "le tentazioni del",
+  "score": 68
+ },
+ {
+  "target": "la rete",
+  "recognized": "la rete",
+  "score": 100
+ },
+ {
+  "target": "la rete",
+  "recognized": "net",
+  "score": 29
+ },
+ {
+  "target": "gettate le reti",
+  "recognized": "gettate le",
+  "score": 67
+ },
+ {
+  "target": "il lebbroso",
+  "recognized": "il lebbroso",
+  "score": 100
+ },
+ {
+  "target": "il lebbroso",
+  "recognized": "leper",
+  "score": 27
+ },
+ {
+  "target": "un uomo pieno di lebbra",
+  "recognized": "un uomo pieno di",
+  "score": 70
+ },
+ {
+  "target": "perdonare",
+  "recognized": "perdonare",
+  "score": 100
+ },
+ {
+  "target": "perdonare",
+  "recognized": "to forgive",
+  "score": 20
+ },
+ {
+  "target": "ti sono perdonati i peccati",
+  "recognized": "ti sono perdonati i",
+  "score": 70
+ },
+ {
+  "target": "camminare",
+  "recognized": "camminare",
+  "score": 100
+ },
+ {
+  "target": "camminare",
+  "recognized": "to walk",
+  "score": 11
+ },
+ {
+  "target": "alzati e cammina",
+  "recognized": "alzati e",
+  "score": 50
+ },
+ {
+  "target": "le beatitudini",
+  "recognized": "le beatitudini",
+  "score": 100
+ },
+ {
+  "target": "le beatitudini",
+  "recognized": "the beatitudes",
+  "score": 64
+ },
+ {
+  "target": "beati voi poveri",
+  "recognized": "beati voi",
+  "score": 56
+ },
+ {
+  "target": "il nemico",
+  "recognized": "il nemico",
+  "score": 100
+ },
+ {
+  "target": "il nemico",
+  "recognized": "the enemy",
+  "score": 22
+ },
+ {
+  "target": "amate i vostri nemici",
+  "recognized": "amate i vostri",
+  "score": 67
+ },
+ {
+  "target": "il centurione",
+  "recognized": "il centurione",
+  "score": 100
+ },
+ {
+  "target": "il centurione",
+  "recognized": "centurion",
+  "score": 69
+ },
+ {
+  "target": "il servo del centurione",
+  "recognized": "il servo del",
+  "score": 52
+ },
+ {
+  "target": "la vedova",
+  "recognized": "la vedova",
+  "score": 100
+ },
+ {
+  "target": "la vedova",
+  "recognized": "widow",
+  "score": 22
+ },
+ {
+  "target": "la vedova di Naim",
+  "recognized": "la vedova di",
+  "score": 71
+ },
+ {
+  "target": "il fariseo",
+  "recognized": "il fariseo",
+  "score": 100
+ },
+ {
+  "target": "il fariseo",
+  "recognized": "Pharisee",
+  "score": 50
+ },
+ {
+  "target": "un fariseo lo invitò",
+  "recognized": "un fariseo lo",
+  "score": 65
+ },
+ {
+  "target": "perdonare",
+  "recognized": "perdonare",
+  "score": 100
+ },
+ {
+  "target": "perdonare",
+  "recognized": "to forgive",
+  "score": 20
+ },
+ {
+  "target": "le sue peccata le sono perdonate",
+  "recognized": "le sue peccata le sono",
+  "score": 69
+ },
+ {
+  "target": "il profeta",
+  "recognized": "il profeta",
+  "score": 100
+ },
+ {
+  "target": "il profeta",
+  "recognized": "the prophet",
+  "score": 45
+ },
+ {
+  "target": "un grande profeta è sorto",
+  "recognized": "un grande profeta è",
+  "score": 76
+ },
+ {
+  "target": "la tempesta",
+  "recognized": "la tempesta",
+  "score": 100
+ },
+ {
+  "target": "la tempesta",
+  "recognized": "storm",
+  "score": 9
+ },
+ {
+  "target": "calmò la tempesta",
+  "recognized": "calmò la",
+  "score": 47
+ },
+ {
+  "target": "i demoni",
+  "recognized": "i demoni",
+  "score": 100
+ },
+ {
+  "target": "i demoni",
+  "recognized": "demons",
+  "score": 63
+ },
+ {
+  "target": "i demoni lo supplicavano",
+  "recognized": "i demoni lo",
+  "score": 46
+ },
+ {
+  "target": "la fede",
+  "recognized": "la fede",
+  "score": 100
+ },
+ {
+  "target": "la fede",
+  "recognized": "faith",
+  "score": 14
+ },
+ {
+  "target": "la tua fede ti ha salvata",
+  "recognized": "la tua fede ti ha",
+  "score": 68
+ },
+ {
+  "target": "perché",
+  "recognized": "perche",
+  "score": 100
+ },
+ {
+  "target": "la luce",
+  "recognized": "la lucé",
+  "score": 100
+ },
+ {
+  "target": "x",
+  "recognized": "",
+  "score": 0
+ }
+]

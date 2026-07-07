@@ -1,0 +1,22 @@
+[
+ {
+  "input": "La Luce!",
+  "out": "la luce!"
+ },
+ {
+  "input": "l'unzione",
+  "out": "l'unzione"
+ },
+ {
+  "input": "PERCHÉ",
+  "out": "perche"
+ },
+ {
+  "input": "  già detto  ",
+  "out": "gia detto"
+ },
+ {
+  "input": "Gesù è il Signore",
+  "out": "gesu e il signore"
+ }
+]
