@@ -23,7 +23,10 @@ public struct Course: Codable {
         catch { fatalError("course.json failed to load: \(error)") }
     }()
 
-    public static func load(bundle: Bundle = .module) throws -> Course {
+    // `Bundle.module` is an internal generated accessor, so it can't appear
+    // as a public default argument — resolve it in the body instead.
+    public static func load(bundle: Bundle? = nil) throws -> Course {
+        let bundle = bundle ?? Bundle.module
         guard let url = bundle.url(forResource: "course", withExtension: "json") else {
             throw CocoaError(.fileNoSuchFile)
         }
