@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Italian Bible Study — iOS App Design (Figma-ready)</title>
+<style>
+  /* ── Canvas ─────────────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+    background: #17171a; color: #1c1c1e; padding: 40px 24px 80px;
+  }
+  h1 { color: #fff; font-size: 28px; font-weight: 700; text-align: center; letter-spacing: -0.5px; }
+  .subtitle { color: #8e8e93; font-size: 14px; text-align: center; margin: 8px auto 24px; max-width: 720px; line-height: 1.5; }
+  .note {
+    max-width: 760px; margin: 0 auto 48px; background: #232326; border: 1px solid #333;
+    border-radius: 12px; padding: 16px 20px; color: #c7c7cc; font-size: 13px; line-height: 1.6;
+  }
+  .note b { color: #fff; }
+  .note code { background:#111; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+  .flow-label { color: #fff; font-size: 18px; font-weight: 700; text-align: center; margin: 40px 0 4px; }
+  .flow-desc { color: #8e8e93; font-size: 13px; text-align: center; margin-bottom: 24px; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .screen-row { display: flex; flex-wrap: wrap; gap: 44px; justify-content: center; margin-bottom: 56px; }
+  .screen-group { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .screen-label { color: #e5e5ea; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+  .code-ref { color: #6e9e77; font-size: 11px; font-family: ui-monospace, Menlo, monospace; }
+
+  /* ── iPhone frame ───────────────────────────────────────────────────── */
+  .phone {
+    width: 375px; height: 780px; background: #f2f2f7; border-radius: 44px;
+    border: 10px solid #000; overflow: hidden; display: flex; flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5); position: relative;
+  }
+  .phone.dark { background: #000; color: #fff; }
+  .statusbar { height: 44px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; font-size: 13px; font-weight: 600; flex: none; }
+  .phone.dark .statusbar { color: #fff; }
+  .navbar { padding: 2px 16px 8px; flex: none; }
+  .navbar .large { font-size: 30px; font-weight: 800; letter-spacing: -0.6px; }
+  .navbar .inline { text-align: center; font-size: 16px; font-weight: 600; }
+  .navbar .trail { float: right; font-size: 12px; color: #8e8e93; font-weight: 600; margin-top: 12px; }
+  .content { flex: 1; overflow: hidden; padding: 4px 16px 12px; }
+
+  /* ── iOS list (insetGrouped) ────────────────────────────────────────── */
+  .sect-h { font-size: 12px; color: #6d6d72; text-transform: uppercase; letter-spacing: .4px;
+    margin: 14px 4px 6px; font-weight: 600; }
+  .card { background: #fff; border-radius: 12px; overflow: hidden; }
+  .phone.dark .card { background: #1c1c1e; }
+  .cell { padding: 10px 14px; border-bottom: 0.5px solid #e5e5ea; font-size: 14px; position: relative; }
+  .phone.dark .cell { border-color: #2c2c2e; }
+  .cell:last-child { border-bottom: none; }
+  .cell .chev { position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    color: #c7c7cc; font-size: 14px; font-weight: 600; }
+  .sub { color: #8e8e93; font-size: 12px; }
+  .tiny { color: #8e8e93; font-size: 11px; }
+  .bold { font-weight: 700; }
+  .it { font-style: italic; }
+  .mono { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: #6d6d72; }
+
+  /* ── Components ─────────────────────────────────────────────────────── */
+  :root { --accent: #008C45; --accent-dim: rgba(0,140,69,.13); --accent-dark: #2EC266; }
+  .acc { color: var(--accent); }
+  .capsule { display: inline-block; background: var(--accent-dim); color: var(--accent);
+    border-radius: 999px; padding: 2px 9px; font-size: 11px; font-weight: 700; }
+  .capsule.now { background: var(--accent); color: #fff; }
+  .capsule.rev { background: rgba(255,149,0,.15); color: #ff9500; }
+  .btn { display: inline-block; background: var(--accent); color: #fff; border-radius: 10px;
+    padding: 9px 18px; font-size: 14px; font-weight: 600; text-align: center; }
+  .btn.full { display: block; }
+  .btn.ghost { background: rgba(120,120,128,.12); color: var(--accent); }
+  .btn.danger { background: rgba(255,59,48,.12); color: #ff3b30; }
+  .ring { display: inline-flex; width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid #c7c7cc; vertical-align: -5px; margin-right: 8px; }
+  .ring.done { border-color: var(--accent); background: var(--accent); color: #fff;
+    align-items: center; justify-content: center; font-size: 13px; }
+  .speaker { color: var(--accent); font-size: 13px; }
+  .field { background: rgba(120,120,128,.08); border: 1px solid #d1d1d6; border-radius: 8px;
+    padding: 8px 10px; color: #8e8e93; font-size: 13px; }
+  .phone.dark .field { background: #2c2c2e; border-color: #3a3a3c; color: #8e8e93; }
+  .wordchip { border-bottom: 1.5px dotted var(--accent); color: var(--accent); }
+  .diffok { background: var(--accent-dim); border-radius: 4px; padding: 0 3px; }
+  .diffmiss { background: rgba(255,59,48,.14); border-radius: 4px; padding: 0 3px; }
+  .seg { display: flex; background: rgba(120,120,128,.12); border-radius: 9px; padding: 2px;
+    font-size: 12px; font-weight: 600; text-align: center; margin: 6px 0; }
+  .seg div { flex: 1; padding: 5px 0; border-radius: 7px; color: #3c3c43; }
+  .seg .on { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .phone.dark .seg .on { background: #636366; color: #fff; }
+
+  /* ── Tab bar ────────────────────────────────────────────────────────── */
+  .tabbar { flex: none; height: 74px; background: rgba(249,249,249,.94); border-top: 0.5px solid #d1d1d6;
+    display: flex; padding-top: 8px; }
+  .phone.dark .tabbar { background: rgba(22,22,24,.94); border-color: #2c2c2e; }
+  .tab { flex: 1; text-align: center; font-size: 10px; color: #8e8e93; font-weight: 500; }
+  .tab .ic { font-size: 22px; display: block; margin-bottom: 2px; }
+  .tab.on { color: var(--accent); }
+
+  /* ── Sheet overlay ──────────────────────────────────────────────────── */
+  .sheet-back { position: absolute; inset: 0; background: rgba(0,0,0,.35); display: flex;
+    flex-direction: column; justify-content: flex-end; }
+  .sheet { background: #f2f2f7; border-radius: 16px 16px 0 0; padding: 10px 20px 26px; }
+  .grabber { width: 36px; height: 5px; background: #c7c7cc; border-radius: 3px; margin: 0 auto 14px; }
+
+  /* ── Style-guide swatches ───────────────────────────────────────────── */
+  .guide { max-width: 980px; margin: 0 auto 24px; background: #232326; border: 1px solid #333;
+    border-radius: 14px; padding: 24px; color: #e5e5ea; }
+  .guide h3 { font-size: 15px; margin: 18px 0 10px; color: #fff; }
+  .guide h3:first-child { margin-top: 0; }
+  .swatches { display: flex; flex-wrap: wrap; gap: 14px; }
+  .swatch { width: 148px; }
+  .swatch .chip { height: 52px; border-radius: 10px; border: 1px solid rgba(255,255,255,.12); }
+  .swatch .name { font-size: 12px; font-weight: 700; margin-top: 6px; }
+  .swatch .val { font-size: 11px; color: #8e8e93; font-family: ui-monospace, Menlo, monospace; }
+  .typerow { display: flex; align-items: baseline; gap: 16px; padding: 6px 0; border-bottom: 1px solid #2f2f33; }
+  .typerow .sample { color: #fff; flex: 1; }
+  .typerow .spec { font-size: 11px; color: #8e8e93; font-family: ui-monospace, Menlo, monospace; }
+  table.sym { border-collapse: collapse; font-size: 12px; width: 100%; }
+  table.sym td { border-bottom: 1px solid #2f2f33; padding: 5px 10px 5px 0; color: #c7c7cc; }
+  table.sym td:first-child { font-family: ui-monospace, Menlo, monospace; color: #6e9e77; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<h1>Italian Bible Study — native iOS app</h1>
+<p class="subtitle">
+  Screen-by-screen design of the shipped SwiftUI app in <b>ios-native/</b>.
+  Every frame is labelled with the Swift file that implements it, so this page is both
+  the design source and a map for learning the codebase.
+</p>
+<div class="note">
+  <b>Using this in Figma:</b> install the free
+  <b>html.to.design</b> plugin in Figma → “Import URL / paste HTML” → paste this file’s
+  contents (or serve it and paste the URL). Each phone frame lands as an editable Figma frame.
+  Alternatively: open this file in a browser, screenshot each 375×780 frame
+  (⌘⇧4 on macOS), and drop the PNGs onto a Figma page — 375 pt equals the iPhone 15/16 logical width,
+  so frames align 1:1 with Figma’s iPhone presets. The Style guide below carries the tokens
+  to recreate components natively in Figma.
+</div>
+
+<!-- ═══════════════ STYLE GUIDE ═══════════════ -->
+<div class="flow-label">Style guide — design tokens</div>
+<div class="guide">
+  <h3>Color</h3>
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#008C45"></div><div class="name">AccentColor (light)</div><div class="val">#008C45 · brand green</div></div>
+    <div class="swatch"><div class="chip" style="background:#2EC266"></div><div class="name">AccentColor (dark)</div><div class="val">#2EC266</div></div>
+    <div class="swatch"><div class="chip" style="background:rgba(0,140,69,.13)"></div><div class="name">Accent tint fill</div><div class="val">accent @ 12–15%</div></div>
+    <div class="swatch"><div class="chip" style="background:#ff9500"></div><div class="name">Review / due</div><div class="val">systemOrange</div></div>
+    <div class="swatch"><div class="chip" style="background:#ff3b30"></div><div class="name">Wrong / stop</div><div class="val">systemRed</div></div>
+    <div class="swatch"><div class="chip" style="background:#f2f2f7"></div><div class="name">Background (light)</div><div class="val">systemGroupedBackground</div></div>
+    <div class="swatch"><div class="chip" style="background:#1c1c1e"></div><div class="name">Card (dark)</div><div class="val">secondarySystemGroupedBackground</div></div>
+  </div>
+  <h3>Type — system SF Pro, Dynamic Type styles only</h3>
+  <div class="typerow"><span class="sample" style="font-size:34px;font-weight:800">Large Title</span><span class="spec">.largeTitle.bold() — nav titles, practice card front</span></div>
+  <div class="typerow"><span class="sample" style="font-size:22px;font-weight:700">Title 2</span><span class="spec">.title2.bold() — gloss sheet word</span></div>
+  <div class="typerow"><span class="sample" style="font-size:17px;font-weight:600">Headline</span><span class="spec">.headline — card translations, section leads</span></div>
+  <div class="typerow"><span class="sample" style="font-size:16px">Callout</span><span class="spec">.callout — passage verses, examples, drills</span></div>
+  <div class="typerow"><span class="sample" style="font-size:15px">Subheadline</span><span class="spec">.subheadline — week reading line</span></div>
+  <div class="typerow"><span class="sample" style="font-size:12px">Caption</span><span class="spec">.caption / .caption2 — hints, metadata, tab labels</span></div>
+  <div class="typerow"><span class="sample" style="font-size:13px;font-family:ui-monospace,Menlo,monospace">/il ˈvɛrbo/</span><span class="spec">.monospaced() — IPA everywhere</span></div>
+  <h3>SF Symbols in use</h3>
+  <table class="sym">
+    <tr><td>calendar · rectangle.stack · square.and.pencil · gearshape</td><td>tab bar (Tracker / Flashcards / Journal / Settings)</td></tr>
+    <tr><td>speaker.wave.2.fill / stop.circle.fill</td><td>SpeakerButton idle / speaking (accent / red)</td></tr>
+    <tr><td>checkmark.circle.fill / circle</td><td>week done toggle, checklist ticks</td></tr>
+    <tr><td>mic.circle.fill · stop.circle.fill</td><td>pronunciation record / stop</td></tr>
+    <tr><td>play.fill · arrow.counterclockwise · checkmark</td><td>start session · Still learning · Got it</td></tr>
+    <tr><td>book · square.and.arrow.up / .down · checkmark.seal</td><td>mark-as-read · backup export/import · grammar check</td></tr>
+  </table>
+  <h3>Components</h3>
+  <div style="font-size:13px; line-height:1.7; color:#c7c7cc">
+    <b>List cells</b>: insetGrouped, 12 pt corner radius, 0.5 pt separators ·
+    <b>Capsule badges</b>: accent @ 13% fill, 11 pt bold (NOW = solid accent, REVIEW = orange) ·
+    <b>Primary button</b>: borderedProminent (accent fill, white label) ·
+    <b>Secondary</b>: bordered (gray 12% fill) ·
+    <b>Tappable words</b>: accent text (vocab) / plain text (other) — every Italian word opens the gloss sheet ·
+    <b>Sheets</b>: medium/short detents with grabber ·
+    <b>Haptics</b>: success on correct/done, error on wrong, light on flip.
+  </div>
+</div>
+
+<!-- ═══════════════ FLOW 1 — FIRST OPEN ═══════════════ -->
+<div class="flow-label">1 · First open</div>
+<p class="flow-desc">A new install stamps <code style="color:#6e9e77">session-start</code> = today (week 1 begins now) and shows this one-time sheet. — <span class="code-ref">AppModel.ensureSessionStart() · ContentView.WelcomeView</span></p>
+<div class="screen-row">
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="content" style="filter:blur(1.5px);opacity:.55">
+        <div class="navbar"><div class="large">Italian Bible Study</div></div>
+        <div class="card"><div class="cell">🔥 <b>1 day</b> <span class="sub">→ Apr 5, 2027</span></div></div>
+      </div>
+      <div class="sheet-back">
+        <div class="sheet" style="height:66%">
+          <div class="grabber"></div>
+          <div style="text-align:center; padding-top:18px">
+            <div style="font-size:30px; font-weight:800">Benvenuto! 🇮🇹</div>
+            <p class="sub" style="margin:12px 18px; line-height:1.5">A self-paced 37-week Italian language program — the Italian Bible (La Bibbia CEI 2008) is the primary reading text, supported by tools for grammar, vocabulary, and conversation.</p>
+            <div style="background:var(--accent-dim); border-radius:12px; padding:14px; margin:14px 6px">
+              <div style="font-size:15px; font-weight:700">Your 37-week journey starts today</div>
+              <div class="sub" style="margin-top:4px">Week 1 begins now — week 37 ends March 21, 2027.</div>
+            </div>
+            <div class="tiny" style="margin:0 14px">Prefer a different start date? Settings → New Session moves the calendar any time.</div>
+            <div class="btn full" style="margin:22px 6px 0">Iniziamo!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">Welcome sheet (first launch only)</div>
+    <div class="code-ref">Views/ContentView.swift</div>
+  </div>
+
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="navbar"><span class="trail">0/37 · 0%</span><div class="large">Italian Bible Study</div></div>
+      <div class="content">
+        <div class="card">
+          <div class="cell">
+            🔥 <b>1 day</b> &nbsp;<span class="tiny">best 1</span><span style="float:right" class="tiny">→ Mar 21, 2027</span>
+            <div style="display:flex; gap:16px; margin-top:10px; font-size:12px">
+              <span><span class="ring done">✓</span>Leggi</span>
+              <span class="sub">▢ Ripassa</span>
+              <span class="sub">▢ Scrivi</span>
+            </div>
+            <div style="background:var(--accent-dim); border-radius:10px; padding:9px 12px; margin-top:10px">
+              <b style="font-size:13px">Questa settimana · Week 1</b>
+              <div class="tiny">John 1-2 — Greetings, nouns, basic articles</div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:12px"><div class="cell"><b style="font-size:13px">🏆 Traguardi</b><span style="float:right" class="tiny">0/12</span></div></div>
+        <div class="sect-h">Phase 1: Foundation <span style="float:right; text-transform:none" class="capsule">Beginner</span></div>
+        <div class="card">
+          <div class="cell"><span class="ring"></span><b>Week 1</b> <span class="capsule now">NOW</span><div class="sub" style="margin-left:30px">John 1-2<br><span class="tiny">Jul 7-13 · Greetings, nouns, basic articles</span></div><span class="chev">›</span></div>
+          <div class="cell"><span class="ring"></span><b>Week 2</b><div class="sub" style="margin-left:30px">John 3-4<br><span class="tiny">Jul 14-20 · Present tense verbs</span></div><span class="chev">›</span></div>
+          <div class="cell"><span class="ring"></span><b>Week 3</b><div class="sub" style="margin-left:30px">John 5-6<br><span class="tiny">Jul 21-27 · Numbers, time expressions</span></div><span class="chev">›</span></div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><span class="ic">📅</span>Tracker</div>
+        <div class="tab"><span class="ic">🗂</span>Flashcards</div>
+        <div class="tab"><span class="ic">✍️</span>Journal</div>
+        <div class="tab"><span class="ic">⚙️</span>Settings</div>
+      </div>
+    </div>
+    <div class="screen-label">Tracker — Today card + week list</div>
+    <div class="code-ref">Views/Tracker/TrackerView.swift · TodayCardView.swift</div>
+  </div>
+</div>
+
+<!-- ═══════════════ FLOW 2 — WEEK DETAIL ═══════════════ -->
+<div class="flow-label">2 · Week detail — read, drill, check</div>
+<p class="flow-desc">One screen per week: CEI passage with every word tappable, vocab with IPA + audio, grammar note, fill-in-the-blank drills, comprehension, dictogloss, writing prompt. Date ranges are computed from the user’s start date. — <span class="code-ref">Views/Tracker/WeekDetailView.swift</span></p>
+<div class="screen-row">
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="navbar"><div class="inline">Week 1</div></div>
+      <div class="content">
+        <div class="card">
+          <div class="cell"><b style="font-size:16px">John 1-2</b><div class="sub">Jul 7-13 · Greetings, nouns, basic articles</div></div>
+          <div class="cell">Week completed <span style="float:right; color:#c7c7cc">◯───</span></div>
+        </div>
+        <div class="sect-h">Lettura — Giovanni 1,1-5.14 (CEI 2008)</div>
+        <div class="card"><div class="cell" style="line-height:1.75; font-size:13.5px">
+          <span class="tiny">1</span>&nbsp; In principio era <span class="wordchip">il Verbo</span>, il Verbo era presso Dio e il Verbo era Dio. <span class="speaker">🔊</span><br>
+          <span class="tiny">4</span>&nbsp; In lui era <span class="wordchip">la vita</span> e la vita era <span class="wordchip">la luce</span> degli uomini; <span class="speaker">🔊</span><br>
+          <span class="tiny">5</span>&nbsp; la luce splende nelle <span class="wordchip">tenebre</span>… <span class="speaker">🔊</span>
+          <div style="margin-top:10px"><span class="speaker">🔊</span> <span class="tiny">Ascolta tutto</span><span style="float:right" class="btn ghost" >📖 Segna come letto</span></div>
+        </div></div>
+        <div class="sect-h">Vocabolario (7)</div>
+        <div class="card">
+          <div class="cell"><b>il Verbo</b> <span class="speaker">🔊</span><span style="float:right" class="sub">the Word</span>
+            <div class="mono">/il ˈvɛrbo/</div>
+            <div class="it sub">In principio era il Verbo <span class="speaker">🔊</span></div></div>
+          <div class="cell"><b>la luce</b> <span class="speaker">🔊</span><span style="float:right" class="sub">the light</span>
+            <div class="mono">/la ˈluːtʃe/</div>
+            <div class="it sub">La luce splende <span class="speaker">🔊</span></div></div>
+        </div>
+      </div>
+      <div class="tabbar"><div class="tab on"><span class="ic">📅</span>Tracker</div><div class="tab"><span class="ic">🗂</span>Flashcards</div><div class="tab"><span class="ic">✍️</span>Journal</div><div class="tab"><span class="ic">⚙️</span>Settings</div></div>
+    </div>
+    <div class="screen-label">Week detail — passage &amp; vocab</div>
+    <div class="code-ref">ReadingPassageView · VocabRow · WordGlossText</div>
+  </div>
+
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="navbar"><div class="inline">Week 1</div></div>
+      <div class="content">
+        <div class="sect-h">Esercizi di grammatica</div>
+        <div class="card"><div class="cell">
+          In principio <b class="acc">____</b> il Verbo.
+          <div class="tiny">essere — “was” (a state)</div>
+          <div style="display:flex; gap:8px; margin-top:8px"><span class="field" style="flex:1">era</span><span class="btn">Check</span></div>
+          <div class="acc" style="font-size:12px; font-weight:700; margin-top:6px">✓ Giusto!</div>
+        </div></div>
+        <div class="sect-h">Comprensione</div>
+        <div class="card"><div class="cell">
+          Il Verbo era presso Dio. <div class="tiny">The Word was with God.</div>
+          <div style="display:flex; gap:8px; margin-top:8px">
+            <span class="btn ghost" style="background:var(--accent-dim)">Vero</span><span class="btn ghost">Falso</span>
+          </div>
+          <div class="acc" style="font-size:12px; font-weight:700; margin-top:6px">✓ Giusto!</div>
+        </div></div>
+        <div class="sect-h">Dictogloss — ascolta e ricostruisci</div>
+        <div class="card"><div class="cell">
+          <span class="speaker">🔊</span> <span class="tiny">Ascolta la frase, poi scrivi quello che ricordi.</span> <span class="speaker" style="float:right">🐢 lento</span>
+          <div class="field" style="margin:8px 0">in principio era il verbo…</div>
+          <span class="btn">Confronta</span>
+          <div style="margin-top:8px; font-size:12px"><b>Recall: 67%</b><br>
+            <span class="diffok">In</span> <span class="diffok">principio</span> <span class="diffok">era</span> <span class="diffok">il</span> <span class="diffok">Verbo,</span> <span class="diffmiss">presso</span> <span class="diffmiss">Dio</span></div>
+        </div></div>
+        <div class="sect-h">Scrittura — prompt</div>
+        <div class="card"><div class="cell it" style="font-size:13px">In principio, Dio ha creato il mondo con la sua Parola.<div class="tiny" style="font-style:normal">Write about the opening of John 1 — what did the Word do?</div></div></div>
+      </div>
+      <div class="tabbar"><div class="tab on"><span class="ic">📅</span>Tracker</div><div class="tab"><span class="ic">🗂</span>Flashcards</div><div class="tab"><span class="ic">✍️</span>Journal</div><div class="tab"><span class="ic">⚙️</span>Settings</div></div>
+    </div>
+    <div class="screen-label">Week detail — drills &amp; dictogloss</div>
+    <div class="code-ref">GrammarDrillRow · ComprehensionRow · DictoglossView</div>
+  </div>
+
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="content" style="filter:blur(1.5px);opacity:.55">
+        <div class="navbar"><div class="inline">Week 1</div></div>
+        <div class="card"><div class="cell" style="line-height:1.7">In principio era <span class="wordchip">il Verbo</span>…</div></div>
+      </div>
+      <div class="sheet-back">
+        <div class="sheet" style="height:34%">
+          <div class="grabber"></div>
+          <div style="font-size:24px; font-weight:800">il Verbo <span class="speaker" style="font-size:16px">🔊</span></div>
+          <div style="font-size:16px; color:#8e8e93; font-weight:600; margin-top:4px">the Word</div>
+          <div class="mono" style="margin-top:6px">/il ˈvɛrbo/</div>
+          <div class="tiny" style="margin-top:12px">Any non-vocab word shows ≈ auto-generated IPA instead (rule-based it2ipa port) — audio is always available.</div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">Tap-any-word gloss sheet</div>
+    <div class="code-ref">Views/Shared/WordGlossText.swift · BibbiaCore/ItalianIPA.swift</div>
+  </div>
+</div>
+
+<!-- ═══════════════ FLOW 3 — FLASHCARDS ═══════════════ -->
+<div class="flow-label">3 · Flashcards — SRS practice &amp; pronunciation</div>
+<p class="flow-desc">Same SM-2 scheduler and store format as the web app. Four styles; grades write through to <code style="color:#6e9e77">italian-bible-srs</code>. — <span class="code-ref">Views/Flashcards/* · BibbiaCore/SRS.swift</span></p>
+<div class="screen-row">
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="navbar"><div class="large">Flashcards</div></div>
+      <div class="content">
+        <div class="card"><div class="cell" style="display:flex; text-align:center">
+          <div style="flex:1"><div style="color:#ff9500; font-size:20px; font-weight:800">8</div><div class="tiny">Due</div></div>
+          <div style="flex:1"><div style="color:#0a84ff; font-size:20px; font-weight:800">244</div><div class="tiny">New</div></div>
+          <div style="flex:1"><div class="acc" style="font-size:20px; font-weight:800">15</div><div class="tiny">Learned</div></div>
+          <div style="flex:1"><div style="font-size:20px; font-weight:800; color:#8e8e93">259</div><div class="tiny">Total</div></div>
+        </div></div>
+        <div class="sect-h">Practice style</div>
+        <div class="card"><div class="cell">
+          <div class="seg"><div class="on">Recognition</div><div>Recall</div><div>Cloze</div><div>Listening</div></div>
+          <div class="tiny">IT → EN · flip the card</div>
+          <div class="btn full" style="margin-top:10px">▶ Review 8 due cards</div>
+        </div></div>
+        <div class="sect-h">Parole difficili — words you struggle with</div>
+        <div class="card">
+          <div class="cell"><b>le tenebre</b> <span class="speaker" style="float:right">🔊</span><div class="tiny">2 misses in review · pronunciation 48%</div></div>
+          <div class="cell"><b>saziarsi</b> <span class="speaker" style="float:right">🔊</span><div class="tiny">shaky recall</div></div>
+          <div class="cell acc" style="font-weight:600">Drill these words</div>
+        </div>
+        <div class="sect-h">Pronunciation</div>
+        <div class="card"><div class="cell">🎤 Pronunciation &amp; shadowing practice<span class="chev">›</span></div></div>
+      </div>
+      <div class="tabbar"><div class="tab"><span class="ic">📅</span>Tracker</div><div class="tab on"><span class="ic">🗂</span>Flashcards</div><div class="tab"><span class="ic">✍️</span>Journal</div><div class="tab"><span class="ic">⚙️</span>Settings</div></div>
+    </div>
+    <div class="screen-label">Flashcards hub</div>
+    <div class="code-ref">FlashcardsView.swift · BibbiaCore/WordStats.swift</div>
+  </div>
+
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="navbar"><span style="float:left; color:var(--accent); font-size:14px; margin-top:10px">Close</span><div class="inline">3 done · 12 left</div></div>
+      <div class="content" style="display:flex; flex-direction:column; justify-content:center; text-align:center">
+        <div style="font-size:32px; font-weight:800">la luce</div>
+        <div class="speaker" style="font-size:18px; margin:10px 0">🔊</div>
+        <div style="font-size:16px; color:#8e8e93; font-weight:600">the light</div>
+        <div class="mono" style="margin:4px 0">/la ˈluːtʃe/</div>
+        <div class="it sub" style="margin:6px 0">La luce splende <span class="speaker">🔊</span></div>
+        <div style="display:flex; gap:10px; margin-top:36px">
+          <span class="btn danger" style="flex:1">↺ Still learning</span>
+          <span class="btn" style="flex:1">✓ Got it</span>
+        </div>
+      </div>
+      <div class="tabbar"><div class="tab"><span class="ic">📅</span>Tracker</div><div class="tab on"><span class="ic">🗂</span>Flashcards</div><div class="tab"><span class="ic">✍️</span>Journal</div><div class="tab"><span class="ic">⚙️</span>Settings</div></div>
+    </div>
+    <div class="screen-label">Practice — card revealed, binary grade</div>
+    <div class="code-ref">PracticeSessionView.swift · BibbiaCore/SRS.swift srsReview()</div>
+  </div>
+
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="navbar"><div class="inline">Pronunciation</div></div>
+      <div class="content" style="text-align:center; display:flex; flex-direction:column; justify-content:space-between; padding-bottom:20px">
+        <div class="seg" style="margin:6px 20px"><div class="on">Words</div><div>Shadowing</div></div>
+        <div>
+          <div style="font-size:30px; font-weight:800">credere</div>
+          <div class="mono">/ˈkɾɛːdeɾe/</div>
+          <div class="speaker" style="font-size:18px; margin:8px 0">🔊</div>
+          <div class="btn" style="margin-top:6px">🎙 Record</div>
+          <div class="sub" style="margin-top:14px">Heard: “credere”</div>
+          <div class="acc" style="font-size:42px; font-weight:800">92%</div>
+          <div class="tiny">Ottimo!</div>
+        </div>
+        <div style="display:flex; gap:10px; padding:0 8px"><span class="btn ghost" style="flex:1">‹</span><span class="btn ghost" style="flex:1">›</span></div>
+      </div>
+      <div class="tabbar"><div class="tab"><span class="ic">📅</span>Tracker</div><div class="tab on"><span class="ic">🗂</span>Flashcards</div><div class="tab"><span class="ic">✍️</span>Journal</div><div class="tab"><span class="ic">⚙️</span>Settings</div></div>
+    </div>
+    <div class="screen-label">Pronunciation — speech-recognition score</div>
+    <div class="code-ref">PronunciationView.swift · SpeechRecognizer.swift · TextNormalize.swift</div>
+  </div>
+</div>
+
+<!-- ═══════════════ FLOW 4 — JOURNAL ═══════════════ -->
+<div class="flow-label">4 · Journal — weekly writing</div>
+<p class="flow-desc">Per-week entries with a writing scaffold (starters + tap-to-insert vocab chips) and the LanguageTool grammar check (online). — <span class="code-ref">Views/Journal/JournalView.swift · GrammarCheck.swift</span></p>
+<div class="screen-row">
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="navbar"><span class="trail" style="color:var(--accent)">⬆︎</span><div class="large">Journal</div></div>
+      <div class="content">
+        <div class="card"><div class="cell tiny">Scrivi 3–5 frasi in italiano ogni settimana — writing is the production practice that locks vocabulary in.</div></div>
+        <div class="sect-h">Phase 1: Foundation</div>
+        <div class="card">
+          <div class="cell"><b>Week 1</b> <span class="acc">✓</span><div class="sub it">In principio, Dio ha creato il mondo…</div><span class="chev">›</span></div>
+          <div class="cell"><b>Week 2</b><div class="sub">Describe the meeting between Jesus and the Samaritan woman…</div><span class="chev">›</span></div>
+          <div class="cell"><b>Week 3</b><div class="sub">Write about the multiplication of loaves…</div><span class="chev">›</span></div>
+        </div>
+      </div>
+      <div class="tabbar"><div class="tab"><span class="ic">📅</span>Tracker</div><div class="tab"><span class="ic">🗂</span>Flashcards</div><div class="tab on"><span class="ic">✍️</span>Journal</div><div class="tab"><span class="ic">⚙️</span>Settings</div></div>
+    </div>
+    <div class="screen-label">Journal — week list + .md export</div>
+    <div class="code-ref">JournalView.swift</div>
+  </div>
+
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="navbar"><div class="inline">Week 1</div></div>
+      <div class="content">
+        <div class="sect-h">Prompt</div>
+        <div class="card"><div class="cell it" style="font-size:13px">In principio, Dio ha creato il mondo con la sua Parola.</div></div>
+        <div class="sect-h">La tua voce</div>
+        <div class="card"><div class="cell" style="min-height:96px; font-size:13px">In principio era il Verbo. Dio ha creato la luce e la vita. Io credo che…</div></div>
+        <div class="card" style="margin-top:12px"><div class="cell">
+          <b style="font-size:13px">Aiuto per scrivere — starters &amp; vocab</b>
+          <div class="it sub" style="margin-top:6px">Questa settimana ho letto… · Ho imparato che…</div>
+          <div style="margin-top:6px; line-height:2"><span class="capsule">il Verbo</span> <span class="capsule">la luce</span> <span class="capsule">le tenebre</span> <span class="capsule">credere</span></div>
+        </div></div>
+        <div class="sect-h">Grammar check (online)</div>
+        <div class="card">
+          <div class="cell acc" style="font-weight:600">✅ Check my Italian</div>
+          <div class="cell"><b style="font-size:13px">“ha creato la luce”</b><div class="tiny">Possible agreement issue…</div><div class="acc" style="font-size:12px">Try: creò, ha creato</div></div>
+        </div>
+      </div>
+      <div class="tabbar"><div class="tab"><span class="ic">📅</span>Tracker</div><div class="tab"><span class="ic">🗂</span>Flashcards</div><div class="tab on"><span class="ic">✍️</span>Journal</div><div class="tab"><span class="ic">⚙️</span>Settings</div></div>
+    </div>
+    <div class="screen-label">Journal entry — scaffold + grammar check</div>
+    <div class="code-ref">JournalEntryView · JournalScaffold pattern from web</div>
+  </div>
+</div>
+
+<!-- ═══════════════ FLOW 5 — SETTINGS ═══════════════ -->
+<div class="flow-label">5 · Settings — session, reminders, sync</div>
+<p class="flow-desc">New Session restarts the 37 weeks from any date; backups are the same .json file as the web app’s Sync panel. — <span class="code-ref">Views/Settings/SettingsView.swift · SyncManager.swift</span></p>
+<div class="screen-row">
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="navbar"><div class="large">Settings</div></div>
+      <div class="content">
+        <div class="sect-h">Appearance</div>
+        <div class="card"><div class="cell">Theme<span style="float:right" class="sub">System ▾</span></div></div>
+        <div class="sect-h">Program</div>
+        <div class="card">
+          <div class="cell">Start date<span style="float:right" class="sub">2026-07-07</span></div>
+          <div class="cell">End date<span style="float:right" class="sub">Mar 21, 2027</span></div>
+          <div class="cell">Current week<span style="float:right" class="sub">Week 1</span></div>
+          <div class="cell acc" style="font-weight:600">New Session — start or restart from any date</div>
+        </div>
+        <div class="sect-h">Reminders</div>
+        <div class="card">
+          <div class="cell">Daily reminder<span style="float:right" class="acc">●─── ON</span></div>
+          <div class="cell">Hour<span style="float:right" class="sub">19:00 ▾</span></div>
+        </div>
+        <div class="sect-h">Sync</div>
+        <div class="card">
+          <div class="cell acc" style="font-weight:600">⬆︎ Export backup (.json)</div>
+          <div class="cell acc" style="font-weight:600">⬇︎ Import backup (.json)</div>
+        </div>
+        <div class="tiny" style="margin:6px 4px">The backup file is interchangeable with the web app’s Sync panel.</div>
+      </div>
+      <div class="tabbar"><div class="tab"><span class="ic">📅</span>Tracker</div><div class="tab"><span class="ic">🗂</span>Flashcards</div><div class="tab"><span class="ic">✍️</span>Journal</div><div class="tab on"><span class="ic">⚙️</span>Settings</div></div>
+    </div>
+    <div class="screen-label">Settings</div>
+    <div class="code-ref">SettingsView.swift · ReminderScheduler.swift</div>
+  </div>
+
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="content" style="filter:blur(1.5px);opacity:.55">
+        <div class="navbar"><div class="large">Settings</div></div>
+        <div class="card"><div class="cell">Theme<span style="float:right" class="sub">System</span></div></div>
+      </div>
+      <div class="sheet-back">
+        <div class="sheet" style="height:78%">
+          <div class="grabber"></div>
+          <div style="text-align:center; font-weight:700; margin-bottom:12px">New Session</div>
+          <div class="card"><div class="cell">Start date<span style="float:right" class="acc bold">Jul 7, 2026 ▾</span></div></div>
+          <div class="tiny" style="margin:6px 4px 12px">Week 1 begins on that date; week 37 ends March 21, 2027.</div>
+          <div class="sect-h">Also reset</div>
+          <div class="card">
+            <div class="cell">Reset week progress<span style="float:right; color:#c7c7cc">◯───</span></div>
+            <div class="cell">Reset streak<span style="float:right; color:#c7c7cc">◯───</span></div>
+            <div class="cell">Reset flashcard (SRS) history<span style="float:right; color:#c7c7cc">◯───</span></div>
+            <div class="cell">Reset journal<span style="float:right; color:#c7c7cc">◯───</span></div>
+          </div>
+          <div class="tiny" style="margin:6px 4px">Leave everything off to keep your data and just move the calendar.</div>
+          <div class="btn full" style="margin-top:14px">Start new session</div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">New Session sheet</div>
+    <div class="code-ref">NewSessionView · AppModel.startNewSession()</div>
+  </div>
+
+  <div class="screen-group">
+    <div class="phone dark">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="navbar" style="color:#fff"><span class="trail">15/37 · 41%</span><div class="large">Italian Bible Study</div></div>
+      <div class="content">
+        <div class="card"><div class="cell" style="color:#fff">
+          🔥 <b>23 days</b> &nbsp;<span class="tiny">best 23</span><span style="float:right" class="tiny">→ Mar 21, 2027</span>
+          <div style="display:flex; gap:16px; margin-top:10px; font-size:12px">
+            <span style="color:var(--accent-dark)">✓ Leggi</span><span style="color:var(--accent-dark)">✓ Ripassa</span><span class="sub">▢ Scrivi</span>
+          </div>
+        </div></div>
+        <div class="sect-h">Phase 2: Building</div>
+        <div class="card">
+          <div class="cell" style="color:#fff"><span class="ring done">✓</span><b>Week 15</b><div class="sub" style="margin-left:30px">Luke 9-10 <span class="tiny">· Oct 13-19</span></div><span class="chev">›</span></div>
+          <div class="cell" style="color:#fff"><span class="ring"></span><b>Week 16</b> <span class="capsule now">NOW</span><div class="sub" style="margin-left:30px">Luke 11-12 <span class="tiny">· Oct 20-26</span></div><span class="chev">›</span></div>
+          <div class="cell" style="color:#fff"><span class="ring"></span><b>Week 17</b> <span class="capsule rev">REVIEW</span><div class="sub" style="margin-left:30px">Review week <span class="tiny">· Oct 27-Nov 2</span></div><span class="chev">›</span></div>
+        </div>
+      </div>
+      <div class="tabbar"><div class="tab on" style="color:var(--accent-dark)"><span class="ic">📅</span>Tracker</div><div class="tab"><span class="ic">🗂</span>Flashcards</div><div class="tab"><span class="ic">✍️</span>Journal</div><div class="tab"><span class="ic">⚙️</span>Settings</div></div>
+    </div>
+    <div class="screen-label">Dark mode (system-driven)</div>
+    <div class="code-ref">Theme in AppModel · AccentColor dark variant #2EC266</div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:24px">
+  Source of truth: <b>ios-native/App/Sources/App/Views/</b>. If a screen changes in code, update its frame here —
+  this file is the design contract for the App Store screenshots too (see DEPLOYMENT.md step 7).
+</p>
+
+</body>
+</html>
