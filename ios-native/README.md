@@ -33,11 +33,31 @@ strings — a test proves the computed labels reproduce all 37 authored
 `week.d` values for the reference calendar), so the whole schedule stays
 correct for any start date.
 
+## Design (Figma)
+
+**`design/figma-mockups.html`** is the design source: pixel-styled mockups of
+every screen (welcome sheet, Tracker, week detail, gloss sheet, flashcards
+hub, practice card, pronunciation, journal, settings, New Session, dark
+mode), plus a style-guide panel with the design tokens — accent colors,
+SF Pro type ramp, SF Symbols in use, and component specs. Open it in any
+browser.
+
+To work in Figma: install the free **html.to.design** plugin and paste the
+file's HTML (each phone frame imports as an editable Figma frame), or
+screenshot the 375×780 frames and drop them on a Figma page — 375 pt is the
+iPhone logical width, so they align 1:1 with Figma's iPhone presets.
+
+Every frame is annotated with the Swift file that implements it, so the page
+doubles as a **design ⇄ code map**: see a screen, jump to its view. The older
+pre-build wireframes remain in `../wireframes/ios-app-wireframes.html`.
+
 ## Layout
 
 ```
 ios-native/
   project.yml               XcodeGen spec → generates the .xcodeproj
+  design/
+    figma-mockups.html      screen mockups + design tokens (Figma-importable)
   BibbiaCore/               SwiftPM package: ALL logic + course data (UI-free)
     Sources/BibbiaCore/     Swift ports of src/utils/*.js + Codable course model
       Resources/course.json bundled course data (generated — do not hand-edit)
@@ -50,6 +70,42 @@ ios-native/
     generate-fixtures.mjs   regenerate test fixtures by RUNNING the JS utils
   DEPLOYMENT.md             step-by-step App Store guide for a first-time publisher
 ```
+
+## Learn the codebase in 30 minutes
+
+Read in this order — each step builds on the previous one:
+
+1. **The data** — open `BibbiaCore/Sources/BibbiaCore/Resources/course.json`
+   (skim the first week) then `Course.swift`, its Codable mirror. Everything
+   in the app renders this one object: 4 phases → 37 weeks → vocab / grammar /
+   passage / drills / comprehension / prompt.
+2. **One logic module end to end** — `BibbiaCore/Sources/BibbiaCore/SRS.swift`
+   (~150 lines): the SM-2 scheduler with binary grades. Then its two tests:
+   `Tests/BibbiaCoreTests/SRSTests.swift` (behavior) and the `SRSFixtureTests`
+   in `FixtureTests.swift` (replays grade sequences recorded from the web
+   app's real `srs.js`). Every other module follows this exact pattern:
+   pure functions + behavior tests + JS-parity fixtures.
+3. **Persistence** — `App/Sources/App/AppModel.swift`. One `ObservableObject`
+   owns every store; `WebStore` persists each as a JSON string in
+   UserDefaults under the web app's localStorage keys (`italian-bible-srs`,
+   `-streak`, …). That key-compatibility is the whole sync story: a backup
+   file is just those strings bundled up (`SyncManager.swift`).
+4. **One screen end to end** — pick "grade a flashcard":
+   `FlashcardsView` builds a queue with `buildQueue()` →
+   `PracticeSessionView` shows the card → "Got it" calls
+   `model.recordReview()` → `srsReview()` computes the next due date →
+   `WebStore.saveJSON` persists → the streak ticks via `setFlag()`. Five
+   files, one direction of data flow, no other state.
+5. **The design ⇄ code map** — open `design/figma-mockups.html` next to the
+   `App/Sources/App/Views/` tree; each frame names its Swift file.
+6. **The safety net** — `.github/workflows/ios-native-ci.yml`: fixture
+   freshness on Linux (reruns the JS, diffs the committed fixtures),
+   `swift test` + an unsigned simulator build on macOS.
+
+Rules of thumb when changing things: new persisted state goes through
+`WebStore` (never a raw UserDefaults key); new logic goes in `BibbiaCore`
+with a test (views stay dumb); course-content edits happen in
+`../courses/it-bible-cei/` followed by re-running the two scripts below.
 
 ### How the port stays honest
 

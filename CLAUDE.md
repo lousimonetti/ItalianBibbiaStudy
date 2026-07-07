@@ -133,8 +133,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   persist as JSON strings in UserDefaults under the same `italian-bible-*`
   keys, so the web Sync panel's `.json` file imports/exports both ways. v1
   scope + follow-ups (Prayers/Saints tabs, QR sync, widgets/Siri/iCloud) in
-  `ios-native/README.md`; step-by-step amateur App Store publishing guide in
-  `ios-native/DEPLOYMENT.md`. Wireframes remain in
+  `ios-native/README.md` — which also has a **"Learn the codebase in 30
+  minutes"** guided reading path; step-by-step amateur App Store publishing
+  guide in `ios-native/DEPLOYMENT.md`. **Design source:**
+  `ios-native/design/figma-mockups.html` — Figma-importable (html.to.design
+  plugin) screen mockups of the *built* app + design tokens (accent
+  `#008C45`/`#2EC266` dark, SF Pro type ramp, SF Symbols list), every frame
+  annotated with the Swift file implementing it (a design ⇄ code map); keep
+  it updated when screens change. The older pre-build wireframes remain in
   `wireframes/ios-app-wireframes.html`.
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder

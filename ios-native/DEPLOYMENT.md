@@ -133,7 +133,9 @@ In App Store Connect → your app → the version page. What you'll need:
   you support iPad (this project does), 13" iPad Pro. Easiest path: run the
   app in those two **simulators**, ⌘S saves a PNG at the exact required
   resolution. 3–5 screenshots each: Tracker, a week's reading, a flashcard
-  session, the journal.
+  session, the journal — `design/figma-mockups.html` shows which screens
+  present best and what state to stage them in (streak going, a drill
+  answered correctly).
 - **Description** — plain text. Lead with what it does: *"A 37-week
   self-paced Italian course that reads the Bible (CEI 2008) as its primary
   text — spaced-repetition flashcards, listening, pronunciation scoring,
