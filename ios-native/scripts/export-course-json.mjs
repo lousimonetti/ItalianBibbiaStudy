@@ -24,6 +24,7 @@ const repoRoot = join(here, '..', '..');
 
 const { config } = await import(join(repoRoot, 'courses/it-bible-cei/config.js'));
 const { phases } = await import(join(repoRoot, 'courses/it-bible-cei/content.js'));
+const { commonWordsData } = await import(join(repoRoot, 'src/utils/it2en.js'));
 
 function exportVocab(tuples = []) {
   return tuples.map(([it, en, ex, ipa]) => ({ it, en, ex, ...(ipa ? { ipa } : {}) }));
@@ -91,3 +92,10 @@ const outPath = join(here, '..', 'BibbiaCore', 'Sources', 'BibbiaCore', 'Resourc
 mkdirSync(dirname(outPath), { recursive: true });
 writeFileSync(outPath, JSON.stringify(course, null, 1) + '\n');
 console.log(`wrote ${outPath}`);
+
+// Common Italian→English word map (src/utils/it2en.js) — the tap-a-word
+// fallback gloss for words outside the vocab, decoded by CommonWords.swift.
+const commonWords = commonWordsData();
+const wordsPath = join(dirname(outPath), 'common-words.json');
+writeFileSync(wordsPath, JSON.stringify(commonWords, null, 1) + '\n');
+console.log(`wrote ${wordsPath} (${Object.keys(commonWords.words).length} words)`);

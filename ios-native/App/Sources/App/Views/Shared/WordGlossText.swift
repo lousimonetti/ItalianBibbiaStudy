@@ -3,9 +3,10 @@ import BibbiaCore
 
 // Native counterpart of the web WordGloss/GlossPopover: renders an Italian
 // string with every word tappable. Vocab words get their stored gloss + IPA;
-// any other word gets an auto-generated approximate IPA (flagged ≈) — the
-// same graceful degradation as the web app. Uses a simple flow Layout
-// (iOS 16) so tappable words wrap like normal text.
+// any other word gets a common-words English gloss (CommonWords — the port
+// of the web's it2en.js) when known, plus an auto-generated approximate IPA
+// (flagged ≈) — the same graceful degradation as the web app. Uses a simple
+// flow Layout (iOS 16) so tappable words wrap like normal text.
 
 struct WordGlossText: View {
     let text: String
@@ -60,13 +61,21 @@ private struct GlossSheet: View {
                     Text(gloss.ipa)
                         .font(.body.monospaced())
                 }
-            } else if model.course.locale.hasIPA {
-                // Not in the vocab — best-effort IPA, marked approximate.
-                Text("≈ \(toIPA(word))")
-                    .font(.body.monospaced())
-                Text("Approximate pronunciation — tap the speaker for audio.")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+            } else {
+                // Not in the vocab — common-words gloss when known, plus
+                // best-effort IPA marked approximate.
+                if let common = CommonWords.shared.lookup(word) {
+                    Text(common)
+                        .font(.headline)
+                        .foregroundStyle(.secondary)
+                }
+                if model.course.locale.hasIPA {
+                    Text("≈ \(toIPA(word))")
+                        .font(.body.monospaced())
+                    Text("Approximate pronunciation — tap the speaker for audio.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
             Spacer()
         }
