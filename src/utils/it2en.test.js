@@ -75,6 +75,35 @@ describe('lookupCommon', () => {
     expect(lookupCommon('Pietro')).toBe('Peter');
   });
 
+  it('translates participles that appear in the writing prompts', () => {
+    expect(lookupCommon('avvicinato')).toBe('approached/drawn near');
+    expect(lookupCommon('raccontato')).toBe('told');
+    expect(lookupCommon('abbracciato')).toBe('embraced');
+    expect(lookupCommon('riconobbero')).toBe('recognized');
+  });
+
+  it('resolves elided forms from prefix + stem', () => {
+    expect(lookupCommon("l'uomo")).toBe('the man');
+    expect(lookupCommon("dell'uomo")).toBe('of the man');
+    expect(lookupCommon("l'anno")).toBe('the year');
+    expect(lookupCommon("d'israele")).toBe('of Israel');
+  });
+
+  it('accepts curly apostrophes in elided forms', () => {
+    expect(lookupCommon('l’uomo')).toBe('the man');
+  });
+
+  it('prefers explicit idiomatic entries over the elision fallback', () => {
+    expect(lookupCommon("c'è")).toBe('there is');
+    expect(lookupCommon("c'era")).toBe('there was');
+    expect(lookupCommon("all'improvviso")).toBe('suddenly');
+    expect(lookupCommon("un'ora")).toBe('an hour');
+  });
+
+  it('returns null for elided forms with an unknown stem', () => {
+    expect(lookupCommon("l'xyzzy")).toBeNull();
+  });
+
   it('returns null for unknown words', () => {
     expect(lookupCommon('xyzzy')).toBeNull();
     expect(lookupCommon('magnificare')).toBeNull();

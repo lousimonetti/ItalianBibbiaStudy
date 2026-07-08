@@ -30,6 +30,7 @@ const { review } = await import(join(repoRoot, 'src/utils/srs.js'));
 const { setFlag, currentStreak, todayFlags } = await import(join(repoRoot, 'src/utils/streak.js'));
 const { diffReconstruction } = await import(join(repoRoot, 'src/utils/dictogloss.js'));
 const { tokenize } = await import(join(repoRoot, 'src/utils/vocabIndex.js'));
+const { lookupCommon } = await import(join(repoRoot, 'src/utils/it2en.js'));
 const { phases } = await import(join(repoRoot, 'courses/it-bible-cei/content.js'));
 
 const cards = phases.flatMap((p) => p.weeks.flatMap((w) => w.vocab))
@@ -179,5 +180,25 @@ write('dictogloss.json', dictoCases.map((c) => {
   const d = diffReconstruction(c.original, c.attempt);
   return { ...c, score: d.score, originalOk: d.original.map((m) => m.ok), attemptOk: d.attempt.map((m) => m.ok) };
 }));
+
+// ── Common-word glosses (it2en) over every distinct word in the course text ──
+// Tokens keep their original casing so the fixture also exercises the
+// case-insensitive lookup; curly-apostrophe and unknown-word cases are added
+// explicitly. gloss is null when the web returns no gloss — the Swift port
+// must return nil for exactly the same words.
+const glossWords = new Set(['l’uomo', "L'UOMO", 'xyzzy', "l'xyzzy", "un'ora"]);
+for (const p of phases) {
+  for (const w of p.weeks) {
+    const texts = [
+      w.prompt?.it,
+      ...w.vocab.map((v) => v[2]),
+      ...(w.passage?.verses || []).map((v) => v.t),
+    ];
+    for (const text of texts) {
+      for (const t of tokenize(text || '')) if (t.isWord) glossWords.add(t.text);
+    }
+  }
+}
+write('commonGloss.json', [...glossWords].sort().map((w) => ({ word: w, gloss: lookupCommon(w) })));
 
 console.log('done');

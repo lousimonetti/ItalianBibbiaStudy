@@ -20,7 +20,10 @@ let package = Package(
     targets: [
         .target(
             name: "BibbiaCore",
-            resources: [.copy("Resources/course.json")]
+            resources: [
+                .copy("Resources/course.json"),
+                .copy("Resources/common-words.json"),
+            ]
         ),
         .testTarget(
             name: "BibbiaCoreTests",

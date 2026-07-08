@@ -153,3 +153,15 @@ final class DictoglossFixtureTests: XCTestCase {
         }
     }
 }
+
+final class CommonWordsFixtureTests: XCTestCase {
+    struct Case: Decodable { let word: String; let gloss: String? }
+
+    func testCommonGlossMatchesWebOnAllCourseText() throws {
+        let cases = try loadFixture("commonGloss", as: [Case].self)
+        XCTAssertGreaterThan(cases.count, 1000, "fixture should cover the whole course text")
+        for c in cases {
+            XCTAssertEqual(CommonWords.shared.lookup(c.word), c.gloss, "lookupCommon(\(c.word))")
+        }
+    }
+}

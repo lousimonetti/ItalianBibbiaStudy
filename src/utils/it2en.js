@@ -1029,10 +1029,219 @@ const MAP = new Map(Object.entries({
   anzitutto: 'first of all', infine: 'finally',
   frattanto: 'meanwhile',
   esorto: 'I exhort', gareggiate: 'strive',
+
+  // --- avvicinare (to approach / draw near) ---
+  avvicino: 'I approach', avvicini: 'you approach', avvicina: 'approaches',
+  avvicinano: 'they approach', avvicinarono: 'approached',
+  avvicinava: 'was approaching', avvicinavano: 'were approaching',
+  avvicinavo: 'I was approaching', avvicinerà: 'will approach',
+  avvicinando: 'approaching', avvicinato: 'approached/drawn near',
+  avvicinata: 'approached', avvicinati: 'approached', avvicinare: 'to approach',
+
+  // --- raccontare (to tell / recount) ---
+  racconto: 'I tell / story', racconti: 'you tell', racconta: 'tells',
+  raccontiamo: 'we tell', raccontate: 'you tell', raccontano: 'they tell',
+  raccontò: 'told', raccontarono: 'told', raccontava: 'was telling',
+  raccontavano: 'were telling', racconterà: 'will tell',
+  raccontando: 'telling', raccontato: 'told', raccontata: 'told',
+  raccontare: 'to tell',
+
+  // --- more present / conditional forms from course text ---
+  ero: 'I was', abbi: 'have (imperative)',
+  scrive: 'writes', scrivi: 'write', scriveva: 'was writing',
+  descrivi: 'describe',
+  sembra: 'seems', dipende: 'depends', riguarda: 'concerns',
+  accoglie: 'welcomes', delude: 'disappoints', nutre: 'feeds',
+  trabocca: 'overflows', geme: 'groans', crea: 'creates/create',
+  dorme: 'sleeps', protegge: 'protects', assopisce: 'slumbers',
+  ricapitola: 'sums up', dimostra: 'shows', magnifica: 'magnifies',
+  spetta: 'is due to', attesta: 'testifies', abbatte: 'sweeps down',
+  esorta: 'exhorts',
+  confessa: 'confesses', bisogna: 'it is necessary', perde: 'loses',
+  concorre: 'works together (for)', recano: 'bring',
+  seminano: 'they sow', mietono: 'they reap', valete: 'you are worth',
+  diventi: 'you become', preoccupi: 'you worry', comprendi: 'you understand',
+  esiti: 'you hesitate', rendo: 'I give/render', pago: 'I pay',
+  possiedo: 'I possess', manco: 'I lack', vergogno: 'I am ashamed',
+  ritengo: 'I consider', vorrei: 'I would like', potrei: 'I could',
+  vantiamo: 'we boast', rivolgiamo: 'we turn (to)',
+
+  // --- more imperfect / passato remoto forms ---
+  sedeva: 'was sitting', osava: 'dared', scacciava: 'was casting out',
+  supplicavano: 'were begging', attraversava: 'was passing through',
+  riusciva: 'was able', considerava: 'considered', apparteneva: 'belonged to',
+  godevano: 'enjoyed', lapidavano: 'were stoning', approvava: 'approved of',
+  predicava: 'was preaching', accoglieva: 'welcomed',
+  percorrevi: 'you were traveling',
+  invitò: 'invited', calmò: 'calmed', versò: 'poured',
+  consegnò: 'handed over', purificò: 'purified', colpì: 'struck',
+  riempì: 'filled', incagliò: 'ran aground', verificò: 'happened',
+  tirò: 'drew/dragged', precipitò: 'rushed', apparecchiò: 'prepared/set out',
+  domandò: 'asked', sperperò: 'squandered', depose: 'laid down',
+  espose: 'explained/set forth',
+  vinsero: 'won/overcame', saziarono: 'ate their fill', gioirono: 'rejoiced',
+  riconobbero: 'recognized', recarono: 'went', scelsero: 'chose',
+  entrarono: 'entered', dichiararono: 'declared', bruciarono: 'burned',
+  arrivarono: 'arrived', arrivammo: 'we arrived', imbarcammo: 'we set sail',
+  recai: 'I went',
+
+  // --- more future / subjunctive forms ---
+  costruirò: 'I will build', darai: 'you will give', chiamerai: 'you will call',
+  riderete: 'you will laugh', indosserete: 'you will wear',
+  distruggeranno: 'will destroy', legheranno: 'will bind',
+  consegneranno: 'will hand over', udranno: 'will hear',
+  confesserai: 'you will confess', fuggirò: 'I will flee',
+  prenda: 'take', vengano: 'they come', appartenga: 'belongs',
+  diventassero: 'they might become', convertissero: 'they might convert',
+  ottengano: 'they may obtain', conceda: 'may grant', riempia: 'may fill',
+  rendiate: 'you may give', abbondiate: 'you may abound',
+  portiate: 'you may bear',
+
+  // --- more participles / gerunds ---
+  creato: 'created', contemplato: 'contemplated/beheld', sfamato: 'fed',
+  vinta: 'overcome', seduto: 'seated', andata: 'gone',
+  spostata: 'moved (away)', perdonati: 'forgiven', terminati: 'completed',
+  sorto: 'arisen', calmato: 'calmed', rassicurati: 'reassured',
+  salvata: 'saved', abbracciato: 'embraced', abbracciò: 'embraced',
+  raccolte: 'gathered', ritrovato: 'found again', reso: 'made/rendered',
+  fermatosi: 'having stopped', accolto: 'welcomed/received',
+  accompagnati: 'accompanied', spiegato: 'explained',
+  rotolata: 'rolled (away)', elevato: 'lifted up', colmato: 'filled',
+  colmati: 'filled', riempito: 'filled', mentito: 'lied',
+  diventata: 'become', diventati: 'become', meravigliati: 'amazed',
+  resuscitato: 'raised (from the dead)', arrestato: 'arrested',
+  comandato: 'commanded', fissato: 'fixed/appointed',
+  provveduto: 'provided', acquistato: 'bought/acquired',
+  dimostrato: 'shown', piantato: 'planted', sepolti: 'buried',
+  battezzati: 'baptized', persuaso: 'convinced', imparato: 'learned',
+  sottomessa: 'submissive/subject', arrivato: 'arrived',
+  posti: 'placed/places', tessuto: 'woven/knit',
+  dormendo: 'sleeping', pensando: 'thinking', testimoniando: 'testifying',
+  pernottando: 'spending the night', riguardanti: 'concerning',
+
+  // --- more infinitives (incl. truncated) ---
+  far: 'to do/make', aprir: 'to open', poter: 'to be able',
+  pensare: 'to think', rimettere: 'to forgive/remit',
+  ereditare: 'to inherit', indossare: 'to put on/wear',
+  impedire: 'to prevent', rendere: 'to give/render',
+  soccorrere: 'to help', ottenere: 'to obtain', commettere: 'to commit',
+  recalcitrare: 'to kick (against the goad)', trafiggere: 'to pierce',
+  esprimersi: 'to express themselves', uccidersi: 'to kill himself',
+  salvarsi: 'to save themselves', separarci: 'to separate us',
+  avvenire: 'to come / future',
+
+  // --- imperatives & clitic-attached forms ---
+  insegnateci: 'teach us', riferirlo: 'to report it',
+  metterlo: 'to place him', goditi: 'enjoy', bevi: 'drink',
+  dammi: 'give me', fateglielo: 'put it on him', mettetegli: 'put on him',
+  ammazzatelo: 'kill/slaughter it', poterlo: 'to be able to (see) him',
+  fermarmi: 'to stay/stop', preoccupatevi: 'worry (about)',
+  pentitevi: 'repent', battezzatevi: 'be baptized',
+  ricordatevi: 'remember', vigilate: 'keep watch',
+  esultate: 'rejoice/exult', considerate: 'consider', date: 'give',
+  offrite: 'offer', respingete: 'you reject', detestate: 'detest',
+  trasformatevi: 'be transformed', rinnovatevi: 'renew yourselves',
+  stimarvi: 'to esteem one another', prepararvi: 'to prepare for you',
+  convincerli: 'to convince them', farti: 'to do to yourself',
+  rendendomi: 'making me', ricordandosi: 'remembering',
+  glorificarci: 'to glorify us', sedermi: 'my sitting down',
+  alzarmi: 'my rising up', averne: 'to have (of it)',
+  sentirne: 'to hear (of it)', mondami: 'cleanse me',
+  àlzati: 'get up!', adùlteri: 'adulterers',
+
+  // --- more nouns from course text ---
+  posto: 'place', mente: 'mind', storia: 'story/history', paura: 'fear',
+  granai: 'barns', alloggio: 'lodging', consiglio: 'counsel/advice',
+  pazienza: 'patience', lampada: 'lamp', miracoli: 'miracles',
+  adoratori: 'worshipers', pani: 'loaves', pesci: 'fish',
+  traditore: 'traitor', tentazioni: 'temptations', lebbra: 'leprosy',
+  ipocriti: 'hypocrites', invitati: 'guests/invited', moglie: 'wife',
+  uccisione: 'killing', lettere: 'letters', squame: 'scales',
+  preferenza: 'partiality/preference', questione: 'question/dispute',
+  accuse: 'accusations', missionari: 'missionaries', sabato: 'Sabbath',
+  argento: 'silver', oro: 'gold', vesti: 'clothes', bisogni: 'needs',
+  libri: 'books', artigiani: 'craftsmen', figlie: 'daughters',
+  profetesse: 'prophetesses', cittadino: 'citizen', tribuno: 'tribune',
+  mezzogiorno: 'noon', poteri: 'powers', vipera: 'viper', assi: 'planks',
+  base: 'basis', affitto: 'rented lodging', storpio: 'crippled man',
+  comunione: 'fellowship/communion', fragore: 'roar',
+  sofferenze: 'sufferings', adozione: 'adoption',
+  principati: 'principalities', pensiero: 'thought', pensieri: 'thoughts',
+  bibbia: 'Bible', regola: 'rule', persona: 'person',
+  ebrei: 'Hebrews/Jews', seno: 'womb', presenza: 'presence',
+  animo: 'soul/spirit', valle: 'valley', empi: 'the wicked',
+  fatti: 'deeds/facts', peccata: 'sins', corso: 'run/course',
+  riguardo: 'regard/concerning', nuoto: 'swimming',
+  uni: 'one (gli uni gli altri = one another)',
+  bando: 'ban (mettere al bando = to exclude)',
+  improvviso: 'sudden', apparenza: 'appearance', agricoltore: 'farmer',
+  annunciazione: 'Annunciation', areopago: 'Areopagus', albero: 'tree',
+  angolo: 'corner', iscrizione: 'inscription', idolatria: 'idolatry',
+  accesso: 'access', autorizzazione: 'authorization',
+
+  // --- more adjectives / adverbs from course text ---
+  buon: 'good', romano: 'Roman', ebraica: 'Hebrew', religiosi: 'religious',
+  ignoto: 'unknown', instancabili: 'tireless', meritevole: 'worthy',
+  felice: 'happy (also Felix)', sani: 'safe and sound', oscura: 'dark',
+  privi: 'lacking/deprived', sventurato: 'wretched', votato: 'doomed',
+  filiale: 'filial (of sonship)', diversi: 'different/various',
+  liberamente: 'freely', italiano: 'Italian', finali: 'final',
+  meravigliose: 'wonderful', immensa: 'immense', sonori: 'resounding',
+  squillanti: 'ringing/clashing', impetuoso: 'rushing/mighty',
+  fremente: 'raging/breathing (threats)', assidui: 'devoted/steadfast',
+  incerte: 'uncertain', stretta: 'narrow', minore: 'younger',
+  tristi: 'sad', severamente: 'sternly', qualora: 'if ever',
+  inoltre: 'moreover', san: 'Saint',
+
+  // --- more names & places ---
+  samaritana: 'Samaritan woman', betania: 'Bethany',
+  maddalena: 'Magdalene', getsemani: 'Gethsemane',
+  dìdimo: 'Didymus (the Twin)', gabriele: 'Gabriel', naim: 'Nain',
+  elìa: 'Elijah', saffira: 'Sapphira', ananìa: 'Ananias',
+  ateniesi: 'Athenians', efeso: 'Ephesus', demetrio: 'Demetrius',
+  cesare: 'Caesar', malta: 'Malta',
+
+  // --- elided / idiomatic forms (exact entries win over the generic
+  //     elision fallback in lookupCommon) ---
+  "c'è": 'there is', "c'era": 'there was', "c'erano": 'there were',
+  "all'improvviso": 'suddenly', "all'aperto": 'in the open',
+  "all'udire": 'upon hearing', "dall'alto": 'from on high',
+  "dov'è": 'where is', "anch'egli": 'he too',
+  "l'hanno": 'they have (it)', "un'ora": 'an hour', "un'anima": 'a soul',
+  "alcun'altra": 'any other',
+}));
+
+// Elided prefixes (the part before an apostrophe) → their gloss. Lets any
+// "l'uomo" / "dell'anno" resolve as prefix gloss + stem gloss without
+// enumerating every combination. Idiomatic combinations (c'è,
+// all'improvviso, …) have explicit MAP entries, which win because the exact
+// match is tried first.
+const ELISION = new Map(Object.entries({
+  l: 'the', un: 'a', dell: 'of the', all: 'to the', dall: 'from the',
+  nell: 'in the', sull: 'on the', d: 'of', c: 'there', anch: 'also',
+  dov: 'where', alcun: 'any', quest: 'this', quell: 'that', sant: 'Saint',
+  senz: 'without',
 }));
 
 // Returns the English gloss for a common Italian word, or null if not found.
+// Tries the word exactly, then — for apostrophe'd words — an elided prefix
+// combined with the gloss of the stem ("l'uomo" → "the man").
 export function lookupCommon(word) {
   if (!word) return null;
-  return MAP.get(word.toLowerCase()) || null;
+  const w = word.toLowerCase().replace(/’/g, "'");
+  const exact = MAP.get(w);
+  if (exact) return exact;
+  const apos = w.indexOf("'");
+  if (apos > 0) {
+    const prefix = ELISION.get(w.slice(0, apos));
+    const stem = MAP.get(w.slice(apos + 1));
+    if (prefix && stem) return `${prefix} ${stem}`;
+  }
+  return null;
+}
+
+// Snapshot of the raw data for build scripts — the iOS app bundles this as
+// common-words.json so both apps gloss from the same source of truth.
+export function commonWordsData() {
+  return { words: Object.fromEntries(MAP), elisions: Object.fromEntries(ELISION) };
 }
