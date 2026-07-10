@@ -233,6 +233,28 @@ in that backlog blocks launch; resist doing them first.
 
 ---
 
+## Addendum — verified findings (follow-up pass)
+
+- **Dependabot alerts are dev-tooling only.** `npm audit --omit=dev` → **0
+  production vulnerabilities**; the full audit shows 11 (5 high) all in the
+  build chain (vite, babel plugins, postcss, undici, serialize-javascript…).
+  Nothing vulnerable ships to users. Action: `npm audit fix` + bump vite
+  within the pinned `^6.x` — hygiene before the repo goes public/template
+  (L14), not a launch blocker.
+- **Offline Anki decks are documented but not configured.** README and
+  CLAUDE.md say Workbox precaches `.apkg`, but `vite.config.js`'s
+  `globPatterns` is `'**/*.{js,css,html,ico,png,svg}'` — no `apkg` — so deck
+  downloads fail offline. All 42 decks total only **256 KB**: either add
+  `apkg` to the glob (costs nothing) or fix the docs.
+- **Hosting headroom confirmed.** `public/` is ~300 KB; Azure SWA free-tier
+  caps (250 MB app, 100 GB/mo bandwidth) leave orders of magnitude of room.
+- **LanguageTool at public scale.** The public API is rate-limited per client
+  IP (~20 req/min), so per-user usage is fine; its terms expect attribution —
+  add a "powered by LanguageTool" line in the Journal (fold into L3's
+  disclosures).
+
+---
+
 ## Suggested sequence
 
 | Phase | Items | Outcome |
