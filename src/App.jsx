@@ -4,7 +4,10 @@ import { config } from '../course/config';
 import { useProgress } from './hooks/useProgress';
 import { useInstallPrompt } from './hooks/useInstallPrompt';
 import { useTheme } from './hooks/useTheme';
-import { getCurrentWeekN, getTodayDayIndex } from './utils/schedule';
+import { getCurrentWeekN, getTodayDayIndex, weekDateLabel } from './utils/schedule';
+import { getSessionStart, getSessionStartOverride, getSessionStartLabel, getEndDateLabel, parseLocalDate } from './utils/sessionStart';
+import { SessionRow } from './components/NewSession';
+import { AboutPrivacy } from './components/AboutPrivacy';
 import { Phase } from './components/Phase';
 import { GuideSection } from './components/GuideSection';
 import { FlashcardsTab } from './components/FlashcardsTab';
@@ -170,10 +173,14 @@ function TodayCard({ currentWeekN }) {
   const todayTask = DAILY[getTodayDayIndex()];
 
   if (!week) {
+    const notStarted = Date.now() < parseLocalDate(getSessionStart()).getTime();
     return (
       <div className="today-card today-card--inactive">
-        <span className="today-pre-label">Program starts April 13, 2026</span>
-        <span className="today-pre-sub">37 weeks · Easter to Christmas</span>
+        <span className="today-pre-label">
+          {notStarted ? `Program starts ${getSessionStartLabel()}` : `Program finished ${getEndDateLabel()} — complimenti!`}
+        </span>
+        <span className="today-pre-sub">{TOTAL} weeks · {getSessionStartLabel()} → {getEndDateLabel()}</span>
+        <SessionRow prominent />
         <DailyGoals />
       </div>
     );
@@ -184,7 +191,7 @@ function TodayCard({ currentWeekN }) {
       <div className="today-meta">
         <span className="today-week-pill"><UiText k="today.week" /> {week.n}</span>
         <span className="today-reading">{week.r}</span>
-        <span className="today-date">{week.d}</span>
+        <span className="today-date">{weekDateLabel(week)}</span>
       </div>
 
       <div className="today-task-row">
@@ -211,6 +218,8 @@ function TodayCard({ currentWeekN }) {
           ))}
         </div>
       )}
+
+      <SessionRow />
     </div>
   );
 }
@@ -222,6 +231,15 @@ const TABS = [
   { id: 'Prayers',    Icon: PrayersIcon },
   { id: 'Saints',     Icon: SaintsIcon },
 ];
+
+// The header tagline: the authored brand line on the default calendar; once a
+// New Session is active, the week count + real end date (keeping any tail of
+// the authored tagline after its first "—", e.g. the tool list).
+function taglineText() {
+  if (!getSessionStartOverride()) return config.brand.tagline;
+  const tail = config.brand.tagline.split('—').slice(1).join('—').trim();
+  return `${config.schedule.weeks} weeks to ${getEndDateLabel()}${tail ? ` — ${tail}` : ''}`;
+}
 
 // Render the brand name with its first word in the accent colour.
 function renderBrandName(name) {
@@ -268,7 +286,7 @@ export default function App() {
       <div className="app-header">
         <div className="header-text">
           <h1>{renderBrandName(config.brand.name)}</h1>
-          <p className="tagline">{config.brand.tagline}</p>
+          <p className="tagline">{taglineText()}</p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
           <CoursePicker />
@@ -303,7 +321,7 @@ export default function App() {
       <div className="progress-wrap">
         <div className="progress-top">
           <div className="progress-count">{doneCount} / {TOTAL} <UiText k="progress.weeks" /></div>
-          <div className="progress-goal"><UiText k="progress.goal" />: {config.brand.goal}</div>
+          <div className="progress-goal"><UiText k="progress.goal" />: {getSessionStartOverride() ? getEndDateLabel() : config.brand.goal}</div>
         </div>
         <div className="bar-bg">
           <div className="bar-fill" style={{ width: `${pct}%` }}
@@ -358,6 +376,8 @@ export default function App() {
 
       {/* Tab: Saints */}
       {activeTab === 'Saints' && <SaintsTab />}
+
+      <AboutPrivacy />
     </div>
   );
 }

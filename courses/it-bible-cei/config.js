@@ -51,6 +51,31 @@ export const config = {
     ],
   },
 
+  // Content/licensing notices rendered in the "About & privacy" panel. Every
+  // notice a public deploy of this course is required to show belongs here —
+  // forks replace these with their own material's notices.
+  licenses: [
+    {
+      name: 'La Bibbia CEI 2008',
+      note: 'I testi biblici sono tratti dalla Bibbia CEI 2008, © Fondazione di Religione ' +
+        'Santi Francesco d’Assisi e Caterina da Siena / Conferenza Episcopale Italiana. ' +
+        'Brief passages (a few verses per week) are quoted for non-commercial educational ' +
+        'use; all rights remain with the copyright holder.',
+      url: 'https://www.bibbiaedu.it',
+    },
+    {
+      name: 'Wikipedia',
+      note: 'Saint-of-the-day stories are fetched from Wikipedia and are available under ' +
+        'the Creative Commons Attribution-ShareAlike license.',
+      url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    },
+    {
+      name: 'LanguageTool',
+      note: 'The optional Journal grammar check is powered by the LanguageTool public API.',
+      url: 'https://languagetool.org',
+    },
+  ],
+
   // Supporting tools/materials the course uses (rendered on the WelcomeCard).
   resources: [
     { id: 'text', name: 'La Bibbia CEI 2008', badge: 'Primary text', role: 'reading',

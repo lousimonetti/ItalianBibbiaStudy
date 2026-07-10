@@ -1,11 +1,13 @@
 import { describe, it, expect, afterEach, vi } from 'vitest';
-import { getCurrentWeekN, getTodayDayIndex } from './schedule.js';
+import { getCurrentWeekN, getTodayDayIndex, weekRangeLabel, weekDateLabel } from './schedule.js';
+import { setSessionStart, clearSessionStart } from './sessionStart.js';
 
 // Apr 13, 2026 is a Monday — verified: new Date(2026, 3, 13).getDay() === 1
 const PROGRAM_START = new Date(2026, 3, 13);
 
 afterEach(() => {
   vi.useRealTimers();
+  clearSessionStart();
 });
 
 describe('getCurrentWeekN', () => {
@@ -65,6 +67,61 @@ describe('getCurrentWeekN', () => {
     const n = getCurrentWeekN();
     expect(n).toBeGreaterThanOrEqual(1);
     expect(n).toBeLessThanOrEqual(37);
+  });
+});
+
+describe('getCurrentWeekN with a session-start override', () => {
+  it('computes the week from the override, not the course startDate', () => {
+    setSessionStart('2026-07-06'); // a Monday well after the authored start
+    vi.setSystemTime(new Date(2026, 6, 10)); // Jul 10 — week 13 of the default calendar
+    expect(getCurrentWeekN()).toBe(1);
+    vi.setSystemTime(new Date(2026, 6, 13)); // Jul 13 — first day of override week 2
+    expect(getCurrentWeekN()).toBe(2);
+  });
+
+  it('returns null before an override start in the future', () => {
+    setSessionStart('2026-08-01');
+    vi.setSystemTime(new Date(2026, 6, 10));
+    expect(getCurrentWeekN()).toBeNull();
+  });
+
+  it('reverts to the course calendar after clearSessionStart, without a module reload', () => {
+    setSessionStart('2026-07-06');
+    vi.setSystemTime(new Date(2026, 6, 10));
+    expect(getCurrentWeekN()).toBe(1);
+    clearSessionStart();
+    expect(getCurrentWeekN()).toBe(13); // Apr 13 + 88 days
+  });
+});
+
+describe('weekRangeLabel / weekDateLabel', () => {
+  it('labels week 1 of the default calendar', () => {
+    expect(weekRangeLabel(1)).toBe('Apr 13-19');
+  });
+
+  it('labels a week that spans a month boundary', () => {
+    expect(weekRangeLabel(3)).toBe('Apr 27-May 3'); // Apr 27 – May 3
+  });
+
+  it('follows the override', () => {
+    setSessionStart('2026-07-06');
+    expect(weekRangeLabel(1)).toBe('Jul 6-12');
+  });
+
+  it('rejects out-of-range week numbers', () => {
+    expect(weekRangeLabel(0)).toBeNull();
+    expect(weekRangeLabel(null)).toBeNull();
+  });
+
+  it('weekDateLabel keeps the authored string on the default calendar', () => {
+    const week = { n: 1, d: 'Apr 13–19' };
+    expect(weekDateLabel(week)).toBe('Apr 13–19');
+  });
+
+  it('weekDateLabel computes the range once an override is active', () => {
+    setSessionStart('2026-07-06');
+    const week = { n: 1, d: 'Apr 13–19' };
+    expect(weekDateLabel(week)).toBe('Jul 6-12');
   });
 });
 

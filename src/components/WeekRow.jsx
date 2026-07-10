@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { WeekDetail } from './WeekDetail';
+import { weekDateLabel } from '../utils/schedule';
 
 function ChevronIcon({ open }) {
   return (
@@ -29,7 +30,7 @@ export function WeekRow({ week, checked, onToggle, isCurrent }) {
             aria-label={`Mark week ${week.n} complete`}
           />
         </label>
-        <div className="week-date">{week.d}</div>
+        <div className="week-date">{weekDateLabel(week)}</div>
         <div className="week-reading">
           {week.r}
           {isCurrent && <span className="current-week-flag">This week</span>}

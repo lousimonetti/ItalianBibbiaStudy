@@ -272,6 +272,9 @@ export function JournalTab() {
       <div className="jrn-info">
         Write in Italian — open any week to see its prompt and a short how-to guide.
         Notes save automatically as you type. Export downloads a single markdown file you can open in any app.
+        {grammarEnabled && (
+          <span> Grammar suggestions are powered by LanguageTool — the checked text is sent to its API.</span>
+        )}
       </div>
 
       {/* Phase filter */}

@@ -28,6 +28,10 @@ between "works for the author" and "works for the public."
 
 ### L1 — New Session / Calendar Reset on the web app (`plan-new-session.md`)
 
+**✅ SHIPPED** — `sessionStart.js`/`resetSession.js`/`NewSession.jsx` +
+per-call `schedule.js`; week ranges compute from the effective start; the
+override uses the iOS key/format so sync backups interop. Original rationale:
+
 **The single hard functional blocker.** `config.schedule.startDate` is
 hardcoded to `2026-04-13`. A stranger who opens the web app today lands in the
 middle of week ~13 with weeks 1–12 already "missed," and has **no way to start
@@ -43,6 +47,12 @@ the effective start). The web app needs parity before anyone else can use it.
 - Priority: **do first — nothing else matters if new users can't start**
 
 ### L2 — Content licensing: CEI 2008 passage text
+
+**◐ PARTIALLY SHIPPED** — the attribution notices are live (CEI quotation
+notice + Wikipedia CC BY-SA + LanguageTool credit in the new About & privacy
+panel, driven by `config.licenses`; the Journal credits LanguageTool while the
+grammar check is on). Remaining human action: verify quotation scope /
+email the Fondazione for explicit permission (options below).
 
 `courses/it-bible-cei/exercises.js` ships 4–8 verses of **La Bibbia CEI 2008**
 per week for all 37 weeks. The CEI translation is copyrighted (© Fondazione di
@@ -71,6 +81,11 @@ example sentences are original course content — fine).
 - Priority: **must be resolved before the URL is shared publicly**
 
 ### L3 — Privacy policy + permission disclosures
+
+**✅ SHIPPED** — `AboutPrivacy.jsx`: a static, offline "About & privacy"
+modal behind an app footer link covering data-on-device, the two online
+services (LanguageTool, Wikipedia), and mic/camera/notification use. Reuse
+its text for the App Store privacy labels. Original rationale:
 
 Required for the App Store (privacy nutrition labels) and expected on the web.
 The app is genuinely privacy-friendly — no backend, no accounts, no analytics,
