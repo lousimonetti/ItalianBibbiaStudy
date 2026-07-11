@@ -55,15 +55,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   to be blocked by the egress proxy — if individual verses need updating, edit
   `exercises.js` directly. See `opportunities.md` for the full implementation
   learnings and remaining open items (O6–O17).
-- **New Session / Calendar Reset (`plan-new-session.md`): planned, not started.**
-  Lets any user start (or restart) the 37-week program from today — or any chosen
-  date — without editing source code. Writes a `session-start` override to
-  `localStorage` via a new `src/utils/sessionStart.js`; `schedule.js` reads the
-  override in preference to `config.schedule.startDate`. A "New Session" bottom
-  sheet in Settings (T1) lets users pick a start date, choose which data to reset
-  (progress/streak/SRS intervals/journal, T2), then reloads. `TodayCard` and the
-  header tagline dynamically display the new end date (T3). Full task list in
-  `plan-new-session.md`.
+- **New Session / Calendar Reset (`plan-new-session.md`): SHIPPED.** Any user
+  can start (or restart) the N-week program from any date without editing source.
+  `src/utils/sessionStart.js` owns the `storageKey('session-start')` override —
+  the same plain `YYYY-MM-DD` string under the same key the iOS app writes, so
+  sync backups carry it both ways; `schedule.js` re-reads it **per call** (never
+  cached at module load) and gained `weekRangeLabel`/`weekDateLabel`, which
+  compute week date ranges from the effective start once an override is active
+  (authored `week.d` strings still render on the default calendar, so the
+  reference deploy is unchanged). `resetSession.js` stamps the override then
+  clears the selected stores (progress/streak/srs/journal — whole-key removal,
+  matching iOS `startNewSession`) and the UI reloads. Entry point is the
+  `SessionRow` footer on `TodayCard` (`NewSession.jsx`): date picker + reset
+  scope checkboxes + confirm; a "Reset to course default" button appears when an
+  override is active; when the program is inactive the row becomes a prominent
+  "Start the N-week program today" button and the inactive card's dates are
+  dynamic. Header tagline and progress goal interpolate the computed end date
+  when an override is active. Tests: `sessionStart.test.js`,
+  `resetSession.test.js`, extended `schedule.test.js`.
+- **Public-launch prep (`launch-opportunities.md`): L1/L3 shipped, L2 partially.**
+  Beyond New Session (L1): an **About & privacy** footer modal
+  (`AboutPrivacy.jsx` — data-on-device explanation, the two online services,
+  device permissions) whose content-license notices come from a new
+  `config.licenses` array (CEI 2008 quotation notice, Wikipedia CC BY-SA,
+  LanguageTool — course-level data, forks ship their own); the Journal shows a
+  LanguageTool credit while the grammar check is on. Remaining L2 human action:
+  confirming/obtaining CEI quotation permission.
 - **Natural speaking / thinking-in-Italian (`plan-speaking.md`): P1–P3 shipped —
   the whole roadmap is complete.** Targets the automatization gap — producing spontaneous Italian
   without translating from English. **P1 (zero-content) is implemented:**
@@ -193,7 +210,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `usePronunStats` — pronunciation attempts under key `italian-bible-pronun` (per-word `{ attempts, last, best, sum, avg, at }`); `record(term, score)`, `getStore()`. Recorded by Pronunciation mode; combined with the SRS store by `src/utils/wordStats.js` (`struggleList`) to drive the Practice "Parole difficili / words you struggle with" panel.
 - `useStreak` — daily streak + today's-goal flags under key `italian-bible-streak`; React glue over pure `src/utils/streak.js` (`{ last, current, best, today: { date, read, practiced, journaled } }`). The dashboard reads it on mount (`TodayCard` remounts on tab switch, picking up activity recorded elsewhere); `recordActivity(flag)` is called fire-and-forget from `PracticeMode` (`'practiced'`) and `JournalTab` (`'journaled'`), and `tickRead` marks the reading box.
 
-All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
+All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 

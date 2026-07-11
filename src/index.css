@@ -263,6 +263,91 @@ body {
 .sync-warn { font-size: 12px; color: var(--danger, #c0392b); margin: 0; }
 .sync-foot { font-size: 11px; color: var(--text-faint); margin: 12px 0 0; text-align: center; }
 
+/* New Session — start/restart the program from any date (plan-new-session.md) */
+.session-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.session-row--prominent { justify-content: stretch; margin: 4px 0; }
+.session-chip { font-size: 11px; color: var(--text-faint); margin-right: auto; }
+.session-restart-btn {
+  background: none;
+  border: none;
+  padding: 2px 0;
+  font-size: 11px;
+  color: var(--text-faint);
+  cursor: pointer;
+}
+.session-restart-btn:hover { color: var(--accent); }
+.session-start-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.session-date-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text);
+}
+.session-date-input {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  color-scheme: light dark;
+}
+.session-scope {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.session-scope legend { font-size: 11px; color: var(--text-muted); padding: 0 4px; }
+.session-scope-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.session-scope-row strong { color: var(--text); font-weight: 500; }
+
+/* About / privacy & licenses footer */
+.app-footer { text-align: center; margin: 28px 0 8px; }
+.about-link {
+  background: none;
+  border: none;
+  font-size: 11px;
+  color: var(--text-faint);
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.about-link:hover { color: var(--accent); }
+.about-modal { max-height: 85vh; overflow-y: auto; text-align: left; }
+.about-body { display: flex; flex-direction: column; gap: 6px; }
+.about-body h3 { font-size: 13px; margin: 10px 0 0; color: var(--text); }
+.about-body p { font-size: 12px; line-height: 1.55; color: var(--text-muted); margin: 0; }
+.about-body a { color: var(--accent); }
+
 /* Multi-course switcher (only shown when 2+ courses are registered) */
 .course-picker {
   height: 32px;
