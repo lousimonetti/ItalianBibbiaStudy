@@ -19,6 +19,14 @@ export function GlossPopover({ entry }) {
           {entry.approx && <span className="gloss-pop-approx" title="Auto-generated approximate pronunciation"> ≈</span>}
         </span>
       )}
+      {/* An inflected form points back at the word it belongs to — naming that
+          relationship ("ha creduto → credere") is most of what an English
+          speaker has to internalise about Italian verbs. */}
+      {entry.lemma && (
+        <span className="gloss-pop-lemma">
+          form of <strong>{entry.lemma}</strong>
+        </span>
+      )}
     </span>
   );
 }

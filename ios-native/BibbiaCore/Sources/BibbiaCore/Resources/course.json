@@ -108,43 +108,52 @@
        "it": "il Verbo",
        "en": "the Word",
        "ex": "In principio era il Verbo",
-       "ipa": "/il ˈvɛrbo/"
+       "ipa": "/il ˈvɛrbo/",
+       "exEn": "In the beginning was the Word"
       },
       {
        "it": "la luce",
        "en": "the light",
        "ex": "La luce splende",
-       "ipa": "/la ˈluːtʃe/"
+       "ipa": "/la ˈluːtʃe/",
+       "exEn": "The light shines"
       },
       {
        "it": "le tenebre",
        "en": "the darkness",
        "ex": "le tenebre non la vinsero",
-       "ipa": "/le ˈtɛːnebɾe/"
+       "ipa": "/le ˈtɛːnebɾe/",
+       "exEn": "the darkness did not overcome it"
       },
       {
        "it": "la vita",
        "en": "life",
        "ex": "in lui era la vita",
-       "ipa": "/la ˈviːta/"
+       "ipa": "/la ˈviːta/",
+       "exEn": "in him was life"
       },
       {
        "it": "credere",
        "en": "to believe",
        "ex": "ha creduto in lui",
-       "ipa": "/ˈkɾɛːdeɾe/"
+       "ipa": "/ˈkɾɛːdeɾe/",
+       "exEn": "he believed in him",
+       "form": "ha creduto"
       },
       {
        "it": "il miracolo",
        "en": "the miracle",
        "ex": "primo dei suoi miracoli",
-       "ipa": "/il miˈɾaːkolo/"
+       "ipa": "/il miˈɾaːkolo/",
+       "exEn": "the first of his miracles",
+       "form": "miracoli"
       },
       {
        "it": "il mondo",
        "en": "the world",
        "ex": "il mondo è stato fatto per mezzo di lui",
-       "ipa": "/il ˈmondo/"
+       "ipa": "/il ˈmondo/",
+       "exEn": "the world was made through him"
       }
      ],
      "grammar": {
@@ -270,43 +279,52 @@
        "it": "nascere",
        "en": "to be born",
        "ex": "bisogna nascere di nuovo",
-       "ipa": "/ˈnaʃʃeɾe/"
+       "ipa": "/ˈnaʃʃeɾe/",
+       "exEn": "one must be born again"
       },
       {
        "it": "lo Spirito",
        "en": "the Spirit",
        "ex": "lo Spirito soffia dove vuole",
-       "ipa": "/lo ˈspiːɾito/"
+       "ipa": "/lo ˈspiːɾito/",
+       "exEn": "the Spirit blows where it wills"
       },
       {
        "it": "il pozzo",
        "en": "the well",
        "ex": "sedeva presso il pozzo",
-       "ipa": "/il ˈpɔttso/"
+       "ipa": "/il ˈpɔttso/",
+       "exEn": "he was sitting by the well"
       },
       {
        "it": "adorare",
        "en": "to worship",
        "ex": "i veri adoratori",
-       "ipa": "/adoˈɾaːɾe/"
+       "ipa": "/adoˈɾaːɾe/",
+       "exEn": "the true worshippers",
+       "form": "adoratori"
       },
       {
        "it": "il Salvatore",
        "en": "the Savior",
        "ex": "il Salvatore del mondo",
-       "ipa": "/il salvaˈtoːɾe/"
+       "ipa": "/il salvaˈtoːɾe/",
+       "exEn": "the Savior of the world"
       },
       {
        "it": "credere",
        "en": "to believe",
        "ex": "chi crede in lui",
-       "ipa": "/ˈkɾɛːdeɾe/"
+       "ipa": "/ˈkɾɛːdeɾe/",
+       "exEn": "whoever believes in him",
+       "form": "crede"
       },
       {
        "it": "il dono",
        "en": "the gift",
        "ex": "se conoscessi il dono di Dio",
-       "ipa": "/il ˈdoːno/"
+       "ipa": "/il ˈdoːno/",
+       "exEn": "if you knew the gift of God"
       }
      ],
      "grammar": {
@@ -431,43 +449,53 @@
        "it": "guarire",
        "en": "to heal",
        "ex": "lo ha guarito",
-       "ipa": "/ɡwaˈɾiːɾe/"
+       "ipa": "/ɡwaˈɾiːɾe/",
+       "exEn": "he healed him",
+       "form": "ha guarito"
       },
       {
        "it": "il pane",
        "en": "bread",
        "ex": "sono io il pane della vita",
-       "ipa": "/il ˈpaːne/"
+       "ipa": "/il ˈpaːne/",
+       "exEn": "I am the bread of life"
       },
       {
        "it": "la folla",
        "en": "the crowd",
        "ex": "la folla grande lo seguiva",
-       "ipa": "/la ˈfɔlla/"
+       "ipa": "/la ˈfɔlla/",
+       "exEn": "the great crowd was following him"
       },
       {
        "it": "saziarsi",
        "en": "to be satisfied",
        "ex": "mangiarono e si saziarono",
-       "ipa": "/sattsˈjaɾsi/"
+       "ipa": "/sattsˈjaɾsi/",
+       "exEn": "they ate and were satisfied",
+       "form": "si saziarono"
       },
       {
        "it": "la vita eterna",
        "en": "eternal life",
        "ex": "ha la vita eterna",
-       "ipa": "/la ˈviːta eˈtɛɾna/"
+       "ipa": "/la ˈviːta eˈtɛɾna/",
+       "exEn": "he has eternal life"
       },
       {
        "it": "la manna",
        "en": "manna",
        "ex": "i nostri padri mangiarono la manna",
-       "ipa": "/la ˈmanna/"
+       "ipa": "/la ˈmanna/",
+       "exEn": "our fathers ate the manna"
       },
       {
        "it": "il segno",
        "en": "the sign",
        "ex": "quale segno fai tu?",
-       "ipa": "/il ˈseɲɲo/"
+       "ipa": "/il ˈseɲɲo/",
+       "exEn": "what sign do you perform?",
+       "form": "segno"
       }
      ],
      "grammar": {
@@ -585,43 +613,54 @@
        "it": "insegnare",
        "en": "to teach",
        "ex": "insegnava nel tempio",
-       "ipa": "/inseɲˈɲaːɾe/"
+       "ipa": "/inseɲˈɲaːɾe/",
+       "exEn": "he was teaching in the temple",
+       "form": "insegnava"
       },
       {
        "it": "la verità",
        "en": "the truth",
        "ex": "la verità vi farà liberi",
-       "ipa": "/la veɾiˈta/"
+       "ipa": "/la veɾiˈta/",
+       "exEn": "the truth will set you free"
       },
       {
        "it": "liberare",
        "en": "to set free",
        "ex": "vi farà liberi",
-       "ipa": "/libeˈɾaːɾe/"
+       "ipa": "/libeˈɾaːɾe/",
+       "exEn": "he will make you free",
+       "form": "liberi"
       },
       {
        "it": "giudicare",
        "en": "to judge",
        "ex": "non giudicate secondo l'apparenza",
-       "ipa": "/dʒudiˈkaːɾe/"
+       "ipa": "/dʒudiˈkaːɾe/",
+       "exEn": "do not judge by appearances",
+       "form": "giudicate"
       },
       {
        "it": "il peccato",
        "en": "sin",
        "ex": "chi di voi è senza peccato",
-       "ipa": "/il pekˈkaːto/"
+       "ipa": "/il pekˈkaːto/",
+       "exEn": "which of you is without sin"
       },
       {
        "it": "scrivere",
        "en": "to write",
        "ex": "scriveva per terra",
-       "ipa": "/ˈskɾiːveɾe/"
+       "ipa": "/ˈskɾiːveɾe/",
+       "exEn": "he was writing on the ground",
+       "form": "scriveva"
       },
       {
        "it": "luce del mondo",
        "en": "light of the world",
        "ex": "sono la luce del mondo",
-       "ipa": "/ˈluːtʃe del ˈmondo/"
+       "ipa": "/ˈluːtʃe del ˈmondo/",
+       "exEn": "I am the light of the world"
       }
      ],
      "grammar": {
@@ -734,43 +773,55 @@
        "it": "il cieco",
        "en": "blind man",
        "ex": "un uomo cieco dalla nascita",
-       "ipa": "/il ˈtʃɛːko/"
+       "ipa": "/il ˈtʃɛːko/",
+       "exEn": "a man blind from birth",
+       "form": "cieco"
       },
       {
        "it": "vedere",
        "en": "to see",
        "ex": "ora vedo",
-       "ipa": "/veˈdɛːɾe/"
+       "ipa": "/veˈdɛːɾe/",
+       "exEn": "now I see",
+       "form": "vedo"
       },
       {
        "it": "il buon pastore",
        "en": "the good shepherd",
        "ex": "io sono il buon pastore",
-       "ipa": "/il ˌbwɔn pasˈtoːɾe/"
+       "ipa": "/il ˌbwɔn pasˈtoːɾe/",
+       "exEn": "I am the good shepherd"
       },
       {
        "it": "la pecora",
        "en": "sheep",
        "ex": "conosce le mie pecore",
-       "ipa": "/la ˈpɛːkoɾa/"
+       "ipa": "/la ˈpɛːkoɾa/",
+       "exEn": "he knows my sheep",
+       "form": "pecore"
       },
       {
        "it": "la tomba",
        "en": "tomb",
        "ex": "dov'è il sepolcro?",
-       "ipa": "/la ˈtomba/"
+       "ipa": "/la ˈtomba/",
+       "exEn": "where is the tomb?"
       },
       {
        "it": "risuscitare",
        "en": "to raise from dead",
        "ex": "io sono la risurrezione",
-       "ipa": "/ɾizuʃʃiˈtaːɾe/"
+       "ipa": "/ɾizuʃʃiˈtaːɾe/",
+       "exEn": "I am the resurrection",
+       "form": "risurrezione"
       },
       {
        "it": "piangere",
        "en": "to weep",
        "ex": "Gesù scoppiò in pianto",
-       "ipa": "/ˈpjandʒeɾe/"
+       "ipa": "/ˈpjandʒeɾe/",
+       "exEn": "Jesus burst into tears",
+       "form": "pianto"
       }
      ],
      "grammar": {
@@ -889,43 +940,54 @@
        "it": "l'unzione",
        "en": "the anointing",
        "ex": "l'unzione a Betania",
-       "ipa": "/lunˈtsjone/"
+       "ipa": "/lunˈtsjone/",
+       "exEn": "the anointing at Bethany"
       },
       {
        "it": "l'asino",
        "en": "the donkey",
        "ex": "seduto su un asino",
-       "ipa": "/ˈlaːzino/"
+       "ipa": "/ˈlaːzino/",
+       "exEn": "seated on a donkey",
+       "form": "asino"
       },
       {
        "it": "lavare i piedi",
        "en": "wash feet",
        "ex": "lavò i piedi ai discepoli",
-       "ipa": "/laˈvaːɾe i ˈpjɛːdi/"
+       "ipa": "/laˈvaːɾe i ˈpjɛːdi/",
+       "exEn": "he washed the disciples’ feet",
+       "form": "lavò i piedi"
       },
       {
        "it": "il tradimento",
        "en": "betrayal",
        "ex": "annunciò il suo traditore",
-       "ipa": "/il tɾadiˈmento/"
+       "ipa": "/il tɾadiˈmento/",
+       "exEn": "he announced his betrayer",
+       "form": "traditore"
       },
       {
        "it": "la casa del Padre",
        "en": "Father's house",
        "ex": "nella casa del Padre",
-       "ipa": "/la ˈkaːza del ˈpaːdɾe/"
+       "ipa": "/la ˈkaːza del ˈpaːdɾe/",
+       "exEn": "in the Father’s house",
+       "form": "casa del Padre"
       },
       {
        "it": "il Paraclito",
        "en": "the Paraclete",
        "ex": "vi manderà il Paraclito",
-       "ipa": "/il paˈɾaːklito/"
+       "ipa": "/il paˈɾaːklito/",
+       "exEn": "he will send you the Paraclete"
       },
       {
        "it": "la via",
        "en": "the way",
        "ex": "io sono la via",
-       "ipa": "/la ˈviːa/"
+       "ipa": "/la ˈviːa/",
+       "exEn": "I am the way"
       }
      ],
      "grammar": {
@@ -1048,43 +1110,54 @@
        "it": "la vite",
        "en": "the vine",
        "ex": "io sono la vite vera",
-       "ipa": "/la ˈviːte/"
+       "ipa": "/la ˈviːte/",
+       "exEn": "I am the true vine"
       },
       {
        "it": "il tralcio",
        "en": "the branch",
        "ex": "ogni tralcio in me",
-       "ipa": "/il ˈtɾaltʃo/"
+       "ipa": "/il ˈtɾaltʃo/",
+       "exEn": "every branch in me",
+       "form": "tralcio"
       },
       {
        "it": "portare frutto",
        "en": "to bear fruit",
        "ex": "portiate molto frutto",
-       "ipa": "/poɾˈtaːɾe ˈfɾutto/"
+       "ipa": "/poɾˈtaːɾe ˈfɾutto/",
+       "exEn": "that you bear much fruit",
+       "form": "portiate molto frutto"
       },
       {
        "it": "il comandamento",
        "en": "commandment",
        "ex": "questo è il mio comandamento",
-       "ipa": "/il komandaˈmento/"
+       "ipa": "/il komandaˈmento/",
+       "exEn": "this is my commandment"
       },
       {
        "it": "rimanere",
        "en": "to remain",
        "ex": "rimanete nel mio amore",
-       "ipa": "/ɾimaˈnɛːɾe/"
+       "ipa": "/ɾimaˈnɛːɾe/",
+       "exEn": "remain in my love",
+       "form": "rimanete"
       },
       {
        "it": "il mondo",
        "en": "the world",
        "ex": "il mondo vi odierà",
-       "ipa": "/il ˈmondo/"
+       "ipa": "/il ˈmondo/",
+       "exEn": "the world will hate you"
       },
       {
        "it": "la preghiera",
        "en": "prayer",
        "ex": "pregò per i suoi discepoli",
-       "ipa": "/la pɾeˈɡjɛːɾa/"
+       "ipa": "/la pɾeˈɡjɛːɾa/",
+       "exEn": "he prayed for his disciples",
+       "form": "pregò"
       }
      ],
      "grammar": {
@@ -1204,43 +1277,50 @@
        "it": "l'arresto",
        "en": "the arrest",
        "ex": "l'arresto nel Getsemani",
-       "ipa": "/laɾˈɾɛsto/"
+       "ipa": "/laɾˈɾɛsto/",
+       "exEn": "the arrest in Gethsemane"
       },
       {
        "it": "il rinnegamento",
        "en": "the denial",
        "ex": "il rinnegamento di Pietro",
-       "ipa": "/il ɾinneɡaˈmento/"
+       "ipa": "/il ɾinneɡaˈmento/",
+       "exEn": "Peter’s denial"
       },
       {
        "it": "la crocifissione",
        "en": "crucifixion",
        "ex": "portò la sua croce",
-       "ipa": "/la kɾotʃifisˈsjone/"
+       "ipa": "/la kɾotʃifisˈsjone/",
+       "exEn": "he carried his cross"
       },
       {
        "it": "il sepolcro vuoto",
        "en": "empty tomb",
        "ex": "il sepolcro era vuoto",
-       "ipa": "/il seˈpɔlkɾo ˈvwɔto/"
+       "ipa": "/il seˈpɔlkɾo ˈvwɔto/",
+       "exEn": "the tomb was empty"
       },
       {
        "it": "la resurrezione",
        "en": "the resurrection",
        "ex": "sono risorto",
-       "ipa": "/la ɾezuɾɾetˈtsjone/"
+       "ipa": "/la ɾezuɾɾetˈtsjone/",
+       "exEn": "I have risen"
       },
       {
        "it": "la missione",
        "en": "the mission",
        "ex": "come il Padre ha mandato me",
-       "ipa": "/la misˈsjone/"
+       "ipa": "/la misˈsjone/",
+       "exEn": "as the Father has sent me"
       },
       {
        "it": "la pace",
        "en": "peace",
        "ex": "la pace sia con voi",
-       "ipa": "/la ˈpaːtʃe/"
+       "ipa": "/la ˈpaːtʃe/",
+       "exEn": "peace be with you"
       }
      ],
      "grammar": {
@@ -1373,43 +1453,54 @@
        "it": "l'annuncio",
        "en": "the announcement",
        "ex": "l'annunciazione a Maria",
-       "ipa": "/lanˈnuntʃo/"
+       "ipa": "/lanˈnuntʃo/",
+       "exEn": "the Annunciation to Mary",
+       "form": "annunciazione"
       },
       {
        "it": "l'angelo",
        "en": "the angel",
        "ex": "l'angelo Gabriele",
-       "ipa": "/ˈlandʒelo/"
+       "ipa": "/ˈlandʒelo/",
+       "exEn": "the angel Gabriel"
       },
       {
        "it": "benedetto",
        "en": "blessed",
        "ex": "benedetta tu fra le donne",
-       "ipa": "/beneˈdɛtto/"
+       "ipa": "/beneˈdɛtto/",
+       "exEn": "blessed are you among women",
+       "form": "benedetta"
       },
       {
        "it": "la nascita",
        "en": "birth",
        "ex": "la nascita di Gesù",
-       "ipa": "/la ˈnaʃʃita/"
+       "ipa": "/la ˈnaʃʃita/",
+       "exEn": "the birth of Jesus"
       },
       {
        "it": "la mangiatoia",
        "en": "manger",
        "ex": "lo depose nella mangiatoia",
-       "ipa": "/la mandʒaˈtɔːja/"
+       "ipa": "/la mandʒaˈtɔːja/",
+       "exEn": "she laid him in the manger",
+       "form": "mangiatoia"
       },
       {
        "it": "i pastori",
        "en": "shepherds",
        "ex": "i pastori andarono a Betlemme",
-       "ipa": "/i pasˈtoːɾi/"
+       "ipa": "/i pasˈtoːɾi/",
+       "exEn": "the shepherds went to Bethlehem"
       },
       {
        "it": "il Magnificat",
        "en": "Magnificat",
        "ex": "l'anima mia magnifica il Signore",
-       "ipa": "/il maɲˈɲifikat/"
+       "ipa": "/il maɲˈɲifikat/",
+       "exEn": "my soul magnifies the Lord",
+       "form": "magnifica"
       }
      ],
      "grammar": {
@@ -1534,43 +1625,54 @@
        "it": "il battesimo",
        "en": "baptism",
        "ex": "il battesimo di Gesù",
-       "ipa": "/il batˈtɛːzimo/"
+       "ipa": "/il batˈtɛːzimo/",
+       "exEn": "the baptism of Jesus"
       },
       {
        "it": "il deserto",
        "en": "desert",
        "ex": "quaranta giorni nel deserto",
-       "ipa": "/il deˈzɛɾto/"
+       "ipa": "/il deˈzɛɾto/",
+       "exEn": "forty days in the desert"
       },
       {
        "it": "la tentazione",
        "en": "temptation",
        "ex": "le tentazioni del diavolo",
-       "ipa": "/la tentaˈtsjone/"
+       "ipa": "/la tentaˈtsjone/",
+       "exEn": "the temptations of the devil",
+       "form": "tentazioni"
       },
       {
        "it": "la rete",
        "en": "net",
        "ex": "gettate le reti",
-       "ipa": "/la ˈɾɛːte/"
+       "ipa": "/la ˈɾɛːte/",
+       "exEn": "cast the nets",
+       "form": "reti"
       },
       {
        "it": "il lebbroso",
        "en": "leper",
        "ex": "un uomo pieno di lebbra",
-       "ipa": "/il lebˈbɾoːzo/"
+       "ipa": "/il lebˈbɾoːzo/",
+       "exEn": "a man full of leprosy"
       },
       {
        "it": "perdonare",
        "en": "to forgive",
        "ex": "ti sono perdonati i peccati",
-       "ipa": "/peɾdoˈnaːɾe/"
+       "ipa": "/peɾdoˈnaːɾe/",
+       "exEn": "your sins are forgiven you",
+       "form": "perdonati"
       },
       {
        "it": "camminare",
        "en": "to walk",
        "ex": "alzati e cammina",
-       "ipa": "/kammiˈnaːɾe/"
+       "ipa": "/kammiˈnaːɾe/",
+       "exEn": "get up and walk",
+       "form": "cammina"
       }
      ],
      "grammar": {
@@ -1695,43 +1797,54 @@
        "it": "le beatitudini",
        "en": "the beatitudes",
        "ex": "beati voi poveri",
-       "ipa": "/le beatituˈdiːni/"
+       "ipa": "/le beatituˈdiːni/",
+       "exEn": "blessed are you who are poor"
       },
       {
        "it": "il nemico",
        "en": "the enemy",
        "ex": "amate i vostri nemici",
-       "ipa": "/il neˈmiːko/"
+       "ipa": "/il neˈmiːko/",
+       "exEn": "love your enemies",
+       "form": "nemici"
       },
       {
        "it": "il centurione",
        "en": "centurion",
        "ex": "il servo del centurione",
-       "ipa": "/il tʃentuˈɾjone/"
+       "ipa": "/il tʃentuˈɾjone/",
+       "exEn": "the centurion’s servant"
       },
       {
        "it": "la vedova",
        "en": "widow",
        "ex": "la vedova di Naim",
-       "ipa": "/la ˈvɛːdova/"
+       "ipa": "/la ˈvɛːdova/",
+       "exEn": "the widow of Nain"
       },
       {
        "it": "il fariseo",
        "en": "Pharisee",
        "ex": "un fariseo lo invitò",
-       "ipa": "/il faɾiˈzɛːo/"
+       "ipa": "/il faɾiˈzɛːo/",
+       "exEn": "a Pharisee invited him",
+       "form": "fariseo"
       },
       {
        "it": "perdonare",
        "en": "to forgive",
        "ex": "le sue peccata le sono perdonate",
-       "ipa": "/peɾdoˈnaːɾe/"
+       "ipa": "/peɾdoˈnaːɾe/",
+       "exEn": "her sins are forgiven her",
+       "form": "perdonate"
       },
       {
        "it": "il profeta",
        "en": "the prophet",
        "ex": "un grande profeta è sorto",
-       "ipa": "/il pɾoˈfɛːta/"
+       "ipa": "/il pɾoˈfɛːta/",
+       "exEn": "a great prophet has arisen",
+       "form": "profeta"
       }
      ],
      "grammar": {
@@ -1852,43 +1965,51 @@
        "it": "la tempesta",
        "en": "storm",
        "ex": "calmò la tempesta",
-       "ipa": "/la temˈpɛsta/"
+       "ipa": "/la temˈpɛsta/",
+       "exEn": "he calmed the storm"
       },
       {
        "it": "i demoni",
        "en": "demons",
        "ex": "i demoni lo supplicavano",
-       "ipa": "/i ˈdɛːmoni/"
+       "ipa": "/i ˈdɛːmoni/",
+       "exEn": "the demons begged him"
       },
       {
        "it": "la fede",
        "en": "faith",
        "ex": "la tua fede ti ha salvata",
-       "ipa": "/la ˈfɛːde/"
+       "ipa": "/la ˈfɛːde/",
+       "exEn": "your faith has saved you"
       },
       {
        "it": "guarire",
        "en": "to heal",
        "ex": "aveva guarito molti",
-       "ipa": "/ɡwaˈɾiːɾe/"
+       "ipa": "/ɡwaˈɾiːɾe/",
+       "exEn": "he had healed many",
+       "form": "guarito"
       },
       {
        "it": "la trasfigurazione",
        "en": "transfiguration",
        "ex": "la trasfigurazione sul monte",
-       "ipa": "/la tɾazfiɡuɾaˈtsjone/"
+       "ipa": "/la tɾazfiɡuɾaˈtsjone/",
+       "exEn": "the Transfiguration on the mountain"
       },
       {
        "it": "la croce",
        "en": "cross",
        "ex": "prenda la sua croce",
-       "ipa": "/la ˈkɾoːtʃe/"
+       "ipa": "/la ˈkɾoːtʃe/",
+       "exEn": "let him take up his cross"
       },
       {
        "it": "le provviste",
        "en": "provisions",
        "ex": "non prendete nulla per il viaggio",
-       "ipa": "/le pɾovˈviste/"
+       "ipa": "/le pɾovˈviste/",
+       "exEn": "take nothing for the journey"
       }
      ],
      "grammar": {
@@ -2005,43 +2126,54 @@
        "it": "il samaritano",
        "en": "Samaritan",
        "ex": "il buon samaritano",
-       "ipa": "/il samaɾiˈtaːno/"
+       "ipa": "/il samaɾiˈtaːno/",
+       "exEn": "the good Samaritan"
       },
       {
        "it": "il prossimo",
        "en": "neighbor",
        "ex": "chi è il mio prossimo?",
-       "ipa": "/il ˈpɾɔssimo/"
+       "ipa": "/il ˈpɾɔssimo/",
+       "exEn": "who is my neighbour?"
       },
       {
        "it": "l'olio",
        "en": "oil",
        "ex": "versò olio e vino",
-       "ipa": "/ˈlɔːljo/"
+       "ipa": "/ˈlɔːljo/",
+       "exEn": "he poured oil and wine",
+       "form": "olio"
       },
       {
        "it": "pregare",
        "en": "to pray",
        "ex": "insegnateci a pregare",
-       "ipa": "/pɾeˈɡaːɾe/"
+       "ipa": "/pɾeˈɡaːɾe/",
+       "exEn": "teach us to pray"
       },
       {
        "it": "il Padre Nostro",
        "en": "Lord's Prayer",
        "ex": "Padre nostro, che sei nei cieli",
-       "ipa": "/il ˈpaːdɾe ˈnɔstɾo/"
+       "ipa": "/il ˈpaːdɾe ˈnɔstɾo/",
+       "exEn": "Our Father, who art in heaven",
+       "form": "Padre nostro"
       },
       {
        "it": "chiedere",
        "en": "to ask",
        "ex": "chiedete e vi sarà dato",
-       "ipa": "/ˈkjɛːdeɾe/"
+       "ipa": "/ˈkjɛːdeɾe/",
+       "exEn": "ask and it will be given to you",
+       "form": "chiedete"
       },
       {
        "it": "il demonio",
        "en": "demon",
        "ex": "scacciava un demonio",
-       "ipa": "/il deˈmɔːnjo/"
+       "ipa": "/il deˈmɔːnjo/",
+       "exEn": "he was driving out a demon",
+       "form": "demonio"
       }
      ],
      "grammar": {
@@ -2167,43 +2299,55 @@
        "it": "la ricchezza",
        "en": "wealth",
        "ex": "la vita non dipende dalla ricchezza",
-       "ipa": "/la ɾikˈkɛttsa/"
+       "ipa": "/la ɾikˈkɛttsa/",
+       "exEn": "life does not depend on wealth"
       },
       {
        "it": "il granaio",
        "en": "granary",
        "ex": "costruirò granai più grandi",
-       "ipa": "/il ɡɾaˈnaːjo/"
+       "ipa": "/il ɡɾaˈnaːjo/",
+       "exEn": "I will build bigger barns",
+       "form": "granai"
       },
       {
        "it": "preoccuparsi",
        "en": "to worry",
        "ex": "non preoccupatevi per la vita",
-       "ipa": "/pɾeokkuˈpaɾsi/"
+       "ipa": "/pɾeokkuˈpaɾsi/",
+       "exEn": "do not worry about your life",
+       "form": "preoccupatevi"
       },
       {
        "it": "il fico",
        "en": "fig tree",
        "ex": "un uomo aveva un fico",
-       "ipa": "/il ˈfiːko/"
+       "ipa": "/il ˈfiːko/",
+       "exEn": "a man had a fig tree",
+       "form": "fico"
       },
       {
        "it": "la porta stretta",
        "en": "narrow gate",
        "ex": "entrate per la porta stretta",
-       "ipa": "/la ˈpɔɾta ˈstɾɛtta/"
+       "ipa": "/la ˈpɔɾta ˈstɾɛtta/",
+       "exEn": "enter through the narrow gate",
+       "form": "porta stretta"
       },
       {
        "it": "l'ipocrita",
        "en": "hypocrite",
        "ex": "ipocriti!",
-       "ipa": "/liˈpɔːkɾita/"
+       "ipa": "/liˈpɔːkɾita/",
+       "exEn": "hypocrites!",
+       "form": "ipocriti"
       },
       {
        "it": "il regno di Dio",
        "en": "kingdom of God",
        "ex": "il regno di Dio è vicino",
-       "ipa": "/il ˈɾeɲɲo di ˈdiːo/"
+       "ipa": "/il ˈɾeɲɲo di ˈdiːo/",
+       "exEn": "the kingdom of God is near"
       }
      ],
      "grammar": {
@@ -2319,43 +2463,53 @@
        "it": "il banchetto",
        "en": "banquet",
        "ex": "diede un grande banchetto",
-       "ipa": "/il baŋˈkɛtto/"
+       "ipa": "/il baŋˈkɛtto/",
+       "exEn": "he gave a great banquet"
       },
       {
        "it": "l'invitato",
        "en": "guest",
        "ex": "gli invitati non vennero",
-       "ipa": "/linviˈtaːto/"
+       "ipa": "/linviˈtaːto/",
+       "exEn": "the guests did not come",
+       "form": "invitati"
       },
       {
        "it": "la pecora perduta",
        "en": "lost sheep",
        "ex": "se perde una delle cento pecore",
-       "ipa": "/la ˈpɛːkoɾa peɾˈduːta/"
+       "ipa": "/la ˈpɛːkoɾa peɾˈduːta/",
+       "exEn": "if he loses one of the hundred sheep"
       },
       {
        "it": "il figlio prodigo",
        "en": "prodigal son",
        "ex": "il figlio minore",
-       "ipa": "/il ˈfiʎʎo ˈpɾɔːdiɡo/"
+       "ipa": "/il ˈfiʎʎo ˈpɾɔːdiɡo/",
+       "exEn": "the younger son"
       },
       {
        "it": "il padre misericordioso",
        "en": "merciful father",
        "ex": "gli corse incontro",
-       "ipa": "/il ˈpaːdɾe mizeɾikoɾˈdjoːzo/"
+       "ipa": "/il ˈpaːdɾe mizeɾikoɾˈdjoːzo/",
+       "exEn": "he ran to meet him"
       },
       {
        "it": "abbracciare",
        "en": "to embrace",
        "ex": "lo abbracciò e lo baciò",
-       "ipa": "/abbɾatˈtʃaːɾe/"
+       "ipa": "/abbɾatˈtʃaːɾe/",
+       "exEn": "he embraced him and kissed him",
+       "form": "abbracciò"
       },
       {
        "it": "la festa",
        "en": "the celebration",
        "ex": "facciamo festa",
-       "ipa": "/la ˈfɛsta/"
+       "ipa": "/la ˈfɛsta/",
+       "exEn": "let us celebrate",
+       "form": "festa"
       }
      ],
      "grammar": {
@@ -2481,43 +2635,50 @@
        "it": "la gratitudine",
        "en": "gratitude",
        "ex": "il samaritano ha reso grazie",
-       "ipa": "/la ɡɾatiˈtuːdine/"
+       "ipa": "/la ɡɾatiˈtuːdine/",
+       "exEn": "the Samaritan gave thanks"
       },
       {
        "it": "l'umiltà",
        "en": "humility",
        "ex": "chi si umilia sarà esaltato",
-       "ipa": "/lumiˈlta/"
+       "ipa": "/lumiˈlta/",
+       "exEn": "whoever humbles himself will be exalted"
       },
       {
        "it": "il giudice",
        "en": "judge",
        "ex": "il giudice ingiusto",
-       "ipa": "/il ˈdʒuːditʃe/"
+       "ipa": "/il ˈdʒuːditʃe/",
+       "exEn": "the unjust judge"
       },
       {
        "it": "la vedova",
        "en": "widow",
        "ex": "la vedova veniva da lui",
-       "ipa": "/la ˈvɛːdova/"
+       "ipa": "/la ˈvɛːdova/",
+       "exEn": "the widow kept coming to him"
       },
       {
        "it": "il pubblicano",
        "en": "tax collector",
        "ex": "il pubblicano non osava",
-       "ipa": "/il pubbliˈkaːno/"
+       "ipa": "/il pubbliˈkaːno/",
+       "exEn": "the tax collector did not dare"
       },
       {
        "it": "la fede",
        "en": "faith",
        "ex": "la tua fede ti ha salvato",
-       "ipa": "/la ˈfɛːde/"
+       "ipa": "/la ˈfɛːde/",
+       "exEn": "your faith has saved you"
       },
       {
        "it": "i bambini",
        "en": "children",
        "ex": "lasciate che i bambini vengano",
-       "ipa": "/i bamˈbiːni/"
+       "ipa": "/i bamˈbiːni/",
+       "exEn": "let the children come"
       }
      ],
      "grammar": {
@@ -2639,43 +2800,53 @@
        "it": "Zaccheo",
        "en": "Zacchaeus",
        "ex": "Zaccheo era un pubblicano ricco",
-       "ipa": "/zakˈkɛːo/"
+       "ipa": "/zakˈkɛːo/",
+       "exEn": "Zacchaeus was a rich tax collector"
       },
       {
        "it": "la salvezza",
        "en": "salvation",
        "ex": "oggi la salvezza è entrata in questa casa",
-       "ipa": "/la salˈvɛttsa/"
+       "ipa": "/la salˈvɛttsa/",
+       "exEn": "today salvation has come to this house"
       },
       {
        "it": "il tempio",
        "en": "temple",
        "ex": "purificò il tempio",
-       "ipa": "/il ˈtɛmpjo/"
+       "ipa": "/il ˈtɛmpjo/",
+       "exEn": "he cleansed the temple",
+       "form": "tempio"
       },
       {
        "it": "l'asino",
        "en": "donkey",
        "ex": "trovate un asino",
-       "ipa": "/ˈlaːzino/"
+       "ipa": "/ˈlaːzino/",
+       "exEn": "you will find a donkey",
+       "form": "asino"
       },
       {
        "it": "la moneta",
        "en": "coin",
        "ex": "la moneta della vedova",
-       "ipa": "/la moˈnɛːta/"
+       "ipa": "/la moˈnɛːta/",
+       "exEn": "the widow’s coin"
       },
       {
        "it": "vigilare",
        "en": "to watch",
        "ex": "vigilate e pregate",
-       "ipa": "/vidʒiˈlaːɾe/"
+       "ipa": "/vidʒiˈlaːɾe/",
+       "exEn": "watch and pray",
+       "form": "vigilate"
       },
       {
        "it": "la distruzione",
        "en": "destruction",
        "ex": "distruggeranno i tuoi nemici",
-       "ipa": "/la distɾutˈtsjone/"
+       "ipa": "/la distɾutˈtsjone/",
+       "exEn": "your enemies will destroy you"
       }
      ],
      "grammar": {
@@ -2796,43 +2967,50 @@
        "it": "il tradimento",
        "en": "betrayal",
        "ex": "Giuda lo consegnò",
-       "ipa": "/il tɾadiˈmento/"
+       "ipa": "/il tɾadiˈmento/",
+       "exEn": "Judas handed him over"
       },
       {
        "it": "l'ultima cena",
        "en": "Last Supper",
        "ex": "diede loro il pane",
-       "ipa": "/ˈlultima ˈtʃɛːna/"
+       "ipa": "/ˈlultima ˈtʃɛːna/",
+       "exEn": "he gave them the bread"
       },
       {
        "it": "il calice",
        "en": "chalice/cup",
        "ex": "questo calice è la nuova alleanza",
-       "ipa": "/il ˈkaːlitʃe/"
+       "ipa": "/il ˈkaːlitʃe/",
+       "exEn": "this cup is the new covenant"
       },
       {
        "it": "la passione",
        "en": "passion/suffering",
        "ex": "la passione di Cristo",
-       "ipa": "/la pasˈsjone/"
+       "ipa": "/la pasˈsjone/",
+       "exEn": "the Passion of Christ"
       },
       {
        "it": "Emmaus",
        "en": "Emmaus",
        "ex": "la strada di Emmaus",
-       "ipa": "/emˈmaus/"
+       "ipa": "/emˈmaus/",
+       "exEn": "the road to Emmaus"
       },
       {
        "it": "l'ascensione",
        "en": "ascension",
        "ex": "fu portato in cielo",
-       "ipa": "/laʃʃenˈsjone/"
+       "ipa": "/laʃʃenˈsjone/",
+       "exEn": "he was carried up into heaven"
       },
       {
        "it": "la benedizione",
        "en": "blessing",
        "ex": "li benedì e si allontanò",
-       "ipa": "/la benediˈtsjone/"
+       "ipa": "/la benediˈtsjone/",
+       "exEn": "he blessed them and withdrew"
       }
      ],
      "grammar": {
@@ -2971,43 +3149,53 @@
        "it": "l'ascensione",
        "en": "ascension",
        "ex": "fu elevato in alto",
-       "ipa": "/laʃʃenˈsjone/"
+       "ipa": "/laʃʃenˈsjone/",
+       "exEn": "he was lifted up on high"
       },
       {
        "it": "la Pentecoste",
        "en": "Pentecost",
        "ex": "il giorno di Pentecoste",
-       "ipa": "/la penteˈkɔste/"
+       "ipa": "/la penteˈkɔste/",
+       "exEn": "the day of Pentecost"
       },
       {
        "it": "lo Spirito Santo",
        "en": "Holy Spirit",
        "ex": "furono tutti pieni di Spirito Santo",
-       "ipa": "/lo ˈspiːɾito ˈsanto/"
+       "ipa": "/lo ˈspiːɾito ˈsanto/",
+       "exEn": "they were all filled with the Holy Spirit",
+       "form": "Spirito Santo"
       },
       {
        "it": "le lingue di fuoco",
        "en": "tongues of fire",
        "ex": "lingue come di fuoco",
-       "ipa": "/le ˈliŋɡwe di ˈfwɔːko/"
+       "ipa": "/le ˈliŋɡwe di ˈfwɔːko/",
+       "exEn": "tongues as of fire"
       },
       {
        "it": "battezzarsi",
        "en": "to be baptized",
        "ex": "battezzatevi",
-       "ipa": "/battedˈdzaɾsi/"
+       "ipa": "/battedˈdzaɾsi/",
+       "exEn": "be baptized",
+       "form": "battezzatevi"
       },
       {
        "it": "il peccato",
        "en": "sin",
        "ex": "per la remissione dei peccati",
-       "ipa": "/il pekˈkaːto/"
+       "ipa": "/il pekˈkaːto/",
+       "exEn": "for the forgiveness of sins",
+       "form": "peccati"
       },
       {
        "it": "la comunità",
        "en": "community",
        "ex": "erano assidui nella comunione",
-       "ipa": "/la komuniˈta/"
+       "ipa": "/la komuniˈta/",
+       "exEn": "they devoted themselves to the fellowship"
       }
      ],
      "grammar": {
@@ -3128,43 +3316,53 @@
        "it": "la guarigione",
        "en": "healing",
        "ex": "la guarigione dello storpio",
-       "ipa": "/la ɡwaɾiˈdʒone/"
+       "ipa": "/la ɡwaɾiˈdʒone/",
+       "exEn": "the healing of the lame man"
       },
       {
        "it": "la prigione",
        "en": "prison",
        "ex": "li gettarono in prigione",
-       "ipa": "/la pɾiˈdʒone/"
+       "ipa": "/la pɾiˈdʒone/",
+       "exEn": "they threw them into prison",
+       "form": "prigione"
       },
       {
        "it": "Anania",
        "en": "Ananias",
        "ex": "Anania con Saffira sua moglie",
-       "ipa": "/aˈnaːnja/"
+       "ipa": "/aˈnaːnja/",
+       "exEn": "Ananias with Sapphira his wife"
       },
       {
        "it": "mentire",
        "en": "to lie",
        "ex": "hai mentito allo Spirito Santo",
-       "ipa": "/menˈtiːɾe/"
+       "ipa": "/menˈtiːɾe/",
+       "exEn": "you have lied to the Holy Spirit",
+       "form": "mentito"
       },
       {
        "it": "i diaconi",
        "en": "deacons",
        "ex": "scelsero sette uomini",
-       "ipa": "/i ˈdjaːkoni/"
+       "ipa": "/i ˈdjaːkoni/",
+       "exEn": "they chose seven men"
       },
       {
        "it": "Stefano",
        "en": "Stephen",
        "ex": "Stefano era pieno di grazia",
-       "ipa": "/ˈstɛːfano/"
+       "ipa": "/ˈstɛːfano/",
+       "exEn": "Stephen was full of grace"
       },
       {
        "it": "la persecuzione",
        "en": "persecution",
        "ex": "scoppiò una grande persecuzione",
-       "ipa": "/la peɾsekutˈtsjone/"
+       "ipa": "/la peɾsekutˈtsjone/",
+       "exEn": "a great persecution broke out",
+       "form": "persecuzione"
       }
      ],
      "grammar": {
@@ -3285,43 +3483,51 @@
        "it": "il martirio",
        "en": "martyrdom",
        "ex": "la morte di Stefano",
-       "ipa": "/il maɾˈtiːɾjo/"
+       "ipa": "/il maɾˈtiːɾjo/",
+       "exEn": "the death of Stephen"
       },
       {
        "it": "la lapidazione",
        "en": "stoning",
        "ex": "lo lapidavano",
-       "ipa": "/la lapidaˈtsjone/"
+       "ipa": "/la lapidaˈtsjone/",
+       "exEn": "they were stoning him"
       },
       {
        "it": "Saulo",
        "en": "Saul",
        "ex": "Saulo approvava la sua uccisione",
-       "ipa": "/ˈsaulo/"
+       "ipa": "/ˈsaulo/",
+       "exEn": "Saul approved of his killing"
       },
       {
        "it": "la conversione",
        "en": "conversion",
        "ex": "la conversione di Paolo",
-       "ipa": "/la konveɾˈsjone/"
+       "ipa": "/la konveɾˈsjone/",
+       "exEn": "the conversion of Paul"
       },
       {
        "it": "la via di Damasco",
        "en": "road to Damascus",
        "ex": "sulla via di Damasco",
-       "ipa": "/la ˈviːa di daˈmasko/"
+       "ipa": "/la ˈviːa di daˈmasko/",
+       "exEn": "on the road to Damascus",
+       "form": "via di Damasco"
       },
       {
        "it": "cieco",
        "en": "blind",
        "ex": "per tre giorni non vide nulla",
-       "ipa": "/ˈtʃɛːko/"
+       "ipa": "/ˈtʃɛːko/",
+       "exEn": "for three days he saw nothing"
       },
       {
        "it": "il battesimo",
        "en": "baptism",
        "ex": "fu battezzato",
-       "ipa": "/il batˈtɛːzimo/"
+       "ipa": "/il batˈtɛːzimo/",
+       "exEn": "he was baptized"
       }
      ],
      "grammar": {
@@ -3448,43 +3654,52 @@
        "it": "la visione",
        "en": "vision",
        "ex": "Pietro ebbe una visione",
-       "ipa": "/la viˈzjone/"
+       "ipa": "/la viˈzjone/",
+       "exEn": "Peter had a vision"
       },
       {
        "it": "Cornelio",
        "en": "Cornelius",
        "ex": "il centurione Cornelio",
-       "ipa": "/koɾˈnɛːljo/"
+       "ipa": "/koɾˈnɛːljo/",
+       "exEn": "the centurion Cornelius"
       },
       {
        "it": "i pagani",
        "en": "Gentiles",
        "ex": "il vangelo anche ai pagani",
-       "ipa": "/i paˈɡaːni/"
+       "ipa": "/i paˈɡaːni/",
+       "exEn": "the gospel to the Gentiles too"
       },
       {
        "it": "il battesimo",
        "en": "baptism",
        "ex": "chi può impedire il battesimo?",
-       "ipa": "/il batˈtɛːzimo/"
+       "ipa": "/il batˈtɛːzimo/",
+       "exEn": "who can prevent the baptism?"
       },
       {
        "it": "l'angelo",
        "en": "angel",
        "ex": "un angelo del Signore apparve",
-       "ipa": "/ˈlandʒelo/"
+       "ipa": "/ˈlandʒelo/",
+       "exEn": "an angel of the Lord appeared",
+       "form": "angelo"
       },
       {
        "it": "il carcere",
        "en": "prison",
        "ex": "Pietro era in carcere",
-       "ipa": "/il ˈkaɾtʃeɾe/"
+       "ipa": "/il ˈkaɾtʃeɾe/",
+       "exEn": "Peter was in prison",
+       "form": "carcere"
       },
       {
        "it": "Erode",
        "en": "Herod",
        "ex": "Erode lo aveva arrestato",
-       "ipa": "/eˈɾɔːde/"
+       "ipa": "/eˈɾɔːde/",
+       "exEn": "Herod had arrested him"
       }
      ],
      "grammar": {
@@ -3601,43 +3816,54 @@
        "it": "il viaggio missionario",
        "en": "missionary journey",
        "ex": "il primo viaggio",
-       "ipa": "/il ˈvjaddʒo missjoˈnaːɾjo/"
+       "ipa": "/il ˈvjaddʒo missjoˈnaːɾjo/",
+       "exEn": "the first journey"
       },
       {
        "it": "Barnaba",
        "en": "Barnabas",
        "ex": "Barnaba e Paolo",
-       "ipa": "/ˈbaɾnaba/"
+       "ipa": "/ˈbaɾnaba/",
+       "exEn": "Barnabas and Paul"
       },
       {
        "it": "la sinagoga",
        "en": "synagogue",
        "ex": "entrarono nella sinagoga",
-       "ipa": "/la sinaˈɡɔːɡa/"
+       "ipa": "/la sinaˈɡɔːɡa/",
+       "exEn": "they entered the synagogue",
+       "form": "sinagoga"
       },
       {
        "it": "il concilio",
        "en": "council",
        "ex": "il concilio di Gerusalemme",
-       "ipa": "/il konˈtʃiːljo/"
+       "ipa": "/il konˈtʃiːljo/",
+       "exEn": "the Council of Jerusalem"
       },
       {
        "it": "la circoncisione",
        "en": "circumcision",
        "ex": "la questione della circoncisione",
-       "ipa": "/la tʃiɾkontʃiˈzjone/"
+       "ipa": "/la tʃiɾkontʃiˈzjone/",
+       "exEn": "the question of circumcision",
+       "form": "circoncisione"
       },
       {
        "it": "la grazia",
        "en": "grace",
        "ex": "vivere nella grazia di Dio",
-       "ipa": "/la ˈɡɾattsja/"
+       "ipa": "/la ˈɡɾattsja/",
+       "exEn": "to live in the grace of God",
+       "form": "grazia"
       },
       {
        "it": "annunciare",
        "en": "to announce",
        "ex": "annunciarono la parola di Dio",
-       "ipa": "/annuntˈtʃaːɾe/"
+       "ipa": "/annuntˈtʃaːɾe/",
+       "exEn": "they proclaimed the word of God",
+       "form": "annunciarono"
       }
      ],
      "grammar": {
@@ -3754,43 +3980,55 @@
        "it": "Lidia",
        "en": "Lydia",
        "ex": "Lidia apriva il cuore",
-       "ipa": "/ˈliːdja/"
+       "ipa": "/ˈliːdja/",
+       "exEn": "Lydia opened her heart"
       },
       {
        "it": "il terremoto",
        "en": "earthquake",
        "ex": "ci fu un gran terremoto",
-       "ipa": "/il teɾɾeˈmɔːto/"
+       "ipa": "/il teɾɾeˈmɔːto/",
+       "exEn": "there was a great earthquake",
+       "form": "terremoto"
       },
       {
        "it": "il carcere",
        "en": "prison",
        "ex": "il custode del carcere",
-       "ipa": "/il ˈkaɾtʃeɾe/"
+       "ipa": "/il ˈkaɾtʃeɾe/",
+       "exEn": "the keeper of the prison",
+       "form": "carcere"
       },
       {
        "it": "Corinto",
        "en": "Corinth",
        "ex": "giunsero a Corinto",
-       "ipa": "/koˈɾinto/"
+       "ipa": "/koˈɾinto/",
+       "exEn": "they arrived at Corinth"
       },
       {
        "it": "l'Areopago",
        "en": "Areopagus",
        "ex": "in mezzo all'Areopago",
-       "ipa": "/laɾeˈɔːpaɡo/"
+       "ipa": "/laɾeˈɔːpaɡo/",
+       "exEn": "in the middle of the Areopagus",
+       "form": "Areopago"
       },
       {
        "it": "il missionario",
        "en": "missionary",
        "ex": "missionari instancabili",
-       "ipa": "/il missjoˈnaːɾjo/"
+       "ipa": "/il missjoˈnaːɾjo/",
+       "exEn": "tireless missionaries",
+       "form": "missionari"
       },
       {
        "it": "la sinagoga",
        "en": "synagogue",
        "ex": "ogni sabato nella sinagoga",
-       "ipa": "/la sinaˈɡɔːɡa/"
+       "ipa": "/la sinaˈɡɔːɡa/",
+       "exEn": "every Sabbath in the synagogue",
+       "form": "sinagoga"
       }
      ],
      "grammar": {
@@ -3915,43 +4153,53 @@
        "it": "la magia",
        "en": "magic",
        "ex": "bruciarono i libri di magia",
-       "ipa": "/la ˈmaːdʒa/"
+       "ipa": "/la ˈmaːdʒa/",
+       "exEn": "they burned the books of magic",
+       "form": "magia"
       },
       {
        "it": "il tumulto",
        "en": "riot",
        "ex": "il tumulto degli artigiani",
-       "ipa": "/il tuˈmulto/"
+       "ipa": "/il tuˈmulto/",
+       "exEn": "the riot of the craftsmen"
       },
       {
        "it": "l'argentiere",
        "en": "silversmith",
        "ex": "Demetrio l'argentiere",
-       "ipa": "/laɾdʒenˈtjɛːɾe/"
+       "ipa": "/laɾdʒenˈtjɛːɾe/",
+       "exEn": "Demetrius the silversmith"
       },
       {
        "it": "la profezia",
        "en": "prophecy",
        "ex": "aveva quattro figlie profetesse",
-       "ipa": "/la pɾofeˈtsiːa/"
+       "ipa": "/la pɾofeˈtsiːa/",
+       "exEn": "he had four prophesying daughters"
       },
       {
        "it": "legare",
        "en": "to bind",
        "ex": "lo legheranno e lo consegneranno",
-       "ipa": "/leˈɡaːɾe/"
+       "ipa": "/leˈɡaːɾe/",
+       "exEn": "they will bind him and hand him over",
+       "form": "legheranno"
       },
       {
        "it": "il viaggio",
        "en": "the journey",
        "ex": "ci imbarcammo",
-       "ipa": "/il ˈvjaddʒo/"
+       "ipa": "/il ˈvjaddʒo/",
+       "exEn": "we set sail"
       },
       {
        "it": "lo Spirito",
        "en": "the Spirit",
        "ex": "lo Spirito Santo mi attesta",
-       "ipa": "/lo ˈspiːɾito/"
+       "ipa": "/lo ˈspiːɾito/",
+       "exEn": "the Holy Spirit testifies to me",
+       "form": "Spirito"
       }
      ],
      "grammar": {
@@ -4060,43 +4308,55 @@
        "it": "la difesa",
        "en": "defense",
        "ex": "la difesa di Paolo",
-       "ipa": "/la diˈfeːza/"
+       "ipa": "/la diˈfeːza/",
+       "exEn": "Paul’s defense"
       },
       {
        "it": "il sinedrio",
        "en": "Sanhedrin",
        "ex": "davanti al sinedrio",
-       "ipa": "/il siˈnɛːdɾjo/"
+       "ipa": "/il siˈnɛːdɾjo/",
+       "exEn": "before the Sanhedrin",
+       "form": "sinedrio"
       },
       {
        "it": "la congiura",
        "en": "conspiracy",
        "ex": "una congiura contro Paolo",
-       "ipa": "/la konˈdʒuːɾa/"
+       "ipa": "/la konˈdʒuːɾa/",
+       "exEn": "a conspiracy against Paul",
+       "form": "congiura"
       },
       {
        "it": "il governatore",
        "en": "governor",
        "ex": "il governatore Felice",
-       "ipa": "/il ɡoveɾnaˈtoːɾe/"
+       "ipa": "/il ɡoveɾnaˈtoːɾe/",
+       "exEn": "the governor Felix"
       },
       {
        "it": "il processo",
        "en": "trial",
        "ex": "durante il processo",
-       "ipa": "/il pɾoˈtʃɛsso/"
+       "ipa": "/il pɾoˈtʃɛsso/",
+       "exEn": "during the trial",
+       "form": "processo"
       },
       {
        "it": "il testimone",
        "en": "witness",
        "ex": "sono testimone di queste cose",
-       "ipa": "/il testiˈmoːne/"
+       "ipa": "/il testiˈmoːne/",
+       "exEn": "I am a witness of these things",
+       "form": "testimone"
       },
       {
        "it": "l'accusa",
        "en": "accusation",
        "ex": "le accuse contro Paolo",
-       "ipa": "/lakˈkuːza/"
+       "ipa": "/lakˈkuːza/",
+       "exEn": "the charges against Paul",
+       "form": "accuse"
       }
      ],
      "grammar": {
@@ -4224,43 +4484,55 @@
        "it": "Festo",
        "en": "Festus",
        "ex": "il governatore Festo",
-       "ipa": "/ˈfɛsto/"
+       "ipa": "/ˈfɛsto/",
+       "exEn": "the governor Festus"
       },
       {
        "it": "Agrippa",
        "en": "Agrippa",
        "ex": "il re Agrippa",
-       "ipa": "/aˈɡɾippa/"
+       "ipa": "/aˈɡɾippa/",
+       "exEn": "King Agrippa"
       },
       {
        "it": "l'appello",
        "en": "appeal",
        "ex": "ho fatto appello a Cesare",
-       "ipa": "/lapˈpɛllo/"
+       "ipa": "/lapˈpɛllo/",
+       "exEn": "I have appealed to Caesar",
+       "form": "appello"
       },
       {
        "it": "la testimonianza",
        "en": "testimony",
        "ex": "la mia testimonianza",
-       "ipa": "/la testimonˈjantsa/"
+       "ipa": "/la testimonˈjantsa/",
+       "exEn": "my testimony",
+       "form": "testimonianza"
       },
       {
        "it": "convertirsi",
        "en": "to convert",
        "ex": "perché si convertissero",
-       "ipa": "/konveɾˈtiɾsi/"
+       "ipa": "/konveɾˈtiɾsi/",
+       "exEn": "so that they might turn",
+       "form": "si convertissero"
       },
       {
        "it": "la luce",
        "en": "light",
        "ex": "una luce dal cielo",
-       "ipa": "/la ˈluːtʃe/"
+       "ipa": "/la ˈluːtʃe/",
+       "exEn": "a light from heaven",
+       "form": "luce"
       },
       {
        "it": "la grazia",
        "en": "grace",
        "ex": "grazie alla grazia di Dio",
-       "ipa": "/la ˈɡɾattsja/"
+       "ipa": "/la ˈɡɾattsja/",
+       "exEn": "thanks to the grace of God",
+       "form": "grazia"
       }
      ],
      "grammar": {
@@ -4385,43 +4657,52 @@
        "it": "il naufragio",
        "en": "shipwreck",
        "ex": "il naufragio di Paolo",
-       "ipa": "/il nawˈfɾaːdʒo/"
+       "ipa": "/il nawˈfɾaːdʒo/",
+       "exEn": "Paul’s shipwreck"
       },
       {
        "it": "l'isola",
        "en": "island",
        "ex": "l'isola di Malta",
-       "ipa": "/ˈliːzola/"
+       "ipa": "/ˈliːzola/",
+       "exEn": "the island of Malta"
       },
       {
        "it": "il serpente",
        "en": "snake",
        "ex": "una vipera uscì dal fuoco",
-       "ipa": "/il seɾˈpɛnte/"
+       "ipa": "/il seɾˈpɛnte/",
+       "exEn": "a viper came out of the fire"
       },
       {
        "it": "Roma",
        "en": "Rome",
        "ex": "finalmente arrivammo a Roma",
-       "ipa": "/ˈɾɔːma/"
+       "ipa": "/ˈɾɔːma/",
+       "exEn": "at last we arrived at Rome"
       },
       {
        "it": "predicare",
        "en": "to preach",
        "ex": "predicava il regno di Dio",
-       "ipa": "/pɾediˈkaːɾe/"
+       "ipa": "/pɾediˈkaːɾe/",
+       "exEn": "he was preaching the kingdom of God",
+       "form": "predicava"
       },
       {
        "it": "l'impedimento",
        "en": "hindrance",
        "ex": "senza impedimento alcuno",
-       "ipa": "/limpediˈmento/"
+       "ipa": "/limpediˈmento/",
+       "exEn": "without any hindrance",
+       "form": "impedimento"
       },
       {
        "it": "la nave",
        "en": "ship",
        "ex": "la nave si incagliò",
-       "ipa": "/la ˈnaːve/"
+       "ipa": "/la ˈnaːve/",
+       "exEn": "the ship ran aground"
       }
      ],
      "grammar": {
@@ -4551,43 +4832,53 @@
        "it": "il vangelo",
        "en": "the gospel",
        "ex": "il vangelo di Gesù Cristo",
-       "ipa": "/il vanˈdʒɛːlo/"
+       "ipa": "/il vanˈdʒɛːlo/",
+       "exEn": "the gospel of Jesus Christ"
       },
       {
        "it": "la giustizia",
        "en": "righteousness",
        "ex": "la giustizia di Dio",
-       "ipa": "/la dʒusˈtiːttsja/"
+       "ipa": "/la dʒusˈtiːttsja/",
+       "exEn": "the righteousness of God"
       },
       {
        "it": "il giudizio",
        "en": "judgment",
        "ex": "il giudizio di Dio",
-       "ipa": "/il dʒuˈdiːttsjo/"
+       "ipa": "/il dʒuˈdiːttsjo/",
+       "exEn": "the judgment of God"
       },
       {
        "it": "l'ira",
        "en": "wrath",
        "ex": "l'ira di Dio",
-       "ipa": "/ˈliːɾa/"
+       "ipa": "/ˈliːɾa/",
+       "exEn": "the wrath of God"
       },
       {
        "it": "l'idolatria",
        "en": "idolatry",
        "ex": "caduti nell'idolatria",
-       "ipa": "/lidolaˈtɾiːa/"
+       "ipa": "/lidolaˈtɾiːa/",
+       "exEn": "fallen into idolatry",
+       "form": "idolatria"
       },
       {
        "it": "l'albero",
        "en": "tree",
        "ex": "come albero piantato",
-       "ipa": "/ˈlalbeɾo/"
+       "ipa": "/ˈlalbeɾo/",
+       "exEn": "like a tree planted",
+       "form": "albero"
       },
       {
        "it": "il cammino",
        "en": "the way/path",
        "ex": "non cammina nel consiglio degli empi",
-       "ipa": "/il kamˈmiːno/"
+       "ipa": "/il kamˈmiːno/",
+       "exEn": "he does not walk in the counsel of the wicked",
+       "form": "cammina"
       }
      ],
      "grammar": {
@@ -4706,43 +4997,52 @@
        "it": "la fede",
        "en": "faith",
        "ex": "giustificati per fede",
-       "ipa": "/la ˈfɛːde/"
+       "ipa": "/la ˈfɛːde/",
+       "exEn": "justified by faith",
+       "form": "fede"
       },
       {
        "it": "la grazia",
        "en": "grace",
        "ex": "per pura grazia",
-       "ipa": "/la ˈɡɾattsja/"
+       "ipa": "/la ˈɡɾattsja/",
+       "exEn": "by grace alone",
+       "form": "grazia"
       },
       {
        "it": "la redenzione",
        "en": "redemption",
        "ex": "la redenzione in Cristo",
-       "ipa": "/la ɾedenˈtsjone/"
+       "ipa": "/la ɾedenˈtsjone/",
+       "exEn": "the redemption in Christ"
       },
       {
        "it": "il pastore",
        "en": "shepherd",
        "ex": "il Signore è il mio pastore",
-       "ipa": "/il pasˈtoːɾe/"
+       "ipa": "/il pasˈtoːɾe/",
+       "exEn": "the Lord is my shepherd"
       },
       {
        "it": "l'abbondanza",
        "en": "abundance",
        "ex": "non manco di nulla",
-       "ipa": "/labbonˈdantsa/"
+       "ipa": "/labbonˈdantsa/",
+       "exEn": "I shall not want"
       },
       {
        "it": "il calice",
        "en": "cup",
        "ex": "il mio calice trabocca",
-       "ipa": "/il ˈkaːlitʃe/"
+       "ipa": "/il ˈkaːlitʃe/",
+       "exEn": "my cup overflows"
       },
       {
        "it": "la tenebrosa valle",
        "en": "dark valley",
        "ex": "nella valle oscura",
-       "ipa": "/la tenebˈɾoːza ˈvalle/"
+       "ipa": "/la tenebˈɾoːza ˈvalle/",
+       "exEn": "in the dark valley"
       }
      ],
      "grammar": {
@@ -4852,43 +5152,52 @@
        "it": "la pace",
        "en": "peace",
        "ex": "abbiamo pace con Dio",
-       "ipa": "/la ˈpaːtʃe/"
+       "ipa": "/la ˈpaːtʃe/",
+       "exEn": "we have peace with God",
+       "form": "pace"
       },
       {
        "it": "la sofferenza",
        "en": "suffering",
        "ex": "glorificarci nelle sofferenze",
-       "ipa": "/la soffeˈɾɛntsa/"
+       "ipa": "/la soffeˈɾɛntsa/",
+       "exEn": "to boast in our sufferings",
+       "form": "sofferenze"
       },
       {
        "it": "la speranza",
        "en": "hope",
        "ex": "la speranza non delude",
-       "ipa": "/la speˈɾantsa/"
+       "ipa": "/la speˈɾantsa/",
+       "exEn": "hope does not disappoint"
       },
       {
        "it": "il rifugio",
        "en": "refuge",
        "ex": "Dio è il nostro rifugio",
-       "ipa": "/il ɾiˈfuːdʒo/"
+       "ipa": "/il ɾiˈfuːdʒo/",
+       "exEn": "God is our refuge"
       },
       {
        "it": "la forza",
        "en": "strength",
        "ex": "la nostra forza",
-       "ipa": "/la ˈfoɾtsa/"
+       "ipa": "/la ˈfoɾtsa/",
+       "exEn": "our strength"
       },
       {
        "it": "il battesimo",
        "en": "baptism",
        "ex": "siamo stati battezzati in Cristo",
-       "ipa": "/il batˈtɛːzimo/"
+       "ipa": "/il batˈtɛːzimo/",
+       "exEn": "we were baptized into Christ"
       },
       {
        "it": "la morte",
        "en": "death",
        "ex": "morti al peccato",
-       "ipa": "/la ˈmɔɾte/"
+       "ipa": "/la ˈmɔɾte/",
+       "exEn": "dead to sin"
       }
      ],
      "grammar": {
@@ -5007,43 +5316,53 @@
        "it": "la carne",
        "en": "flesh",
        "ex": "la legge della carne",
-       "ipa": "/la ˈkaɾne/"
+       "ipa": "/la ˈkaɾne/",
+       "exEn": "the law of the flesh",
+       "form": "carne"
       },
       {
        "it": "la condanna",
        "en": "condemnation",
        "ex": "nessuna condanna per quelli in Cristo",
-       "ipa": "/la konˈdanna/"
+       "ipa": "/la konˈdanna/",
+       "exEn": "no condemnation for those in Christ",
+       "form": "condanna"
       },
       {
        "it": "la figliolanza",
        "en": "sonship",
        "ex": "lo spirito di adozione filiale",
-       "ipa": "/la fiʎʎoˈlantsa/"
+       "ipa": "/la fiʎʎoˈlantsa/",
+       "exEn": "the spirit of adoption as sons"
       },
       {
        "it": "la creazione",
        "en": "creation",
        "ex": "tutta la creazione geme",
-       "ipa": "/la kɾeaˈtsjone/"
+       "ipa": "/la kɾeaˈtsjone/",
+       "exEn": "all creation groans",
+       "form": "creazione"
       },
       {
        "it": "la misericordia",
        "en": "mercy",
        "ex": "abbi pietà di me",
-       "ipa": "/la mizeɾiˈkɔɾdja/"
+       "ipa": "/la mizeɾiˈkɔɾdja/",
+       "exEn": "have mercy on me"
       },
       {
        "it": "il cuore",
        "en": "heart",
        "ex": "crea in me un cuore puro",
-       "ipa": "/il ˈkwɔːɾe/"
+       "ipa": "/il ˈkwɔːɾe/",
+       "exEn": "create in me a pure heart"
       },
       {
        "it": "il peccato",
        "en": "sin",
        "ex": "mondami dalla mia colpa",
-       "ipa": "/il pekˈkaːto/"
+       "ipa": "/il pekˈkaːto/",
+       "exEn": "cleanse me from my guilt"
       }
      ],
      "grammar": {
@@ -5158,43 +5477,56 @@
        "it": "l'elezione",
        "en": "election",
        "ex": "l'elezione per grazia",
-       "ipa": "/leletˈtsjone/"
+       "ipa": "/leletˈtsjone/",
+       "exEn": "the election by grace",
+       "form": "elezione"
       },
       {
        "it": "confessare",
        "en": "to confess",
        "ex": "confessa con la tua bocca",
-       "ipa": "/konfesˈsaːɾe/"
+       "ipa": "/konfesˈsaːɾe/",
+       "exEn": "confess with your mouth",
+       "form": "confessa"
       },
       {
        "it": "credere nel cuore",
        "en": "believe in heart",
        "ex": "credere nel cuore",
-       "ipa": "/ˈkɾɛːdeɾe nel ˈkwɔːɾe/"
+       "ipa": "/ˈkɾɛːdeɾe nel ˈkwɔːɾe/",
+       "exEn": "to believe in the heart"
       },
       {
        "it": "la protezione",
        "en": "protection",
        "ex": "sotto la sua protezione",
-       "ipa": "/la pɾotetˈtsjone/"
+       "ipa": "/la pɾotetˈtsjone/",
+       "exEn": "under his protection",
+       "form": "protezione"
       },
       {
        "it": "il nome del Signore",
        "en": "name of the Lord",
        "ex": "chiunque invoca il nome del Signore",
-       "ipa": "/il ˈnoːme del siˈɲɲoːɾe/"
+       "ipa": "/il ˈnoːme del siˈɲɲoːɾe/",
+       "exEn": "whoever calls on the name of the Lord",
+       "form": "nome del Signore"
       },
       {
        "it": "essere salvato",
        "en": "to be saved",
        "ex": "sarà salvato",
-       "ipa": "/ˈɛsseɾe salˈvaːto/"
+       "ipa": "/ˈɛsseɾe salˈvaːto/",
+       "exEn": "he will be saved",
+       "form": "salvato"
       },
       {
        "it": "il messaggero",
        "en": "messenger",
        "ex": "come udranno senza un messaggero?",
-       "ipa": "/il messadˈdʒɛːɾo/"
+       "ipa": "/il messadˈdʒɛːɾo/",
+       "exEn": "how will they hear without a messenger?",
+       "form": "messaggero"
       }
      ],
      "grammar": {
@@ -5310,43 +5642,55 @@
        "it": "il mistero",
        "en": "mystery",
        "ex": "il mistero di Israele",
-       "ipa": "/il misˈtɛːɾo/"
+       "ipa": "/il misˈtɛːɾo/",
+       "exEn": "the mystery of Israel"
       },
       {
        "it": "il corpo di Cristo",
        "en": "body of Christ",
        "ex": "un solo corpo in Cristo",
-       "ipa": "/il ˈkɔɾpo di ˈkɾisto/"
+       "ipa": "/il ˈkɔɾpo di ˈkɾisto/",
+       "exEn": "one body in Christ"
       },
       {
        "it": "i doni",
        "en": "gifts",
        "ex": "doni diversi secondo la grazia",
-       "ipa": "/i ˈdoːni/"
+       "ipa": "/i ˈdoːni/",
+       "exEn": "different gifts according to grace",
+       "form": "doni"
       },
       {
        "it": "la Parola",
        "en": "the Word",
        "ex": "la tua Parola è una lampada",
-       "ipa": "/la paˈɾɔːla/"
+       "ipa": "/la paˈɾɔːla/",
+       "exEn": "your Word is a lamp",
+       "form": "Parola"
       },
       {
        "it": "il sentiero",
        "en": "path",
        "ex": "luce sul mio sentiero",
-       "ipa": "/il senˈtjɛːɾo/"
+       "ipa": "/il senˈtjɛːɾo/",
+       "exEn": "a light on my path",
+       "form": "sentiero"
       },
       {
        "it": "offrire",
        "en": "to offer",
        "ex": "offrite i vostri corpi come sacrificio",
-       "ipa": "/ofˈfɾiːɾe/"
+       "ipa": "/ofˈfɾiːɾe/",
+       "exEn": "offer your bodies as a sacrifice",
+       "form": "offrite"
       },
       {
        "it": "rinnovarsi",
        "en": "to be renewed",
        "ex": "rinnovatevi nella mente",
-       "ipa": "/ɾinnoˈvaɾsi/"
+       "ipa": "/ɾinnoˈvaɾsi/",
+       "exEn": "be renewed in your mind",
+       "form": "rinnovatevi"
       }
      ],
      "grammar": {
@@ -5459,43 +5803,52 @@
        "it": "l'autorità",
        "en": "authority",
        "ex": "ogni persona sia sottomessa alle autorità",
-       "ipa": "/lautoɾiˈta/"
+       "ipa": "/lautoɾiˈta/",
+       "exEn": "let every person be subject to the authorities",
+       "form": "autorità"
       },
       {
        "it": "amare il prossimo",
        "en": "love neighbor",
        "ex": "amerai il prossimo tuo",
-       "ipa": "/aˈmaːɾe il ˈpɾɔssimo/"
+       "ipa": "/aˈmaːɾe il ˈpɾɔssimo/",
+       "exEn": "you shall love your neighbour"
       },
       {
        "it": "la coscienza",
        "en": "conscience",
        "ex": "secondo la propria coscienza",
-       "ipa": "/la koˈʃʃɛntsa/"
+       "ipa": "/la koˈʃʃɛntsa/",
+       "exEn": "according to one’s own conscience",
+       "form": "coscienza"
       },
       {
        "it": "il soccorso",
        "en": "help",
        "ex": "il mio soccorso viene dal Signore",
-       "ipa": "/il sokˈkɔɾso/"
+       "ipa": "/il sokˈkɔɾso/",
+       "exEn": "my help comes from the Lord"
       },
       {
        "it": "vegliare",
        "en": "to watch over",
        "ex": "non si assopisce, non dorme",
-       "ipa": "/veʎˈʎaːɾe/"
+       "ipa": "/veʎˈʎaːɾe/",
+       "exEn": "he does not slumber, he does not sleep"
       },
       {
        "it": "il custode",
        "en": "guardian",
        "ex": "il Signore è il tuo custode",
-       "ipa": "/il kusˈtoːde/"
+       "ipa": "/il kusˈtoːde/",
+       "exEn": "the Lord is your keeper"
       },
       {
        "it": "il viaggio",
        "en": "journey",
        "ex": "il Signore protegge la tua vita",
-       "ipa": "/il ˈvjaddʒo/"
+       "ipa": "/il ˈvjaddʒo/",
+       "exEn": "the Lord protects your life"
       }
      ],
      "grammar": {
@@ -5603,43 +5956,55 @@
        "it": "la speranza",
        "en": "hope",
        "ex": "il Dio della speranza",
-       "ipa": "/la speˈɾantsa/"
+       "ipa": "/la speˈɾantsa/",
+       "exEn": "the God of hope",
+       "form": "speranza"
       },
       {
        "it": "l'unità",
        "en": "unity",
        "ex": "l'unità tra ebrei e pagani",
-       "ipa": "/luniˈta/"
+       "ipa": "/luniˈta/",
+       "exEn": "the unity between Jews and Gentiles"
       },
       {
        "it": "i saluti",
        "en": "greetings",
        "ex": "i saluti finali di Paolo",
-       "ipa": "/i saˈluːti/"
+       "ipa": "/i saˈluːti/",
+       "exEn": "Paul’s closing greetings"
       },
       {
        "it": "conoscere",
        "en": "to know",
        "ex": "tu mi conosci",
-       "ipa": "/koˈnoʃʃeɾe/"
+       "ipa": "/koˈnoʃʃeɾe/",
+       "exEn": "you know me",
+       "form": "conosci"
       },
       {
        "it": "tessere",
        "en": "to weave",
        "ex": "mi hai tessuto nel seno di mia madre",
-       "ipa": "/ˈtɛsseɾe/"
+       "ipa": "/ˈtɛsseɾe/",
+       "exEn": "you knit me together in my mother’s womb",
+       "form": "tessuto"
       },
       {
        "it": "fuggire",
        "en": "to flee",
        "ex": "dove fuggirò dalla tua presenza?",
-       "ipa": "/fudˈdʒiːɾe/"
+       "ipa": "/fudˈdʒiːɾe/",
+       "exEn": "where shall I flee from your presence?",
+       "form": "fuggirò"
       },
       {
        "it": "meraviglioso",
        "en": "wonderful",
        "ex": "meravigliose sono le tue opere",
-       "ipa": "/meɾaviʎˈʎoːzo/"
+       "ipa": "/meɾaviʎˈʎoːzo/",
+       "exEn": "wonderful are your works",
+       "form": "meravigliose"
       }
      ],
      "grammar": {
@@ -5755,43 +6120,55 @@
        "it": "lodare",
        "en": "to praise",
        "ex": "lodate il Signore",
-       "ipa": "/loˈdaːɾe/"
+       "ipa": "/loˈdaːɾe/",
+       "exEn": "praise the Lord",
+       "form": "lodate"
       },
       {
        "it": "l'alleluja",
        "en": "alleluia",
        "ex": "alleluia!",
-       "ipa": "/lalleˈluːja/"
+       "ipa": "/lalleˈluːja/",
+       "exEn": "alleluia!",
+       "form": "alleluia"
       },
       {
        "it": "gli strumenti",
        "en": "instruments",
        "ex": "con la tromba, con l'arpa",
-       "ipa": "/ʎi stɾuˈmenti/"
+       "ipa": "/ʎi stɾuˈmenti/",
+       "exEn": "with the trumpet, with the harp"
       },
       {
        "it": "tutta la creazione",
        "en": "all creation",
        "ex": "tutto ciò che respira",
-       "ipa": "/ˈtutta la kɾeaˈtsjone/"
+       "ipa": "/ˈtutta la kɾeaˈtsjone/",
+       "exEn": "everything that breathes"
       },
       {
        "it": "la gloria",
        "en": "glory",
        "ex": "gloria a Dio",
-       "ipa": "/la ˈɡlɔːɾja/"
+       "ipa": "/la ˈɡlɔːɾja/",
+       "exEn": "glory to God",
+       "form": "gloria"
       },
       {
        "it": "il Natale",
        "en": "Christmas",
        "ex": "Buon Natale",
-       "ipa": "/il naˈtaːle/"
+       "ipa": "/il naˈtaːle/",
+       "exEn": "Merry Christmas",
+       "form": "Natale"
       },
       {
        "it": "la fine",
        "en": "the end",
        "ex": "sei arrivato alla fine",
-       "ipa": "/la ˈfiːne/"
+       "ipa": "/la ˈfiːne/",
+       "exEn": "you have reached the end",
+       "form": "fine"
       }
      ],
      "grammar": {

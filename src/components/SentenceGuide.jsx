@@ -1,17 +1,15 @@
 import { useState } from 'react';
+import { config } from '../../course/config';
 
-const PATTERNS = [
-  { label: 'Subject + verb',            it: 'Io leggo.',             en: 'I read.' },
-  { label: 'Subject + verb + object',   it: 'Io leggo la Bibbia.',   en: 'I read the Bible.' },
-  { label: 'Subject + verb + adjective',it: 'La parola è vera.',     en: 'The word is true.' },
-  { label: 'Negation',                  it: 'Non capisco.',          en: 'I don\'t understand.' },
-  { label: 'Question',                  it: 'Cosa significa?',       en: 'What does it mean?' },
-  { label: 'Past (passato prossimo)',   it: 'Ho letto il capitolo.', en: 'I have read the chapter.' },
-  { label: 'Connectors',               it: 'e · ma · perché · quindi', en: 'and · but · because · so' },
-];
+// Sentence patterns are course data (they are specific to the target language),
+// so they live in config.guide.sentencePatterns rather than being hardcoded
+// here — a fork changes the course, not the component.
+const PATTERNS = config.guide?.sentencePatterns ?? [];
 
 export function SentenceGuide() {
   const [open, setOpen] = useState(false);
+
+  if (!PATTERNS.length) return null;
 
   return (
     <div className="sent-guide">

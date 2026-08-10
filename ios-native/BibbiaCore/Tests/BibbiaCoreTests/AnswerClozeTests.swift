@@ -59,15 +59,23 @@ final class ClozeTests: XCTestCase {
 
     func testIneligibleWhenTermNotInExample() {
         XCTAssertNil(makeCloze(term: "credere", example: "ha creduto in lui", articles: articles))
+        // …but the author-recorded inflected form makes it eligible.
+        let inflected = makeCloze(term: "credere", example: "ha creduto in lui",
+                                  articles: articles, form: "ha creduto")
+        XCTAssertEqual(inflected?.answer, "ha creduto")
+        XCTAssertEqual(inflected?.after, " in lui")
         XCTAssertNil(makeCloze(term: "", example: "frase", articles: articles))
         XCTAssertNil(makeCloze(term: "parola", example: "", articles: articles))
     }
 
-    func testEligibilityRateOnTheRealCourseIsAboutSixtyPercent() {
+    func testEligibilityRateOnTheRealCourseIsAboutEightyPercent() {
         let cards = Course.shared.allVocab
         let eligible = cards.filter { isClozeEligible(card: $0, articles: articles) }.count
-        // 159/259 on the reference course (the fixture sweep pins exact results).
-        XCTAssertEqual(eligible, 159)
+        // 216/259 on the reference course (the fixture sweep pins exact results).
+        // Was 159/259 before the vocab recorded the inflected `form` each
+        // headword takes in its example — the other 57 are cards whose example
+        // uses a conjugated or derived shape, which the bare headword can't match.
+        XCTAssertEqual(eligible, 216)
     }
 }
 

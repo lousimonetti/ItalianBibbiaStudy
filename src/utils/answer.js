@@ -26,3 +26,35 @@ export function checkAnswer(expected, given) {
   const tolerance = Math.max(1, Math.floor(e.length * 0.2));
   return levenshtein(e, g) <= tolerance;
 }
+
+// ── Grammar drills ──────────────────────────────────────────────────────────
+// Drills need a stricter grader than vocab recall. A drill answer is often a
+// single short form whose whole point is an accent or one letter — è vs e, dà
+// vs da, sia vs sai. `canonical` folds accents away and `checkAnswer` allows at
+// least one edit, so it would happily accept "a" for "è". Here accents are
+// significant and short answers get no typo tolerance at all.
+
+// Lowercase, collapse whitespace, unify apostrophes, drop surrounding
+// punctuation — but keep every accent.
+export function drillCanonical(s) {
+  return String(s ?? '')
+    .toLowerCase()
+    .replace(/[’`´]/g, "'")
+    .replace(/[.,;:!?"«»()]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export function checkDrill(expected, given) {
+  const e = drillCanonical(expected);
+  const g = drillCanonical(given);
+  if (!g) return false;
+  if (e === g) return true;
+  // A dropped or wrong accent is an error, never a free typo — "perche" for
+  // "perché" is the mistake the drill exists to catch. Detect it by folding
+  // accents: if that makes the two equal, the only difference WAS the accent.
+  if (normalize(e) === normalize(g)) return false;
+  // Short forms are exactly the ones that turn on one character — no fuzz.
+  if (e.length < 5) return false;
+  return levenshtein(e, g) <= 1;
+}

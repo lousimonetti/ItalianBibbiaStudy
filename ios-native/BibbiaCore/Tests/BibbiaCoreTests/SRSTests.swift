@@ -24,17 +24,62 @@ final class SRSTests: XCTestCase {
         XCTAssertEqual(c.created, now)
     }
 
-    func testAgainResetsAndIsDueImmediately() {
+    func testAgainResetsAndEntersRelearning() {
         var c = srsReview(nil, grade: .good, now: now)
         c = srsReview(c, grade: .good, now: now + MS_PER_DAY)
         let created = c.created
-        c = srsReview(c, grade: .again, now: now + 4 * MS_PER_DAY)
+        let lapseAt = now + 4 * MS_PER_DAY
+        c = srsReview(c, grade: .again, now: lapseAt)
         XCTAssertEqual(c.reps, 0)
         XCTAssertEqual(c.lapses, 1)
         XCTAssertEqual(c.interval, 0)
-        XCTAssertEqual(c.due, now + 4 * MS_PER_DAY)
+        // A lapse now enters the relearning ladder rather than being due
+        // instantly — it comes back within the session, but not immediately.
+        XCTAssertEqual(c.relearn, 0)
+        XCTAssertEqual(c.due, lapseAt + RELEARN_STEPS[0])
         XCTAssertEqual(c.created, created, "created survives lapses")
-        XCTAssertTrue(isDue(c, now: now + 4 * MS_PER_DAY))
+        XCTAssertTrue(isDue(c, now: lapseAt + RELEARN_STEPS[0]))
+    }
+
+    func testHardAdvancesButShrinksEase() {
+        let first = srsReview(nil, grade: .hard, now: now)
+        XCTAssertEqual(first.reps, 1)
+        XCTAssertEqual(first.interval, 1)
+        XCTAssertEqual(first.ease, DEFAULT_EASE - 0.15, accuracy: 0.0001)
+    }
+
+    func testHardGrowsIntervalMoreGentlyThanGood() {
+        var good = srsReview(nil, grade: .good, now: now)
+        good = srsReview(good, grade: .good, now: now)   // interval 3
+        let harder = srsReview(good, grade: .hard, now: now)
+        let easier = srsReview(good, grade: .good, now: now)
+        XCTAssertEqual(harder.interval, (3 * HARD_FACTOR).rounded())
+        XCTAssertLessThan(harder.interval, easier.interval)
+    }
+
+    func testRelearningLadderClimbsThenRejoins() {
+        var c = srsReview(nil, grade: .good, now: now)
+        c = srsReview(c, grade: .again, now: now)
+        XCTAssertEqual(c.relearn, 0)
+
+        c = srsReview(c, grade: .good, now: now)
+        XCTAssertEqual(c.relearn, 1)
+        XCTAssertEqual(c.due, now + RELEARN_STEPS[1])
+
+        // Graduated — back on the normal ladder at a 1-day interval.
+        c = srsReview(c, grade: .good, now: now)
+        XCTAssertNil(c.relearn)
+        XCTAssertEqual(c.interval, 1)
+        XCTAssertEqual(c.due, now + MS_PER_DAY)
+    }
+
+    func testSecondLapseWhileRelearningReturnsToBottomStep() {
+        var c = srsReview(nil, grade: .good, now: now)
+        c = srsReview(c, grade: .again, now: now)
+        c = srsReview(c, grade: .good, now: now)
+        c = srsReview(c, grade: .again, now: now)
+        XCTAssertEqual(c.relearn, 0)
+        XCTAssertEqual(c.lapses, 2)
     }
 
     func testEaseNeverDropsBelowMinimum() {

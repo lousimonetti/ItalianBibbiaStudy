@@ -9,7 +9,9 @@
 // changes, then rebuild the app.
 //
 // Shape notes for the Swift Codable side:
-//   - vocab tuples [it, en, ex, ipa?] become objects { it, en, ex, ipa? }
+//   - vocab tuples [it, en, ex, ipa?, extra?] become objects
+//     { it, en, ex, ipa?, exEn?, form? } — `extra` carries the example's
+//     translation and the inflected form the headword takes in it
 //   - comprehension `answer` (bool for tf, index for mc) is split into
 //     `answerBool` / `answerIndex` so Swift avoids a union type
 //   - speaking-layer fields (phrases/transform/questions) are exported too so a
@@ -27,7 +29,15 @@ const { phases } = await import(join(repoRoot, 'courses/it-bible-cei/content.js'
 const { commonWordsData } = await import(join(repoRoot, 'src/utils/it2en.js'));
 
 function exportVocab(tuples = []) {
-  return tuples.map(([it, en, ex, ipa]) => ({ it, en, ex, ...(ipa ? { ipa } : {}) }));
+  return tuples.map(([it, en, ex, ipa, extra]) => {
+    const x = extra && typeof extra === 'object' && !Array.isArray(extra) ? extra : {};
+    return {
+      it, en, ex,
+      ...(ipa ? { ipa } : {}),
+      ...(x.exEn ? { exEn: x.exEn } : {}),
+      ...(x.form ? { form: x.form } : {}),
+    };
+  });
 }
 
 function exportComprehension(items = []) {

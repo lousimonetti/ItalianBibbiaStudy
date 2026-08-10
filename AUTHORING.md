@@ -55,14 +55,39 @@ it, scaffold elsewhere: `--out course-draft` and copy in when ready.
 | `r` | what to read/study this week |
 | `b` | the weekly topic (shown under `brand.topicLabel`) |
 | `review` | `true` marks a review/conversation week |
-| `vocab` | array of `[target, native, example, ipa?]` tuples (IPA optional) |
+| `vocab` | array of `[target, native, example, ipa?, extra?]` tuples |
+| `exegesis` | optional `{ title, body, forms? }` — a passage note (see below) |
 | `grammar` | `{ title, body }` |
 | `prompt` | `{ it, en }` — a writing prompt (`it` = target language, `en` = native) |
 | `italki` | optional array of conversation-starter strings |
 
-> Tuple shape is `[target, native, example, ipa?]`. The `example` should contain
-> the target word so **cloze** practice can blank it (≈61% coverage in the
-> Italian course); words that only appear inflected just won't be cloze-eligible.
+### The vocab tuple
+
+`[target, native, example, ipa?, extra?]`, where `extra` is `{ exEn?, form? }` —
+both optional, both worth supplying:
+
+- **`exEn`** — the example sentence's translation. Without it, *Listening* mode
+  has nothing truthful to show for a whole sentence (it used to display the
+  single word's gloss instead), and the *Sentence* practice style (native
+  sentence → target) is unavailable for that card.
+- **`form`** — the inflected form the headword actually takes in the example
+  (`credere` → `ha creduto`). This is what makes conjugated and derived examples
+  usable: it drives **cloze** blanking, is shown in the vocab table so the
+  learner sees the lemma↔inflection relationship, and lets the gloss popover
+  resolve a conjugated word back to its lemma. In the Italian course, recording
+  forms took cloze coverage from **61% → 83%**. The validator checks that a
+  declared `form` really occurs in its example.
+
+```js
+['credere', 'to believe', 'ha creduto in lui', '/ˈkrɛːdere/',
+  { exEn: 'he believed in him', form: 'ha creduto' }],
+```
+
+### Passage notes (`exegesis`)
+
+Optional per week: `{ title, body, forms?: [{ it, gloss, note }] }`. Use it to
+explain what a passage *means* by way of the grammar it uses, rather than running
+the two as parallel tracks. Renders as a collapsible *Reading the passage* panel.
 
 ## Authoring vocab in a spreadsheet
 
@@ -126,10 +151,17 @@ deck downloads are still generated for the default course only.)*
 - **Immersion-mode chrome** (`src/i18n/strings.js`) is Italian/English. For full
   immersion in another language, translate those keys; otherwise immersion mode
   is best left off.
-- **Long-form guide prose** in `src/components/GuideSection.jsx` and
-  `src/components/SentenceGuide.jsx` is still Italian-Bible specific — edit those
-  components (or empty them) for your course. Moving this into `course/` is a
-  planned follow-up.
+- **Long-form guide prose** in `src/components/GuideSection.jsx` is still
+  Italian-Bible specific — edit that component (or empty it) for your course.
+  `SentenceGuide` and `JournalScaffold` now read `config.guide.sentencePatterns`
+  and `config.guide.journalStarters` instead, so those two no longer need
+  component edits.
+- **Devotional texts** (`courses/<id>/devotions.js`, `export const
+  devotionSections`) are optional: supply them and a Devotions tab appears with
+  Read / Shadow / Recall modes; omit them and the tab hides itself. Giving a
+  prayer `lines: [{ it, en, blank? }]` is what unlocks the modes — line-aligned
+  reading, spoken shadowing scored by the pronunciation engine, and chunk cloze
+  on the word named by `blank`.
 - **Non-Latin / RTL scripts** (Greek, Hebrew, Arabic): the word tokenizer and
   article-stripping assume Latin-ish words — a known limit.
 - **Accent color** lives in `src/index.css` (`--accent` for light + dark), not

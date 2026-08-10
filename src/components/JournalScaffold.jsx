@@ -1,14 +1,11 @@
 import { useState } from 'react';
+import { config } from '../../course/config';
 
-// Generic Italian sentence openers that fit reflective Bible-study journaling.
-// Clicking one drops it into the entry to break the blank-page barrier.
-const STARTERS = [
-  'Oggi ho letto…',
-  'Questo passo parla di…',
-  'Ho imparato che…',
-  'Mi colpisce che…',
-  'Voglio ricordare…',
-];
+// Sentence openers that fit reflective study journaling. Clicking one drops it
+// into the entry to break the blank-page barrier. These are course data — they
+// are written in the target language, so hardcoding them here meant a fork
+// aimed at any other language still got Italian.
+const STARTERS = config.guide?.journalStarters ?? [];
 
 // Lowers the blank-page barrier: surfaces the week's grammar focus, a few Italian
 // sentence starters, and the week's vocabulary as click-to-insert chips. Pure

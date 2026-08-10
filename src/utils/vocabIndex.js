@@ -1,4 +1,5 @@
 import { PHASES } from '../data/studyData';
+import { parseVocab } from '../../course/vocab';
 import { LEADING_ARTICLE } from './locale';
 
 // LEADING_ARTICLE (from the course locale) lets a vocab entry like "il Verbo" or
@@ -27,11 +28,18 @@ export function getVocabIndex() {
   };
   for (const phase of PHASES) {
     for (const week of phase.weeks) {
-      for (const [it, en, , ipa] of week.vocab) {
+      for (const tuple of week.vocab) {
+        const { it, en, ipa, form } = parseVocab(tuple);
         const val = { it, en, ipa: ipa || '' };
         add(it, val);
         const stripped = stripArticle(clean(it));
         if (stripped && stripped !== clean(it)) add(stripped, val);
+        // The inflected form points back at its lemma, so a conjugated word in a
+        // sentence resolves and the popover can say "ha creduto → credere"
+        // instead of falling through to a generated approximation.
+        if (form && clean(form) !== clean(it) && clean(form) !== stripped) {
+          add(form, { it: form, en, ipa: '', lemma: it });
+        }
       }
     }
   }

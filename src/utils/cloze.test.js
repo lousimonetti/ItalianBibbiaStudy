@@ -31,3 +31,26 @@ describe('isClozeEligible', () => {
     expect(isClozeEligible({ it: 'credere', ex: 'ha creduto in lui' })).toBe(false);
   });
 });
+
+describe('makeCloze — inflected forms', () => {
+  it('blanks the inflected form when the headword is not literal', () => {
+    // "credere" does not appear in "ha creduto in lui" — before `form` existed
+    // this card was silently dropped from cloze practice.
+    expect(makeCloze('credere', 'ha creduto in lui')).toBe(null);
+    const c = makeCloze('credere', 'ha creduto in lui', 'ha creduto');
+    expect(c).toEqual({ before: '', answer: 'ha creduto', after: ' in lui' });
+  });
+
+  it('prefers the form over the headword when both would match', () => {
+    expect(makeCloze('la pecora', 'conosce le mie pecore', 'pecore').answer).toBe('pecore');
+  });
+
+  it('ignores a form that is not in the example', () => {
+    expect(makeCloze('la luce', 'La luce splende', 'nonsense').answer).toBe('luce');
+  });
+
+  it('isClozeEligible reads the card form', () => {
+    expect(isClozeEligible({ it: 'credere', ex: 'ha creduto in lui' })).toBe(false);
+    expect(isClozeEligible({ it: 'credere', ex: 'ha creduto in lui', form: 'ha creduto' })).toBe(true);
+  });
+});

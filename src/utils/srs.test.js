@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   review, isDue, buildQueue, stats, newIntroducedToday, newAllowanceToday,
-  DAY, DEFAULT_EASE, MIN_EASE, DAILY_NEW_CAP,
+  DAY, DEFAULT_EASE, MIN_EASE, DAILY_NEW_CAP, RELEARN_STEPS, HARD_FACTOR,
 } from './srs.js';
 
 const NOW = 1_700_000_000_000;
@@ -33,14 +33,67 @@ describe('review — good grade', () => {
   });
 });
 
+describe('review — hard grade', () => {
+  it('advances the card but shrinks the ease', () => {
+    const first = review(undefined, 'hard', NOW);
+    expect(first.reps).toBe(1);
+    expect(first.interval).toBe(1);
+    expect(first.ease).toBeCloseTo(DEFAULT_EASE - 0.15, 5);
+  });
+
+  it('grows the interval more gently than a good answer', () => {
+    let good = review(undefined, 'good', NOW);
+    good = review(good, 'good', NOW);      // interval 3
+    const harder = review(good, 'hard', NOW);
+    const easier = review(good, 'good', NOW);
+    expect(harder.interval).toBe(Math.round(3 * HARD_FACTOR));
+    expect(harder.interval).toBeLessThan(easier.interval);
+  });
+
+  it('never lowers ease below the floor', () => {
+    let c;
+    for (let i = 0; i < 30; i++) c = review(c, 'hard', NOW);
+    expect(c.ease).toBe(MIN_EASE);
+  });
+});
+
+describe('review — relearning steps', () => {
+  it('climbs the ladder one step per correct answer before rejoining', () => {
+    let c = review(undefined, 'good', NOW);
+    c = review(c, 'again', NOW);
+    expect(c.relearn).toBe(0);
+    expect(c.due).toBe(NOW + RELEARN_STEPS[0]);
+
+    c = review(c, 'good', NOW);
+    expect(c.relearn).toBe(1);
+    expect(c.due).toBe(NOW + RELEARN_STEPS[1]);
+
+    c = review(c, 'good', NOW);
+    expect(c.relearn).toBe(null);
+    expect(c.interval).toBe(1);
+    expect(c.due).toBe(NOW + DAY);
+  });
+
+  it('a second lapse while relearning returns to the bottom step', () => {
+    let c = review(undefined, 'good', NOW);
+    c = review(c, 'again', NOW);
+    c = review(c, 'good', NOW);
+    c = review(c, 'again', NOW);
+    expect(c.relearn).toBe(0);
+    expect(c.lapses).toBe(2);
+  });
+});
+
 describe('review — again grade', () => {
-  it('resets reps, lowers ease, makes the card due now, counts a lapse', () => {
+  it('resets reps, lowers ease, enters relearning, counts a lapse', () => {
     let c = review(undefined, 'good', NOW);
     c = review(c, 'good', NOW); // build some progress
     const lapsed = review(c, 'again', NOW);
     expect(lapsed.reps).toBe(0);
     expect(lapsed.interval).toBe(0);
-    expect(lapsed.due).toBe(NOW);
+    // A lapse now enters the relearning ladder rather than being due instantly.
+    expect(lapsed.due).toBe(NOW + RELEARN_STEPS[0]);
+    expect(lapsed.relearn).toBe(0);
     expect(lapsed.lapses).toBe(1);
     expect(lapsed.ease).toBeCloseTo(DEFAULT_EASE - 0.2, 5);
   });

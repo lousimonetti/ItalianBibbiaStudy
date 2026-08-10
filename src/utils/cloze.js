@@ -7,11 +7,14 @@
 
 import { LEADING_ARTICLE } from './locale';
 
-export function makeCloze(term, example) {
+export function makeCloze(term, example, form) {
   if (!term || !example) return null;
   const stripped = term.replace(LEADING_ARTICLE, '').trim();
-  for (const cand of [stripped, term]) {
-    if (cand.length < 2) continue;
+  // `form` first: the inflected form the author recorded for this example
+  // ("credere" -> "ha creduto"). Without it ~39% of cards silently fell out of
+  // cloze because the literal headword isn't in its own example.
+  for (const cand of [form, stripped, term]) {
+    if (!cand || cand.length < 2) continue;
     const idx = example.toLowerCase().indexOf(cand.toLowerCase());
     if (idx >= 0) {
       return {
@@ -25,5 +28,5 @@ export function makeCloze(term, example) {
 }
 
 export function isClozeEligible(card) {
-  return makeCloze(card.it, card.ex) !== null;
+  return makeCloze(card.it, card.ex, card.form) !== null;
 }

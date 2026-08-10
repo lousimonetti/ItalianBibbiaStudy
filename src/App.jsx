@@ -12,7 +12,10 @@ import { Phase } from './components/Phase';
 import { GuideSection } from './components/GuideSection';
 import { FlashcardsTab } from './components/FlashcardsTab';
 import { JournalTab } from './components/JournalTab';
-import { PrayersTab } from './components/PrayersTab';
+import { DevotionsTab } from './components/DevotionsTab';
+import { devotionSections } from '../course/devotions';
+import { buildCards } from '../course/vocab';
+import { useSrs } from './hooks/useSrs';
 import { SaintsTab } from './components/SaintsTab';
 import { WelcomeCard } from './components/WelcomeCard';
 import { useImmersion } from './i18n/ImmersionContext';
@@ -29,6 +32,9 @@ import { SyncPanel } from './components/SyncPanel';
 
 const TOTAL = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
 const ALL_WEEKS = PHASES.flatMap(p => p.weeks);
+const ALL_CARDS = buildCards(PHASES);
+// The Devotions tab only exists for courses that ship devotional texts.
+const HAS_DEVOTIONS = devotionSections.length > 0;
 
 function DownloadIcon() {
   return (
@@ -134,6 +140,11 @@ function GoalCheck({ done }) {
 
 function DailyGoals() {
   const { current, best, flags, tickRead } = useStreak();
+  // How many cards are actually waiting. The count previously only existed
+  // inside the Practice tab, so nothing anywhere else pulled the learner back
+  // into a review — the cheapest retention win available.
+  const { getStats } = useSrs();
+  const due = getStats(ALL_CARDS).due;
   return (
     <div className="today-goals">
       <div className="today-streak" title="Consecutive days you've studied">
@@ -153,6 +164,7 @@ function DailyGoals() {
         </button>
         <div className={`today-goal${flags.practiced ? ' done' : ''}`}>
           <GoalCheck done={flags.practiced} /> Review flashcards
+          {due > 0 && <span className="today-due-pill">{due} due</span>}
         </div>
         <div className={`today-goal${flags.journaled ? ' done' : ''}`}>
           <GoalCheck done={flags.journaled} /> Write a line in Italian
@@ -228,7 +240,7 @@ const TABS = [
   { id: 'Tracker',    Icon: TrackerIcon },
   { id: 'Flashcards', Icon: CardsIcon },
   { id: 'Journal',    Icon: JournalIcon },
-  { id: 'Prayers',    Icon: PrayersIcon },
+  ...(HAS_DEVOTIONS ? [{ id: 'Prayers', Icon: PrayersIcon }] : []),
   { id: 'Saints',     Icon: SaintsIcon },
 ];
 
@@ -372,7 +384,7 @@ export default function App() {
       {activeTab === 'Journal' && <JournalTab />}
 
       {/* Tab: Prayers */}
-      {activeTab === 'Prayers' && <PrayersTab />}
+      {activeTab === 'Prayers' && HAS_DEVOTIONS && <DevotionsTab />}
 
       {/* Tab: Saints */}
       {activeTab === 'Saints' && <SaintsTab />}

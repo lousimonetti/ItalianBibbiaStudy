@@ -45,7 +45,8 @@ phases = [{
     r: string,                        // required — reading/material
     b: string,                        // weekly topic
     review: boolean,
-    vocab: [[target, native, example, ipa?]],  // required — ≥1 tuple, ≥3 fields
+    vocab: [[target, native, example, ipa?, extra?]],  // extra = { exEn?, form? }
+    exegesis: { title, body, forms?: [{ it, gloss, note }] },  // optional  // required — ≥1 tuple, ≥3 fields
     grammar: { title, body },
     prompt: { it, en },               // required — `it`=target, `en`=native
     italki: string[],                 // optional conversation starters
@@ -75,6 +76,11 @@ phases = [{
 3. `phases` non-empty; total weeks **==** `schedule.weeks`.
 4. Week `n`s are integers, **unique**, and **contiguous** `1..N`.
 5. Each week has `r`, a `prompt` (`it`/`target`), and ≥1 vocab tuple of ≥3 fields.
+6. A vocab tuple's 5th element, if present, is an object whose `exEn`/`form` are
+   strings — and a declared `form` **must actually occur in that tuple's
+   example**, since cloze blanking looks it up there.
+7. `exegesis`, if present, has a `title` and a `body`; its `forms` (if present)
+   is an array.
 
 Everything else (badge colors, `book`, `b`, `italki`, IPA) is optional and only
 affects display.
