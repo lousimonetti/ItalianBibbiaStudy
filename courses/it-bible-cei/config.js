@@ -76,6 +76,35 @@ export const config = {
     },
   ],
 
+  // Long-form course-specific prose that used to be hardcoded inside shared
+  // components (SentenceGuide, JournalScaffold, GuideSection). All of it is
+  // language- and course-specific, so a fork had to edit components to change
+  // it — which broke the "edit the course, not the code" promise. Every field
+  // here is optional: the component hides its section when the field is absent.
+  guide: {
+    // Sentence-pattern reference shown in the Journal editor.
+    sentencePatterns: [
+      { label: 'Subject + verb', it: 'Io leggo.', en: 'I read.' },
+      { label: 'Subject + verb + object', it: 'Io leggo la Bibbia.', en: 'I read the Bible.' },
+      { label: 'Subject + verb + adjective', it: 'La parola è vera.', en: 'The word is true.' },
+      { label: 'Negation', it: 'Non capisco.', en: "I don't understand." },
+      { label: 'Question', it: 'Cosa significa?', en: 'What does it mean?' },
+      { label: 'Past (passato prossimo)', it: 'Ho letto il capitolo.', en: 'I have read the chapter.' },
+      { label: 'Connectors', it: 'e · ma · perché · quindi', en: 'and · but · because · so' },
+    ],
+
+    // Click-to-insert openers for the Journal writing scaffold. These were
+    // hardcoded Italian inside a shared component — a fork targeting any other
+    // language got Italian starters.
+    journalStarters: [
+      'Oggi ho letto…',
+      'Questo passo parla di…',
+      'Ho imparato che…',
+      'Mi colpisce che…',
+      'Voglio ricordare…',
+    ],
+  },
+
   // Supporting tools/materials the course uses (rendered on the WelcomeCard).
   resources: [
     { id: 'text', name: 'La Bibbia CEI 2008', badge: 'Primary text', role: 'reading',

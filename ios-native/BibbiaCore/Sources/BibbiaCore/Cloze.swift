@@ -1,10 +1,10 @@
 import Foundation
 
 // Port of src/utils/cloze.js — build a fill-in-the-blank from a vocab term and
-// its example sentence. Prefers blanking the bare content word (so the article
-// stays as a gender hint), falling back to the full term. Returns nil when the
-// term doesn't literally appear in the example (e.g. the example uses a
-// conjugated form) — that card is not cloze-eligible.
+// its example sentence. Candidates in order: the author-recorded inflected
+// `form` (what makes conjugated/derived examples work), then the bare content
+// word (so the article stays as a gender hint), then the full term. Returns nil
+// when none of them appears — that card is not cloze-eligible.
 
 public struct ClozeResult: Equatable {
     public let before: String
@@ -12,7 +12,8 @@ public struct ClozeResult: Equatable {
     public let after: String
 }
 
-public func makeCloze(term: String, example: String, articles: [String]) -> ClozeResult? {
+public func makeCloze(term: String, example: String, articles: [String],
+                      form: String? = nil) -> ClozeResult? {
     if term.isEmpty || example.isEmpty { return nil }
     let stripped = Articles.stripLeading(term, articles: articles)
         .trimmingCharacters(in: .whitespacesAndNewlines)
@@ -20,7 +21,7 @@ public func makeCloze(term: String, example: String, articles: [String]) -> Cloz
     let exampleChars = Array(example)
     let exampleLower = Array(example.lowercased())
 
-    for candidate in [stripped, term] {
+    for candidate in [form ?? "", stripped, term] {
         if candidate.count < 2 { continue }
         let candLower = Array(candidate.lowercased())
         guard candLower.count <= exampleLower.count else { continue }
@@ -39,5 +40,5 @@ public func makeCloze(term: String, example: String, articles: [String]) -> Cloz
 }
 
 public func isClozeEligible(card: VocabCard, articles: [String]) -> Bool {
-    makeCloze(term: card.it, example: card.ex, articles: articles) != nil
+    makeCloze(term: card.it, example: card.ex, articles: articles, form: card.form) != nil
 }

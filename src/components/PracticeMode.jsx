@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { PHASES } from '../data/studyData';
+import { buildCards } from '../../course/vocab';
 import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
 import { UiText } from '../i18n/UiText';
@@ -19,19 +20,11 @@ const STYLES = [
   { id: 'cloze', label: 'Cloze', sub: 'fill the blank' },
   { id: 'listening', label: 'Listening', sub: 'hear it, type it' },
   { id: 'build', label: 'Build', sub: 'order the words' },
+  { id: 'sentence', label: 'Sentence', sub: 'EN sentence → IT' },
 ];
 
-function buildCards(phases) {
-  const cards = [];
-  for (const phase of phases) {
-    for (const week of phase.weeks) {
-      for (const [it, en, ex, ipa] of week.vocab) {
-        cards.push({ it, en, ex, ipa, weekN: week.n, reading: week.r, phaseId: phase.id });
-      }
-    }
-  }
-  return cards;
-}
+// Sentence recall needs the example's translation.
+const hasSentence = (c) => !!(c.ex && c.exEn);
 
 function shuffle(arr) {
   const a = [...arr];
@@ -86,6 +79,9 @@ export function PracticeMode() {
   const [correct, setCorrect] = useState(false);
   const [listenRate, setListenRate] = useState(0.85);
   const [picked, setPicked] = useState([]); // Build style: chip indices in tap order
+  // Listening is dictation: the first press replays rather than revealing, so
+  // the learner always hears it at least twice before seeing the text.
+  const [replays, setReplays] = useState(0);
   const { recordReview, buildSession, getStats, getStore, version } = useSrs();
   const { getStore: getPronunStore, version: pronunVersion } = usePronunStats();
 
@@ -98,6 +94,8 @@ export function PracticeMode() {
   const clozeCards = useMemo(() => filtered.filter(isClozeEligible), [filtered]);
   // Build works on cards whose example is a reasonable chip count.
   const buildableCards = useMemo(() => filtered.filter(isScrambleEligible), [filtered]);
+  // Sentence recall needs an example translation to prompt with.
+  const sentenceCards = useMemo(() => filtered.filter(hasSentence), [filtered]);
 
   // Recompute when the filter changes or after a review. `version` looks unused
   // to the linter, but getStats/buildSession read the SRS store from a ref that
@@ -110,13 +108,19 @@ export function PracticeMode() {
   const clozeQueue = useMemo(() => buildSession(clozeCards), [clozeCards, version]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const buildQueue = useMemo(() => buildSession(buildableCards), [buildableCards, version]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const sentenceQueue = useMemo(() => buildSession(sentenceCards), [sentenceCards, version]);
   // Struggle list combines SRS lapses/ease with pronunciation scores.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const struggles = useMemo(() => struggleList(filtered, getStore(), getPronunStore()), [filtered, version, pronunVersion]);
 
-  const activeQueue = style === 'cloze' ? clozeQueue : style === 'build' ? buildQueue : dueQueue;
+  const activeQueue = style === 'cloze' ? clozeQueue
+    : style === 'build' ? buildQueue
+      : style === 'sentence' ? sentenceQueue : dueQueue;
   // The card pool matching the selected style, for "practice all anyway".
-  const stylePool = style === 'cloze' ? clozeCards : style === 'build' ? buildableCards : filtered;
+  const stylePool = style === 'cloze' ? clozeCards
+    : style === 'build' ? buildableCards
+      : style === 'sentence' ? sentenceCards : filtered;
 
   const activeCard = session && session.index < session.cards.length ? session.cards[session.index] : null;
   // Shuffled chips for the Build style — keyed on the card object so ordinary
@@ -132,6 +136,7 @@ export function PracticeMode() {
     setChecked(false);
     setCorrect(false);
     setPicked([]);
+    setReplays(0);
   }
 
   function startSession(cards) {
@@ -146,7 +151,9 @@ export function PracticeMode() {
     if (session.style === 'build') {
       setCorrect(sameOrder(scrambleTokens(card.ex), picked.map(i => buildChips[i])));
     } else if (session.style !== 'listening') {
-      const expected = session.style === 'cloze' ? makeCloze(card.it, card.ex).answer : card.it;
+      const expected = session.style === 'cloze' ? makeCloze(card.it, card.ex, card.form).answer
+        : session.style === 'sentence' ? card.ex
+          : card.it;
       setCorrect(checkAnswer(expected, typed));
     }
     setChecked(true);
@@ -154,6 +161,13 @@ export function PracticeMode() {
 
   function handleKnown() {
     recordReview(session.cards[session.index].it, 'good');
+    recordActivity('practiced');
+    setSession(s => ({ ...s, index: s.index + 1, known: s.known + 1 }));
+    resetCardUi();
+  }
+
+  function handleHard() {
+    recordReview(session.cards[session.index].it, 'hard');
     recordActivity('practiced');
     setSession(s => ({ ...s, index: s.index + 1, known: s.known + 1 }));
     resetCardUi();
@@ -185,8 +199,10 @@ export function PracticeMode() {
     const total = session.cards.length;
     const pct = (session.index / total) * 100;
     const isTyped = session.style !== 'recognition';
-    const cloze = session.style === 'cloze' ? makeCloze(card.it, card.ex) : null;
+    const cloze = session.style === 'cloze' ? makeCloze(card.it, card.ex, card.form) : null;
     const showGrade = isTyped ? checked : flipped;
+    // Listening: hold back the reveal until they've heard it at least twice.
+    const mustReplay = session.style === 'listening' && replays < 1;
 
     return (
       <div className="prac-session">
@@ -253,6 +269,8 @@ export function PracticeMode() {
                   )}
                 </div>
               </div>
+            ) : session.style === 'sentence' ? (
+              <div className="prac-recall-prompt">{card.exEn}</div>
             ) : (
               <div className="prac-recall-prompt">{card.en}</div>
             )}
@@ -260,13 +278,14 @@ export function PracticeMode() {
               {session.style === 'listening' ? 'Listen and type what you hear'
                 : session.style === 'cloze' ? `Fill the blank — ${card.en}`
                 : session.style === 'build' ? `Costruisci la frase — build the sentence (${card.it} · ${card.en})`
+                : session.style === 'sentence' ? 'Write the Italian sentence'
                 : 'Type the Italian'}
             </div>
             {session.style !== 'build' && <input
               className={`prac-input${checked && session.style !== 'listening' ? (correct ? ' prac-input-correct' : ' prac-input-wrong') : ''}`}
               value={typed}
               onChange={(e) => setTyped(e.target.value)}
-              onKeyDown={(e) => { if (e.key === 'Enter' && !checked && typed.trim()) handleCheck(); }}
+              onKeyDown={(e) => { if (e.key === 'Enter' && !checked && !mustReplay && typed.trim()) handleCheck(); }}
               placeholder="Scrivi qui…"
               autoFocus
               disabled={checked}
@@ -282,8 +301,17 @@ export function PracticeMode() {
                 {session.style === 'listening' ? (
                   <>
                     <span className="prac-answer prac-answer-sentence">{card.ex}</span>
-                    <span className="prac-translation">{card.en}</span>
+                    {/* The sentence's own translation — NOT the headword gloss,
+                        which is what used to be rendered in this slot: you heard
+                        a whole sentence and were told it meant one word. */}
+                    {card.exEn && <span className="prac-translation">{card.exEn}</span>}
+                    <span className="prac-word-gloss">{card.it} — {card.en}</span>
                     <SpeakerButton word={card.ex} size={18} rate={listenRate} />
+                  </>
+                ) : session.style === 'sentence' ? (
+                  <>
+                    <span className="prac-answer prac-answer-sentence">{card.ex}</span>
+                    <SpeakerButton word={card.ex} size={18} />
                   </>
                 ) : session.style === 'build' ? (
                   <>
@@ -295,7 +323,11 @@ export function PracticeMode() {
                     <span className="prac-answer">{card.it}</span>
                     {HAS_IPA && card.ipa && <span className="prac-ipa">{card.ipa}</span>}
                     <SpeakerButton word={card.it} size={18} />
-                    {session.style === 'recall' && <span className="prac-example">"{card.ex}"</span>}
+                    {session.style === 'recall' && card.ex && (
+                      <span className="prac-example">
+                        &ldquo;{card.ex}&rdquo;{card.exEn ? ` — ${card.exEn}` : ''}
+                      </span>
+                    )}
                   </>
                 )}
               </div>
@@ -318,7 +350,11 @@ export function PracticeMode() {
                 <span className="prac-translation">{card.en}</span>
                 {HAS_IPA && <span className="prac-ipa">{card.ipa}</span>}
                 <SpeakerButton word={card.it} size={18} />
-                <span className="prac-example">"{card.ex}"</span>
+                {card.ex && (
+                  <span className="prac-example">
+                    &ldquo;{card.ex}&rdquo;{card.exEn ? ` — ${card.exEn}` : ''}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -327,13 +363,23 @@ export function PracticeMode() {
         <div className="prac-card-meta">Week {card.weekN} · {card.reading}</div>
 
         {showGrade ? (
-          <div className="prac-actions">
+          <div className="prac-actions prac-actions-3">
             <button className="prac-again-btn" onClick={handleAgain}><UiText k="prac.again" /></button>
+            <button className="prac-hard-btn" onClick={handleHard} title="Got it, but it was a struggle">Hard</button>
             <button className="prac-known-btn" onClick={handleKnown}><UiText k="prac.known" /></button>
           </div>
         ) : (
           <div className="prac-actions">
             {isTyped ? (
+              mustReplay ? (
+                <button
+                  className="prac-reveal-btn"
+                  onClick={() => setReplays((r) => r + 1)}
+                  title="Hear it once more before the text is revealed"
+                >
+                  Listen again
+                </button>
+              ) : (
               <button
                 className="prac-reveal-btn"
                 onClick={handleCheck}
@@ -345,6 +391,7 @@ export function PracticeMode() {
               >
                 {session.style === 'listening' ? 'Reveal' : 'Check'}
               </button>
+              )
             ) : (
               <button className="prac-reveal-btn" onClick={() => setFlipped(true)}><UiText k="prac.reveal" /></button>
             )}
@@ -373,19 +420,25 @@ export function PracticeMode() {
       <div className="prac-filter-label"><UiText k="prac.style" /></div>
       <div className="prac-style-grid">
         {STYLES.map(s => {
-          const disabled =
-            (s.id === 'cloze' && clozeCards.length === 0) ||
-            (s.id === 'build' && buildableCards.length === 0);
+          // Cloze / Build / Sentence can only use the subset of cards carrying
+          // the data they need — show the real count rather than silently
+          // serving a shrunken deck.
+          const count = s.id === 'cloze' ? clozeCards.length
+            : s.id === 'build' ? buildableCards.length
+              : s.id === 'sentence' ? sentenceCards.length
+                : filtered.length;
+          const disabled = count === 0;
           return (
             <button
               key={s.id}
               className={`prac-style-btn${style === s.id ? ' prac-style-active' : ''}`}
               onClick={() => setStyle(s.id)}
               disabled={disabled}
-              title={disabled ? 'No eligible cards in this selection' : undefined}
+              title={disabled ? 'No eligible cards in this selection' : `${count} eligible cards`}
             >
               <span className="prac-style-name">{s.label}</span>
               <span className="prac-style-sub">{s.sub}</span>
+              <span className="prac-style-count">{count} cards</span>
             </button>
           );
         })}

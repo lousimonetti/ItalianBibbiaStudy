@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { canonical, checkAnswer } from './answer.js';
+import { canonical, checkAnswer, checkDrill } from './answer.js';
 
 describe('canonical', () => {
   it('lowercases, folds accents, strips a leading article and punctuation', () => {
@@ -23,5 +23,39 @@ describe('checkAnswer', () => {
   it('rejects an empty or clearly wrong answer', () => {
     expect(checkAnswer('luce', '')).toBe(false);
     expect(checkAnswer('luce', 'mondo')).toBe(false);
+  });
+});
+
+describe('checkDrill — strict grading for grammar drills', () => {
+  it('accepts an exact match', () => {
+    expect(checkDrill('è', 'è')).toBe(true);
+    expect(checkDrill('abbiamo', 'abbiamo')).toBe(true);
+  });
+
+  it('is accent-sensitive — the whole point of many drills', () => {
+    // checkAnswer folds accents and allows an edit, so it would accept these.
+    expect(checkDrill('è', 'e')).toBe(false);
+    expect(checkDrill('è', 'a')).toBe(false);
+    expect(checkDrill('perché', 'perche')).toBe(false);
+  });
+
+  it('gives short answers no typo tolerance at all', () => {
+    expect(checkDrill('sia', 'sai')).toBe(false);
+    expect(checkDrill('del', 'dal')).toBe(false);
+  });
+
+  it('allows one typo on longer answers', () => {
+    expect(checkDrill('abbiamo', 'abbiami')).toBe(true);
+    expect(checkDrill('parlerei', 'parlereix')).toBe(true);
+    expect(checkDrill('abbiamo', 'abxxamo')).toBe(false);
+  });
+
+  it('ignores case, surrounding punctuation and extra whitespace', () => {
+    expect(checkDrill('ci sono', '  Ci   sono!  ')).toBe(true);
+    expect(checkDrill("c'è", 'C’è')).toBe(true);
+  });
+
+  it('rejects an empty answer', () => {
+    expect(checkDrill('sia', '')).toBe(false);
   });
 });

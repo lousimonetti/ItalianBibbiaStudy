@@ -3221,3 +3221,212 @@ html.dark .prayer-text-en { color: var(--text-muted); }
 .saints-en-toggle:hover { color: var(--accent); }
 .saints-en-body { padding: 10px 16px 12px; }
 .saints-credit { font-size: 10.5px; color: var(--text-faint); text-align: center; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Pedagogy pass — example translations, inflected forms, passage notes,
+   lexical recycling, three-way grading, and the Devotions Read/Shadow/Recall
+   modes.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Example-sentence translations + inflected forms (vocab table) */
+.vocab-ex-en {
+  display: block;
+  margin-top: 3px;
+  font-size: 11.5px;
+  font-style: normal;
+  color: var(--text-faint);
+}
+.vocab-form {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Gloss popover: the lemma an inflected form belongs to */
+.gloss-pop-lemma {
+  display: block;
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+.gloss-pop-lemma strong { color: var(--accent); font-weight: 600; }
+
+/* Passage note (exegesis) */
+.exeg-panel {
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.exeg-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text);
+}
+.exeg-eyebrow {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--it-red);
+}
+.exeg-title { font-size: 13.5px; font-weight: 600; }
+.exeg-body { padding: 0 14px 14px; }
+.exeg-prose { margin: 0 0 12px; font-size: 13px; line-height: 1.7; color: var(--text-muted); }
+.exeg-forms { display: flex; flex-direction: column; gap: 8px; }
+.exeg-form {
+  padding: 9px 11px;
+  background: var(--bg);
+  border-left: 2px solid var(--it-red);
+  border-radius: 0 8px 8px 0;
+}
+.exeg-form-it {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.exeg-form-gloss { display: block; font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+.exeg-form-note { display: block; font-size: 11.5px; color: var(--text-faint); margin-top: 3px; line-height: 1.5; }
+
+/* Lexical recycling */
+.recycle-panel {
+  margin-top: 10px;
+  padding: 9px 11px;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  border-radius: 9px;
+}
+.recycle-label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
+.recycle-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.recycle-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 3px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--text);
+}
+.recycle-week { font-size: 10px; color: var(--text-faint); }
+
+/* Practice: eligible counts + three-way grading */
+.prac-style-count { display: block; font-size: 10.5px; color: var(--text-faint); margin-top: 2px; }
+.prac-word-gloss { font-size: 12px; color: var(--text-faint); }
+.prac-hard-btn {
+  flex: 1;
+  padding: 13px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #FDF3E0;
+  color: #8A5A0B;
+  transition: opacity 0.15s;
+}
+html.dark .prac-hard-btn { background: #33270f; color: #e0b060; }
+.prac-hard-btn:hover { opacity: 0.8; }
+.today-due-pill {
+  margin-left: auto;
+  padding: 1px 8px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Devotions: modes, lines, shadowing, recall */
+.prayers-why {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  background: var(--accent-dim);
+  border-radius: 10px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--accent);
+}
+.prayer-focus {
+  margin: 8px 0 10px;
+  padding: 9px 11px;
+  background: var(--bg);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+}
+.prayer-focus-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 3px;
+}
+.prayer-focus-text { display: block; font-size: 12.5px; line-height: 1.6; color: var(--text-muted); }
+.prayer-focus-weeks { display: block; margin-top: 4px; font-size: 11px; color: var(--text-faint); }
+.prayer-modes { display: flex; gap: 6px; margin: 10px 0; }
+.prayer-mode-btn {
+  padding: 5px 13px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+}
+.prayer-mode-btn.active { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); }
+.prayer-mode-empty { padding: 14px; font-size: 12.5px; color: var(--text-muted); line-height: 1.6; }
+.prayer-lines { list-style: none; margin: 10px 0 0; padding: 0; }
+.prayer-line { padding: 6px 0; border-bottom: 1px solid var(--border-subtle); }
+.prayer-line:last-child { border-bottom: none; }
+.prayer-line-it {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text);
+}
+.prayer-line-en { display: block; margin-top: 2px; font-size: 12px; color: var(--text-faint); }
+.prayer-shadow { display: flex; flex-direction: column; gap: 12px; align-items: center; padding-top: 8px; }
+.prayer-shadow-progress { font-size: 11px; color: var(--text-faint); }
+.prayer-shadow-line { text-align: center; }
+.prayer-shadow-it { display: block; font-size: 19px; line-height: 1.5; color: var(--text); }
+.prayer-shadow-controls { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 8px 0; }
+.prayer-shadow-en { display: block; font-size: 12.5px; color: var(--text-muted); }
+.prayer-shadow-heard { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+.prayer-recall-intro { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin: 10px 0; }
+.prayer-recall-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.prayer-recall-item { padding-bottom: 10px; border-bottom: 1px solid var(--border-subtle); }
+.prayer-recall-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px;
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: var(--text);
+}
+.prayer-recall-input { flex: 0 1 130px; padding: 3px 8px; font-size: 14px; }
+.prayer-recall-answer { font-weight: 600; }
+.prayer-recall-en { font-size: 12px; color: var(--text-faint); margin: 3px 0 6px; }

@@ -7,6 +7,9 @@ export function computeAchievements(ctx, phases) {
   const { progress = {}, learnedCount = 0, streakBest = 0, journaledWeeks = 0 } = ctx || {};
   const weeksDone = Object.values(progress).filter(Boolean).length;
   const phaseDone = (p) => p.weeks.length > 0 && p.weeks.every((w) => progress[w.n]);
+  // Derived, not hardcoded — the completion badge was pinned at 37 and so was
+  // silently unearnable in any course of a different length.
+  const totalWeeks = phases.reduce((n, p) => n + p.weeks.length, 0);
 
   return [
     { id: 'first', icon: '🌱', it: 'Primo passo', en: 'First step', desc: 'Complete your first week', earned: weeksDone >= 1 },
@@ -24,7 +27,7 @@ export function computeAchievements(ctx, phases) {
     { id: 'learn50', icon: '📚', it: '50 parole', en: '50 words learned', desc: 'Learn 50 words in Practice', earned: learnedCount >= 50 },
     { id: 'learn150', icon: '🧠', it: '150 parole', en: '150 words learned', desc: 'Learn 150 words in Practice', earned: learnedCount >= 150 },
     { id: 'writer', icon: '✍️', it: 'Scrittore', en: 'Writer', desc: 'Journal in 10 different weeks', earned: journaledWeeks >= 10 },
-    { id: 'all', icon: '🎄', it: 'Fino a Natale!', en: 'All 37 weeks', desc: 'Complete all 37 weeks', earned: weeksDone >= 37 },
+    { id: 'all', icon: '🎄', it: 'Fino alla fine!', en: `All ${totalWeeks} weeks`, desc: `Complete all ${totalWeeks} weeks`, earned: totalWeeks > 0 && weeksDone >= totalWeeks },
   ];
 }
 

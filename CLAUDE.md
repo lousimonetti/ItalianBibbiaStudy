@@ -167,6 +167,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   (O12 adaptive new-card cap, O9 spaced writing retrieval, O7 sentence scramble,
   O6 morphological awareness, O15 reading speed, O10 error type classification).
 
+- **Pedagogy pass (`REVIEW-pedagogy.md`): merged.** A review against adult-SLA
+  research, reconciled against the work that landed on `main` in parallel (the
+  review's own header documents which of its findings `main` had already closed;
+  its `coreWords.js` and `grammar.drills` proposals were dropped as duplicates of
+  `it2en.js` and `exercises.js`). What shipped:
+  **Content** — all 259 vocab tuples gained `exEn` (the example's translation)
+  and 118 gained `form` (the inflected form the headword takes in its example),
+  taking cloze eligibility 61% → 83%; 8 `exegesis` passage notes that teach the
+  theology *through* the grammar.
+  **Engine** — a `Sentence` practice style (native sentence → target, enabled by
+  `exEn`), a `hard` grade and relearning steps in the SRS, a listen-twice gate in
+  Listening, accent-strict `checkDrill` grading, and a lexical-recycling panel.
+  **Devotions** — the Prayers tab moved into the course
+  (`courses/<id>/devotions.js`, tab hides itself when a course ships none) and
+  became line-aligned with Read / Shadow / Recall modes.
+  **Fixed** — Listening rendered the single word's gloss as if it translated the
+  whole sentence; the completion achievement was hardcoded to 37 weeks; "N due"
+  now appears on the Today card.
+  **Open** — the CEI 2008 fidelity audit of the 259 vocab *examples* (the
+  `passage` blocks in `exercises.js` are separately vetted). Several examples read
+  like paraphrase — week 1's `le tenebre non la vinsero` is a likely case. This
+  needs the real text, not recall, so it is documented rather than guessed at.
+
 ## Commands
 
 ```bash
@@ -197,7 +220,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 
 **Tab structure** (`App.jsx`): Five tabs — Tracker, Flashcards, Journal, Prayers, Saints — rendered conditionally by `activeTab` state. No React Router; tab switching unmounts the inactive tab components.
 
-**Data layer** (`courses/` + `course/`): each course's data lives in `courses/<id>/{config.js,content.js}` (`config` = id, brand, locale, schedule incl. `startDate`/`weeks`/`daily`, resources; `content` = `phases`). `courses/registry.js` statically bundles all courses and picks the **active** one from localStorage (`coursekit-active-course`); `course/config.js` and `course/content.js` are thin **resolvers** that re-export the active course's `config`/`phases` — so the ~12 files that `import { config } from '../../course/config'` transparently get the active course. Switching courses (`registry.setActiveCourse` / the `CoursePicker`) persists + reloads so every module re-resolves. `course/index.js` resolves config+content into `course` (+ derived `totals`). `course/validate.js` checks the invariants (`npm run validate-course`, also exercised by `validate.test.js`). `src/data/studyData.js` is now a **back-compat shim** re-exporting `PHASES` (from content), `DAILY` (from `config.schedule.daily`), and `COURSE` — so existing `import { PHASES } from '../data/studyData'` keeps working. Each phase has `id`, `title`, `book`, badge fields, and a `weeks` array; each week: `n` (1–N), `d` (date range), `r` (reading/material), `b` (topic), `vocab` (array of `[target, native, example, ipa?]` tuples — IPA optional), `grammar` (`{title, body}`), `prompt` (`{it, en}`), `review` (boolean), `italki` (optional). The schedule (`schedule.js`) and the previously-hardcoded "259 cards"/"37 weeks" counts are now **derived** from the course, not literals.
+**Data layer** (`courses/` + `course/`): each course's data lives in `courses/<id>/{config.js,content.js}` (`config` = id, brand, locale, schedule incl. `startDate`/`weeks`/`daily`, resources; `content` = `phases`). `courses/registry.js` statically bundles all courses and picks the **active** one from localStorage (`coursekit-active-course`); `course/config.js` and `course/content.js` are thin **resolvers** that re-export the active course's `config`/`phases` — so the ~12 files that `import { config } from '../../course/config'` transparently get the active course. Switching courses (`registry.setActiveCourse` / the `CoursePicker`) persists + reloads so every module re-resolves. `course/index.js` resolves config+content into `course` (+ derived `totals`). `course/validate.js` checks the invariants (`npm run validate-course`, also exercised by `validate.test.js`). `src/data/studyData.js` is now a **back-compat shim** re-exporting `PHASES` (from content), `DAILY` (from `config.schedule.daily`), and `COURSE` — so existing `import { PHASES } from '../data/studyData'` keeps working. Each phase has `id`, `title`, `book`, badge fields, and a `weeks` array; each week: `n` (1–N), `d` (date range), `r` (reading/material), `b` (topic), `vocab` (array of `[target, native, example, ipa?, extra?]` tuples), `exegesis` (optional `{title, body, forms?}`), `grammar` (`{title, body}`), `prompt` (`{it, en}`), `review` (boolean), `italki` (optional). The schedule (`schedule.js`) and the previously-hardcoded "259 cards"/"37 weeks" counts are now **derived** from the course, not literals.
 
 **Anki generation** (`scripts/generate-anki.cjs`): Node CJS script (not ESM — Vite plugins are ESM but this runs in Node at build time). Produces 42 `.apkg` files in `public/anki/`: one per week (37), one per phase (4), one complete deck (`complete.apkg`). **As of T3** it sources card data from the course via dynamic `import()` of `course/content.js` + `course/config.js` (no more duplicated inline vocab/IPA copy — they can't drift), staying CommonJS per the repo constraint. Cards carry IPA from the vocab tuple's 4th element when `config.locale.hasIPA`; deck names come from `config.brand.name`; per-phase filenames are a stable `DECK_FILES` map keyed by phase id (still referenced by `FlashcardsTab`). Output `.apkg` files remain non-deterministic (timestamps/GUIDs) — every `npm run build` rewrites all 42 even with no content change, so don't commit that churn unless the card *content* actually changed.
 

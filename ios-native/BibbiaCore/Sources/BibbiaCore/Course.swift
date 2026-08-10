@@ -116,12 +116,20 @@ public struct VocabCard: Codable, Hashable {
     public let en: String
     public let ex: String
     public let ipa: String?
+    /// The example sentence's English translation, when the course supplies one.
+    public let exEn: String?
+    /// The inflected form the headword takes in `ex` ("credere" -> "ha creduto").
+    /// Drives cloze blanking and lets a conjugated word resolve to its lemma.
+    public let form: String?
 
-    public init(it: String, en: String, ex: String, ipa: String? = nil) {
+    public init(it: String, en: String, ex: String, ipa: String? = nil,
+                exEn: String? = nil, form: String? = nil) {
         self.it = it
         self.en = en
         self.ex = ex
         self.ipa = ipa
+        self.exEn = exEn
+        self.form = form
     }
 }
 

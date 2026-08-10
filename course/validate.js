@@ -53,8 +53,42 @@ export function validateCourse(config, phases) {
       fail(`week ${w.n}: missing vocab`);
     } else {
       w.vocab.forEach((v, i) => {
-        if (!Array.isArray(v) || v.length < 3) fail(`week ${w.n} vocab[${i}]: expected [target, native, example, ipa?]`);
+        if (!Array.isArray(v) || v.length < 3) {
+          fail(`week ${w.n} vocab[${i}]: expected [target, native, example, ipa?, extra?]`);
+          return;
+        }
+        // Optional 5th element: { exEn, form }. Both are strings when present.
+        const extra = v[4];
+        if (extra !== undefined) {
+          if (typeof extra !== 'object' || extra === null || Array.isArray(extra)) {
+            fail(`week ${w.n} vocab[${i}]: 5th element must be an object { exEn?, form? }`);
+          } else {
+            for (const key of ['exEn', 'form']) {
+              if (extra[key] !== undefined && typeof extra[key] !== 'string') {
+                fail(`week ${w.n} vocab[${i}].${key}: must be a string`);
+              }
+            }
+            // A `form` that isn't in the example defeats its purpose — cloze
+            // matching and the vocab table both look it up there.
+            if (extra.form && v[2] && !v[2].toLowerCase().includes(extra.form.toLowerCase())) {
+              fail(`week ${w.n} vocab[${i}]: form "${extra.form}" does not appear in the example "${v[2]}"`);
+            }
+          }
+        }
       });
+    }
+
+    // Optional exegesis note: { title, body, forms? }
+    if (w.exegesis !== undefined) {
+      if (typeof w.exegesis !== 'object' || w.exegesis === null) {
+        fail(`week ${w.n}: exegesis must be an object { title, body, forms? }`);
+      } else {
+        if (!w.exegesis.title) fail(`week ${w.n}: exegesis.title required`);
+        if (!w.exegesis.body) fail(`week ${w.n}: exegesis.body required`);
+        if (w.exegesis.forms !== undefined && !Array.isArray(w.exegesis.forms)) {
+          fail(`week ${w.n}: exegesis.forms must be an array of { it, gloss, note }`);
+        }
+      }
     }
   }
   for (let i = 1; i <= allWeeks.length; i++) {

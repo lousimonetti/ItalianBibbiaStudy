@@ -1,7 +1,6 @@
 import Foundation
 
-// Port of src/utils/srs.js — the SM-2-flavored, binary-grade spaced-repetition
-// scheduler. Timestamps are **milliseconds since the epoch** (JS Date.now()),
+// Port of src/utils/srs.js — the SM-2-flavored spaced-repetition scheduler. Timestamps are **milliseconds since the epoch** (JS Date.now()),
 // and the card JSON shape matches the web app's `italian-bible-srs` store
 // exactly, so sync-snapshot backups move between the PWA and this app.
 
@@ -9,6 +8,10 @@ public let MS_PER_DAY: Double = 86_400_000
 public let DEFAULT_EASE = 2.5
 public let MIN_EASE = 1.3
 public let DAILY_NEW_CAP = 15  // max brand-new cards introduced per calendar day
+public let MS_PER_MINUTE: Double = 60_000
+public let HARD_FACTOR = 1.2   // interval multiplier for a 'hard' answer
+/// Relearning ladder a lapsed card climbs before it is scheduled normally again.
+public let RELEARN_STEPS: [Double] = [10 * MS_PER_MINUTE, MS_PER_DAY]
 
 public struct SRSCard: Codable, Equatable {
     public var ease: Double
@@ -18,9 +21,12 @@ public struct SRSCard: Codable, Equatable {
     public var due: Double        // ms epoch
     public var last: Double?      // ms epoch
     public var created: Double?   // ms epoch (older web cards may lack it)
+    /// Index into RELEARN_STEPS; nil means "not currently relearning".
+    public var relearn: Int?
 
     public init(ease: Double = DEFAULT_EASE, interval: Double = 0, reps: Int = 0,
-                lapses: Int = 0, due: Double = 0, last: Double? = nil, created: Double? = nil) {
+                lapses: Int = 0, due: Double = 0, last: Double? = nil, created: Double? = nil,
+                relearn: Int? = nil) {
         self.ease = ease
         self.interval = interval
         self.reps = reps
@@ -28,6 +34,7 @@ public struct SRSCard: Codable, Equatable {
         self.due = due
         self.last = last
         self.created = created
+        self.relearn = relearn
     }
 }
 
@@ -36,6 +43,7 @@ public typealias SRSStore = [String: SRSCard]
 
 public enum SRSGrade: String {
     case good   // "Got it"
+    case hard   // "Hard" — recalled, but with effort
     case again  // "Still learning"
 }
 
@@ -45,19 +53,42 @@ public func srsReview(_ card: SRSCard?, grade: SRSGrade, now: Double) -> SRSCard
     var reps = card?.reps ?? 0
     var lapses = card?.lapses ?? 0
     var interval = card?.interval ?? 0
+    let relearn = card?.relearn
     // Stamp when a card was first introduced, so the daily new-card cap can
     // count today's new cards across sessions.
     let created = card?.created ?? now
 
     if grade == .again {
-        // Lower the ease, reset the streak, and make the card due immediately
-        // so it resurfaces this session and in the next one.
+        // Lower the ease, reset the streak, and put the card at the bottom of
+        // the relearning ladder so it comes back within the session.
         reps = 0
         lapses += 1
         ease = max(MIN_EASE, ease - 0.2)
         interval = 0
         return SRSCard(ease: ease, interval: interval, reps: reps, lapses: lapses,
-                       due: now, last: now, created: created)
+                       due: now + RELEARN_STEPS[0], last: now, created: created, relearn: 0)
+    }
+
+    // A card in relearning climbs one step per correct answer before rejoining
+    // the normal ladder.
+    if let step = relearn {
+        let next = step + 1
+        if next < RELEARN_STEPS.count {
+            return SRSCard(ease: ease, interval: interval, reps: reps, lapses: lapses,
+                           due: now + RELEARN_STEPS[next], last: now, created: created, relearn: next)
+        }
+        return SRSCard(ease: ease, interval: 1, reps: 1, lapses: lapses,
+                       due: now + MS_PER_DAY, last: now, created: created, relearn: nil)
+    }
+
+    if grade == .hard {
+        // Recalled, but with effort: shrink the ease a little and grow the
+        // interval gently rather than by the full ease factor.
+        ease = max(MIN_EASE, ease - 0.15)
+        reps += 1
+        interval = interval > 0 ? max(1, (interval * HARD_FACTOR).rounded()) : 1
+        return SRSCard(ease: ease, interval: interval, reps: reps, lapses: lapses,
+                       due: now + interval * MS_PER_DAY, last: now, created: created, relearn: nil)
     }
 
     // grade == .good: advance the interval (1d, 3d, then interval * ease).
@@ -67,7 +98,7 @@ public func srsReview(_ card: SRSCard?, grade: SRSGrade, now: Double) -> SRSCard
     else { interval = max(1, (interval * ease).rounded()) }
 
     return SRSCard(ease: ease, interval: interval, reps: reps, lapses: lapses,
-                   due: now + interval * MS_PER_DAY, last: now, created: created)
+                   due: now + interval * MS_PER_DAY, last: now, created: created, relearn: nil)
 }
 
 public func isDue(_ card: SRSCard?, now: Double) -> Bool {
