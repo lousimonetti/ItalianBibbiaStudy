@@ -124,9 +124,17 @@ struct PracticeSessionView: View {
             if model.course.locale.hasIPA, let ipa = card.ipa {
                 Text(ipa).font(.callout.monospaced()).foregroundStyle(.secondary)
             }
+            if let form = card.form, form.lowercased() != card.it.lowercased() {
+                Text("→ \(form)").font(.caption).foregroundStyle(.tint)
+            }
             HStack(spacing: 8) {
                 WordGlossText(text: card.ex).font(.callout.italic())
                 SpeakerButton(text: card.ex, compact: true)
+            }
+            // Listening plays a whole sentence, so the sentence needs its own
+            // translation — `card.en` above only glosses the headword.
+            if let exEn = card.exEn {
+                Text(exEn).font(.footnote).foregroundStyle(.secondary)
             }
         }
     }
