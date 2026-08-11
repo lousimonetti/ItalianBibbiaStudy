@@ -105,11 +105,24 @@ private struct VocabRow: View {
                     .font(.caption.monospaced())
                     .foregroundStyle(.secondary)
             }
+            // The form the headword actually takes in the sentence below.
+            // Naming the lemma↔inflection relationship is most of what an
+            // English speaker has to learn about Italian verbs.
+            if let form = card.form, form.lowercased() != card.it.lowercased() {
+                Text("→ \(form)")
+                    .font(.caption)
+                    .foregroundStyle(.tint)
+            }
             HStack(alignment: .top, spacing: 8) {
                 WordGlossText(text: card.ex)
                     .font(.callout.italic())
                 Spacer(minLength: 8)
                 SpeakerButton(text: card.ex, compact: true)
+            }
+            if let exEn = card.exEn {
+                Text(exEn)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
         }
         .padding(.vertical, 2)
