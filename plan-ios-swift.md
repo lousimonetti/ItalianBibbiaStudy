@@ -42,7 +42,7 @@ Android later.
 | Notifications | `UserNotifications` (`UNUserNotificationCenter`) |
 | Haptics | `CoreHaptics` + `UIFeedbackGenerator` |
 | Widgets | `WidgetKit` (same target) |
-| Siri / Shortcuts | `AppIntents` framework (iOS 16+) |
+| Siri / Shortcuts | `AppIntents` framework (iOS 16+) — **see `plan-siri.md`**; SiriKit was deprecated at WWDC 2026 and App Intents is now the only path |
 | iCloud sync | `NSUbiquitousKeyValueStore` (key-value, mirrors UserDefaults) |
 | QR export | `CoreImage.CIQRCodeGenerator` |
 | QR scan | `AVFoundation` camera + `VisionKit` `DataScannerViewController` (iOS 16) |

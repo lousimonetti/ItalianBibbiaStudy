@@ -159,6 +159,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   annotated with the Swift file implementing it (a design ⇄ code map); keep
   it updated when screens change. The older pre-build wireframes remain in
   `wireframes/ios-app-wireframes.html`.
+- **Siri / App Intents / Apple Intelligence (`plan-siri.md`): P1 SHIPPED
+  (I1+I2); P2/P3 planned.** The iOS app now exposes **seven App Intents** —
+  Practice, Open Week, Mark Week Done, Log Reading, Open Journal, Look Up Word,
+  Start New Session — plus `WeekEntity`/`VocabEntity` App Entities and
+  zero-setup Siri phrases (`BibbiaShortcuts`). **No entitlement, no capability,
+  and the iOS 16 floor is unchanged.** Decision logic lives in
+  `BibbiaCore/IntentLogic.swift` with 32 tests (`IntentLogicTests.swift`) —
+  Siri is untestable in CI, so everything it *decides* is tested there instead;
+  the app-target intent files are thin wiring. Navigation is driven by a shared
+  `AppRoute` (`App/Sources/App/Intents/AppRoute.swift`) that intents write and
+  views observe — `AppModel.shared` and `AppRoute.shared` are registered with
+  `AppDependencyManager` in `ItalianBibbiaStudyApp.init`, so a Siri mutation and
+  the open UI are the same instance. Two behaviours worth knowing: Mark Week
+  Done is **not** a toggle (saying it twice must not un-tick), and Start New
+  Session **never** resets stores from voice (calendar only, behind a
+  confirmation) — destructive resets stay in the Settings sheet. Research pass
+  (Aug 2026) on what it would take to give the iOS app a voice/assistant
+  surface. Key finding: WWDC 2026 **deprecated SiriKit** — App
+  Intents is now the only way Siri can call into a third-party app, and it needs
+  **no entitlement**. The app ships no SiriKit code, so there is no migration
+  debt. The entitlements that require an Apple request are all on the
+  **Foundation Models** side (`com.apple.developer.private-cloud-compute`, and a
+  custom-adapter entitlement); the **on-device** `SystemLanguageModel` tier needs
+  none and — notably — sits *inside* the no-backend/no-secrets constraint rather
+  than relaxing it, which reopens the AI-conversation-partner idea that
+  `plan-speaking.md` ruled out for backend reasons. Constraint: App Intents work
+  on the current iOS 16 floor, but App Schemas need iOS 18.x and Foundation
+  Models need iOS 26+ *and* A17 Pro/M-series, so every Apple-Intelligence feature
+  must degrade to an existing non-AI path. Phasing is P1 (App Intents + entities,
+  no gates) → P2 (widget/App Group, schemas only if the shapes verify) → P3
+  (on-device FM). See `plan-siri.md` for the entitlement table, workstreams
+  I1–I8, and the four open questions.
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);

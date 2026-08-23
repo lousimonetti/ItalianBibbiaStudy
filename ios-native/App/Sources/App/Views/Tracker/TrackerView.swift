@@ -3,9 +3,11 @@ import BibbiaCore
 
 struct TrackerView: View {
     @EnvironmentObject private var model: AppModel
+    // Path is route-owned so OpenWeekIntent can push a week detail directly.
+    @EnvironmentObject private var route: AppRoute
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $route.trackerPath) {
             List {
                 Section {
                     TodayCardView()
@@ -140,5 +142,7 @@ private struct AchievementsRow: View {
 }
 
 #Preview {
-    TrackerView().environmentObject(AppModel())
+    TrackerView()
+        .environmentObject(AppModel.shared)
+        .environmentObject(AppRoute.shared)
 }

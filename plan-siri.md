@@ -1,0 +1,289 @@
+# plan-siri.md — Siri, App Intents & Apple Intelligence (iOS)
+
+## Status
+
+**P1 SHIPPED (I1 + I2). P2/P3 not started.** As of 2026-08-22 the app exposes
+seven App Intents with zero entitlements and no change to the iOS 16 floor.
+This document supersedes the one-line "Siri / Shortcuts | `AppIntents`
+framework (iOS 16+)" row in `plan-ios-swift.md` (tech stack table) and the
+"Widgets / Siri / iCloud" deferral note in `ios-native/README.md`.
+
+What landed:
+
+- `BibbiaCore/Sources/BibbiaCore/IntentLogic.swift` — all intent decision
+  logic (week resolution, spoken summaries, vocab search ranking), pure
+  Foundation Swift, with 32 tests in `IntentLogicTests.swift`.
+- `App/Sources/App/Intents/` — `AppRoute` (navigation state an intent can
+  drive), `CourseEntities` (`WeekEntity` + `VocabEntity` with queries),
+  `CourseIntents` (the seven intents), `BibbiaShortcuts` (zero-setup phrases).
+- Wiring: `AppModel.shared` + `AppRoute.shared` registered with
+  `AppDependencyManager`; `ContentView` tab selection, `TrackerView` and
+  `JournalView` navigation paths, and `FlashcardsView`'s practice trigger are
+  now route-bound.
+
+Deviations from the spec below, and why:
+
+- **Seven intents, not six.** `LookUpWordIntent` was added — once `VocabEntity`
+  existed for I2 it was nearly free, and it is the one intent that returns a
+  value other intents can chain from.
+- **`StartNewSessionIntent` never resets stores from voice.** The spec's table
+  listed it plainly; a misheard phrase must not be able to wipe progress, so it
+  moves the calendar only (`ResetScope()` all-false) behind a
+  `requestConfirmation`. Destructive resets stay in the Settings sheet, which
+  names the stores it clears (`plan-new-session.md`).
+- **`MarkWeekDoneIntent` is not a toggle.** `AppModel.toggleWeek` flips; saying
+  "mark this week done" twice would silently un-tick it, so the intent checks
+  `isWeekDone` first.
+- **`JournalView` moved to value-based navigation** (`NavigationLink(value:)` +
+  `navigationDestination`) to make the week deep-link possible — the same
+  pattern `TrackerView` already used.
+
+**Verification status:** `BibbiaCore` compiles and the intent files typecheck
+against the real AppIntents SDK. Neither the iOS app target nor `swift test`
+could be built in the authoring sandbox (Xcode is not installed — only
+CommandLineTools, which has no iOS SDK and no XCTest), so **CI is the first
+real build**. The logic was instead verified empirically against the real
+course data: all 37 weeks produce non-empty Siri subtitles, and all 259 vocab
+terms resolve to themselves through the entity query.
+
+**What changed (WWDC 2026, June 9 2026):** Apple formally **deprecated
+SiriKit** and made **App Intents the only way Siri can call into a
+third-party app**. Siri itself moved to a Gemini-backed engine with a
+standalone app. From the iOS 27 public release, SiriKit-based apps still
+compile but receive no voice traffic, no Spotlight indexing, and no Apple
+Intelligence personalisation.
+
+**Why that is good news here:** this app has *zero* SiriKit code, so there is
+no migration debt. Everything below is a greenfield adopt, and the baseline
+tier costs no entitlement at all.
+
+---
+
+## The entitlement landscape
+
+The thing one goes looking for — `com.apple.developer.siri` — is the **legacy
+SiriKit** entitlement and should not be adopted in new code. The entitlements
+that exist and require approval are all on the **Foundation Models** side.
+
+| Tier | Unlocks | Entitlement | Cost |
+|---|---|---|---|
+| **App Intents** | Siri voice, Shortcuts, Spotlight, Action Button, widget actions | **none** | free |
+| **App Schemas** (assistant schemas) | Apple Intelligence reasons over your entities + onscreen context | **none** — must conform to an Apple-defined domain shape | free |
+| **Foundation Models, on-device** (`SystemLanguageModel`) | on-device LLM: structured output (`@Generable`), streaming, tool calling | **none** | free |
+| **Foundation Models, cloud** (`PrivateCloudComputeLanguageModel`) | Apple server model, 32K context, reasoning levels | `com.apple.developer.private-cloud-compute` — **request required** | free (no API charge) |
+| Custom fine-tuned adapters | load your own trained adapter | *Foundation Models Framework Adapter Entitlement* — **request required** | — |
+
+**PCC eligibility** (worth recording, because this project qualifies): App
+Store Small Business Program membership **and** fewer than 2 million
+first-time downloads across all your apps, plus the entitlement assigned to
+the app. No cloud API cost. Requested at
+`developer.apple.com/contact/request/private-cloud-compute/`. If either
+condition lapses you get 6 months to migrate. Limited to regions where Apple
+Intelligence ships.
+
+## The version + hardware gate
+
+`ios-native/project.yml` pins `deploymentTarget iOS: "16.0"`, and
+`ios-native/README.md` records that SwiftData was deliberately skipped to hold
+that floor. Against that:
+
+| Tier | Needs |
+|---|---|
+| App Intents | **iOS 16** — works on the current target today, no project change |
+| App Schemas | iOS 18.x |
+| Foundation Models | iOS 26+ **and** A17 Pro / M-series silicon |
+
+**None of this forces raising the deployment target.** Gate with `@available`
+and a runtime `SystemLanguageModel.availability` check. But it does mean
+anything Apple-Intelligence-flavoured is invisible to a meaningful slice of
+devices, so it can only ever be an *enhancement* to a feature that already
+works without it — never the only path to it. That rule is the single most
+important design constraint in this document.
+
+---
+
+## Constraint analysis
+
+The repo's hard constraint is **no backend, no secrets, offline-first**
+(`plan.md` hard constraints; `CLAUDE.md` key constraints). Checked against
+each tier:
+
+- **App Intents / App Schemas** — no network, no server, no secrets. Fully
+  inside the constraint.
+- **On-device Foundation Models** — no server, no API key, no network, nothing
+  to declare for `ITSAppUsesNonExemptEncryption`. **Inside the constraint.**
+  This is the notable finding: `plan-speaking.md` § "Explicitly out of scope"
+  rules out an AI conversation partner, and the stated reason is the
+  backend/secrets problem, deferred to the `plan-sync.md` BaaS relaxation.
+  On-device FM sits *inside* the existing constraint rather than relaxing it,
+  so that deferral is worth revisiting on its own merits.
+- **PCC** — no server *of yours* and no API key, but it **is** a network call.
+  That touches the "Data collected: None" App Privacy answer that
+  `ios-native/DEPLOYMENT.md` step 9 walks through, and it breaks the offline
+  guarantee. A deliberate decision, not a default.
+
+---
+
+## Workstreams
+
+### I1 — App Intents: the core actions (no entitlement, iOS 16) ✅ SHIPPED
+
+The prerequisite for every other tier, and the only one with no gates at all.
+`AppModel` already exposes the needed surface:
+
+| Intent | Backing call | Phrase |
+|---|---|---|
+| `StartPracticeIntent` | opens Flashcards → practice | "Practice Italian" |
+| `OpenWeekIntent(week:)` | `weekLabel(_:)`, `currentWeekN` | "Open week 12" |
+| `MarkWeekDoneIntent(week:)` | `toggleWeek(_:)` | "Mark this week done" |
+| `LogReadingIntent` | `recordActivity(.read)` | "I did my reading" |
+| `StartNewSessionIntent(date:)` | `startNewSession(from:reset:)` | "Restart my course" |
+| `OpenJournalIntent(week:)` | `journalText(_:)` / `setJournalText(_:_:)` | "Open my Italian journal" |
+
+Ships with an `AppShortcutsProvider` so the phrases work with no user setup.
+Also lands Spotlight surfacing and Action Button binding for free.
+
+### I2 — `WeekEntity` / `VocabEntity` as App Entities ✅ SHIPPED
+
+`AppEntity` conformances over the existing `Course` model (`Week`,
+`VocabCard`) so intents take real parameters and Siri can disambiguate
+("which week?"). Prerequisite for I5.
+
+### I3 — Widget + App Group (carried over from `plan-ios-swift.md`)
+
+A WidgetKit timeline showing streak + today's checklist. Requires an App
+Group capability — the *first* real capability this project adds, and the
+reason `ios-native/README.md` deferred it ("no App Groups / extra
+capabilities needed" was a deliberate simplicity call for amateur
+deployment). Re-evaluate that trade explicitly before committing.
+
+### I4 — App Schemas: journal + books domains
+
+There is **no education or language-learning domain**. The available domains
+are mail, photos/videos, messages, documents, browser, books, journal,
+presentations, spreadsheets, calendar, camera, system. Two plausible fits:
+
+- **journal** — the app ships a Journal tab with week-indexed entries.
+- **books** — reading passages per week.
+
+Both need shape verification before commitment (see Open questions). If the
+shape does not fit, **skip this workstream** — a forced-fit schema is worse
+than a plain App Intent.
+
+### I5 — On-device Foundation Models: the capability tier
+
+Where new product lives rather than new plumbing. Each item must degrade to
+the existing behaviour when `SystemLanguageModel.availability != .available`:
+
+- **Free-form answer grading.** Today `Answer.swift` `checkAnswer` is
+  canonical-fold + Levenshtein tolerance. An on-device model could accept a
+  *correct paraphrase* that is not within typo distance — and, critically,
+  explain *why* a wrong answer is wrong. Fallback: current `checkAnswer`.
+- **Generated drill sentences.** New `transform` / cloze items over the
+  week's authored vocab, so drills stop being finite. Fallback: the authored
+  `exercises.js` items (which stay the source of truth).
+- **Conversation partner.** The `plan-speaking.md` deferral, revisited — a
+  week-scoped spoken exchange using only the week's vocab and grammar focus.
+  Fallback: feature hidden.
+- **Journal feedback.** A gentler complement to the LanguageTool grammar
+  check, and one that works **offline** — LanguageTool is one of the two
+  intentional online-only enrichments, so this is a strict improvement in
+  posture. Fallback: LanguageTool as today.
+
+Use `@Generable` for structured output so results parse deterministically
+rather than by string-scraping.
+
+### I6 — Siri onscreen context
+
+Once I2 + I4 exist, Siri can answer about what is on screen ("what does this
+word mean?" while a passage is open). Mostly falls out of the entity work;
+no separate entitlement.
+
+### I7 — PCC (deferred, probably skip)
+
+Buys context window and reasoning this app does not obviously need, and costs
+the clean privacy story. Record the eligibility (above) and revisit only if
+I5 hits a concrete on-device ceiling.
+
+### I8 — Test + CI story ✅ SHIPPED (for I1/I2)
+
+`ios-native-ci.yml` already runs `swift test` + an unsigned simulator build.
+Intents are testable as plain types; the FM path is **not** testable in CI
+(no Apple Intelligence in the simulator/runner). Keep all FM calls behind a
+protocol so the fallback path is what CI actually exercises — matching the
+existing anti-drift discipline where fixtures are generated from the real JS.
+
+---
+
+## Phasing
+
+- **P1 — I1 + I2.** ✅ Shipped 2026-08-22. No entitlement, no version gate, no capability.
+- **P2 — I3, and I4 only if the schema shapes verify.**
+- **P3 — I5 (+ I6).** The interesting bet. Gate every item on availability.
+- **Not scheduled — I7.**
+
+---
+
+## Implementation notes (repo conventions to follow)
+
+- Intents live in `ios-native/App/Sources/App/Intents/` (the path
+  `plan-ios-swift.md` already reserved).
+- Pure decision logic goes in `BibbiaCore` with an XCTest sibling, matching
+  the existing pure-module-plus-test pattern; the intent types themselves stay
+  in the app target (they need `AppModel`).
+- **No new persisted keys.** Intents mutate through existing `AppModel`
+  methods so the `italian-bible-*` UserDefaults contract — and therefore
+  backup interop with the web app — is untouched.
+- Adding a capability means editing `ios-native/project.yml` (XcodeGen) and
+  regenerating, never hand-editing `.xcodeproj`.
+- If any course-content shape changes, re-run
+  `ios-native/scripts/export-course-json.mjs` **and**
+  `generate-fixtures.mjs` and commit — CI enforces freshness.
+- Adding an entitlement changes `DEPLOYMENT.md` step 9 (App Privacy) and
+  possibly step 3 (capabilities). Update it in the same PR.
+
+---
+
+## Explicitly out of scope
+
+- Any third-party cloud LLM (OpenAI/Anthropic/Gemini direct) — needs an API
+  key, breaks the no-secrets constraint outright.
+- Rewriting the authored course content to be model-generated. The authored
+  vocab, exercises and exegesis stay the source of truth; models *extend*
+  practice, never replace curriculum.
+- Android / web parity for any of this. These are iOS-only capabilities; the
+  web app's feature set is unaffected.
+
+---
+
+## Open questions
+
+1. **Does the `journal` assistant schema actually fit?** It is designed
+   around Apple's Journal app. A week-indexed language-learning entry may not
+   satisfy its required entity shape. **Verify before building I4** — read
+   the schema's required properties, do not assume. (I2 shipped a plain
+   `WeekEntity`, which is what a schema would have to wrap, so the groundwork
+   is in place either way.)
+2. **Has the iOS 27 ship date moved?** Reporting put it at September 2026.
+   Confirm before planning P3 around it.
+3. **Is the App Group trade worth it for I3?** The v1 deferral was an
+   explicit simplicity call for amateur deployment; adding it is a real
+   (small) increase in provisioning complexity.
+4. **Does on-device FM handle Italian well enough** for grading and
+   generation? Needs an empirical spike on real course data before I5 is
+   committed to — this is the single biggest risk in P3.
+
+---
+
+## Sources
+
+- [WWDC 2026: Everything announced on Siri AI, iOS 27, Apple Intelligence — TechCrunch](https://techcrunch.com/2026/06/09/wwdc-2026-everything-announced-on-siri-ai-os-27-apple-intelligence-and-more/)
+- [Build intelligent Siri experiences with App Schemas — WWDC26 session 240](https://developer.apple.com/videos/play/wwdc2026/240/)
+- [Private Cloud Compute — Apple Developer](https://developer.apple.com/private-cloud-compute/)
+- [App schema domains — Apple Developer Documentation](https://developer.apple.com/documentation/appintents/app-schema-domains)
+- [App Intents — Apple Developer Documentation](https://developer.apple.com/documentation/appintents)
+- [Foundation Models API in iOS 27: What Is Open, Gated, and Entitlement-Only](https://3nsofts.com/guides/foundation-models/foundation-models-api-ios-27-entitlements)
+- [Apple Retires SiriKit for App Intents in iOS 27 — SoftwareSeni](https://www.softwareseni.com/why-apple-is-retiring-sirikit-and-what-app-intents-means-for-developers/)
+
+*Researched 2026-08-21. Apple's entitlement policies change; re-verify the
+entitlement table before acting on it.*

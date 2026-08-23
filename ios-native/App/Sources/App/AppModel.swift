@@ -82,6 +82,12 @@ enum Theme: String, CaseIterable, Identifiable {
 
 @MainActor
 final class AppModel: ObservableObject {
+    /// The instance the app and its App Intents share. Intents run in this
+    /// process but outside the view tree, so they resolve this object through
+    /// AppDependencyManager rather than @EnvironmentObject — both sides must be
+    /// the same instance or a Siri mutation would not show up in the open UI.
+    static let shared = AppModel()
+
     let course = Course.shared
     lazy var vocabIndex = VocabIndex(course: course)
 
