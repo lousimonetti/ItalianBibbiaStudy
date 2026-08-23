@@ -299,6 +299,12 @@ same pattern as `passage`/`drill`/`comprehension`), then backfill.
   the no-backend/no-secrets constraint. If the online-sync BaaS relaxation in
   `plan-sync.md` ever lands, an opt-in "bring your own key" conversation mode
   can be revisited. Everything in this plan works offline.
+  **Update (Aug 2026):** this deferral no longer holds unconditionally *on
+  iOS*. Apple's on-device `SystemLanguageModel` (Foundation Models) needs no
+  API key, no server and no network, so it sits inside the no-backend
+  constraint rather than relaxing it — see `plan-siri.md` § I5. It is gated on
+  iOS 26+ and A17 Pro/M-series hardware, so it can only be an enhancement over
+  a working non-AI path, and it does nothing for the web app.
 - **Recording/playback of the learner's own audio** (self-comparison against
   TTS) — valuable but needs `MediaRecorder` storage decisions; candidate
   follow-up after S3/S4 prove out the mic UX.

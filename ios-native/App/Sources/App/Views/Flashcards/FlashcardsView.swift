@@ -24,6 +24,9 @@ enum PracticeStyle: String, CaseIterable, Identifiable {
 
 struct FlashcardsView: View {
     @EnvironmentObject private var model: AppModel
+    // StartPracticeIntent sets a one-shot trigger here rather than calling into
+    // the view; we consume and clear it (see Intents/AppRoute.swift).
+    @EnvironmentObject private var route: AppRoute
     @State private var style: PracticeStyle = .recognition
     @State private var session: [VocabCard]?
 
@@ -112,7 +115,22 @@ struct FlashcardsView: View {
             )) { payload in
                 PracticeSessionView(payload: payload)
             }
+            // Consume the intent's one-shot trigger. Clearing it means asking
+            // Siri twice in a row starts two sessions, which a Bool would not.
+            //
+            // Both hooks are needed: onChange catches the trigger when this tab
+            // is already on screen, onAppear catches the case where the intent
+            // switched to this tab in the same run loop — there the view mounts
+            // *after* the value was set, so onChange never fires.
+            .onChange(of: route.practiceTrigger) { _ in consumePracticeTrigger() }
+            .onAppear { consumePracticeTrigger() }
         }
+    }
+
+    private func consumePracticeTrigger() {
+        guard route.practiceTrigger != nil else { return }
+        route.practiceTrigger = nil
+        startSession()
     }
 
     private func startSession() {

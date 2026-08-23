@@ -30,6 +30,9 @@ export default defineConfig({
   ],
   test: {
     environment: 'jsdom',
+    // See vitest.setup.js — restores a working localStorage over the inert
+    // one Node 26 defines on globalThis.
+    setupFiles: ['./vitest.setup.js'],
     clearMocks: true,
     restoreMocks: true,
   },

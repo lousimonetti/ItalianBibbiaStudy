@@ -170,9 +170,18 @@ Commit the regenerated files; CI enforces freshness.
 - **Speaking layer**: the course JSON already carries the S1–S3 speaking data
   (`phrases`, `transform`, `questions`) and the Trap drill dataset can be
   exported the same way — the views are follow-ups.
-- **Widgets / Siri / iCloud**: designed in `../plan-ios-swift.md`
-  (WidgetKit timeline, App Intents, key-value sync) — not built in v1 to keep
-  the amateur deployment simple (no App Groups / extra capabilities needed).
+- **Siri / App Intents**: **shipped** — see `Sources/App/Intents/` and
+  `../plan-siri.md`. Seven intents (Practice, Open Week, Mark Week Done, Log
+  Reading, Open Journal, Look Up Word, Start New Session), two App Entities, and
+  zero-setup Siri phrases. Needs **no entitlement and no capability**, so the
+  amateur deployment path is unchanged. Note WWDC 2026 deprecated SiriKit —
+  the `../plan-ios-swift.md` sketch is stale on that point. Intent *logic* is in
+  `BibbiaCore/IntentLogic.swift` so `swift test` covers it; the app-target files
+  are wiring only.
+- **Widgets / iCloud**: still not built in v1, to keep the amateur deployment
+  simple (a widget is the first thing that would need an App Group). Designed in
+  `../plan-ios-swift.md`; the App Group trade-off is re-opened as I3 in
+  `../plan-siri.md`.
 - **Minimum iOS**: 16.0 (NavigationStack, `Layout`). SwiftData was skipped in
   favor of `UserDefaults` JSON stores — it would raise the floor to iOS 17
   and break backup-compatibility with the web app for no gain at this data size.

@@ -3,19 +3,26 @@ import BibbiaCore
 
 struct ContentView: View {
     @EnvironmentObject private var model: AppModel
+    // Selection is bound to the shared route so an App Intent can switch tabs
+    // from outside the view tree (see Intents/AppRoute.swift).
+    @EnvironmentObject private var route: AppRoute
     // Same persisted flag family the web app uses (`italian-bible-welcome-seen`).
     @State private var showWelcome = WebStore.loadString("welcome-seen") == nil
 
     var body: some View {
-        TabView {
+        TabView(selection: $route.tab) {
             TrackerView()
                 .tabItem { Label("Tracker", systemImage: "calendar") }
+                .tag(AppRoute.Tab.tracker)
             FlashcardsView()
                 .tabItem { Label("Flashcards", systemImage: "rectangle.stack") }
+                .tag(AppRoute.Tab.flashcards)
             JournalView()
                 .tabItem { Label("Journal", systemImage: "square.and.pencil") }
+                .tag(AppRoute.Tab.journal)
             SettingsView()
                 .tabItem { Label("Settings", systemImage: "gearshape") }
+                .tag(AppRoute.Tab.settings)
         }
         .sheet(isPresented: $showWelcome, onDismiss: {
             WebStore.saveString("welcome-seen", "1")
@@ -78,5 +85,7 @@ private struct WelcomeView: View {
 }
 
 #Preview {
-    ContentView().environmentObject(AppModel())
+    ContentView()
+        .environmentObject(AppModel.shared)
+        .environmentObject(AppRoute.shared)
 }

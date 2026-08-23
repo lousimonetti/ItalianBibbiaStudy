@@ -159,6 +159,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   annotated with the Swift file implementing it (a design ⇄ code map); keep
   it updated when screens change. The older pre-build wireframes remain in
   `wireframes/ios-app-wireframes.html`.
+- **Siri / App Intents / Apple Intelligence (`plan-siri.md`): P1 SHIPPED
+  (I1+I2); P2/P3 planned.** The iOS app now exposes **seven App Intents** —
+  Practice, Open Week, Mark Week Done, Log Reading, Open Journal, Look Up Word,
+  Start New Session — plus `WeekEntity`/`VocabEntity` App Entities and
+  zero-setup Siri phrases (`BibbiaShortcuts`). **No entitlement, no capability,
+  and the iOS 16 floor is unchanged.** Decision logic lives in
+  `BibbiaCore/IntentLogic.swift` with 32 tests (`IntentLogicTests.swift`) —
+  Siri is untestable in CI, so everything it *decides* is tested there instead;
+  the app-target intent files are thin wiring. Navigation is driven by a shared
+  `AppRoute` (`App/Sources/App/Intents/AppRoute.swift`) that intents write and
+  views observe — `AppModel.shared` and `AppRoute.shared` are registered with
+  `AppDependencyManager` in `ItalianBibbiaStudyApp.init`, so a Siri mutation and
+  the open UI are the same instance. Two behaviours worth knowing: Mark Week
+  Done is **not** a toggle (saying it twice must not un-tick), and Start New
+  Session **never** resets stores from voice (calendar only, behind a
+  confirmation) — destructive resets stay in the Settings sheet. Research pass
+  (Aug 2026) on what it would take to give the iOS app a voice/assistant
+  surface. Key finding: WWDC 2026 **deprecated SiriKit** — App
+  Intents is now the only way Siri can call into a third-party app, and it needs
+  **no entitlement**. The app ships no SiriKit code, so there is no migration
+  debt. The entitlements that require an Apple request are all on the
+  **Foundation Models** side (`com.apple.developer.private-cloud-compute`, and a
+  custom-adapter entitlement); the **on-device** `SystemLanguageModel` tier needs
+  none and — notably — sits *inside* the no-backend/no-secrets constraint rather
+  than relaxing it, which reopens the AI-conversation-partner idea that
+  `plan-speaking.md` ruled out for backend reasons. Constraint: App Intents work
+  on the current iOS 16 floor, but App Schemas need iOS 18.x and Foundation
+  Models need iOS 26+ *and* A17 Pro/M-series, so every Apple-Intelligence feature
+  must degrade to an existing non-AI path. Phasing is P1 (App Intents + entities,
+  no gates) → P2 (widget/App Group, schemas only if the shapes verify) → P3
+  (on-device FM). See `plan-siri.md` for the entitlement table, workstreams
+  I1–I8, and the four open questions.
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
@@ -198,7 +230,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 237 tests across 27 files, all green
+npm test             # vitest run — 427 tests across 46 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -346,7 +378,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **237 vitest tests across 27 files**, all passing.
+- **Tests:** `npm test` runs **427 vitest tests across 46 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
@@ -359,6 +391,26 @@ active production. In rough priority order:
   `@azure/static-web-apps-cli` (`swa deploy`) rather than the container action
   to dodge MCR Docker-pull throttling. No per-PR preview envs (free-tier staging
   cap is 3, CLI has no teardown). Lint and test now gate CI alongside the build.
+
+## Tooling note — `vitest.setup.js` / localStorage on Node 26
+
+`vite.config.js` sets `setupFiles: ['./vitest.setup.js']`, and that file exists
+for one reason: **Node 26 defines its own `localStorage` and `sessionStorage`
+globals** which stay `undefined` unless the process is started with
+`--localstorage-file`. Those getters are already on `globalThis` by the time
+Vitest's jsdom environment copies the jsdom window across, so jsdom's working
+`Storage` never lands and every `localStorage.*` call in the app throws
+`Cannot read properties of undefined`. That broke 68 tests across 7 files
+(`useJournal`, `UiText`, and every store-touching suite).
+
+`vitest.setup.js` installs a real jsdom `Storage` over Node's inert getter,
+built from a fresh `new JSDOM(...)` per setup run — which means **one isolated
+store per test file** (verified: no leakage between files, and
+`Object.prototype.toString.call(localStorage) === '[object Storage]'`, so
+string-coercion and `length`/`key(i)` behave exactly as in a browser —
+`syncSnapshot.js` depends on `length`/`key(i)`). Don't delete this file, and
+don't replace it with a hand-rolled object literal; the app enumerates storage
+through the real Storage API.
 
 ## Tooling note — `npm run lint` (fixed in Phase 0)
 

@@ -3,9 +3,11 @@ import BibbiaCore
 
 struct JournalView: View {
     @EnvironmentObject private var model: AppModel
+    // Path is route-owned so OpenJournalIntent can push a week's entry.
+    @EnvironmentObject private var route: AppRoute
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $route.journalPath) {
             List {
                 Section {
                     Text("Scrivi 3–5 frasi in italiano ogni settimana — writing is the production practice that locks vocabulary in.")
@@ -15,13 +17,16 @@ struct JournalView: View {
                 ForEach(model.course.phases) { phase in
                     Section(phase.title) {
                         ForEach(phase.weeks) { week in
-                            NavigationLink {
-                                JournalEntryView(week: week)
-                            } label: {
+                            NavigationLink(value: week.n) {
                                 row(week)
                             }
                         }
                     }
+                }
+            }
+            .navigationDestination(for: Int.self) { n in
+                if let week = model.course.week(n) {
+                    JournalEntryView(week: week)
                 }
             }
             .navigationTitle("Journal")
