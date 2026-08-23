@@ -210,7 +210,69 @@ Both need shape verification before commitment (see Open questions). If the
 shape does not fit, **skip this workstream** — a forced-fit schema is worse
 than a plain App Intent.
 
-### I5 — On-device Foundation Models: the capability tier
+### I5 — On-device Foundation Models: SPIKED 2026-08-23 — revised recommendation
+
+**The spike ran for real.** macOS 27 on this machine reports
+`SystemLanguageModel.default.availability == .available`, so the on-device
+model was measured rather than guessed at. Open question 4 is closed, but the
+answer changes what I5 should be.
+
+**Setup.** 16 realistic learner answers built from real week 1–2 cards
+(exact, article dropped, typo, number slip, valid synonym, valid paraphrase,
+case-only, wrong word, opposite, conjugated-not-infinitive, near-miss noun,
+wrong sense), graded by the model and by the existing `checkAnswer`, scored
+against hand-labelled ground truth.
+
+| | model | `checkAnswer` |
+|---|---|---|
+| first prompt | 12/16 | **14/16** |
+| tuned prompt | **15/16** | 14/16 |
+| false accepts | **0** | 0 |
+| false rejects | 1 | 2 |
+| latency | ~600 ms | microseconds |
+
+**What this actually shows:**
+
+1. **Zero false accepts, both runs.** The main risk — a model cheerfully
+   telling a learner a wrong answer is right — did not materialise. It
+   correctly rejected `credo` for "to believe", `il peccatore` for "the
+   Savior", and `bene` for "the well".
+2. **The verdict gain is one case in sixteen.** Tuned, the model wins only on
+   `l'oscurità` (a valid synonym for "darkness"). A 20-line pure function is
+   within one case of a 3-billion-parameter model, runs everywhere, and is
+   already covered by tests.
+3. **It is alarmingly prompt-sensitive.** 12/16 → 15/16 from *wording alone*.
+   The first prompt said "a small spelling slip … is fine" and it still
+   rejected `la lucce`. That sensitivity cannot be regression-tested in CI
+   (no Apple Intelligence on runners), so it is unguarded drift.
+4. **It still failed a case it was explicitly instructed to accept** —
+   `essere nato` for "to be born", even after the tuned prompt named that
+   exact example.
+
+**Revised recommendation: do not use the model for verdicts. Use it for
+explanations.** The genuinely new capability is the *feedback text*, which
+`checkAnswer` can never produce: "sapere means to know, not to believe",
+"credo is a present tense verb, not the infinitive". That is real pedagogical
+value, and it is the half that is safe to get slightly wrong — a clumsy
+explanation costs far less than a wrong verdict.
+
+So: keep `checkAnswer` as the grader (fast, deterministic, testable, works on
+every device), and optionally ask the model to *explain* a rejection when it
+is available. This sidesteps the prompt-sensitivity risk entirely, and the
+existing availability-fallback rule still applies — no explanation on older
+hardware, same grade either way.
+
+The other three I5 ideas (generated drill sentences, conversation partner,
+journal feedback) were **not** spiked and remain unevaluated. Note the
+conversation partner is the one where a 600 ms turnaround is fine and there is
+no "correct answer" to get wrong, so it may still be the strongest of them.
+
+*Limitations:* n=16, one model, one machine, single run per prompt, and cases
+I wrote myself. Directional, not statistical. Also `@Generable` structured
+output could **not** be tested — the `FoundationModelsMacros` plugin ships with
+Xcode, not CommandLineTools, so the spike parsed plain text instead.
+
+### I5 (original spec) — On-device Foundation Models: the capability tier
 
 Where new product lives rather than new plumbing. Each item must degrade to
 the existing behaviour when `SystemLanguageModel.availability != .available`:
@@ -259,7 +321,9 @@ existing anti-drift discipline where fixtures are generated from the real JS.
 
 - **P1 — I1 + I2.** ✅ Shipped 2026-08-22. No entitlement, no version gate, no capability.
 - **P2 — I3 only.** I4 was verified and ruled out (2026-08-23).
-- **P3 — I5 (+ I6).** The interesting bet. Gate every item on availability.
+- **P3 — I5 (+ I6), scope reduced by the spike.** Not "grade answers with the
+  model" — that lost to `checkAnswer`. Use the model to *explain* a rejection
+  the existing checker already made. Gate every item on availability.
 - **Not scheduled — I7.**
 
 ---
@@ -308,9 +372,11 @@ existing anti-drift discipline where fixtures are generated from the real JS.
 3. **Is the App Group trade worth it for I3?** The v1 deferral was an
    explicit simplicity call for amateur deployment; adding it is a real
    (small) increase in provisioning complexity.
-4. **Does on-device FM handle Italian well enough** for grading and
-   generation? Needs an empirical spike on real course data before I5 is
-   committed to — this is the single biggest risk in P3.
+4. ~~**Does on-device FM handle Italian well enough?**~~ **CLOSED
+   2026-08-23 — yes for explaining, no for grading.** Spiked on real course
+   data: 0 false accepts, but only a one-case verdict gain over `checkAnswer`
+   and badly prompt-sensitive. Its real value is the feedback text. See I5
+   above for the revised recommendation and the numbers.
 
 ---
 
