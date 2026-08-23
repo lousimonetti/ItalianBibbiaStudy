@@ -198,7 +198,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 237 tests across 27 files, all green
+npm test             # vitest run — 427 tests across 46 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -346,7 +346,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **237 vitest tests across 27 files**, all passing.
+- **Tests:** `npm test` runs **427 vitest tests across 46 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
@@ -359,6 +359,26 @@ active production. In rough priority order:
   `@azure/static-web-apps-cli` (`swa deploy`) rather than the container action
   to dodge MCR Docker-pull throttling. No per-PR preview envs (free-tier staging
   cap is 3, CLI has no teardown). Lint and test now gate CI alongside the build.
+
+## Tooling note — `vitest.setup.js` / localStorage on Node 26
+
+`vite.config.js` sets `setupFiles: ['./vitest.setup.js']`, and that file exists
+for one reason: **Node 26 defines its own `localStorage` and `sessionStorage`
+globals** which stay `undefined` unless the process is started with
+`--localstorage-file`. Those getters are already on `globalThis` by the time
+Vitest's jsdom environment copies the jsdom window across, so jsdom's working
+`Storage` never lands and every `localStorage.*` call in the app throws
+`Cannot read properties of undefined`. That broke 68 tests across 7 files
+(`useJournal`, `UiText`, and every store-touching suite).
+
+`vitest.setup.js` installs a real jsdom `Storage` over Node's inert getter,
+built from a fresh `new JSDOM(...)` per setup run — which means **one isolated
+store per test file** (verified: no leakage between files, and
+`Object.prototype.toString.call(localStorage) === '[object Storage]'`, so
+string-coercion and `length`/`key(i)` behave exactly as in a browser —
+`syncSnapshot.js` depends on `length`/`key(i)`). Don't delete this file, and
+don't replace it with a hand-rolled object literal; the app enumerates storage
+through the real Storage API.
 
 ## Tooling note — `npm run lint` (fixed in Phase 0)
 
