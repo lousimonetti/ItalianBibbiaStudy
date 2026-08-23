@@ -157,7 +157,47 @@ reason `ios-native/README.md` deferred it ("no App Groups / extra
 capabilities needed" was a deliberate simplicity call for amateur
 deployment). Re-evaluate that trade explicitly before committing.
 
-### I4 — App Schemas: journal + books domains
+### I4 — App Schemas: journal + books domains ❌ RULED OUT (2026-08-23)
+
+**Verified, and neither domain fits. Do not build this.** Open question 1 is
+now closed. The plan's own rule applies: a forced-fit schema is worse than a
+plain App Intent, and the plain App Intents from I1 already cover these actions.
+
+**`journal.createEntry`** takes `message: AttributedString` (required) plus
+optional `title`, `entryDate: Date?`, `location: CLPlacemark?` and
+`mediaItems`, and returns a `journal.entry` entity. Three mismatches, the
+first two fatal:
+
+1. **Wrong operation.** `createEntry` *creates* an entry. This app has a fixed
+   set of N week-slots that are *edited* — there is no create. The schema's
+   central verb has no meaning here.
+2. **Wrong key.** The schema is date-indexed; this app is **week-indexed**, and
+   a given week's dates differ per user because they are computed from that
+   user's `session-start` override (`plan-new-session.md`). There is no stable
+   date↔entry mapping to expose.
+3. `location` / `mediaItems` have no analogue and would be silently dropped;
+   `AttributedString` vs the stored plain `String` is convertible and minor.
+
+Conceptually the app's journal is *guided weekly writing against a fixed course
+prompt*, not free-form dated journaling. The schema models the latter.
+
+**`library.book` / `openBook(target:)`** models a library of discrete books you
+open. This app has no books — it has 4–8 authored verses embedded in a week's
+lesson beside grammar, vocab and drills. Beyond the fit problem there is a
+licensing one: the schema wants `IndexedEntity`, i.e. donating the content to
+the **system-wide index**. CEI 2008 quotation permission is still unconfirmed
+(L2 in `launch-opportunities.md`), and donating scripture text to Spotlight/Siri
+is materially broader distribution than rendering it in-app. Even if the shape
+fit, this should not ship before L2 closes.
+
+*Confidence note:* the schema shapes above come from secondary sources
+(conference write-ups and community docs), because Apple's documentation pages
+are JS-rendered and could not be fetched directly. The **ruling** rests on the
+operation/key mismatches, which are structural and would not change if a
+property list turns out slightly different — but re-check the exact properties
+if this is ever revisited.
+
+### I4 (original spec) — App Schemas: journal + books domains
 
 There is **no education or language-learning domain**. The available domains
 are mail, photos/videos, messages, documents, browser, books, journal,
@@ -218,7 +258,7 @@ existing anti-drift discipline where fixtures are generated from the real JS.
 ## Phasing
 
 - **P1 — I1 + I2.** ✅ Shipped 2026-08-22. No entitlement, no version gate, no capability.
-- **P2 — I3, and I4 only if the schema shapes verify.**
+- **P2 — I3 only.** I4 was verified and ruled out (2026-08-23).
 - **P3 — I5 (+ I6).** The interesting bet. Gate every item on availability.
 - **Not scheduled — I7.**
 
@@ -258,12 +298,11 @@ existing anti-drift discipline where fixtures are generated from the real JS.
 
 ## Open questions
 
-1. **Does the `journal` assistant schema actually fit?** It is designed
-   around Apple's Journal app. A week-indexed language-learning entry may not
-   satisfy its required entity shape. **Verify before building I4** — read
-   the schema's required properties, do not assume. (I2 shipped a plain
-   `WeekEntity`, which is what a schema would have to wrap, so the groundwork
-   is in place either way.)
+1. ~~**Does the `journal` assistant schema actually fit?**~~ **CLOSED
+   2026-08-23 — no.** It is date-indexed and create-oriented; this app is
+   week-indexed and edit-oriented. `library.book` does not fit either, and
+   carries a CEI-licensing problem on top. See I4 above. I2's plain
+   `WeekEntity` already covers what a schema would have wrapped.
 2. **Has the iOS 27 ship date moved?** Reporting put it at September 2026.
    Confirm before planning P3 around it.
 3. **Is the App Group trade worth it for I3?** The v1 deferral was an
