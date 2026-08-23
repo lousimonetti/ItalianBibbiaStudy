@@ -2,7 +2,16 @@
 
 ## Status
 
-**P1 SHIPPED (I1 + I2). P2/P3 not started.** As of 2026-08-22 the app exposes
+**P1 SHIPPED (I1 + I2) and CI-green. P2 closed out; P3 rescoped by a spike.**
+
+Every gated item is now resolved rather than pending: **I4** verified and ruled
+out (neither the journal nor books schema fits), **I3** deferred (App Groups
+need the paid Developer Program, which would break `DEPLOYMENT.md`'s
+free-account onboarding), **I5** spiked against the real on-device model and
+**rescoped** — it lost to `checkAnswer` on verdicts, so its value is
+*explaining* a rejection, not making one. All four open questions are closed.
+
+As of 2026-08-22 the app exposes
 seven App Intents with zero entitlements and no change to the iOS 16 floor.
 This document supersedes the one-line "Siri / Shortcuts | `AppIntents`
 framework (iOS 16+)" row in `plan-ios-swift.md` (tech stack table) and the
@@ -149,7 +158,37 @@ Also lands Spotlight surfacing and Action Button binding for free.
 `VocabCard`) so intents take real parameters and Siri can disambiguate
 ("which week?"). Prerequisite for I5.
 
-### I3 — Widget + App Group (carried over from `plan-ios-swift.md`)
+### I3 — Widget + App Group ⏸ DEFERRED 2026-08-23 (blocked on paid membership)
+
+**Decision: not now.** Not because the widget is unwanted, but because of a
+constraint that only surfaced when the cost was priced properly.
+
+A widget showing streak / today's checklist has to read the app's user state,
+which lives in `UserDefaults` under the `italian-bible-*` keys. A widget
+extension is a **separate process**, so sharing that state requires an **App
+Group** — and App Groups are an entitlement that a **free Personal Team cannot
+use**. They need the paid Apple Developer Program.
+
+That matters here specifically because `DEPLOYMENT.md` deliberately onboards
+via a free Apple ID: install on your own iPhone first, pay the $99 only when
+you actually want to publish. Adding a progress widget moves that spend from
+*"when you publish"* to *"before you can test at all"*, which inverts the
+document's whole premise. `ios-native/README.md` already recorded keeping
+"no App Groups / extra capabilities" as a deliberate simplicity call; this is
+that call holding up under a concrete price.
+
+**Revisit when the paid program is already in hand** — at that point the
+capability is free to add and the work is small.
+
+**Capability-free alternative, if a home-screen presence is wanted sooner:** a
+widget that reads *only bundled course data* (say a day-of-year-rotated
+"Pensa in italiano" phrase, in the spirit of `src/data/thinkPrompts.js`) needs
+no App Group at all, because it reads nothing user-specific. It cannot show
+streak, progress, due counts, or even the current week — the last one because
+week number is derived from the user's `session-start` override. Considered
+and not chosen for now.
+
+### I3 (original spec) — Widget + App Group (carried over from `plan-ios-swift.md`)
 
 A WidgetKit timeline showing streak + today's checklist. Requires an App
 Group capability — the *first* real capability this project adds, and the
@@ -320,7 +359,8 @@ existing anti-drift discipline where fixtures are generated from the real JS.
 ## Phasing
 
 - **P1 — I1 + I2.** ✅ Shipped 2026-08-22. No entitlement, no version gate, no capability.
-- **P2 — I3 only.** I4 was verified and ruled out (2026-08-23).
+- **P2 — closed out, nothing to build.** I4 verified and ruled out; I3
+  deferred on the paid-membership constraint (both 2026-08-23).
 - **P3 — I5 (+ I6), scope reduced by the spike.** Not "grade answers with the
   model" — that lost to `checkAnswer`. Use the model to *explain* a rejection
   the existing checker already made. Gate every item on availability.
@@ -369,9 +409,12 @@ existing anti-drift discipline where fixtures are generated from the real JS.
    `WeekEntity` already covers what a schema would have wrapped.
 2. **Has the iOS 27 ship date moved?** Reporting put it at September 2026.
    Confirm before planning P3 around it.
-3. **Is the App Group trade worth it for I3?** The v1 deferral was an
-   explicit simplicity call for amateur deployment; adding it is a real
-   (small) increase in provisioning complexity.
+3. ~~**Is the App Group trade worth it for I3?**~~ **CLOSED 2026-08-23 — no,
+   not yet.** It is not merely "a small increase in provisioning complexity":
+   App Groups require the **paid** Developer Program, so a progress widget
+   would force the $99 spend before the app could be tested on device at all,
+   inverting `DEPLOYMENT.md`'s free-account onboarding. Deferred until the
+   paid membership exists. See I3 above.
 4. ~~**Does on-device FM handle Italian well enough?**~~ **CLOSED
    2026-08-23 — yes for explaining, no for grading.** Spiked on real course
    data: 0 false accepts, but only a one-case verdict gain over `checkAnswer`
