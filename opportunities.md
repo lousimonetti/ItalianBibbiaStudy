@@ -28,7 +28,13 @@ user later wants to verify or replace individual verses against a canonical
 online source, they can update `exercises.js` verse-by-verse — the data shape
 and rendering pipeline are stable.
 
-**O6–O17 remain open.** See the MEDIUM and LOW priority sections below.
+**O6–O17 remain open, except O7.** See the MEDIUM and LOW priority sections
+below. **O7 (Sentence Scramble) shipped** as `plan-speaking.md` **S6** — the
+fifth Practice style "Build" (`src/utils/scramble.js`, chip UI in
+`PracticeMode.jsx`, SRS-graded, eligibility 4–12 words). The two documents
+named the same feature differently ("Costruisci" here, "Build" there), which
+is how it stayed open on paper. A **verse-line** variant of the same drill is
+scoped as V1 in `plan-verses.md`.
 
 ---
 
@@ -309,7 +315,7 @@ A known weakness of word-pair SRS is that learners learn to associate cards rath
 | O4 | Dictogloss | High | Medium | Yes — TTS, journal draft pattern |
 | O5 | Comprehension Checks | High | Low (UI) / High (content) | Yes |
 | O6 | Morphological Awareness | Medium | Medium | Partial |
-| O7 | Sentence Scramble | Medium | Low | Yes — existing sentence data |
+| O7 | Sentence Scramble | Medium | Low | ✅ **Shipped** as S6 (Practice "Build") |
 | O8 | Minimal Pairs | Medium | Medium | Yes — speech recognition |
 | O9 | Spaced Writing Retrieval | Medium | Low | Yes — useJournal, SRS |
 | O10 | Error Type Classification | Medium | Low | Yes — SRS record |
@@ -338,10 +344,12 @@ O1–O5 are shipped. The remaining open items in priority order:
    data; `useJournal` and the SRS store already hold everything. Directly
    exploits the testing effect on the learner's own produced text.
 
-3. **O7 (Sentence Scramble)** — Add a "Costruisci" card style in PracticeMode:
-   shuffle the words of an example sentence into chips, learner taps them into
-   order. All sentence data exists. One more `style` case in `PracticeMode.jsx`.
-   Low risk, good syntactic awareness payoff.
+3. ~~**O7 (Sentence Scramble)**~~ — ✅ **SHIPPED** as `plan-speaking.md` S6, the
+   Practice "Build" style (`src/utils/scramble.js` + chip UI in
+   `PracticeMode.jsx`, SRS-graded, 4–12 word eligibility). Next increment is the
+   **verse-line** variant (V1 in `plan-verses.md`), which reuses the same
+   `scrambleTokens`/`shuffleScramble`/`sameOrder` helpers — they take a plain
+   sentence string, not a card.
 
 4. **O6 (Morphological Awareness)** — Add optional `root`/`family` fields to
    vocab tuples and surface related forms on card backs and the vocab table.
@@ -350,7 +358,10 @@ O1–O5 are shipped. The remaining open items in priority order:
 5. **O15 (Reading Speed)** — Now that O2 passages are in place, timing time-on-
    passage and computing words-per-minute is feasible. A simple `Date.now()`
    delta between "passage loaded" and "mark as read" clicked, stored in
-   `localStorage`, would give a fluency trend chart with no backend.
+   `localStorage`, would give a fluency trend chart with no backend. Natural
+   rider on V1/V3 in `plan-verses.md`, since both already touch
+   `ReadingPassage`. Note **O17 (Sentence-Level Tests)** overlaps V2 there —
+   treat V2 as its implementation rather than tracking both.
 
 6. **O10 (Error Type Classification)** — Add 3 quick-tap reason buttons on the
    "Not quite" reveal screen (spelling / wrong form / blank). Light SRS data

@@ -191,13 +191,42 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   no gates) → P2 (widget/App Group, schemas only if the shapes verify) → P3
   (on-device FM). See `plan-siri.md` for the entitlement table, workstreams
   I1–I8, and the four open questions.
+- **Verse interaction + AI scoping (`plan-verses.md`): RESEARCHED, not yet
+  built.** Answers two questions asked together — can the weekly verses carry
+  more interaction, and can AI components be added (iOS, web, or both). They
+  are different problems. **Non-AI verse work (V1–V4) is cheap and works
+  everywhere**, mostly composing already-tested modules: V1 verse-line scramble
+  (reuses `scramble.js` — its `scrambleTokens`/`shuffleScramble`/`sameOrder`
+  are sentence-generic, taking a plain string), V3 line-by-line shadowing
+  (re-points the existing `PronunciationPractice` shadowing path at
+  `keyVerses.readingLines`), V2 progressive verse memorization (**new** pure
+  module — `makeCloze` is term-driven and does *not* fit), V4 verses in the SRS
+  (needs a storage decision; recommendation is a separate
+  `storageKey('verse-srs')` store, since `exportSnapshot()` auto-collects
+  `STORAGE_PREFIX-*` and the vocab `DAILY_NEW_CAP` should keep meaning what it
+  says). **AI splits hard by platform.** iOS: on-device `SystemLanguageModel`
+  is free, needs no entitlement, and sits *inside* the no-backend constraint —
+  this is the `plan-siri.md` P3 slot, and the I5 spike's verdict carries over
+  unchanged (**do not let the model judge; let it explain**). Gated on iOS 26+
+  and A17 Pro/M-series against the iOS 16 floor, and untestable in CI, so it
+  must stay behind a `BibbiaCore` protocol and degrade to the existing path.
+  Web: **blocked by constraint, not difficulty** — Chrome's built-in model is
+  desktop-only, WebLLM/WebGPU means a ~GB download that breaks precache and
+  free-tier bandwidth, a serverless proxy is forbidden outright, and BYO-key
+  (user's own key in localStorage, direct browser call) is technically
+  compatible but odd onboarding for a public launch. Not scheduled; revisit
+  alongside the `plan-sync.md` online-sync decision.
+
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
   sync follow-ups in `plan-sync.md` (multi-QR chunking for large snapshots,
   field-level merge, online auto-sync); fluency follow-ups from `opportunities.md`
-  (O12 adaptive new-card cap, O9 spaced writing retrieval, O7 sentence scramble,
-  O6 morphological awareness, O15 reading speed, O10 error type classification).
+  (O12 adaptive new-card cap, O9 spaced writing retrieval, O6 morphological
+  awareness, O15 reading speed, O10 error type classification). **O7 (sentence
+  scramble) is closed** — it shipped as `plan-speaking.md` S6, the Practice
+  "Build" style; the two docs named the same feature differently, which is how
+  it stayed open on paper.
 
 - **Pedagogy pass (`REVIEW-pedagogy.md`): merged.** A review against adult-SLA
   research, reconciled against the work that landed on `main` in parallel (the

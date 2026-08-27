@@ -301,6 +301,17 @@ is available. This sidesteps the prompt-sensitivity risk entirely, and the
 existing availability-fallback rule still applies — no explanation on older
 hardware, same grade either way.
 
+**Verse application (added 2026-08-26, see `plan-verses.md` V5).** The
+explain-don't-judge verdict generalises past answer grading: the strongest
+concrete use is on-demand explanation of the *authored* weekly passage — "why
+*le tenebre non la vinsero* and not *non l'hanno vinta*?" — which is real
+pedagogical value that hand-authoring does not scale to, and which is safe to
+get slightly wrong. Two riders: the CEI 2008 passage text was populated from
+training knowledge (external Bible APIs are proxy-blocked), so **the model will
+confidently explain whatever text it is handed** — spot-check the verses it
+points at first; and this remains an enhancement over a passage that already
+reads, speaks, and glosses without it.
+
 The other three I5 ideas (generated drill sentences, conversation partner,
 journal feedback) were **not** spiked and remain unevaluated. Note the
 conversation partner is the one where a 600 ms turnaround is fine and there is
@@ -363,7 +374,8 @@ existing anti-drift discipline where fixtures are generated from the real JS.
   deferred on the paid-membership constraint (both 2026-08-23).
 - **P3 — I5 (+ I6), scope reduced by the spike.** Not "grade answers with the
   model" — that lost to `checkAnswer`. Use the model to *explain* a rejection
-  the existing checker already made. Gate every item on availability.
+  the existing checker already made, or to explain the week's authored verse
+  (`plan-verses.md` V5). Gate every item on availability.
 - **Not scheduled — I7.**
 
 ---
