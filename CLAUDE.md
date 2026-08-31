@@ -292,7 +292,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 544 tests across 53 files, all green
+npm test             # vitest run — 554 tests across 53 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -394,6 +394,49 @@ The per-week `drill`/`comprehension`/`passage` content lives in `courses/it-bibl
 
 **Achievements** (`Achievements.jsx` + `src/utils/achievements.js` + `useAchievements`, Phase 4 / D4): a collapsible "Traguardi" badge grid on the Tracker. Earned state is *derived* from the existing stores (`-progress`, `-srs`, `-streak`, `-journal`) — there is **no** `-achievements` key. `useAchievements` reads those stores once on mount (the Tracker remounts on tab switch, refreshing it).
 
+## TTS voices — what each platform can actually reach
+
+Measured on a real device 2026-08-31, not inferred: **Safari exposes only the
+default system voice per language, at its compact tiers.** For Italian,
+`speechSynthesis.getVoices()` returns exactly two entries — `Alice` (compact)
+and `Alice` (super-compact) — on **macOS and iOS alike**, even when `say -v '?'`
+shows nine Italian voices installed and the user has downloaded Enhanced (Luca)
+and Premium (Emma) voices in Settings. Downloaded voices of any kind never reach
+a web page. Chrome *does* expose the full system list, which is why
+`VoicePicker` still earns its place there.
+
+Consequences, all of them already implemented:
+- `dedupeVoicesByName` (`src/utils/voicePreference.js`) collapses one voice's
+  several tiers into one entry. In Safari that takes the Italian list to length
+  1, so `VoicePicker`'s `voices.length >= 2` test hides a control that could
+  never have worked; in Chrome the list is untouched. No browser sniff.
+- The iOS hint in `VoicePicker.jsx` explains the limitation instead of telling
+  users to download Enhanced/Premium voices — that instruction was wrong, and
+  sent people to Settings for a change the web app can never see.
+- **The native app is the only place downloaded voices can be used.**
+  `Speaker.voice(for:)` ranks `AVSpeechSynthesisVoice.speechVoices()` via
+  `VoiceChoice` in BibbiaCore (premium → enhanced → default, exact tag before
+  another region). `VoiceChoice.best` returns `nil` when nothing beats the
+  system default, so the caller keeps `AVSpeechSynthesisVoice(language:)` — that
+  Optional is load-bearing: iOS ships novelty voices (Grandma, Rocko, Flo) at
+  the *same* quality as Alice, and picking one off the list would be a
+  regression. 12 tests in `VoiceChoiceTests.swift`.
+
+**Running the Swift tests locally.** `xcode-select -p` points at
+`/Library/Developer/CommandLineTools`, which has no XCTest, so a bare
+`swift test` fails to build the test target (`unable to resolve module
+dependency: 'XCTest'`) while the library target compiles fine. Prefix with the
+full Xcode instead — no `sudo`, no `xcode-select -s`:
+
+```bash
+DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer \
+  swift test --package-path ios-native/BibbiaCore   # 130 tests
+```
+
+(The CLAUDE.md note that Swift "can't run in this sandbox" is about *remote*
+sessions, where the egress proxy blocks swift.org toolchain downloads. On a Mac
+with Xcode installed it runs locally.)
+
 ## Key constraints
 
 - **No backend** — never introduce server-side logic, OAuth flows, or environment secrets. The app must build to a static `dist/` folder.
@@ -472,7 +515,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **544 vitest tests across 53 files**, all passing.
+- **Tests:** `npm test` runs **554 vitest tests across 53 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
