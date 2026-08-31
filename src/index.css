@@ -2864,6 +2864,134 @@ html.dark .prayer-text-en { color: var(--text-muted); }
   padding-top: 3px;
 }
 .reading-text { flex: 1; color: var(--text); }
+
+/* ── Verb-form recognition drill (Tempi della lettura) ─────────────────── */
+.vf-cats {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
+  text-align: left;
+}
+.vf-cat {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: var(--surface);
+}
+.vf-cat-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.vf-cat-it { font-size: 13px; font-weight: 600; color: var(--text); }
+.vf-cat-acc {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.vf-cat-en { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+.vf-cat-tip { font-size: 11px; color: var(--text-faint); line-height: 1.5; margin-top: 4px; }
+
+.vf-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 6px 0 2px;
+}
+/* The bridge line: the unknown tense mapped onto the taught one. */
+.vf-bridge {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.6;
+}
+.vf-bridge b { color: var(--accent); font-weight: 600; }
+
+/* ── Clause skeleton (Struttura) ───────────────────────────────────────────
+   A reading X-ray for periodic prose: box the finite verbs, tie a participle
+   to its auxiliary, flag bare participles as the reduced relatives they are,
+   and fade comma-delimited asides so the sentence can be read without them.
+   Words stay tappable underneath, so the gloss affordances still apply. */
+.skeleton-toggle {
+  margin: 8px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.skeleton-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.skeleton-toggle.active {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+.skeleton-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 8px 0 6px;
+  font-size: 10.5px;
+  color: var(--text-faint);
+  line-height: 1.6;
+}
+.sk-key { font-weight: 600; margin-right: 4px; }
+.sk-finite-key { color: var(--accent); border-bottom: 2px solid var(--accent); }
+.sk-compound-key { color: var(--accent); border-bottom: 2px dashed var(--accent); }
+.sk-participle-key { color: #b8860b; border-bottom: 1px dotted #b8860b; font-style: italic; }
+.sk-dim-key { opacity: 0.45; }
+
+/* Roles. The selectors reach through .gloss-word-wrap because WordGloss puts
+   the structural class on the wrapper and the affordance on the button. */
+.wordgloss-skeleton .sk-finite > .gloss-word,
+.wordgloss-skeleton .sk-finite {
+  color: var(--accent);
+  font-weight: 600;
+  border-bottom: 2px solid var(--accent);
+}
+.wordgloss-skeleton .sk-compound > .gloss-word,
+.wordgloss-skeleton .sk-compound {
+  color: var(--accent);
+  font-weight: 600;
+  border-bottom: 2px dashed var(--accent);
+}
+.wordgloss-skeleton .sk-participle > .gloss-word,
+.wordgloss-skeleton .sk-participle {
+  color: #b8860b;
+  font-style: italic;
+  border-bottom: 1px dotted #b8860b;
+}
+html.dark .wordgloss-skeleton .sk-participle > .gloss-word,
+html.dark .wordgloss-skeleton .sk-participle { color: #d6a419; border-bottom-color: #d6a419; }
+
+/* Asides fade but stay legible and tappable — the point is to read past them
+   on the first pass, not to hide them. */
+.wordgloss-skeleton .sk-dim,
+.wordgloss-skeleton .sk-dim > .gloss-word { opacity: 0.4; }
+.wordgloss-skeleton .sk-dim:hover,
+.wordgloss-skeleton .sk-dim:hover > .gloss-word { opacity: 1; }
+
+.skeleton-count {
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 9.5px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
 .reading-read-btn {
   margin-top: 8px;
   font-size: 12px;

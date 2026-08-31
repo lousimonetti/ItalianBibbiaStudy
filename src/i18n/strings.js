@@ -35,6 +35,7 @@ export const UI_STRINGS = {
   'fc.practice': { it: 'Pratica', en: 'Practice' },
   'fc.pronunciation': { it: 'Pronuncia', en: 'Pronunciation' },
   'fc.traps': { it: 'Trappole', en: 'Traps' },
+  'fc.verbforms': { it: 'Tempi', en: 'Tenses' },
 
   // Practice start screen
   'prac.style': { it: 'Stile di pratica', en: 'Practice style' },

@@ -15,7 +15,12 @@ const canGlossUnknown = ttsSupported || HAS_IPA;
 // reveals a popover. Vocab words show their English translation, stored IPA, and
 // a speaker; any other word shows an auto-generated approximate IPA and a speaker
 // (tap-to-translate / pronunciation help). The original text is preserved exactly.
-export function WordGloss({ text }) {
+//
+// `roles` is optional clause-skeleton markup (clauseSkeleton.analyze().tokens):
+// a parallel array of { role, dim } that adds structural classes on top of the
+// gloss affordance, so the reader keeps tap-to-translate while the skeleton view
+// is on. It lines up index-for-index because both sides call the same tokenize().
+export function WordGloss({ text, roles = null }) {
   const [openKey, setOpenKey] = useState(null);
 
   const tokens = useMemo(() => {
@@ -51,18 +56,29 @@ export function WordGloss({ text }) {
     };
   }, [openKey]);
 
+  // Structural classes for token i, when a skeleton analysis was supplied.
+  const skel = (i) => {
+    const mark = roles && roles.length === tokens.length ? roles[i] : null;
+    if (!mark) return '';
+    const role = mark.role && mark.role !== 'plain' ? ` sk-${mark.role}` : '';
+    return `${role}${mark.dim ? ' sk-dim' : ''}`;
+  };
+
   return (
-    <span className="wordgloss">
+    <span className={`wordgloss${roles ? ' wordgloss-skeleton' : ''}`}>
       {tokens.map((tok, i) => {
-        if (!tok.isWord) return <span key={i}>{tok.text}</span>;
+        if (!tok.isWord) {
+          const cls = skel(i);
+          return cls ? <span key={i} className={cls}>{tok.text}</span> : <span key={i}>{tok.text}</span>;
+        }
         const isVocab = tok.entry && !tok.entry.approx;
         // An auto-generated entry is only worth a popover if it has IPA or audio
         // to show; otherwise render the word as plain text.
         const hasContent = tok.entry && (isVocab || canGlossUnknown);
-        if (!hasContent) return <span key={i}>{tok.text}</span>;
+        if (!hasContent) return <span key={i} className={skel(i)}>{tok.text}</span>;
         const open = openKey === i;
         return (
-          <span key={i} className="gloss-word-wrap">
+          <span key={i} className={`gloss-word-wrap${skel(i)}`}>
             <button
               type="button"
               className={`gloss-word${isVocab ? '' : ' gloss-word-plain'}${open ? ' gloss-word-open' : ''}`}
