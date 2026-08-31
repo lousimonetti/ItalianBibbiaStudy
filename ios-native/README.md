@@ -137,11 +137,32 @@ open ItalianBibbiaStudy.xcodeproj
 Pick a simulator (e.g. iPhone 16) and press ⌘R. To run on your own iPhone,
 see `DEPLOYMENT.md` — a free Apple ID is enough for that.
 
+**Re-run `xcodegen generate` whenever source files are added or removed** —
+after a `git pull`, after switching branches, after adding a file. It is not a
+one-time step. The `.xcodeproj` is *generated* and gitignored, and `project.yml`
+globs `App/Sources` rather than listing files, so a project generated before a
+new file existed simply does not contain it. The failure looks nothing like a
+stale project: you get `cannot find type 'X' in scope` for a type whose file is
+sitting right there on disk. (Seen for real — a project generated before the
+`Intents/` directory was added produced five `cannot find type 'AppRoute'`
+errors.) If Xcode is open when you regenerate, close and reopen the project so
+it re-reads the file list.
+
 ## Tests
 
 ```bash
 # Logic + parity tests — no Xcode project needed, runs with plain SwiftPM
 swift test --package-path ios-native/BibbiaCore
+```
+
+If that fails with `unable to resolve module dependency: 'XCTest'` while the
+library target itself compiles, `xcode-select -p` is pointing at
+`/Library/Developer/CommandLineTools`, which ships no XCTest. Point at a full
+Xcode for the one command — no `sudo`, no `xcode-select -s` needed:
+
+```bash
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer \
+  swift test --package-path ios-native/BibbiaCore
 ```
 
 Or in Xcode: ⌘U. CI (`.github/workflows/ios-native-ci.yml`) runs the suite on
