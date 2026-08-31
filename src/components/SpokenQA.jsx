@@ -58,9 +58,20 @@ function QARow({ item }) {
     recRef.current = rec;
     setHeard('');
     setOverride(false);
+
+    // Guard start(): a throw used to happen before the countdown was armed, so
+    // the secondsLeft<=0 auto-stop never fired and the card sat in 'listening'
+    // for good.
+    try {
+      rec.start();
+    } catch {
+      recRef.current = null;
+      setPhase('done');
+      return;
+    }
+
     setSecondsLeft(ANSWER_SECONDS);
     setPhase('listening');
-    rec.start();
     timerRef.current = setInterval(() => setSecondsLeft((s) => s - 1), 1000);
   }
 
