@@ -73,6 +73,37 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   dynamic. Header tagline and progress goal interpolate the computed end date
   when an override is active. Tests: `sessionStart.test.js`,
   `resetSession.test.js`, extended `schedule.test.js`.
+- **Target end date — schedule from a finish line: SHIPPED.** The inverse of
+  New Session. Users think in deadlines ("finish before my trip"), not start
+  dates, so the New Session modal gained a **"Finish by a date"** mode beside
+  the original "Start on a date"; `WelcomeCard` links straight into it for new
+  users. `src/utils/targetDate.js` is the pure core: `startForEndDate()` is the
+  algebraic inverse of `getEndDate()`, and `planForEndDate()` returns everything
+  the UI needs to explain the consequence (`start`, `end`, `startWeekN`,
+  `skippedWeeks`, `startsInFuture`, `snapped`). **Nothing new is persisted** —
+  the derived start goes to the existing `resetSession({ startDate })`, so
+  `session-start` stays a plain `YYYY-MM-DD` and iOS + sync backups need no
+  change at all. Two rules keep it honest: the end date is snapped *backward*
+  to a week boundary so the program finishes **on or before** the date asked
+  for (the UI shows the computed date and says so when it moved), and a target
+  too close to fit all 37 weeks **warns rather than blocks** — it reports which
+  week you would land in and how many are behind you, and lets you proceed.
+  Because weeks run Mon–Sun, snapping the end to a Sunday lands the start on a
+  Monday.
+- **`getTodayDayIndex()` is now offset-from-start, not wall-clock.** It used to
+  be `(new Date().getDay() + 6) % 7`, which silently assumed the session began
+  on a Monday. The effect was not missing rows — every weekday still occurs once
+  per week — but **rotated** tasks: on a Wednesday start, day 1 of the program
+  served task 3 ("read chapters") instead of task 1 ("Babbel lesson"), and the
+  week's arc, which builds to a rest day, ended on its 5th day. It now counts
+  days from the effective start, so task N falls on day N, and `weekDayLabels()`
+  gives the daily list its *real* weekday labels (a Wednesday start reads
+  Wed…Tue) while preserving the authored task order; `TodayCard` highlights by
+  index rather than by day-name equality. **The reference course starts Mon
+  2026-04-13, so both formulas agree and the default calendar is unchanged** —
+  pinned by a test asserting equivalence across all 7 days. Note the Swift twin
+  `ScheduleLogic.todayDayIndex` is still wall-clock, so web and iOS diverge only
+  for a manually chosen non-Monday start; porting it is an open follow-up.
 - **Public-launch prep (`launch-opportunities.md`): L1/L3 shipped, L2 partially.**
   Beyond New Session (L1): an **About & privacy** footer modal
   (`AboutPrivacy.jsx` — data-on-device explanation, the two online services,
@@ -261,7 +292,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 498 tests across 51 files, all green
+npm test             # vitest run — 544 tests across 53 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -441,14 +472,14 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **498 vitest tests across 51 files**, all passing.
+- **Tests:** `npm test` runs **544 vitest tests across 53 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
   `keyVerses`, `dictogloss`, `grammarDrill`, `comprehension`,
-  `clauseSkeleton`, `verbForms`, plus `SpeakerButton`,
-  `PronunciationPractice`, `ReadingPassage`, `VerbFormDrill`, `UiText`,
-  `useProgress`, `useJournal`. New non-trivial logic
+  `clauseSkeleton`, `verbForms`, `targetDate`, plus `SpeakerButton`,
+  `PronunciationPractice`, `ReadingPassage`, `VerbFormDrill`, `NewSession`,
+  `UiText`, `useProgress`, `useJournal`. New non-trivial logic
   should follow that pure-module-plus-test pattern.
 - **CI:** `.github/workflows/azure-static-web-apps-*.yml` runs `npm ci` →
   `npm run lint` → `npm test` → `npm run build` on every PR to `main`, and
