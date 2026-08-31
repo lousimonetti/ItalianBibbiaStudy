@@ -87,6 +87,18 @@ describe('isParticiple', () => {
     }
   });
 
+  // Regression: "perseguiti" is 2nd-person singular present ("why do you
+  // persecute me?"), not a participle. Found by eye on the Acts 9 passage.
+  it('does not read a 2nd-person singular -iti verb as a participle', () => {
+    expect(isParticiple('perseguiti')).toBe(false);
+    expect(isFiniteVerb('perseguiti')).toBe(false); // not claimed either way
+  });
+
+  it('still recognises the genuine -iti participles via the lexicon', () => {
+    expect(isParticiple('fuggiti')).toBe(true);
+    expect(isParticiple('riuniti')).toBe(true);
+  });
+
   it('does not flag the nouns and adjectives those endings collide with', () => {
     const nouns = ['peccato', 'spirito', 'subito', 'sabato', 'nascita', 'salute',
                    'partito', 'vestito', 'marito', 'beati', 'ipocriti', 'paraclito',
