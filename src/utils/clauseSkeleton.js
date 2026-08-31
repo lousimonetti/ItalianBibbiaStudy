@@ -104,6 +104,7 @@ const FINITE_LEXICON = new Set([
   'piange', 'pianse', 'piansero',
   'spinge', 'spinse', 'spinsero',
   'chiude', 'chiuse', 'chiusero',
+  'avvolge', 'avvolse', 'avvolsero',
   'perde', 'perse', 'persero',
   'corre', 'corse', 'corsero',
   'decide', 'decise', 'decisero',
@@ -216,13 +217,20 @@ const PARTICIPLE_LEXICON = new Set([
   // Short weak participles that fall under the 5-char suffix guard. Only the
   // masculine singular is safe: "data"/"dati"/"date" are the noun and the verb.
   'dato',
+  // Genuine -iti participles, now that the suffix rule no longer takes -iti.
+  'fuggiti', 'riuniti', 'saliti', 'usciti', 'partiti', 'finiti',
 ]);
 
-// Note the missing 'e': a weak feminine-plural participle ("gettate") is
-// homographic with a 2nd-person plural verb ("lodate"), and the audit found the
-// verb reading six times more common in this corpus. Strong -e participles
-// ("aperte", "scese") stay reachable through PARTICIPLE_LEXICON.
-const PARTICIPLE_SUFFIX = /(?:at|ut|it)[oai]$/;
+// Two endings are deliberately absent.
+//   -e  : a weak feminine-plural participle ("gettate") is homographic with a
+//         2nd-person plural verb ("lodate"), and the verb reading is ~6x more
+//         common in this corpus.
+//   -iti: homographic with the 2nd-person singular of -itare/-uitare verbs.
+//         "perché mi perseguiti?" is "why do you persecute me?", not a
+//         participle — caught in the browser on the Acts 9 passage.
+// Strong participles with those endings ("aperte", "scese", "fuggiti") stay
+// reachable through PARTICIPLE_LEXICON.
+const PARTICIPLE_SUFFIX = /(?:(?:at|ut)[oai]|it[oa])$/;
 
 // Nouns/adjectives/adverbs the participle suffix would otherwise flag.
 const NOT_PARTICIPLE = new Set([

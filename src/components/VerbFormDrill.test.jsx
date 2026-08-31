@@ -24,7 +24,13 @@ describe('VerbFormDrill', () => {
 
     // Whichever form is served, answering with its infinitive must be accepted.
     const form = document.querySelector('.vf-form').textContent.trim();
-    const item = VERB_FORMS.find((v) => form.startsWith(v.form));
+    // Longest match wins: "furono" is prefixed by the earlier item "fu", and a
+    // plain .find() would compare against that item's passato prossimo instead.
+    // The session order is shuffled, so getting this wrong fails only sometimes.
+    const item = VERB_FORMS
+      .filter((v) => form.startsWith(v.form))
+      .sort((a, b) => b.form.length - a.form.length)[0];
+    expect(item.form).toBe(form);
 
     fireEvent.change(screen.getByLabelText('The infinitive'), { target: { value: item.inf } });
     fireEvent.click(screen.getByRole('button', { name: 'Check' }));

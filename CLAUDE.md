@@ -261,7 +261,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 490 tests across 50 files, all green
+npm test             # vitest run — 498 tests across 51 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -441,13 +441,14 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **490 vitest tests across 50 files**, all passing.
+- **Tests:** `npm test` runs **498 vitest tests across 51 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
   `keyVerses`, `dictogloss`, `grammarDrill`, `comprehension`,
-  `clauseSkeleton`, `verbForms`, plus `SpeakerButton`, `ReadingPassage`,
-  `VerbFormDrill`, `UiText`, `useProgress`, `useJournal`. New non-trivial logic
+  `clauseSkeleton`, `verbForms`, plus `SpeakerButton`,
+  `PronunciationPractice`, `ReadingPassage`, `VerbFormDrill`, `UiText`,
+  `useProgress`, `useJournal`. New non-trivial logic
   should follow that pure-module-plus-test pattern.
 - **CI:** `.github/workflows/azure-static-web-apps-*.yml` runs `npm ci` →
   `npm run lint` → `npm test` → `npm run build` on every PR to `main`, and
@@ -455,6 +456,39 @@ active production. In rough priority order:
   `@azure/static-web-apps-cli` (`swa deploy`) rather than the container action
   to dodge MCR Docker-pull throttling. No per-PR preview envs (free-tier staging
   cap is 3, CLI has no teardown). Lint and test now gate CI alongside the build.
+
+## SpeechRecognition lifecycle — the rule that keeps the mic alive
+
+Three components listen (`PronunciationPractice`, `DictationMic`, `SpokenQA`)
+and all three had the same defect: **`recognition.start()` was called
+unguarded**. It throws whenever the browser will not hand over the microphone —
+another recognition still winding down (Chrome allows only one active per
+page), permission revoked, device busy. Because the "listening" state was set
+*before* the call, the throw left the UI claiming to listen while nothing was;
+and the stop path then called `stop()` on a recognition that never started,
+which **fires no `onend`**, so the state could never recover. The symptom was
+"it hears me the first time, then never again".
+
+When adding or editing a listening surface:
+
+- **Wrap `start()` in try/catch** and set the listening state only *after* it
+  succeeds. On failure, clear the ref and return to idle.
+- **Release the previous instance before starting a new one.** Detach
+  `onresult`/`onerror`/`onend` *first*, then `abort()` — otherwise the dying
+  instance's `onend` races in and resets the state of the turn that just began.
+- **Never rely on `onend` alone to leave the listening state**, for the reason
+  above. Tap-to-stop should set idle itself.
+- **Release on unmount** (`useEffect` cleanup) — leaving the tab mid-recording
+  otherwise holds the mic and makes the *next* `start()` throw.
+- **Guard late callbacks** with an `recRef.current === rec` identity check, so a
+  transcript that lands after the learner moved on is not scored against the
+  new card.
+
+`PronunciationPractice.test.jsx` encodes all of this against a fake
+`SpeechRecognition` that models Chrome's real behaviour (one active recognition;
+`stop()` on a non-started instance is a silent no-op). Asserting on the button
+label alone is not enough — it cannot distinguish a live recognition from a
+stuck one, so assert the recognition actually started.
 
 ## Tooling note — `vitest.setup.js` / localStorage on Node 26
 
