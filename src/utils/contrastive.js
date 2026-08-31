@@ -64,15 +64,17 @@ export function accuracyFor(store, trap) {
 
 // Order drill items weakest-category-first: never-attempted categories lead
 // (they're unknowns), then ascending accuracy. Item order within a category is
-// randomized. `rand` is injectable for tests.
-export function orderByWeakness(items, store, rand = Math.random) {
+// randomized. `rand` is injectable for tests. `keyFn` reads an item's category —
+// it defaults to the trap field, and the verb-form drill passes its own, so both
+// drills share one scheduler.
+export function orderByWeakness(items, store, rand = Math.random, keyFn = (i) => i.trap) {
   const shuffled = [...items];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(rand() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
   const rank = (item) => {
-    const acc = accuracyFor(store, item.trap);
+    const acc = accuracyFor(store, keyFn(item));
     return acc === null ? -1 : acc;
   };
   return shuffled.sort((a, b) => rank(a) - rank(b));

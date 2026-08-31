@@ -12,6 +12,7 @@ import { config as itBibleConfig } from './it-bible-cei/config.js';
 import { phases as itBiblePhases } from './it-bible-cei/content.js';
 import { TRAPS as itBibleTraps, TRAP_CATEGORIES as itBibleTrapCategories } from './it-bible-cei/contrastive.js';
 import { devotionSections as itBibleDevotions } from './it-bible-cei/devotions.js';
+import { VERB_FORMS as itBibleVerbForms, FORM_CATEGORIES as itBibleFormCategories } from './it-bible-cei/verbForms.js';
 
 // `traps`/`trapCategories` are optional — the "Trappole" drill hides for
 // courses that don't ship a contrastive dataset.
@@ -23,6 +24,9 @@ const COURSES = [
     trapCategories: itBibleTrapCategories,
     // Optional: memorized devotional texts. The tab hides itself without them.
     devotions: itBibleDevotions,
+    // Optional: reading-tense recognition data. The drill hides without it.
+    verbForms: itBibleVerbForms,
+    formCategories: itBibleFormCategories,
   },
   // { config: myConfig, phases: myPhases },
 ];

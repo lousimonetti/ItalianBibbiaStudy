@@ -73,6 +73,37 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   dynamic. Header tagline and progress goal interpolate the computed end date
   when an override is active. Tests: `sessionStart.test.js`,
   `resetSession.test.js`, extended `schedule.test.js`.
+- **Target end date — schedule from a finish line: SHIPPED.** The inverse of
+  New Session. Users think in deadlines ("finish before my trip"), not start
+  dates, so the New Session modal gained a **"Finish by a date"** mode beside
+  the original "Start on a date"; `WelcomeCard` links straight into it for new
+  users. `src/utils/targetDate.js` is the pure core: `startForEndDate()` is the
+  algebraic inverse of `getEndDate()`, and `planForEndDate()` returns everything
+  the UI needs to explain the consequence (`start`, `end`, `startWeekN`,
+  `skippedWeeks`, `startsInFuture`, `snapped`). **Nothing new is persisted** —
+  the derived start goes to the existing `resetSession({ startDate })`, so
+  `session-start` stays a plain `YYYY-MM-DD` and iOS + sync backups need no
+  change at all. Two rules keep it honest: the end date is snapped *backward*
+  to a week boundary so the program finishes **on or before** the date asked
+  for (the UI shows the computed date and says so when it moved), and a target
+  too close to fit all 37 weeks **warns rather than blocks** — it reports which
+  week you would land in and how many are behind you, and lets you proceed.
+  Because weeks run Mon–Sun, snapping the end to a Sunday lands the start on a
+  Monday.
+- **`getTodayDayIndex()` is now offset-from-start, not wall-clock.** It used to
+  be `(new Date().getDay() + 6) % 7`, which silently assumed the session began
+  on a Monday. The effect was not missing rows — every weekday still occurs once
+  per week — but **rotated** tasks: on a Wednesday start, day 1 of the program
+  served task 3 ("read chapters") instead of task 1 ("Babbel lesson"), and the
+  week's arc, which builds to a rest day, ended on its 5th day. It now counts
+  days from the effective start, so task N falls on day N, and `weekDayLabels()`
+  gives the daily list its *real* weekday labels (a Wednesday start reads
+  Wed…Tue) while preserving the authored task order; `TodayCard` highlights by
+  index rather than by day-name equality. **The reference course starts Mon
+  2026-04-13, so both formulas agree and the default calendar is unchanged** —
+  pinned by a test asserting equivalence across all 7 days. Note the Swift twin
+  `ScheduleLogic.todayDayIndex` is still wall-clock, so web and iOS diverge only
+  for a manually chosen non-Monday start; porting it is an open follow-up.
 - **Public-launch prep (`launch-opportunities.md`): L1/L3 shipped, L2 partially.**
   Beyond New Session (L1): an **About & privacy** footer modal
   (`AboutPrivacy.jsx` — data-on-device explanation, the two online services,
@@ -96,11 +127,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   + delta, optional insert-into-journal). SpeechRecognition detection is
   centralized in `src/utils/speech.js`; mic UI hides when unavailable.
   **P2 (S5) is implemented:** the "Trappole" drill — a fourth Flashcards mode
-  (`TrapDrill.jsx`, hidden when the course ships no dataset) drilling 56
-  curated English-interference traps in 12 categories (piacere-verbs, clitic
+  (`TrapDrill.jsx`, hidden when the course ships no dataset) drilling 66
+  curated English-interference traps in 14 categories (piacere-verbs, clitic
   placement, null subject, adjective position, articulated prepositions,
   essere/avere, avere idioms, false friends (= O14), c'è/ci sono, tense+da,
-  possessive articles, no-preposition verbs). Data is course-level
+  possessive articles, no-preposition verbs, plus **reduced relatives** and
+  **hypotaxis** — the two reading constructions Acts front-loads, drilled from
+  the production side). Data is course-level
   (`courses/it-bible-cei/contrastive.js`, resolved via `course/traps.js` +
   optional registry fields). `src/utils/contrastive.js` holds the verdict
   logic — predicted wrongs match exactly *before* the fuzzy correct check
@@ -191,13 +224,42 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   no gates) → P2 (widget/App Group, schemas only if the shapes verify) → P3
   (on-device FM). See `plan-siri.md` for the entitlement table, workstreams
   I1–I8, and the four open questions.
+- **Verse interaction + AI scoping (`plan-verses.md`): RESEARCHED, not yet
+  built.** Answers two questions asked together — can the weekly verses carry
+  more interaction, and can AI components be added (iOS, web, or both). They
+  are different problems. **Non-AI verse work (V1–V4) is cheap and works
+  everywhere**, mostly composing already-tested modules: V1 verse-line scramble
+  (reuses `scramble.js` — its `scrambleTokens`/`shuffleScramble`/`sameOrder`
+  are sentence-generic, taking a plain string), V3 line-by-line shadowing
+  (re-points the existing `PronunciationPractice` shadowing path at
+  `keyVerses.readingLines`), V2 progressive verse memorization (**new** pure
+  module — `makeCloze` is term-driven and does *not* fit), V4 verses in the SRS
+  (needs a storage decision; recommendation is a separate
+  `storageKey('verse-srs')` store, since `exportSnapshot()` auto-collects
+  `STORAGE_PREFIX-*` and the vocab `DAILY_NEW_CAP` should keep meaning what it
+  says). **AI splits hard by platform.** iOS: on-device `SystemLanguageModel`
+  is free, needs no entitlement, and sits *inside* the no-backend constraint —
+  this is the `plan-siri.md` P3 slot, and the I5 spike's verdict carries over
+  unchanged (**do not let the model judge; let it explain**). Gated on iOS 26+
+  and A17 Pro/M-series against the iOS 16 floor, and untestable in CI, so it
+  must stay behind a `BibbiaCore` protocol and degrade to the existing path.
+  Web: **blocked by constraint, not difficulty** — Chrome's built-in model is
+  desktop-only, WebLLM/WebGPU means a ~GB download that breaks precache and
+  free-tier bandwidth, a serverless proxy is forbidden outright, and BYO-key
+  (user's own key in localStorage, direct browser call) is technically
+  compatible but odd onboarding for a public launch. Not scheduled; revisit
+  alongside the `plan-sync.md` online-sync decision.
+
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
   sync follow-ups in `plan-sync.md` (multi-QR chunking for large snapshots,
   field-level merge, online auto-sync); fluency follow-ups from `opportunities.md`
-  (O12 adaptive new-card cap, O9 spaced writing retrieval, O7 sentence scramble,
-  O6 morphological awareness, O15 reading speed, O10 error type classification).
+  (O12 adaptive new-card cap, O9 spaced writing retrieval, O6 morphological
+  awareness, O15 reading speed, O10 error type classification). **O7 (sentence
+  scramble) is closed** — it shipped as `plan-speaking.md` S6, the Practice
+  "Build" style; the two docs named the same feature differently, which is how
+  it stayed open on paper.
 
 - **Pedagogy pass (`REVIEW-pedagogy.md`): merged.** A review against adult-SLA
   research, reconciled against the work that landed on `main` in parallel (the
@@ -230,7 +292,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 427 tests across 46 files, all green
+npm test             # vitest run — 554 tests across 53 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -278,6 +340,38 @@ All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/ut
 - **O3 Grammar drill** (`GrammarDrill.jsx` + `src/utils/grammarDrill.js`): fill-in-the-blank items (`week.drill`) anchored to vetted example sentences so the Italian is correct; answers use the same forgiving `checkAnswer`.
 - **O1 Shadowing**: a second drill type inside `PronunciationPractice.jsx` (toggle *Words* / *Shadowing*) — TTS plays the example **sentence**, the learner repeats it aloud, and the existing speech-recognition pipeline scores the whole sentence. Sentence scores stay session-local (not fed into the per-word struggle list) but still tick the streak.
 
+**Reading the hypotactic books (Acts onward).** Two features close a syllabus
+gap the Gospels hide and Acts exposes: CEI prose stops being paratactic
+(short clauses chained with `e`) and becomes periodic, and the course teaches
+neither of the two tenses that prose is written in.
+- **Clause skeleton** (`src/utils/clauseSkeleton.js` + the "Struttura" toggle in
+  `ReadingPassage.jsx`): `analyze(text)` classifies each token as `finite`
+  (a conjugated verb — the clause spine), `compound` (a participle leaning on an
+  auxiliary, i.e. one verb not two), `participle` (a *bare* participle, which is
+  a reduced relative: `il nome dato agli uomini` = `che è stato dato`), or
+  `plain`, and dims comma-delimited stretches that hold no finite verb. The
+  toggle layers those classes over `WordGloss` via its optional `roles` prop
+  (indices line up because both call the same `tokenize`), so words stay
+  tappable. Detection is **precision-first**: unambiguous suffix rules
+  (imperfetto, futuro, condizionale, congiuntivo, regular passato remoto) plus a
+  lexicon for the present and the strong passato remoto, minus stoplists that
+  were **tuned empirically against the whole course corpus**. The corpus-sanity
+  block in `clauseSkeleton.test.js` pins that tuning — if you author new course
+  text and a noun starts getting highlighted as a verb, add it to `NOT_FINITE`
+  or `NOT_PARTICIPLE` there.
+- **Verb-form recognition** (`courses/<id>/verbForms.js` → `course/verbForms.js`
+  → `src/utils/verbForms.js` → `VerbFormDrill.jsx`, a fifth Flashcards mode):
+  form → infinitive for the **passato remoto** and **trapassato prossimo**, the
+  tenses week 37's exegesis note admits the course never taught. Recognition
+  only, never production. Each item carries `pp` (the passato prossimo the
+  learner *does* know) so the unknown tense is always bridged to the taught one.
+  Grading is **exact**, not `checkAnswer`-fuzzy — `dare` is one edit from `dire`
+  and both are in the dataset — and a wrong answer that is another verb in the
+  set gets a `'confused'` verdict naming the pair. Course-level and optional:
+  the mode hides when `verbForms` is absent from the registry entry. Category
+  stats live under `storageKey('verb-forms')` and reuse the trap drill's
+  weakest-first scheduler (`orderByWeakness` now takes a `keyFn`).
+
 The per-week `drill`/`comprehension`/`passage` content lives in `courses/it-bible-cei/exercises.js` and is merged onto each week by `n` at the bottom of `content.js` (keeps the large exercise body out of the week definitions). All 37 weeks carry drills + comprehension; the validator ignores these optional fields. Pure modules `keyVerses`/`dictogloss`/`grammarDrill`/`comprehension` each have a sibling test.
 
 **Text-to-speech** (`SpeakerButton.jsx`): Uses `window.speechSynthesis`; the utterance language is the course locale (`TTS_LANG` from `src/utils/locale.js`, = `config.locale.target`, currently `it-IT`). Optional `rate` prop (default `0.85`; Listening mode passes a slower rate). No external dependency — falls back silently if the API is unavailable.
@@ -299,6 +393,49 @@ The per-week `drill`/`comprehension`/`passage` content lives in `courses/it-bibl
 **Journal writing scaffold** (`JournalScaffold.jsx`, Phase 3 / C3): a collapsible "Aiuto per scrivere" panel in each entry with the week's grammar focus, Italian sentence starters, and the week's vocab as click-to-insert chips. `WeekJournalRow`'s `insertText` appends to the draft (existing debounced auto-save + grammar check fire on change). Pure UI over existing week data, works offline.
 
 **Achievements** (`Achievements.jsx` + `src/utils/achievements.js` + `useAchievements`, Phase 4 / D4): a collapsible "Traguardi" badge grid on the Tracker. Earned state is *derived* from the existing stores (`-progress`, `-srs`, `-streak`, `-journal`) — there is **no** `-achievements` key. `useAchievements` reads those stores once on mount (the Tracker remounts on tab switch, refreshing it).
+
+## TTS voices — what each platform can actually reach
+
+Measured on a real device 2026-08-31, not inferred: **Safari exposes only the
+default system voice per language, at its compact tiers.** For Italian,
+`speechSynthesis.getVoices()` returns exactly two entries — `Alice` (compact)
+and `Alice` (super-compact) — on **macOS and iOS alike**, even when `say -v '?'`
+shows nine Italian voices installed and the user has downloaded Enhanced (Luca)
+and Premium (Emma) voices in Settings. Downloaded voices of any kind never reach
+a web page. Chrome *does* expose the full system list, which is why
+`VoicePicker` still earns its place there.
+
+Consequences, all of them already implemented:
+- `dedupeVoicesByName` (`src/utils/voicePreference.js`) collapses one voice's
+  several tiers into one entry. In Safari that takes the Italian list to length
+  1, so `VoicePicker`'s `voices.length >= 2` test hides a control that could
+  never have worked; in Chrome the list is untouched. No browser sniff.
+- The iOS hint in `VoicePicker.jsx` explains the limitation instead of telling
+  users to download Enhanced/Premium voices — that instruction was wrong, and
+  sent people to Settings for a change the web app can never see.
+- **The native app is the only place downloaded voices can be used.**
+  `Speaker.voice(for:)` ranks `AVSpeechSynthesisVoice.speechVoices()` via
+  `VoiceChoice` in BibbiaCore (premium → enhanced → default, exact tag before
+  another region). `VoiceChoice.best` returns `nil` when nothing beats the
+  system default, so the caller keeps `AVSpeechSynthesisVoice(language:)` — that
+  Optional is load-bearing: iOS ships novelty voices (Grandma, Rocko, Flo) at
+  the *same* quality as Alice, and picking one off the list would be a
+  regression. 12 tests in `VoiceChoiceTests.swift`.
+
+**Running the Swift tests locally.** `xcode-select -p` points at
+`/Library/Developer/CommandLineTools`, which has no XCTest, so a bare
+`swift test` fails to build the test target (`unable to resolve module
+dependency: 'XCTest'`) while the library target compiles fine. Prefix with the
+full Xcode instead — no `sudo`, no `xcode-select -s`:
+
+```bash
+DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer \
+  swift test --package-path ios-native/BibbiaCore   # 130 tests
+```
+
+(The CLAUDE.md note that Swift "can't run in this sandbox" is about *remote*
+sessions, where the egress proxy blocks swift.org toolchain downloads. On a Mac
+with Xcode installed it runs locally.)
 
 ## Key constraints
 
@@ -378,12 +515,14 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **427 vitest tests across 46 files**, all passing.
+- **Tests:** `npm test` runs **554 vitest tests across 53 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
-  `keyVerses`, `dictogloss`, `grammarDrill`, `comprehension`, plus
-  `SpeakerButton`, `UiText`, `useProgress`, `useJournal`. New non-trivial logic
+  `keyVerses`, `dictogloss`, `grammarDrill`, `comprehension`,
+  `clauseSkeleton`, `verbForms`, `targetDate`, plus `SpeakerButton`,
+  `PronunciationPractice`, `ReadingPassage`, `VerbFormDrill`, `NewSession`,
+  `UiText`, `useProgress`, `useJournal`. New non-trivial logic
   should follow that pure-module-plus-test pattern.
 - **CI:** `.github/workflows/azure-static-web-apps-*.yml` runs `npm ci` →
   `npm run lint` → `npm test` → `npm run build` on every PR to `main`, and
@@ -391,6 +530,39 @@ active production. In rough priority order:
   `@azure/static-web-apps-cli` (`swa deploy`) rather than the container action
   to dodge MCR Docker-pull throttling. No per-PR preview envs (free-tier staging
   cap is 3, CLI has no teardown). Lint and test now gate CI alongside the build.
+
+## SpeechRecognition lifecycle — the rule that keeps the mic alive
+
+Three components listen (`PronunciationPractice`, `DictationMic`, `SpokenQA`)
+and all three had the same defect: **`recognition.start()` was called
+unguarded**. It throws whenever the browser will not hand over the microphone —
+another recognition still winding down (Chrome allows only one active per
+page), permission revoked, device busy. Because the "listening" state was set
+*before* the call, the throw left the UI claiming to listen while nothing was;
+and the stop path then called `stop()` on a recognition that never started,
+which **fires no `onend`**, so the state could never recover. The symptom was
+"it hears me the first time, then never again".
+
+When adding or editing a listening surface:
+
+- **Wrap `start()` in try/catch** and set the listening state only *after* it
+  succeeds. On failure, clear the ref and return to idle.
+- **Release the previous instance before starting a new one.** Detach
+  `onresult`/`onerror`/`onend` *first*, then `abort()` — otherwise the dying
+  instance's `onend` races in and resets the state of the turn that just began.
+- **Never rely on `onend` alone to leave the listening state**, for the reason
+  above. Tap-to-stop should set idle itself.
+- **Release on unmount** (`useEffect` cleanup) — leaving the tab mid-recording
+  otherwise holds the mic and makes the *next* `start()` throw.
+- **Guard late callbacks** with an `recRef.current === rec` identity check, so a
+  transcript that lands after the learner moved on is not scored against the
+  new card.
+
+`PronunciationPractice.test.jsx` encodes all of this against a fake
+`SpeechRecognition` that models Chrome's real behaviour (one active recognition;
+`stop()` on a non-started instance is a silent no-op). Asserting on the button
+label alone is not enough — it cannot distinguish a live recognition from a
+stuck one, so assert the recognition actually started.
 
 ## Tooling note — `vitest.setup.js` / localStorage on Node 26
 

@@ -4,7 +4,7 @@ import { config } from '../course/config';
 import { useProgress } from './hooks/useProgress';
 import { useInstallPrompt } from './hooks/useInstallPrompt';
 import { useTheme } from './hooks/useTheme';
-import { getCurrentWeekN, getTodayDayIndex, weekDateLabel } from './utils/schedule';
+import { getCurrentWeekN, getTodayDayIndex, weekDateLabel, weekDayLabels } from './utils/schedule';
 import { getSessionStart, getSessionStartOverride, getSessionStartLabel, getEndDateLabel, parseLocalDate } from './utils/sessionStart';
 import { SessionRow } from './components/NewSession';
 import { AboutPrivacy } from './components/AboutPrivacy';
@@ -182,7 +182,13 @@ function DailyGoals() {
 function TodayCard({ currentWeekN }) {
   const [schedOpen, setSchedOpen] = useState(false);
   const week = currentWeekN ? ALL_WEEKS.find(w => w.n === currentWeekN) : null;
-  const todayTask = DAILY[getTodayDayIndex()];
+  // Day index is the offset within the program week, so it is correct for a
+  // session that does not start on a Monday. The row labels come from the real
+  // dates of that week rather than the authored Mon–Sun text, so a Wednesday
+  // start reads Wed…Tue instead of mislabelling itself.
+  const todayIdx = getTodayDayIndex();
+  const todayTask = DAILY[todayIdx];
+  const dayLabels = weekDayLabels(currentWeekN ?? 1);
 
   if (!week) {
     const notStarted = Date.now() < parseLocalDate(getSessionStart()).getTime();
@@ -207,7 +213,7 @@ function TodayCard({ currentWeekN }) {
       </div>
 
       <div className="today-task-row">
-        <span className="today-day-label">{todayTask.day}</span>
+        <span className="today-day-label">{dayLabels[todayIdx]}</span>
         <span className="today-task-text">{todayTask.task}</span>
       </div>
 
@@ -222,9 +228,9 @@ function TodayCard({ currentWeekN }) {
 
       {schedOpen && (
         <div className="today-sched">
-          {DAILY.map(({ day, task }) => (
-            <div key={day} className={`today-sched-row${day === todayTask.day ? ' today-sched-row--active' : ''}`}>
-              <span className="today-sched-day">{day}</span>
+          {DAILY.map(({ day, task }, i) => (
+            <div key={day} className={`today-sched-row${i === todayIdx ? ' today-sched-row--active' : ''}`}>
+              <span className="today-sched-day">{dayLabels[i]}</span>
               <span className="today-sched-task">{task}</span>
             </div>
           ))}

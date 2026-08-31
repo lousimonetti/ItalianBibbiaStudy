@@ -13,17 +13,62 @@ function programStart() {
   return new Date(sy, sm - 1, sd);
 }
 
-export function getCurrentWeekN() {
-  const diff = Date.now() - programStart().getTime();
+const WEEK_MS = 604800000;
+const DAY_MS = 86400000;
+
+// Which program week `nowMs` falls in for a GIVEN start date, or null when it
+// is before week 1 or past the final week. Taking the start as an argument is
+// what lets the target-end-date planner preview a candidate start that has not
+// been committed to storage yet (see targetDate.js) — the committed and the
+// previewed answer must come from the same arithmetic, not two copies of it.
+export function weekNumberFor(startISO, weeks = PROGRAM_WEEKS, nowMs = Date.now()) {
+  const [sy, sm, sd] = String(startISO ?? '').split('-').map(Number);
+  if (!sy || !sm || !sd) return null;
+  const diff = nowMs - new Date(sy, sm - 1, sd).getTime();
   if (diff < 0) return null;
-  const n = Math.floor(diff / 604800000) + 1;
-  return n <= PROGRAM_WEEKS ? n : null;
+  const n = Math.floor(diff / WEEK_MS) + 1;
+  return n <= weeks ? n : null;
 }
 
-// Returns 0=Mon, 1=Tue, 2=Wed, 3=Thu, 4=Fri, 5=Sat, 6=Sun
-export function getTodayDayIndex() {
-  return (new Date().getDay() + 6) % 7;
+export function getCurrentWeekN() {
+  return weekNumberFor(getSessionStart(), PROGRAM_WEEKS);
 }
+
+// Which day of the program week we are on: 0 = the first day of the week,
+// … 6 = the last. This indexes `config.schedule.daily`.
+//
+// This used to be the wall-clock weekday, `(new Date().getDay() + 6) % 7`,
+// which silently assumed the session started on a Monday. It doesn't have to:
+// the New Session picker accepts any date, and a derived start can land
+// anywhere. The effect was not that rows went missing — every weekday still
+// occurs once per 7-day week — but that the daily tasks were ROTATED against
+// the program week. On a Wednesday start the week runs Wed–Tue, so day 1 of
+// the program served task 3 ("read chapters") instead of task 1 ("Babbel
+// lesson"), and the week's designed arc — which builds to a rest day — ended
+// on its 5th day. Counting the offset from the start puts task N on day N.
+//
+// For a Monday-aligned start the two formulas agree exactly, so the reference
+// course (which starts Mon 2026-04-13) is unaffected — pinned by a test.
+export function getTodayDayIndex(nowMs = Date.now()) {
+  const s = programStart();
+  const diff = nowMs - s.getTime();
+  if (diff < 0) return 0; // before the program starts, show its first day
+  return Math.floor(diff / DAY_MS) % 7;
+}
+
+// The real weekday abbreviations for the current program week, in order —
+// so the daily list can label its rows with the days they actually fall on
+// rather than the authored Mon–Sun text. Index-aligned with `daily`.
+export function weekDayLabels(weekN = getCurrentWeekN() ?? 1) {
+  const s = programStart();
+  const first = new Date(s.getFullYear(), s.getMonth(), s.getDate() + (weekN - 1) * 7);
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(first.getFullYear(), first.getMonth(), first.getDate() + i);
+    return DAYS[d.getDay()];
+  });
+}
+
+const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 

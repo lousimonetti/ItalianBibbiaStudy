@@ -5,6 +5,7 @@ import {
   setVoiceURI,
   subscribe as subscribePref,
   filterVoicesForLang,
+  dedupeVoicesByName,
 } from '../utils/voicePreference';
 
 // Browser TTS voices come from the OS/engine and populate asynchronously. We
@@ -81,5 +82,11 @@ if (hasTTS) {
 export function useVoices() {
   const all = useSyncExternalStore(subscribeVoices, getVoicesSnapshot, () => EMPTY);
   const selectedURI = useSyncExternalStore(subscribePref, getVoiceURI, getVoiceURI);
-  return { voices: filterVoicesForLang(all), selectedURI, setVoice: setVoiceURI };
+  // Dedupe after filtering: Safari reports one voice at two compression tiers
+  // under the same name, so the raw list would render duplicate options.
+  return {
+    voices: dedupeVoicesByName(filterVoicesForLang(all)),
+    selectedURI,
+    setVoice: setVoiceURI,
+  };
 }

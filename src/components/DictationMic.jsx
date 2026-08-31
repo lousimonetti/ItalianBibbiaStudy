@@ -62,8 +62,21 @@ export function DictationMic({ onText, label = 'Detta', stopLabel = 'Ferma', tit
     };
     recRef.current = rec;
     activeRef.current = true;
+
+    // start() throws when the browser will not hand over the microphone (a
+    // recognition still winding down, permission revoked, device busy). Without
+    // this guard the button was left claiming to listen, and the stop path —
+    // stop() on a recognition that never started — fires no onend, so it could
+    // never recover.
+    try {
+      rec.start();
+    } catch {
+      activeRef.current = false;
+      recRef.current = null;
+      setListening(false);
+      return;
+    }
     setListening(true);
-    rec.start();
   }
 
   return (

@@ -3,7 +3,9 @@ import { PHASES } from '../data/studyData';
 import { PracticeMode } from './PracticeMode';
 import { PronunciationPractice } from './PronunciationPractice';
 import { TrapDrill } from './TrapDrill';
+import { VerbFormDrill } from './VerbFormDrill';
 import { TRAPS } from '../../course/traps';
+import { VERB_FORMS } from '../../course/verbForms';
 import { UiText } from '../i18n/UiText';
 
 const phaseCards = (id) => {
@@ -78,11 +80,20 @@ export function FlashcardsTab() {
             <UiText k="fc.traps" />
           </button>
         )}
+        {VERB_FORMS.length > 0 && (
+          <button
+            className={`fc-mode-btn${mode === 'verbforms' ? ' active' : ''}`}
+            onClick={() => setMode('verbforms')}
+          >
+            <UiText k="fc.verbforms" />
+          </button>
+        )}
       </div>
 
       {mode === 'practice' && <PracticeMode />}
       {mode === 'pronunciation' && <PronunciationPractice />}
       {mode === 'traps' && <TrapDrill />}
+      {mode === 'verbforms' && <VerbFormDrill />}
 
       {mode === 'anki' && <>
 

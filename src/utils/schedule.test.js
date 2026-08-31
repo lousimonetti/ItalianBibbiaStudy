@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach, vi } from 'vitest';
-import { getCurrentWeekN, getTodayDayIndex, weekRangeLabel, weekDateLabel } from './schedule.js';
+import { getCurrentWeekN, getTodayDayIndex, weekRangeLabel, weekDateLabel, weekNumberFor, weekDayLabels } from './schedule.js';
 import { setSessionStart, clearSessionStart } from './sessionStart.js';
 
 // Apr 13, 2026 is a Monday — verified: new Date(2026, 3, 13).getDay() === 1
@@ -160,5 +160,93 @@ describe('getTodayDayIndex', () => {
     const idx = getTodayDayIndex();
     expect(idx).toBeGreaterThanOrEqual(0);
     expect(idx).toBeLessThanOrEqual(6);
+  });
+});
+
+describe('weekNumberFor', () => {
+  it('answers for an explicit start, without consulting storage', () => {
+    const start = '2026-04-13';
+    expect(weekNumberFor(start, 37, new Date(2026, 3, 13).getTime())).toBe(1);
+    expect(weekNumberFor(start, 37, new Date(2026, 3, 19).getTime())).toBe(1);
+    expect(weekNumberFor(start, 37, new Date(2026, 3, 20).getTime())).toBe(2);
+  });
+
+  it('returns null before the start and after the final week', () => {
+    const start = '2026-04-13';
+    expect(weekNumberFor(start, 37, new Date(2026, 3, 12).getTime())).toBeNull();
+    // Week 37 ends Dec 27, 2026; Dec 28 is past the end.
+    expect(weekNumberFor(start, 37, new Date(2026, 11, 27).getTime())).toBe(37);
+    expect(weekNumberFor(start, 37, new Date(2026, 11, 28).getTime())).toBeNull();
+  });
+
+  it('returns null for a malformed start', () => {
+    for (const bad of ['', null, undefined, 'nonsense']) {
+      expect(weekNumberFor(bad, 37, Date.now()), String(bad)).toBeNull();
+    }
+  });
+
+  it('is what getCurrentWeekN delegates to', () => {
+    vi.setSystemTime(new Date(2026, 7, 31));
+    setSessionStart('2026-04-13');
+    expect(getCurrentWeekN()).toBe(weekNumberFor('2026-04-13', 37, Date.now()));
+  });
+});
+
+// getTodayDayIndex changed from wall-clock weekday to offset-from-start so the
+// daily checklist works for a session that does not begin on a Monday. For the
+// reference course — which starts Mon Apr 13, 2026 — the two must agree
+// exactly, so existing users see no change at all. This pins that.
+describe('getTodayDayIndex — offset from start', () => {
+  const wallClock = (d) => (d.getDay() + 6) % 7; // the formula it replaced
+
+  it('matches the old wall-clock formula on the Monday-aligned course calendar', () => {
+    for (let i = 0; i < 7; i += 1) {
+      const day = new Date(2026, 3, 13 + i);
+      vi.setSystemTime(day);
+      expect(getTodayDayIndex(), day.toDateString()).toBe(wallClock(day));
+    }
+  });
+
+  it('still matches deep into the program, not just in week 1', () => {
+    for (let i = 0; i < 7; i += 1) {
+      const day = new Date(2026, 7, 31 + i); // week 21, a Monday-start week
+      vi.setSystemTime(day);
+      expect(getTodayDayIndex(), day.toDateString()).toBe(wallClock(day));
+    }
+  });
+
+  it('counts from the start date for a session that begins mid-week', () => {
+    setSessionStart('2026-09-02'); // a Wednesday
+    vi.setSystemTime(new Date(2026, 8, 2));
+    expect(getTodayDayIndex()).toBe(0); // day 1 of the program week
+    vi.setSystemTime(new Date(2026, 8, 3));
+    expect(getTodayDayIndex()).toBe(1);
+    vi.setSystemTime(new Date(2026, 8, 8)); // the following Tuesday closes it
+    expect(getTodayDayIndex()).toBe(6);
+    vi.setSystemTime(new Date(2026, 8, 9)); // next week wraps around
+    expect(getTodayDayIndex()).toBe(0);
+  });
+
+  it('shows the first day when the program has not started yet', () => {
+    setSessionStart('2027-01-04');
+    vi.setSystemTime(new Date(2026, 8, 1));
+    expect(getTodayDayIndex()).toBe(0);
+  });
+});
+
+describe('weekDayLabels', () => {
+  it('is Mon…Sun for the Monday-aligned course calendar', () => {
+    vi.setSystemTime(new Date(2026, 3, 13));
+    expect(weekDayLabels(1)).toEqual(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']);
+  });
+
+  it('follows the real weekdays for a mid-week start', () => {
+    setSessionStart('2026-09-02'); // Wednesday
+    expect(weekDayLabels(1)).toEqual(['Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue']);
+  });
+
+  it('stays consistent for a later week', () => {
+    setSessionStart('2026-09-02');
+    expect(weekDayLabels(5)).toEqual(['Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue']);
   });
 });

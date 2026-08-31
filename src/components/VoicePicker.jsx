@@ -4,12 +4,14 @@ import { isIOS } from '../utils/platform';
 
 // Header control: choose which Italian voice the app uses for spoken audio.
 // The list is whatever the device/browser provides (we can't bundle voices with
-// no backend).
+// no backend), deduped by name so one voice shipped at several compression
+// tiers appears once.
 //
-// On non-iOS we hide entirely when there's nothing to choose (0–1 voices). On
-// iOS we still show a small "Voices" affordance even with a single voice, because
-// iOS ships only a compact default until the user downloads better ones — and
-// the whole point is to tell them how (we can't install voices for them).
+// We hide entirely when there's nothing to choose (0–1 voices). On iOS we still
+// show a small "ⓘ" affordance, because Safari offers exactly one Italian voice
+// and users who have downloaded better ones in Settings reasonably expect to
+// find them here — the panel explains why they aren't available rather than
+// leaving an unexplained absence.
 export function VoicePicker() {
   const { voices, selectedURI, setVoice } = useVoices();
   const [hintOpen, setHintOpen] = useState(false);
@@ -47,25 +49,25 @@ export function VoicePicker() {
           className="voice-help-btn"
           onClick={() => setHintOpen((o) => !o)}
           aria-expanded={hintOpen}
-          aria-label="How to add more Italian voices on iPhone or iPad"
-          title="Add more Italian voices"
+          aria-label="Why only one voice is available on iPhone and iPad"
+          title="About the voice used for audio"
         >
-          {showPicker ? 'ⓘ' : '+ Voices'}
+          ⓘ
         </button>
       )}
 
       {ios && hintOpen && (
         <div className="voice-help" role="status">
-          <strong>Add natural Italian voices</strong> on iPhone/iPad:
-          <div className="voice-help-path">
-            Settings → Accessibility → Read &amp; Speak → Voices → Italiano
-          </div>
+          <strong>Safari offers only one Italian voice.</strong> On iPhone and
+          iPad it hands web pages the built-in voice (Alice) and nothing else.
           <span className="voice-help-note">
-            (On iOS 25 or earlier the menu is called <em>Spoken Content</em>.)
+            The Enhanced and Premium voices you can download under Settings →
+            Accessibility → Spoken Content → Voices — Emma, Luca and the rest —
+            are available to installed apps, but Safari does not pass them to a
+            web page. Downloading them will not add anything to this list.
           </span>{' '}
-          Pick an <strong>Enhanced</strong> or <strong>Premium</strong> voice and tap the
-          download (cloud) icon, then reopen this app and tap a speaker — the new
-          voice appears here.
+          The audio here will always use Alice. It's a Safari limitation, not a
+          setting you can change.
         </div>
       )}
     </span>

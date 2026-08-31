@@ -11,11 +11,14 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { register } from 'node:module';
+import { registerHooks } from 'node:module';
+import { resolve as resolveExtensionless } from './resolve-js-hook.mjs';
 
 // The web modules use Vite-style extension-less imports; teach Node to
 // resolve them before dynamically importing anything from src/.
-register(new URL('./resolve-js-hook.mjs', import.meta.url));
+// `registerHooks` (in-thread, synchronous hooks) replaces the deprecated
+// `register` (DEP0205); it needs Node >= 22.15, which CI pins to 24.
+registerHooks({ resolve: resolveExtensionless });
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = join(here, '..', '..');

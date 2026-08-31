@@ -34,10 +34,41 @@ final class Speaker: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         try? AVAudioSession.sharedInstance().setActive(true, options: [])
         #endif
         let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: language)
+        utterance.voice = Speaker.voice(for: language)
         utterance.rate = rate
         speakingText = text
         synthesizer.speak(utterance)
+    }
+
+    // Use the best voice the user has actually installed, not just the system
+    // default. `AVSpeechSynthesisVoice(language:)` ignores Enhanced and Premium
+    // voices downloaded under Settings → Accessibility → Spoken Content →
+    // Voices; those are the biggest available jump in audio quality, and this
+    // app is the only place they can be used — Safari exposes just the compact
+    // default voice to web pages, so the web build cannot reach them at all.
+    //
+    // The ranking is VoiceChoice in BibbiaCore so it is unit-tested; a nil
+    // result means nothing better than the default is installed, in which case
+    // the original call is exactly right.
+    static func voice(for language: String) -> AVSpeechSynthesisVoice? {
+        let installed = AVSpeechSynthesisVoice.speechVoices().map {
+            VoiceChoice.Candidate(identifier: $0.identifier,
+                                  language: $0.language,
+                                  quality: qualityRank($0.quality))
+        }
+        if let best = VoiceChoice.best(from: installed, language: language),
+           let voice = AVSpeechSynthesisVoice(identifier: best.identifier) {
+            return voice
+        }
+        return AVSpeechSynthesisVoice(language: language)
+    }
+
+    private static func qualityRank(_ quality: AVSpeechSynthesisVoiceQuality) -> Int {
+        switch quality {
+        case .premium: return 3
+        case .enhanced: return 2
+        default: return 1
+        }
     }
 
     func stop() {

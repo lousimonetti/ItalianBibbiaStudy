@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import { PHASES } from '../data/studyData';
 import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
@@ -100,6 +100,31 @@ export function PronunciationPractice() {
   const recRef = useRef(null);
   const { record: recordPronun } = usePronunStats();
 
+  // Hard-release the current recognition. Handlers are detached BEFORE abort()
+  // so the dying instance's onend cannot race in and reset the state of a turn
+  // that has already moved on.
+  function releaseRecognition() {
+    const rec = recRef.current;
+    if (!rec) return;
+    rec.onresult = null;
+    rec.onerror = null;
+    rec.onend = null;
+    recRef.current = null;
+    try { rec.abort(); } catch { /* already dead */ }
+  }
+
+  // Leaving the tab mid-recording used to leave the recognition holding the
+  // microphone, which then made the next start() fail.
+  useEffect(() => () => {
+    const rec = recRef.current;
+    if (!rec) return;
+    rec.onresult = null;
+    rec.onerror = null;
+    rec.onend = null;
+    recRef.current = null;
+    try { rec.abort(); } catch { /* already dead */ }
+  }, []);
+
   const filtered = useMemo(
     () => (filter === 'all' ? ALL_CARDS : ALL_CARDS.filter(c => c.phaseId === filter)),
     [filter]
@@ -107,9 +132,6 @@ export function PronunciationPractice() {
   // Shadowing needs an example sentence to read.
   const shadowCards = useMemo(() => filtered.filter(c => c.ex && c.ex.trim()), [filtered]);
   const pool = drill === 'shadow' ? shadowCards : filtered;
-
-  // The text the learner is asked to produce (and is scored against).
-  const targetText = (card) => (session?.drill === 'shadow' ? card.ex : card.it);
 
   if (!hasSpeechRecognition) {
     return (
@@ -132,6 +154,7 @@ export function PronunciationPractice() {
 
   function startSession(cards, drillType) {
     if (!cards.length) return;
+    releaseRecognition();
     setSession({ cards: shuffle(cards), index: 0, scores: [], drill: drillType });
     setResult(null);
     setMicState('idle');
@@ -139,24 +162,35 @@ export function PronunciationPractice() {
 
   function handleMic() {
     if (micState === 'recording') {
-      recRef.current?.stop();
+      // Tap-to-stop: stop() (not abort) so a pending transcript is still
+      // delivered. Return to idle here rather than waiting for onend — a
+      // recognition that never really started fires no onend, and relying on
+      // it was what left the button stuck on "Listening…" forever.
+      try { recRef.current?.stop(); } catch { /* already dead */ }
+      setMicState('idle');
       return;
     }
+
+    // Drop any previous instance before asking for the microphone again. Chrome
+    // allows only one active recognition per page, and a lingering one from the
+    // previous card makes start() throw.
+    releaseRecognition();
 
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     const rec = new SR();
     rec.lang = TTS_LANG;
     rec.interimResults = false;
     rec.maxAlternatives = 3;
-    recRef.current = rec;
 
-    setMicState('recording');
-    setResult(null);
+    // Capture the card under test now: a transcript that lands after the
+    // learner has moved on must not be scored against the new card.
+    const card = session.cards[session.index];
+    const target = session.drill === 'shadow' ? card.ex : card.it;
+    const isCurrent = () => recRef.current === rec;
 
     rec.onresult = (e) => {
+      if (!isCurrent()) return;
       setMicState('processing');
-      const card = session.cards[session.index];
-      const target = targetText(card);
       // Try all alternatives, keep the best-scoring one
       let best = { recognized: '', score: 0 };
       for (let i = 0; i < e.results[0].length; i++) {
@@ -169,6 +203,7 @@ export function PronunciationPractice() {
     };
 
     rec.onerror = (e) => {
+      if (!isCurrent()) return;
       if (e.error !== 'aborted') {
         setResult({ recognized: '', score: 0, error: e.error });
       }
@@ -176,14 +211,32 @@ export function PronunciationPractice() {
     };
 
     rec.onend = () => {
+      if (!isCurrent()) return;
+      recRef.current = null;
       setMicState(s => (s === 'recording' ? 'idle' : s));
     };
 
-    rec.start();
+    recRef.current = rec;
+    setResult(null);
+
+    // start() throws if the browser will not hand over the microphone (another
+    // recognition still winding down, permission revoked, device busy). The
+    // state must never be left claiming to listen when it is not.
+    try {
+      rec.start();
+    } catch {
+      recRef.current = null;
+      setMicState('idle');
+      setResult({ recognized: '', score: 0, error: 'not-allowed' });
+      return;
+    }
+
+    setMicState('recording');
   }
 
   function handleNext() {
     if (!result) return;
+    releaseRecognition();
     const card = session.cards[session.index];
     // Word drill feeds per-word pronun stats (and the struggle list). Shadowing
     // scores whole sentences, so we keep those session-local to avoid skewing the
@@ -199,6 +252,7 @@ export function PronunciationPractice() {
   }
 
   function handleRetry() {
+    releaseRecognition();
     setResult(null);
     setMicState('idle');
   }
@@ -248,7 +302,7 @@ export function PronunciationPractice() {
       <div className="prac-session">
         <div className="prac-top-row">
           <span className="prac-counter">{session.index + 1} / {total}</span>
-          <button className="prac-exit-btn" onClick={() => { recRef.current?.stop(); setSession(null); }}>
+          <button className="prac-exit-btn" onClick={() => { releaseRecognition(); setSession(null); }}>
             Exit
           </button>
         </div>
