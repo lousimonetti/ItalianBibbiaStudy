@@ -54,7 +54,8 @@ function TargetSummary({ target, plan }) {
           Finishing by {finish} means starting at week {plan.startWeekN}.
         </strong>
         <span>
-          The full program is {WEEKS} weeks and that date is {plan.weeksAvailable} away,
+          The full program is {WEEKS} weeks and that date is only{' '}
+          {plan.weeksAvailable} {plan.weeksAvailable === 1 ? 'week' : 'weeks'} away,
           so weeks 1–{plan.skippedWeeks} would be behind you already. You can start
           there, or pick a later date to do the whole thing.
         </span>

@@ -39,9 +39,13 @@ export function getCurrentWeekN() {
 //
 // This used to be the wall-clock weekday, `(new Date().getDay() + 6) % 7`,
 // which silently assumed the session started on a Monday. It doesn't have to:
-// the New Session picker accepts any date. On a Wednesday start the week runs
-// Wed–Tue, so week 1's "Mon" and "Tue" rows could never fire. Counting the
-// offset from the start instead makes the daily list work for any start day.
+// the New Session picker accepts any date, and a derived start can land
+// anywhere. The effect was not that rows went missing — every weekday still
+// occurs once per 7-day week — but that the daily tasks were ROTATED against
+// the program week. On a Wednesday start the week runs Wed–Tue, so day 1 of
+// the program served task 3 ("read chapters") instead of task 1 ("Babbel
+// lesson"), and the week's designed arc — which builds to a rest day — ended
+// on its 5th day. Counting the offset from the start puts task N on day N.
 //
 // For a Monday-aligned start the two formulas agree exactly, so the reference
 // course (which starts Mon 2026-04-13) is unaffected — pinned by a test.

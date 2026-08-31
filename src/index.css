@@ -258,6 +258,16 @@ body {
 }
 .sync-btn:hover { border-color: var(--accent); }
 .sync-btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+/* Until now nothing here could be disabled in practice — the start-date picker
+   defaults to today — so a disabled .sync-btn still rendered as a fully solid,
+   pointer-cursored button that silently did nothing. "Finish by a date" opens
+   with an empty input, making that state normal, so it needs to look inert. */
+.sync-btn:disabled,
+.sync-btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.sync-btn:disabled:hover { border-color: var(--border); }
 .sync-file-label { display: inline-flex; align-items: center; justify-content: center; }
 .sync-or { font-size: 12px; color: var(--text-faint); text-align: center; }
 .sync-warn { font-size: 12px; color: var(--danger, #c0392b); margin: 0; }

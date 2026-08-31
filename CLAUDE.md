@@ -92,8 +92,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   Monday.
 - **`getTodayDayIndex()` is now offset-from-start, not wall-clock.** It used to
   be `(new Date().getDay() + 6) % 7`, which silently assumed the session began
-  on a Monday — on a Wednesday start, week 1's "Mon"/"Tue" rows could never
-  fire. It now counts days from the effective start, and `weekDayLabels()`
+  on a Monday. The effect was not missing rows — every weekday still occurs once
+  per week — but **rotated** tasks: on a Wednesday start, day 1 of the program
+  served task 3 ("read chapters") instead of task 1 ("Babbel lesson"), and the
+  week's arc, which builds to a rest day, ended on its 5th day. It now counts
+  days from the effective start, so task N falls on day N, and `weekDayLabels()`
   gives the daily list its *real* weekday labels (a Wednesday start reads
   Wed…Tue) while preserving the authored task order; `TodayCard` highlights by
   index rather than by day-name equality. **The reference course starts Mon
