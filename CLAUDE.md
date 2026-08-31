@@ -96,11 +96,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   + delta, optional insert-into-journal). SpeechRecognition detection is
   centralized in `src/utils/speech.js`; mic UI hides when unavailable.
   **P2 (S5) is implemented:** the "Trappole" drill — a fourth Flashcards mode
-  (`TrapDrill.jsx`, hidden when the course ships no dataset) drilling 56
-  curated English-interference traps in 12 categories (piacere-verbs, clitic
+  (`TrapDrill.jsx`, hidden when the course ships no dataset) drilling 66
+  curated English-interference traps in 14 categories (piacere-verbs, clitic
   placement, null subject, adjective position, articulated prepositions,
   essere/avere, avere idioms, false friends (= O14), c'è/ci sono, tense+da,
-  possessive articles, no-preposition verbs). Data is course-level
+  possessive articles, no-preposition verbs, plus **reduced relatives** and
+  **hypotaxis** — the two reading constructions Acts front-loads, drilled from
+  the production side). Data is course-level
   (`courses/it-bible-cei/contrastive.js`, resolved via `course/traps.js` +
   optional registry fields). `src/utils/contrastive.js` holds the verdict
   logic — predicted wrongs match exactly *before* the fuzzy correct check
@@ -259,7 +261,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 427 tests across 46 files, all green
+npm test             # vitest run — 490 tests across 50 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -306,6 +308,38 @@ All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/ut
 - **O4 Dictogloss** (`Dictogloss.jsx` + `src/utils/dictogloss.js`): hear a verse → type a reconstruction → word-level diff + recall score (order-independent multiset match, accent/case/punctuation-forgiving). Counts as `practiced` activity.
 - **O3 Grammar drill** (`GrammarDrill.jsx` + `src/utils/grammarDrill.js`): fill-in-the-blank items (`week.drill`) anchored to vetted example sentences so the Italian is correct; answers use the same forgiving `checkAnswer`.
 - **O1 Shadowing**: a second drill type inside `PronunciationPractice.jsx` (toggle *Words* / *Shadowing*) — TTS plays the example **sentence**, the learner repeats it aloud, and the existing speech-recognition pipeline scores the whole sentence. Sentence scores stay session-local (not fed into the per-word struggle list) but still tick the streak.
+
+**Reading the hypotactic books (Acts onward).** Two features close a syllabus
+gap the Gospels hide and Acts exposes: CEI prose stops being paratactic
+(short clauses chained with `e`) and becomes periodic, and the course teaches
+neither of the two tenses that prose is written in.
+- **Clause skeleton** (`src/utils/clauseSkeleton.js` + the "Struttura" toggle in
+  `ReadingPassage.jsx`): `analyze(text)` classifies each token as `finite`
+  (a conjugated verb — the clause spine), `compound` (a participle leaning on an
+  auxiliary, i.e. one verb not two), `participle` (a *bare* participle, which is
+  a reduced relative: `il nome dato agli uomini` = `che è stato dato`), or
+  `plain`, and dims comma-delimited stretches that hold no finite verb. The
+  toggle layers those classes over `WordGloss` via its optional `roles` prop
+  (indices line up because both call the same `tokenize`), so words stay
+  tappable. Detection is **precision-first**: unambiguous suffix rules
+  (imperfetto, futuro, condizionale, congiuntivo, regular passato remoto) plus a
+  lexicon for the present and the strong passato remoto, minus stoplists that
+  were **tuned empirically against the whole course corpus**. The corpus-sanity
+  block in `clauseSkeleton.test.js` pins that tuning — if you author new course
+  text and a noun starts getting highlighted as a verb, add it to `NOT_FINITE`
+  or `NOT_PARTICIPLE` there.
+- **Verb-form recognition** (`courses/<id>/verbForms.js` → `course/verbForms.js`
+  → `src/utils/verbForms.js` → `VerbFormDrill.jsx`, a fifth Flashcards mode):
+  form → infinitive for the **passato remoto** and **trapassato prossimo**, the
+  tenses week 37's exegesis note admits the course never taught. Recognition
+  only, never production. Each item carries `pp` (the passato prossimo the
+  learner *does* know) so the unknown tense is always bridged to the taught one.
+  Grading is **exact**, not `checkAnswer`-fuzzy — `dare` is one edit from `dire`
+  and both are in the dataset — and a wrong answer that is another verb in the
+  set gets a `'confused'` verdict naming the pair. Course-level and optional:
+  the mode hides when `verbForms` is absent from the registry entry. Category
+  stats live under `storageKey('verb-forms')` and reuse the trap drill's
+  weakest-first scheduler (`orderByWeakness` now takes a `keyFn`).
 
 The per-week `drill`/`comprehension`/`passage` content lives in `courses/it-bible-cei/exercises.js` and is merged onto each week by `n` at the bottom of `content.js` (keeps the large exercise body out of the week definitions). All 37 weeks carry drills + comprehension; the validator ignores these optional fields. Pure modules `keyVerses`/`dictogloss`/`grammarDrill`/`comprehension` each have a sibling test.
 
@@ -407,12 +441,13 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **427 vitest tests across 46 files**, all passing.
+- **Tests:** `npm test` runs **490 vitest tests across 50 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
-  `keyVerses`, `dictogloss`, `grammarDrill`, `comprehension`, plus
-  `SpeakerButton`, `UiText`, `useProgress`, `useJournal`. New non-trivial logic
+  `keyVerses`, `dictogloss`, `grammarDrill`, `comprehension`,
+  `clauseSkeleton`, `verbForms`, plus `SpeakerButton`, `ReadingPassage`,
+  `VerbFormDrill`, `UiText`, `useProgress`, `useJournal`. New non-trivial logic
   should follow that pure-module-plus-test pattern.
 - **CI:** `.github/workflows/azure-static-web-apps-*.yml` runs `npm ci` →
   `npm run lint` → `npm test` → `npm run build` on every PR to `main`, and
