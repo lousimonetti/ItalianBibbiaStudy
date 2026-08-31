@@ -21,6 +21,8 @@ export const TRAP_CATEGORIES = {
   tempo: { it: 'Tempo e durata', en: 'tense and duration' },
   possessivo: { it: 'Possessivi e articoli', en: 'possessives and articles' },
   verbprep: { it: 'Verbi senza preposizione', en: 'no preposition needed' },
+  ridotta: { it: 'Relative ridotte', en: 'participle instead of "che è stato…"' },
+  ipotassi: { it: 'Subordinare, non incollare', en: 'subordinate it, don\'t chain it with "e"' },
 };
 
 export const TRAPS = [
@@ -244,4 +246,60 @@ export const TRAPS = [
     alt: ['ascoltate la parola del signore'],
     wrongs: ['ascolta alla parola del signore'],
     note: 'Ascoltare takes a direct object: ascolta la parola — no "to".' },
+
+  // ── reduced relatives: the participle IS the relative clause ──────────────
+  // The construction that most often breaks an English reader of Acts. English
+  // can reduce a relative too ("the name given to men"), but rarely wedges the
+  // reduced clause between a relative pronoun and its verb, which CEI does
+  // constantly. Producing it is the fastest way to stop being ambushed by it.
+  { trap: 'ridotta', en: 'the name given to men', it: 'il nome dato agli uomini',
+    wrongs: ['il nome che è stato dato agli uomini', 'il nome che dato agli uomini',
+             'il nome data agli uomini'],
+    note: 'The participle alone carries the whole relative clause: dato = "che è stato dato". And it agrees with nome (masculine singular) — dato, not data.' },
+  { trap: 'ridotta', en: 'the stone rejected by you builders', it: 'la pietra scartata da voi costruttori',
+    wrongs: ['la pietra che è stata scartata da voi costruttori', 'la pietra scartato da voi costruttori'],
+    note: 'Acts 4,11. Scartata agrees with pietra (feminine singular). The agent takes da, never per.' },
+  { trap: 'ridotta', en: 'those who had become believers', it: 'coloro che erano diventati credenti',
+    alt: ['quelli che erano diventati credenti'],
+    wrongs: ['quelli che avevano diventato credenti', 'coloro che erano diventato credenti'],
+    note: 'Acts 4,32. Diventare takes essere, so the participle agrees with the subject: diventati.' },
+  { trap: 'ridotta', en: 'a man sent by God', it: 'un uomo mandato da Dio',
+    wrongs: ['un uomo che è stato mandato da Dio', 'un uomo mandato di Dio'],
+    note: 'John 1,6. One participle replaces the whole "che è stato…" clause, and the agent is da Dio.' },
+  { trap: 'ridotta', en: 'the words written in the book', it: 'le parole scritte nel libro',
+    wrongs: ['le parole scritto nel libro', 'le parole che sono scritte nel libro'],
+    note: 'Feminine plural noun → feminine plural participle: scritte. Agreement is the only thing marking what it modifies.' },
+
+  // ── hypotaxis: subordinate rather than chain ──────────────────────────────
+  // The Gospels are paratactic (clause + e + clause) because they mirror the
+  // Semitic narrative underneath. Acts is not, and neither is written Italian.
+  // An English speaker's default — short sentences joined by "and" — reads as
+  // childlike; the fix is a subordinator or a gerund.
+  { trap: 'ipotassi', en: 'While they were praying, the place shook',
+    it: 'Mentre pregavano, il luogo tremò',
+    alt: ['mentre pregavano il luogo tremò'],
+    wrongs: ['pregavano e il luogo tremò', 'stavano pregando e il luogo tremò'],
+    note: 'Acts 4,31. Mentre + imperfetto sets the background; the main clause carries the event. Chaining with e loses that layering.' },
+  { trap: 'ipotassi', en: 'Coming out of the prison, Peter saw the angel',
+    it: "Uscendo dalla prigione, Pietro vide l'angelo",
+    alt: ["uscendo dalla prigione pietro vide l'angelo"],
+    wrongs: ["pietro uscì dalla prigione e vide l'angelo", "uscendo della prigione, pietro vide l'angelo"],
+    note: 'The gerund subordinates the first action to the second — one sentence, not two glued together. And "out of" is da: dalla prigione.' },
+  { trap: 'ipotassi', en: 'They chose seven men so that they would serve at table',
+    it: 'Scelsero sette uomini perché servissero alle mense',
+    alt: ['scelsero sette uomini affinché servissero alle mense'],
+    wrongs: ['scelsero sette uomini per servire alle mense e servirono',
+             'scelsero sette uomini perché servivano alle mense'],
+    note: 'Acts 6. Purpose with a different subject takes perché/affinché + SUBJUNCTIVE (servissero), not the indicative.' },
+  { trap: 'ipotassi', en: 'After he had said this, he went up to heaven',
+    it: 'Dopo aver detto questo, salì al cielo',
+    alt: ['dopo che ebbe detto questo, salì al cielo', 'dopo aver detto questo salì al cielo'],
+    wrongs: ['ha detto questo e salì al cielo', 'dopo che aveva detto questo e salì al cielo'],
+    note: 'Same subject in both halves → dopo + infinito passato (aver detto). Compact, and far commoner in writing than a second finite clause.' },
+  { trap: 'ipotassi', en: 'The stone that the builders rejected has become the cornerstone',
+    it: "La pietra che i costruttori scartarono è diventata la pietra d'angolo",
+    alt: ["la pietra che i costruttori hanno scartato è diventata la pietra d'angolo"],
+    wrongs: ["i costruttori scartarono la pietra e è diventata la pietra d'angolo",
+             "la pietra che i costruttori scartarono e è diventata la pietra d'angolo"],
+    note: 'The relative clause sits INSIDE the sentence; the main verb (è diventata) comes after it. Adding e turns one sentence into two and breaks the grammar.' },
 ];
