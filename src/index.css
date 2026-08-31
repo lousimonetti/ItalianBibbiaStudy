@@ -263,6 +263,79 @@ body {
 .sync-warn { font-size: 12px; color: var(--danger, #c0392b); margin: 0; }
 .sync-foot { font-size: 11px; color: var(--text-faint); margin: 12px 0 0; text-align: center; }
 
+/* Target end date — "finish by" mode in the New Session modal. Lets the user
+   name a deadline and derive the start (src/utils/targetDate.js). */
+.session-mode {
+  display: flex;
+  gap: 0;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.session-mode-btn {
+  flex: 1;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.session-mode-btn + .session-mode-btn { border-left: 1px solid var(--border); }
+.session-mode-btn:hover { color: var(--accent); }
+.session-mode-btn.active { background: var(--accent-dim); color: var(--accent); }
+
+.session-target-hint,
+.session-target-ok,
+.session-target-warn {
+  display: block;
+  margin: 8px 0 0;
+  padding: 9px 11px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.55;
+}
+.session-target-hint { color: var(--text-faint); padding-left: 0; padding-right: 0; }
+.session-target-ok {
+  background: var(--accent-dim);
+  color: var(--text);
+  border: 1px solid var(--accent);
+}
+.session-target-ok strong { display: block; color: var(--accent); margin-bottom: 2px; }
+/* Amber, not red: a tight deadline is a trade-off the user may well want,
+   not an error. */
+.session-target-warn {
+  background: #fdf6e3;
+  color: #6b5518;
+  border: 1px solid #d8b23f;
+}
+.session-target-warn strong { display: block; margin-bottom: 3px; }
+html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-color: #806c2a; }
+
+.session-target-btn {
+  background: none;
+  border: none;
+  padding: 2px 0;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.session-target-btn:hover { color: var(--accent); }
+
+.welcome-target-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* New Session — start/restart the program from any date (plan-new-session.md) */
 .session-row {
   display: flex;

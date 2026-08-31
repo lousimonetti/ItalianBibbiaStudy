@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { config } from '../../course/config';
 import { storageKey } from '../utils/storageKey';
+import { TargetDateLink } from './NewSession';
 
 const STORAGE_KEY = storageKey('welcome-seen');
 
@@ -47,6 +48,11 @@ export function WelcomeCard() {
         <p className="welcome-tip">
           Start on the <strong>Tracker</strong> tab &rarr; open the current week &rarr; follow the daily routine shown above.
           Dismiss this panel when you're ready.
+        </p>
+        <p className="welcome-tip">
+          Working towards something — a trip, a Christmas, an exam? You can{' '}
+          <TargetDateLink /> instead, and the {config.schedule.weeks} weeks are
+          counted backwards from it.
         </p>
       </div>
     </div>
