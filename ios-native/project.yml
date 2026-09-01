@@ -17,6 +17,37 @@ options:
   createIntermediateGroups: true
   groupSortPosition: top
 
+schemes:
+  # Declared explicitly for one reason: OS_ACTIVITY_MODE below. Without a
+  # schemes: block XcodeGen leaves Xcode to autocreate an implicit scheme, so
+  # this also makes the scheme reproducible across clones instead of being
+  # whatever each machine happens to generate.
+  ItalianBibbiaStudy:
+    build:
+      targets:
+        ItalianBibbiaStudy: all
+    run:
+      config: Debug
+      environmentVariables:
+        # iOS 26 logs a torrent of system chatter — Liquid Glass tab-bar
+        # layout invalidations (_UILiquidLensView, _UITabSelectionView),
+        # "cannot add handler to 0 from 0", accessibility and PointerUI
+        # messages — none of it from this app, all of it burying the app's
+        # own output. This silences it for Run only.
+        #
+        # Trade-off: it suppresses os_log/NSLog generally, `print` still
+        # shows. If this app ever adopts Logger, remove this line or the
+        # logging will vanish with the noise.
+        OS_ACTIVITY_MODE: disable
+    test:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+
 packages:
   BibbiaCore:
     path: BibbiaCore
