@@ -33,16 +33,53 @@ final class Speaker: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         synthesizer.delegate = self
     }
 
+    // Audio-session work is done here, off the main thread. AVAudioSession's
+    // own diagnostics say why: "This method can lead to UI unresponsiveness if
+    // called on the main thread" (setActive) and "...while the audio session is
+    // active" (setCategory). Doing both synchronously on every tap made the
+    // Prayers screen — which has a speaker button per line — visibly janky and
+    // timed out the system gesture gate.
+    nonisolated private static let sessionQueue = DispatchQueue(
+        label: "italianbibbiastudy.speaker.audio-session", qos: .userInitiated)
+
+    nonisolated private static func prepareSessionForPlayback() {
+        #if os(iOS)
+        let session = AVAudioSession.sharedInstance()
+        // Only reconfigure when something else moved it — SpeechRecognizer sets
+        // .record and deactivates on stop, so we cannot configure once at init
+        // and forget. Re-setting the category on an already-correct active
+        // session is exactly the expensive no-op Apple warns about.
+        if session.category != .playback {
+            try? session.setCategory(.playback, options: .duckOthers)
+        }
+        try? session.setActive(true, options: [])
+        #endif
+    }
+
     func speak(_ text: String, language: String, rate: Float = Speaker.defaultRate) {
         if synthesizer.isSpeaking { synthesizer.stopSpeaking(at: .immediate) }
-        #if os(iOS)
-        try? AVAudioSession.sharedInstance().setCategory(.playback, options: .duckOthers)
-        try? AVAudioSession.sharedInstance().setActive(true, options: [])
-        #endif
+        speakingText = text
+
+        // Configure the session off-main, then speak back on the main actor.
+        // Only Sendable values cross the queue — AVSpeechUtterance and
+        // AVSpeechSynthesisVoice are not Sendable, so the utterance is built on
+        // the far side rather than captured here.
+        Speaker.sessionQueue.async {
+            Speaker.prepareSessionForPlayback()
+            Task { @MainActor in
+                Speaker.shared.startUtterance(text: text, language: language, rate: rate)
+            }
+        }
+    }
+
+    /// Begin the utterance, unless the learner has moved on. The identity guard
+    /// matters because session setup is asynchronous: without it, tapping a
+    /// second line while the first is still being prepared would speak both.
+    private func startUtterance(text: String, language: String, rate: Float) {
+        guard speakingText == text else { return }
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = Speaker.voice(for: language)
         utterance.rate = rate
-        speakingText = text
         synthesizer.speak(utterance)
     }
 
@@ -72,15 +109,28 @@ final class Speaker: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         }
     }
 
+    // Resolving a voice means enumerating every installed voice, which is far
+    // too costly to redo on each tap — a prayer renders one speaker button per
+    // line. Cached against the language and the user's Settings pick, so a
+    // changed preference still takes effect immediately.
+    private static var voiceCache: [String: AVSpeechSynthesisVoice] = [:]
+
     static func voice(for language: String) -> AVSpeechSynthesisVoice? {
-        let picked = VoiceChoice.resolve(selected: VoicePreference.selected(),
+        let selected = VoicePreference.selected()
+        let key = "\(language)|\(selected ?? "auto")"
+        if let cached = voiceCache[key] { return cached }
+
+        let picked = VoiceChoice.resolve(selected: selected,
                                          from: installedCandidates(),
                                          language: language)
-        if let picked, let voice = AVSpeechSynthesisVoice(identifier: picked.identifier) {
-            return voice
-        }
-        return AVSpeechSynthesisVoice(language: language)
+        let resolved = picked.flatMap { AVSpeechSynthesisVoice(identifier: $0.identifier) }
+            ?? AVSpeechSynthesisVoice(language: language)
+        if let resolved { voiceCache[key] = resolved }
+        return resolved
     }
+
+    /// Drop the cache when the device's installed voices may have changed.
+    static func invalidateVoiceCache() { voiceCache.removeAll() }
 
     nonisolated private static func qualityRank(_ quality: AVSpeechSynthesisVoiceQuality) -> Int {
         switch quality {
