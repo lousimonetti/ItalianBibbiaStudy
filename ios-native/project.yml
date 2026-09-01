@@ -37,7 +37,13 @@ targets:
       - package: BibbiaCore
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.example.italianbibbiastudy   # ← change me
+        # Must be globally unique — com.example.* is rejected at registration.
+        # Set here, not in Xcode's Signing & Capabilities pane: `xcodegen
+        # generate` rewrites the project and would discard a UI-only change.
+        PRODUCT_BUNDLE_IDENTIFIER: com.lousimonetti.italianbibbiastudy
+        # Your Personal Team id (free Apple ID). Fill this in once and
+        # regenerating the project keeps working without re-picking the team:
+        #   DEVELOPMENT_TEAM: XXXXXXXXXX
         TARGETED_DEVICE_FAMILY: "1,2"        # iPhone + iPad
         ENABLE_USER_SCRIPT_SANDBOXING: YES
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

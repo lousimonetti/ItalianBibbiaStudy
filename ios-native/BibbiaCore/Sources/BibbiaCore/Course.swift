@@ -11,7 +11,14 @@ public struct Course: Codable {
     public let locale: CourseLocale
     public let schedule: CourseSchedule
     public let resources: [CourseResource]
+    /// Optional course content: a course that ships no devotions has no
+    /// Prayers tab. Optional (not just empty) so a course.json predating the
+    /// field still decodes — use `devotionSections` to read it.
+    public let devotions: [DevotionSection]?
     public let phases: [Phase]
+
+    /// Devotions, never nil. The Prayers tab hides itself when this is empty.
+    public var devotionSections: [DevotionSection] { devotions ?? [] }
 
     /// The reference course's localStorage prefix, kept identical to the web
     /// app so sync-snapshot backup files are interchangeable between the PWA
@@ -81,6 +88,56 @@ public struct CourseResource: Codable, Identifiable {
     public let badge: String
     public let role: String
     public let desc: String
+}
+
+// Devotional texts — the prayers a learner already knows by heart in their own
+// language. Pedagogically these are the strongest material in the app: meaning
+// comes free, they are formulaic chunks (the fastest route adults have to
+// fluent production), and they are recited often enough to deliver the
+// distributed re-encounter weekly vocabulary cannot.
+//
+// `lines` is what makes the interactive modes possible — per-line audio,
+// shadowing, and the Recall cloze. `blank` names the word Recall hides, picked
+// for grammatical payload (`sia`, `venga`) rather than difficulty, so it is
+// authored rather than derived. Prayers without `lines` still render from the
+// full `it`/`en` text.
+public struct DevotionSection: Codable, Identifiable {
+    public let id: String
+    public let title: String
+    public let titleEn: String
+    public let intro: String?
+    public let introEn: String?
+    public let prayers: [Prayer]
+}
+
+public struct Prayer: Codable, Identifiable {
+    public let id: String
+    public let title: String
+    public let titleEn: String
+    public let note: String?
+    public let noteEn: String?
+    public let it: String
+    public let en: String
+    public let focus: PrayerFocus?
+    public let lines: [PrayerLine]?
+
+    /// Line-aligned modes need `lines`; the UI falls back to the full text.
+    public var hasLines: Bool { !(lines ?? []).isEmpty }
+}
+
+public struct PrayerFocus: Codable {
+    public let text: String
+    public let weeks: [Int]
+}
+
+// Deliberately NOT Identifiable: a prayer can repeat a line verbatim, and
+// identifying by text would collide inside a ForEach. Views enumerate instead.
+public struct PrayerLine: Codable, Equatable {
+    public let it: String
+    public let en: String
+    /// The word a Recall card hides. Authored for grammatical payload; when
+    /// absent the UI falls back to the longest word (see `effectiveBlank`).
+    public let blank: String?
 }
 
 public struct Phase: Codable, Identifiable {

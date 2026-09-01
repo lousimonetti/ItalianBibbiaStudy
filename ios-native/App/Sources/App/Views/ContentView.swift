@@ -20,6 +20,13 @@ struct ContentView: View {
             JournalView()
                 .tabItem { Label("Journal", systemImage: "square.and.pencil") }
                 .tag(AppRoute.Tab.journal)
+            // Course-level content: a course shipping no devotions gets no tab,
+            // matching the web app's behaviour.
+            if !model.course.devotionSections.isEmpty {
+                DevotionsView()
+                    .tabItem { Label("Prayers", systemImage: "hands.sparkles") }
+                    .tag(AppRoute.Tab.prayers)
+            }
             SettingsView()
                 .tabItem { Label("Settings", systemImage: "gearshape") }
                 .tag(AppRoute.Tab.settings)

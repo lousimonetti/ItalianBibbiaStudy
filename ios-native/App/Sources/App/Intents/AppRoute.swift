@@ -17,7 +17,7 @@ final class AppRoute: ObservableObject {
     static let shared = AppRoute()
 
     enum Tab: String, Hashable {
-        case tracker, flashcards, journal, settings
+        case tracker, flashcards, journal, prayers, settings
     }
 
     @Published var tab: Tab = .tracker

@@ -54,6 +54,38 @@ public enum VoiceChoice {
         return c == normalize(wanted) || c == base || c.hasPrefix("\(base)-")
     }
 
+    /// Voices the Settings picker should offer for `language`, best first.
+    /// Unlike `best`, this keeps default-quality voices — a user explicitly
+    /// choosing "Grandma" is a choice, not the accident `best` guards against.
+    public static func selectable(from candidates: [Candidate],
+                                  language: String) -> [Candidate] {
+        let wanted = normalize(language)
+        return candidates
+            .filter { matches($0.language, wanted: wanted) }
+            .sorted { a, b in
+                if a.quality != b.quality { return a.quality > b.quality }
+                return a.identifier < b.identifier
+            }
+    }
+
+    /// What to speak with, given the user's Settings choice.
+    ///
+    /// An explicit pick wins outright — including a *downgrade*, because the
+    /// user asked for it. It is honoured only when still installed and still
+    /// matching the language; a stale identifier (voice deleted, course
+    /// language changed) silently falls back rather than going mute. With no
+    /// pick, this is exactly `best`.
+    public static func resolve(selected: String?,
+                               from candidates: [Candidate],
+                               language: String) -> Candidate? {
+        if let selected, !selected.isEmpty,
+           let chosen = candidates.first(where: { $0.identifier == selected }),
+           matches(chosen.language, wanted: normalize(language)) {
+            return chosen
+        }
+        return best(from: candidates, language: language)
+    }
+
     /// The best installed upgrade over the system default for `language`,
     /// or `nil` when there isn't one.
     ///

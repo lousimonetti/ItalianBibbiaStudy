@@ -19,6 +19,8 @@ struct SettingsView: View {
                     }
                 }
 
+                VoiceSection()
+
                 Section("Program") {
                     LabeledContent("Start date", value: model.effectiveStartDate)
                     if let end = model.endDate {
@@ -122,6 +124,56 @@ struct SettingsView: View {
             importMessage = error.localizedDescription
             Haptics.error()
         }
+    }
+}
+
+// Voice picker. This exists on iOS and not on the web for a concrete reason:
+// Safari hands a web page only the compact default voice, so there is nothing
+// to choose there, while a native app sees every installed voice including the
+// Enhanced and Premium ones downloaded in Settings → Accessibility → Spoken
+// Content → Voices.
+private struct VoiceSection: View {
+    @EnvironmentObject private var model: AppModel
+    @State private var selection: String = ""
+    @State private var options: [(id: String, label: String)] = []
+
+    // The automatic pick, named, so "Automatic" is not a black box.
+    private var automaticLabel: String {
+        guard let best = VoiceChoice.best(from: Speaker.installedCandidates(),
+                                          language: model.ttsLanguage),
+              let name = options.first(where: { $0.id == best.identifier })?.label
+        else { return "Automatic (system default)" }
+        return "Automatic (\(name))"
+    }
+
+    var body: some View {
+        Section {
+            Picker("Voice", selection: $selection) {
+                Text(automaticLabel).tag("")
+                ForEach(options, id: \.id) { o in Text(o.label).tag(o.id) }
+            }
+            .onChange(of: selection) { new in
+                VoicePreference.select(new.isEmpty ? nil : new)
+            }
+            Button("Hear a sample") {
+                Speaker.shared.speak(sample, language: model.ttsLanguage)
+            }
+        } header: {
+            Text("Audio")
+        } footer: {
+            Text("Download more voices in Settings → Accessibility → Spoken Content → Voices. Enhanced and Premium voices sound markedly better — and unlike the website, this app can use them.")
+        }
+        .onAppear {
+            options = VoicePreference.options(for: model.ttsLanguage)
+            selection = VoicePreference.selected() ?? ""
+        }
+    }
+
+    // A line from the course rather than a generic phrase, so the sample is
+    // representative of what the app actually reads aloud.
+    private var sample: String {
+        model.course.phases.first?.weeks.first?.vocab.first?.ex
+            ?? "In principio era il Verbo."
     }
 }
 

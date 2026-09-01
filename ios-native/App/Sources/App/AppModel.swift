@@ -89,6 +89,15 @@ final class AppModel: ObservableObject {
     static let shared = AppModel()
 
     let course = Course.shared
+
+    /// Look up a prayer by id across all devotion sections — the Prayers tab
+    /// navigates by id so the destination survives a course reload.
+    func prayer(id: String) -> Prayer? {
+        for section in course.devotionSections {
+            if let match = section.prayers.first(where: { $0.id == id }) { return match }
+        }
+        return nil
+    }
     lazy var vocabIndex = VocabIndex(course: course)
 
     // Store shapes match the web localStorage values exactly.
