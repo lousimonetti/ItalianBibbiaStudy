@@ -11,6 +11,9 @@ struct SettingsView: View {
     @State private var exportFile: SnapshotFile?
 
     var body: some View {
+        #if DEBUG
+        let _ = LaunchTiming.once("SettingsView")
+        #endif
         NavigationStack {
             List {
                 Section("Appearance") {

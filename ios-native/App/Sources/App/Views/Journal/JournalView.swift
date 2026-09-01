@@ -7,6 +7,9 @@ struct JournalView: View {
     @EnvironmentObject private var route: AppRoute
 
     var body: some View {
+        #if DEBUG
+        let _ = LaunchTiming.once("JournalView")
+        #endif
         NavigationStack(path: $route.journalPath) {
             List {
                 Section {

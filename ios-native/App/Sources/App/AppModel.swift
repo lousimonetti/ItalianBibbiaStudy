@@ -119,6 +119,12 @@ final class AppModel: ObservableObject {
 
     /// Re-read every store from UserDefaults (startup + after a sync import).
     func reloadFromDisk() {
+        #if DEBUG
+        let _reloadStart = Date()
+        defer {
+            print("[launch] AppModel.reloadFromDisk took \(Int(-_reloadStart.timeIntervalSinceNow * 1000)) ms")
+        }
+        #endif
         progress = WebStore.loadJSON("progress", as: [String: Bool].self) ?? [:]
         journal = WebStore.loadJSON("journal", as: [String: JournalEntry].self) ?? [:]
         srsStore = WebStore.loadJSON("srs", as: SRSStore.self) ?? [:]

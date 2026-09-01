@@ -38,6 +38,9 @@ struct FlashcardsView: View {
     }
 
     var body: some View {
+        #if DEBUG
+        let _ = LaunchTiming.once("FlashcardsView")
+        #endif
         NavigationStack {
             List {
                 Section {

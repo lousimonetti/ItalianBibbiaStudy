@@ -20,6 +20,9 @@ struct DevotionsView: View {
     @EnvironmentObject private var model: AppModel
 
     var body: some View {
+        #if DEBUG
+        let _ = LaunchTiming.once("DevotionsView")
+        #endif
         NavigationStack {
             List {
                 ForEach(model.course.devotionSections) { section in
