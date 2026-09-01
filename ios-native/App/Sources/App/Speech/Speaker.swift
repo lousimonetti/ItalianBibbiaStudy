@@ -19,8 +19,14 @@ final class Speaker: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
 
     // AVSpeechUtteranceDefaultSpeechRate ≈ 0.5; these approximate the web
     // app's 0.85× (default) and 0.6× (slow listening) of normal speed.
-    static let defaultRate: Float = 0.45
-    static let slowRate: Float = 0.35
+    //
+    // `nonisolated` because they are used as default arguments (`rate: Float =
+    // Speaker.defaultRate`), which are evaluated at the *call* site — a
+    // nonisolated context. Without it the class's @MainActor isolation makes
+    // that a hard error under the Swift 6 language mode. Safe: both are
+    // immutable Sendable values.
+    nonisolated static let defaultRate: Float = 0.45
+    nonisolated static let slowRate: Float = 0.35
 
     override private init() {
         super.init()
@@ -50,20 +56,33 @@ final class Speaker: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     // The ranking is VoiceChoice in BibbiaCore so it is unit-tested; a nil
     // result means nothing better than the default is installed, in which case
     // the original call is exactly right.
-    static func voice(for language: String) -> AVSpeechSynthesisVoice? {
-        let installed = AVSpeechSynthesisVoice.speechVoices().map {
+    //
+    // Confirmed on device 2026-08-31: with Luca (Enhanced) and Emma (Premium)
+    // downloaded, this selects com.apple.voice.premium.it-IT.Emma — the voice
+    // Safari refuses to expose to the web app at all.
+    /// Voices installed on this device, in the shape VoiceChoice reasons about.
+    /// `nonisolated` so the Settings picker can build its list without hopping
+    /// to the main actor — this only reads AVSpeechSynthesisVoice's static
+    /// catalogue and returns plain value types.
+    nonisolated static func installedCandidates() -> [VoiceChoice.Candidate] {
+        AVSpeechSynthesisVoice.speechVoices().map {
             VoiceChoice.Candidate(identifier: $0.identifier,
                                   language: $0.language,
                                   quality: qualityRank($0.quality))
         }
-        if let best = VoiceChoice.best(from: installed, language: language),
-           let voice = AVSpeechSynthesisVoice(identifier: best.identifier) {
+    }
+
+    static func voice(for language: String) -> AVSpeechSynthesisVoice? {
+        let picked = VoiceChoice.resolve(selected: VoicePreference.selected(),
+                                         from: installedCandidates(),
+                                         language: language)
+        if let picked, let voice = AVSpeechSynthesisVoice(identifier: picked.identifier) {
             return voice
         }
         return AVSpeechSynthesisVoice(language: language)
     }
 
-    private static func qualityRank(_ quality: AVSpeechSynthesisVoiceQuality) -> Int {
+    nonisolated private static func qualityRank(_ quality: AVSpeechSynthesisVoiceQuality) -> Int {
         switch quality {
         case .premium: return 3
         case .enhanced: return 2
