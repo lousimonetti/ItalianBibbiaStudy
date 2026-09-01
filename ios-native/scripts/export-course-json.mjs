@@ -27,6 +27,14 @@ const repoRoot = join(here, '..', '..');
 const { config } = await import(join(repoRoot, 'courses/it-bible-cei/config.js'));
 const { phases } = await import(join(repoRoot, 'courses/it-bible-cei/content.js'));
 const { commonWordsData } = await import(join(repoRoot, 'src/utils/it2en.js'));
+// Devotions are optional course content — a course that ships none simply has
+// no Prayers tab, on web and on iOS alike.
+let devotionSections = [];
+try {
+  ({ devotionSections } = await import(join(repoRoot, 'courses/it-bible-cei/devotions.js')));
+} catch {
+  devotionSections = [];
+}
 
 function exportVocab(tuples = []) {
   return tuples.map(([it, en, ex, ipa, extra]) => {
@@ -38,6 +46,43 @@ function exportVocab(tuples = []) {
       ...(x.form ? { form: x.form } : {}),
     };
   });
+}
+
+// Prayers keep their line alignment: `lines` is what drives per-line audio,
+// shadowing, and the Recall cloze on iOS exactly as it does on the web. `blank`
+// names the word a Recall card hides — chosen for grammatical payload, so it
+// must survive the export rather than being recomputed on the client.
+function exportPrayer(p) {
+  return {
+    id: p.id,
+    title: p.title,
+    titleEn: p.titleEn,
+    ...(p.note ? { note: p.note } : {}),
+    ...(p.noteEn ? { noteEn: p.noteEn } : {}),
+    it: p.it,
+    en: p.en,
+    ...(p.focus ? { focus: { text: p.focus.text, weeks: p.focus.weeks ?? [] } } : {}),
+    ...(p.lines
+      ? {
+          lines: p.lines.map((l) => ({
+            it: l.it,
+            en: l.en,
+            ...(l.blank ? { blank: l.blank } : {}),
+          })),
+        }
+      : {}),
+  };
+}
+
+function exportDevotionSection(s) {
+  return {
+    id: s.id,
+    title: s.title,
+    titleEn: s.titleEn,
+    ...(s.intro ? { intro: s.intro } : {}),
+    ...(s.introEn ? { introEn: s.introEn } : {}),
+    prayers: (s.prayers ?? []).map(exportPrayer),
+  };
 }
 
 function exportComprehension(items = []) {
@@ -81,6 +126,7 @@ const course = {
   locale: config.locale,
   schedule: config.schedule,
   resources: config.resources,
+  devotions: (devotionSections ?? []).map(exportDevotionSection),
   phases: phases.map((p) => ({
     id: p.id,
     title: p.title,
@@ -96,7 +142,8 @@ if (weekCount !== config.schedule.weeks) {
   throw new Error(`week count ${weekCount} != schedule.weeks ${config.schedule.weeks}`);
 }
 const vocabCount = course.phases.flatMap((p) => p.weeks).reduce((n, w) => n + w.vocab.length, 0);
-console.log(`phases=${course.phases.length} weeks=${weekCount} vocab=${vocabCount}`);
+const prayerCount = course.devotions.reduce((n, s) => n + s.prayers.length, 0);
+console.log(`phases=${course.phases.length} weeks=${weekCount} vocab=${vocabCount} prayers=${prayerCount}`);
 
 const outPath = join(here, '..', 'BibbiaCore', 'Sources', 'BibbiaCore', 'Resources', 'course.json');
 mkdirSync(dirname(outPath), { recursive: true });
