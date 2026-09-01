@@ -66,8 +66,17 @@ final class Speaker: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         // the far side rather than captured here.
         Speaker.sessionQueue.async {
             Speaker.prepareSessionForPlayback()
-            Task { @MainActor in
-                Speaker.shared.startUtterance(text: text, language: language, rate: rate)
+            // Deliberately DispatchQueue.main, not Task { @MainActor }.
+            // AVSpeechSynthesizer.speak does a forced synchronous hop
+            // internally; invoking it from inside a Swift Concurrency context
+            // makes the runtime warn "unsafeForcedSync called from Swift
+            // Concurrent context", because that can stall a cooperative pool
+            // thread. A plain main-queue dispatch is not such a context.
+            // assumeIsolated is honest here: we are provably on the main queue.
+            DispatchQueue.main.async {
+                MainActor.assumeIsolated {
+                    Speaker.shared.startUtterance(text: text, language: language, rate: rate)
+                }
             }
         }
     }
