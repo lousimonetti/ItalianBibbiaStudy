@@ -101,7 +101,7 @@ struct JournalEntryView: View {
                 TextEditor(text: $text)
                     .frame(minHeight: 140)
                     .autocorrectionDisabled()
-                    .onChange(of: text) { newValue in
+                    .onChange(of: text) { _, newValue in
                         model.setJournalText(week.n, newValue)
                         matches = nil
                     }

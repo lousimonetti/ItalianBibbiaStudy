@@ -12,7 +12,8 @@ name: ItalianBibbiaStudy
 
 options:
   deploymentTarget:
-    iOS: "16.0"
+    # Minimum OS the app will install on (NOT the SDK it builds against).
+    iOS: "26.6"
   createIntermediateGroups: true
   groupSortPosition: top
 

@@ -186,7 +186,7 @@ private struct GrammarDrillRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             let split = splitBlank(item.q)
-            (Text(split.before) + Text("____").bold().foregroundColor(.accentColor) + Text(split.after))
+            clozeText(before: split.before, answer: "____", after: split.after)
                 .font(.callout)
             if let hint = item.hint {
                 Text(hint)

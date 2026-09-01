@@ -125,6 +125,11 @@ That single decision is what makes web ↔ iOS backups interchangeable.
 
 ## Building (needs a Mac)
 
+**Deployment target: iOS 26.6**, set in `project.yml`. Change it there, not in
+Xcode — `xcodegen generate` regenerates the project and discards build-setting
+edits made in the UI.
+
+
 ```bash
 # one-time
 brew install xcodegen

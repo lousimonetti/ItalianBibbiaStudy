@@ -106,7 +106,7 @@ struct PronunciationView: View {
         .navigationTitle("Pronunciation")
         .navigationBarTitleDisplayMode(.inline)
         .onDisappear { recognizer.stop() }
-        .onChange(of: recognizer.isRecording) { recording in
+        .onChange(of: recognizer.isRecording) { _, recording in
             if !recording, !recognizer.transcript.isEmpty { finishAttempt() }
         }
     }

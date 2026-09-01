@@ -152,7 +152,7 @@ private struct VoiceSection: View {
                 Text(automaticLabel).tag("")
                 ForEach(options, id: \.id) { o in Text(o.label).tag(o.id) }
             }
-            .onChange(of: selection) { new in
+            .onChange(of: selection) { _, new in
                 VoicePreference.select(new.isEmpty ? nil : new)
             }
             Button("Hear a sample") {
