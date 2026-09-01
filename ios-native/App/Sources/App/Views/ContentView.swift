@@ -31,6 +31,11 @@ struct ContentView: View {
                 .tabItem { Label("Settings", systemImage: "gearshape") }
                 .tag(AppRoute.Tab.settings)
         }
+        .onAppear {
+            #if DEBUG
+            LaunchTiming.mark("ContentView.onAppear (first frame)")
+            #endif
+        }
         .sheet(isPresented: $showWelcome, onDismiss: {
             WebStore.saveString("welcome-seen", "1")
         }) {

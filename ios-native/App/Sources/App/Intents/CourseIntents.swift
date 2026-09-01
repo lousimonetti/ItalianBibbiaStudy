@@ -235,15 +235,7 @@ struct StartNewSessionIntent: AppIntent {
         // shows exactly which stores it will clear (see plan-new-session.md).
         let prompt = dialog(
             "Restart the \(model.course.schedule.weeks)-week course from \(formatted)? Your progress is kept.")
-        // requestConfirmation(conditions:actionName:dialog:) is the modern form
-        // but is iOS 18+; the app floor is iOS 16, so the older overload has to
-        // stay for 16/17. It is deprecated, which is where the build warning
-        // comes from — it cannot be removed without raising the floor.
-        if #available(iOS 18.0, *) {
-            try await requestConfirmation(dialog: prompt)
-        } else {
-            try await requestConfirmation(result: .result(dialog: prompt))
-        }
+        try await requestConfirmation(dialog: prompt)
 
         model.startNewSession(from: start, reset: AppModel.ResetScope())
         route.tab = .tracker

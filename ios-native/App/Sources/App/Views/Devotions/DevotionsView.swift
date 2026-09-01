@@ -20,6 +20,9 @@ struct DevotionsView: View {
     @EnvironmentObject private var model: AppModel
 
     var body: some View {
+        #if DEBUG
+        let _ = LaunchTiming.once("DevotionsView")
+        #endif
         NavigationStack {
             List {
                 ForEach(model.course.devotionSections) { section in
@@ -91,9 +94,9 @@ struct PrayerDetailView: View {
 // modes have nothing to work with — say so rather than showing an empty screen.
 private struct NoLinesNotice: View {
     var body: some View {
-        ContentUnavailableViewCompat(
-            title: "No line-by-line version",
-            message: "This text hasn't been split into lines yet. Read mode still works.")
+        ContentUnavailableView("No line-by-line version",
+                               systemImage: "text.alignleft",
+                               description: Text("This text hasn't been split into lines yet. Read mode still works."))
     }
 }
 
@@ -167,9 +170,9 @@ private struct PrayerShadowMode: View {
         if lines.isEmpty {
             NoLinesNotice()
         } else if !SpeechRecognizer.isAvailable(language: model.ttsLanguage) {
-            ContentUnavailableViewCompat(
-                title: "Speech recognition unavailable",
-                message: "Shadowing needs on-device speech recognition for \(model.ttsLanguage). Read mode still works.")
+            ContentUnavailableView("Speech recognition unavailable",
+                                   systemImage: "mic.slash",
+                                   description: Text("Shadowing needs on-device speech recognition for \(model.ttsLanguage). Read mode still works."))
         } else {
             shadowBody
         }
@@ -222,7 +225,7 @@ private struct PrayerShadowMode: View {
         // Releasing the mic on the way out matters: holding it makes the next
         // start() throw, which is the web app's documented lifecycle bug.
         .onDisappear { recognizer.stop() }
-        .onChange(of: recognizer.isRecording) { recording in
+        .onChange(of: recognizer.isRecording) { _, recording in
             if !recording, !recognizer.transcript.isEmpty, let line {
                 score = scorePronunciation(target: line.it, recognized: recognizer.transcript)
             }
@@ -313,22 +316,5 @@ private struct PrayerRecallMode: View {
         let t = typed[i] ?? ""
         guard !t.isEmpty else { return false }
         return PrayerCloze.isCorrect(t, for: line, articles: model.course.locale.articles)
-    }
-}
-
-// iOS 17's ContentUnavailableView would be ideal, but the app floor is iOS 16.
-private struct ContentUnavailableViewCompat: View {
-    let title: String
-    let message: String
-    var body: some View {
-        VStack(spacing: 8) {
-            Text(title).font(.headline)
-            Text(message)
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-        }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

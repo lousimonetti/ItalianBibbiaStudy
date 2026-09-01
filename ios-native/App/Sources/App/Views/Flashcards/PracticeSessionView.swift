@@ -68,9 +68,9 @@ struct PracticeSessionView: View {
             case .cloze:
                 if let cloze = makeCloze(term: card.it, example: card.ex,
                                          articles: model.articles) {
-                    (Text(cloze.before) +
-                     Text(revealed ? cloze.answer : "____").bold().foregroundColor(.accentColor) +
-                     Text(cloze.after))
+                    clozeText(before: cloze.before,
+                              answer: revealed ? cloze.answer : "____",
+                              after: cloze.after)
                         .font(.title3)
                         .multilineTextAlignment(.center)
                     Text(card.en).font(.subheadline).foregroundStyle(.secondary)

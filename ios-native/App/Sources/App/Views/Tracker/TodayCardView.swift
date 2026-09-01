@@ -8,6 +8,9 @@ struct TodayCardView: View {
     @EnvironmentObject private var model: AppModel
 
     var body: some View {
+        #if DEBUG
+        let _ = LaunchTiming.once("TodayCardView")
+        #endif
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Label {

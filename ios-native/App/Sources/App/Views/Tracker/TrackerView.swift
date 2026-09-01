@@ -7,6 +7,9 @@ struct TrackerView: View {
     @EnvironmentObject private var route: AppRoute
 
     var body: some View {
+        #if DEBUG
+        let _ = LaunchTiming.once("TrackerView")
+        #endif
         NavigationStack(path: $route.trackerPath) {
             List {
                 Section {
@@ -59,6 +62,9 @@ private struct WeekRow: View {
     var isCurrent: Bool { model.currentWeekN == week.n }
 
     var body: some View {
+        #if DEBUG
+        let _ = LaunchTiming.once("WeekRow (first of 37)")
+        #endif
         NavigationLink(value: week.n) {
             HStack(spacing: 12) {
                 Button {
@@ -106,6 +112,9 @@ private struct AchievementsRow: View {
     @State private var expanded = false
 
     var body: some View {
+        #if DEBUG
+        let _ = LaunchTiming.once("AchievementsRow")
+        #endif
         DisclosureGroup(isExpanded: $expanded) {
             let columns = [GridItem(.adaptive(minimum: 96), spacing: 8)]
             LazyVGrid(columns: columns, spacing: 8) {

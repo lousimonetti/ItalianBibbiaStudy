@@ -14,6 +14,9 @@ struct ItalianBibbiaStudyApp: App {
     // that, instead of us asserting it at runtime.
     @MainActor
     init() {
+        #if DEBUG
+        LaunchTiming.begin()
+        #endif
         // Must happen before any intent performs; App.init runs on launch,
         // including the background launches Siri triggers for intents.
         //
@@ -26,6 +29,10 @@ struct ItalianBibbiaStudyApp: App {
         let route = AppRoute.shared
         AppDependencyManager.shared.add(dependency: model)
         AppDependencyManager.shared.add(dependency: route)
+        #if DEBUG
+        LaunchTiming.mark("App.init end (AppModel + course now loaded)")
+        LaunchTiming.probeMainQueue()
+        #endif
     }
 
     var body: some Scene {

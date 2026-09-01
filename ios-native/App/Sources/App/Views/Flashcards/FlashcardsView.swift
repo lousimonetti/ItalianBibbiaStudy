@@ -38,6 +38,9 @@ struct FlashcardsView: View {
     }
 
     var body: some View {
+        #if DEBUG
+        let _ = LaunchTiming.once("FlashcardsView")
+        #endif
         NavigationStack {
             List {
                 Section {
@@ -122,7 +125,7 @@ struct FlashcardsView: View {
             // is already on screen, onAppear catches the case where the intent
             // switched to this tab in the same run loop — there the view mounts
             // *after* the value was set, so onChange never fires.
-            .onChange(of: route.practiceTrigger) { _ in consumePracticeTrigger() }
+            .onChange(of: route.practiceTrigger) { consumePracticeTrigger() }
             .onAppear { consumePracticeTrigger() }
         }
     }

@@ -11,6 +11,9 @@ struct SettingsView: View {
     @State private var exportFile: SnapshotFile?
 
     var body: some View {
+        #if DEBUG
+        let _ = LaunchTiming.once("SettingsView")
+        #endif
         NavigationStack {
             List {
                 Section("Appearance") {
@@ -152,7 +155,7 @@ private struct VoiceSection: View {
                 Text(automaticLabel).tag("")
                 ForEach(options, id: \.id) { o in Text(o.label).tag(o.id) }
             }
-            .onChange(of: selection) { new in
+            .onChange(of: selection) { _, new in
                 VoicePreference.select(new.isEmpty ? nil : new)
             }
             Button("Hear a sample") {

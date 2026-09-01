@@ -7,6 +7,9 @@ struct JournalView: View {
     @EnvironmentObject private var route: AppRoute
 
     var body: some View {
+        #if DEBUG
+        let _ = LaunchTiming.once("JournalView")
+        #endif
         NavigationStack(path: $route.journalPath) {
             List {
                 Section {
@@ -101,7 +104,7 @@ struct JournalEntryView: View {
                 TextEditor(text: $text)
                     .frame(minHeight: 140)
                     .autocorrectionDisabled()
-                    .onChange(of: text) { newValue in
+                    .onChange(of: text) { _, newValue in
                         model.setJournalText(week.n, newValue)
                         matches = nil
                     }
