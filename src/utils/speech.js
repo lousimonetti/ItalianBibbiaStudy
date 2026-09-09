@@ -9,3 +9,15 @@ export function getSpeechRecognition() {
 }
 
 export const hasSpeechRecognition = !!getSpeechRecognition();
+
+// Hard-release a recognition instance: detach its handlers FIRST, then
+// abort(). The order matters — abort() fires onend, and a dying instance's
+// onend racing in would reset the state of a turn that has already begun.
+// Safe on an instance that never started (abort() is then a silent no-op).
+export function releaseRecognition(rec) {
+  if (!rec) return;
+  rec.onresult = null;
+  rec.onerror = null;
+  rec.onend = null;
+  try { rec.abort(); } catch { /* already dead */ }
+}

@@ -293,7 +293,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 554 tests across 53 files, all green
+npm test             # vitest run — 563 tests across 54 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -379,7 +379,7 @@ The per-week `drill`/`comprehension`/`passage` content lives in `courses/it-bibl
 
 **Locale (`src/utils/locale.js`, as of T1):** single source for the course's `TTS_LANG`/`NATIVE_LANG`/`GRAMMAR_LANG`/`HAS_IPA` and a `LEADING_ARTICLE` regex built from `config.locale.articles`. `SpeakerButton`, `WordGloss`, and `PronunciationPractice` speak/recognize `TTS_LANG`; `answer.js`/`vocabIndex.js`/`cloze.js` strip articles via `LEADING_ARTICLE`; `HAS_IPA:false` hides the IPA column, pronunciation-key panels, and card-back IPA; `GRAMMAR_LANG:''` hides the Journal grammar toggle. Flipping `config.locale` retargets the language with no component edits.
 
-**Tap-to-translate / tap-for-pronunciation** (`WordGloss.jsx` + `GlossPopover.jsx`, backed by `src/utils/vocabIndex.js`): wraps an Italian string and makes **every** word tappable → a popover. Words in the vocab index show Italian + English + stored IPA + a speaker; **any other word** (conjugations, names, function words) gets its English gloss from the common-words dictionary `src/utils/it2en.js` (`lookupCommon` — ~2,800 entries, elision-aware so `l'uomo`/`c'era` resolve as prefix + stem) plus an **auto-generated approximate IPA** (flagged with `≈`) + a speaker. `src/utils/glossCoverage.test.js` asserts every word in the course's prompts, example sentences, and passages resolves to a gloss — when authoring new course text, add any missing words to `it2en.js`. The same map ships to iOS as a bundled `common-words.json` (written by `export-course-json.mjs`, decoded by `CommonWords.swift`, parity-checked by the `commonGloss` fixture). `vocabIndex.js` builds a memoized `Map` once from `PHASES`, keyed by both the full term and its article-stripped stem (so "il Verbo" is reachable as "verbo"); `tokenize` preserves the original text exactly and keeps internal apostrophes. The on-the-fly IPA comes from `src/utils/it2ipa.js` (`toIPA(word)`, + `it2ipa.test.js`), a pure rule-based Italian grapheme→IPA converter (digraphs gli/gn/sc/ch/gh, soft c/g, geminates, intervocalic-s voicing, accent-mark/penultimate stress) — a broad approximation labelled "approx.", gated on `HAS_IPA`; the TTS audio is the accurate channel. Non-vocab words render with a lighter `.gloss-word-plain` affordance so real glosses stay visually primary. Wired into example sentences + writing prompt (`WeekDetail.jsx`) and the Journal prompt (`JournalTab.jsx`). All client-side, works offline.
+**Tap-to-translate / tap-for-pronunciation** (`WordGloss.jsx` + `GlossPopover.jsx`, backed by `src/utils/vocabIndex.js`): wraps an Italian string and makes **every** word tappable → a popover. Words in the vocab index show Italian + English + stored IPA + a speaker; **any other word** (conjugations, names, function words) gets its English gloss from the common-words dictionary `src/utils/it2en.js` (`lookupCommon` — ~2,800 entries, elision-aware so `l'uomo`/`c'era` resolve as prefix + stem) plus an **auto-generated approximate IPA** (flagged with `≈`) + a speaker. `src/utils/glossCoverage.test.js` asserts every word in the course's prompts, example sentences, passages, and devotional texts (the Prayers tab) resolves to a gloss — when authoring new course text, add any missing words to `it2en.js`. The same map ships to iOS as a bundled `common-words.json` (written by `export-course-json.mjs`, decoded by `CommonWords.swift`, parity-checked by the `commonGloss` fixture). `vocabIndex.js` builds a memoized `Map` once from `PHASES`, keyed by both the full term and its article-stripped stem (so "il Verbo" is reachable as "verbo"); `tokenize` preserves the original text exactly and keeps internal apostrophes. The on-the-fly IPA comes from `src/utils/it2ipa.js` (`toIPA(word)`, + `it2ipa.test.js`), a pure rule-based Italian grapheme→IPA converter (digraphs gli/gn/sc/ch/gh, soft c/g, geminates, intervocalic-s voicing, accent-mark/penultimate stress) — a broad approximation labelled "approx.", gated on `HAS_IPA`; the TTS audio is the accurate channel. Non-vocab words render with a lighter `.gloss-word-plain` affordance so real glosses stay visually primary. Wired into example sentences + writing prompt (`WeekDetail.jsx`) and the Journal prompt (`JournalTab.jsx`). All client-side, works offline.
 
 **Cross-device sync** (`src/utils/syncSnapshot.js` + `SyncPanel.jsx`, see `plan-sync.md`): progress moves between devices with **no backend** via one versioned snapshot of the active course's `localStorage`. `exportSnapshot()` auto-collects every `STORAGE_PREFIX-*` key (excludes the device-level `coursekit-active-course`); `importSnapshot(snap, { mode:'replace' })` validates version+course and rewrites the keys; `encode`/`decode` compress with `lz-string`. `SyncPanel` (header button → modal) offers export (QR + copy-paste code + `.json` download) and import (camera QR scan via `jsqr`, paste, or file), reloading after import. `qrcode`/`jsqr` are dynamically `import()`ed to stay out of the main bundle. Online auto-sync (BaaS, opt-in — would relax the no-backend constraint) is on the roadmap in `plan-sync.md`.
 
@@ -548,13 +548,13 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **554 vitest tests across 53 files**, all passing.
+- **Tests:** `npm test` runs **563 vitest tests across 54 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
   `keyVerses`, `dictogloss`, `grammarDrill`, `comprehension`,
   `clauseSkeleton`, `verbForms`, `targetDate`, plus `SpeakerButton`,
-  `PronunciationPractice`, `ReadingPassage`, `VerbFormDrill`, `NewSession`,
+  `PronunciationPractice`, `DevotionsTab`, `ReadingPassage`, `VerbFormDrill`, `NewSession`,
   `UiText`, `useProgress`, `useJournal`. New non-trivial logic
   should follow that pure-module-plus-test pattern.
 - **CI:** `.github/workflows/azure-static-web-apps-*.yml` runs `npm ci` →
@@ -566,8 +566,9 @@ active production. In rough priority order:
 
 ## SpeechRecognition lifecycle — the rule that keeps the mic alive
 
-Three components listen (`PronunciationPractice`, `DictationMic`, `SpokenQA`)
-and all three had the same defect: **`recognition.start()` was called
+Four components listen (`PronunciationPractice`, `DictationMic`, `SpokenQA`,
+and the Prayers tab's `ShadowMode` in `DevotionsTab`) and all of them had the
+same defect: **`recognition.start()` was called
 unguarded**. It throws whenever the browser will not hand over the microphone —
 another recognition still winding down (Chrome allows only one active per
 page), permission revoked, device busy. Because the "listening" state was set
@@ -591,8 +592,10 @@ When adding or editing a listening surface:
   transcript that lands after the learner moved on is not scored against the
   new card.
 
-`PronunciationPractice.test.jsx` encodes all of this against a fake
-`SpeechRecognition` that models Chrome's real behaviour (one active recognition;
+`releaseRecognition(rec)` in `src/utils/speech.js` does the detach-then-abort
+step; new listening surfaces should call it rather than re-implement it.
+`PronunciationPractice.test.jsx` and `DevotionsTab.test.jsx` encode all of
+this against a fake `SpeechRecognition` that models Chrome's real behaviour (one active recognition;
 `stop()` on a non-started instance is a silent no-op). Asserting on the button
 label alone is not enough — it cannot distinguish a live recognition from a
 stuck one, so assert the recognition actually started.
