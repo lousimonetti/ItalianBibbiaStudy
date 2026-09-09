@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { devotionSections } from '../../course/devotions';
 import { SpeakerButton } from './SpeakerButton';
 import { WordGloss } from './WordGloss';
@@ -7,6 +7,7 @@ import { usePronunStats } from '../hooks/usePronunStats';
 import { recordActivity } from '../utils/streak';
 import { checkDrill } from '../utils/answer';
 import { TTS_LANG } from '../utils/locale';
+import { getSpeechRecognition, hasSpeechRecognition, releaseRecognition } from '../utils/speech';
 
 // Memorized devotional texts — the strongest language material in the app, and
 // previously the least used: it was read-only text with one whole-prayer TTS
@@ -22,10 +23,22 @@ import { TTS_LANG } from '../utils/locale';
 // line, repeat it, get scored — reusing the pronunciation pipeline), and Recall
 // (chunk cloze on the grammar-bearing word of each line).
 
-const hasSpeechRecognition = !!(
-  typeof window !== 'undefined' &&
-  (window.SpeechRecognition || window.webkitSpeechRecognition)
-);
+// Why the mic failed, in words a learner can act on. 'not-allowed' is the
+// case a phone hits most: the browser denied the microphone, or a previous
+// recognition was still holding it.
+function micErrorMessage(error) {
+  switch (error) {
+    case 'not-allowed':
+    case 'service-not-allowed':
+      return 'Microphone not available — allow microphone access for this site in your browser settings, then try again.';
+    case 'audio-capture':
+      return 'No microphone was found — check that another app is not using it.';
+    case 'network':
+      return 'Speech recognition needs a network connection — try again when online.';
+    default:
+      return 'Could not hear clearly — try again.';
+  }
+}
 
 function ChevronIcon({ open }) {
   return (
@@ -105,13 +118,30 @@ function ReadMode({ prayer }) {
   );
 }
 
-function ShadowMode({ prayer }) {
+// Exported for its lifecycle tests (DevotionsTab.test.jsx); rendered by PrayerCard.
+export function ShadowMode({ prayer }) {
   const [index, setIndex] = useState(0);
   const [micState, setMicState] = useState('idle');
   const [result, setResult] = useState(null);
   const [rate, setRate] = useState(0.85);
   const recRef = useRef(null);
   const { record } = usePronunStats();
+
+  // Drop whatever recognition this card holds. Called before every new
+  // start(), on line change, and on unmount — a lingering instance (the
+  // previous line still winding down, or a card the learner scrolled past)
+  // is what makes the next start() throw, and mobile browsers take visibly
+  // longer than desktop to hand the microphone back.
+  function release() {
+    const rec = recRef.current;
+    recRef.current = null;
+    releaseRecognition(rec);
+  }
+
+  // Leaving the tab (or switching to Read/Recall) mid-recording used to leave
+  // the recognition holding the microphone, so the next start() anywhere in
+  // the app failed.
+  useEffect(() => () => releaseRecognition(recRef.current), []);
 
   const lines = prayer.lines ?? [];
   if (!lines.length) {
@@ -128,40 +158,84 @@ function ShadowMode({ prayer }) {
 
   const line = lines[index];
 
+  function goTo(nextIndex) {
+    release();
+    setIndex(nextIndex);
+    setResult(null);
+    setMicState('idle');
+  }
+
   function handleMic() {
     if (micState === 'recording') {
-      recRef.current?.stop();
+      // Tap-to-stop: stop() (not abort) so a pending transcript still arrives.
+      // Return to idle here rather than waiting for onend — a recognition that
+      // never really started fires no onend.
+      try { recRef.current?.stop(); } catch { /* already dead */ }
+      setMicState('idle');
       return;
     }
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    release();
+
+    // A line's TTS may still be playing (tap speaker, then tap mic). On phones
+    // the audio session is exclusive, so recognition started under playback
+    // either fails or hears the synthesizer; stop it first.
+    try { window.speechSynthesis?.cancel(); } catch { /* not available */ }
+
+    const SR = getSpeechRecognition();
     const rec = new SR();
     rec.lang = TTS_LANG;
     rec.interimResults = false;
     rec.maxAlternatives = 3;
-    recRef.current = rec;
-    setMicState('recording');
-    setResult(null);
+
+    // Capture the line under test now: a transcript that lands after the
+    // learner moved on must not be scored against the new line.
+    const target = line.it;
+    const key = `${prayer.id}:${index}`;
+    const isCurrent = () => recRef.current === rec;
 
     rec.onresult = (e) => {
+      if (!isCurrent()) return;
       setMicState('processing');
       let best = { recognized: '', score: 0 };
       for (let i = 0; i < e.results[0].length; i++) {
         const text = e.results[0][i].transcript;
-        const score = scorePronunciation(line.it, text);
+        const score = scorePronunciation(target, text);
         if (score > best.score) best = { recognized: text, score };
       }
       setResult(best);
       // Scored per prayer line, keyed so it doesn't collide with vocab terms.
-      record(`${prayer.id}:${index}`, best.score);
+      record(key, best.score);
       recordActivity('practiced');
       setMicState('idle');
     };
     rec.onerror = (e) => {
+      if (!isCurrent()) return;
       if (e.error !== 'aborted') setResult({ recognized: '', score: 0, error: e.error });
       setMicState('idle');
     };
-    rec.onend = () => setMicState((s) => (s === 'recording' ? 'idle' : s));
-    rec.start();
+    rec.onend = () => {
+      if (!isCurrent()) return;
+      recRef.current = null;
+      setMicState((s) => (s === 'recording' ? 'idle' : s));
+    };
+
+    recRef.current = rec;
+    setResult(null);
+
+    // start() throws when the browser will not hand over the microphone
+    // (another recognition still winding down, permission revoked, device
+    // busy). The UI must never claim to listen when nothing is.
+    try {
+      rec.start();
+    } catch {
+      recRef.current = null;
+      setMicState('idle');
+      setResult({ recognized: '', score: 0, error: 'not-allowed' });
+      return;
+    }
+
+    setMicState('recording');
   }
 
   return (
@@ -188,6 +262,7 @@ function ShadowMode({ prayer }) {
         className={`pronun-mic-btn pronun-mic-${micState}`}
         onClick={handleMic}
         disabled={micState === 'processing'}
+        aria-label={micState === 'recording' ? 'Stop recording' : 'Start recording'}
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <rect x="9" y="2" width="6" height="12" rx="3" fill="currentColor" />
@@ -204,7 +279,7 @@ function ShadowMode({ prayer }) {
       {result && (
         <div className="pronun-result">
           {result.error ? (
-            <div className="pronun-recognized-error">Could not hear clearly — try again.</div>
+            <div className="pronun-recognized-error">{micErrorMessage(result.error)}</div>
           ) : (
             <>
               <div className={`pronun-score-badge ${result.score >= 85 ? 'pronun-score-great' : result.score >= 60 ? 'pronun-score-good' : 'pronun-score-low'}`}>
@@ -219,14 +294,14 @@ function ShadowMode({ prayer }) {
       <div className="prac-actions">
         <button
           className="prac-again-btn"
-          onClick={() => { setIndex((i) => Math.max(0, i - 1)); setResult(null); }}
+          onClick={() => goTo(Math.max(0, index - 1))}
           disabled={index === 0}
         >
           ← Previous
         </button>
         <button
           className="prac-known-btn"
-          onClick={() => { setIndex((i) => Math.min(lines.length - 1, i + 1)); setResult(null); }}
+          onClick={() => goTo(Math.min(lines.length - 1, index + 1))}
           disabled={index >= lines.length - 1}
         >
           Next line →
