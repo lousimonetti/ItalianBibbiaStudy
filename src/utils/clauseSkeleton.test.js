@@ -3,6 +3,7 @@ import { PHASES } from '../data/studyData';
 import { tokenize } from './vocabIndex';
 import {
   analyze, clauseCount, isFiniteVerb, isParticiple, isAuxiliary, stripElision,
+  stripClitics, isGerund, isInfinitive, hasElision,
 } from './clauseSkeleton';
 
 // The week-20 (Acts 4) passage — the text that motivated this module. Every
@@ -69,6 +70,10 @@ describe('isFiniteVerb', () => {
       'classe', 'promesse', 'interesse', 'profetesse', 'trono', 'perdono',
       'romano', 'cristiano', 'lontano', 'umano', 'invano', 'piano', 'buono',
       'oliva', 'privi', 'estate', 'diacono', 'diaconi',
+      // -ai / -ete additions, and words the enclitic stripper could maul:
+      // "diavolo" minus -lo looks like an imperfetto, "meritevole" minus -le too.
+      'granai', 'parete', 'quiete', 'diavolo', 'meritevole', 'vicendevole',
+      'fratelli', 'peccati', 'apostoli', 'spiriti', 'vangelo', 'popolo',
     ];
     for (const n of nouns) expect(isFiniteVerb(n), n).toBe(false);
   });
@@ -198,6 +203,158 @@ describe('analyze — output integrity', () => {
   });
 });
 
+describe('the tenses the suffix table gained', () => {
+  it('reads the 2nd-person plural present (-ete)', () => {
+    for (const w of ['rimanete', 'piangete', 'valete', 'temete']) {
+      expect(isFiniteVerb(w), w).toBe(true);
+    }
+  });
+
+  it('reads the 1st-person singular passato remoto (-ai)', () => {
+    for (const w of ['recai', 'andai', 'parlai']) expect(isFiniteVerb(w), w).toBe(true);
+    expect(isFiniteVerb('granai')).toBe(false); // barns
+    expect(isFiniteVerb('mai')).toBe(false);
+  });
+});
+
+describe('stripClitics', () => {
+  it('peels one enclitic pronoun at a time', () => {
+    expect(stripClitics('lodatelo')).toBe('lodate');
+    expect(stripClitics('ammazzatelo')).toBe('ammazzate');
+    expect(stripClitics('ricordandosi')).toBe('ricordando');
+  });
+
+  it('leaves a stem that would be too short alone', () => {
+    expect(stripClitics('morti')).toBe('morti');
+    expect(stripClitics('tutti')).toBe('tutti');
+  });
+
+  it('lets an imperative that swallowed its pronoun read as a verb', () => {
+    for (const w of ['lodatelo', 'liberatelo', 'lasciatelo', 'ammazzatelo', 'insegnateci']) {
+      expect(isFiniteVerb(w), w).toBe(true);
+    }
+  });
+
+  // Regression: the stem is only allowed to match the lexicon and the
+  // imperative endings. Run the whole suffix table over it and "diavolo" (minus
+  // -lo) reads as an imperfetto.
+  it('does not turn a noun into a verb by stripping its last syllable', () => {
+    for (const w of ['diavolo', 'meritevole', 'vicendevole', 'popolo', 'vangelo']) {
+      expect(isFiniteVerb(w), w).toBe(false);
+    }
+  });
+});
+
+describe('isGerund / isInfinitive', () => {
+  it('recognises gerunds, including ones carrying a pronoun', () => {
+    for (const w of ['pregando', 'vedendo', 'ricordandosi', 'liberandoti']) {
+      expect(isGerund(w), w).toBe(true);
+    }
+    expect(isGerund('quando')).toBe(false);
+    expect(isGerund('mando')).toBe(false); // 1st person, not a gerund
+  });
+
+  it('recognises infinitives but not the nouns that rhyme with them', () => {
+    for (const w of ['offrire', 'vedere', 'proclamare', 'uccidersi']) {
+      expect(isInfinitive(w), w).toBe(true);
+    }
+    for (const w of ['altare', 'carcere', 'opere', 'mare', "l'argentiere"]) {
+      expect(isInfinitive(w), w).toBe(false);
+    }
+  });
+});
+
+describe('analyze — a word after a determiner is a noun', () => {
+  it('reads a verb/noun homograph by what precedes it', () => {
+    expect(roleOf(analyze('Chi rimane in me porta molto frutto.'), 'porta')).toBe('finite');
+    expect(roleOf(analyze('Bussate, e la porta vi sarà aperta.'), 'porta')).toBe('plain');
+  });
+
+  it('does not read a noun as a reduced relative', () => {
+    // "la vista" is sight, "un posto" a place, "i morti" the dead — none of
+    // them is "which has been seen/placed/died".
+    expect(roleOf(analyze('perché tu riacquisti la vista'), 'vista')).toBe('plain');
+    expect(roleOf(analyze('Vado a prepararvi un posto.'), 'posto')).toBe('plain');
+    expect(roleOf(analyze('Perché cercate tra i morti colui che è vivo?'), 'morti')).toBe('plain');
+  });
+
+  it('still reads the same words as the participle half of a compound', () => {
+    expect(roleOf(analyze('Dio lo ha risuscitato dai morti.'), 'risuscitato')).toBe('compound');
+    expect(roleOf(analyze('Gesù ha visto la folla.'), 'visto')).toBe('compound');
+  });
+
+  it('leaves an object clitic + verb alone (gli disse, not "the said")', () => {
+    expect(roleOf(analyze('Gesù gli disse: «Vieni».'), 'disse')).toBe('finite');
+  });
+
+  it('never reads an elided noun phrase as a participle', () => {
+    expect(hasElision("all'aperto")).toBe(true);
+    expect(isParticiple("all'aperto")).toBe(false);
+    expect(roleOf(analyze("pernottando all'aperto"), "all'aperto")).toBe('plain');
+  });
+
+  it('ties "sta scritto" together as one compound verb', () => {
+    const r = analyze('Gesù gli rispose: «Sta scritto: "Non di solo pane vivrà l\'uomo"».');
+    expect(roleOf(r, 'scritto')).toBe('compound');
+  });
+});
+
+// The first version of the aside rule was "comma-delimited and verbless", which
+// also swallowed coordinated lists, infinitive complements and plain objects —
+// i.e. told the reader to skip the substance. Each case below is one class it
+// got wrong, taken from the course corpus.
+describe('analyze — what is NOT an aside', () => {
+  const notDim = (text, word) => expect(dimOf(analyze(text), word)).toBe(false);
+
+  it('does not dim the items of a coordinated list', () => {
+    notDim('Amerai il Signore tuo Dio con tutto il tuo cuore, con tutta la tua anima, '
+      + 'con tutta la tua forza e con tutta la tua mente.', 'anima');
+  });
+
+  it('does not dim a segment that continues with a coordinator', () => {
+    notDim('Sono persuaso che né morte né vita, né angeli né principati, '
+      + 'né presente né avvenire potranno separarci.', 'angeli');
+  });
+
+  it('does not dim an infinitive complement', () => {
+    const r = analyze('Vi esorto dunque, fratelli, per la misericordia di Dio, '
+      + 'ad offrire i vostri corpi come sacrificio vivente.');
+    expect(dimOf(r, 'offrire')).toBe(false);
+    expect(dimOf(r, 'fratelli')).toBe(true); // the vocative still is one
+  });
+
+  it('does not dim a clause whose verb it failed to recognise', () => {
+    // opens with a clitic ("vi annuncio"), so something finite is in there
+    notDim('Non temete: ecco, vi annuncio una grande gioia, che sarà di tutto il popolo.', 'gioia');
+    // opens with a relative
+    notDim('Beati voi, che ora piangete, perché riderete.', 'piangete');
+  });
+
+  it('does not dim the subject that follows a temporal frame', () => {
+    const r = analyze('Pochi giorni dopo, il figlio più giovane, raccolte tutte le sue cose, '
+      + 'partì per un paese lontano.');
+    expect(dimOf(r, 'figlio')).toBe(false);
+    expect(dimOf(r, 'raccolte')).toBe(true); // the absolute participle still is an aside
+  });
+
+  it('does not dim a bare object caught between commas', () => {
+    const r = analyze('E mentre ero in cammino, in pieno giorno, vidi, o re, una luce, '
+      + 'più splendente del sole, che veniva dal cielo.');
+    expect(dimOf(r, 'luce')).toBe(false);
+    expect(dimOf(r, 'giorno')).toBe(true);   // the temporal aside still is one
+    expect(dimOf(r, 'splendente')).toBe(true);
+  });
+
+  it('still dims the appositives and implicit clauses it was built for', () => {
+    const r = analyze('Tommaso, uno dei Dodici, chiamato Dìdimo, non era con loro.');
+    expect(dimOf(r, 'Dodici')).toBe(true);
+    expect(dimOf(r, 'chiamato')).toBe(true);
+    expect(dimOf(r, 'Tommaso')).toBe(false);
+    expect(dimOf(analyze('Il carceriere, vedendo aperte le porte della prigione, '
+      + 'tirò fuori la spada.'), 'vedendo')).toBe(true);
+  });
+});
+
 // Corpus-wide precision guard: this is what the lexicons were tuned against,
 // so it is also what protects them from a regression when course text changes.
 describe('corpus sanity', () => {
@@ -224,10 +381,20 @@ describe('corpus sanity', () => {
   // prose. This pins the overlap set so a lexicon edit can't widen it silently.
   it('keeps the finite/participle overlap to the known ambiguous forms', () => {
     const both = [...new Set(words)].filter((w) => isFiniteVerb(w) && isParticiple(w));
-    expect(both.sort()).toEqual(['chiuse', 'corse', 'prese']);
+    expect(both.sort()).toEqual([
+      'battezzati', 'chiuse', 'corse', 'divise', 'perdonati', 'prese', 'presi', 'scese',
+    ]);
   });
 
   it('resolves an ambiguous form to finite inside a real sentence', () => {
     expect(roleOf(analyze('Pietro prese la parola.'), 'prese')).toBe('finite');
+  });
+
+  // Dimming is the loudest thing this module does, so it has to stay rare: an
+  // aside is a genuine parenthetical, not "any comma we did not understand".
+  it('marks an aside in only a small minority of authored verses', () => {
+    const verses = weeks.flatMap((w) => (w.passage?.verses || []).map((v) => v.t));
+    const withAside = verses.filter((v) => analyze(v).hasParenthetical);
+    expect(withAside.length / verses.length).toBeLessThan(0.2);
   });
 });

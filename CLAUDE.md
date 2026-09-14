@@ -293,7 +293,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 554 tests across 53 files, all green
+npm test             # vitest run — 582 tests across 53 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -328,14 +328,14 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `usePronunStats` — pronunciation attempts under key `italian-bible-pronun` (per-word `{ attempts, last, best, sum, avg, at }`); `record(term, score)`, `getStore()`. Recorded by Pronunciation mode; combined with the SRS store by `src/utils/wordStats.js` (`struggleList`) to drive the Practice "Parole difficili / words you struggle with" panel.
 - `useStreak` — daily streak + today's-goal flags under key `italian-bible-streak`; React glue over pure `src/utils/streak.js` (`{ last, current, best, today: { date, read, practiced, journaled } }`). The dashboard reads it on mount (`TodayCard` remounts on tab switch, picking up activity recorded elsewhere); `recordActivity(flag)` is called fire-and-forget from `PracticeMode` (`'practiced'`) and `JournalTab` (`'journaled'`), and `tickRead` marks the reading box.
 
-All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
+All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
 **Flashcards tab** (`FlashcardsTab.jsx`) has three modes toggled by local state: *Anki Decks* (download `.apkg` files), *Practice* (`PracticeMode.jsx` — SRS-scheduled, with a style selector for Recognition / Recall / Cloze / Listening and a "Parole difficili" struggle panel), and *Pronunciation* (`PronunciationPractice.jsx`).
 
 **Reading & comprehension suite (opportunities.md O1–O5, rendered in `WeekDetail.jsx`).** Five research-backed features layered onto each week, all data-driven and degrading gracefully when content is absent:
-- **O2 Interactive reading** (`ReadingPassage.jsx`): renders the week's connected verses with every word tappable (`WordGloss`) + a per-line speaker + a "mark as read" button that ticks the streak's `read` flag. Source is `week.passage` (now authored for all 37 weeks in `exercises.js` — CEI 2008 text, 4–8 key verses per week) with graceful fallback to the week's vetted vocab example sentences via `src/utils/keyVerses.js`. To update or verify individual verses, edit `exercises.js` directly; the egress proxy blocks all external Bible APIs so they cannot be fetched programmatically in this environment.
+- **O2 Interactive reading** (`ReadingPassage.jsx`): renders the week's connected verses with every word tappable (`WordGloss`) + a per-line speaker + a "mark as read" button that ticks the streak's `read` flag. Source is `week.passage` (now authored for all 37 weeks in `exercises.js` — CEI 2008 text, 4–8 key verses per week) with graceful fallback to the week's vetted vocab example sentences via `src/utils/keyVerses.js`. Two view toggles sit above the text and **persist** under `storageKey('reading-view')`: **Inglese** shows the English of each line under the Italian (whole-line meaning, where a tap gives one word), and **Struttura** (below). The English comes from `verse.en` — authored for all 200 verses, an English rendering *of the CEI Italian shown* rather than a quotation of an English Bible — or, for the example-sentence fallback, from the vocab tuple's `exEn`; `hasEnglish()` hides the toggle when a course ships neither. To update or verify individual verses, edit `exercises.js` directly; the egress proxy blocks all external Bible APIs so they cannot be fetched programmatically in this environment.
 - **O5 Comprehension** (`Comprehension.jsx` + `src/utils/comprehension.js`): collapsible true/false + multiple-choice checks (`week.comprehension`), each with an English gloss.
 - **O4 Dictogloss** (`Dictogloss.jsx` + `src/utils/dictogloss.js`): hear a verse → type a reconstruction → word-level diff + recall score (order-independent multiset match, accent/case/punctuation-forgiving). Counts as `practiced` activity.
 - **O3 Grammar drill** (`GrammarDrill.jsx` + `src/utils/grammarDrill.js`): fill-in-the-blank items (`week.drill`) anchored to vetted example sentences so the Italian is correct; answers use the same forgiving `checkAnswer`.
@@ -350,16 +350,38 @@ neither of the two tenses that prose is written in.
   (a conjugated verb — the clause spine), `compound` (a participle leaning on an
   auxiliary, i.e. one verb not two), `participle` (a *bare* participle, which is
   a reduced relative: `il nome dato agli uomini` = `che è stato dato`), or
-  `plain`, and dims comma-delimited stretches that hold no finite verb. The
+  `plain`, and dims the comma-delimited stretches that are genuine asides. The
   toggle layers those classes over `WordGloss` via its optional `roles` prop
   (indices line up because both call the same `tokenize`), so words stay
   tappable. Detection is **precision-first**: unambiguous suffix rules
-  (imperfetto, futuro, condizionale, congiuntivo, regular passato remoto) plus a
-  lexicon for the present and the strong passato remoto, minus stoplists that
-  were **tuned empirically against the whole course corpus**. The corpus-sanity
-  block in `clauseSkeleton.test.js` pins that tuning — if you author new course
-  text and a noun starts getting highlighted as a verb, add it to `NOT_FINITE`
-  or `NOT_PARTICIPLE` there.
+  (imperfetto, futuro, condizionale, congiuntivo, regular passato remoto, 2ª
+  plurale `-ete`, passato remoto 1sg `-ai`) plus a lexicon for the present and
+  the strong passato remoto, minus stoplists that were **tuned empirically
+  against the whole course corpus**. The corpus-sanity block in
+  `clauseSkeleton.test.js` pins that tuning — if you author new course text and a
+  noun starts getting highlighted as a verb, add it to `NOT_FINITE` or
+  `NOT_PARTICIPLE` there.
+  Three **context** rules do what word-level lexicons cannot, and they are the
+  ones to reach for when a highlight looks wrong: (1) a word right after a
+  determiner is a noun — that is what separates `la vista`/`un posto`/`i morti`
+  from a reduced relative, and `la porta` from `porta molto frutto`, so a
+  verb/noun homograph can safely live in the lexicon (`NOUN_HOMOGRAPH_VERBS`);
+  `lo/la/le/gli/li` are kept apart from the other determiners because they are
+  also object clitics, so they block only the participle reading, never
+  `gli disse`. (2) A word carrying an elided article (`all'aperto`) is a noun
+  phrase, never a reduced relative. (3) **Dimming is not "any verbless stretch
+  between commas"** — that first version faded coordinated lists (`con tutta la
+  tua anima, con tutta la tua forza`), infinitive complements (`ad offrire i
+  vostri corpi`), plain objects and even sentence subjects, i.e. exactly the
+  material the reader must not skip. `isAsideSegment()` now requires a genuine
+  parenthetical: it rejects segments opening with a coordinator, a relative, a
+  clitic or `non`, segments containing an infinitive, prepositional phrases that
+  rhyme with a neighbour or coordinate inside themselves, and noun phrases too
+  short to be an apposition or lacking anything to be in apposition *to*. Bare
+  participles and gerunds (`scartata da voi costruttori`, `pernottando
+  all'aperto`) are asides at any length. Across the 200 authored verses this took
+  the dimmed count from 49 (many wrong) to 31 (all genuine); the test file pins
+  one case per class it used to get wrong, plus a corpus-level cap.
 - **Verb-form recognition** (`courses/<id>/verbForms.js` → `course/verbForms.js`
   → `src/utils/verbForms.js` → `VerbFormDrill.jsx`, a fifth Flashcards mode):
   form → infinitive for the **passato remoto** and **trapassato prossimo**, the
@@ -548,7 +570,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **554 vitest tests across 53 files**, all passing.
+- **Tests:** `npm test` runs **582 vitest tests across 53 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,

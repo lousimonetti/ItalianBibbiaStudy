@@ -57,7 +57,9 @@ phases = [{
     // equally be inlined here.
     passage: {                        // O2 interactive reading + O4 dictogloss
       ref: string, translation: string,
-      verses: [{ n, t }],             // n = verse number, t = target text
+      verses: [{ n, t, en }],         // n = verse number, t = target text,
+                                      // en = optional native-language rendering
+                                      // (powers the reader's "English" toggle)
     },                                // omitted ⇒ falls back to vocab examples
     drill: [{ q, a, hint }],          // O3 grammar drill; q has a `___` blank
     comprehension: [                  // O5 reading checks

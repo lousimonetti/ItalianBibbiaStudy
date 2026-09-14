@@ -4,13 +4,15 @@ import {
   exampleLines,
   readingLines,
   hasPassage,
+  hasEnglish,
   keyVerses,
   splitSentences,
 } from './keyVerses';
 
 const weekNoPassage = {
   vocab: [
-    ['il Verbo', 'the Word', 'In principio era il Verbo.', '/x/'],
+    ['il Verbo', 'the Word', 'In principio era il Verbo.', '/x/',
+      { exEn: 'In the beginning was the Word.' }],
     ['la luce', 'the light', 'La luce splende nelle tenebre.', '/x/'],
     ['dup', 'dup', 'La luce splende nelle tenebre.', '/x/'], // duplicate example
     ['empty', 'empty', '', '/x/'], // no example
@@ -23,7 +25,7 @@ const weekWithPassage = {
     ref: 'Giovanni 1,1-3',
     translation: 'Riveduta',
     verses: [
-      { n: 1, t: 'Nel principio era la Parola.' },
+      { n: 1, t: 'Nel principio era la Parola.', en: 'In the beginning was the Word.' },
       { n: 2, t: 'Essa era nel principio con Dio.' },
       { n: 3, t: '  ' }, // blank verse dropped
     ],
@@ -46,13 +48,26 @@ describe('exampleLines', () => {
 describe('passageLines / hasPassage', () => {
   it('extracts non-empty verses', () => {
     expect(passageLines(weekWithPassage)).toEqual([
-      { ref: '1', t: 'Nel principio era la Parola.' },
-      { ref: '2', t: 'Essa era nel principio con Dio.' },
+      { ref: '1', t: 'Nel principio era la Parola.', en: 'In the beginning was the Word.' },
+      { ref: '2', t: 'Essa era nel principio con Dio.', en: '' },
     ]);
   });
   it('hasPassage reflects presence', () => {
     expect(hasPassage(weekWithPassage)).toBe(true);
     expect(hasPassage(weekNoPassage)).toBe(false);
+  });
+});
+
+describe('hasEnglish', () => {
+  it('is true when a verse carries an authored translation', () => {
+    expect(hasEnglish(weekWithPassage)).toBe(true);
+  });
+  it('falls back to the vocab example translation', () => {
+    expect(hasEnglish(weekNoPassage)).toBe(true);
+    expect(readingLines(weekNoPassage)[0].en).toBe('In the beginning was the Word.');
+  });
+  it('is false when nothing is translated', () => {
+    expect(hasEnglish({ vocab: [['x', 'x', 'esempio']] })).toBe(false);
   });
 });
 

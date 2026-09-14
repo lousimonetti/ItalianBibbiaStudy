@@ -2947,6 +2947,16 @@ html.dark .prayer-text-en { color: var(--text-muted); }
   padding-top: 3px;
 }
 .reading-text { flex: 1; color: var(--text); }
+/* The English of the whole line, under the Italian — meaning first, then the
+   words (a tap still glosses one word at a time). */
+.reading-en {
+  display: block;
+  margin-top: 2px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.reading-tools { display: flex; flex-wrap: wrap; gap: 6px; }
 
 /* ── Verb-form recognition drill (Tempi della lettura) ─────────────────── */
 .vf-cats {

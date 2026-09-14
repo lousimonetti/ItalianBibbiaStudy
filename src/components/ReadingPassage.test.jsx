@@ -11,7 +11,11 @@ const WEEK = {
     ref: 'Atti 4,11',
     translation: 'CEI 2008',
     verses: [
-      { n: 11, t: 'È lui la pietra che, scartata da voi costruttori, è diventata la pietra d\'angolo.' },
+      {
+        n: 11,
+        t: 'È lui la pietra che, scartata da voi costruttori, è diventata la pietra d\'angolo.',
+        en: 'He is the stone that, rejected by you builders, has become the cornerstone.',
+      },
     ],
   },
 };
@@ -82,12 +86,35 @@ describe('ReadingPassage', () => {
     });
 
     it('shows the legend', () => {
-      expect(screen.getByText(/finite verb — one per clause/)).toBeTruthy();
+      expect(screen.getByText(/finite verb — count them: one per clause/)).toBeTruthy();
     });
 
     it('toggles back off', () => {
       fireEvent.click(screen.getByRole('button', { name: '✓ Struttura' }));
       expect(document.querySelector('.sk-finite')).toBe(null);
+    });
+  });
+
+  describe('the English toggle', () => {
+    it('hides the English until it is asked for', () => {
+      render(<ReadingPassage week={WEEK} />);
+      expect(screen.queryByText(/rejected by you builders/)).toBe(null);
+      fireEvent.click(screen.getByRole('button', { name: 'Inglese' }));
+      expect(screen.getByText(/rejected by you builders/)).toBeTruthy();
+    });
+
+    it('remembers the choice across mounts', () => {
+      render(<ReadingPassage week={WEEK} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Inglese' }));
+      cleanup();
+      render(<ReadingPassage week={WEEK} />);
+      expect(screen.getByText(/rejected by you builders/)).toBeTruthy();
+      expect(screen.getByRole('button', { name: '✓ Inglese' })).toBeTruthy();
+    });
+
+    it('is not offered when the reading carries no English', () => {
+      render(<ReadingPassage week={{ n: 1, r: 'John 1-2', vocab: [['il Verbo', 'the Word', 'In principio era il Verbo']] }} />);
+      expect(screen.queryByRole('button', { name: 'Inglese' })).toBe(null);
     });
   });
 

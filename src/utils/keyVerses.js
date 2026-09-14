@@ -5,13 +5,19 @@
 // real, tappable Italian to read even before full passages are authored.
 //
 // Returns a flat array of sentence strings (the unit the reader/dictogloss work
-// on). `readingLines` returns richer { ref, t } rows for display. Pure +
+// on). `readingLines` returns richer { ref, t, en } rows for display, where `en`
+// is the optional English of that line — an authored `verse.en` for a passage,
+// the vocab tuple's `exEn` for the example-sentence fallback. Pure +
 // unit-tested.
 
 export function passageLines(week) {
   if (!week?.passage?.verses?.length) return [];
   return week.passage.verses
-    .map((v) => ({ ref: v.n != null ? String(v.n) : '', t: (v.t || '').trim() }))
+    .map((v) => ({
+      ref: v.n != null ? String(v.n) : '',
+      t: (v.t || '').trim(),
+      en: (v.en || '').trim(),
+    }))
     .filter((v) => v.t);
 }
 
@@ -26,13 +32,13 @@ export function exampleLines(week) {
     const key = ex.toLowerCase();
     if (seen.has(key)) continue;
     seen.add(key);
-    out.push({ ref: '', t: ex });
+    out.push({ ref: '', t: ex, en: (v[4]?.exEn || '').trim() });
   }
   return out;
 }
 
 // Display rows: authored passage if present, else example sentences. Each row is
-// { ref, t }.
+// { ref, t, en }.
 export function readingLines(week) {
   const p = passageLines(week);
   return p.length ? p : exampleLines(week);
@@ -42,6 +48,12 @@ export function readingLines(week) {
 // fallback) — lets the UI label the source honestly.
 export function hasPassage(week) {
   return passageLines(week).length > 0;
+}
+
+// True when at least one reading line carries English, so the reader can offer
+// the translation toggle only where there is something to show.
+export function hasEnglish(week) {
+  return readingLines(week).some((l) => l.en);
 }
 
 // Flat sentence strings (used by dictogloss). When an authored passage exists we
