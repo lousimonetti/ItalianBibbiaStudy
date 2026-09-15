@@ -116,6 +116,64 @@ describe('ReadingPassage', () => {
       render(<ReadingPassage week={{ n: 1, r: 'John 1-2', vocab: [['il Verbo', 'the Word', 'In principio era il Verbo']] }} />);
       expect(screen.queryByRole('button', { name: 'Inglese' })).toBe(null);
     });
+
+    it('cycles off → under each verse → English only → off', () => {
+      render(<ReadingPassage week={WEEK} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Inglese' }));
+      // Under each verse: both languages on screen.
+      expect(screen.getByText(/rejected by you builders/)).toBeTruthy();
+      expect(screen.getAllByRole('button', { name: 'pietra' }).length).toBe(2);
+
+      fireEvent.click(screen.getByRole('button', { name: '✓ Inglese' }));
+      // English only: the Italian words are gone, the English remains.
+      expect(screen.getByText(/rejected by you builders/)).toBeTruthy();
+      expect(screen.queryByRole('button', { name: 'pietra' })).toBe(null);
+
+      fireEvent.click(screen.getByRole('button', { name: '✓ Solo inglese' }));
+      expect(screen.queryByText(/rejected by you builders/)).toBe(null);
+      expect(screen.getAllByRole('button', { name: 'pietra' }).length).toBe(2);
+    });
+
+    it('hides Struttura in the English-only view — there is no Italian to mark up', () => {
+      render(<ReadingPassage week={WEEK} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Inglese' }));
+      fireEvent.click(screen.getByRole('button', { name: '✓ Inglese' }));
+      expect(screen.queryByRole('button', { name: 'Struttura' })).toBe(null);
+    });
+
+    it('reads a boolean saved by the old two-state toggle as "under each verse"', () => {
+      localStorage.setItem('italian-bible-reading-view', JSON.stringify({ english: true }));
+      render(<ReadingPassage week={WEEK} />);
+      expect(screen.getByText(/rejected by you builders/)).toBeTruthy();
+      expect(screen.getByRole('button', { name: '✓ Inglese' })).toBeTruthy();
+    });
+  });
+
+  describe('the per-verse EN chip', () => {
+    it('reveals just that verse\'s English, and hides it again', () => {
+      render(<ReadingPassage week={WEEK} />);
+      const chip = screen.getByRole('button', { name: 'English for verse 11' });
+      expect(screen.queryByText(/rejected by you builders/)).toBe(null);
+      fireEvent.click(chip);
+      expect(screen.getByText(/rejected by you builders/)).toBeTruthy();
+      expect(chip.getAttribute('aria-expanded')).toBe('true');
+      fireEvent.click(chip);
+      expect(screen.queryByText(/rejected by you builders/)).toBe(null);
+    });
+
+    it('does not persist — a reveal is a moment, not a setting', () => {
+      render(<ReadingPassage week={WEEK} />);
+      fireEvent.click(screen.getByRole('button', { name: 'English for verse 11' }));
+      cleanup();
+      render(<ReadingPassage week={WEEK} />);
+      expect(screen.queryByText(/rejected by you builders/)).toBe(null);
+    });
+
+    it('steps aside once the toggle is showing every verse', () => {
+      render(<ReadingPassage week={WEEK} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Inglese' }));
+      expect(screen.queryByRole('button', { name: 'English for verse 11' })).toBe(null);
+    });
   });
 
   it('falls back to vocab example sentences when no passage is authored', () => {

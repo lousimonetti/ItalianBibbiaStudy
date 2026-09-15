@@ -14,8 +14,15 @@ import { storageKey } from '../utils/storageKey';
 // Two view toggles sit above the text, and both persist (the choice is a
 // reading habit, not a per-week whim):
 //
-// "Inglese" shows the English of each verse under the Italian — the whole line,
-// not the word-by-word gloss a tap gives you. Meaning first, then the words.
+// "Inglese" cycles through three states, because a tap gives you one word and
+// sometimes you need the whole line:
+//   'off'   — Italian only; each verse carries an EN chip that reveals *that*
+//             verse's full English inline, for the one line that blocked you.
+//   'under' — the English of every verse under its Italian (meaning first,
+//             then the words).
+//   'only'  — the passage read as continuous English, Italian hidden. The
+//             speaker still speaks the Italian, so you can read the meaning
+//             and hear the line it belongs to.
 // It only appears when the reading actually carries English (`verse.en` for an
 // authored passage, the vocab tuple's `exEn` for the fallback).
 //
@@ -25,15 +32,25 @@ import { storageKey } from '../utils/storageKey';
 // reduced relative clauses they are, and genuine comma-delimited asides are
 // dimmed so the sentence can be read without them first. It is the
 // pencil-on-paper habit for periodic prose, built into the reader. Words stay
-// tappable while it is on.
+// tappable while it is on. It is hidden in the English-only view, which has no
+// Italian on screen to mark up.
 const VIEW_KEY = storageKey('reading-view');
+
+const ENGLISH_STATES = ['off', 'under', 'only'];
+
+// The stored `english` was a boolean before the third state existed; a saved
+// `true` means "under each verse", which is what that toggle used to do.
+function normalizeEnglish(v) {
+  if (v === true) return 'under';
+  return ENGLISH_STATES.includes(v) ? v : 'off';
+}
 
 function loadView() {
   try {
     const v = JSON.parse(localStorage.getItem(VIEW_KEY) || '{}');
-    return { english: !!v.english, skeleton: !!v.skeleton };
+    return { english: normalizeEnglish(v.english), skeleton: !!v.skeleton };
   } catch {
-    return { english: false, skeleton: false };
+    return { english: 'off', skeleton: false };
   }
 }
 
@@ -41,11 +58,26 @@ function saveView(view) {
   try { localStorage.setItem(VIEW_KEY, JSON.stringify(view)); } catch { /* private mode */ }
 }
 
+const ENGLISH_LABEL = {
+  off: 'Inglese',
+  under: '✓ Inglese',
+  only: '✓ Solo inglese',
+};
+
+const ENGLISH_TITLE = {
+  off: 'Show the English of every verse under the Italian',
+  under: 'Showing the English under each verse — click for English only',
+  only: 'Showing English only — click to go back to Italian',
+};
+
 export function ReadingPassage({ week }) {
   const lines = readingLines(week);
   const authored = hasPassage(week);
   const translated = hasEnglish(week);
   const [view, setView] = useState(loadView);
+  // Per-verse reveals: deliberately session-local, not persisted. Needing one
+  // line's English is a moment, not a setting — the setting is the toggle.
+  const [revealed, setRevealed] = useState(() => new Set());
   const [read, setRead] = useState(() => {
     try { return !!todayFlags(loadStreak()).read; } catch { return false; }
   });
@@ -56,9 +88,23 @@ export function ReadingPassage({ week }) {
   if (!lines.length) return null;
 
   const { english, skeleton } = view;
-  const toggle = (k) => setView((v) => {
-    const next = { ...v, [k]: !v[k] };
+  const englishOnly = english === 'only';
+
+  const cycleEnglish = () => setView((v) => {
+    const next = { ...v, english: ENGLISH_STATES[(ENGLISH_STATES.indexOf(v.english) + 1) % 3] };
     saveView(next);
+    return next;
+  });
+
+  const toggleSkeleton = () => setView((v) => {
+    const next = { ...v, skeleton: !v.skeleton };
+    saveView(next);
+    return next;
+  });
+
+  const toggleVerse = (i) => setRevealed((prev) => {
+    const next = new Set(prev);
+    if (next.has(i)) next.delete(i); else next.add(i);
     return next;
   });
 
@@ -82,26 +128,28 @@ export function ReadingPassage({ week }) {
         {translated && (
           <button
             type="button"
-            className={`skeleton-toggle${english ? ' active' : ''}`}
-            onClick={() => toggle('english')}
-            aria-pressed={english}
-            title="Show the English of each verse under the Italian"
+            className={`skeleton-toggle${english !== 'off' ? ' active' : ''}`}
+            onClick={cycleEnglish}
+            aria-pressed={english !== 'off'}
+            title={ENGLISH_TITLE[english]}
           >
-            {english ? '✓ Inglese' : 'Inglese'}
+            {ENGLISH_LABEL[english]}
           </button>
         )}
-        <button
-          type="button"
-          className={`skeleton-toggle${skeleton ? ' active' : ''}`}
-          onClick={() => toggle('skeleton')}
-          aria-pressed={skeleton}
-          title="Highlight the finite verbs and dim the asides — find the clause spine first"
-        >
-          {skeleton ? '✓ Struttura' : 'Struttura'}
-        </button>
+        {!englishOnly && (
+          <button
+            type="button"
+            className={`skeleton-toggle${skeleton ? ' active' : ''}`}
+            onClick={toggleSkeleton}
+            aria-pressed={skeleton}
+            title="Highlight the finite verbs and dim the asides — find the clause spine first"
+          >
+            {skeleton ? '✓ Struttura' : 'Struttura'}
+          </button>
+        )}
       </div>
 
-      {skeleton && (
+      {skeleton && !englishOnly && (
         <div className="skeleton-legend">
           <span><b className="sk-key sk-finite-key">disse</b> finite verb — count them: one per clause</span>
           <span>
@@ -113,25 +161,45 @@ export function ReadingPassage({ week }) {
         </div>
       )}
 
-      <div className={`reading-box${skeleton ? ' reading-box-skeleton' : ''}`}>
-        {lines.map((line, i) => (
-          <div className="reading-line" key={i}>
-            {line.ref && <span className="reading-vnum">{line.ref}</span>}
-            <span className="reading-text">
-              <WordGloss text={line.t} roles={skeleton ? analyses[i].tokens : null} />
-              {english && line.en && <span className="reading-en">{line.en}</span>}
-            </span>
-            {skeleton && analyses[i].finiteCount > 0 && (
-              <span
-                className="skeleton-count"
-                title={`${analyses[i].finiteCount} finite verb${analyses[i].finiteCount === 1 ? '' : 's'} — so ${analyses[i].finiteCount} clause${analyses[i].finiteCount === 1 ? '' : 's'}`}
-              >
-                {analyses[i].finiteCount}
+      <div className={`reading-box${skeleton && !englishOnly ? ' reading-box-skeleton' : ''}${englishOnly ? ' reading-box-en' : ''}`}>
+        {lines.map((line, i) => {
+          // In the English-only view a line with no authored English would
+          // vanish, so it keeps its Italian rather than leaving a hole.
+          const soloEn = englishOnly && line.en;
+          const showEn = !englishOnly && line.en && (english === 'under' || revealed.has(i));
+          return (
+            <div className="reading-line" key={i}>
+              {line.ref && <span className="reading-vnum">{line.ref}</span>}
+              <span className="reading-text">
+                {soloEn
+                  ? <span className="reading-en-solo">{line.en}</span>
+                  : <WordGloss text={line.t} roles={skeleton && !englishOnly ? analyses[i].tokens : null} />}
+                {showEn && <span className="reading-en">{line.en}</span>}
               </span>
-            )}
-            <SpeakerButton word={line.t} size={14} />
-          </div>
-        ))}
+              {english === 'off' && line.en && (
+                <button
+                  type="button"
+                  className={`reading-en-btn${revealed.has(i) ? ' active' : ''}`}
+                  onClick={() => toggleVerse(i)}
+                  aria-expanded={revealed.has(i)}
+                  aria-label={line.ref ? `English for verse ${line.ref}` : 'English for this line'}
+                  title="Show this verse in English"
+                >
+                  EN
+                </button>
+              )}
+              {skeleton && !englishOnly && analyses[i].finiteCount > 0 && (
+                <span
+                  className="skeleton-count"
+                  title={`${analyses[i].finiteCount} finite verb${analyses[i].finiteCount === 1 ? '' : 's'} — so ${analyses[i].finiteCount} clause${analyses[i].finiteCount === 1 ? '' : 's'}`}
+                >
+                  {analyses[i].finiteCount}
+                </span>
+              )}
+              <SpeakerButton word={line.t} size={14} />
+            </div>
+          );
+        })}
       </div>
 
       <button

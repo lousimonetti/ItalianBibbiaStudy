@@ -2958,6 +2958,39 @@ html.dark .prayer-text-en { color: var(--text-muted); }
 }
 .reading-tools { display: flex; flex-wrap: wrap; gap: 6px; }
 
+/* The per-verse EN chip: pull up one line's full English without turning the
+   whole passage bilingual. Sits beside the speaker, same visual weight. */
+.reading-en-btn {
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  padding: 3px 5px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-faint);
+  cursor: pointer;
+}
+.reading-en-btn:hover { border-color: var(--accent); color: var(--accent); }
+.reading-en-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+/* English-only view — the passage read as prose. Full text colour and size,
+   because here the English *is* the reading, not a crib under it. */
+.reading-en-solo {
+  display: block;
+  color: var(--text);
+}
+.reading-box-en .reading-line { line-height: 1.6; }
+
+
 /* ── Verb-form recognition drill (Tempi della lettura) ─────────────────── */
 .vf-cats {
   display: grid;
