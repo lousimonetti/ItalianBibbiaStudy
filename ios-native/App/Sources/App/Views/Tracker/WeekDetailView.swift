@@ -129,30 +129,112 @@ private struct VocabRow: View {
     }
 }
 
+// The week's passage, read the way the web reader reads it (ReadingPassage.jsx):
+// every word tappable, a speaker per verse — and three ways to get at the
+// English, because a word gloss and a whole translation answer different
+// questions. The view state is ReadingViewState in BibbiaCore, persisted under
+// the same `reading-view` key the web app uses, so the habit travels with a
+// backup file.
 struct ReadingPassageView: View {
     let passage: Passage
     @EnvironmentObject private var model: AppModel
     @State private var markedRead = false
+    @State private var view = ReadingViewState.decode(WebStore.loadString("reading-view"))
+    /// Verses whose English the reader pulled up one at a time. Deliberately
+    /// not persisted: needing one line is a moment, not a setting.
+    @State private var revealed: Set<Int> = []
 
     var fullText: String { passage.verses.map(\.t).joined(separator: " ") }
 
+    private var translated: Bool { passageHasEnglish(passage) }
+    private var englishOnly: Bool { view.english == .only }
+
+    private var englishLabel: String {
+        switch view.english {
+        case .off: return "Inglese"
+        case .under: return "✓ Inglese"
+        case .only: return "✓ Solo inglese"
+        }
+    }
+
+    private func cycleEnglish() {
+        view.cycleEnglish()
+        WebStore.saveString("reading-view", view.encoded())
+        Haptics.light()
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            ForEach(passage.verses) { verse in
-                HStack(alignment: .top, spacing: 8) {
-                    Text("\(verse.n)")
-                        .font(.caption2.bold())
-                        .foregroundStyle(.secondary)
-                        .frame(width: 20, alignment: .trailing)
-                    WordGlossText(text: verse.t)
-                        .font(.callout)
-                    Spacer(minLength: 4)
-                    SpeakerButton(text: verse.t, compact: true)
+            if translated {
+                Button(action: cycleEnglish) {
+                    Text(englishLabel)
+                        .font(.caption.bold())
                 }
+                .buttonStyle(.bordered)
+                .tint(view.english == .off ? .secondary : .accentColor)
+                .accessibilityHint("Cycles between Italian, English under each verse, and English only")
+            }
+
+            ForEach(passage.verses) { verse in
+                verseRow(verse)
             }
             footerRow
         }
         .padding(.vertical, 4)
+    }
+
+    @ViewBuilder
+    private func verseRow(_ verse: Verse) -> some View {
+        // A verse with no authored English keeps its Italian in the English-only
+        // view rather than leaving a hole in the passage.
+        let en = (verse.en?.isEmpty == false) ? verse.en : nil
+        let showsEnglishUnder = !englishOnly && en != nil
+            && (view.english == .under || revealed.contains(verse.n))
+
+        HStack(alignment: .top, spacing: 8) {
+            Text("\(verse.n)")
+                .font(.caption2.bold())
+                .foregroundStyle(.secondary)
+                .frame(width: 20, alignment: .trailing)
+
+            VStack(alignment: .leading, spacing: 3) {
+                if englishOnly, let en {
+                    Text(en)
+                        .font(.callout)
+                } else {
+                    WordGlossText(text: verse.t)
+                        .font(.callout)
+                }
+                if showsEnglishUnder, let en {
+                    Text(en)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            Spacer(minLength: 4)
+
+            if view.english == .off, en != nil {
+                Button {
+                    if revealed.contains(verse.n) {
+                        revealed.remove(verse.n)
+                    } else {
+                        revealed.insert(verse.n)
+                    }
+                    Haptics.light()
+                } label: {
+                    Text("EN")
+                        .font(.caption2.bold())
+                }
+                .buttonStyle(.borderless)
+                .foregroundStyle(revealed.contains(verse.n) ? Color.accentColor : Color.secondary)
+                .accessibilityLabel("English for verse \(verse.n)")
+            }
+
+            // Speaks the Italian in every view — in the English-only reading
+            // that is the point: read the meaning, hear the line it belongs to.
+            SpeakerButton(text: verse.t, compact: true)
+        }
     }
 
     private var footerRow: some View {

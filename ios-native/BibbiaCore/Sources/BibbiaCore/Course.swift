@@ -209,6 +209,11 @@ public struct Passage: Codable {
 public struct Verse: Codable, Identifiable {
     public let n: Int
     public let t: String
+    /// An English rendering *of the Italian shown*, tracking the CEI wording
+    /// clause by clause rather than quoting an English Bible — its job is to
+    /// explain the line being read. Optional: a course may ship none, and the
+    /// reader's English controls hide themselves when it does.
+    public let en: String?
 
     public var id: Int { n }
 }
