@@ -649,6 +649,69 @@
      ]
     }
    ]
+  },
+  {
+   "id": "san-girolamo",
+   "title": "San Girolamo — patrono degli studiosi della Bibbia",
+   "titleEn": "Saint Jerome — patron of Bible scholars",
+   "intro": "Girolamo (347-420) tradusse la Bibbia in latino dall'ebraico e dal greco: la Vulgata, il testo che la Chiesa ha letto per quindici secoli. Sua è la frase più citata su questo libro: «L'ignoranza delle Scritture è ignoranza di Cristo». La Chiesa lo ricorda il 30 settembre.",
+   "introEn": "Jerome (347-420) translated the Bible into Latin from the Hebrew and the Greek: the Vulgate, the text the Church read for fifteen centuries. His is the most quoted line ever written about this book: \"Ignorance of the Scriptures is ignorance of Christ.\" The Church remembers him on September 30.",
+   "prayers": [
+    {
+     "id": "colletta-san-girolamo",
+     "title": "Colletta di san Girolamo",
+     "titleEn": "Collect of Saint Jerome",
+     "note": "La colletta della memoria del 30 settembre (Messale Romano, CEI). È la preghiera di questo corso: chiede esattamente ciò che il corso cerca di ottenere.",
+     "noteEn": "The collect of the September 30 memorial (Roman Missal, CEI). It is this course's own prayer: it asks for precisely what the course is trying to do.",
+     "it": "O Dio, che hai dato al santo presbitero Girolamo un amore soave e vivo per la sacra Scrittura, fa' che il tuo popolo si nutra sempre più largamente della tua parola e trovi in essa la fonte della vita. Per il nostro Signore Gesù Cristo, tuo Figlio, che è Dio, e vive e regna con te, nell'unità dello Spirito Santo, per tutti i secoli dei secoli. Amen.",
+     "en": "O God, who gave the holy priest Jerome a sweet and living love for Sacred Scripture, grant that your people may be nourished ever more abundantly by your word and find in it the fount of life. Through our Lord Jesus Christ, your Son, who is God, and lives and reigns with you in the unity of the Holy Spirit, for ever and ever. Amen.",
+     "focus": {
+      "text": "\"Fa' che ... si nutra ... e trovi\" is fare che + congiuntivo, and the second verb keeps the subjunctive without repeating the che. \"Che hai dato\" is the relative che of week 16 sitting on a passato prossimo, and \"in essa\" is the stressed pronoun standing in for la parola — where English would say \"in it\".",
+      "weeks": [
+       16,
+       19,
+       31
+      ]
+     },
+     "lines": [
+      {
+       "it": "O Dio, che hai dato al santo presbitero Girolamo",
+       "en": "O God, who gave the holy priest Jerome",
+       "blank": "hai"
+      },
+      {
+       "it": "un amore soave e vivo per la sacra Scrittura,",
+       "en": "a sweet and living love for Sacred Scripture,",
+       "blank": "soave"
+      },
+      {
+       "it": "fa' che il tuo popolo si nutra sempre più largamente della tua parola",
+       "en": "grant that your people may be nourished ever more abundantly by your word",
+       "blank": "nutra"
+      },
+      {
+       "it": "e trovi in essa la fonte della vita.",
+       "en": "and find in it the fount of life.",
+       "blank": "trovi"
+      },
+      {
+       "it": "Per il nostro Signore Gesù Cristo, tuo Figlio, che è Dio,",
+       "en": "Through our Lord Jesus Christ, your Son, who is God,",
+       "blank": "che"
+      },
+      {
+       "it": "e vive e regna con te, nell'unità dello Spirito Santo,",
+       "en": "and lives and reigns with you in the unity of the Holy Spirit,",
+       "blank": "regna"
+      },
+      {
+       "it": "per tutti i secoli dei secoli. Amen.",
+       "en": "for ever and ever. Amen.",
+       "blank": "secoli"
+      }
+     ]
+    }
+   ]
   }
  ],
  "phases": [

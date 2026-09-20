@@ -305,7 +305,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   Listening, accent-strict `checkDrill` grading, and a lexical-recycling panel.
   **Devotions** — the Prayers tab moved into the course
   (`courses/<id>/devotions.js`, tab hides itself when a course ships none) and
-  became line-aligned with Read / Shadow / Recall modes.
+  became line-aligned with Read / Shadow / Recall modes. Four sections, 14
+  prayers; the newest is the **Colletta di san Girolamo** (the CEI collect of
+  the 30 September memorial — the patron of Bible study, asking for exactly what
+  this course is for). Adding a prayer means adding its unglossed words to
+  `it2en.js` (`glossCoverage.test.js` fails until you do) and re-running the two
+  iOS scripts, since devotions are course content.
   **Fixed** — Listening rendered the single word's gloss as if it translated the
   whole sentence; the completion achievement was hardcoded to 37 weeks; "N due"
   now appears on the Today card.
