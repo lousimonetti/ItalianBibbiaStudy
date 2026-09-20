@@ -17,6 +17,9 @@ import { devotionSections } from '../course/devotions';
 import { buildCards } from '../course/vocab';
 import { useSrs } from './hooks/useSrs';
 import { SaintsTab } from './components/SaintsTab';
+import { GameTab } from './components/GameTab';
+import { loadGame, wordDay, quizDay } from './utils/gameStore';
+import { todayStr } from './utils/streak';
 import { WelcomeCard } from './components/WelcomeCard';
 import { useImmersion } from './i18n/ImmersionContext';
 import { UiText } from './i18n/UiText';
@@ -102,6 +105,18 @@ function SaintsIcon() {
   );
 }
 
+function GameIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="1.5" y="1.5" width="13" height="13" rx="3" stroke="currentColor" strokeWidth="1.5"/>
+      <circle cx="5.3" cy="5.3" r="1.1" fill="currentColor"/>
+      <circle cx="10.7" cy="10.7" r="1.1" fill="currentColor"/>
+      <circle cx="10.7" cy="5.3" r="1.1" fill="currentColor"/>
+      <circle cx="5.3" cy="10.7" r="1.1" fill="currentColor"/>
+    </svg>
+  );
+}
+
 function SunIcon() {
   return (
     <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -138,8 +153,14 @@ function GoalCheck({ done }) {
   );
 }
 
-function DailyGoals() {
+function DailyGoals({ onOpenGame }) {
   const { current, best, flags, tickRead } = useStreak();
+  // Today's games, read once on mount like the streak itself (the Tracker
+  // remounts on tab switch, so a game played elsewhere shows up on return).
+  const [games] = useState(loadGame);
+  const day = todayStr();
+  const word = wordDay(games, day);
+  const gamesLeft = (word && word.status !== 'playing' ? 0 : 1) + (quizDay(games, day) ? 0 : 1);
   // How many cards are actually waiting. The count previously only existed
   // inside the Practice tab, so nothing anywhere else pulled the learner back
   // into a review — the cheapest retention win available.
@@ -169,6 +190,14 @@ function DailyGoals() {
         <div className={`today-goal${flags.journaled ? ' done' : ''}`}>
           <GoalCheck done={flags.journaled} /> Write a line in Italian
         </div>
+        <button
+          className={`today-goal today-goal-action${gamesLeft === 0 ? ' done' : ''}`}
+          onClick={onOpenGame}
+          disabled={!onOpenGame}
+        >
+          <GoalCheck done={gamesLeft === 0} /> Play today's word &amp; challenge
+          {gamesLeft > 0 && <span className="today-due-pill">{gamesLeft} to play</span>}
+        </button>
       </div>
       <ThinkPrompt />
       <div className="today-reminders">
@@ -179,7 +208,7 @@ function DailyGoals() {
   );
 }
 
-function TodayCard({ currentWeekN }) {
+function TodayCard({ currentWeekN, onOpenGame }) {
   const [schedOpen, setSchedOpen] = useState(false);
   const week = currentWeekN ? ALL_WEEKS.find(w => w.n === currentWeekN) : null;
   // Day index is the offset within the program week, so it is correct for a
@@ -199,7 +228,7 @@ function TodayCard({ currentWeekN }) {
         </span>
         <span className="today-pre-sub">{TOTAL} weeks · {getSessionStartLabel()} → {getEndDateLabel()}</span>
         <SessionRow prominent />
-        <DailyGoals />
+        <DailyGoals onOpenGame={onOpenGame} />
       </div>
     );
   }
@@ -217,7 +246,7 @@ function TodayCard({ currentWeekN }) {
         <span className="today-task-text">{todayTask.task}</span>
       </div>
 
-      <DailyGoals />
+      <DailyGoals onOpenGame={onOpenGame} />
 
       <button className="today-sched-toggle" onClick={() => setSchedOpen(v => !v)}>
         <UiText k="today.fullSchedule" />
@@ -245,6 +274,7 @@ function TodayCard({ currentWeekN }) {
 const TABS = [
   { id: 'Tracker',    Icon: TrackerIcon },
   { id: 'Flashcards', Icon: CardsIcon },
+  { id: 'Game',       Icon: GameIcon },
   { id: 'Journal',    Icon: JournalIcon },
   ...(HAS_DEVOTIONS ? [{ id: 'Prayers', Icon: PrayersIcon }] : []),
   { id: 'Saints',     Icon: SaintsIcon },
@@ -368,7 +398,7 @@ export default function App() {
       {/* Tab: Tracker */}
       {activeTab === 'Tracker' && (
         <>
-          <TodayCard currentWeekN={currentWeekN} />
+          <TodayCard currentWeekN={currentWeekN} onOpenGame={() => setActiveTab('Game')} />
           <Achievements />
           <GuideSection />
           {PHASES.map((phase) => (
@@ -385,6 +415,9 @@ export default function App() {
 
       {/* Tab: Flashcards */}
       {activeTab === 'Flashcards' && <FlashcardsTab />}
+
+      {/* Tab: Game */}
+      {activeTab === 'Game' && <GameTab />}
 
       {/* Tab: Journal */}
       {activeTab === 'Journal' && <JournalTab />}

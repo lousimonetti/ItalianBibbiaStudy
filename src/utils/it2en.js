@@ -1242,6 +1242,11 @@ const MAP = new Map(Object.entries({
   indicaci: 'show us/point out to us', ore: 'hours', sostienici: 'sustain us',
   materna: 'maternal', ottenga: 'may (it) obtain', giungere: 'to reach/arrive',
 
+  // Colletta di san Girolamo (30 settembre)
+  girolamo: 'Jerome', presbitero: 'priest/presbyter', soave: 'sweet/gentle',
+  nutra: 'may (it) be nourished', largamente: 'abundantly/widely',
+  fonte: 'fount/source', regna: 'reigns', unità: 'unity',
+
   // --- elided / idiomatic forms (exact entries win over the generic
   //     elision fallback in lookupCommon) ---
   "c'è": 'there is', "c'era": 'there was', "c'erano": 'there were',
