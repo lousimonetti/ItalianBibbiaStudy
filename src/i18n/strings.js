@@ -10,9 +10,15 @@ export const UI_STRINGS = {
   'tab.journal': { it: 'Diario', en: 'Journal' },
   'tab.prayers': { it: 'Preghiere', en: 'Prayers' },
   'tab.saints': { it: 'Santi', en: 'Saints' },
+  'tab.game': { it: 'Gioco', en: 'Game' },
 
   // Saints tab
   'saints.ofTheDay': { it: 'Il santo del giorno', en: 'Saint of the day' },
+
+  // Game tab
+  'game.word': { it: 'Parola', en: 'Word' },
+  'game.quiz': { it: 'Sfida', en: 'Challenge' },
+  'game.today': { it: 'Gioco del giorno', en: "Today's game" },
 
   // Progress bar
   'progress.weeks': { it: 'settimane', en: 'weeks' },

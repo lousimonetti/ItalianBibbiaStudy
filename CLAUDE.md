@@ -251,6 +251,35 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   compatible but odd onboarding for a public launch. Not scheduled; revisit
   alongside the `plan-sync.md` online-sync decision.
 
+- **Daily games (Gioco tab): SHIPPED.** A sixth tab with two games over the
+  course's own content, both deterministic per calendar date, both offline, both
+  ticking the study streak's `practiced` flag. **Parola** is Wordle in Italian:
+  the answer is a single-word vocab headword (article stripped, 4–8 letters,
+  140 of the 259 cards qualify), and the round ends on a reveal card — term,
+  gloss, IPA, example sentence with TTS, week and reading — so the puzzle is a
+  vocabulary re-encounter rather than a diversion. The grid is played in bare
+  a–z (`fold()`), since accents and articles do not belong on letter tiles.
+  Guess validation uses a dictionary built from the course itself (vocab +
+  forms + examples + verses + drills + prayers + the ~2,800-entry `it2en` gloss
+  map, ~2,900 words at playable length); because that is *this course's* word
+  list and not all of Italian, an unknown guess is a **warning the player can
+  override with a second Enter**, never a wall. **Sfida** is a ten-question
+  mixed round drawing on five kinds of content at once — vocabulary both
+  directions, a grammar drill, two verses, a prayer line, a comprehension
+  check — scoped by default to the weeks the learner has reached
+  (`weekMax`, with a "tutto il corso" toggle). Two things the generator gets
+  right and would be easy to regress: a verse/prayer blank is cut with
+  `blankOut()` (word-boundary aware — plain `replace` turns "della gloria del
+  Padre" into "___la gloria del Padre"), and distractors are **case-levelled**
+  against the right answer, because a capitalized "Cristo" among three
+  lowercase options answers itself. The games deliberately do **not** grade into
+  the SRS: a one-in-four guess is not evidence of recall, and feeding it to the
+  scheduler would make real reviews lie. Pure modules `gameRandom` (seeded
+  per-date PRNG + a rotating pick that deals every item once per cycle),
+  `wordGame`, `quizGame`, `gameStore` (`storageKey('game')`, a day counted
+  once — replays can raise a day's best score but never the streak), each with a
+  sibling test, plus `WordGame.test.jsx` / `QuizGame.test.jsx`. The Today card
+  gained a fourth goal row linking into the tab.
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
@@ -293,7 +322,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 597 tests across 54 files, all green
+npm test             # vitest run — 690 tests across 60 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -313,7 +342,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 
 **Single-page PWA — no backend, no routing library.** All state is `localStorage`. The app is entirely static and must remain deployable to Azure Static Web Apps free tier.
 
-**Tab structure** (`App.jsx`): Five tabs — Tracker, Flashcards, Journal, Prayers, Saints — rendered conditionally by `activeTab` state. No React Router; tab switching unmounts the inactive tab components.
+**Tab structure** (`App.jsx`): Six tabs — Tracker, Flashcards, Game, Journal, Prayers, Saints — rendered conditionally by `activeTab` state. No React Router; tab switching unmounts the inactive tab components.
 
 **Data layer** (`courses/` + `course/`): each course's data lives in `courses/<id>/{config.js,content.js}` (`config` = id, brand, locale, schedule incl. `startDate`/`weeks`/`daily`, resources; `content` = `phases`). `courses/registry.js` statically bundles all courses and picks the **active** one from localStorage (`coursekit-active-course`); `course/config.js` and `course/content.js` are thin **resolvers** that re-export the active course's `config`/`phases` — so the ~12 files that `import { config } from '../../course/config'` transparently get the active course. Switching courses (`registry.setActiveCourse` / the `CoursePicker`) persists + reloads so every module re-resolves. `course/index.js` resolves config+content into `course` (+ derived `totals`). `course/validate.js` checks the invariants (`npm run validate-course`, also exercised by `validate.test.js`). `src/data/studyData.js` is now a **back-compat shim** re-exporting `PHASES` (from content), `DAILY` (from `config.schedule.daily`), and `COURSE` — so existing `import { PHASES } from '../data/studyData'` keeps working. Each phase has `id`, `title`, `book`, badge fields, and a `weeks` array; each week: `n` (1–N), `d` (date range), `r` (reading/material), `b` (topic), `vocab` (array of `[target, native, example, ipa?, extra?]` tuples), `exegesis` (optional `{title, body, forms?}`), `grammar` (`{title, body}`), `prompt` (`{it, en}`), `review` (boolean), `italki` (optional). The schedule (`schedule.js`) and the previously-hardcoded "259 cards"/"37 weeks" counts are now **derived** from the course, not literals.
 
@@ -328,7 +357,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `usePronunStats` — pronunciation attempts under key `italian-bible-pronun` (per-word `{ attempts, last, best, sum, avg, at }`); `record(term, score)`, `getStore()`. Recorded by Pronunciation mode; combined with the SRS store by `src/utils/wordStats.js` (`struggleList`) to drive the Practice "Parole difficili / words you struggle with" panel.
 - `useStreak` — daily streak + today's-goal flags under key `italian-bible-streak`; React glue over pure `src/utils/streak.js` (`{ last, current, best, today: { date, read, practiced, journaled } }`). The dashboard reads it on mount (`TodayCard` remounts on tab switch, picking up activity recorded elsewhere); `recordActivity(flag)` is called fire-and-forget from `PracticeMode` (`'practiced'`) and `JournalTab` (`'journaled'`), and `tickRead` marks the reading box.
 
-All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
+All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
@@ -570,13 +599,15 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **597 vitest tests across 54 files**, all passing.
+- **Tests:** `npm test` runs **690 vitest tests across 60 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
   `keyVerses`, `dictogloss`, `grammarDrill`, `comprehension`,
-  `clauseSkeleton`, `verbForms`, `targetDate`, plus `SpeakerButton`,
-  `PronunciationPractice`, `DevotionsTab`, `ReadingPassage`, `VerbFormDrill`, `NewSession`,
+  `clauseSkeleton`, `verbForms`, `targetDate`, `gameRandom`, `wordGame`,
+  `quizGame`, `gameStore`, plus `SpeakerButton`,
+  `PronunciationPractice`, `DevotionsTab`, `ReadingPassage`, `VerbFormDrill`,
+  `WordGame`, `QuizGame`, `NewSession`,
   `UiText`, `useProgress`, `useJournal`. New non-trivial logic
   should follow that pure-module-plus-test pattern.
 - **CI:** `.github/workflows/azure-static-web-apps-*.yml` runs `npm ci` →
