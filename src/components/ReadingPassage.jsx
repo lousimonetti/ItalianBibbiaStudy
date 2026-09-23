@@ -142,7 +142,7 @@ export function ReadingPassage({ week }) {
             className={`skeleton-toggle${skeleton ? ' active' : ''}`}
             onClick={toggleSkeleton}
             aria-pressed={skeleton}
-            title="Show the frame of each sentence: main verbs underlined, asides faded"
+            title="Show the frame of each sentence: conjugated verbs underlined, asides faded"
           >
             {skeleton ? '✓ Struttura' : 'Struttura'}
           </button>
@@ -158,11 +158,16 @@ export function ReadingPassage({ week }) {
           </p>
           <ul className="skeleton-keys">
             <li>
-              <span className="sk-sample"><b className="sk-key sk-finite-key">disse</b></span>
+              <span className="sk-sample">
+                <b className="sk-key sk-finite-key">disse</b>{' '}
+                <b className="sk-key sk-finite-key">fu</b>
+              </span>
               <span>
-                <strong>Main verb.</strong> A conjugated verb. Each one
-                is the heart of its own clause, so the number of main verbs is
-                the number of clauses.
+                <strong>Conjugated verb.</strong> A verb with a person and
+                a tense: <i>disse</i> = &ldquo;he said&rdquo;, <i>fu</i> =
+                &ldquo;he was&rdquo;. Every full clause has exactly one, whether
+                it is the main clause or one that starts with <i>che</i>,{' '}
+                <i>chi</i>, <i>perché</i>…
               </span>
             </li>
             <li>
@@ -172,9 +177,11 @@ export function ReadingPassage({ week }) {
               </span>
               <span>
                 <strong>Two-word verb.</strong> A helper verb
-                (<i>è</i>, <i>ha</i>, <i>fu</i>…) plus a participle is still one
-                verb: <i>è venuto</i> = &ldquo;has come&rdquo;. Only the helper
-                is counted.
+                (<i>è</i>, <i>ha</i>, <i>fu</i>…) plus a participle is one
+                verb: <i>è venuto</i> = &ldquo;has come&rdquo;,{' '}
+                <i>fu battezzato</i> = &ldquo;was baptized&rdquo;. The helper is
+                the conjugated part, so it gets the solid line and is the one
+                counted; the participle (dashed) carries the meaning.
               </span>
             </li>
             <li>
@@ -197,8 +204,10 @@ export function ReadingPassage({ week }) {
             <li>
               <span className="sk-sample"><span className="skeleton-count">2</span></span>
               <span>
-                <strong>Verb count.</strong> The number of main verbs in
-                the verse: how many clauses you are looking for.
+                <strong>Verb count.</strong> The number of conjugated verbs
+                in the verse, which is how many full clauses to look for.
+                Participle and <i>-ando</i>/<i>-endo</i> phrases are not
+                counted.
               </span>
             </li>
           </ul>
@@ -239,7 +248,7 @@ export function ReadingPassage({ week }) {
               {skeleton && !englishOnly && analyses[i].finiteCount > 0 && (
                 <span
                   className="skeleton-count"
-                  title={`${analyses[i].finiteCount} main verb${analyses[i].finiteCount === 1 ? '' : 's'}, so ${analyses[i].finiteCount} clause${analyses[i].finiteCount === 1 ? '' : 's'}`}
+                  title={`${analyses[i].finiteCount} conjugated verb${analyses[i].finiteCount === 1 ? '' : 's'}, so ${analyses[i].finiteCount} full clause${analyses[i].finiteCount === 1 ? '' : 's'}`}
                 >
                   {analyses[i].finiteCount}
                 </span>

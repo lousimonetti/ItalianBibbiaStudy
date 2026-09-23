@@ -82,7 +82,7 @@ describe('ReadingPassage', () => {
 
     it('shows the clause count for the line', () => {
       // "È lui la pietra che … è diventata …" — two finite verbs, two clauses.
-      expect(screen.getByTitle(/2 main verbs, so 2 clauses/)).toBeTruthy();
+      expect(screen.getByTitle(/2 conjugated verbs, so 2 full clauses/)).toBeTruthy();
     });
 
     it('shows the legend', () => {

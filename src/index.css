@@ -10,8 +10,10 @@ button, input[type='checkbox'] { touch-action: manipulation; }
   --border: #e5e3db;
   --border-subtle: #f0ede6;
   --text: #1a1a18;
-  --text-muted: #777;
-  --text-faint: #aaa;
+  --text-body: #444440; /* secondary prose, 9.6:1 */
+  --aside-band: #efece4;
+  --text-muted: #5f5e5a; /* 6.5:1 on --surface */
+  --text-faint: #75736d; /* 4.7:1 on --surface — was #aaa, 2.3:1 */
   --accent: #008C45;
   --accent-dim: #d4edda;
   --it-red: #CE2B37;
@@ -24,8 +26,10 @@ html.dark {
   --border: #3a3830;
   --border-subtle: #2e2c26;
   --text: #f0ede6;
-  --text-muted: #999;
-  --text-faint: #666;
+  --text-body: #d6d2c8; /* secondary prose, 11:1 */
+  --aside-band: #36342d;
+  --text-muted: #aba8a0; /* 6.5:1 on --surface */
+  --text-faint: #8f8c84; /* 4.6:1 on --surface — was #666, 2.7:1 */
   --accent: #1db96a;
   --accent-dim: #0d2e1a;
   --it-red: #e04050;
@@ -84,7 +88,10 @@ html.dark .tab-btn:hover,
 html.dark .fc-mode-btn:hover { background: rgba(255,255,255,0.07); }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   background: var(--bg);
   color: var(--text);
   padding: 24px 16px;
@@ -992,7 +999,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 .vocab-table tr:last-child { border-bottom: none; }
 .vocab-table td { padding: 5px 6px 5px 0; vertical-align: top; }
 .vocab-it { font-weight: 500; width: 40%; }
-.vocab-en { color: #666; width: 30%; }
+.vocab-en { color: var(--text-muted); width: 30%; }
 .vocab-ex { color: #999; font-size: 12px; font-style: italic; width: 30%; }
 
 /* Inline audio in the Tracker vocab table — compact speaker buttons */
@@ -1063,7 +1070,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
   border-radius: 8px;
   padding: 10px 12px;
   font-size: 13px;
-  color: #444;
+  color: var(--text-body);
   line-height: 1.6;
 }
 .grammar-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
@@ -1083,10 +1090,10 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 .daily-row { display: flex; gap: 8px; padding: 4px 0; border-bottom: 1px solid #ede9e1; }
 .daily-row:last-child { border-bottom: none; }
 .daily-day { color: #888; width: 28px; flex-shrink: 0; font-weight: 500; }
-.daily-task { color: #444; line-height: 1.4; }
+.daily-task { color: var(--text-body); line-height: 1.4; }
 
 .italki-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
-.italki-q { font-size: 13px; color: #444; padding: 4px 0; line-height: 1.5; }
+.italki-q { font-size: 13px; color: var(--text-body); padding: 4px 0; line-height: 1.5; }
 .italki-q::before { content: '· '; color: #aaa; }
 
 @media (max-width: 640px) { .detail-grid { grid-template-columns: 1fr; } }
@@ -1249,7 +1256,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 /* Prose */
 .guide-prose {
   font-size: 13px;
-  color: #444;
+  color: var(--text-body);
   line-height: 1.6;
 }
 
@@ -1258,7 +1265,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
   display: flex;
   gap: 10px;
   font-size: 13px;
-  color: #444;
+  color: var(--text-body);
   line-height: 1.5;
 }
 .guide-step-n {
@@ -1279,7 +1286,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 /* Tips */
 .guide-tip {
   font-size: 12px;
-  color: #555;
+  color: var(--text-body);
   background: #faf9f7;
   border-left: 3px solid var(--accent);
   border-radius: 0 6px 6px 0;
@@ -1310,7 +1317,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 .guide-tool-body {
   padding: 10px 12px;
   font-size: 13px;
-  color: #444;
+  color: var(--text-body);
   line-height: 1.6;
   display: flex;
   flex-direction: column;
@@ -1332,7 +1339,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
   border-radius: 8px;
   padding: 10px 12px;
   font-size: 13px;
-  color: #444;
+  color: var(--text-body);
   line-height: 1.6;
 }
 .guide-method-label {
@@ -1630,7 +1637,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
   flex-direction: column;
   gap: 4px;
   font-size: 12px;
-  color: #555;
+  color: var(--text-body);
   line-height: 1.5;
 }
 
@@ -1857,7 +1864,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
   padding: 1px 5px;
   align-self: flex-start;
 }
-.grammar-message { color: #444; line-height: 1.45; }
+.grammar-message { color: var(--text-body); line-height: 1.45; }
 
 .grammar-replacements { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 2px; }
 .grammar-replacement-btn {
@@ -1920,7 +1927,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 
 .welcome-intro {
   font-size: 13px;
-  color: #444;
+  color: var(--text-body);
   line-height: 1.6;
 }
 
@@ -1948,7 +1955,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
   flex-direction: column;
   gap: 5px;
   font-size: 12px;
-  color: #555;
+  color: var(--text-body);
   line-height: 1.55;
 }
 
@@ -1997,7 +2004,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
   margin-bottom: 20px;
 }
 .prac-intro-title { font-size: 14px; font-weight: 500; margin-bottom: 5px; }
-.prac-intro-body { font-size: 13px; color: #555; line-height: 1.6; }
+.prac-intro-body { font-size: 13px; color: var(--text-body); line-height: 1.6; }
 
 .prac-filter-label {
   font-size: 11px;
@@ -2368,7 +2375,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 .prac-example {
   font-size: 13px;
   font-style: italic;
-  color: #666;
+  color: var(--text-muted);
   text-align: center;
   line-height: 1.5;
 }
@@ -2470,7 +2477,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 /* ── IPA Guide ──────────────────────────────────────────────────────────────── */
 .ipa-guide-intro {
   font-size: 13px;
-  color: #555;
+  color: var(--text-body);
   line-height: 1.6;
   margin-bottom: 14px;
 }
@@ -2502,7 +2509,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
   text-align: center;
 }
 .ipa-card-name { font-size: 12px; font-weight: 500; color: var(--text); }
-.ipa-card-sounds { font-size: 12px; color: #555; line-height: 1.4; }
+.ipa-card-sounds { font-size: 12px; color: var(--text-body); line-height: 1.4; }
 .ipa-card-example { font-size: 11px; }
 .ipa-card-ex-sym { font-family: 'Courier New', monospace; color: var(--accent); }
 .ipa-card-ex-hint { color: var(--text-faint); }
@@ -2539,7 +2546,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
   text-align: center;
 }
 .ipa-sym-name { color: var(--text); font-weight: 500; }
-.ipa-sym-sounds { color: #666; }
+.ipa-sym-sounds { color: var(--text-muted); }
 
 /* Practice panel toggle */
 .prac-ipa-panel {
@@ -2920,7 +2927,7 @@ html.dark .prayer-text-en { color: var(--text-muted); }
 
 /* ── Reading passage (O2) ──────────────────────────────────────────────── */
 .reading-section { margin-bottom: 14px; }
-.reading-source { font-size: 11px; color: var(--text-faint); }
+.reading-source { font-size: 12px; color: var(--text-faint); }
 .reading-box {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -2931,29 +2938,31 @@ html.dark .prayer-text-en { color: var(--text-muted); }
   display: flex;
   align-items: baseline;
   gap: 6px;
-  padding: 4px 0;
-  font-size: 14px;
-  line-height: 1.7;
+  padding: 6px 0;
+  font-size: 16px;
+  line-height: 1.75;
   border-bottom: 1px solid var(--border-subtle);
 }
 .reading-line:last-child { border-bottom: none; }
 .reading-vnum {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-faint);
   min-width: 16px;
   flex-shrink: 0;
   font-variant-numeric: tabular-nums;
   align-self: flex-start;
-  padding-top: 3px;
+  padding-top: 4px;
 }
-.reading-text { flex: 1; color: var(--text); }
+/* Capped at a comfortable measure: past ~70 characters the eye loses its
+   place jumping back to the start of the next line. */
+.reading-text { flex: 1; max-width: 70ch; color: var(--text); font-kerning: normal; }
 /* The English of the whole line, under the Italian — meaning first, then the
    words (a tap still glosses one word at a time). */
 .reading-en {
   display: block;
-  margin-top: 2px;
-  font-size: 12.5px;
-  line-height: 1.5;
+  margin-top: 3px;
+  font-size: 14px;
+  line-height: 1.55;
   color: var(--text-muted);
 }
 .reading-tools { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -2963,8 +2972,8 @@ html.dark .prayer-text-en { color: var(--text-muted); }
 .reading-en-btn {
   flex-shrink: 0;
   align-self: flex-start;
-  margin-top: 2px;
-  font-size: 9.5px;
+  margin-top: 4px;
+  font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.04em;
   line-height: 1;
@@ -3042,7 +3051,7 @@ html.dark .prayer-text-en { color: var(--text-muted); }
    Words stay tappable underneath, so the gloss affordances still apply. */
 .skeleton-toggle {
   margin: 8px 0 0;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   padding: 4px 10px;
   border-radius: 6px;
@@ -3064,9 +3073,9 @@ html.dark .prayer-text-en { color: var(--text-muted); }
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--surface);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 .skeleton-intro { margin: 0 0 8px; color: var(--text); }
 .skeleton-keys {
@@ -3079,15 +3088,20 @@ html.dark .prayer-text-en { color: var(--text-muted); }
   align-items: baseline;
 }
 .skeleton-keys li { display: contents; }
-.skeleton-keys .sk-sample { white-space: nowrap; font-size: 13px; }
+.skeleton-keys .sk-sample { white-space: nowrap; font-size: 14px; }
 .skeleton-keys strong { color: var(--text); font-weight: 600; }
-.skeleton-note { margin: 8px 0 0; font-size: 11px; color: var(--text-faint); }
+.skeleton-note { margin: 8px 0 0; font-size: 12px; color: var(--text-faint); }
 .sk-key { font-weight: 600; }
-.sk-finite-key { color: var(--accent); border-bottom: 2px solid var(--accent); }
-.sk-compound-key { color: var(--accent); border-bottom: 2px dashed var(--accent); }
-.sk-participle-key { color: #b8860b; border-bottom: 1px dotted #b8860b; font-style: italic; }
-html.dark .sk-participle-key { color: #d6a419; border-bottom-color: #d6a419; }
-.sk-dim-key { opacity: 0.4; font-weight: 400; }
+.sk-finite-key { color: var(--accent); text-decoration: underline solid var(--accent) 2px; text-underline-offset: 4px; }
+.sk-compound-key { color: var(--accent); text-decoration: underline dashed var(--accent) 2px; text-underline-offset: 4px; }
+.sk-participle-key { color: #8a6508; text-decoration: underline dotted #8a6508 2px; text-underline-offset: 4px; font-style: italic; }
+html.dark .sk-participle-key { color: #d6a419; text-decoration-color: #d6a419; }
+.sk-dim-key {
+  font-weight: 400;
+  background: var(--aside-band);
+  color: var(--text-muted);
+  padding: 2px 3px;
+}
 .skeleton-keys .skeleton-count { display: inline-block; }
 
 /* Roles. A tappable word is a .gloss-word button inside a .gloss-word-wrap
@@ -3099,34 +3113,46 @@ html.dark .sk-participle-key { color: #d6a419; border-bottom-color: #d6a419; }
 .wordgloss-skeleton .sk-finite:not(.gloss-word-wrap) {
   color: var(--accent);
   font-weight: 600;
-  border-bottom: 2px solid var(--accent);
+  border-bottom-color: transparent;
+  text-decoration: underline solid var(--accent) 2px;
+  text-underline-offset: 4px;
 }
 .wordgloss-skeleton .sk-compound > .gloss-word,
 .wordgloss-skeleton .sk-compound:not(.gloss-word-wrap) {
   color: var(--accent);
   font-weight: 600;
-  border-bottom: 2px dashed var(--accent);
+  border-bottom-color: transparent;
+  text-decoration: underline dashed var(--accent) 2px;
+  text-underline-offset: 4px;
 }
 .wordgloss-skeleton .sk-participle > .gloss-word,
 .wordgloss-skeleton .sk-participle:not(.gloss-word-wrap) {
-  color: #b8860b;
+  color: #8a6508;
   font-style: italic;
-  border-bottom: 1px dotted #b8860b;
+  border-bottom-color: transparent;
+  text-decoration: underline dotted #8a6508 2px;
+  text-underline-offset: 4px;
 }
 html.dark .wordgloss-skeleton .sk-participle > .gloss-word,
-html.dark .wordgloss-skeleton .sk-participle:not(.gloss-word-wrap) { color: #d6a419; border-bottom-color: #d6a419; }
+html.dark .wordgloss-skeleton .sk-participle:not(.gloss-word-wrap) { color: #d6a419; text-decoration-color: #d6a419; }
 /* A plain word keeps no gloss underline while the skeleton is showing, so the
    only lines on screen are the ones the legend explains. */
 .wordgloss-skeleton .gloss-word-wrap:not(.sk-finite):not(.sk-compound):not(.sk-participle) > .gloss-word {
   border-bottom-color: transparent;
 }
 
-/* Asides fade but stay legible and tappable — the point is to read past them
-   on the first pass, not to hide them. */
-.wordgloss-skeleton .sk-dim,
-.wordgloss-skeleton .sk-dim > .gloss-word { opacity: 0.4; }
-.wordgloss-skeleton .sk-dim:hover,
-.wordgloss-skeleton .sk-dim:hover > .gloss-word { opacity: 1; }
+/* Asides sit on a soft tinted band in muted text: set apart at a glance,
+   but still fully readable (5.5:1) and tappable. Opacity was the first
+   version, and at 40% it took the words down to ~2:1 — too faint to read,
+   which defeats "read it without the aside, then put it back". */
+.wordgloss-skeleton .sk-dim {
+  background: var(--aside-band);
+  color: var(--text-muted);
+  padding: 2px 0;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.wordgloss-skeleton .sk-dim:not(.sk-participle) > .gloss-word:not(:hover) { color: var(--text-muted); }
 
 .skeleton-count {
   flex-shrink: 0;
@@ -3137,7 +3163,7 @@ html.dark .wordgloss-skeleton .sk-participle:not(.gloss-word-wrap) { color: #d6a
   border-radius: 4px;
   background: var(--accent-dim);
   color: var(--accent);
-  font-size: 9.5px;
+  font-size: 11px;
   font-weight: 700;
   line-height: 16px;
   text-align: center;
