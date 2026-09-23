@@ -3,6 +3,8 @@ import { PHASES } from '../data/studyData';
 import { tokenize, lookupWord } from './vocabIndex';
 import { lookupCommon } from './it2en';
 import { devotionSections } from '../../course/devotions';
+import { rosary } from '../../course/rosary';
+import { announcement } from './rosary';
 
 // Guards tap-to-translate coverage: every word a learner can tap in the
 // course's connected text (writing prompts, vocab example sentences, reading
@@ -48,6 +50,14 @@ describe('gloss coverage of course text', () => {
     const missing = prayers.flatMap((p) =>
       [p.it, ...(p.lines || []).map((l) => l.it)]
         .flatMap((t) => unglossed(t).map((word) => `${p.id}: ${word}`)));
+    expect(missing).toEqual([]);
+  });
+
+  // The Rosario tab announces each mystery through WordGloss.
+  it('covers every word in the Rosary announcements', () => {
+    const missing = (rosary?.sets ?? []).flatMap((set) =>
+      [...set.mysteries.map((_, i) => announcement(set, i)), ...rosary.virtues.map((v) => `Per la ${v.it}`)]
+        .flatMap((t) => unglossed(t).map((word) => `${set.id}: ${word}`)));
     expect(missing).toEqual([]);
   });
 });

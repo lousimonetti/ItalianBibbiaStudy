@@ -25,6 +25,28 @@ struct DevotionsView: View {
         #endif
         NavigationStack {
             List {
+                // The guided Rosary lives here rather than in its own tab: a
+                // sixth tab on iPhone would push one into the "More" overflow.
+                // (On the web it is a tab of its own.)
+                if model.course.rosary != nil {
+                    Section {
+                        NavigationLink {
+                            RosaryView()
+                        } label: {
+                            Label {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Il Santo Rosario").font(.headline)
+                                    Text("Pray it bead by bead, in Italian")
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                            } icon: {
+                                Image(systemName: "circle.dotted.circle")
+                                    .foregroundStyle(Color.accentColor)
+                            }
+                        }
+                    }
+                }
                 ForEach(model.course.devotionSections) { section in
                     Section {
                         ForEach(section.prayers) { prayer in

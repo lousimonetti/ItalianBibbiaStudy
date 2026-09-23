@@ -1247,6 +1247,18 @@ const MAP = new Map(Object.entries({
   nutra: 'may (it) be nourished', largamente: 'abundantly/widely',
   fonte: 'fount/source', regna: 'reigns', unità: 'unity',
 
+  // --- the Rosary: mystery announcements (Rosario tab) ---
+  contempla: 'contemplates (si contempla: we contemplate)',
+  gaudioso: 'joyful', luminoso: 'luminous', doloroso: 'sorrowful',
+  visita: 'visit', presentazione: 'presentation', ritrovamento: 'finding',
+  nozze: 'wedding', cana: 'Cana', invito: 'invitation',
+  istituzione: 'institution', eucaristia: 'Eucharist',
+  agonia: 'agony', orto: 'garden', ulivi: 'olive trees',
+  flagellazione: 'scourging', coronazione: 'crowning', spine: 'thorns',
+  salita: 'ascent, climb', calvario: 'Calvary',
+  discesa: 'descent', cenacolo: 'upper room', assunzione: 'assumption',
+  incoronazione: 'coronation', elisabetta: 'Elizabeth',
+
   // --- elided / idiomatic forms (exact entries win over the generic
   //     elision fallback in lookupCommon) ---
   "c'è": 'there is', "c'era": 'there was', "c'erano": 'there were',

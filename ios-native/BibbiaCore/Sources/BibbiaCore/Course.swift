@@ -15,6 +15,9 @@ public struct Course: Codable {
     /// Prayers tab. Optional (not just empty) so a course.json predating the
     /// field still decodes — use `devotionSections` to read it.
     public let devotions: [DevotionSection]?
+    /// Optional guided-Rosary structure (mysteries + the devotion ids it
+    /// prays). Absent in a course.json predating it, or a course without one.
+    public let rosary: RosaryData?
     public let phases: [Phase]
 
     /// Devotions, never nil. The Prayers tab hides itself when this is empty.

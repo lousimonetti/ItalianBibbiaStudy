@@ -235,4 +235,25 @@ write('clauseSkeleton.json', [...skeletonTexts].map((text) => {
   };
 }));
 
+// ── Rosary: the full step list for every mystery set, plus the weekday map ──
+// buildSteps is pure structure, so recording it for all four sets pins the
+// Swift port to the same 79 steps in the same order with the same metadata.
+const { rosary } = await import(join(repoRoot, 'courses/it-bible-cei/rosary.js'));
+const { buildSteps, setForDay } = await import(join(repoRoot, 'src/utils/rosary.js'));
+write('rosary.json', {
+  weekdays: [0, 1, 2, 3, 4, 5, 6].map((d) => setForDay(d, rosary.sets).id),
+  sets: rosary.sets.map((set) => ({
+    id: set.id,
+    steps: buildSteps(rosary, set).map((s) => ({
+      kind: s.kind,
+      prayerId: s.prayerId ?? null,
+      section: String(s.section),
+      bead: s.bead,
+      count: s.count ? `${s.count.n}/${s.count.of}` : null,
+      virtue: s.virtue?.it ?? null,
+      text: s.text ?? null,
+    })),
+  })),
+});
+
 console.log('done');

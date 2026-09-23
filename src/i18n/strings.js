@@ -9,6 +9,7 @@ export const UI_STRINGS = {
   'tab.flashcards': { it: 'Schede', en: 'Flashcards' },
   'tab.journal': { it: 'Diario', en: 'Journal' },
   'tab.prayers': { it: 'Preghiere', en: 'Prayers' },
+  'tab.rosary': { it: 'Rosario', en: 'Rosary' },
   'tab.saints': { it: 'Santi', en: 'Saints' },
   'tab.game': { it: 'Gioco', en: 'Game' },
 
