@@ -158,10 +158,7 @@ export function ReadingPassage({ week }) {
           </p>
           <ul className="skeleton-keys">
             <li>
-              <span className="sk-sample">
-                <b className="sk-key sk-finite-key">disse</b>{' '}
-                <b className="sk-key sk-finite-key">fu</b>
-              </span>
+              <span className="sk-sample"><b className="sk-key sk-finite-key">disse</b></span>
               <span>
                 <strong>Conjugated verb.</strong> A verb with a person and
                 a tense: <i>disse</i> = &ldquo;he said&rdquo;, <i>fu</i> =

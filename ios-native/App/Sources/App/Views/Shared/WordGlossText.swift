@@ -10,6 +10,9 @@ import BibbiaCore
 
 struct WordGlossText: View {
     let text: String
+    /// Optional Struttura markup (`analyzeClauses(text).tokens`). Indices line
+    /// up with `tokenize(text)` because the analyzer tokenizes the same way.
+    var roles: [SkeletonToken]? = nil
 
     @EnvironmentObject private var model: AppModel
     @State private var selected: SelectedWord?
@@ -20,15 +23,19 @@ struct WordGlossText: View {
     }
 
     var body: some View {
+        let tokens = tokenize(text)
+        let marks = roles?.count == tokens.count ? roles : nil
         FlowLayout(spacing: 0) {
-            ForEach(Array(tokenize(text).enumerated()), id: \.offset) { _, token in
+            ForEach(Array(tokens.enumerated()), id: \.offset) { i, token in
+                let mark = marks?[i]
                 if token.isWord {
-                    Text(token.text)
-                        .foregroundStyle(model.vocabIndex.lookup(token.text) != nil
-                                         ? Color.accentColor : Color.primary)
+                    SkeletonStyle.text(token.text, mark: mark,
+                                       vocab: model.vocabIndex.lookup(token.text) != nil)
+                        .skeletonBand(mark?.dim == true)
                         .onTapGesture { selected = SelectedWord(word: token.text) }
                 } else {
                     Text(token.text)
+                        .skeletonBand(mark?.dim == true)
                 }
             }
         }

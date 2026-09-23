@@ -1,0 +1,3257 @@
+[
+ {
+  "text": "Tommaso, uno dei Dodici, chiamato Dìdimo, non era con loro.",
+  "roles": "........p.....f.....",
+  "dims": "00111110111000000000",
+  "finiteCount": 1,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Pochi giorni dopo, il figlio più giovane, raccolte tutte le sue cose, partì per un paese lontano.",
+  "roles": "..............p.........f.........",
+  "dims": "0000000000000011111111100000000000",
+  "finiteCount": 1,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Li condusse a casa sua, apparecchiò la mensa.",
+  "roles": "..f.......f.....",
+  "dims": "0000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ma, entrate, non trovarono il corpo",
+  "roles": "..p...f....",
+  "dims": "00100000000",
+  "finiteCount": 1,
+  "hasParenthetical": true
+ },
+ {
+  "text": "a portare ai poveri il lieto annuncio",
+  "roles": ".............",
+  "dims": "0000000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "senza averne sentito parlare?",
+  "roles": "....c...",
+  "dims": "00000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "In principio era il Verbo, il Verbo era presso Dio e il Verbo era Dio.",
+  "roles": "....f.........f...........f...",
+  "dims": "000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Egli era in principio presso Dio:",
+  "roles": "..f.........",
+  "dims": "000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "tutto è stato fatto per mezzo di lui, e senza di lui niente è stato fatto di tutto ciò che esiste.",
+  "roles": "..f.c.c...................f.c.c.........f.",
+  "dims": "000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "In lui era la vita e la vita era la luce degli uomini;",
+  "roles": "....f...........f.........",
+  "dims": "00000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la luce splende nelle tenebre, e le tenebre non l'hanno vinta.",
+  "roles": "....f.............f.c.",
+  "dims": "0000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il Verbo si fece carne e venne ad abitare in mezzo a noi; e noi abbiamo contemplato la sua gloria, gloria come del Figlio unigenito che viene dal Padre, pieno di grazia e di verità.",
+  "roles": "......f.....f.................f.c...................f.................",
+  "dims": "0000000000000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "In principio era il Verbo",
+  "roles": "....f....",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "La luce splende",
+  "roles": "....f",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "le tenebre non la vinsero",
+  "roles": "........f",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "in lui era la vita",
+  "roles": "....f....",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ha creduto in lui",
+  "roles": "f.c....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "primo dei suoi miracoli",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il mondo è stato fatto per mezzo di lui",
+  "roles": "....f.c.c........",
+  "dims": "00000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "C'era tra i farisei un uomo di nome Nicodemo, un capo dei Giudei.",
+  "roles": "f.........................",
+  "dims": "00000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Egli andò da Gesù di notte e gli disse: «Rabbi, sappiamo che sei un maestro venuto da Dio; nessuno infatti può fare i segni che tu fai, se Dio non è con lui».",
+  "roles": "..f.............f...f...f.....p.........f...........f.......f.....",
+  "dims": "000000000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 7,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gli rispose Gesù: «In verità, in verità ti dico, se uno non nasce dall'alto, non può vedere il regno di Dio».",
+  "roles": "..f.............f.......f.....f...........",
+  "dims": "000000000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Rispose Gesù: «In verità, in verità ti dico, se uno non nasce da acqua e da Spirito, non può entrare nel regno di Dio.",
+  "roles": "f.............f.......f.............f...........",
+  "dims": "000000000000000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il vento soffia dove vuole e ne odi la voce, ma non sai da dove viene né dove va: così è chiunque è nato dallo Spirito».",
+  "roles": "........f...............f.....f.....f...f...f.c.....",
+  "dims": "0000000000000000000000000000000000000000000000000000",
+  "finiteCount": 6,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Dio infatti ha tanto amato il mondo da dare il Figlio unigenito, perché chiunque crede in lui non vada perduto, ma abbia la vita eterna.",
+  "roles": "....f...c...................f.......f.c...f.......",
+  "dims": "00000000000000000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "bisogna nascere di nuovo",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "lo Spirito soffia dove vuole",
+  "roles": "........f",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "sedeva presso il pozzo",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "i veri adoratori",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il Salvatore del mondo",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "chi crede in lui",
+  "roles": "..f....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "se conoscessi il dono di Dio",
+  "roles": "...........",
+  "dims": "00000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gesù disse loro: «Io sono il pane della vita; chi viene a me non avrà più fame e chi crede in me non avrà più sete.",
+  "roles": "..f.....f...........f.......f.........f.......f.....",
+  "dims": "0000000000000000000000000000000000000000000000000000",
+  "finiteCount": 6,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Io sono il pane della vita.",
+  "roles": "..f.........",
+  "dims": "000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "I vostri padri hanno mangiato la manna nel deserto e sono morti;",
+  "roles": "......f.c...........f.c.",
+  "dims": "000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "questo è il pane che discende dal cielo, perché chi ne mangia non muoia.",
+  "roles": "..f.......f.................",
+  "dims": "0000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Io sono il pane vivo, disceso dal cielo. Se uno mangia di questo pane vivrà in eterno e il pane che io darò è la mia carne per la vita del mondo».",
+  "roles": "..f.......p.................f...............f.f.................",
+  "dims": "0000000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "lo ha guarito",
+  "roles": "..f.c",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "sono io il pane della vita",
+  "roles": "f..........",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la folla grande lo seguiva",
+  "roles": "........f",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "mangiarono e si saziarono",
+  "roles": "f.....f",
+  "dims": "0000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ha la vita eterna",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "i nostri padri mangiarono la manna",
+  "roles": "......f....",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "quale segno fai tu?",
+  "roles": "....f...",
+  "dims": "00000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gesù parlò loro di nuovo: «Io sono la luce del mondo; chi segue me non camminerà nelle tenebre, ma avrà la luce della vita».",
+  "roles": "..f.........f...........f.....f.......f.........",
+  "dims": "000000000000000000000000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gesù allora disse ai Giudei che credevano in lui: «Se rimanete nella mia parola, siete davvero miei discepoli;",
+  "roles": "....f.......f.......f.......f.......",
+  "dims": "000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "conoscerete la verità e la verità vi farà liberi».",
+  "roles": "f.............f...",
+  "dims": "000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Se dunque il Figlio vi farà liberi, sarete liberi davvero.",
+  "roles": "..........f...f.....",
+  "dims": "00000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "insegnava nel tempio",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la verità vi farà liberi",
+  "roles": "......f..",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "vi farà liberi",
+  "roles": "..f..",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "non giudicate secondo l'apparenza",
+  "roles": "..f....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "chi di voi è senza peccato",
+  "roles": "......f....",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "scriveva per terra",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "sono la luce del mondo",
+  "roles": "f........",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gesù le disse: «Io sono la risurrezione e la vita; chi crede in me, anche se muore, vivrà;",
+  "roles": "....f...f.............f.........f.f.",
+  "dims": "000000000000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": false
+ },
+ {
+  "text": "chiunque vive e crede in me, non morirà in eterno. Credi questo?»",
+  "roles": "..f...f.......f.........",
+  "dims": "000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gesù scoppiò in pianto.",
+  "roles": "..f.....",
+  "dims": "00000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Detto questo, gridò a gran voce: «Lazzaro, vieni fuori!».",
+  "roles": "....f.........f...",
+  "dims": "000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il morto uscì, i piedi e le mani legati con bende, e il viso avvolto da un sudario. Gesù disse loro: «Liberatelo e lasciatelo andare».",
+  "roles": "....f...........p...........p.........f...f...f...",
+  "dims": "00000011111111111111100000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": true
+ },
+ {
+  "text": "un uomo cieco dalla nascita",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ora vedo",
+  "roles": "..f",
+  "dims": "000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "io sono il buon pastore",
+  "roles": "..f......",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "conosce le mie pecore",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "dov'è il sepolcro?",
+  "roles": "f.....",
+  "dims": "000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "io sono la risurrezione",
+  "roles": "..f....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gesù scoppiò in pianto",
+  "roles": "..f....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "«Non sia turbato il vostro cuore. Abbiate fede in Dio e abbiate fede anche in me.",
+  "roles": "...f.c.......f.........f.........",
+  "dims": "000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Nella casa del Padre mio vi sono molte dimore. Se no, vi avrei mai detto: \"Vado a prepararvi un posto\"?",
+  "roles": "............f...........f...c.f.........",
+  "dims": "0000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Quando sarò andato e vi avrò preparato un posto, ritornerò e vi prenderò con me, perché siate anche voi dove sono io.",
+  "roles": "..f.c.....f.c.....f.....f.......f.......f...",
+  "dims": "00000000000000000000000000000000000000000000",
+  "finiteCount": 6,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gli disse Gesù: «Io sono la via, la verità e la vita. Nessuno viene al Padre se non per mezzo di me.",
+  "roles": "..f.....f.................f.................",
+  "dims": "00000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "l'unzione a Betania",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "seduto su un asino",
+  "roles": "p......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "lavò i piedi ai discepoli",
+  "roles": "f........",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "annunciò il suo traditore",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "nella casa del Padre",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "vi manderà il Paraclito",
+  "roles": "..f....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "io sono la via",
+  "roles": "..f....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "«Io sono la vite vera e il Padre mio è l'agricoltore.",
+  "roles": "...f...c...........f...",
+  "dims": "00000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Rimanete in me e io in voi. Come il tralcio non può portare frutto da se stesso se non rimane nella vite, così neanche voi se non rimanete in me.",
+  "roles": "f.....................f...............f...............f.....",
+  "dims": "000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Io sono la vite, voi i tralci. Chi rimane in me e io in lui, porta molto frutto, perché senza di me non potete far nulla.",
+  "roles": "..f...c.........f.............f...............f.....",
+  "dims": "0000000000000000000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Questo è il mio comandamento: che vi amiate gli uni gli altri come io ho amato voi.",
+  "roles": "..f...........f.............f.c...",
+  "dims": "0000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Nessuno ha un amore più grande di questo: dare la sua vita per i propri amici.",
+  "roles": "..f.............................",
+  "dims": "00000000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "io sono la vite vera",
+  "roles": "..f...c..",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ogni tralcio in me",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "portiate molto frutto",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "questo è il mio comandamento",
+  "roles": "..f......",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "rimanete nel mio amore",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il mondo vi odierà",
+  "roles": "......f",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "pregò per i suoi discepoli",
+  "roles": "f........",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "La sera di quel giorno, il primo della settimana, mentre erano chiuse le porte del luogo dove si trovavano i discepoli per timore dei Giudei, venne Gesù, stette in mezzo e disse loro: «Pace a voi!».",
+  "roles": "....................f.c.............f.............f...f.......f.........",
+  "dims": "000000000011111110000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Detto questo, mostrò loro le mani e il fianco. E i discepoli gioirono al vedere il Signore.",
+  "roles": "....f...................f.........",
+  "dims": "0000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gesù disse loro di nuovo: «Pace a voi! Come il Padre ha mandato me, anche io mando voi».",
+  "roles": "..f...................f.c.......f...",
+  "dims": "000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Tommaso, uno dei Dodici, chiamato Dìdimo, non era con loro quando venne Gesù.",
+  "roles": "........p.....f.......f...",
+  "dims": "00111110111000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Gli dicevano gli altri discepoli: «Abbiamo visto il Signore!». Ma egli disse loro: «Se non vedo nelle sue mani il segno dei chiodi e non metto il mio dito nel segno dei chiodi e non metto la mia mano nel suo fianco, io non credo».",
+  "roles": "..f.......f.c.........f.......f...................f...................f.................f.",
+  "dims": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 7,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Rispose Tommaso: «Mio Signore e mio Dio!».",
+  "roles": "f.............",
+  "dims": "00000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "l'arresto nel Getsemani",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il rinnegamento di Pietro",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "portò la sua croce",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il sepolcro era vuoto",
+  "roles": "....f..",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "sono risorto",
+  "roles": "f.c",
+  "dims": "000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "come il Padre ha mandato me",
+  "roles": "......f.c..",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la pace sia con voi",
+  "roles": "....f....",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "C'erano in quella regione alcuni pastori che, pernottando all'aperto, vegliavano tutta la notte sul loro gregge.",
+  "roles": "f.................f.............",
+  "dims": "00000000000000111000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Un angelo del Signore si presentò a loro e la gloria del Signore li avvolse di luce. Essi furono presi da grande timore,",
+  "roles": "..........f.................f.......f.c.......",
+  "dims": "0000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ma l'angelo disse loro: «Non temete: ecco, vi annuncio una grande gioia, che sarà di tutto il popolo:",
+  "roles": "....f.....f.....f.........f.........",
+  "dims": "000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "oggi, nella città di Davide, è nato per voi un Salvatore, che è Cristo Signore.",
+  "roles": "..........f.c...........f.....",
+  "dims": "001111111000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Questo per voi il segno: troverete un bambino avvolto in fasce, adagiato in una mangiatoia».",
+  "roles": "..........f.....p.....p.......",
+  "dims": "000000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "«Gloria a Dio nel più alto dei cieli e sulla terra pace agli uomini, che egli ama».",
+  "roles": ".................................f.",
+  "dims": "00000000000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "l'annunciazione a Maria",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "l'angelo Gabriele",
+  "roles": "...",
+  "dims": "000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "benedetta tu fra le donne",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la nascita di Gesù",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "lo depose nella mangiatoia",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "i pastori andarono a Betlemme",
+  "roles": "....f....",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "l'anima mia magnifica il Signore",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gesù, pieno di Spirito Santo, si allontanò dal Giordano e fu condotto dallo Spirito nel deserto",
+  "roles": "............f.......f.c........",
+  "dims": "0011111110000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": true
+ },
+ {
+  "text": "per quaranta giorni, tentato dal diavolo. Non mangiò nulla in quei giorni, poi quando furono terminati, ebbe fame.",
+  "roles": "......p.......f.............f.c.f...",
+  "dims": "000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il diavolo gli disse: «Se tu sei Figlio di Dio, di' a questa pietra che diventi pane».",
+  "roles": "......f.....f.....................",
+  "dims": "0000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gesù gli rispose: «Sta scritto: \"Non di solo pane vivrà l'uomo\"».",
+  "roles": "....f.f.c.........f...",
+  "dims": "0000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "«Lo Spirito del Signore è sopra di me; per questo mi ha consacrato con l'unzione e mi ha mandato a portare ai poveri il lieto annuncio, a proclamare ai prigionieri la liberazione e ai ciechi la vista, a rimettere in libertà gli oppressi,",
+  "roles": ".........f.............f.c.........f.c.................................................",
+  "dims": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "a proclamare l'anno di grazia del Signore».",
+  "roles": "..............",
+  "dims": "00000000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il battesimo di Gesù",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "quaranta giorni nel deserto",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "le tentazioni del diavolo",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "gettate le reti",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "un uomo pieno di lebbra",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ti sono perdonati i peccati",
+  "roles": "..f.c....",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "alzati e cammina",
+  "roles": "f...f",
+  "dims": "00000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Alzando gli occhi verso i suoi discepoli, Gesù diceva: «Beati voi, poveri, perché vostro è il regno di Dio.",
+  "roles": "................f...........f.........",
+  "dims": "00000000000000000000001000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Beati voi, che ora avete fame, perché sarete saziati. Beati voi, che ora piangete, perché riderete.",
+  "roles": "........f.....f.c.........f...f.",
+  "dims": "00000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Beati voi, quando gli uomini vi odieranno e quando vi metteranno al bando e vi insulteranno e disprezzeranno il vostro nome come infame, a causa del Figlio dell'uomo.",
+  "roles": "............f.......f.........f...f.....................",
+  "dims": "00000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Rallegratevi in quel giorno ed esultate perché la vostra ricompensa è grande nel cielo.",
+  "roles": "f.........f.........f.......",
+  "dims": "0000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Ma a voi che ascoltate, io dico: amate i vostri nemici, fate del bene a quelli che vi odiano,",
+  "roles": "........f...f.f.......f.............f.",
+  "dims": "00000000000000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": false
+ },
+ {
+  "text": "benedite coloro che vi maledicono, pregate per coloro che vi maltrattano.",
+  "roles": "f.......f.f.........f.",
+  "dims": "0000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "beati voi poveri",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "amate i vostri nemici",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il servo del centurione",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la vedova di Naim",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "un fariseo lo invitò",
+  "roles": "......f",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "le sue peccata le sono perdonate",
+  "roles": "........f.f",
+  "dims": "00000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "un grande profeta è sorto",
+  "roles": "......f..",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Un giorno Gesù si trovava in un luogo solitario a pregare. I discepoli erano con lui ed egli pose loro questa domanda: «Le folle, chi dicono che io sia?».",
+  "roles": "........f.................f.........f.............f.....f.",
+  "dims": "0000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Essi risposero: «Giovanni il Battista; altri dicono Elìa; altri ancora che un antico profeta è risorto».",
+  "roles": "..f.........f...............f.c.",
+  "dims": "00000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Allora li interrogò: «Ma voi, chi dite che io sia?». Pietro rispose: «Il Cristo di Dio».",
+  "roles": "....f.......f.....f...f.........",
+  "dims": "00000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Egli ordinò loro severamente di non riferirlo ad alcuno.",
+  "roles": "..f...............",
+  "dims": "000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "«Il Figlio dell'uomo», disse, «deve soffrire molto, essere rifiutato dagli anziani, dai capi dei sacerdoti e dagli scribi, venire ucciso e risorgere il terzo giorno».",
+  "roles": ".......f.f.......c.....................c...........",
+  "dims": "000000000000000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "calmò la tempesta",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "i demoni lo supplicavano",
+  "roles": "......f",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la tua fede ti ha salvata",
+  "roles": "........f.c",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "aveva guarito molti",
+  "roles": "f.c..",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la trasfigurazione sul monte",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "prenda la sua croce",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "non prendete nulla per il viaggio",
+  "roles": "..f........",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Ed ecco, un dottore della Legge si alzò per metterlo alla prova e chiese: «Maestro, che cosa devo fare per ereditare la vita eterna?».",
+  "roles": "..............f...........f.......f.............",
+  "dims": "000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gesù gli disse: «Che cosa sta scritto nella Legge? Come leggi?».",
+  "roles": "....f.....f.c.......f.",
+  "dims": "0000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Costui rispose: «Amerai il Signore tuo Dio con tutto il tuo cuore, con tutta la tua anima, con tutta la tua forza e con tutta la tua mente, e il tuo prossimo come te stesso».",
+  "roles": "..f.f.................................................................",
+  "dims": "0000000000000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gli disse: «Hai risposto bene; fa' questo e vivrai».",
+  "roles": "..f.f.c...f.....f.",
+  "dims": "000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "«Chi di questi tre ti sembra sia stato il prossimo di colui che è caduto nelle mani dei briganti?».",
+  "roles": ".............f.c...........f.c.........",
+  "dims": "000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Quello rispose: «Chi ha avuto compassione di lui». Gesù gli disse: «Va' e anche tu fa' così».",
+  "roles": "..f...f.c...........f.f.......f...",
+  "dims": "0000000000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il buon samaritano",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "chi è il mio prossimo?",
+  "roles": "..f.......",
+  "dims": "0000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "versò olio e vino",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "insegnateci a pregare",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Padre nostro, che sei nei cieli",
+  "roles": "......f....",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "chiedete e vi sarà dato",
+  "roles": "f.....f.c",
+  "dims": "000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "scacciava un demonio",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Poi disse ai discepoli: «Per questo io vi dico: non preoccupatevi per la vita, di quello che mangerete; né per il corpo, di quello che indosserete.",
+  "roles": "..f.............f...f.............f...............f.",
+  "dims": "0000000000000000000000000000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": false
+ },
+ {
+  "text": "La vita vale più del cibo e il corpo vale più del vestito.",
+  "roles": "....f.............f.......",
+  "dims": "00000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Considerate i corvi: non seminano e non mietono, non hanno magazzino né granaio, eppure Dio li nutre. Quanto più valete voi degli uccelli!",
+  "roles": "f.......f.....f...f.............f.....f.......",
+  "dims": "0000000000000000000000000000000000000000000000",
+  "finiteCount": 6,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Chi di voi, per quanto si preoccupi, può aggiungere un'ora sola alla sua vita?",
+  "roles": "..............f.............",
+  "dims": "0000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Cercate piuttosto il suo regno, e queste cose vi saranno date in aggiunta.",
+  "roles": "f.................f.c.....",
+  "dims": "00000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la vita non dipende dalla ricchezza",
+  "roles": "...........",
+  "dims": "00000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "costruirò granai più grandi",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "non preoccupatevi per la vita",
+  "roles": "..f......",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "un uomo aveva un fico",
+  "roles": "....f....",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "entrate per la porta stretta",
+  "roles": "f........",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ipocriti!",
+  "roles": "..",
+  "dims": "00",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il regno di Dio è vicino",
+  "roles": "........f..",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gesù disse ancora: «Un uomo aveva due figli.",
+  "roles": "..f.......f.....",
+  "dims": "0000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il più giovane di loro disse al padre: \"Padre, dammi la parte di patrimonio che mi spetta\". Ed egli divise tra loro le sue sostanze.",
+  "roles": "..........f.....................f.....f...........",
+  "dims": "00000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Pochi giorni dopo, il figlio più giovane, raccolte tutte le sue cose, partì per un paese lontano e là sperperò il suo patrimonio vivendo in modo dissoluto.",
+  "roles": "..............p.........f.............f...............",
+  "dims": "000000000000001111111110000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Si alzò e tornò da suo padre. Quando era ancora lontano, suo padre lo vide, ebbe compassione, gli corse incontro, gli si gettò al collo e lo baciò.",
+  "roles": "..f...f.........f...........f.f.....f.......f.........f.",
+  "dims": "00000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 8,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il padre disse ai servi: \"Presto, portate qui il vestito più bello e fateglielo indossare, mettetegli l'anello al dito e i sandali ai piedi.",
+  "roles": "....f.......f.................f.................",
+  "dims": "000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Prendete il vitello grasso, ammazzatelo, mangiamo e facciamo festa,",
+  "roles": "f.......f.f...f...",
+  "dims": "000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "perché questo mio figlio era morto ed è tornato in vita, era perduto ed è stato ritrovato\". E cominciarono a far festa.",
+  "roles": "........f.c...f.c.....f.c...f.c.c...f.......",
+  "dims": "00000000000000000000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": false
+ },
+ {
+  "text": "diede un grande banchetto",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "gli invitati non vennero",
+  "roles": "......f",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "se perde una delle cento pecore",
+  "roles": "..f........",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il figlio minore",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "gli corse incontro",
+  "roles": "..f..",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "lo abbracciò e lo baciò",
+  "roles": "..f.....f",
+  "dims": "000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "facciamo festa",
+  "roles": "f..",
+  "dims": "000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "«Due uomini salirono al tempio a pregare: uno era fariseo e l'altro pubblicano.",
+  "roles": ".....f...........f.........",
+  "dims": "000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il fariseo, stando in piedi, pregava così tra sé: \"O Dio, ti rendo grazie perché non sono come gli altri uomini, ladri, ingiusti, adùlteri, e neppure come questo pubblicano.",
+  "roles": "..........f.............f.......f.........................",
+  "dims": "0000111110000000000000000000000000000000001010100000000000",
+  "finiteCount": 3,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Digiuno due volte alla settimana e pago le decime di tutto quello che possiedo\".",
+  "roles": "..........................f.",
+  "dims": "0000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il pubblicano invece, fermatosi a distanza, non osava nemmeno alzare gli occhi al cielo, ma si batteva il petto dicendo: \"O Dio, abbi pietà di me peccatore\".",
+  "roles": "..............f.................f.....................",
+  "dims": "000000111110000000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Io vi dico: questi, a differenza dell'altro, tornò a casa sua giustificato, perché chiunque si esalta sarà umiliato, chi invece si umilia sarà esaltato».",
+  "roles": "....f.........f.......p.......f.f.c.......f.f.c.",
+  "dims": "000000001111100000000000000000000000000000000000",
+  "finiteCount": 6,
+  "hasParenthetical": true
+ },
+ {
+  "text": "il samaritano ha reso grazie",
+  "roles": "....f....",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "chi si umilia sarà esaltato",
+  "roles": "....f.f.c",
+  "dims": "000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il giudice ingiusto",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la vedova veniva da lui",
+  "roles": "....f....",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il pubblicano non osava",
+  "roles": "......f",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la tua fede ti ha salvato",
+  "roles": "........f.c",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "lasciate che i bambini vengano",
+  "roles": "f.......f",
+  "dims": "000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Entrato in Gerico, attraversava la città.",
+  "roles": "p.....f.....",
+  "dims": "000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Ed ecco un uomo di nome Zaccheo, capo dei pubblicani e ricco,",
+  "roles": "........................",
+  "dims": "000000000000001111111110",
+  "finiteCount": 0,
+  "hasParenthetical": true
+ },
+ {
+  "text": "cercava di vedere chi fosse Gesù, ma non gli riusciva a causa della folla, perché era piccolo di statura.",
+  "roles": "f.......f.........f...........f.......",
+  "dims": "00000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Allora corse avanti e, per poterlo vedere, salì su un sicomoro, perché doveva passare di là.",
+  "roles": "..f...........f.........f.......",
+  "dims": "00000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Quando giunse sul luogo, Gesù alzò lo sguardo e gli disse: «Zaccheo, scendi subito, perché oggi devo fermarmi a casa tua».",
+  "roles": "..f.......f.........f...f.......f.........",
+  "dims": "000000000000000000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Gesù gli disse: «Oggi la salvezza è entrata in questa casa, perché anch'egli è figlio di Abramo;",
+  "roles": "....f.......f.c...........f.......",
+  "dims": "0000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il Figlio dell'uomo infatti è venuto a cercare e a salvare ciò che era perduto».",
+  "roles": "........f.c...............f.c.",
+  "dims": "000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Zaccheo era un pubblicano ricco",
+  "roles": "..f......",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "oggi la salvezza è entrata in questa casa",
+  "roles": "......f.c......",
+  "dims": "000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "purificò il tempio",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "trovate un asino",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la moneta della vedova",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "vigilate e pregate",
+  "roles": "f...f",
+  "dims": "00000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "distruggeranno i tuoi nemici",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il primo giorno della settimana, al mattino presto, si recarono al sepolcro portando con sé gli aromi che avevano preparato.",
+  "roles": "..................f.................f.c.",
+  "dims": "0000000000111110000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Trovarono la pietra rotolata via dal sepolcro;",
+  "roles": "f.....p.......",
+  "dims": "00000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ma, entrate, non trovarono il corpo del Signore Gesù.",
+  "roles": "..p...f...........",
+  "dims": "001000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Mentre erano ancora incerte, ecco due uomini apparire vicino a loro in abiti sfolgoranti.",
+  "roles": "..f.........................",
+  "dims": "0000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Le donne, impaurite, tenevano il viso chinato a terra, ed essi dissero loro: «Perché cercate tra i morti colui che è vivo?",
+  "roles": "....p.f.....p.........f.....f...........f...",
+  "dims": "00001000000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Non è qui, è risorto. Ricordatevi come vi parlò quando era ancora in Galilea».",
+  "roles": "..f...f.c.f.....f...f.......",
+  "dims": "0000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": false
+ },
+ {
+  "text": "«Davvero il Signore è risorto ed è apparso a Simone!».",
+  "roles": ".......f.c...f.c.....",
+  "dims": "000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Giuda lo consegnò",
+  "roles": "....f",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "diede loro il pane",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "questo calice è la nuova alleanza",
+  "roles": "....f......",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la passione di Cristo",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la strada di Emmaus",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "fu portato in cielo",
+  "roles": "f.c....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "li benedì e si allontanò",
+  "roles": "..f.....f",
+  "dims": "000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Quando venne il giorno di Pentecoste, si trovavano tutti insieme nello stesso luogo.",
+  "roles": "..f...........f...........",
+  "dims": "00000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Venne all'improvviso dal cielo un fragore, quasi un vento che si abbatte impetuoso, e riempì tutta la casa dove stavano.",
+  "roles": "f.....................f.....f.........f.",
+  "dims": "0000000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Apparvero loro lingue come di fuoco, che si dividevano, e si posarono su ciascuno di loro,",
+  "roles": "f...............f.....f.........",
+  "dims": "00000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "e tutti furono colmati di Spirito Santo e cominciarono a parlare in altre lingue, nel modo in cui lo Spirito dava loro il potere di esprimersi.",
+  "roles": "....f.c.........f.......................f...........",
+  "dims": "0000000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "All'udire questo, si sentirono trafiggere il cuore e dissero a Pietro e agli altri apostoli: «Che cosa dobbiamo fare, fratelli?».",
+  "roles": "......f.........f.................f.....",
+  "dims": "0000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Pietro disse loro: «Convertitevi e ciascuno di voi si faccia battezzare nel nome di Gesù Cristo, per il perdono dei vostri peccati, e riceverete il dono dello Spirito Santo.",
+  "roles": "..f...f...........f...........................f...........",
+  "dims": "0000000000000000000000000000000011111111111000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": true
+ },
+ {
+  "text": "fu elevato in alto",
+  "roles": "f.c....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il giorno di Pentecoste",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "furono tutti pieni di Spirito Santo",
+  "roles": "f..........",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "lingue come di fuoco",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "battezzatevi",
+  "roles": "f",
+  "dims": "0",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "per la remissione dei peccati",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "erano assidui nella comunione",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "È lui \"la pietra che, scartata da voi costruttori, è diventata la pietra d'angolo\".",
+  "roles": "f.........p.......f.c.......",
+  "dims": "0000000000111111100000000000",
+  "finiteCount": 2,
+  "hasParenthetical": true
+ },
+ {
+  "text": "In nessun altro c'è salvezza; non vi è infatti, sotto il cielo, altro nome dato agli uomini nel quale è stabilito che noi siamo salvati».",
+  "roles": "......f.......f.............p.........f.c.....f.c.",
+  "dims": "00000000000000000011111000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Mentre pregavano, il luogo in cui erano riuniti tremò e tutti furono colmati di Spirito Santo e annunciavano la parola di Dio con franchezza.",
+  "roles": "..f.........f.c.f.....f.c.........f.............",
+  "dims": "000000000000000000000000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": false
+ },
+ {
+  "text": "La moltitudine di coloro che erano diventati credenti aveva un cuore solo e un'anima sola e nessuno considerava sua proprietà quello che gli apparteneva, ma fra loro tutto era comune.",
+  "roles": "..........f.c...f.................f...........f.........f...",
+  "dims": "000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Con grande forza gli apostoli davano testimonianza della risurrezione del Signore Gesù, e tutti godevano di grande favore.",
+  "roles": "..........f.................f.......",
+  "dims": "000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la guarigione dello storpio",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "li gettarono in prigione",
+  "roles": "..f....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Anania con Saffira sua moglie",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "hai mentito allo Spirito Santo",
+  "roles": "f.c......",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "scelsero sette uomini",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Stefano era pieno di grazia",
+  "roles": "..f......",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "scoppiò una grande persecuzione",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Saulo frattanto, sempre fremente minaccia e strage contro i discepoli del Signore, si presentò al sommo sacerdote",
+  "roles": "..........................f......",
+  "dims": "000000000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "e gli chiese lettere per le sinagoghe di Damasco, al fine di condurre in catene a Gerusalemme uomini e donne che seguivano questa Via, qualora ne avesse trovati.",
+  "roles": "....f.....................................f.........f.c.",
+  "dims": "00000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "E mentre era in viaggio e stava per avvicinarsi a Damasco, all'improvviso lo avvolse una luce dal cielo",
+  "roles": "....f.......f.............f........",
+  "dims": "00000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "e cadde a terra e udì una voce che gli diceva: «Saulo, Saulo, perché mi perseguiti?».",
+  "roles": "..f.......f.........f...........",
+  "dims": "00000000000000000000000010000000",
+  "finiteCount": 3,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Rispose: «Chi sei, o Signore?». Ed egli: «Sono Gesù, che tu perseguiti.",
+  "roles": "f...f.........f.........",
+  "dims": "000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Ma àlzati ed entra nella città e ti sarà detto ciò che devi fare».",
+  "roles": "..f.............f.c.....f...",
+  "dims": "0000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Allora Ananìa andò, entrò nella casa, gli impose le mani e disse: «Saulo, fratello mio, mi ha mandato a te il Signore Gesù, che ti è apparso sulla strada che percorrevi, perché tu riacquisti la vista e sia colmato di Spirito Santo».",
+  "roles": "....f.f.......f.......f.........f.c...............f.c.......f.............f.c.......",
+  "dims": "000000000000000000000000001110000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 8,
+  "hasParenthetical": true
+ },
+ {
+  "text": "E improvvisamente gli caddero dagli occhi come delle squame e riacquistò la vista; si alzò e fu battezzato.",
+  "roles": "......f.............f.......f...f.c.",
+  "dims": "000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la morte di Stefano",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "lo lapidavano",
+  "roles": "..f",
+  "dims": "000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Saulo approvava la sua uccisione",
+  "roles": "..f......",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la conversione di Paolo",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "sulla via di Damasco",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "per tre giorni non vide nulla",
+  "roles": "........f..",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "fu battezzato",
+  "roles": "f.c",
+  "dims": "000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Allora Pietro prese la parola e disse: «In verità sto rendendomi conto che Dio non fa preferenza di persone,",
+  "roles": "....f.......f.....f...........f.......",
+  "dims": "00000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ma accoglie chi lo teme e pratica la giustizia, a qualunque nazione appartenga.",
+  "roles": "..f.....f.................",
+  "dims": "00000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Questa è la parola che egli ha inviato ai figli d'Israele, annunciando la pace per mezzo di Gesù Cristo: questi è il Signore di tutti.",
+  "roles": "..f.........f.c.........................f.........",
+  "dims": "00000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Pietro stava ancora dicendo queste cose, quando lo Spirito Santo scese su tutti coloro che ascoltavano la parola.",
+  "roles": "..f.................f.........f.....",
+  "dims": "000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "E i fedeli circoncisi che erano venuti con Pietro furono meravigliati che anche sui pagani si fosse effuso il dono dello Spirito Santo.",
+  "roles": "..........f.c.....f.c...........f.c...........",
+  "dims": "0000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Pietro ebbe una visione",
+  "roles": "..f....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il centurione Cornelio",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il vangelo anche ai pagani",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "chi può impedire il battesimo?",
+  "roles": "..f.......",
+  "dims": "0000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "un angelo del Signore apparve",
+  "roles": "........f",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Pietro era in carcere",
+  "roles": "..f....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Erode lo aveva arrestato",
+  "roles": "....f.c",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Sia dunque noto a voi, fratelli, che per mezzo di lui vi è annunciata la remissione dei peccati e che, per quanto riguarda tutte le cose di cui non potevate essere giustificati dalla legge di Mosè,",
+  "roles": "f.......................f.c...............................f...c.........",
+  "dims": "000000000010000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": true
+ },
+ {
+  "text": "in lui è giustificato chiunque crede.",
+  "roles": "....f.c...f.",
+  "dims": "000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Paolo e Barnaba con franchezza dichiararono: «Era necessario che fosse annunciata prima di tutto a voi la parola di Dio, ma poiché la respingete e non vi giudicate degni della vita eterna, ecco: noi ci rivolgiamo ai pagani.",
+  "roles": "..........f.f.....f.c.........................f.......f...............f.....",
+  "dims": "0000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 6,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Così infatti ci ha comandato il Signore: \"Io ti ho posto come luce per le genti, perché tu porti la salvezza sino all'estremità della terra\"».",
+  "roles": "......f.c.........f.c.............................",
+  "dims": "00000000000000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il primo viaggio",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Barnaba e Paolo",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "entrarono nella sinagoga",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il concilio di Gerusalemme",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la questione della circoncisione",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "vivere nella grazia di Dio",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "annunciarono la parola di Dio",
+  "roles": "f........",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Verso mezzanotte Paolo e Sila stavano pregando e cantando inni a Dio, mentre i prigionieri li ascoltavano.",
+  "roles": "..........f.....................f.",
+  "dims": "0000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Improvvisamente si verificò un terremoto così forte che furono scosse le fondamenta della prigione; in un istante tutte le porte si aprirono e le catene di tutti si sciolsero.",
+  "roles": "....f...........f.c.......................f.............f.",
+  "dims": "0000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il carceriere si svegliò e, vedendo aperte le porte della prigione, tirò fuori la spada e stava per uccidersi, pensando che i prigionieri fossero fuggiti.",
+  "roles": "......f.....p.........f.........f.............f.c.",
+  "dims": "00000000001111111111100000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Ma Paolo gridò a gran voce: «Non farti del male, siamo tutti qui!».",
+  "roles": "....f...............f.....",
+  "dims": "00000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il carceriere allora chiese la luce, si precipitò dentro e, tremante, si gettò ai piedi di Paolo e di Sila;",
+  "roles": "......f.......f.........f...............",
+  "dims": "0000000000000000000010000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": true
+ },
+ {
+  "text": "poi li condusse fuori e disse: «Signori, che cosa devo fare per essere salvato?».",
+  "roles": "....f.....f.......f.......c.",
+  "dims": "0000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Li condusse a casa sua, apparecchiò la mensa e fu pieno di gioia con tutta la sua famiglia, per aver creduto in Dio.",
+  "roles": "..f.......f.......f.....................c.....",
+  "dims": "0000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Lidia apriva il cuore",
+  "roles": "..f....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ci fu un gran terremoto",
+  "roles": "..f......",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il custode del carcere",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "giunsero a Corinto",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "in mezzo all'Areopago",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "missionari instancabili",
+  "roles": "...",
+  "dims": "000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ogni sabato nella sinagoga",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Ma non ritengo la mia vita meritevole di nulla, purché conduca a termine la mia corsa e il ministero che ho ricevuto dal Signore Gesù: rendere testimonianza al vangelo della grazia di Dio.",
+  "roles": "....f...................................f.c.......................",
+  "dims": "000000000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Vegliate su voi stessi e su tutto il gregge, in mezzo al quale lo Spirito Santo vi ha posti come vescovi a pascere la Chiesa di Dio, che egli ha acquistato con il suo sangue.",
+  "roles": "f.................................f.c.....................f.c.........",
+  "dims": "0000000000000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "In tutte le maniere vi ho dimostrato che lavorando così si deve soccorrere i deboli, ricordandosi delle parole del Signore Gesù, che disse: \"Vi è più gioia nel dare che nel ricevere\".",
+  "roles": "..........f.c.........f.....................f...f...............",
+  "dims": "0000000000000000000000000000001111111111100000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": true
+ },
+ {
+  "text": "bruciarono i libri di magia",
+  "roles": "f........",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il tumulto degli artigiani",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Demetrio l'argentiere",
+  "roles": "...",
+  "dims": "000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "aveva quattro figlie profetesse",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "lo legheranno e lo consegneranno",
+  "roles": "..f.....f",
+  "dims": "000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ci imbarcammo",
+  "roles": "...",
+  "dims": "000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "lo Spirito Santo mi attesta",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Mentre ero in cammino e mi avvicinavo a Damasco, verso mezzogiorno, all'improvviso una grande luce dal cielo mi avvolse di splendore.",
+  "roles": "..f.........f.......................f.....",
+  "dims": "000000000000000000111000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Caddi a terra e udii una voce che mi diceva: \"Saulo, Saulo, perché mi perseguiti?\".",
+  "roles": "f.......f.........f...........",
+  "dims": "000000000000000000000010000000",
+  "finiteCount": 3,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Io risposi: \"Chi sei, o Signore?\". Mi disse: \"Sono Gesù il Nazareno, che tu perseguiti\".",
+  "roles": "..f...f.......f.f.............",
+  "dims": "000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Quelli che erano con me videro la luce, ma non udirono la voce di colui che mi parlava.",
+  "roles": "....f.....f.........f.............f.",
+  "dims": "000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "E io dissi: \"Che cosa devo fare, Signore?\". Il Signore mi disse: \"Àlzati, va' a Damasco e là ti sarà detto di tutto ciò che è stabilito che tu faccia\".",
+  "roles": "....f.....f...........f.f.f...........f.c.........f.c.....f.",
+  "dims": "000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 8,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Egli disse: \"Il Dio dei nostri padri ti ha predestinato perché tu conoscessi la sua volontà, vedessi il Giusto e udissi la sua voce.",
+  "roles": "..f.............f.c.............................",
+  "dims": "000000000000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Sarai suo testimone davanti a tutti gli uomini di ciò che hai visto e udito.",
+  "roles": "f.....................f.c...p.",
+  "dims": "000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "E ora perché esiti? Àlzati, fatti battezzare e lava via i tuoi peccati, invocando il suo nome\".",
+  "roles": "........f.......f.................",
+  "dims": "0000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la difesa di Paolo",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "davanti al sinedrio",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "una congiura contro Paolo",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il governatore Felice",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "durante il processo",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "sono testimone di queste cose",
+  "roles": "f........",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "le accuse contro Paolo",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "«Con questi poteri mi recai a Damasco con l'autorizzazione e il mandato dei capi dei sacerdoti.",
+  "roles": ".........f.......................",
+  "dims": "000000000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "E mentre ero in cammino, in pieno giorno, vidi, o re, una luce, più splendente del sole, che veniva dal cielo e avvolse me e i miei compagni di viaggio.",
+  "roles": "....f...........f...................f.......f...............",
+  "dims": "000000000011111000000000001111111000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Caduti tutti a terra, udii una voce che mi diceva in lingua ebraica: \"Saulo, Saulo, perché mi perseguiti? È duro per te recalcitrare contro il pungolo\".",
+  "roles": "p.......f.........f.................f...............",
+  "dims": "0000000000000000000000000000100000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Io risposi: \"Chi sei, Signore?\". Il Signore disse: \"Sono Gesù, che tu perseguiti.",
+  "roles": "..f...f.......f.f.........",
+  "dims": "00000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "liberandoti dal popolo e dai pagani, verso i quali ora ti mando,",
+  "roles": "......................f.",
+  "dims": "000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "per aprir loro gli occhi, perché si convertano dalle tenebre alla luce e dal potere di Satana a Dio, e ottengano il perdono dei peccati e l'eredità in mezzo a coloro che sono stati santificati per la fede in me».",
+  "roles": "..............f.........................f.......................f.c.c...........",
+  "dims": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il governatore Festo",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il re Agrippa",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ho fatto appello a Cesare",
+  "roles": "f.c......",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la mia testimonianza",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "perché si convertissero",
+  "roles": "....f",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "una luce dal cielo",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "grazie alla grazia di Dio",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Fissato un giorno, molti vennero da lui nel suo alloggio. Dal mattino fino alla sera egli espose loro il regno di Dio, testimoniando e cercando di convincerli riguardo a Gesù, in base alla legge di Mosè e ai Profeti.",
+  "roles": "p.......f.......................f.............................................",
+  "dims": "000000000000000000000000000000000000000000001111111111111110000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Gli uni si lasciarono convincere dalle sue parole, gli altri invece non credettero.",
+  "roles": "......f.................f.",
+  "dims": "00000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Sia dunque noto a voi che questa salvezza di Dio viene inviata ai pagani ed essi la ascolteranno!».",
+  "roles": "f...................f.c...........f.",
+  "dims": "000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Rimase due anni interi nel suo alloggio in affitto, e accoglieva tutti quelli che venivano da lui,",
+  "roles": "f...................f.......f.....",
+  "dims": "0000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "annunciando il regno di Dio e insegnando le cose riguardanti il Signore Gesù Cristo, con tutta franchezza e senza impedimento.",
+  "roles": "........................................",
+  "dims": "0000000000000000000000000000000000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il naufragio di Paolo",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "l'isola di Malta",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "una vipera uscì dal fuoco",
+  "roles": "....f....",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "finalmente arrivammo a Roma",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "predicava il regno di Dio",
+  "roles": "f........",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "senza impedimento alcuno",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la nave si incagliò",
+  "roles": "......f",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Paolo, servo di Cristo Gesù, apostolo per vocazione, scelto per il vangelo di Dio,",
+  "roles": "................p...........",
+  "dims": "0011111110111110111111111110",
+  "finiteCount": 0,
+  "hasParenthetical": true
+ },
+ {
+  "text": "che egli aveva promesso per mezzo dei suoi profeti nelle sacre Scritture,",
+  "roles": "....f.c.................",
+  "dims": "000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "riguardo al Figlio suo — nato dalla stirpe di Davide secondo la carne,",
+  "roles": "........p...............",
+  "dims": "000000000000000000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "costituito Figlio di Dio con potenza secondo lo Spirito di santità in virtù della risurrezione dai morti, Gesù Cristo nostro Signore —",
+  "roles": "p.........................................",
+  "dims": "000000000000000000000000000000000000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Io infatti non mi vergogno del vangelo, perché è potenza di Dio per la salvezza di chiunque crede, del Giudeo prima e del Greco.",
+  "roles": "................f.................f.............",
+  "dims": "000000000000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "In esso infatti si rivela la giustizia di Dio da fede a fede, come sta scritto: «Il giusto per fede vivrà».",
+  "roles": "............................f.c.........f.",
+  "dims": "000000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il vangelo di Gesù Cristo",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la giustizia di Dio",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il giudizio di Dio",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "l'ira di Dio",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "caduti nell'idolatria",
+  "roles": "p..",
+  "dims": "000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "come albero piantato",
+  "roles": "....p",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "non cammina nel consiglio degli empi",
+  "roles": "..f........",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "tutti infatti hanno peccato e sono privi della gloria di Dio,",
+  "roles": "....f.c...f...........",
+  "dims": "0000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ma sono giustificati gratuitamente per la sua grazia, in virtù della redenzione che è in Cristo Gesù.",
+  "roles": "..f.c.....................f.......",
+  "dims": "0000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "È lui che Dio ha stabilito come strumento di espiazione per mezzo della fede, nel suo sangue.",
+  "roles": "f.......f.c.......................",
+  "dims": "0000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Egli ha così manifestato la sua giustizia nel tempo presente, per essere lui giusto e per giustificare chi ha fede in Gesù.",
+  "roles": "..f...c.............................f.......",
+  "dims": "00000000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "giustificati per fede",
+  "roles": "p....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "per pura grazia",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la redenzione in Cristo",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il Signore è il mio pastore",
+  "roles": "....f......",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "non manco di nulla",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il mio calice trabocca",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "nella valle oscura",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Giustificati dunque per fede, noi siamo in pace con Dio per mezzo del Signore nostro Gesù Cristo.",
+  "roles": "p.........f.......................",
+  "dims": "0000000000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Per mezzo di lui abbiamo anche, mediante la fede, l'accesso a questa grazia nella quale ci troviamo e ci vantiamo nella speranza della gloria di Dio.",
+  "roles": "........f.......................f.....f.............",
+  "dims": "0000000000001111100000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Non solo questo, ma ci vantiamo anche nelle tribolazioni, sapendo che la tribolazione produce pazienza,",
+  "roles": "..........f...............f...",
+  "dims": "000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la pazienza una virtù provata e la virtù provata la speranza.",
+  "roles": "........p.......p.....",
+  "dims": "0000000000000000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "La speranza poi non delude, perché l'amore di Dio è stato riversato nei nostri cuori per mezzo dello Spirito Santo che ci è stato dato.",
+  "roles": "........f.........f.c.c.....................f.c.c.",
+  "dims": "00000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Ma Dio dimostra il suo amore verso di noi perché, mentre eravamo ancora peccatori, Cristo è morto per noi.",
+  "roles": "....f.................f.......f.c.....",
+  "dims": "00000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "abbiamo pace con Dio",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "glorificarci nelle sofferenze",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la speranza non delude",
+  "roles": "......f",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Dio è il nostro rifugio",
+  "roles": "..f......",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la nostra forza",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "siamo stati battezzati in Cristo",
+  "roles": "f.c.c....",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "morti al peccato",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Non vi è dunque nessuna condanna per quelli che sono in Cristo Gesù.",
+  "roles": "....f.............f.......",
+  "dims": "00000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "La legge dello Spirito, che dà vita in Cristo Gesù, ti ha liberato dalla legge del peccato e della morte.",
+  "roles": "..........f...........f.c...............",
+  "dims": "0000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Noi sappiamo inoltre che tutto concorre al bene di coloro che amano Dio, che sono stati chiamati secondo il suo disegno.",
+  "roles": "..f...................f.....f.c.c.........",
+  "dims": "000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Io sono infatti persuaso che né morte né vita, né angeli né principati, né presente né avvenire,",
+  "roles": "..f...............................",
+  "dims": "0000000000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "né potenze, né altezza né profondità, né alcun'altra creatura potrà mai separarci dall'amore di Dio, che è in Cristo Gesù, nostro Signore.",
+  "roles": "..................f.............f...........",
+  "dims": "00000000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la legge della carne",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "nessuna condanna per quelli in Cristo",
+  "roles": "...........",
+  "dims": "00000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "lo spirito di adozione filiale",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "tutta la creazione geme",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "abbi pietà di me",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "crea in me un cuore puro",
+  "roles": "...........",
+  "dims": "00000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "mondami dalla mia colpa",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Perché se confesserai con la tua bocca che Gesù è il Signore e crederai con il tuo cuore che Dio lo ha risuscitato dai morti, sarai salvato.",
+  "roles": "....f.............f.......f...............f.c.....f.c.",
+  "dims": "000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 5,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Con il cuore infatti si crede per ottenere la giustizia e con la bocca si fa la professione di fede per avere la salvezza.",
+  "roles": "..........f...................f.................",
+  "dims": "000000000000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Chiunque invocherà il nome del Signore sarà salvato.",
+  "roles": "..f.........f.c.",
+  "dims": "0000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Ora, come potranno invocarlo senza aver prima creduto in lui? Come potranno credere senza averne sentito parlare? Come potranno sentirne parlare senza uno che lo annunci?",
+  "roles": "....f.........c.......f.......c.....f...............",
+  "dims": "0000000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "E come lo annunceranno senza essere prima inviati? Come sta scritto: «Come sono belli i piedi di coloro che recano un lieto annuncio di bene!».",
+  "roles": "......f.......c...f.c...f.............f...........",
+  "dims": "00000000000000000000000000000000000000000000000000",
+  "finiteCount": 4,
+  "hasParenthetical": false
+ },
+ {
+  "text": "l'elezione per grazia",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "confessa con la tua bocca",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "credere nel cuore",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "sotto la sua protezione",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "chiunque invoca il nome del Signore",
+  "roles": "...........",
+  "dims": "00000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "sarà salvato",
+  "roles": "f.c",
+  "dims": "000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "come udranno senza un messaggero?",
+  "roles": "..f.......",
+  "dims": "0000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Vi esorto dunque, fratelli, per la misericordia di Dio, ad offrire i vostri corpi come sacrificio vivente, santo e gradito a Dio; è questo il vostro culto spirituale.",
+  "roles": "..f...................................p.....f...........",
+  "dims": "00000010111111111000000000000000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": true
+ },
+ {
+  "text": "Non conformatevi a questo mondo, ma lasciatevi trasformare rinnovando il vostro modo di pensare, per poter discernere la volontà di Dio, ciò che è buono, a lui gradito e perfetto.",
+  "roles": "..f.........f.................................f.......p.....",
+  "dims": "000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "La carità non sia ipocrita: detestate il male, attaccatevi al bene.",
+  "roles": "......f...f.....f.....",
+  "dims": "0000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Amatevi gli uni gli altri con affetto fraterno, gareggiate nello stimarvi a vicenda.",
+  "roles": "f...............f.........",
+  "dims": "00000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il mistero di Israele",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "un solo corpo in Cristo",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "doni diversi secondo la grazia",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "la tua Parola è una lampada",
+  "roles": "......f....",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "luce sul mio sentiero",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "offrite i vostri corpi come sacrificio",
+  "roles": "f..........",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "rinnovatevi nella mente",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Non abbiate alcun debito con nessuno, se non quello di un amore vicendevole; perché chi ama l'altro ha adempiuto la Legge.",
+  "roles": "..f...........................f...f.c.....",
+  "dims": "000000000000000000000000000000000000000000",
+  "finiteCount": 3,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Infatti il precetto: Non commettere adulterio, non uccidere, non rubare, non desiderare e qualsiasi altro comandamento, si ricapitola in queste parole: Amerai il prossimo tuo come te stesso.",
+  "roles": "..........................................f.............",
+  "dims": "00000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "La carità non fa alcun male al prossimo: pienezza della Legge è la carità.",
+  "roles": "......f...............f.....",
+  "dims": "0000000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "ogni persona sia sottomessa alle autorità",
+  "roles": "....f......",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "amerai il prossimo tuo",
+  "roles": "f......",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "secondo la propria coscienza",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il mio soccorso viene dal Signore",
+  "roles": "......f....",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "non si assopisce, non dorme",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il Signore è il tuo custode",
+  "roles": "....f......",
+  "dims": "00000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il Signore protegge la tua vita",
+  "roles": "...........",
+  "dims": "00000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il Dio della perseveranza e della consolazione vi conceda di avere gli uni verso gli altri gli stessi sentimenti ad imitazione di Cristo Gesù,",
+  "roles": "................f...............................",
+  "dims": "000000000000000000000000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "perché con un solo animo e una voce sola rendiate gloria a Dio, Padre del Signore nostro Gesù Cristo.",
+  "roles": "..................f...................",
+  "dims": "00000000000000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Il Dio della speranza vi riempia di ogni gioia e pace nella fede, perché abbondiate nella speranza per la virtù dello Spirito Santo.",
+  "roles": "............................f.................",
+  "dims": "0000000000000000000000000000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "il Dio della speranza",
+  "roles": ".......",
+  "dims": "0000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "l'unità tra ebrei e pagani",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "i saluti finali di Paolo",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "tu mi conosci",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "mi hai tessuto nel seno di mia madre",
+  "roles": "..f.c..........",
+  "dims": "000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "dove fuggirò dalla tua presenza?",
+  "roles": "..f.......",
+  "dims": "0000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "meravigliose sono le tue opere",
+  "roles": "..f......",
+  "dims": "000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Alleluia. Lodate Dio nel suo santuario, lodatelo nel firmamento della sua potenza.",
+  "roles": "..f.........f...........",
+  "dims": "000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Lodatelo per le sue opere potenti, lodatelo per la sua grandezza immensa.",
+  "roles": "f...........f...........",
+  "dims": "000000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Lodatelo con il suono della tromba, lodatelo con arpa e cetra.",
+  "roles": "f...........f.........",
+  "dims": "0000000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Lodatelo con timpani e danze, lodatelo con corde e flauto.",
+  "roles": "f.........f.........",
+  "dims": "00000000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Lodatelo con cimbali sonori, lodatelo con cimbali squillanti.",
+  "roles": "f.......f.......",
+  "dims": "0000000000000000",
+  "finiteCount": 2,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Ogni essere che respira lodi il Signore. Alleluia.",
+  "roles": "......f.........",
+  "dims": "0000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "lodate il Signore",
+  "roles": "f....",
+  "dims": "00000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "alleluia!",
+  "roles": "..",
+  "dims": "00",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "con la tromba, con l'arpa",
+  "roles": ".........",
+  "dims": "000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "tutto ciò che respira",
+  "roles": "......f",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ },
+ {
+  "text": "gloria a Dio",
+  "roles": ".....",
+  "dims": "00000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "Buon Natale",
+  "roles": "...",
+  "dims": "000",
+  "finiteCount": 0,
+  "hasParenthetical": false
+ },
+ {
+  "text": "sei arrivato alla fine",
+  "roles": "f.c....",
+  "dims": "0000000",
+  "finiteCount": 1,
+  "hasParenthetical": false
+ }
+]

@@ -163,16 +163,39 @@ struct ReadingPassageView: View {
         Haptics.light()
     }
 
+    private func toggleSkeleton() {
+        view.toggleSkeleton()
+        WebStore.saveString("reading-view", view.encoded())
+        Haptics.light()
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            if translated {
-                Button(action: cycleEnglish) {
-                    Text(englishLabel)
-                        .font(.caption.bold())
+            HStack(spacing: 8) {
+                if translated {
+                    Button(action: cycleEnglish) {
+                        Text(englishLabel)
+                            .font(.caption.bold())
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(view.english == .off ? .secondary : .accentColor)
+                    .accessibilityHint("Cycles between Italian, English under each verse, and English only")
                 }
-                .buttonStyle(.bordered)
-                .tint(view.english == .off ? .secondary : .accentColor)
-                .accessibilityHint("Cycles between Italian, English under each verse, and English only")
+                // Struttura marks up the Italian, so it has nothing to do in
+                // the English-only view.
+                if !englishOnly {
+                    Button(action: toggleSkeleton) {
+                        Text(view.skeleton ? "✓ Struttura" : "Struttura")
+                            .font(.caption.bold())
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(view.skeleton ? .accentColor : .secondary)
+                    .accessibilityHint("Shows the frame of each sentence: conjugated verbs underlined, asides shaded")
+                }
+            }
+
+            if view.showsSkeleton {
+                SkeletonLegend()
             }
 
             ForEach(passage.verses) { verse in
@@ -190,6 +213,7 @@ struct ReadingPassageView: View {
         let en = (verse.en?.isEmpty == false) ? verse.en : nil
         let showsEnglishUnder = !englishOnly && en != nil
             && (view.english == .under || revealed.contains(verse.n))
+        let analysis = view.showsSkeleton ? analyzeClauses(verse.t) : nil
 
         HStack(alignment: .top, spacing: 8) {
             Text("\(verse.n)")
@@ -202,17 +226,21 @@ struct ReadingPassageView: View {
                     Text(en)
                         .font(.callout)
                 } else {
-                    WordGlossText(text: verse.t)
+                    WordGlossText(text: verse.t, roles: analysis?.tokens)
                         .font(.callout)
                 }
                 if showsEnglishUnder, let en {
                     Text(en)
-                        .font(.caption)
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
             }
 
             Spacer(minLength: 4)
+
+            if let analysis, analysis.finiteCount > 0 {
+                SkeletonCountBadge(count: analysis.finiteCount)
+            }
 
             if view.english == .off, en != nil {
                 Button {
@@ -256,6 +284,89 @@ struct ReadingPassageView: View {
             .buttonStyle(.bordered)
             .disabled(markedRead || model.flagsToday.read)
         }
+    }
+}
+
+/// The per-verse count of conjugated verbs — how many full clauses to find.
+private struct SkeletonCountBadge: View {
+    let count: Int
+
+    var body: some View {
+        Text("\(count)")
+            .font(.caption2.bold().monospacedDigit())
+            .foregroundStyle(Color.accentColor)
+            .frame(minWidth: 18, minHeight: 18)
+            .background(Color.accentColor.opacity(0.15), in: RoundedRectangle(cornerRadius: 4))
+            .accessibilityLabel("\(count) conjugated verb\(count == 1 ? "" : "s"), so \(count) full clause\(count == 1 ? "" : "s")")
+    }
+}
+
+/// What the Struttura marks mean — the same five entries, in the same words,
+/// as the web reader's legend.
+private struct SkeletonLegend: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Struttura shows the frame of each sentence. Long Italian sentences are built around their conjugated verbs, so find those first, then fill in everything else.")
+                .font(.footnote)
+
+            Grid(alignment: .topLeading, horizontalSpacing: 12, verticalSpacing: 10) {
+                row(sample(.finite, "disse"),
+                    "Conjugated verb.",
+                    "A verb with a person and a tense: *disse* = \u{201C}he said\u{201D}, *fu* = \u{201C}he was\u{201D}. Every full clause has exactly one, whether it is the main clause or one that starts with *che*, *chi*, *perché*…")
+                row(HStack(spacing: 4) { sample(.finite, "è"); sample(.compound, "venuto") },
+                    "Two-word verb.",
+                    "A helper verb (*è*, *ha*, *fu*…) plus a participle is one verb: *è venuto* = \u{201C}has come\u{201D}, *fu battezzato* = \u{201C}was baptized\u{201D}. The helper is the conjugated part, so it gets the solid line and is the one counted; the participle (dashed) carries the meaning.")
+                row(sample(.participle, "dato"),
+                    "Participle on its own.",
+                    "No helper verb, so read it as a shortened \u{201C}which was…\u{201D} clause: *nome dato agli uomini* = \u{201C}name (which was) given to men\u{201D}.")
+                GridRow {
+                    SkeletonStyle.text("pieno di Spirito",
+                                       mark: SkeletonToken(text: "", isWord: true, role: .plain, dim: true))
+                        .font(.footnote)
+                        .padding(.horizontal, 3)
+                        .skeletonBand(true)
+                    explanation("Shaded words.",
+                                "An aside between commas. The sentence still works without it, so skip it on your first read, then add it back.")
+                }
+                GridRow {
+                    SkeletonCountBadge(count: 2)
+                    explanation("Verb count.",
+                                "The number of conjugated verbs in the verse, which is how many full clauses to look for. Participle and *-ando*/*-endo* phrases are not counted.")
+                }
+            }
+
+            Text("Marked automatically. It can miss a verb, but what it marks is usually right. Every word can still be tapped for its meaning.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(uiColor: .secondarySystemBackground), in: RoundedRectangle(cornerRadius: 10))
+    }
+
+    // Styled through the same function the reader uses, so the legend's
+    // samples can never drift from the marks in the verses.
+    private func sample(_ role: ClauseRole, _ word: String) -> Text {
+        SkeletonStyle.text(word, mark: SkeletonToken(text: word, isWord: true, role: role, dim: false))
+    }
+
+    private func row(_ sample: some View, _ title: String, _ body: String) -> some View {
+        GridRow {
+            sample.font(.footnote)
+            explanation(title, body)
+        }
+    }
+
+    // Built as an AttributedString rather than `Text + Text` (deprecated) or a
+    // LocalizedStringKey (which would read a stray `%` as a format specifier).
+    private func explanation(_ title: String, _ body: String) -> some View {
+        var head = AttributedString(title + " ")
+        head.inlinePresentationIntent = .stronglyEmphasized
+        var rest = (try? AttributedString(markdown: body)) ?? AttributedString(body)
+        rest.foregroundColor = .secondary
+        return Text(head + rest)
+            .font(.footnote)
+            .fixedSize(horizontal: false, vertical: true)
     }
 }
 

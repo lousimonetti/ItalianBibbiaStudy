@@ -204,4 +204,35 @@ for (const p of phases) {
 }
 write('commonGloss.json', [...glossWords].sort().map((w) => ({ word: w, gloss: lookupCommon(w) })));
 
+// ── Clause skeleton (Struttura): every passage verse + vocab example, plus the
+// hand-picked cases the JS tests pin. Per token, one role letter
+// (. plain, f finite, c compound, p participle) and one dim bit, so a
+// mismatch names the exact token that drifted.
+const { analyze } = await import(join(repoRoot, 'src/utils/clauseSkeleton.js'));
+const ROLE = { plain: '.', finite: 'f', compound: 'c', participle: 'p' };
+const skeletonTexts = new Set([
+  'Tommaso, uno dei Dodici, chiamato Dìdimo, non era con loro.',
+  'Pochi giorni dopo, il figlio più giovane, raccolte tutte le sue cose, partì per un paese lontano.',
+  'Li condusse a casa sua, apparecchiò la mensa.',
+  'ma, entrate, non trovarono il corpo',
+  'a portare ai poveri il lieto annuncio',
+  "senza averne sentito parlare?",
+]);
+for (const p of phases) {
+  for (const w of p.weeks) {
+    for (const v of w.passage?.verses || []) skeletonTexts.add(v.t);
+    for (const v of w.vocab) if (v[2]) skeletonTexts.add(v[2]);
+  }
+}
+write('clauseSkeleton.json', [...skeletonTexts].map((text) => {
+  const r = analyze(text);
+  return {
+    text,
+    roles: r.tokens.map((t) => ROLE[t.role]).join(''),
+    dims: r.tokens.map((t) => (t.dim ? '1' : '0')).join(''),
+    finiteCount: r.finiteCount,
+    hasParenthetical: r.hasParenthetical,
+  };
+}));
+
 console.log('done');
