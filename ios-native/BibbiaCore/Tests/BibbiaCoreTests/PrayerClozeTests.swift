@@ -106,9 +106,13 @@ final class PrayerClozeTests: XCTestCase {
         XCTAssertGreaterThan(cards, 30, "expected the authored prayers to yield real cards")
     }
 
+    // A deliberate pin: it catches an export that silently drops a section, which
+    // is invisible from the Swift side otherwise. Adding a prayer to
+    // courses/<id>/devotions.js is therefore meant to fail here until the two
+    // iOS export scripts are re-run and these numbers are bumped with them.
     func testCourseCarriesTheDevotions() throws {
         let course = try Course.load()
-        XCTAssertEqual(course.devotionSections.count, 3)
-        XCTAssertEqual(course.devotionSections.reduce(0) { $0 + $1.prayers.count }, 13)
+        XCTAssertEqual(course.devotionSections.count, 4)
+        XCTAssertEqual(course.devotionSections.reduce(0) { $0 + $1.prayers.count }, 14)
     }
 }

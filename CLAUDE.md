@@ -309,8 +309,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   prayers; the newest is the **Colletta di san Girolamo** (the CEI collect of
   the 30 September memorial — the patron of Bible study, asking for exactly what
   this course is for). Adding a prayer means adding its unglossed words to
-  `it2en.js` (`glossCoverage.test.js` fails until you do) and re-running the two
-  iOS scripts, since devotions are course content.
+  `it2en.js` (`glossCoverage.test.js` fails until you do), re-running the two
+  iOS scripts, since devotions are course content, and bumping the section/prayer
+  pin in `PrayerClozeTests.testCourseCarriesTheDevotions` — a Swift-only check
+  that the web suite cannot catch, so it only turns red in CI.
   **Fixed** — Listening rendered the single word's gloss as if it translated the
   whole sentence; the completion achievement was hardcoded to 37 weeks; "N due"
   now appears on the Today card.
