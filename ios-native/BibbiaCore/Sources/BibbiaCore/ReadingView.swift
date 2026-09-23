@@ -29,9 +29,9 @@ public enum ReadingEnglishMode: String, Codable, CaseIterable, Sendable {
 
 public struct ReadingViewState: Equatable, Sendable {
     public var english: ReadingEnglishMode
-    /// The web reader's clause-skeleton overlay. iOS has no such view, but the
-    /// field is carried through decode→encode so writing from this app never
-    /// silently clears the setting on the user's other device.
+    /// The "Struttura" clause-skeleton overlay (see ClauseSkeleton.swift).
+    /// Shared with the web reader under the same key, so turning it on in one
+    /// client turns it on in the other after a backup import.
     public var skeleton: Bool
 
     public init(english: ReadingEnglishMode = .off, skeleton: Bool = false) {
@@ -40,6 +40,12 @@ public struct ReadingViewState: Equatable, Sendable {
     }
 
     public mutating func cycleEnglish() { english = english.next }
+
+    public mutating func toggleSkeleton() { skeleton.toggle() }
+
+    /// Struttura marks up the Italian, so it has nothing to show in the
+    /// English-only view — the web reader hides its toggle there too.
+    public var showsSkeleton: Bool { skeleton && english != .only }
 
     /// Decode the stored JSON string. Anything unreadable falls back to the
     /// default rather than throwing — a corrupt preference must not stop the

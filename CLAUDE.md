@@ -280,6 +280,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   once — replays can raise a day's best score but never the streak), each with a
   sibling test, plus `WordGame.test.jsx` / `QuizGame.test.jsx`. The Today card
   gained a fourth goal row linking into the tab.
+- **Rosary tab (Rosario): SHIPPED (web + iOS).** On the web a seventh tab that walks the
+  whole Rosary bead by bead in Italian — 79 steps: crucifix, opening beads
+  (three Ave Marias for fede/speranza/carità), five decades (announce the
+  mystery, Padre Nostro, ten Ave Marias, Gloria, Fatima), Salve Regina. The
+  day's mysteries are preselected by the traditional weekly cycle (gaudiosi
+  Mon/Sat, dolorosi Tue/Fri, gloriosi Wed/Sun, luminosi Thu). Prayer texts are
+  **not duplicated**: `courses/<id>/rosary.js` holds only the four mystery
+  sets and the *ids* of the devotions it prays, so it and the Prayers tab share
+  one source. Mysteries are authored in mid-sentence form so the announcement
+  reads "Nel terzo mistero doloroso si contempla la coronazione di spine."
+  Pure logic in `src/utils/rosary.js` (`buildSteps`, `setForDay`,
+  `announcement`, plus a `storageKey('rosary')` store holding a same-day resume
+  point and a once-per-day completion tally); finishing ticks `practiced`.
+  Optional registry field `rosary` → `course/rosary.js`; the tab hides without
+  it or without devotions. Arrow keys step through the beads.
+  **iOS:** `BibbiaCore/Rosary.swift` ports the logic (`buildRosarySteps`,
+  `mysterySet(forDay:)`, `RosaryState` in the web's exact JSON, `resume: null`
+  included, so the key rides backups both ways); the `rosary.json` fixture pins
+  all 79 steps of all four sets to the JS. `RosaryView` is reached from the top
+  of the Prayers tab, **not** its own tab — a sixth iPhone tab would fall into
+  the "More" overflow. The rosary block is exported into `course.json`.
+
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
@@ -327,7 +349,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 698 tests across 60 files, all green
+npm test             # vitest run — 716 tests across 62 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -362,14 +384,14 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `usePronunStats` — pronunciation attempts under key `italian-bible-pronun` (per-word `{ attempts, last, best, sum, avg, at }`); `record(term, score)`, `getStore()`. Recorded by Pronunciation mode; combined with the SRS store by `src/utils/wordStats.js` (`struggleList`) to drive the Practice "Parole difficili / words you struggle with" panel.
 - `useStreak` — daily streak + today's-goal flags under key `italian-bible-streak`; React glue over pure `src/utils/streak.js` (`{ last, current, best, today: { date, read, practiced, journaled } }`). The dashboard reads it on mount (`TodayCard` remounts on tab switch, picking up activity recorded elsewhere); `recordActivity(flag)` is called fire-and-forget from `PracticeMode` (`'practiced'`) and `JournalTab` (`'journaled'`), and `tickRead` marks the reading box.
 
-All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
+All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
 **Flashcards tab** (`FlashcardsTab.jsx`) has three modes toggled by local state: *Anki Decks* (download `.apkg` files), *Practice* (`PracticeMode.jsx` — SRS-scheduled, with a style selector for Recognition / Recall / Cloze / Listening and a "Parole difficili" struggle panel), and *Pronunciation* (`PronunciationPractice.jsx`).
 
 **Reading & comprehension suite (opportunities.md O1–O5, rendered in `WeekDetail.jsx`).** Five research-backed features layered onto each week, all data-driven and degrading gracefully when content is absent:
-- **O2 Interactive reading** (`ReadingPassage.jsx`): renders the week's connected verses with every word tappable (`WordGloss`) + a per-line speaker + a "mark as read" button that ticks the streak's `read` flag. Source is `week.passage` (now authored for all 37 weeks in `exercises.js` — CEI 2008 text, 4–8 key verses per week) with graceful fallback to the week's vetted vocab example sentences via `src/utils/keyVerses.js`. Two view toggles sit above the text and **persist** under `storageKey('reading-view')`: **Inglese** and **Struttura** (below). *Inglese* is a three-state cycle, not a checkbox — `off` → `under` (the English of every verse beneath its Italian) → `only` (the passage read as continuous English, Italian hidden, the speaker still speaking the Italian); a boolean left by the old two-state toggle is migrated to `under`. In the `off` state each verse carries a small **EN chip** that reveals *that one* verse's English inline — session-local and never persisted, because needing one line is a moment, not a setting. The chip disappears once `under` is showing them all, and *Struttura* hides itself in the `only` view, which has no Italian on screen to mark up. **The iOS twin matches** — `ReadingViewState` / `ReadingEnglishMode` in `BibbiaCore/ReadingView.swift` own the cycle, the boolean migration and the storage shape, and `ReadingPassageView` renders the same three views plus the per-verse EN chip. Both clients read and write the *same* `reading-view` key, so the reading habit rides along in a backup file; iOS therefore carries the web-only `skeleton` flag through decode→encode rather than clearing a setting it cannot show. `Verse.en` had been missing from the Swift model, so the English was in `course.json` all along and simply decoded away. The English comes from `verse.en` — authored for all 200 verses, an English rendering *of the CEI Italian shown* rather than a quotation of an English Bible — or, for the example-sentence fallback, from the vocab tuple's `exEn`; `hasEnglish()` hides the toggle when a course ships neither. To update or verify individual verses, edit `exercises.js` directly; the egress proxy blocks all external Bible APIs so they cannot be fetched programmatically in this environment.
+- **O2 Interactive reading** (`ReadingPassage.jsx`): renders the week's connected verses with every word tappable (`WordGloss`) + a per-line speaker + a "mark as read" button that ticks the streak's `read` flag. Source is `week.passage` (now authored for all 37 weeks in `exercises.js` — CEI 2008 text, 4–8 key verses per week) with graceful fallback to the week's vetted vocab example sentences via `src/utils/keyVerses.js`. Two view toggles sit above the text and **persist** under `storageKey('reading-view')`: **Inglese** and **Struttura** (below). *Inglese* is a three-state cycle, not a checkbox — `off` → `under` (the English of every verse beneath its Italian) → `only` (the passage read as continuous English, Italian hidden, the speaker still speaking the Italian); a boolean left by the old two-state toggle is migrated to `under`. In the `off` state each verse carries a small **EN chip** that reveals *that one* verse's English inline — session-local and never persisted, because needing one line is a moment, not a setting. The chip disappears once `under` is showing them all, and *Struttura* hides itself in the `only` view, which has no Italian on screen to mark up. **The iOS twin matches** — `ReadingViewState` / `ReadingEnglishMode` in `BibbiaCore/ReadingView.swift` own the cycle, the boolean migration and the storage shape, and `ReadingPassageView` renders the same three views plus the per-verse EN chip. Both clients read and write the *same* `reading-view` key, so the reading habit rides along in a backup file — including the `skeleton` (Struttura) flag, which iOS now renders too (see Clause skeleton below). `Verse.en` had been missing from the Swift model, so the English was in `course.json` all along and simply decoded away. The English comes from `verse.en` — authored for all 200 verses, an English rendering *of the CEI Italian shown* rather than a quotation of an English Bible — or, for the example-sentence fallback, from the vocab tuple's `exEn`; `hasEnglish()` hides the toggle when a course ships neither. To update or verify individual verses, edit `exercises.js` directly; the egress proxy blocks all external Bible APIs so they cannot be fetched programmatically in this environment.
 - **O5 Comprehension** (`Comprehension.jsx` + `src/utils/comprehension.js`): collapsible true/false + multiple-choice checks (`week.comprehension`), each with an English gloss.
 - **O4 Dictogloss** (`Dictogloss.jsx` + `src/utils/dictogloss.js`): hear a verse → type a reconstruction → word-level diff + recall score (order-independent multiset match, accent/case/punctuation-forgiving). Counts as `practiced` activity.
 - **O3 Grammar drill** (`GrammarDrill.jsx` + `src/utils/grammarDrill.js`): fill-in-the-blank items (`week.drill`) anchored to vetted example sentences so the Italian is correct; answers use the same forgiving `checkAnswer`.
@@ -416,6 +438,18 @@ neither of the two tenses that prose is written in.
   all'aperto`) are asides at any length. Across the 200 authored verses this took
   the dimmed count from 49 (many wrong) to 31 (all genuine); the test file pins
   one case per class it used to get wrong, plus a corpus-level cap.
+  **iOS twin:** `BibbiaCore/ClauseSkeleton.swift` (`analyzeClauses`) is a
+  function-for-function port with the word lists copied verbatim; the
+  `clauseSkeleton.json` fixture runs the real JS over every passage verse and
+  vocab example and `ClauseSkeletonTests.swift` compares role + dim per token,
+  so **a word-list change on the web must be mirrored in the Swift file** (CI's
+  fixture-freshness job and the parity test both catch a miss). The reader
+  renders it through `WordGlossText(roles:)`, `SkeletonStyle` (shared by the
+  verses and the legend) and `SkeletonLegend` in `WeekDetailView.swift`.
+  The legend calls the solid mark a **conjugated** verb, not a "main" verb:
+  it also marks verbs inside `che`/`chi` clauses, and in `fu battezzato` it
+  sits on the helper while the meaning is in the participle. Asides are a
+  tinted band in secondary text, not an opacity fade (40% put them at ~2:1).
 - **Verb-form recognition** (`courses/<id>/verbForms.js` → `course/verbForms.js`
   → `src/utils/verbForms.js` → `VerbFormDrill.jsx`, a fifth Flashcards mode):
   form → infinitive for the **passato remoto** and **trapassato prossimo**, the
@@ -487,7 +521,7 @@ full Xcode instead — no `sudo`, no `xcode-select -s`:
 
 ```bash
 DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer \
-  swift test --package-path ios-native/BibbiaCore   # 160 tests
+  swift test --package-path ios-native/BibbiaCore   # 177 tests
 ```
 
 (The CLAUDE.md note that Swift "can't run in this sandbox" is about *remote*
@@ -604,7 +638,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **698 vitest tests across 60 files**, all passing.
+- **Tests:** `npm test` runs **716 vitest tests across 62 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,

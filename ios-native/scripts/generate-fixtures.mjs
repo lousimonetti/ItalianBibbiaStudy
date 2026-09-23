@@ -204,4 +204,56 @@ for (const p of phases) {
 }
 write('commonGloss.json', [...glossWords].sort().map((w) => ({ word: w, gloss: lookupCommon(w) })));
 
+// ── Clause skeleton (Struttura): every passage verse + vocab example, plus the
+// hand-picked cases the JS tests pin. Per token, one role letter
+// (. plain, f finite, c compound, p participle) and one dim bit, so a
+// mismatch names the exact token that drifted.
+const { analyze } = await import(join(repoRoot, 'src/utils/clauseSkeleton.js'));
+const ROLE = { plain: '.', finite: 'f', compound: 'c', participle: 'p' };
+const skeletonTexts = new Set([
+  'Tommaso, uno dei Dodici, chiamato Dìdimo, non era con loro.',
+  'Pochi giorni dopo, il figlio più giovane, raccolte tutte le sue cose, partì per un paese lontano.',
+  'Li condusse a casa sua, apparecchiò la mensa.',
+  'ma, entrate, non trovarono il corpo',
+  'a portare ai poveri il lieto annuncio',
+  "senza averne sentito parlare?",
+]);
+for (const p of phases) {
+  for (const w of p.weeks) {
+    for (const v of w.passage?.verses || []) skeletonTexts.add(v.t);
+    for (const v of w.vocab) if (v[2]) skeletonTexts.add(v[2]);
+  }
+}
+write('clauseSkeleton.json', [...skeletonTexts].map((text) => {
+  const r = analyze(text);
+  return {
+    text,
+    roles: r.tokens.map((t) => ROLE[t.role]).join(''),
+    dims: r.tokens.map((t) => (t.dim ? '1' : '0')).join(''),
+    finiteCount: r.finiteCount,
+    hasParenthetical: r.hasParenthetical,
+  };
+}));
+
+// ── Rosary: the full step list for every mystery set, plus the weekday map ──
+// buildSteps is pure structure, so recording it for all four sets pins the
+// Swift port to the same 79 steps in the same order with the same metadata.
+const { rosary } = await import(join(repoRoot, 'courses/it-bible-cei/rosary.js'));
+const { buildSteps, setForDay } = await import(join(repoRoot, 'src/utils/rosary.js'));
+write('rosary.json', {
+  weekdays: [0, 1, 2, 3, 4, 5, 6].map((d) => setForDay(d, rosary.sets).id),
+  sets: rosary.sets.map((set) => ({
+    id: set.id,
+    steps: buildSteps(rosary, set).map((s) => ({
+      kind: s.kind,
+      prayerId: s.prayerId ?? null,
+      section: String(s.section),
+      bead: s.bead,
+      count: s.count ? `${s.count.n}/${s.count.of}` : null,
+      virtue: s.virtue?.it ?? null,
+      text: s.text ?? null,
+    })),
+  })),
+});
+
 console.log('done');

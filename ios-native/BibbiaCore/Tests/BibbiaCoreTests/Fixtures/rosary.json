@@ -1,0 +1,2877 @@
+{
+ "weekdays": [
+  "gloriosi",
+  "gaudiosi",
+  "dolorosi",
+  "gloriosi",
+  "luminosi",
+  "dolorosi",
+  "gaudiosi"
+ ],
+ "sets": [
+  {
+   "id": "gaudiosi",
+   "steps": [
+    {
+     "kind": "prayer",
+     "prayerId": "segno-croce",
+     "section": "intro",
+     "bead": "cross",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "credo",
+     "section": "intro",
+     "bead": "cross",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "intro",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "intro",
+     "bead": "small",
+     "count": "1/3",
+     "virtue": "fede",
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "intro",
+     "bead": "small",
+     "count": "2/3",
+     "virtue": "speranza",
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "intro",
+     "bead": "small",
+     "count": "3/3",
+     "virtue": "carità",
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "intro",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "0",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel primo mistero gaudioso si contempla l'annunciazione dell'angelo a Maria."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "0",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "0",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "0",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "1",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel secondo mistero gaudioso si contempla la visita di Maria a santa Elisabetta."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "1",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "1",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "1",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "2",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel terzo mistero gaudioso si contempla la nascita di Gesù a Betlemme."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "2",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "2",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "2",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "3",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel quarto mistero gaudioso si contempla la presentazione di Gesù al tempio."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "3",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "3",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "3",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "4",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel quinto mistero gaudioso si contempla il ritrovamento di Gesù nel tempio."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "4",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "4",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "4",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "salve-regina",
+     "section": "closing",
+     "bead": "medal",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "segno-croce",
+     "section": "closing",
+     "bead": "cross",
+     "count": null,
+     "virtue": null,
+     "text": null
+    }
+   ]
+  },
+  {
+   "id": "luminosi",
+   "steps": [
+    {
+     "kind": "prayer",
+     "prayerId": "segno-croce",
+     "section": "intro",
+     "bead": "cross",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "credo",
+     "section": "intro",
+     "bead": "cross",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "intro",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "intro",
+     "bead": "small",
+     "count": "1/3",
+     "virtue": "fede",
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "intro",
+     "bead": "small",
+     "count": "2/3",
+     "virtue": "speranza",
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "intro",
+     "bead": "small",
+     "count": "3/3",
+     "virtue": "carità",
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "intro",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "0",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel primo mistero luminoso si contempla il battesimo di Gesù nel Giordano."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "0",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "0",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "0",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "1",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel secondo mistero luminoso si contempla le nozze di Cana."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "1",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "1",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "1",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "2",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel terzo mistero luminoso si contempla l'annuncio del regno di Dio e l'invito alla conversione."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "2",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "2",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "2",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "3",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel quarto mistero luminoso si contempla la trasfigurazione di Gesù."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "3",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "3",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "3",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "4",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel quinto mistero luminoso si contempla l'istituzione dell'Eucaristia."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "4",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "4",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "4",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "salve-regina",
+     "section": "closing",
+     "bead": "medal",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "segno-croce",
+     "section": "closing",
+     "bead": "cross",
+     "count": null,
+     "virtue": null,
+     "text": null
+    }
+   ]
+  },
+  {
+   "id": "dolorosi",
+   "steps": [
+    {
+     "kind": "prayer",
+     "prayerId": "segno-croce",
+     "section": "intro",
+     "bead": "cross",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "credo",
+     "section": "intro",
+     "bead": "cross",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "intro",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "intro",
+     "bead": "small",
+     "count": "1/3",
+     "virtue": "fede",
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "intro",
+     "bead": "small",
+     "count": "2/3",
+     "virtue": "speranza",
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "intro",
+     "bead": "small",
+     "count": "3/3",
+     "virtue": "carità",
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "intro",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "0",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel primo mistero doloroso si contempla l'agonia di Gesù nell'orto degli ulivi."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "0",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "0",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "0",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "1",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel secondo mistero doloroso si contempla la flagellazione di Gesù."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "1",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "1",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "1",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "2",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel terzo mistero doloroso si contempla la coronazione di spine."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "2",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "2",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "2",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "3",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel quarto mistero doloroso si contempla la salita di Gesù al Calvario con la croce."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "3",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "3",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "3",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "4",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel quinto mistero doloroso si contempla la crocifissione e la morte di Gesù."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "4",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "4",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "4",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "salve-regina",
+     "section": "closing",
+     "bead": "medal",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "segno-croce",
+     "section": "closing",
+     "bead": "cross",
+     "count": null,
+     "virtue": null,
+     "text": null
+    }
+   ]
+  },
+  {
+   "id": "gloriosi",
+   "steps": [
+    {
+     "kind": "prayer",
+     "prayerId": "segno-croce",
+     "section": "intro",
+     "bead": "cross",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "credo",
+     "section": "intro",
+     "bead": "cross",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "intro",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "intro",
+     "bead": "small",
+     "count": "1/3",
+     "virtue": "fede",
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "intro",
+     "bead": "small",
+     "count": "2/3",
+     "virtue": "speranza",
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "intro",
+     "bead": "small",
+     "count": "3/3",
+     "virtue": "carità",
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "intro",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "0",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel primo mistero glorioso si contempla la risurrezione di Gesù."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "0",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "0",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "0",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "0",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "1",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel secondo mistero glorioso si contempla l'ascensione di Gesù al cielo."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "1",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "1",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "1",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "1",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "2",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel terzo mistero glorioso si contempla la discesa dello Spirito Santo nel cenacolo."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "2",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "2",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "2",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "2",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "3",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel quarto mistero glorioso si contempla l'assunzione di Maria al cielo."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "3",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "3",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "3",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "3",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "mystery",
+     "prayerId": null,
+     "section": "4",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": "Nel quinto mistero glorioso si contempla l'incoronazione di Maria regina del cielo e della terra."
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "padre-nostro",
+     "section": "4",
+     "bead": "large",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "1/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "2/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "3/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "4/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "5/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "6/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "7/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "8/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "9/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "ave-maria",
+     "section": "4",
+     "bead": "small",
+     "count": "10/10",
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "gloria",
+     "section": "4",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "fatima",
+     "section": "4",
+     "bead": "chain",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "salve-regina",
+     "section": "closing",
+     "bead": "medal",
+     "count": null,
+     "virtue": null,
+     "text": null
+    },
+    {
+     "kind": "prayer",
+     "prayerId": "segno-croce",
+     "section": "closing",
+     "bead": "cross",
+     "count": null,
+     "virtue": null,
+     "text": null
+    }
+   ]
+  }
+ ]
+}

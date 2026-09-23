@@ -14,6 +14,8 @@ import { FlashcardsTab } from './components/FlashcardsTab';
 import { JournalTab } from './components/JournalTab';
 import { DevotionsTab } from './components/DevotionsTab';
 import { devotionSections } from '../course/devotions';
+import { RosaryTab } from './components/RosaryTab';
+import { rosary } from '../course/rosary';
 import { buildCards } from '../course/vocab';
 import { useSrs } from './hooks/useSrs';
 import { SaintsTab } from './components/SaintsTab';
@@ -38,6 +40,8 @@ const ALL_WEEKS = PHASES.flatMap(p => p.weeks);
 const ALL_CARDS = buildCards(PHASES);
 // The Devotions tab only exists for courses that ship devotional texts.
 const HAS_DEVOTIONS = devotionSections.length > 0;
+// The Rosary prays the course's devotions, so it needs both.
+const HAS_ROSARY = HAS_DEVOTIONS && !!rosary;
 
 function DownloadIcon() {
   return (
@@ -91,6 +95,15 @@ function PrayersIcon() {
       <path d="M8 1.5C8 1.5 4 5 4 8.5a4 4 0 008 0C12 5 8 1.5 8 1.5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
       <path d="M8 14.5v-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
       <path d="M6 14.5h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+function RosaryIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="5.5" r="4.2" stroke="currentColor" strokeWidth="1.3" strokeDasharray="1.4 1.6" strokeLinecap="round"/>
+      <path d="M8 9.7v5.3M6 12.2h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
   );
 }
@@ -277,6 +290,7 @@ const TABS = [
   { id: 'Game',       Icon: GameIcon },
   { id: 'Journal',    Icon: JournalIcon },
   ...(HAS_DEVOTIONS ? [{ id: 'Prayers', Icon: PrayersIcon }] : []),
+  ...(HAS_ROSARY ? [{ id: 'Rosary', Icon: RosaryIcon }] : []),
   { id: 'Saints',     Icon: SaintsIcon },
 ];
 
@@ -424,6 +438,9 @@ export default function App() {
 
       {/* Tab: Prayers */}
       {activeTab === 'Prayers' && HAS_DEVOTIONS && <DevotionsTab />}
+
+      {/* Tab: Rosary */}
+      {activeTab === 'Rosary' && HAS_ROSARY && <RosaryTab />}
 
       {/* Tab: Saints */}
       {activeTab === 'Saints' && <SaintsTab />}

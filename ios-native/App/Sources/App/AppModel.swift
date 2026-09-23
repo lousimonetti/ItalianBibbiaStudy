@@ -109,6 +109,8 @@ final class AppModel: ObservableObject {
     @Published var theme: Theme = .system { didSet { persistTheme() } }
     @Published private(set) var sessionStartOverride: String?       // "YYYY-MM-DD"
     @Published var reminders = ReminderPrefs() { didSet { WebStore.saveJSON("reminders", reminders) } }
+    /// Guided-Rosary resume point + tally (`italian-bible-rosary`, web shape).
+    @Published private(set) var rosaryState = RosaryState()
 
     var articles: [String] { course.locale.articles }
     var ttsLanguage: String { course.locale.target }
@@ -133,6 +135,7 @@ final class AppModel: ObservableObject {
         theme = Theme(rawValue: WebStore.loadString("theme") ?? "") ?? .system
         sessionStartOverride = WebStore.loadString("session-start")
         reminders = WebStore.loadJSON("reminders", as: ReminderPrefs.self) ?? ReminderPrefs()
+        rosaryState = WebStore.loadJSON("rosary", as: RosaryState.self) ?? RosaryState()
         ensureSessionStart()
     }
 
@@ -202,6 +205,24 @@ final class AppModel: ObservableObject {
     }
 
     var learnedCount: Int { srsStore.count }
+
+    // ── Rosary ───────────────────────────────────────────────────────────────
+    func saveRosaryPosition(setId: String, step: Int) {
+        rosaryState = rosaryState.withPosition(date: todayStr(), setId: setId, step: step)
+        WebStore.saveJSON("rosary", rosaryState)
+    }
+
+    func clearRosaryPosition() {
+        rosaryState = rosaryState.clearingPosition()
+        WebStore.saveJSON("rosary", rosaryState)
+    }
+
+    /// A finished Rosary: tallied once per day, and it counts as practice.
+    func completeRosary() {
+        rosaryState = rosaryState.completing(on: todayStr())
+        WebStore.saveJSON("rosary", rosaryState)
+        recordActivity(.practiced)
+    }
 
     // ── Streak ───────────────────────────────────────────────────────────────
     func recordActivity(_ flag: StreakFlag) {

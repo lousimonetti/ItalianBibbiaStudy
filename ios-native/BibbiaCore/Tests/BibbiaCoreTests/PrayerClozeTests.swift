@@ -108,7 +108,7 @@ final class PrayerClozeTests: XCTestCase {
 
     func testCourseCarriesTheDevotions() throws {
         let course = try Course.load()
-        XCTAssertEqual(course.devotionSections.count, 3)
-        XCTAssertEqual(course.devotionSections.reduce(0) { $0 + $1.prayers.count }, 13)
+        XCTAssertEqual(course.devotionSections.count, 4)
+        XCTAssertEqual(course.devotionSections.reduce(0) { $0 + $1.prayers.count }, 14)
     }
 }

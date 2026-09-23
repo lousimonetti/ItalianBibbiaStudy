@@ -36,6 +36,15 @@ try {
   devotionSections = [];
 }
 
+// The guided Rosary is optional too — it names devotion ids rather than
+// carrying prayer text, so it only means something alongside the devotions.
+let rosary = null;
+try {
+  ({ rosary } = await import(join(repoRoot, 'courses/it-bible-cei/rosary.js')));
+} catch {
+  rosary = null;
+}
+
 function exportVocab(tuples = []) {
   return tuples.map(([it, en, ex, ipa, extra]) => {
     const x = extra && typeof extra === 'object' && !Array.isArray(extra) ? extra : {};
@@ -127,6 +136,7 @@ const course = {
   schedule: config.schedule,
   resources: config.resources,
   devotions: (devotionSections ?? []).map(exportDevotionSection),
+  ...(rosary ? { rosary } : {}),
   phases: phases.map((p) => ({
     id: p.id,
     title: p.title,

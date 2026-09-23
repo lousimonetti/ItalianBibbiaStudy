@@ -3951,3 +3951,62 @@ html.dark {
   transition: opacity 0.15s;
 }
 .game-start-btn:hover { opacity: 0.85; }
+
+/* ── Rosary tab ───────────────────────────────────────────────────────────── */
+.rosary-sets { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px; }
+.rosary-today { font-weight: 400; opacity: 0.8; }
+.rosary-resume {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  padding: 10px 12px; margin-bottom: 12px; border-radius: 10px;
+  background: var(--accent-dim); color: var(--text); font-size: 13px;
+}
+.rosary-mystery-list { margin: 12px 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+.rosary-mystery-list li { font-size: 13.5px; }
+.rosary-mystery-list-it { display: block; color: var(--text); }
+.rosary-mystery-list-en { display: block; font-size: 11.5px; color: var(--text-faint); }
+.rosary-begin { width: 100%; }
+.rosary-tally { font-size: 12.5px; color: var(--text-muted); margin: 10px 2px; }
+
+.rosary-guide { display: flex; flex-direction: column; gap: 10px; }
+.rosary-progress-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.rosary-section { font-size: 13px; font-weight: 600; }
+.rosary-set-name { font-size: 11.5px; color: var(--text-muted); }
+.rosary-bar { height: 4px; }
+
+.rosary-beads { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 5px; min-height: 22px; padding: 4px 0; }
+.rosary-bead { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1.5px solid var(--text-faint); transition: background 0.15s, border-color 0.15s, transform 0.15s; }
+.rosary-bead--small { width: 11px; height: 11px; }
+.rosary-bead--large { width: 16px; height: 16px; }
+.rosary-bead--chain { width: 6px; height: 6px; border-radius: 1px; transform: rotate(45deg); }
+.rosary-bead--medal { width: 14px; height: 18px; border-radius: 45%; }
+.rosary-bead--cross { width: auto; height: auto; border: none; border-radius: 0; color: var(--text-faint); }
+.rosary-bead--done { background: var(--text-faint); }
+.rosary-bead--cross.rosary-bead--done { background: none; }
+.rosary-bead--current { background: var(--accent); border-color: var(--accent); color: var(--accent); transform: scale(1.25); }
+.rosary-bead--chain.rosary-bead--current { transform: rotate(45deg) scale(1.4); }
+.rosary-bead--cross.rosary-bead--current { background: none; }
+
+.rosary-step-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.rosary-step-title { font-size: 15px; font-weight: 600; color: var(--accent); }
+.rosary-count { font-weight: 500; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.rosary-intention { font-size: 13px; margin: 0; color: var(--text); }
+.rosary-intention-en { color: var(--text-faint); font-size: 12px; }
+.rosary-lines .prayer-line-it { font-size: 15px; line-height: 1.6; }
+
+.rosary-mystery { display: flex; flex-direction: column; gap: 4px; }
+.rosary-mystery-kicker { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
+.rosary-mystery-title { font-size: 18px; font-weight: 600; color: var(--accent); line-height: 1.35; }
+.rosary-announce { font-size: 15px; line-height: 1.6; margin: 8px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.rosary-fruit { font-size: 12px; color: var(--text-muted); margin: 4px 0 0; }
+
+.rosary-exit {
+  align-self: center; background: none; border: none; cursor: pointer;
+  font-size: 12px; color: var(--text-faint); text-decoration: underline; padding: 4px;
+}
+.rosary-exit:hover { color: var(--accent); }
+.rosary-done { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+
+/* Seven tabs on a phone: let labels shrink rather than push the bar wider. */
+@media (max-width: 600px) {
+  .tab-btn { min-width: 0; overflow: hidden; font-size: 10.5px; white-space: nowrap; }
+}

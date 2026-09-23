@@ -13,7 +13,7 @@ the web Sync panel imports into iOS Settings → Sync, and vice versa.
 
 | Tab | Features |
 |-----|----------|
-| **Tracker** | Today card (streak 🔥 + read/practice/write checklist), 4 phases × 37 weeks, achievements grid, week detail with CEI 2008 reading passage (every word tappable for gloss/IPA/audio; an **EN chip** per verse and an **Inglese** cycle — off / English under each verse / English only), vocab with TTS speakers, grammar note, fill-in-the-blank drills, comprehension checks (T/F + multiple choice), dictogloss, writing prompt, iTalki starters |
+| **Tracker** | Today card (streak 🔥 + read/practice/write checklist), 4 phases × 37 weeks, achievements grid, week detail with CEI 2008 reading passage (every word tappable for gloss/IPA/audio; an **EN chip** per verse an **Inglese** cycle — off / English under each verse / English only — and a **Struttura** overlay that marks conjugated verbs, two-word verbs, bare participles and asides, with a legend and a per-verse verb count), vocab with TTS speakers, grammar note, fill-in-the-blank drills, comprehension checks (T/F + multiple choice), dictogloss, writing prompt, iTalki starters |
 | **Flashcards** | SM-2 spaced repetition (same scheduler + store format as the web), 4 practice styles — Recognition, Recall (typed), Cloze, Listening — daily new-card cap, "Parole difficili" struggle list with drill button, Pronunciation + Shadowing scored by on-device speech recognition |
 | **Journal** | Per-week entries with writing scaffold (starters + tap-to-insert vocab chips), LanguageTool grammar check, Markdown export via share sheet |
 | **Settings** | Light/dark theme, **New Session** (start/restart the 37 weeks from any date, optional resets), daily reminder (real local notification), backup export/import, About |
@@ -111,7 +111,7 @@ with a test (views stay dumb); course-content edits happen in
 
 `BibbiaCore` mirrors the web logic function-for-function (SRS scheduler,
 answer checking, cloze builder, streak, Italian grapheme→IPA converter,
-schedule, reminders, achievements, struggle list, dictogloss, comprehension,
+schedule, reminders, achievements, struggle list, dictogloss, clause skeleton, comprehension,
 vocab index, sync snapshot). The test suite doesn't just re-test the ideas —
 `generate-fixtures.mjs` **executes the real JS modules** and records their
 outputs (e.g. `toIPA` for all ~900 distinct course words, cloze results for
