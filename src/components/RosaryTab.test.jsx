@@ -41,10 +41,18 @@ describe('RosaryTab', () => {
     expect(screen.getByText('Ave Maria')).toBeTruthy();
   });
 
+  // Starts from a saved position near the end rather than clicking all 79
+  // steps: each step re-renders a full WordGloss prayer, and the long walk ran
+  // past vitest's 5s timeout on CI. The step sequence itself is covered by
+  // rosary.test.js; this test is about what finishing does.
   it('counts a finished Rosary and ticks the practiced goal', () => {
+    localStorage.setItem('italian-bible-rosary', JSON.stringify({
+      resume: { date: '2026-09-24', setId: 'luminosi', step: 76 }, completed: 0, last: null,
+    }));
     render(<RosaryTab />);
-    fireEvent.click(screen.getByRole('button', { name: /Begin/ }));
-    for (let i = 0; i < 79; i++) next();
+    fireEvent.click(screen.getByRole('button', { name: /Resume/ }));
+    expect(screen.getByText('Preghiera di Fatima')).toBeTruthy();
+    for (let i = 0; i < 3; i++) next(); // Fatima → Salve Regina → Sign of the Cross → finish
     expect(screen.getByText('Sia lodato Gesù Cristo.')).toBeTruthy();
     expect(JSON.parse(localStorage.getItem('italian-bible-rosary')).completed).toBe(1);
     expect(JSON.parse(localStorage.getItem('italian-bible-streak')).today.practiced).toBe(true);
