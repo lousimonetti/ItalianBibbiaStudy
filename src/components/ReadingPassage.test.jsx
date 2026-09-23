@@ -82,11 +82,11 @@ describe('ReadingPassage', () => {
 
     it('shows the clause count for the line', () => {
       // "È lui la pietra che … è diventata …" — two finite verbs, two clauses.
-      expect(screen.getByTitle(/2 finite verbs — so 2 clauses/)).toBeTruthy();
+      expect(screen.getByTitle(/2 main verbs, so 2 clauses/)).toBeTruthy();
     });
 
     it('shows the legend', () => {
-      expect(screen.getByText(/finite verb — count them: one per clause/)).toBeTruthy();
+      expect(screen.getByText(/Struttura shows the frame of each sentence/)).toBeTruthy();
     });
 
     it('toggles back off', () => {

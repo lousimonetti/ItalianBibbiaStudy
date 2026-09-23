@@ -3059,42 +3059,67 @@ html.dark .prayer-text-en { color: var(--text-muted); }
 }
 
 .skeleton-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 14px;
-  margin: 8px 0 6px;
-  font-size: 10.5px;
-  color: var(--text-faint);
-  line-height: 1.6;
+  margin: 8px 0 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
 }
-.sk-key { font-weight: 600; margin-right: 4px; }
+.skeleton-intro { margin: 0 0 8px; color: var(--text); }
+.skeleton-keys {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 10px;
+  align-items: baseline;
+}
+.skeleton-keys li { display: contents; }
+.skeleton-keys .sk-sample { white-space: nowrap; font-size: 13px; }
+.skeleton-keys strong { color: var(--text); font-weight: 600; }
+.skeleton-note { margin: 8px 0 0; font-size: 11px; color: var(--text-faint); }
+.sk-key { font-weight: 600; }
 .sk-finite-key { color: var(--accent); border-bottom: 2px solid var(--accent); }
 .sk-compound-key { color: var(--accent); border-bottom: 2px dashed var(--accent); }
 .sk-participle-key { color: #b8860b; border-bottom: 1px dotted #b8860b; font-style: italic; }
-.sk-dim-key { opacity: 0.45; }
+html.dark .sk-participle-key { color: #d6a419; border-bottom-color: #d6a419; }
+.sk-dim-key { opacity: 0.4; font-weight: 400; }
+.skeleton-keys .skeleton-count { display: inline-block; }
 
-/* Roles. The selectors reach through .gloss-word-wrap because WordGloss puts
-   the structural class on the wrapper and the affordance on the button. */
+/* Roles. A tappable word is a .gloss-word button inside a .gloss-word-wrap
+   span, and the role class sits on the wrap; an untappable word is a bare span
+   carrying the class itself. Style the button in the first case and the span
+   in the second — never both, or a tappable word gets two underlines (the
+   wrap's and the button's, a few pixels apart). */
 .wordgloss-skeleton .sk-finite > .gloss-word,
-.wordgloss-skeleton .sk-finite {
+.wordgloss-skeleton .sk-finite:not(.gloss-word-wrap) {
   color: var(--accent);
   font-weight: 600;
   border-bottom: 2px solid var(--accent);
 }
 .wordgloss-skeleton .sk-compound > .gloss-word,
-.wordgloss-skeleton .sk-compound {
+.wordgloss-skeleton .sk-compound:not(.gloss-word-wrap) {
   color: var(--accent);
   font-weight: 600;
   border-bottom: 2px dashed var(--accent);
 }
 .wordgloss-skeleton .sk-participle > .gloss-word,
-.wordgloss-skeleton .sk-participle {
+.wordgloss-skeleton .sk-participle:not(.gloss-word-wrap) {
   color: #b8860b;
   font-style: italic;
   border-bottom: 1px dotted #b8860b;
 }
 html.dark .wordgloss-skeleton .sk-participle > .gloss-word,
-html.dark .wordgloss-skeleton .sk-participle { color: #d6a419; border-bottom-color: #d6a419; }
+html.dark .wordgloss-skeleton .sk-participle:not(.gloss-word-wrap) { color: #d6a419; border-bottom-color: #d6a419; }
+/* A plain word keeps no gloss underline while the skeleton is showing, so the
+   only lines on screen are the ones the legend explains. */
+.wordgloss-skeleton .gloss-word-wrap:not(.sk-finite):not(.sk-compound):not(.sk-participle) > .gloss-word {
+  border-bottom-color: transparent;
+}
 
 /* Asides fade but stay legible and tappable — the point is to read past them
    on the first pass, not to hide them. */

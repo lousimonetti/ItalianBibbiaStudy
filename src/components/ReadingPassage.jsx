@@ -142,7 +142,7 @@ export function ReadingPassage({ week }) {
             className={`skeleton-toggle${skeleton ? ' active' : ''}`}
             onClick={toggleSkeleton}
             aria-pressed={skeleton}
-            title="Highlight the finite verbs and dim the asides — find the clause spine first"
+            title="Show the frame of each sentence: main verbs underlined, asides faded"
           >
             {skeleton ? '✓ Struttura' : 'Struttura'}
           </button>
@@ -151,13 +151,61 @@ export function ReadingPassage({ week }) {
 
       {skeleton && !englishOnly && (
         <div className="skeleton-legend">
-          <span><b className="sk-key sk-finite-key">disse</b> finite verb — count them: one per clause</span>
-          <span>
-            <b className="sk-key sk-finite-key">è</b>
-            <b className="sk-key sk-compound-key">venuto</b> auxiliary + participle = one verb
-          </span>
-          <span><b className="sk-key sk-participle-key">dato</b> bare participle = <i>che è stato dato</i></span>
-          <span><b className="sk-key sk-dim-key">, … ,</b> aside — read the sentence without it</span>
+          <p className="skeleton-intro">
+            Struttura shows the frame of each sentence. Long Italian sentences
+            are built around their conjugated verbs, so find those first, then
+            fill in everything else.
+          </p>
+          <ul className="skeleton-keys">
+            <li>
+              <span className="sk-sample"><b className="sk-key sk-finite-key">disse</b></span>
+              <span>
+                <strong>Main verb.</strong> A conjugated verb. Each one
+                is the heart of its own clause, so the number of main verbs is
+                the number of clauses.
+              </span>
+            </li>
+            <li>
+              <span className="sk-sample">
+                <b className="sk-key sk-finite-key">è</b>{' '}
+                <b className="sk-key sk-compound-key">venuto</b>
+              </span>
+              <span>
+                <strong>Two-word verb.</strong> A helper verb
+                (<i>è</i>, <i>ha</i>, <i>fu</i>…) plus a participle is still one
+                verb: <i>è venuto</i> = &ldquo;has come&rdquo;. Only the helper
+                is counted.
+              </span>
+            </li>
+            <li>
+              <span className="sk-sample"><b className="sk-key sk-participle-key">dato</b></span>
+              <span>
+                <strong>Participle on its own.</strong> No helper verb,
+                so read it as a shortened &ldquo;which was…&rdquo; clause:{' '}
+                <i>nome dato agli uomini</i> = &ldquo;name (which was) given
+                to men&rdquo;.
+              </span>
+            </li>
+            <li>
+              <span className="sk-sample"><b className="sk-key sk-dim-key">pieno di Spirito</b></span>
+              <span>
+                <strong>Faded words.</strong> An aside between commas.
+                The sentence still works without it, so skip it on your first
+                read, then add it back.
+              </span>
+            </li>
+            <li>
+              <span className="sk-sample"><span className="skeleton-count">2</span></span>
+              <span>
+                <strong>Verb count.</strong> The number of main verbs in
+                the verse: how many clauses you are looking for.
+              </span>
+            </li>
+          </ul>
+          <p className="skeleton-note">
+            Marked automatically. It can miss a verb, but what it marks is
+            usually right. Every word can still be tapped for its meaning.
+          </p>
         </div>
       )}
 
@@ -191,7 +239,7 @@ export function ReadingPassage({ week }) {
               {skeleton && !englishOnly && analyses[i].finiteCount > 0 && (
                 <span
                   className="skeleton-count"
-                  title={`${analyses[i].finiteCount} finite verb${analyses[i].finiteCount === 1 ? '' : 's'} — so ${analyses[i].finiteCount} clause${analyses[i].finiteCount === 1 ? '' : 's'}`}
+                  title={`${analyses[i].finiteCount} main verb${analyses[i].finiteCount === 1 ? '' : 's'}, so ${analyses[i].finiteCount} clause${analyses[i].finiteCount === 1 ? '' : 's'}`}
                 >
                   {analyses[i].finiteCount}
                 </span>

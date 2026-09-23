@@ -90,11 +90,33 @@ const AUX = new Set([
   'abbia', 'abbiano', 'avesse', 'avessero', 'avrei', 'avrebbe',
   'viene', 'vengono', 'venne', 'vennero', 'veniva', 'venivano',
   'sta', 'stanno', 'stava', 'stavano',
+  'vada', 'vadano', 'andò', 'andarono', // "non vada perduto"
+]);
+
+// Non-finite auxiliaries: a passive or perfect infinitive ("essere salvato",
+// "per aver creduto", "venire ucciso", "averne sentito") is one verb too.
+// Kept out of AUX because AUX also feeds the finite lexicon.
+const NONFINITE_AUX = new Set([
+  'essere', 'esser', 'avere', 'aver', 'venire', 'essendo', 'avendo',
 ]);
 
 export function isAuxiliary(word) {
-  return AUX.has(stripElision(word));
+  const w = stripElision(word);
+  return AUX.has(w) || NONFINITE_AUX.has(w) || NONFINITE_AUX.has(stripClitics(w));
 }
+
+// Forms of avere, for the one participle that is also a noun and only ever
+// follows avere as a verb: "hanno peccato" vs "è peccato".
+const AVERE = new Set([
+  'ho', 'hai', 'ha', 'abbiamo', 'avete', 'hanno', 'avevo', 'aveva', 'avevano',
+  'ebbe', 'ebbero', 'avrà', 'avranno', 'abbia', 'abbiano', 'avesse', 'avere', 'aver',
+]);
+const PECCATO_LIKE = new Set(['peccato']);
+
+// Auxiliary forms that are never nouns, so the determiner rule must not hide
+// them: "il Padre mio è", "vostro è il regno", "uno era fariseo". 'sei' (six)
+// and 'fosse' (ditches) are the exceptions and stay subject to it.
+const NEVER_NOUN = new Set([...AUX].filter((w) => w !== 'sei' && w !== 'fosse'));
 
 // ── finite verbs: irregular + present-tense lexicon ──────────────────────────
 // Suffix rules (below) cover the imperfect, future, conditional, subjunctive
@@ -161,8 +183,11 @@ const FINITE_LEXICON = new Set([
   'vale', 'valgono', 'valga',
   'possiedo', 'possiede', 'possiedono',
   'vuol', 'suole', 'alzati', 'àlzati', 'goditi',
+  'farà', 'farò', 'dava', 'udii', 'caddi', 'risposi', 'impose', 'sciolse', 'sciolsero',
+  'esalta', 'umilia', 'discende', 'spetta', 'nutre', 'esiste', 'splende', 'ritengo',
+  'delude', 'dimostra', 'produce', 'abbatte',
   // high-frequency regular presents with no common noun homograph
-  'prega', 'parla', 'ascolta', 'annuncia', 'annuncio', 'cammina', 'perdona', 'comanda',
+  'prega', 'parla', 'ascolta', 'annuncia', 'cammina', 'perdona', 'comanda',
   'insegna', 'battezza', 'predica', 'racconta', 'ringrazia', 'ama', 'amano',
   'mando', 'rendo', 'esorto', 'respira', 'respirano',
   'crede', 'credo', 'temo', 'teme', 'segue', 'seguo', 'vengo', 'vieni',
@@ -175,6 +200,17 @@ const FINITE_LEXICON = new Set([
 const NOUN_HOMOGRAPH_VERBS = new Set([
   'porta', 'portano', 'legge', 'leggi', 'lava', 'guida', 'opera', 'cura',
   'grida', 'canta', 'ordina', 'pesca', 'conta', 'firma', 'posa', 'piega',
+  'annuncio', // "vi annuncio una grande gioia" vs "il lieto annuncio"
+]);
+
+// Prenominal adjectives and demonstratives. After one of these a homograph is
+// the noun ("il lieto annuncio", "quella porta"), and a participle is an
+// adjective, not a clause.
+const PRENOMINAL = new Set([
+  'lieto', 'lieta', 'buon', 'buona', 'gran', 'grande', 'nuovo', 'nuova',
+  'santo', 'santa', 'primo', 'prima', 'ultimo', 'ultima', 'vero', 'vera',
+  'questo', 'questa', 'questi', 'queste', 'quel', 'quello', 'quella', 'quei',
+  'quegli', 'quelle', 'ogni', 'nessun', 'nessuna', 'alcun', 'alcuna', 'qualche',
 ]);
 for (const w of NOUN_HOMOGRAPH_VERBS) FINITE_LEXICON.add(w);
 
@@ -292,6 +328,13 @@ const PARTICIPLE_LEXICON = new Set([
   'dato',
   // Genuine -iti participles, now that the suffix rule no longer takes -iti.
   'fuggiti', 'riuniti', 'saliti', 'usciti', 'partiti', 'finiti',
+  // Strong participles found missing when the whole corpus was re-read.
+  'risorto', 'risorta', 'risorti', 'risorte',
+  'avvolto', 'avvolta', 'avvolti', 'avvolte',
+  'scosso', 'scossa', 'scossi', 'scosse',
+  'disceso', 'discesa', 'discesi', 'discese',
+  'effuso', 'effusa', 'effusi',
+  'promesso', 'promessa', 'promessi',
 ]);
 
 // Two endings are deliberately absent.
@@ -328,6 +371,7 @@ const NOT_PARTICIPLE = new Set([
 const NOUN_PARTICIPLES = new Set([
   'vista', 'viste', 'posto', 'posti', 'morto', 'morta', 'morti',
   'fatto', 'fatti', 'detto', 'letto', 'stato', 'stati', 'corso', 'corsi',
+  'promessa',
 ]);
 
 export function isParticiple(word) {
@@ -469,32 +513,68 @@ export function analyze(text) {
   const wordIdx = [];
   tokens.forEach((t, i) => { if (t.isWord) wordIdx.push(i); });
 
+  // The word before word n, but only when nothing but whitespace separates
+  // them: "casa sua, apparecchiò" must not read "sua" as the determiner of
+  // "apparecchiò".
+  const prevWord = (n) => {
+    if (n <= 0) return '';
+    const gap = tokens.slice(wordIdx[n - 1] + 1, wordIdx[n]).map((t) => t.text).join('');
+    return /^\s*$/.test(gap) ? stripElision(tokens[wordIdx[n - 1]].text) : '';
+  };
+  // Is word n preceded by a determiner? A possessive only counts when it is
+  // prenominal ("suo padre", "la sua casa"); a postposed one follows its noun
+  // ("il Padre mio è", "fratello mio") and determines nothing after it.
+  const afterDeterminerAt = (n) => {
+    const prev = prevWord(n);
+    if (!DETERMINERS.has(prev)) return false;
+    if (!POSSESSIVES.has(prev)) return true;
+    const before = prevWord(n - 1);
+    return !before || DETERMINERS.has(before) || PREPOSITIONS.has(before) || CLITIC_OR_ARTICLE.has(before);
+  };
+  const leansOnAux = (n) => wordIdx
+    .slice(Math.max(0, n - AUX_LOOKBACK), n)
+    .some((j) => isAuxiliary(tokens[j].text));
+
   // Pass 1 — roles, in context. A word preceded by a determiner is a noun, so
   // it is left plain even when its form is a perfectly good verb or participle.
   wordIdx.forEach((i, n) => {
-    const prev = n > 0 ? stripElision(tokens[wordIdx[n - 1]].text) : '';
-    const afterDeterminer = DETERMINERS.has(prev);
+    const prev = prevWord(n);
+    const afterDeterminer = afterDeterminerAt(n);
     const afterArticleOrClitic = afterDeterminer || CLITIC_OR_ARTICLE.has(prev);
     const w = stripElision(tokens[i].text);
 
     if (!isFiniteVerb(tokens[i].text)) return;
-    // "la porta" / "la legge": a homograph after any article is the noun.
-    if (afterDeterminer || (afterArticleOrClitic && NOUN_HOMOGRAPH_VERBS.has(w))) return;
+    if (!NEVER_NOUN.has(w)) {
+      // "la porta" / "la legge" / "il lieto annuncio": a homograph after an
+      // article or a prenominal adjective is the noun.
+      if (afterDeterminer) return;
+      if (NOUN_HOMOGRAPH_VERBS.has(w) && (afterArticleOrClitic || PRENOMINAL.has(prev))) return;
+    }
+    // "erano chiuse", "furono presi": a form that is both a strong passato
+    // remoto and a participle is the participle once an auxiliary precedes it.
+    if (isParticiple(tokens[i].text) && leansOnAux(n)) return;
     tokens[i].role = 'finite';
   });
 
   wordIdx.forEach((i, n) => {
     if (tokens[i].role === 'finite') return;
+    const w = stripElision(tokens[i].text);
+    const prev = prevWord(n);
+    if (leansOnAux(n)) {
+      // After an auxiliary the endings the bare-participle rule must avoid are
+      // safe: "vi saranno date", and avere + "peccato".
+      if (isParticiple(tokens[i].text)
+        || (w.length >= 4 && /(?:at|ut|it)e$/.test(w) && !hasElision(tokens[i].text))
+        || (PECCATO_LIKE.has(w) && AVERE.has(prev))) {
+        tokens[i].role = 'compound';
+      }
+      return;
+    }
     if (!isParticiple(tokens[i].text)) return;
-    const prev = n > 0 ? stripElision(tokens[wordIdx[n - 1]].text) : '';
-    const leansOnAux = wordIdx
-      .slice(Math.max(0, n - AUX_LOOKBACK), n)
-      .some((j) => isAuxiliary(tokens[j].text));
-    if (leansOnAux) { tokens[i].role = 'compound'; return; }
     // Bare participle = reduced relative, but only when nothing marks it as a
     // noun: "la vista", "un posto", "i morti" are nouns, not clauses.
-    if (DETERMINERS.has(prev) || CLITIC_OR_ARTICLE.has(prev)) return;
-    if (NOUN_PARTICIPLES.has(stripElision(tokens[i].text))) return;
+    if (afterDeterminerAt(n) || CLITIC_OR_ARTICLE.has(prev) || PRENOMINAL.has(prev)) return;
+    if (NOUN_PARTICIPLES.has(w)) return;
     tokens[i].role = 'participle';
   });
 
@@ -519,6 +599,14 @@ export function analyze(text) {
   segments.forEach((seg) => {
     seg.words = tokens.slice(seg.start, seg.end).filter((t) => t.isWord);
     seg.head = seg.words.length ? stripElision(seg.words[0].text) : '';
+    // A lone feminine-plural participle between commas ("ma, entrate, non
+    // trovarono", "Le donne, impaurite, tenevano") is the participle, not the
+    // 2nd-person plural it is spelled like: a verb addressed to "voi" does not
+    // sit alone mid-sentence.
+    if (seg.closedLeft && seg.closedRight && seg.words.length === 1) {
+      const only = seg.words[0];
+      if (only.role === 'finite' && /(?:at|ut|it)e$/.test(stripElision(only.text))) only.role = 'participle';
+    }
   });
 
   let hasParenthetical = false;

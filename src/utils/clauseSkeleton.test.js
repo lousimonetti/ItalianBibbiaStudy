@@ -355,6 +355,57 @@ describe('analyze — what is NOT an aside', () => {
   });
 });
 
+// Found by re-reading all 200 verses with the toggle on. Each is one class of
+// mismark, taken from the corpus.
+describe('analyze — second corpus pass', () => {
+  const role = (text, word) => roleOf(analyze(text), word);
+
+  it('does not let a postposed possessive hide the verb after it', () => {
+    expect(role('Io sono la vite vera e il Padre mio è l\'agricoltore.', 'è')).toBe('finite');
+    expect(role('Beati voi, poveri, perché vostro è il regno di Dio.', 'è')).toBe('finite');
+    expect(role('Li condusse a casa sua, apparecchiò la mensa.', 'apparecchiò')).toBe('finite');
+  });
+
+  it('still reads a prenominal possessive as a determiner', () => {
+    expect(role('Si alzò e tornò da suo padre.', 'padre')).toBe('plain');
+  });
+
+  it('reads a finite form after an auxiliary as the participle', () => {
+    expect(role('mentre erano chiuse le porte del luogo', 'chiuse')).toBe('compound');
+    expect(role('Essi furono presi da grande timore,', 'presi')).toBe('compound');
+  });
+
+  it('ties a participle to an infinitive or gerund auxiliary', () => {
+    expect(role('che cosa devo fare per essere salvato?', 'salvato')).toBe('compound');
+    expect(role('per aver creduto in Dio.', 'creduto')).toBe('compound');
+    expect(role('senza averne sentito parlare?', 'sentito')).toBe('compound');
+    expect(role('venire ucciso e risorgere il terzo giorno', 'ucciso')).toBe('compound');
+  });
+
+  it('accepts the -e and -peccato participles only after an auxiliary', () => {
+    expect(role('e queste cose vi saranno date in aggiunta.', 'date')).toBe('compound');
+    expect(role('tutti infatti hanno peccato', 'peccato')).toBe('compound');
+    expect(role('Cristo è morto per i nostri peccato', 'peccato')).toBe('plain');
+  });
+
+  it('reads a lone feminine-plural participle between commas as a participle', () => {
+    expect(role('ma, entrate, non trovarono il corpo', 'entrate')).toBe('participle');
+    expect(role('Le donne, impaurite, tenevano il viso chinato a terra', 'impaurite')).toBe('participle');
+    expect(role('Considerate i corvi: non seminano', 'Considerate')).toBe('finite');
+  });
+
+  it('reads a noun homograph after a prenominal adjective as the noun', () => {
+    expect(role('a portare ai poveri il lieto annuncio', 'annuncio')).toBe('plain');
+    expect(role('Non temete: ecco, vi annuncio una grande gioia', 'annuncio')).toBe('finite');
+  });
+
+  it('knows the strong participles the first pass missed', () => {
+    expect(role('Davvero il Signore è risorto!', 'risorto')).toBe('compound');
+    expect(role('troverete un bambino avvolto in fasce', 'avvolto')).toBe('participle');
+    expect(role('perché chiunque crede in lui non vada perduto', 'perduto')).toBe('compound');
+  });
+});
+
 // Corpus-wide precision guard: this is what the lexicons were tuned against,
 // so it is also what protects them from a regression when course text changes.
 describe('corpus sanity', () => {
