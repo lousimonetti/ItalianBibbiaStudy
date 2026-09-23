@@ -139,11 +139,15 @@ private struct VoiceSection: View {
     @EnvironmentObject private var model: AppModel
     @State private var selection: String = ""
     @State private var options: [(id: String, label: String)] = []
+    // The automatic pick, named, so "Automatic" is not a black box. Resolved
+    // once in onAppear: it enumerates every installed voice, which is slow the
+    // first time on a device, and as a computed property it re-ran on every
+    // body evaluation — each Picker change, each theme flip.
+    @State private var automaticLabel = "Automatic"
 
-    // The automatic pick, named, so "Automatic" is not a black box.
-    private var automaticLabel: String {
-        guard let best = VoiceChoice.best(from: Speaker.installedCandidates(),
-                                          language: model.ttsLanguage),
+    private static func automaticLabel(language: String,
+                                       options: [(id: String, label: String)]) -> String {
+        guard let best = VoiceChoice.best(from: Speaker.installedCandidates(), language: language),
               let name = options.first(where: { $0.id == best.identifier })?.label
         else { return "Automatic (system default)" }
         return "Automatic (\(name))"
@@ -168,6 +172,7 @@ private struct VoiceSection: View {
         }
         .onAppear {
             options = VoicePreference.options(for: model.ttsLanguage)
+            automaticLabel = Self.automaticLabel(language: model.ttsLanguage, options: options)
             selection = VoicePreference.selected() ?? ""
         }
     }

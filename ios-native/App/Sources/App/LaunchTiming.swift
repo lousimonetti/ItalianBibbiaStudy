@@ -1,24 +1,39 @@
 import Foundation
+import os
 
 // TEMPORARY launch instrumentation. Remove once the startup stall is diagnosed.
 //
 // Prints elapsed milliseconds at a few points on the launch path so a device
 // run says where the time actually goes, instead of us reasoning about it from
-// the outside. `print` is used rather than Logger because the Run scheme sets
-// OS_ACTIVITY_MODE=disable, which suppresses os_log but not print.
+// the outside.
+//
+// Every line goes to BOTH stdout and the unified log. `print` is what Xcode's
+// console shows (the Run scheme sets OS_ACTIVITY_MODE=disable, which hides
+// os_log there). The Logger copy is what makes a run WITHOUT the debugger
+// readable: launch from the home screen, then filter Console.app by
+// subsystem "com.lousimonetti.italianbibbiastudy", category "launch". That
+// comparison matters because an attached debugger stalls a device launch on
+// its own (symbol loading pauses the process), and on the simulator the same
+// Debug build reaches its first frame in ~130 ms.
 #if DEBUG
 enum LaunchTiming {
     nonisolated(unsafe) private static var t0: Date?
+    private static let log = Logger(subsystem: "com.lousimonetti.italianbibbiastudy", category: "launch")
+
+    private static func emit(_ line: String) {
+        print("[launch] \(line)")
+        log.notice("\(line, privacy: .public)")
+    }
 
     static func begin() {
         t0 = Date()
-        print("[launch] 0 ms — App.init begin")
+        emit("0 ms — App.init begin")
     }
 
     static func mark(_ label: String) {
         guard let t0 else { return }
         let ms = Int(-t0.timeIntervalSinceNow * 1000)
-        print("[launch] \(ms) ms — \(label)")
+        emit("\(ms) ms — \(label)")
     }
 
     nonisolated(unsafe) private static var seen = Set<String>()
@@ -43,7 +58,7 @@ enum LaunchTiming {
     static func probeMainQueue() {
         guard let start = t0 else { return }
         if -start.timeIntervalSinceNow > 15 {
-            print("[launch] main-queue probe finished")
+            emit("main-queue probe finished")
             return
         }
         let interval = 0.05
@@ -51,8 +66,8 @@ enum LaunchTiming {
         DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
             let late = -scheduledAt.timeIntervalSinceNow - interval
             if late > 0.25 {
-                print("[launch] MAIN THREAD BLOCKED \(Int(late * 1000)) ms "
-                      + "(ending at \(Int(-start.timeIntervalSinceNow * 1000)) ms)")
+                emit("MAIN THREAD BLOCKED \(Int(late * 1000)) ms "
+                     + "(ending at \(Int(-start.timeIntervalSinceNow * 1000)) ms)")
             }
             probeMainQueue()
         }
@@ -64,7 +79,7 @@ enum LaunchTiming {
         let s = Date()
         let out = try body()
         let ms = Int(-s.timeIntervalSinceNow * 1000)
-        print("[launch] \(label) took \(ms) ms")
+        emit("\(label) took \(ms) ms")
         mark("after \(label)")
         return out
     }
