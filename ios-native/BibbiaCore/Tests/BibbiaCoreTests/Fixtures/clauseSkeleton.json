@@ -2240,59 +2240,45 @@
   "hasParenthetical": false
  },
  {
-  "text": "Mentre ero in cammino e mi avvicinavo a Damasco, verso mezzogiorno, all'improvviso una grande luce dal cielo mi avvolse di splendore.",
-  "roles": "..f.........f.......................f.....",
-  "dims": "000000000000000000111000000000000000000000",
+  "text": "Udito ciò, il centurione si recò dal comandante ad avvertirlo: «Che cosa stai per fare? Quell'uomo è un romano!».",
+  "roles": "p.........f.............f.......f.....",
+  "dims": "00000000000000000000000000000000000000",
   "finiteCount": 3,
-  "hasParenthetical": true
+  "hasParenthetical": false
  },
  {
-  "text": "Caddi a terra e udii una voce che mi diceva: \"Saulo, Saulo, perché mi perseguiti?\".",
-  "roles": "f.......f.........f...........",
-  "dims": "000000000000000000000010000000",
-  "finiteCount": 3,
-  "hasParenthetical": true
- },
- {
-  "text": "Io risposi: \"Chi sei, o Signore?\". Mi disse: \"Sono Gesù il Nazareno, che tu perseguiti\".",
-  "roles": "..f...f.......f.f.............",
-  "dims": "000000000000000000000000000000",
+  "text": "Allora il comandante si recò da Paolo e gli domandò: «Dimmi, tu sei romano?». Rispose: «Sì».",
+  "roles": "........f.........f.....f...f...",
+  "dims": "00000000000000000000000000000000",
   "finiteCount": 4,
   "hasParenthetical": false
  },
  {
-  "text": "Quelli che erano con me videro la luce, ma non udirono la voce di colui che mi parlava.",
-  "roles": "....f.....f.........f.............f.",
-  "dims": "000000000000000000000000000000000000",
+  "text": "Replicò il comandante: «Io, questa cittadinanza l'ho acquistata a caro prezzo». Paolo disse: «Io, invece, lo sono di nascita!».",
+  "roles": "f...........f.c.........f.......f.....",
+  "dims": "00000000000000000000000000001000000000",
   "finiteCount": 4,
+  "hasParenthetical": true
+ },
+ {
+  "text": "La notte seguente gli venne accanto il Signore e gli disse: «Coraggio! Come hai testimoniato a Gerusalemme le cose che mi riguardano, così è necessario che tu dia testimonianza anche a Roma».",
+  "roles": "........f...........f.....f.c.............f...f.......f.........",
+  "dims": "0000000000000000000000000000000000000000000000000000000000000000",
+  "finiteCount": 6,
   "hasParenthetical": false
  },
  {
-  "text": "E io dissi: \"Che cosa devo fare, Signore?\". Il Signore mi disse: \"Àlzati, va' a Damasco e là ti sarà detto di tutto ciò che è stabilito che tu faccia\".",
-  "roles": "....f.....f...........f.f.f...........f.c.........f.c.....f.",
-  "dims": "000000000000000000000000000000000000000000000000000000000000",
-  "finiteCount": 8,
-  "hasParenthetical": false
+  "text": "nutrendo in Dio la speranza, condivisa pure da costoro, che ci sarà una risurrezione dei giusti e degli ingiusti.",
+  "roles": "......................f...............",
+  "dims": "00000000001111111000000000000000000000",
+  "finiteCount": 1,
+  "hasParenthetical": true
  },
  {
-  "text": "Egli disse: \"Il Dio dei nostri padri ti ha predestinato perché tu conoscessi la sua volontà, vedessi il Giusto e udissi la sua voce.",
-  "roles": "..f.............f.c.............................",
-  "dims": "000000000000000000000000000000000000000000000000",
-  "finiteCount": 2,
-  "hasParenthetical": false
- },
- {
-  "text": "Sarai suo testimone davanti a tutti gli uomini di ciò che hai visto e udito.",
-  "roles": "f.....................f.c...p.",
-  "dims": "000000000000000000000000000000",
-  "finiteCount": 2,
-  "hasParenthetical": false
- },
- {
-  "text": "E ora perché esiti? Àlzati, fatti battezzare e lava via i tuoi peccati, invocando il suo nome\".",
-  "roles": "........f.......f.................",
-  "dims": "0000000000000000000000000000000000",
-  "finiteCount": 2,
+  "text": "Per questo anche io mi sforzo di conservare in ogni momento una coscienza irreprensibile davanti a Dio e davanti agli uomini.",
+  "roles": "..........................................",
+  "dims": "000000000000000000000000000000000000000000",
+  "finiteCount": 0,
   "hasParenthetical": false
  },
  {
