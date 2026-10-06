@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   QUIZ_LENGTH, buildQuiz, blankOut, blankableWords, weeksInScope,
-  vocabPool, drillPool, versePool, comprehensionPool, prayerPool,
+  vocabPool, drillPool, versePool, comprehensionPool, prayerPool, shareQuiz,
 } from './quizGame';
 import { PHASES } from '../data/studyData';
 import { devotionSections } from '../../course/devotions';
@@ -183,5 +183,21 @@ describe('buildQuiz', () => {
 
   it('survives an empty course without throwing', () => {
     expect(buildQuiz({ date: DATE, phases: [], sections: [] })).toEqual([]);
+  });
+});
+
+describe('focus rounds and sharing', () => {
+  it('a terms round asks only vocabulary about those terms', () => {
+    const pool = vocabPool(weeksInScope(PHASES, null));
+    const terms = pool.slice(0, 4).map((v) => v.it);
+    const qs = buildQuiz({ date: DATE, terms, salt: 'focus' });
+    expect(qs.length).toBeGreaterThan(0);
+    expect(qs.length).toBeLessThanOrEqual(terms.length * 2);
+    for (const q of qs) expect(q.kind.startsWith('vocab')).toBe(true);
+  });
+
+  it('shareQuiz renders a score line and one square per question', () => {
+    const text = shareQuiz([{ correct: true }, { correct: false }, { correct: true }], { date: DATE });
+    expect(text).toBe(`Sfida ${DATE} 2/3\n🟩🟥🟩`);
   });
 });

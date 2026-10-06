@@ -4010,3 +4010,88 @@ html.dark {
 @media (max-width: 600px) {
   .tab-btn { min-width: 0; overflow: hidden; font-size: 10.5px; white-space: nowrap; }
 }
+
+/* ── Sub-navigation (segmented control inside a tab group) ─────────────────── */
+.sub-nav {
+  display: flex;
+  gap: 4px;
+  margin: -8px 0 16px;
+}
+.sub-nav-btn {
+  flex: 1;
+  min-height: 36px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.sub-nav-btn.active {
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-color: var(--accent);
+}
+@media (max-width: 640px) {
+  .sub-nav { margin-top: 0; }
+}
+
+/* ── Game: how-to, hints, motion ───────────────────────────────────────────── */
+.game-howto {
+  width: 100%; max-width: 420px; margin-bottom: 14px; padding: 14px 16px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  font-size: 13px; color: var(--text-muted);
+}
+.game-howto-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.game-howto p { margin: 0 0 10px; }
+.game-howto-note { font-size: 12px; }
+.game-howto-list { list-style: none; margin: 0 0 10px; padding: 0; display: grid; gap: 8px; }
+.game-howto-list li { display: flex; align-items: center; gap: 10px; color: var(--text); }
+.game-sample {
+  width: 34px; height: 34px; flex: none; display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--border); border-radius: 6px; font-size: 16px; font-weight: 700; color: var(--text);
+}
+.game-howto-btn {
+  background: none; border: none; color: var(--text-muted); font-size: 12px;
+  cursor: pointer; margin-bottom: 8px; min-height: 32px;
+}
+.game-howto-btn:hover { color: var(--accent); }
+.game-hints { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+.game-hint-btn {
+  background: none; border: 1px dashed var(--border); border-radius: 999px;
+  color: var(--text-muted); font-size: 12.5px; padding: 6px 14px; min-height: 36px;
+  cursor: pointer; margin-bottom: 10px;
+}
+.game-hint-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+@keyframes game-flip { 0% { transform: rotateX(0); } 50% { transform: rotateX(90deg); } 100% { transform: rotateX(0); } }
+@keyframes game-shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-6px); } 40%,80% { transform: translateX(6px); } }
+@keyframes game-pop { 50% { transform: scale(1.08); } }
+.game-row--reveal .game-tile { animation: game-flip 0.5s ease both; }
+.game-row--reveal .game-tile:nth-child(2) { animation-delay: 0.08s; }
+.game-row--reveal .game-tile:nth-child(3) { animation-delay: 0.16s; }
+.game-row--reveal .game-tile:nth-child(4) { animation-delay: 0.24s; }
+.game-row--reveal .game-tile:nth-child(5) { animation-delay: 0.32s; }
+.game-row--reveal .game-tile:nth-child(6) { animation-delay: 0.40s; }
+.game-row--reveal .game-tile:nth-child(7) { animation-delay: 0.48s; }
+.game-row--reveal .game-tile:nth-child(8) { animation-delay: 0.56s; }
+.game-row--shake { animation: game-shake 0.4s; }
+.game-tile--filled:not([class*='game-tile--c']):not([class*='game-tile--p']):not([class*='game-tile--a']) { animation: game-pop 0.12s; }
+@media (prefers-reduced-motion: reduce) {
+  .game-row--reveal .game-tile, .game-row--shake, .game-tile--filled { animation: none !important; }
+}
+
+/* Sub-tab done markers + quiz momentum */
+.fc-mode-btn .game-done { margin-left: 6px; color: var(--accent); font-weight: 700; }
+.fc-mode-btn .game-todo { display: inline-block; width: 7px; height: 7px; margin-left: 7px; border-radius: 50%; background: var(--game-present); vertical-align: middle; }
+.quiz-combo { text-align: center; font-size: 13px; font-weight: 600; color: var(--accent); min-height: 20px; margin-top: -6px; }
+.quiz-opt[data-key]::before { content: attr(data-key); display: inline-block; min-width: 18px; margin-right: 8px; color: var(--text-faint); font-weight: 600; }
+@media (pointer: coarse) { .quiz-opt[data-key]::before { content: none; } }
+.game-sample--correct { background: var(--accent); border-color: var(--accent); color: #fff; }
+.game-sample--present { background: var(--game-present); border-color: var(--game-present); color: #fff; }
+.game-sample--absent { background: var(--game-absent); border-color: var(--game-absent); color: #fff; }
+
+.quiz-extra-modes { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 14px 0; }
+.quiz-extra-modes .prac-drill-btn:disabled { opacity: 0.5; cursor: default; }

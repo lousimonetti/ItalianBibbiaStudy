@@ -20,6 +20,7 @@ import { buildCards } from '../course/vocab';
 import { useSrs } from './hooks/useSrs';
 import { SaintsTab } from './components/SaintsTab';
 import { GameTab } from './components/GameTab';
+import { SubNav } from './components/SubNav';
 import { loadGame, wordDay, quizDay } from './utils/gameStore';
 import { todayStr } from './utils/streak';
 import { WelcomeCard } from './components/WelcomeCard';
@@ -284,14 +285,23 @@ function TodayCard({ currentWeekN, onOpenGame }) {
   );
 }
 
-const TABS = [
-  { id: 'Tracker',    Icon: TrackerIcon },
-  { id: 'Flashcards', Icon: CardsIcon },
-  { id: 'Game',       Icon: GameIcon },
-  { id: 'Journal',    Icon: JournalIcon },
-  ...(HAS_DEVOTIONS ? [{ id: 'Prayers', Icon: PrayersIcon }] : []),
-  ...(HAS_ROSARY ? [{ id: 'Rosary', Icon: RosaryIcon }] : []),
-  { id: 'Saints',     Icon: SaintsIcon },
+// Four top-level destinations, grouped by intent; groups with more than one
+// view get a SubNav. A view is addressed by its id (the old flat tab ids).
+const GROUPS = [
+  { id: 'today', Icon: TrackerIcon, views: [{ id: 'Tracker', Icon: TrackerIcon }] },
+  {
+    id: 'study', Icon: CardsIcon,
+    views: [{ id: 'Flashcards', Icon: CardsIcon }, { id: 'Game', Icon: GameIcon }],
+  },
+  { id: 'write', Icon: JournalIcon, views: [{ id: 'Journal', Icon: JournalIcon }] },
+  {
+    id: 'pray', Icon: PrayersIcon,
+    views: [
+      ...(HAS_DEVOTIONS ? [{ id: 'Prayers', Icon: PrayersIcon }] : []),
+      ...(HAS_ROSARY ? [{ id: 'Rosary', Icon: RosaryIcon }] : []),
+      { id: 'Saints', Icon: SaintsIcon },
+    ],
+  },
 ];
 
 // The header tagline: the authored brand line on the default calendar; once a
@@ -321,6 +331,14 @@ export default function App() {
   const { immersive, toggle: toggleImmersion } = useImmersion();
   const [online, setOnline] = useState(navigator.onLine);
   const [activeTab, setActiveTab] = useState('Tracker');
+  // Last view visited per group, so returning to a group lands where you left.
+  const [lastView, setLastView] = useState({});
+  const group = GROUPS.find((g) => g.views.some((v) => v.id === activeTab)) || GROUPS[0];
+  const openView = (id) => {
+    setActiveTab(id);
+    const g = GROUPS.find((x) => x.views.some((v) => v.id === id));
+    if (g) setLastView((m) => ({ ...m, [g.id]: id }));
+  };
   const currentWeekN = getCurrentWeekN();
 
   useEffect(() => {
@@ -393,26 +411,32 @@ export default function App() {
 
       <WelcomeCard />
 
-      {/* Tab bar */}
+      {/* Primary navigation: 4 destinations */}
       <div className="tab-bar" role="tablist">
-        {TABS.map(({ id, Icon }) => (
-          <button
-            key={id}
-            role="tab"
-            aria-selected={activeTab === id}
-            className={`tab-btn${activeTab === id ? ' active' : ''}`}
-            onClick={() => setActiveTab(id)}
-          >
-            <Icon />
-            <UiText k={`tab.${id.toLowerCase()}`} />
-          </button>
-        ))}
+        {GROUPS.map(({ id, Icon, views }) => {
+          const active = group.id === id;
+          return (
+            <button
+              key={id}
+              role="tab"
+              aria-selected={active}
+              className={`tab-btn${active ? ' active' : ''}`}
+              onClick={() => openView(lastView[id] || views[0].id)}
+            >
+              <Icon />
+              <UiText k={`group.${id}`} />
+            </button>
+          );
+        })}
       </div>
+      {group.views.length > 1 && (
+        <SubNav views={group.views} active={activeTab} onSelect={openView} />
+      )}
 
       {/* Tab: Tracker */}
       {activeTab === 'Tracker' && (
         <>
-          <TodayCard currentWeekN={currentWeekN} onOpenGame={() => setActiveTab('Game')} />
+          <TodayCard currentWeekN={currentWeekN} onOpenGame={() => openView('Game')} />
           <Achievements />
           <GuideSection />
           {PHASES.map((phase) => (

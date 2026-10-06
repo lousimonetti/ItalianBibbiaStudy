@@ -21,7 +21,7 @@ import { devotionSections } from '../../course/devotions';
 import { normalize } from './pronunciation';
 import { LEADING_ARTICLE } from './locale';
 import { commonWordsData } from './it2en';
-import { rotatingPick } from './gameRandom';
+import { rngFor, shuffled, rotatingPick } from './gameRandom';
 
 export const MAX_GUESSES = 6;
 export const MIN_LEN = 4;
@@ -81,6 +81,13 @@ export function getWordPool() {
 
 export function getDailyWord(dateStr, pool = getWordPool()) {
   return rotatingPick(pool, dateStr, 'parola');
+}
+
+// A practice word: random, never the daily answer, and a different one each
+// call when the caller varies `seed`. Practice rounds are not recorded anywhere.
+export function getPracticeWord(seed, avoid = '', pool = getWordPool()) {
+  const choices = pool.filter((p) => p.word !== avoid);
+  return shuffled(choices, rngFor(`practice|${seed}`))[0] || null;
 }
 
 // ── the guess dictionary ────────────────────────────────────────────────────

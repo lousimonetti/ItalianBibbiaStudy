@@ -31,7 +31,7 @@ describe('WordGame', () => {
   it('refuses a guess of the wrong length', () => {
     render(<WordGame />);
     play('ab');
-    expect(screen.getByRole('status').textContent).toContain('lettere');
+    expect(screen.getByRole('status').textContent).toContain('-letter');
     expect(document.querySelectorAll('.game-tile--correct')).toHaveLength(0);
   });
 
@@ -39,12 +39,32 @@ describe('WordGame', () => {
     render(<WordGame />);
     const junk = 'zkqx'.repeat(2).slice(0, answer().length);
     play(junk);
-    expect(screen.getByRole('status').textContent).toContain('vocabolario del corso');
+    expect(screen.getByRole('status').textContent).toContain('course vocabulary');
     // Still on row one — the guess was not committed.
     expect(document.querySelectorAll('.game-tile--absent')).toHaveLength(0);
 
     fireEvent.click(screen.getByRole('button', { name: 'Invio' }));
     expect(document.querySelectorAll('.game-tile--absent').length).toBeGreaterThan(0);
+  });
+
+  it('shows the how-to once, then remembers it was dismissed', () => {
+    const { unmount } = render(<WordGame />);
+    expect(screen.getByText('How to play', { selector: '.game-howto-title' })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Got it' }));
+    expect(document.querySelector('.game-howto')).toBeNull();
+    unmount();
+    render(<WordGame />);
+    expect(document.querySelector('.game-howto')).toBeNull();
+  });
+
+  it('offers a hint only after three guesses', () => {
+    const word = getDailyWord(today());
+    const wrong = getWordPool().find((p) => p.word.length === word.word.length && p.word !== word.word).word;
+    render(<WordGame />);
+    expect(screen.queryByText('Hint: show meaning')).toBeNull();
+    for (let i = 0; i < 3; i++) play(wrong);
+    fireEvent.click(screen.getByText('Hint: show meaning'));
+    expect(screen.getByText(word.en)).toBeTruthy();
   });
 
   it('reveals the word, its gloss and its week when you solve it', () => {
@@ -98,5 +118,16 @@ describe('WordGame', () => {
     }
     expect(screen.getByText(word.term)).toBeTruthy();
     expect(loadGame().word.stats).toMatchObject({ played: 1, won: 0 });
+  });
+
+  it('a practice word after the daily leaves the stats alone', () => {
+    render(<WordGame />);
+    play(answer());
+    expect(loadGame().word.stats.played).toBe(1);
+    fireEvent.click(screen.getByRole('button', { name: 'Another word' }));
+    expect(screen.getByText('Practice word')).toBeTruthy();
+    expect(document.querySelector('.game-stats')).toBeNull();
+    expect(document.querySelector('.game-keyboard')).toBeTruthy();
+    expect(loadGame().word.stats.played).toBe(1);
   });
 });

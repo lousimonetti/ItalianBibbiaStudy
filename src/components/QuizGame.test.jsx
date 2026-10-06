@@ -105,4 +105,17 @@ describe('QuizGame', () => {
     expect(screen.getByRole('button', { name: 'Rigioca' })).toBeTruthy();
     expect(loadGame().quiz.stats.played).toBe(1);
   });
+
+  it('a lightning round shows a countdown and never touches the stats', () => {
+    render(<QuizGame />);
+    fireEvent.click(screen.getByRole('button', { name: /Lightning/ }));
+    expect(document.querySelector('.quiz-count').textContent).toContain('60s');
+    fireEvent.click(options()[0]);
+    expect(loadGame().quiz.stats.played).toBe(0);
+  });
+
+  it('disables the tricky-words round until there is something tricky', () => {
+    render(<QuizGame />);
+    expect(screen.getByRole('button', { name: /No tricky words yet/ }).disabled).toBe(true);
+  });
 });
