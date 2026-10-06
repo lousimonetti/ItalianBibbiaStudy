@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { PHASES } from '../data/studyData';
 import { computeAchievements } from '../utils/achievements';
 import { loadStreak } from '../utils/streak';
+import { loadGame } from '../utils/gameStore';
 import { storageKey } from '../utils/storageKey';
 
 function readJSON(key) {
@@ -20,6 +21,14 @@ export function useAchievements() {
     const srs = readJSON(storageKey('srs'));
     const journal = readJSON(storageKey('journal'));
     const streak = loadStreak();
+    const { word, quiz } = loadGame();
+    const game = {
+      wordWon: word.stats.won || 0,
+      wordBest: word.stats.best || 0,
+      wordFast: (word.stats.dist?.[1] || 0) + (word.stats.dist?.[2] || 0),
+      quizPerfect: quiz.stats.won || 0,
+      quizBest: quiz.stats.best || 0,
+    };
     const journaledWeeks = Object.values(journal).filter((e) => e?.text?.trim()).length;
     return computeAchievements(
       {
@@ -27,6 +36,7 @@ export function useAchievements() {
         learnedCount: Object.keys(srs).length,
         streakBest: streak.best || 0,
         journaledWeeks,
+        game,
       },
       PHASES
     );

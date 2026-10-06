@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   MAX_GUESSES, MIN_LEN, MAX_LEN,
   fold, buildWordPool, getWordPool, getDailyWord, isKnownWord,
-  scoreGuess, keyboardStates, gameStatus, shareGrid,
+  scoreGuess, keyboardStates, gameStatus, shareGrid, getPracticeWord,
 } from './wordGame';
 
 const fakePhases = [{
@@ -179,5 +179,21 @@ describe('isKnownWord', () => {
 
   it('knows every answer it can serve', () => {
     for (const entry of getWordPool()) expect(isKnownWord(entry.word)).toBe(true);
+  });
+});
+
+describe('getPracticeWord', () => {
+  it('never returns the daily answer and varies with the seed', () => {
+    const pool = getWordPool();
+    const daily = getDailyWord('2026-05-01').word;
+    const seen = new Set();
+    for (let i = 0; i < 20; i++) {
+      const w = getPracticeWord(`s${i}`, daily);
+      expect(w.word).not.toBe(daily);
+      seen.add(w.word);
+    }
+    expect(seen.size).toBeGreaterThan(1);
+    expect(getPracticeWord('x', '', [])).toBeNull();
+    expect(pool.length).toBeGreaterThan(1);
   });
 });

@@ -361,6 +361,7 @@ export function buildQuiz({
   sections = devotionSections,
   weekMax = null,
   salt = 'sfida',
+  terms = null,
 } = {}) {
   const weeks = weeksInScope(phases, weekMax);
   const pools = {
@@ -389,6 +390,14 @@ export function buildQuiz({
     prayer: (item, rng) => prayer(item, pools.prayer, rng),
     comprehension: (item, rng) => comprehension(item, pools.comprehension, rng),
   };
+  // Focus round: only vocabulary questions, only about the given terms (the
+  // distractors still come from the whole pool).
+  if (terms) {
+    const want = new Set(terms.map(normalize));
+    for (const k of Object.keys(queues)) {
+      queues[k] = k.startsWith('vocab') ? queues[k].filter((it) => want.has(normalize(it.it))) : [];
+    }
+  }
   const used = { 'vocab-en-it': new Set(), 'vocab-it-en': new Set() };
 
   const questions = [];
@@ -421,4 +430,11 @@ export function buildQuiz({
     });
   }
   return questions;
+}
+
+// Emoji summary of a finished round, for the clipboard: 🟩 right, 🟥 wrong.
+export function shareQuiz(results, { date = '', title = 'Sfida' } = {}) {
+  const score = results.filter((r) => r.correct).length;
+  const head = [title, date, `${score}/${results.length}`].filter(Boolean).join(' ');
+  return `${head}\n${results.map((r) => (r.correct ? '🟩' : '🟥')).join('')}`;
 }

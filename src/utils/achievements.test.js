@@ -41,4 +41,16 @@ describe('computeAchievements', () => {
     const list = computeAchievements({}, PHASES);
     expect(list.filter((a) => a.id.startsWith('phase-'))).toHaveLength(2);
   });
+
+  it('earns game badges from the game stats', () => {
+    const none = computeAchievements({}, PHASES);
+    for (const id of ['wordWin', 'wordFast', 'gameStreak7', 'quizPerfect']) {
+      expect(none.find((a) => a.id === id).earned).toBe(false);
+    }
+    const game = { wordWon: 1, wordFast: 1, quizBest: 7, quizPerfect: 1 };
+    const list = computeAchievements({ game }, PHASES);
+    for (const id of ['wordWin', 'wordFast', 'gameStreak7', 'quizPerfect']) {
+      expect(list.find((a) => a.id === id).earned).toBe(true);
+    }
+  });
 });
