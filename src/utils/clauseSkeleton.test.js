@@ -433,7 +433,7 @@ describe('corpus sanity', () => {
   it('keeps the finite/participle overlap to the known ambiguous forms', () => {
     const both = [...new Set(words)].filter((w) => isFiniteVerb(w) && isParticiple(w));
     expect(both.sort()).toEqual([
-      'battezzati', 'chiuse', 'corse', 'divise', 'perdonati', 'prese', 'presi', 'scese',
+      'battezzati', 'chiuse', 'corse', 'dette', 'divise', 'perdonati', 'prese', 'presi',
     ]);
   });
 
@@ -446,6 +446,9 @@ describe('corpus sanity', () => {
   it('marks an aside in only a small minority of authored verses', () => {
     const verses = weeks.flatMap((w) => (w.passage?.verses || []).map((v) => v.t));
     const withAside = verses.filter((v) => analyze(v).hasParenthetical);
-    expect(withAside.length / verses.length).toBeLessThan(0.2);
+    // 0.2 was tuned on the earlier, partly paraphrased passages; the verbatim
+    // CEI 2008 text carries more genuine appositions ("Zaccheo, capo dei
+    // pubblicani"), so the ceiling sits at a quarter.
+    expect(withAside.length / verses.length).toBeLessThan(0.25);
   });
 });
