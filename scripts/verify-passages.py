@@ -17,6 +17,9 @@ import html, json, os, re, subprocess, sys, tempfile, time, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CACHE = os.environ.get("CEI_CACHE") or os.path.join(tempfile.gettempdir(), "cei-cache")
+# Identify ourselves honestly; fetches are serial with a pause between pages.
+UA = "ItalianBibbiaStudy-verify-passages/1.0 (+https://github.com/lousimonetti/ItalianBibbiaStudy)"
+DELAY = 2.0
 BOOKS = {"Giovanni": ("nt", "Gv"), "Luca": ("nt", "Lc"), "Atti": ("nt", "At"),
          "Romani": ("nt", "Rm"), "Salmo": ("ot", "Sal")}
 
@@ -55,7 +58,7 @@ def chapter(book, ch):
     path = os.path.join(CACHE, f"{code}-{ch}.html")
     if not os.path.exists(path):
         req = urllib.request.Request(f"https://www.bibbiaedu.it/CEI2008/{testament}/{code}/{ch}/",
-                                     headers={"User-Agent": "Mozilla/5.0"})
+                                     headers={"User-Agent": UA})
         for attempt in range(4):
             try:
                 open(path, "w", encoding="utf-8").write(urllib.request.urlopen(req, timeout=90).read().decode("utf-8"))
@@ -64,6 +67,7 @@ def chapter(book, ch):
                 time.sleep(3 * (attempt + 1))
         else:
             raise SystemExit(f"could not fetch {book} {ch}")
+        time.sleep(DELAY)
     h = open(path, encoding="utf-8").read()
     verses = {}
     # Verses with a footnote use a <button> for the number instead of <sup>.
