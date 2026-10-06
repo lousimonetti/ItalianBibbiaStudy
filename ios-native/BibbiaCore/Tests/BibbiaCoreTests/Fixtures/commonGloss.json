@@ -604,10 +604,6 @@
   "gloss": "then"
  },
  {
-  "word": "Potete",
-  "gloss": "you can"
- },
- {
   "word": "Prendete",
   "gloss": "you take"
  },
@@ -626,6 +622,10 @@
  {
   "word": "Quanto",
   "gloss": "how much"
+ },
+ {
+  "word": "Quell'uomo",
+  "gloss": "that man"
  },
  {
   "word": "Quello",
@@ -768,10 +768,6 @@
   "gloss": "yes"
  },
  {
-  "word": "Ti",
-  "gloss": "you"
- },
- {
   "word": "Tommaso",
   "gloss": "Thomas"
  },
@@ -786,6 +782,10 @@
  {
   "word": "Tutto",
   "gloss": "all"
+ },
+ {
+  "word": "Udito",
+  "gloss": "heard"
  },
  {
   "word": "Un",
@@ -926,10 +926,6 @@
  {
   "word": "adoratori",
   "gloss": "worshipers"
- },
- {
-  "word": "adoro",
-  "gloss": "I worship"
  },
  {
   "word": "adozione",
@@ -1408,6 +1404,10 @@
   "gloss": "to come / future"
  },
  {
+  "word": "avvertirlo",
+  "gloss": "to warn him"
+ },
+ {
   "word": "avvicinarsi",
   "gloss": "to draw near"
  },
@@ -1672,10 +1672,6 @@
   "gloss": "who"
  },
  {
-  "word": "chiamano",
-  "gloss": "they call"
- },
- {
   "word": "chiamati",
   "gloss": "called"
  },
@@ -1746,10 +1742,6 @@
  {
   "word": "cimbali",
   "gloss": "cymbals"
- },
- {
-  "word": "cinghie",
-  "gloss": "straps"
  },
  {
   "word": "cinque",
@@ -1896,16 +1888,8 @@
   "gloss": "you will confess"
  },
  {
-  "word": "confesso",
-  "gloss": "I confess"
- },
- {
   "word": "conformatevi",
   "gloss": "conform yourselves"
- },
- {
-  "word": "conforme",
-  "gloss": "in accordance"
  },
  {
   "word": "congiura",
@@ -1938,6 +1922,10 @@
  {
   "word": "consegnò",
   "gloss": "handed over"
+ },
+ {
+  "word": "conservare",
+  "gloss": "to keep"
  },
  {
   "word": "considerava",
@@ -2062,10 +2050,6 @@
  {
   "word": "crede",
   "gloss": "believes"
- },
- {
-  "word": "credendo",
-  "gloss": "believing"
  },
  {
   "word": "credenti",
@@ -2812,10 +2796,6 @@
   "gloss": "sky/firmament"
  },
  {
-  "word": "flagellare",
-  "gloss": "to flog"
- },
- {
   "word": "flauto",
   "gloss": "flute"
  },
@@ -2954,10 +2934,6 @@
  {
   "word": "giudicate",
   "gloss": "you judge"
- },
- {
-  "word": "giudicato",
-  "gloss": "judged"
  },
  {
   "word": "giudice",
@@ -3284,6 +3260,10 @@
   "gloss": "hypocrites"
  },
  {
+  "word": "irreprensibile",
+  "gloss": "blameless"
+ },
+ {
   "word": "istante",
   "gloss": "instant"
  },
@@ -3346,10 +3326,6 @@
  {
   "word": "l'autorizzazione",
   "gloss": "the authorization"
- },
- {
-  "word": "l'ebbero",
-  "gloss": "the had"
  },
  {
   "word": "l'elezione",
@@ -3449,10 +3425,6 @@
  },
  {
   "word": "legati",
-  "gloss": "bound"
- },
- {
-  "word": "legato",
   "gloss": "bound"
  },
  {
@@ -3814,6 +3786,10 @@
  {
   "word": "molto",
   "gloss": "much"
+ },
+ {
+  "word": "momento",
+  "gloss": "moment"
  },
  {
   "word": "mondami",
@@ -4306,10 +4282,6 @@
  {
   "word": "persuaso",
   "gloss": "convinced"
- },
- {
-  "word": "però",
-  "gloss": "but"
  },
  {
   "word": "pesci",
@@ -5348,6 +5320,10 @@
   "gloss": "follows"
  },
  {
+  "word": "seguente",
+  "gloss": "following"
+ },
+ {
   "word": "seguiva",
   "gloss": "followed"
  },
@@ -5436,10 +5412,6 @@
   "gloss": "thirst"
  },
  {
-  "word": "setta",
-  "gloss": "sect"
- },
- {
   "word": "sette",
   "gloss": "seven"
  },
@@ -5458,6 +5430,10 @@
  {
   "word": "sfolgoranti",
   "gloss": "radiant"
+ },
+ {
+  "word": "sforzo",
+  "gloss": "I strive"
  },
  {
   "word": "sguardo",
@@ -5626,6 +5602,10 @@
  {
   "word": "stabilito",
   "gloss": "established/appointed"
+ },
+ {
+  "word": "stai",
+  "gloss": "you are"
  },
  {
   "word": "stando",

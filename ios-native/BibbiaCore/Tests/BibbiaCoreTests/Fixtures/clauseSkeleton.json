@@ -2240,38 +2240,31 @@
   "hasParenthetical": false
  },
  {
-  "text": "Ma quando l'ebbero legato con le cinghie, Paolo disse al centurione che gli stava accanto: \"Potete voi flagellare un cittadino romano, che non è stato ancora giudicato?\".",
-  "roles": "....f.c.........f.........f...f...............f.c...p.",
-  "dims": "000000000000000000000000000000000000000000000000000000",
-  "finiteCount": 5,
+  "text": "Udito ciò, il centurione si recò dal comandante ad avvertirlo: «Che cosa stai per fare? Quell'uomo è un romano!».",
+  "roles": "p.........f.............f.......f.....",
+  "dims": "00000000000000000000000000000000000000",
+  "finiteCount": 3,
   "hasParenthetical": false
  },
  {
-  "text": "Allora il comandante si recò da Paolo e gli domandò: \"Dimmi, tu sei romano?\". Rispose: \"Sì\".",
+  "text": "Allora il comandante si recò da Paolo e gli domandò: «Dimmi, tu sei romano?». Rispose: «Sì».",
   "roles": "........f.........f.....f...f...",
   "dims": "00000000000000000000000000000000",
   "finiteCount": 4,
   "hasParenthetical": false
  },
  {
-  "text": "Replicò il comandante: \"Io, questa cittadinanza l'ho acquistata a caro prezzo\". Paolo disse: \"Io, invece, lo sono di nascita!\".",
+  "text": "Replicò il comandante: «Io, questa cittadinanza l'ho acquistata a caro prezzo». Paolo disse: «Io, invece, lo sono di nascita!».",
   "roles": "f...........f.c.........f.......f.....",
   "dims": "00000000000000000000000000001000000000",
   "finiteCount": 4,
   "hasParenthetical": true
  },
  {
-  "text": "Il Signore gli si presentò e gli disse: \"Coraggio! Come hai testimoniato a Gerusalemme le cose che riguardano me, così è necessario che tu dia testimonianza anche a Roma\".",
-  "roles": "........f.....f.....f.c...........f.....f.......f.........",
-  "dims": "0000000000000000000000000000000000000000000000000000000000",
+  "text": "La notte seguente gli venne accanto il Signore e gli disse: «Coraggio! Come hai testimoniato a Gerusalemme le cose che mi riguardano, così è necessario che tu dia testimonianza anche a Roma».",
+  "roles": "........f...........f.....f.c.............f...f.......f.........",
+  "dims": "0000000000000000000000000000000000000000000000000000000000000000",
   "finiteCount": 6,
-  "hasParenthetical": false
- },
- {
-  "text": "Ti confesso però che io adoro il Dio dei miei padri secondo quella Via che chiamano setta, credendo in tutto ciò che è conforme alla Legge e sta scritto nei Profeti,",
-  "roles": "..............................f.............f.........f.c.....",
-  "dims": "00000000000000000000000000000000000000000000000000000000000000",
-  "finiteCount": 3,
   "hasParenthetical": false
  },
  {
@@ -2280,6 +2273,13 @@
   "dims": "00000000001111111000000000000000000000",
   "finiteCount": 1,
   "hasParenthetical": true
+ },
+ {
+  "text": "Per questo anche io mi sforzo di conservare in ogni momento una coscienza irreprensibile davanti a Dio e davanti agli uomini.",
+  "roles": "..........................................",
+  "dims": "000000000000000000000000000000000000000000",
+  "finiteCount": 0,
+  "hasParenthetical": false
  },
  {
   "text": "la difesa di Paolo",

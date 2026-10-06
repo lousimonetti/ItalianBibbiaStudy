@@ -1270,10 +1270,11 @@ const MAP = new Map(Object.entries({
 
   // --- Acts 22-24 passage (week 26) ---
   coraggio: 'courage', dimmi: 'tell me', replicò: 'replied', acquistata: 'acquired',
-  adoro: 'I worship', caro: 'dear, costly', cinghie: 'straps', cittadinanza: 'citizenship',
-  comandante: 'commander', condivisa: 'shared', confesso: 'I confess', conforme: 'in accordance',
-  costoro: 'these people', flagellare: 'to flog', legato: 'bound', nutrendo: 'nourishing, holding',
-  prezzo: 'price', recò: 'went', riguardano: 'concern', setta: 'sect', testimoniato: 'testified',
+  caro: 'dear, costly', cittadinanza: 'citizenship', comandante: 'commander',
+  condivisa: 'shared', costoro: 'these people', nutrendo: 'nourishing, holding',
+  prezzo: 'price', recò: 'went', riguardano: 'concern', testimoniato: 'testified',
+  avvertirlo: 'to warn him', seguente: 'following', sforzo: 'I strive',
+  conservare: 'to keep', irreprensibile: 'blameless',
 }));
 
 // Elided prefixes (the part before an apostrophe) → their gloss. Lets any
