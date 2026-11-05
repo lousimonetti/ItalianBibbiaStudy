@@ -1971,6 +1971,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 /* ── Flashcard mode toggle ──────────────────────────────────────────────────── */
 .fc-mode-toggle {
   display: flex;
+  flex-wrap: wrap;
   gap: 2px;
   background: var(--border);
   border-radius: 10px;
@@ -4095,3 +4096,104 @@ html.dark {
 
 .quiz-extra-modes { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 14px 0; }
 .quiz-extra-modes .prac-drill-btn:disabled { opacity: 0.5; cursor: default; }
+
+/* ── Voice tutor (Lezione guidata) ─────────────────────────────────────── */
+.tutor-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: var(--accent-dim);
+}
+.tutor-card-compact { margin: 10px 0; padding: 10px 12px; }
+.tutor-card-text { display: flex; flex-direction: column; gap: 2px; flex: 1 1 200px; min-width: 0; }
+.tutor-card-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.tutor-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.tutor-sub { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+.tutor-summary { margin-top: 6px; font-size: 12px; color: var(--text); line-height: 1.45; }
+.tutor-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.tutor-progress { height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; }
+.tutor-progress-fill { height: 100%; background: var(--accent); transition: width 0.3s; }
+.tutor-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px; }
+.tutor-step { font-size: 13px; font-weight: 700; color: var(--accent); }
+.tutor-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
+.tutor-lines { display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.6; color: var(--text-muted); }
+.tutor-line { padding: 2px 8px; border-left: 3px solid transparent; border-radius: 2px; }
+.tutor-line-active { color: var(--text); border-left-color: var(--accent); background: var(--accent-dim); }
+.tutor-target { font-size: 18px; font-weight: 500; line-height: 1.55; color: var(--text); overflow-wrap: anywhere; }
+.tutor-target-word { font-size: 24px; text-align: center; }
+.tutor-en { margin-top: 4px; font-size: 13px; font-weight: 400; color: var(--text-muted); }
+.tutor-blank { font-weight: 700; color: var(--accent); }
+.tutor-caption { font-size: 13px; font-style: italic; color: var(--text-muted); }
+.tutor-caption-en { color: var(--text-faint); }
+.tutor-feedback { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: var(--text); }
+.tutor-feedback-ok strong { color: var(--accent); }
+.tutor-feedback-retry strong, .tutor-feedback-miss strong { color: var(--it-red); }
+.tutor-feedback-silent strong { color: var(--text-muted); }
+.tutor-heard { font-style: italic; color: var(--text-muted); overflow-wrap: anywhere; }
+.tutor-typed { display: flex; gap: 6px; }
+.tutor-typed input { flex: 1; min-width: 0; }
+.tutor-controls { display: flex; flex-wrap: wrap; gap: 6px; }
+.tutor-btn {
+  min-height: 36px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+.tutor-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.tutor-btn:disabled { opacity: 0.5; cursor: default; }
+.tutor-btn-primary { border-color: var(--accent); background: var(--accent); color: #fff; }
+.tutor-btn-primary:hover:not(:disabled) { color: #fff; opacity: 0.9; }
+.tutor-hint { font-size: 11px; color: var(--text-faint); }
+@media (pointer: coarse) { .tutor-btn { min-height: 44px; } }
+
+/* ── Verse practice and review ─────────────────────────────────────────── */
+.verse-pick, .verse-modes { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.verse-pick-btn, .verse-mode-btn {
+  min-width: 34px;
+  min-height: 32px;
+  padding: 4px 9px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.verse-pick-btn.active, .verse-mode-btn.active { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
+@media (pointer: coarse) { .verse-pick-btn, .verse-mode-btn { min-width: 40px; min-height: 40px; } }
+.verse-ref { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--text); }
+.verse-en { margin: 2px 0 8px; font-size: 12px; line-height: 1.45; color: var(--text-muted); }
+.verse-stage { margin-bottom: 6px; font-size: 11px; font-weight: 600; color: var(--text-faint); }
+.verse-blanks { font-size: 15px; line-height: 2.1; color: var(--text); overflow-wrap: anywhere; }
+.verse-blank-input { min-width: 0; max-width: 100%; }
+.verse-answer { margin-top: 6px; font-size: 13px; line-height: 1.5; color: var(--text); }
+.verse-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
+.verse-shadow-row { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 8px 0; border-bottom: 1px solid var(--border-subtle); }
+.verse-shadow-row:last-child { border-bottom: none; }
+.verse-shadow-text { font-size: 15px; line-height: 1.5; color: var(--text); }
+.verse-review { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.verse-review > form { width: 100%; }
+.verse-review-title { margin: 0; font-size: 15px; font-weight: 700; color: var(--text); }
+.verse-review-stats { display: flex; gap: 14px; margin: 4px 0; font-size: 13px; color: var(--text-muted); }
+.verse-review-stats strong { color: var(--text); }

@@ -43,9 +43,10 @@ function AboutPrivacyModal({ onClose }) {
 
           <h3>Device permissions</h3>
           <p>
-            The microphone is used only while a pronunciation or dictation exercise is
-            running; speech is processed by your browser's built-in speech service and the
-            app never records or uploads audio. The camera is used only to scan a sync QR
+            The microphone is used only while a pronunciation, dictation or voice lesson
+            exercise is running. Speech is processed by your browser's built-in speech service,
+            which in some browsers, such as Chrome, sends audio to its provider and needs an
+            internet connection. The app itself never records or uploads audio. The camera is used only to scan a sync QR
             code. Notifications, if you enable them, are generated locally on this device.
           </p>
 

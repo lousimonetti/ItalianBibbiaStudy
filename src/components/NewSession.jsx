@@ -15,9 +15,9 @@ import { planForEndDate } from '../utils/targetDate';
 const WEEKS = config.schedule.weeks;
 
 const RESET_OPTIONS = [
-  { id: 'progress', label: 'Weekly progress', hint: 'completion ticks on the Tracker' },
+  { id: 'progress', label: 'Weekly progress', hint: 'completion ticks on the Tracker and voice lesson scores' },
   { id: 'streak', label: 'Streak & daily goals', hint: 'day counter and Today checklist' },
-  { id: 'srs', label: 'Flashcard schedule', hint: 'review history — all cards start fresh' },
+  { id: 'srs', label: 'Flashcard schedule', hint: 'review history for cards and verses — everything starts fresh' },
   { id: 'journal', label: 'Journal entries', hint: 'everything you wrote (export first!)' },
 ];
 

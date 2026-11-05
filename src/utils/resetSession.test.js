@@ -52,6 +52,16 @@ describe('resetSession', () => {
     expect(survivingStores()).toEqual(STORES.filter((s) => s !== store));
   });
 
+  it('clears verse review with the flashcard schedule, and lessons with progress', () => {
+    localStorage.setItem(storageKey('verse-srs'), '{}');
+    localStorage.setItem(storageKey('tutor'), '{}');
+    resetSession({ startDate: '2026-07-06', resetSrs: true });
+    expect(localStorage.getItem(storageKey('verse-srs'))).toBeNull();
+    expect(localStorage.getItem(storageKey('tutor'))).not.toBeNull();
+    resetSession({ startDate: '2026-07-06', resetProgress: true });
+    expect(localStorage.getItem(storageKey('tutor'))).toBeNull();
+  });
+
   it('rejects an invalid start date without touching any store', () => {
     expect(() => resetSession({ startDate: 'tomorrow', resetProgress: true })).toThrow();
     expect(survivingStores()).toEqual(STORES);

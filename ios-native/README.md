@@ -33,6 +33,9 @@ strings — a test proves the computed labels reproduce all 37 authored
 `week.d` values for the reference calendar), so the whole schedule stays
 correct for any start date.
 
+Also in the app: **Lezione guidata**, a spoken lesson on each week's passage, plus
+**Versetti** (memorize, build, shadow) and **verse review**. See `../plan-tutor.md`.
+
 ## Design (Figma)
 
 **`design/figma-mockups.html`** is the design source: pixel-styled mockups of

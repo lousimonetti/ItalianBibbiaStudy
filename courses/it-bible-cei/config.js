@@ -59,7 +59,7 @@ export const config = {
       name: 'La Bibbia CEI 2008',
       note: 'I testi biblici sono tratti dalla Bibbia CEI 2008, © Fondazione di Religione ' +
         'Santi Francesco d’Assisi e Caterina da Siena / Conferenza Episcopale Italiana. ' +
-        'Brief passages (a few verses per week) are quoted for non-commercial educational ' +
+        'Brief passages (about eight verses per week) are quoted for non-commercial educational ' +
         'use; all rights remain with the copyright holder.',
       url: 'https://www.bibbiaedu.it',
     },

@@ -103,6 +103,18 @@ struct FlashcardsView: View {
                     }
                 }
 
+                Section("Verses") {
+                    NavigationLink {
+                        VerseReviewView()
+                    } label: {
+                        LabeledContent {
+                            if model.versesDue > 0 { Text("\(model.versesDue) due") }
+                        } label: {
+                            Label("Verse review", systemImage: "text.book.closed")
+                        }
+                    }
+                }
+
                 Section("Pronunciation") {
                     NavigationLink {
                         PronunciationView()

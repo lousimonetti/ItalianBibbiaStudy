@@ -3,6 +3,7 @@
 
     python3 scripts/verify-passages.py            # all weeks
     python3 scripts/verify-passages.py 26 27      # just these weeks
+    python3 scripts/verify-passages.py --show "Giovanni 1,6-8"   # print verse text
 
 For each `passage` in courses/it-bible-cei/exercises.js it expands the `ref`
 (e.g. "Atti 22,26-28; 23,11") into chapter/verse pairs, fetches those chapters,
@@ -12,11 +13,17 @@ stripped, so any DIFF it prints is a real wording difference.
 
 Needs network. Pages are slow (~30 s each), so chapters are cached in
 $TMPDIR/cei-cache. Exits 1 if any verse differs.
+
+--show is for authoring: new verse text must come from the site, never from
+memory. Stay within chapters the course already quotes.
 """
 import html, json, os, re, subprocess, sys, tempfile, time, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CACHE = os.environ.get("CEI_CACHE") or os.path.join(tempfile.gettempdir(), "cei-cache")
+# Identify ourselves honestly; fetches are serial with a pause between pages.
+UA = "ItalianBibbiaStudy-verify-passages/1.0 (+https://github.com/lousimonetti/ItalianBibbiaStudy)"
+DELAY = 2.0
 BOOKS = {"Giovanni": ("nt", "Gv"), "Luca": ("nt", "Lc"), "Atti": ("nt", "At"),
          "Romani": ("nt", "Rm"), "Salmo": ("ot", "Sal")}
 
@@ -55,7 +62,7 @@ def chapter(book, ch):
     path = os.path.join(CACHE, f"{code}-{ch}.html")
     if not os.path.exists(path):
         req = urllib.request.Request(f"https://www.bibbiaedu.it/CEI2008/{testament}/{code}/{ch}/",
-                                     headers={"User-Agent": "Mozilla/5.0"})
+                                     headers={"User-Agent": UA})
         for attempt in range(4):
             try:
                 open(path, "w", encoding="utf-8").write(urllib.request.urlopen(req, timeout=90).read().decode("utf-8"))
@@ -64,6 +71,7 @@ def chapter(book, ch):
                 time.sleep(3 * (attempt + 1))
         else:
             raise SystemExit(f"could not fetch {book} {ch}")
+        time.sleep(DELAY)
     h = open(path, encoding="utf-8").read()
     verses = {}
     # Verses with a footnote use a <button> for the number instead of <sup>.
@@ -79,6 +87,12 @@ def norm(t):
     t = re.sub(r'["\s]+', " ", t)
     t = re.sub(r"\s+([,.;:!?])", r"\1", t)
     return re.sub(r"\s*\[\s*$", "", t.strip())
+
+
+def show(ref):
+    book, exp = expand(ref)
+    for ch, v in exp:
+        print(f"{book} {ch},{v}\t{chapter(book, ch).get(v, '[not found]')}")
 
 
 def main(only):
@@ -106,4 +120,8 @@ def main(only):
 
 
 if __name__ == "__main__":
-    main(set(sys.argv[1:]))
+    if sys.argv[1:2] == ["--show"]:
+        for r in sys.argv[2:]:
+            show(r)
+    else:
+        main(set(sys.argv[1:]))

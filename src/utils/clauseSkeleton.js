@@ -252,6 +252,8 @@ const NOT_FINITE = new Set([
   'oliva', 'olive', 'gengiva', 'privi', 'privo',
   // -ssimo collision
   'prossimo', 'prossima',
+  // reads as guida + ti after clitic stripping, but it is the participle in "sono guidati"
+  'guidati',
   // -ano proper nouns and gentilics (frequent in this corpus)
   'pubblicano', 'pubblicani', 'samaritano', 'samaritani', 'stefano',
   'giordano', 'buono', 'buoni',

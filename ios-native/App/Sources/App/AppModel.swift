@@ -111,6 +111,10 @@ final class AppModel: ObservableObject {
     @Published var reminders = ReminderPrefs() { didSet { WebStore.saveJSON("reminders", reminders) } }
     /// Guided-Rosary resume point + tally (`italian-bible-rosary`, web shape).
     @Published private(set) var rosaryState = RosaryState()
+    /// Spaced review of whole verses (`italian-bible-verse-srs`, web shape).
+    @Published private(set) var verseSrsStore: SRSStore = [:]
+    /// Voice lesson records and resume point (`italian-bible-tutor`, web shape).
+    @Published private(set) var tutorStore = TutorStore()
 
     var articles: [String] { course.locale.articles }
     var ttsLanguage: String { course.locale.target }
@@ -136,6 +140,8 @@ final class AppModel: ObservableObject {
         sessionStartOverride = WebStore.loadString("session-start")
         reminders = WebStore.loadJSON("reminders", as: ReminderPrefs.self) ?? ReminderPrefs()
         rosaryState = WebStore.loadJSON("rosary", as: RosaryState.self) ?? RosaryState()
+        verseSrsStore = WebStore.loadJSON("verse-srs", as: SRSStore.self) ?? [:]
+        tutorStore = WebStore.loadJSON("tutor", as: TutorStore.self) ?? TutorStore()
         ensureSessionStart()
     }
 
@@ -224,6 +230,45 @@ final class AppModel: ObservableObject {
         recordActivity(.practiced)
     }
 
+    // ── Verse review + voice lessons ─────────────────────────────────────────
+    /// Verses reached so far, so review never asks for a week still ahead.
+    var reachedVerseCards: [VocabCard] {
+        let weeks = course.phases.flatMap(\.weeks)
+        return verseCards(currentWeekN.map { n in weeks.filter { $0.n <= n } } ?? weeks)
+    }
+
+    var versesDue: Int {
+        srsStats(cards: reachedVerseCards, store: verseSrsStore, now: Date().timeIntervalSince1970 * 1000).due
+    }
+
+    func recordVerseReview(id: String, grade: SRSGrade) {
+        verseSrsStore[id] = srsReview(verseSrsStore[id], grade: grade, now: Date().timeIntervalSince1970 * 1000)
+        WebStore.saveJSON("verse-srs", verseSrsStore)
+        recordActivity(.practiced)
+    }
+
+    func buildVerseSession() -> [VocabCard] {
+        let now = Date().timeIntervalSince1970 * 1000
+        let cap = newAllowanceToday(store: verseSrsStore, now: now, cap: VERSE_DAILY_NEW_CAP)
+        return buildQueue(cards: reachedVerseCards, store: verseSrsStore, now: now, newCap: cap, maxSession: 8)
+    }
+
+    func saveLessonResume(weekN: Int, snapshot: TutorSnapshot) {
+        tutorStore.resume = TutorResumePoint(weekN: weekN, date: todayStr(), snap: snapshot)
+        WebStore.saveJSON("tutor", tutorStore)
+    }
+
+    func finishLesson(_ summary: TutorSummary) {
+        verseSrsStore = applyLessonToReview(missed: summary.missed, recalled: summary.recalled,
+                                            store: verseSrsStore, now: Date().timeIntervalSince1970 * 1000)
+        WebStore.saveJSON("verse-srs", verseSrsStore)
+        if summary.total > 0 { recordActivity(.practiced) }
+        if summary.completed {
+            tutorStore.recordLesson(summary, today: todayStr())
+            WebStore.saveJSON("tutor", tutorStore)
+        }
+    }
+
     // ── Streak ───────────────────────────────────────────────────────────────
     func recordActivity(_ flag: StreakFlag) {
         streak = setFlag(streak, flag: flag, today: todayStr())
@@ -264,9 +309,19 @@ final class AppModel: ObservableObject {
         let start = todayStr(date)
         sessionStartOverride = start
         WebStore.saveString("session-start", start)
-        if reset.progress { progress = [:]; WebStore.saveJSON("progress", progress) }
+        if reset.progress {
+            progress = [:]
+            WebStore.saveJSON("progress", progress)
+            tutorStore = TutorStore()
+            WebStore.saveString("tutor", nil)
+        }
         if reset.streak { streak = StreakData(); WebStore.saveJSON("streak", streak) }
-        if reset.srs { srsStore = [:]; WebStore.saveJSON("srs", srsStore) }
+        if reset.srs {
+            srsStore = [:]
+            WebStore.saveJSON("srs", srsStore)
+            verseSrsStore = [:]
+            WebStore.saveString("verse-srs", nil)
+        }
         if reset.journal { journal = [:]; WebStore.saveJSON("journal", journal) }
     }
 

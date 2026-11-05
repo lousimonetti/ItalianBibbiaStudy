@@ -35,6 +35,8 @@ import { CoursePicker } from './components/CoursePicker';
 import { AudioSpeedControl } from './components/AudioSpeedControl';
 import { VoicePicker } from './components/VoicePicker';
 import { SyncPanel } from './components/SyncPanel';
+import { VoiceTutor } from './components/VoiceTutor';
+import { reachedVerseCards, verseStats } from './utils/verseReview';
 
 const TOTAL = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
 const ALL_WEEKS = PHASES.flatMap(p => p.weeks);
@@ -167,7 +169,7 @@ function GoalCheck({ done }) {
   );
 }
 
-function DailyGoals({ onOpenGame }) {
+function DailyGoals({ onOpenGame, onOpenVerses }) {
   const { current, best, flags, tickRead } = useStreak();
   // Today's games, read once on mount like the streak itself (the Tracker
   // remounts on tab switch, so a game played elsewhere shows up on return).
@@ -180,6 +182,7 @@ function DailyGoals({ onOpenGame }) {
   // into a review — the cheapest retention win available.
   const { getStats } = useSrs();
   const due = getStats(ALL_CARDS).due;
+  const [versesDue] = useState(() => verseStats(reachedVerseCards()).due);
   return (
     <div className="today-goals">
       <div className="today-streak" title="Consecutive days you've studied">
@@ -201,6 +204,12 @@ function DailyGoals({ onOpenGame }) {
           <GoalCheck done={flags.practiced} /> Review flashcards
           {due > 0 && <span className="today-due-pill">{due} due</span>}
         </div>
+        {versesDue > 0 && (
+          <button className="today-goal today-goal-action" onClick={onOpenVerses} disabled={!onOpenVerses}>
+            <GoalCheck done={false} /> Review verses
+            <span className="today-due-pill">{versesDue} due</span>
+          </button>
+        )}
         <div className={`today-goal${flags.journaled ? ' done' : ''}`}>
           <GoalCheck done={flags.journaled} /> Write a line in Italian
         </div>
@@ -222,7 +231,7 @@ function DailyGoals({ onOpenGame }) {
   );
 }
 
-function TodayCard({ currentWeekN, onOpenGame }) {
+function TodayCard({ currentWeekN, onOpenGame, onOpenVerses }) {
   const [schedOpen, setSchedOpen] = useState(false);
   const week = currentWeekN ? ALL_WEEKS.find(w => w.n === currentWeekN) : null;
   // Day index is the offset within the program week, so it is correct for a
@@ -242,7 +251,7 @@ function TodayCard({ currentWeekN, onOpenGame }) {
         </span>
         <span className="today-pre-sub">{TOTAL} weeks · {getSessionStartLabel()} → {getEndDateLabel()}</span>
         <SessionRow prominent />
-        <DailyGoals onOpenGame={onOpenGame} />
+        <DailyGoals onOpenGame={onOpenGame} onOpenVerses={onOpenVerses} />
       </div>
     );
   }
@@ -260,7 +269,9 @@ function TodayCard({ currentWeekN, onOpenGame }) {
         <span className="today-task-text">{todayTask.task}</span>
       </div>
 
-      <DailyGoals onOpenGame={onOpenGame} />
+      <VoiceTutor week={week} compact />
+
+      <DailyGoals onOpenGame={onOpenGame} onOpenVerses={onOpenVerses} />
 
       <button className="today-sched-toggle" onClick={() => setSchedOpen(v => !v)}>
         <UiText k="today.fullSchedule" />
@@ -334,6 +345,7 @@ export default function App() {
   // Last view visited per group, so returning to a group lands where you left.
   const [lastView, setLastView] = useState({});
   const group = GROUPS.find((g) => g.views.some((v) => v.id === activeTab)) || GROUPS[0];
+  const [flashcardsMode, setFlashcardsMode] = useState('anki');
   const openView = (id) => {
     setActiveTab(id);
     const g = GROUPS.find((x) => x.views.some((v) => v.id === id));
@@ -436,7 +448,11 @@ export default function App() {
       {/* Tab: Tracker */}
       {activeTab === 'Tracker' && (
         <>
-          <TodayCard currentWeekN={currentWeekN} onOpenGame={() => openView('Game')} />
+          <TodayCard
+            currentWeekN={currentWeekN}
+            onOpenGame={() => openView('Game')}
+            onOpenVerses={() => { setFlashcardsMode('verses'); openView('Flashcards'); }}
+          />
           <Achievements />
           <GuideSection />
           {PHASES.map((phase) => (
@@ -452,7 +468,7 @@ export default function App() {
       )}
 
       {/* Tab: Flashcards */}
-      {activeTab === 'Flashcards' && <FlashcardsTab />}
+      {activeTab === 'Flashcards' && <FlashcardsTab initialMode={flashcardsMode} />}
 
       {/* Tab: Game */}
       {activeTab === 'Game' && <GameTab />}

@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
+import { PHASES } from '../data/studyData';
 import {
+  expandRef,
+  verseRefs,
   passageLines,
   exampleLines,
   readingLines,
@@ -102,5 +105,40 @@ describe('keyVerses', () => {
       'In principio era il Verbo.',
       'La luce splende nelle tenebre.',
     ]);
+  });
+});
+
+describe('expandRef', () => {
+  it('expands ranges and single verses', () => {
+    expect(expandRef('Giovanni 1,1-3.14')).toEqual(['Giovanni 1,1', 'Giovanni 1,2', 'Giovanni 1,3', 'Giovanni 1,14']);
+  });
+
+  it('tracks chapter changes', () => {
+    expect(expandRef('Atti 22,27-28; 23,11')).toEqual(['Atti 22,27', 'Atti 22,28', 'Atti 23,11']);
+  });
+
+  it('returns nothing for an unparseable ref', () => {
+    expect(expandRef('')).toEqual([]);
+    expect(expandRef('Giovanni')).toEqual([]);
+  });
+});
+
+describe('verseRefs', () => {
+  it('gives every course verse a full reference ending in its own number', () => {
+    for (const week of PHASES.flatMap((p) => p.weeks)) {
+      for (const row of verseRefs(week)) {
+        expect(row.id.endsWith(`,${row.ref}`), `week ${week.n}: ${row.id} vs ${row.ref}`).toBe(true);
+      }
+    }
+  });
+
+  it('falls back to week and position without a passage', () => {
+    const week = { n: 4, vocab: [['la luce', 'light', 'Dio è luce.']] };
+    expect(verseRefs(week)[0].id).toBe('w4:1');
+  });
+
+  it('falls back when the ref and verses disagree', () => {
+    const week = { n: 4, passage: { ref: 'Giovanni 1,1-3', verses: [{ n: 1, t: 'In principio.' }] } };
+    expect(verseRefs(week)[0].id).toBe('w4:1');
   });
 });

@@ -5,6 +5,7 @@ import { lookupCommon } from './it2en';
 import { devotionSections } from '../../course/devotions';
 import { rosary } from '../../course/rosary';
 import { announcement } from './rosary';
+import { TUTOR_LINES, TUTOR_PRAISE } from '../data/tutorScript';
 
 // Guards tap-to-translate coverage: every word a learner can tap in the
 // course's connected text (writing prompts, vocab example sentences, reading
@@ -50,6 +51,13 @@ describe('gloss coverage of course text', () => {
     const missing = prayers.flatMap((p) =>
       [p.it, ...(p.lines || []).map((l) => l.it)]
         .flatMap((t) => unglossed(t).map((word) => `${p.id}: ${word}`)));
+    expect(missing).toEqual([]);
+  });
+
+  // The voice tutor's own lines are shown as Italian text during a lesson.
+  it('covers every word the voice tutor says', () => {
+    const missing = [...Object.values(TUTOR_LINES), ...TUTOR_PRAISE]
+      .flatMap((l) => unglossed(l.it).map((word) => `${l.it}: ${word}`));
     expect(missing).toEqual([]);
   });
 

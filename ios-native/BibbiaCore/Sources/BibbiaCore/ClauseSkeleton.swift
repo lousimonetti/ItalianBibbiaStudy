@@ -123,7 +123,9 @@ private let notFinite: Set<String> = Set<String>([
     "supremo", "remo", "però", "perciò", "ciò", "falò", "comò", "lì", "sì", "così", "giù",
     "più", "granai", "ormai", "assai", "guai", "ahimè", "classe", "promesse", "interesse",
     "spesse", "fesse", "parete", "pareti", "monete", "quiete", "profete", "comete", "oliva",
-    "olive", "gengiva", "privi", "privo", "prossimo", "prossima", "pubblicano", "pubblicani",
+    "olive", "gengiva", "privi", "privo", "prossimo", "prossima",
+    // reads as guida + ti after clitic stripping, but it is the participle in "sono guidati"
+    "guidati", "pubblicano", "pubblicani",
     "samaritano", "samaritani", "stefano", "giordano", "buono", "buoni", "ebrei", "ebreo",
     "profetesse", "estate", "patate", "polite", "mite",
 ])

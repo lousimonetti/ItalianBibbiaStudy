@@ -40,7 +40,7 @@ const cards = phases.flatMap((p) => p.weeks.flatMap((w) => w.vocab))
   .map(([it, en, ex, ipa]) => ({ it, en, ex, ipa }));
 
 function write(name, obj) {
-  writeFileSync(join(outDir, name), JSON.stringify(obj, null, 1) + '\n');
+  writeFileSync(join(outDir, name), JSON.stringify(obj, null, name === 'tutor.json' ? 0 : 1) + '\n');
   console.log(`wrote ${name}`);
 }
 
@@ -254,6 +254,106 @@ write('rosary.json', {
       text: s.text ?? null,
     })),
   })),
+});
+
+// ── Voice tutor + verse practice: chunks, fade order, spoken matching, every week's
+// lesson, and whole lessons replayed event by event against the real engine.
+const { readingLines, expandRef, verseRefs, splitSentences } = await import(join(repoRoot, 'src/utils/keyVerses.js'));
+const { verseChunks } = await import(join(repoRoot, 'src/utils/verseChunks.js'));
+const { canonSpoken, matchesSpoken } = await import(join(repoRoot, 'src/utils/spokenAnswer.js'));
+const { verseTokens, fadeOrder, stageSizes, wordMatches } = await import(join(repoRoot, 'src/utils/verseRecall.js'));
+const { buildLesson, createTutor, next: tutorNext, parseCommand, scoreRepeat, rankFocusWords, pickEvenly } =
+  await import(join(repoRoot, 'src/utils/tutorEngine.js'));
+
+const allWeeks = phases.flatMap((p) => p.weeks);
+const verseTexts = allWeeks.flatMap((w) => readingLines(w).map((l) => l.t));
+
+function stepJson(s) {
+  return {
+    kind: s.kind, lines: (s.lines ?? []).map((l) => ({ ref: l.ref, t: l.t, en: l.en })),
+    text: s.text ?? '', en: s.en ?? '', verseId: s.verseId ?? '', first: !!s.first, q: s.q ?? '',
+    answers: s.answers ?? [], model: s.model ?? '', before: s.before ?? '', answer: s.answer ?? '',
+    after: s.after ?? '', full: s.full ?? '',
+  };
+}
+const utter = (u) => ({ text: u.text, en: u.en, slow: u.rate === 'slow', line: u.line ?? null });
+function effectJson(e) {
+  if (e.type === 'speak') return { type: 'speak', utterance: utter(e.utterance) };
+  if (e.type === 'finish') return { type: 'finish', summary: e.summary };
+  return { type: e.type };
+}
+function stateJson(s) {
+  return {
+    i: s.i, sub: s.sub, phase: s.phase, attempt: s.attempt, stepOk: s.stepOk, slow: s.slow, typing: s.typing,
+    silentStreak: s.silentStreak, pausedReason: s.pausedReason, then: s.then, queue: s.queue.map(utter),
+    tone: s.feedback?.tone ?? null, heard: s.feedback?.heard ?? null, score: s.feedback?.score ?? null,
+    words: s.feedback?.words ?? [], totals: s.totals, missed: s.missed, recalled: s.recalled,
+    wordMisses: s.wordMisses, focusWords: s.focusWords,
+  };
+}
+
+function rightAnswer(st) {
+  const step = st.lesson.steps[st.i];
+  if (step.kind === 'repeat') return step.text;
+  if (step.kind === 'ask') return step.answers[0];
+  if (step.kind === 'recall') return step.answer;
+  return st.focusWords[st.sub];
+}
+// A policy looks at the state at each turn and picks the learner's next event.
+const POLICIES = {
+  perfect: (st) => ({ type: 'heard', alternatives: [rightAnswer(st)] }),
+  wrong: (st) => (st.lesson.steps[st.i].kind === 'focus'
+    ? { type: 'heard', alternatives: [rightAnswer(st)] }
+    : { type: 'heard', alternatives: ['la casa grande'] }),
+  silent: (st, n) => (n % 7 === 6 ? { type: 'resume' } : { type: 'noSpeech' }),
+  commands: (st, n) => {
+    const cycle = [
+      { type: 'command', command: 'repeat' }, { type: 'command', command: 'slower' },
+      { type: 'heard', alternatives: ['ripeti'] }, { type: 'heard', alternatives: ['andiamo avanti insieme'] },
+      { type: 'override' }, { type: 'command', command: 'skip' }, { type: 'pause', reason: null },
+      { type: 'resume' }, { type: 'setTyping', on: true }, { type: 'typed', text: 'non lo so' },
+      { type: 'setTyping', on: false }, { type: 'micUnavailable' }, { type: 'typed', text: rightAnswer(st) },
+      { type: 'setTyping', on: false },
+    ];
+    return cycle[n % cycle.length];
+  },
+  stops: (st, n) => (n < 4 ? { type: 'heard', alternatives: [rightAnswer(st)] } : { type: 'heard', alternatives: ['basta'] }),
+};
+function replay(week, policy) {
+  let cur = tutorNext(createTutor(buildLesson(week)), { type: 'start' });
+  const turns = [{ event: { type: 'start' }, effects: cur.effects.map(effectJson), state: stateJson(cur.state) }];
+  let n = 0;
+  for (let guard = 0; guard < 1500 && cur.state.phase !== 'done'; guard++) {
+    const event = cur.state.phase === 'speaking' ? { type: 'spoken' } : POLICIES[policy](cur.state, n++);
+    cur = tutorNext(cur.state, event);
+    turns.push({ event, effects: cur.effects.map(effectJson), state: stateJson(cur.state) });
+  }
+  return { week: week.n, policy, turns };
+}
+const answerProbes = ['il Verbo', 'è il Verbo', 'verbo', 'la casa', '', "l'uomo", 'Gesù Cristo', 'non lo so'];
+write('tutor.json', {
+  canon: [...verseTexts.slice(0, 60), '«Pace a voi!».', "L'uomo’s  (test)"].map((s) => ({ input: s, out: canonSpoken(s) })),
+  match: allWeeks.flatMap((w) => (w.questions ?? []).flatMap((q) =>
+    [q.model, q.answers[0], ...answerProbes.slice(0, 4)].map((t) => ({ answers: q.answers, transcript: t, ok: matchesSpoken(q, t) })))),
+  sentences: verseTexts.map((t) => ({ text: t, out: splitSentences(t) })),
+  chunks: verseTexts.map((t) => ({ text: t, out: verseChunks(t) })),
+  refs: allWeeks.map((w) => ({
+    week: w.n, ref: w.passage?.ref ?? '', expanded: expandRef(w.passage?.ref ?? ''),
+    rows: verseRefs(w).map((r) => ({ ref: r.ref, t: r.t, en: r.en, id: r.id, fullRef: r.fullRef })),
+  })),
+  badRefs: ['', 'Giovanni', '1,2', 'Giovanni x,y'].map((r) => ({ ref: r, out: expandRef(r) })),
+  recall: verseTexts.map((t) => ({ text: t, tokens: verseTokens(t), order: fadeOrder(t), sizes: stageSizes(fadeOrder(t).length) })),
+  words: [['il', 'al'], ['la', 'le'], ['la', 'la'], ['Verbo', 'verbo'], ['perché', 'perche'], ['principio', 'principo'],
+    ['Verbo', ' '], ['tenebre', 'luce'], ["l'uomo", 'uomo'], ['è', 'e']].map(([e, g]) => ({ expected: e, given: g, ok: wordMatches(e, g) })),
+  commands: ['Ripeti', 'più lentamente', 'Avanti.', 'basta', 'stop', 'andiamo avanti', 'ancora una volta', 'Piu piano', ''].map((t) => ({ text: t, out: parseCommand(t) })),
+  scores: verseTexts.slice(0, 20).flatMap((t) => [t, t.replace(/[«»,.;:!?]/g, ''), 'la casa grande'].map((h) => ({ target: t, heard: h, score: scoreRepeat(t, h) }))),
+  focus: [{ tenebre: 1, verbo: 3, luce: 1, vita: 1 }, { è: 2, e: 2, città: 2 }, {}].map((m) => ({ misses: m, out: rankFocusWords(m) })),
+  even: [[8, 4], [37, 12], [3, 5], [13, 12]].map(([n, max]) => ({ n, max, out: pickEvenly(Array.from({ length: n }, (_, i) => i), max) })),
+  lessons: allWeeks.map((w) => ({ week: w.n, steps: buildLesson(w).steps.map(stepJson) })),
+  runs: [
+    ...[1, 26, 37].map((n) => replay(allWeeks.find((w) => w.n === n), 'perfect')),
+    ...[1, 26, 30].flatMap((n) => ['wrong', 'silent', 'commands', 'stops'].map((p) => replay(allWeeks.find((w) => w.n === n), p))),
+  ],
 });
 
 console.log('done');

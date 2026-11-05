@@ -1,5 +1,9 @@
 [
  {
+  "word": "A",
+  "gloss": "to"
+ },
+ {
   "word": "Abbiamo",
   "gloss": "we have"
  },
@@ -10,6 +14,10 @@
  {
   "word": "Abramo",
   "gloss": "Abraham"
+ },
+ {
+  "word": "Accoglietevi",
+  "gloss": "welcome one another"
  },
  {
   "word": "Agrippa",
@@ -56,8 +64,24 @@
   "gloss": null
  },
  {
+  "word": "Anche",
+  "gloss": "also"
+ },
+ {
+  "word": "Andiamo",
+  "gloss": "we go"
+ },
+ {
+  "word": "Anzitutto",
+  "gloss": "first of all"
+ },
+ {
   "word": "Apparvero",
   "gloss": "appeared"
+ },
+ {
+  "word": "Appena",
+  "gloss": "just"
  },
  {
   "word": "Ateniesi",
@@ -132,8 +156,28 @@
   "gloss": "whoever"
  },
  {
+  "word": "Ci",
+  "gloss": "us"
+ },
+ {
+  "word": "Ciascuno",
+  "gloss": "each"
+ },
+ {
+  "word": "Cielo",
+  "gloss": "heaven"
+ },
+ {
+  "word": "Colui",
+  "gloss": "he who"
+ },
+ {
   "word": "Come",
   "gloss": "as"
+ },
+ {
+  "word": "Comportiamoci",
+  "gloss": "let us behave"
  },
  {
   "word": "Comprendi",
@@ -142,6 +186,10 @@
  {
   "word": "Con",
   "gloss": "with"
+ },
+ {
+  "word": "Condividete",
+  "gloss": "share"
  },
  {
   "word": "Conosci",
@@ -236,6 +284,10 @@
   "gloss": "was saying"
  },
  {
+  "word": "Dico",
+  "gloss": "I say"
+ },
+ {
   "word": "Digiuno",
   "gloss": "fasting"
  },
@@ -256,8 +308,16 @@
   "gloss": "said"
  },
  {
+  "word": "Dissero",
+  "gloss": "said"
+ },
+ {
   "word": "Dodici",
   "gloss": "twelve"
+ },
+ {
+  "word": "Dopo",
+  "gloss": "after"
  },
  {
   "word": "Dove",
@@ -278,6 +338,10 @@
  {
   "word": "E",
   "gloss": "and"
+ },
+ {
+  "word": "Ecco",
+  "gloss": "behold"
  },
  {
   "word": "Ed",
@@ -304,12 +368,20 @@
   "gloss": "entered"
  },
  {
+  "word": "Eppure",
+  "gloss": "and yet"
+ },
+ {
   "word": "Era",
   "gloss": "was"
  },
  {
   "word": "Erode",
   "gloss": null
+ },
+ {
+  "word": "Essendo",
+  "gloss": "being"
  },
  {
   "word": "Essi",
@@ -326,6 +398,14 @@
  {
   "word": "Figlio",
   "gloss": "son"
+ },
+ {
+  "word": "Filippo",
+  "gloss": "Philip"
+ },
+ {
+  "word": "Fratelli",
+  "gloss": "brothers"
  },
  {
   "word": "Gabriele",
@@ -392,6 +472,10 @@
   "gloss": "Greek"
  },
  {
+  "word": "Guarda",
+  "gloss": "look (upon)"
+ },
+ {
   "word": "Guardate",
   "gloss": "look at"
  },
@@ -424,8 +508,16 @@
   "gloss": "in fact"
  },
  {
+  "word": "Invece",
+  "gloss": "instead"
+ },
+ {
   "word": "Io",
   "gloss": "I"
+ },
+ {
+  "word": "Isaia",
+  "gloss": "Isaiah"
  },
  {
   "word": "Israele",
@@ -446,6 +538,10 @@
  {
   "word": "La",
   "gloss": "the"
+ },
+ {
+  "word": "Lasciate",
+  "gloss": "you let"
  },
  {
   "word": "Lazzaro",
@@ -504,8 +600,16 @@
   "gloss": "Mary"
  },
  {
+  "word": "Marta",
+  "gloss": "Martha"
+ },
+ {
   "word": "Mentre",
   "gloss": "while"
+ },
+ {
+  "word": "Metti",
+  "gloss": "you put"
  },
  {
   "word": "Mio",
@@ -524,6 +628,10 @@
   "gloss": null
  },
  {
+  "word": "Nell'udire",
+  "gloss": "in the to hear"
+ },
+ {
   "word": "Nella",
   "gloss": "in the"
  },
@@ -538,6 +646,14 @@
  {
   "word": "Nicodèmo",
   "gloss": "Nicodemus"
+ },
+ {
+  "word": "No",
+  "gloss": "no"
+ },
+ {
+  "word": "Noi",
+  "gloss": "we"
  },
  {
   "word": "Non",
@@ -558,6 +674,10 @@
  {
   "word": "Ora",
   "gloss": "hour"
+ },
+ {
+  "word": "Otto",
+  "gloss": "eight"
  },
  {
   "word": "Pace",
@@ -596,6 +716,10 @@
   "gloss": "because"
  },
  {
+  "word": "Perciò",
+  "gloss": "therefore"
+ },
+ {
   "word": "Pietro",
   "gloss": "Peter"
  },
@@ -608,6 +732,10 @@
   "gloss": "then"
  },
  {
+  "word": "Poiché",
+  "gloss": "since"
+ },
+ {
   "word": "Prendete",
   "gloss": "you take"
  },
@@ -618,6 +746,10 @@
  {
   "word": "Profeti",
   "gloss": "prophets"
+ },
+ {
+  "word": "Può",
+  "gloss": "can"
  },
  {
   "word": "Quand'ebbero",
@@ -656,8 +788,20 @@
   "gloss": "rejoice"
  },
  {
+  "word": "Regno",
+  "gloss": "kingdom"
+ },
+ {
+  "word": "Rendete",
+  "gloss": "give"
+ },
+ {
   "word": "Replicò",
   "gloss": "replied"
+ },
+ {
+  "word": "Riavvolse",
+  "gloss": "rolled up"
  },
  {
   "word": "Ricordatevi",
@@ -669,6 +813,10 @@
  },
  {
   "word": "Rispose",
+  "gloss": "answered"
+ },
+ {
+  "word": "Risposero",
   "gloss": "answered"
  },
  {
@@ -688,8 +836,16 @@
   "gloss": "psalm"
  },
  {
+  "word": "Salomone",
+  "gloss": "Solomon"
+ },
+ {
   "word": "Salvatore",
   "gloss": "savior"
+ },
+ {
+  "word": "Samaritano",
+  "gloss": null
  },
  {
   "word": "San",
@@ -710,6 +866,14 @@
  {
   "word": "Saulo",
   "gloss": "Saul"
+ },
+ {
+  "word": "Scese",
+  "gloss": "went down"
+ },
+ {
+  "word": "Scrittura",
+  "gloss": "scripture"
  },
  {
   "word": "Scritture",
@@ -736,6 +900,10 @@
   "gloss": "be"
  },
  {
+  "word": "Siate",
+  "gloss": "be"
+ },
+ {
   "word": "Signore",
   "gloss": "lord"
  },
@@ -750,6 +918,10 @@
  {
   "word": "Simone",
   "gloss": "Simon"
+ },
+ {
+  "word": "So",
+  "gloss": "I know"
  },
  {
   "word": "Sono",
@@ -840,6 +1012,10 @@
   "gloss": "way"
  },
  {
+  "word": "Voi",
+  "gloss": "you"
+ },
+ {
   "word": "Vorrei",
   "gloss": "I would like"
  },
@@ -904,8 +1080,20 @@
   "gloss": "welcomed"
  },
  {
+  "word": "accolse",
+  "gloss": "welcomed"
+ },
+ {
+  "word": "accolsero",
+  "gloss": "accepted"
+ },
+ {
   "word": "accolto",
   "gloss": "welcomed/received"
+ },
+ {
+  "word": "accompagnarono",
+  "gloss": "accompanied"
  },
  {
   "word": "accompagnati",
@@ -932,12 +1120,24 @@
   "gloss": "laid/placed"
  },
  {
+  "word": "addolorati",
+  "gloss": "grieved"
+ },
+ {
   "word": "adempiuto",
   "gloss": "fulfilled"
  },
  {
+  "word": "adesso",
+  "gloss": "now"
+ },
+ {
   "word": "adoratori",
   "gloss": "worshipers"
+ },
+ {
+  "word": "adoro",
+  "gloss": "I worship"
  },
  {
   "word": "adozione",
@@ -950,6 +1150,10 @@
  {
   "word": "adùlteri",
   "gloss": "adulterers"
+ },
+ {
+  "word": "affermazioni",
+  "gloss": "statements"
  },
  {
   "word": "affetto",
@@ -973,6 +1177,10 @@
  },
  {
   "word": "aggiunta",
+  "gloss": "added"
+ },
+ {
+  "word": "aggiunte",
   "gloss": "added"
  },
  {
@@ -1028,6 +1236,10 @@
   "gloss": "suddenly"
  },
  {
+  "word": "all'inserviente",
+  "gloss": "to the attendant"
+ },
+ {
   "word": "alla",
   "gloss": "at the"
  },
@@ -1050,6 +1262,14 @@
  {
   "word": "alloggio",
   "gloss": "lodging"
+ },
+ {
+  "word": "allontanarono",
+  "gloss": "drew away"
+ },
+ {
+  "word": "allontanati",
+  "gloss": "gone away"
  },
  {
   "word": "allontanò",
@@ -1124,8 +1344,16 @@
   "gloss": "love one another"
  },
  {
+  "word": "amati",
+  "gloss": "beloved"
+ },
+ {
   "word": "amato",
   "gloss": "beloved"
+ },
+ {
+  "word": "amava",
+  "gloss": "loved"
  },
  {
   "word": "amerai",
@@ -1150,6 +1378,10 @@
  {
   "word": "anch'egli",
   "gloss": "he too"
+ },
+ {
+  "word": "anch'io",
+  "gloss": "also I"
  },
  {
   "word": "anche",
@@ -1178,6 +1410,10 @@
  {
   "word": "andato",
   "gloss": "gone"
+ },
+ {
+  "word": "andavano",
+  "gloss": "were going"
  },
  {
   "word": "andò",
@@ -1268,6 +1504,10 @@
   "gloss": "prepared/set out"
  },
  {
+  "word": "apparirò",
+  "gloss": "I will appear"
+ },
+ {
   "word": "apparso",
   "gloss": "appeared"
  },
@@ -1281,6 +1521,10 @@
  },
  {
   "word": "appartenga",
+  "gloss": "belongs"
+ },
+ {
+  "word": "appartiene",
   "gloss": "belongs"
  },
  {
@@ -1312,6 +1556,10 @@
   "gloss": "silver"
  },
  {
+  "word": "armi",
+  "gloss": "weapons"
+ },
+ {
   "word": "aromi",
   "gloss": "spices"
  },
@@ -1340,12 +1588,20 @@
   "gloss": "they listen"
  },
  {
+  "word": "ascoltare",
+  "gloss": "to listen"
+ },
+ {
   "word": "ascoltarli",
   "gloss": "to listen to them"
  },
  {
   "word": "ascoltate",
   "gloss": "you listen"
+ },
+ {
+  "word": "ascoltato",
+  "gloss": "listened"
  },
  {
   "word": "ascoltavano",
@@ -1358,6 +1614,10 @@
  {
   "word": "asino",
   "gloss": null
+ },
+ {
+  "word": "aspramente",
+  "gloss": "sharply"
  },
  {
   "word": "assi",
@@ -1396,8 +1656,20 @@
   "gloss": "forward/ahead"
  },
  {
+  "word": "avanzata",
+  "gloss": "far gone"
+ },
+ {
   "word": "avendo",
   "gloss": "having"
+ },
+ {
+  "word": "aver",
+  "gloss": "to have"
+ },
+ {
+  "word": "averci",
+  "gloss": "having us"
  },
  {
   "word": "avere",
@@ -1420,6 +1692,10 @@
   "gloss": "had"
  },
  {
+  "word": "avrebbero",
+  "gloss": "they would have"
+ },
+ {
   "word": "avrei",
   "gloss": "would have"
  },
@@ -1434,6 +1710,10 @@
  {
   "word": "avuto",
   "gloss": "had"
+ },
+ {
+  "word": "avvenimento",
+  "gloss": "event"
  },
  {
   "word": "avvenire",
@@ -1464,6 +1744,10 @@
   "gloss": "wrapped"
  },
  {
+  "word": "baciavano",
+  "gloss": "were kissing"
+ },
+ {
   "word": "baciò",
   "gloss": "kissed"
  },
@@ -1486,6 +1770,10 @@
  {
   "word": "basa",
   "gloss": "relies, is based"
+ },
+ {
+  "word": "basta",
+  "gloss": "is enough"
  },
  {
   "word": "battesimo",
@@ -1556,8 +1844,20 @@
   "gloss": "needs"
  },
  {
+  "word": "bisogno",
+  "gloss": "need"
+ },
+ {
+  "word": "bisognoso",
+  "gloss": "in need"
+ },
+ {
   "word": "bocca",
   "gloss": "mouth"
+ },
+ {
+  "word": "bontà",
+  "gloss": "goodness"
  },
  {
   "word": "briganti",
@@ -1572,8 +1872,16 @@
   "gloss": "good"
  },
  {
+  "word": "buona",
+  "gloss": "good"
+ },
+ {
   "word": "buono",
   "gloss": "good"
+ },
+ {
+  "word": "c'era",
+  "gloss": "there was"
  },
  {
   "word": "c'è",
@@ -1632,8 +1940,16 @@
   "gloss": "we walk"
  },
  {
+  "word": "campi",
+  "gloss": "fields"
+ },
+ {
   "word": "cantavano",
   "gloss": "were singing"
+ },
+ {
+  "word": "capaci",
+  "gloss": "able"
  },
  {
   "word": "capi",
@@ -1666,6 +1982,14 @@
  {
   "word": "casa",
   "gloss": "house"
+ },
+ {
+  "word": "case",
+  "gloss": "houses"
+ },
+ {
+  "word": "catena",
+  "gloss": "chain"
  },
  {
   "word": "catene",
@@ -1704,6 +2028,10 @@
   "gloss": "was seeking"
  },
  {
+  "word": "cerchi",
+  "gloss": "you seek"
+ },
+ {
   "word": "cetra",
   "gloss": "lyre"
  },
@@ -1714,6 +2042,10 @@
  {
   "word": "chi",
   "gloss": "who"
+ },
+ {
+  "word": "chiamano",
+  "gloss": "they call"
  },
  {
   "word": "chiamata",
@@ -1732,6 +2064,14 @@
   "gloss": "you will call"
  },
  {
+  "word": "chiamerà",
+  "gloss": "will call"
+ },
+ {
+  "word": "chiamò",
+  "gloss": "called"
+ },
+ {
   "word": "chiedete",
   "gloss": "you ask"
  },
@@ -1746,6 +2086,10 @@
  {
   "word": "chinato",
   "gloss": "bowed"
+ },
+ {
+  "word": "chinatosi",
+  "gloss": "bending down"
  },
  {
   "word": "chiodi",
@@ -1796,6 +2140,10 @@
   "gloss": "five"
  },
  {
+  "word": "circa",
+  "gloss": "about"
+ },
+ {
   "word": "circoncisi",
   "gloss": "circumcised"
  },
@@ -1840,6 +2188,10 @@
   "gloss": "filled"
  },
  {
+  "word": "colmi",
+  "gloss": "filled"
+ },
+ {
   "word": "coloro",
   "gloss": "those who"
  },
@@ -1864,12 +2216,24 @@
   "gloss": "commander"
  },
  {
+  "word": "comando",
+  "gloss": "I command"
+ },
+ {
   "word": "come",
   "gloss": "as"
  },
  {
   "word": "cominciarono",
   "gloss": "began"
+ },
+ {
+  "word": "cominciò",
+  "gloss": "began"
+ },
+ {
+  "word": "commette",
+  "gloss": "commits"
  },
  {
   "word": "commetterai",
@@ -1894,6 +2258,14 @@
  {
   "word": "compiere",
   "gloss": "to fulfill"
+ },
+ {
+  "word": "compito",
+  "gloss": "task"
+ },
+ {
+  "word": "compiuta",
+  "gloss": "fulfilled"
  },
  {
   "word": "comune",
@@ -1948,12 +2320,24 @@
   "gloss": "conform yourselves"
  },
  {
+  "word": "conforme",
+  "gloss": "conforming"
+ },
+ {
   "word": "congiura",
   "gloss": null
  },
  {
   "word": "conosce",
   "gloss": "knows"
+ },
+ {
+  "word": "conoscenza",
+  "gloss": "knowledge"
+ },
+ {
+  "word": "conoscere",
+  "gloss": "to know"
  },
  {
   "word": "conoscerete",
@@ -1964,12 +2348,24 @@
   "gloss": "knew"
  },
  {
+  "word": "conoscete",
+  "gloss": "you know"
+ },
+ {
   "word": "conosci",
   "gloss": "you know"
  },
  {
+  "word": "conosciuto",
+  "gloss": "known"
+ },
+ {
   "word": "consacrato",
   "gloss": "consecrated"
+ },
+ {
+  "word": "consapevoli",
+  "gloss": "aware"
  },
  {
   "word": "consegneranno",
@@ -2004,6 +2400,10 @@
   "gloss": "account"
  },
  {
+  "word": "contrastavano",
+  "gloss": "opposed"
+ },
+ {
   "word": "contro",
   "gloss": "against"
  },
@@ -2020,8 +2420,16 @@
   "gloss": "they might convert"
  },
  {
+  "word": "conviene",
+  "gloss": "is fitting"
+ },
+ {
   "word": "convincerli",
   "gloss": "to convince them"
+ },
+ {
+  "word": "convinto",
+  "gloss": "convinced"
  },
  {
   "word": "corde",
@@ -2038,6 +2446,10 @@
  {
   "word": "corpo",
   "gloss": "body"
+ },
+ {
+  "word": "correggervi",
+  "gloss": "correct one another"
  },
  {
   "word": "corsa",
@@ -2068,6 +2480,14 @@
   "gloss": "things"
  },
  {
+  "word": "costanti",
+  "gloss": "steadfast"
+ },
+ {
+  "word": "costituirti",
+  "gloss": "appoint you"
+ },
+ {
   "word": "costituiti",
   "gloss": "appointed, established"
  },
@@ -2086,6 +2506,10 @@
  {
   "word": "costruttori",
   "gloss": "builders"
+ },
+ {
+  "word": "costui",
+  "gloss": "this man"
  },
  {
   "word": "così",
@@ -2112,6 +2536,14 @@
   "gloss": "believes"
  },
  {
+  "word": "credendo",
+  "gloss": "believing"
+ },
+ {
+  "word": "credente",
+  "gloss": "believing"
+ },
+ {
   "word": "credenti",
   "gloss": "believers"
  },
@@ -2128,6 +2560,14 @@
   "gloss": "to believe"
  },
  {
+  "word": "credessero",
+  "gloss": "might believe"
+ },
+ {
+  "word": "credettero",
+  "gloss": "believed"
+ },
+ {
   "word": "credevano",
   "gloss": "believed"
  },
@@ -2136,8 +2576,16 @@
   "gloss": "I believe"
  },
  {
+  "word": "credono",
+  "gloss": "they believe"
+ },
+ {
   "word": "creduto",
   "gloss": "believed"
+ },
+ {
+  "word": "crescono",
+  "gloss": "grow"
  },
  {
   "word": "croce",
@@ -2180,6 +2628,10 @@
   "gloss": "from"
  },
  {
+  "word": "dacci",
+  "gloss": "give us"
+ },
+ {
   "word": "dagli",
   "gloss": "from the"
  },
@@ -2204,6 +2656,10 @@
   "gloss": "from the love"
  },
  {
+  "word": "dall'ascolto",
+  "gloss": "from the I listen"
+ },
+ {
   "word": "dalla",
   "gloss": "from the"
  },
@@ -2224,8 +2680,16 @@
   "gloss": "giving"
  },
  {
+  "word": "danno",
+  "gloss": "they give"
+ },
+ {
   "word": "danze",
   "gloss": "dances"
+ },
+ {
+  "word": "darci",
+  "gloss": "give us"
  },
  {
   "word": "dare",
@@ -2234,6 +2698,10 @@
  {
   "word": "darò",
   "gloss": "I will give"
+ },
+ {
+  "word": "data",
+  "gloss": "given"
  },
  {
   "word": "date",
@@ -2280,6 +2748,10 @@
   "gloss": "worthy"
  },
  {
+  "word": "degno",
+  "gloss": "worthy"
+ },
+ {
   "word": "dei",
   "gloss": "of the"
  },
@@ -2298,6 +2770,10 @@
  {
   "word": "dell'esercito",
   "gloss": "of the host, of the army"
+ },
+ {
+  "word": "dell'ultimo",
+  "gloss": "of the last"
  },
  {
   "word": "dell'uomo",
@@ -2332,6 +2808,10 @@
   "gloss": "inside"
  },
  {
+  "word": "deponevano",
+  "gloss": "laid down"
+ },
+ {
   "word": "depose",
   "gloss": "laid down"
  },
@@ -2340,8 +2820,16 @@
   "gloss": "desert"
  },
  {
+  "word": "desiderato",
+  "gloss": "desired"
+ },
+ {
   "word": "desidererai",
   "gloss": "you shall covet"
+ },
+ {
+  "word": "destinati",
+  "gloss": "destined"
  },
  {
   "word": "detestate",
@@ -2404,6 +2892,10 @@
   "gloss": "declared"
  },
  {
+  "word": "dichiaro",
+  "gloss": "I declare"
+ },
+ {
   "word": "dico",
   "gloss": "I say"
  },
@@ -2416,12 +2908,20 @@
   "gloss": "gave"
  },
  {
+  "word": "dietro",
+  "gloss": "behind"
+ },
+ {
   "word": "difesa",
   "gloss": null
  },
  {
   "word": "differenza",
   "gloss": "difference"
+ },
+ {
+  "word": "diffondeva",
+  "gloss": "was spreading"
  },
  {
   "word": "dimore",
@@ -2434,6 +2934,18 @@
  {
   "word": "dipende",
   "gloss": "depends"
+ },
+ {
+  "word": "dire",
+  "gloss": "to say"
+ },
+ {
+  "word": "diremo",
+  "gloss": "shall we say"
+ },
+ {
+  "word": "disaccordo",
+  "gloss": "disagreement"
  },
  {
   "word": "discende",
@@ -2456,12 +2968,28 @@
   "gloss": "descended"
  },
  {
+  "word": "discutere",
+  "gloss": "argue"
+ },
+ {
   "word": "disegno",
   "gloss": "design/plan"
  },
  {
+  "word": "disobbedito",
+  "gloss": "disobeyed"
+ },
+ {
   "word": "dispensa",
   "gloss": "storeroom, pantry"
+ },
+ {
+  "word": "disposto",
+  "gloss": "willing"
+ },
+ {
+  "word": "disprezzavano",
+  "gloss": "despised"
  },
  {
   "word": "disprezzeranno",
@@ -2488,6 +3016,14 @@
   "gloss": "distance"
  },
  {
+  "word": "distinzione",
+  "gloss": "distinction"
+ },
+ {
+  "word": "distribuito",
+  "gloss": "distributed"
+ },
+ {
   "word": "distruggeranno",
   "gloss": "will destroy"
  },
@@ -2500,6 +3036,10 @@
   "gloss": "finger"
  },
  {
+  "word": "diventammo",
+  "gloss": "we became"
+ },
+ {
   "word": "diventassero",
   "gloss": "they might become"
  },
@@ -2509,6 +3049,10 @@
  },
  {
   "word": "diventati",
+  "gloss": "become"
+ },
+ {
+  "word": "diventato",
   "gloss": "become"
  },
  {
@@ -2592,6 +3136,10 @@
   "gloss": "had to"
  },
  {
+  "word": "dovuto",
+  "gloss": "had to"
+ },
+ {
   "word": "due",
   "gloss": "two"
  },
@@ -2636,6 +3184,10 @@
   "gloss": "and"
  },
  {
+  "word": "edificarlo",
+  "gloss": "build him up"
+ },
+ {
   "word": "effuso",
   "gloss": "poured out"
  },
@@ -2672,6 +3224,10 @@
   "gloss": "you enter"
  },
  {
+  "word": "entrerà",
+  "gloss": "will enter"
+ },
+ {
   "word": "entrò",
   "gloss": "entered"
  },
@@ -2704,6 +3260,10 @@
   "gloss": "exalted"
  },
  {
+  "word": "escluso",
+  "gloss": "excluded"
+ },
+ {
   "word": "esiste",
   "gloss": "exists"
  },
@@ -2726,6 +3286,10 @@
  {
   "word": "esprimersi",
   "gloss": "to express themselves"
+ },
+ {
+  "word": "essa",
+  "gloss": "it"
  },
  {
   "word": "esse",
@@ -2764,6 +3328,14 @@
   "gloss": "we do"
  },
  {
+  "word": "facciano",
+  "gloss": "do"
+ },
+ {
+  "word": "faccio",
+  "gloss": "I do"
+ },
+ {
   "word": "facendo",
   "gloss": "doing"
  },
@@ -2776,12 +3348,20 @@
   "gloss": "hunger"
  },
  {
+  "word": "famiglia",
+  "gloss": "family"
+ },
+ {
   "word": "far",
   "gloss": "to do/make"
  },
  {
   "word": "fare",
   "gloss": "to do"
+ },
+ {
+  "word": "farete",
+  "gloss": "you will do"
  },
  {
   "word": "farisei",
@@ -2812,6 +3392,10 @@
   "gloss": "put it on him"
  },
  {
+  "word": "faticano",
+  "gloss": "toil"
+ },
+ {
   "word": "fatto",
   "gloss": "done"
  },
@@ -2832,12 +3416,20 @@
   "gloss": "faithful"
  },
  {
+  "word": "fedeltà",
+  "gloss": "faithfulness"
+ },
+ {
   "word": "fermarmi",
   "gloss": "to stay/stop"
  },
  {
   "word": "fermatosi",
   "gloss": "having stopped"
+ },
+ {
+  "word": "ferventi",
+  "gloss": "fervent"
  },
  {
   "word": "festa",
@@ -2864,8 +3456,16 @@
   "gloss": "son"
  },
  {
+  "word": "filano",
+  "gloss": "spin"
+ },
+ {
   "word": "filiale",
   "gloss": "filial (of sonship)"
+ },
+ {
+  "word": "fin",
+  "gloss": "since"
  },
  {
   "word": "finali",
@@ -2892,6 +3492,10 @@
   "gloss": "fixed/appointed"
  },
  {
+  "word": "fissi",
+  "gloss": "fixed"
+ },
+ {
   "word": "flauti",
   "gloss": "flutes"
  },
@@ -2906,6 +3510,10 @@
  {
   "word": "fondamenta",
   "gloss": "foundations"
+ },
+ {
+  "word": "forse",
+  "gloss": "perhaps"
  },
  {
   "word": "forte",
@@ -2948,6 +3556,10 @@
   "gloss": "brotherly/fraternal"
  },
  {
+  "word": "fretta",
+  "gloss": "haste"
+ },
+ {
   "word": "frutto",
   "gloss": "fruit"
  },
@@ -2980,12 +3592,24 @@
   "gloss": "strive"
  },
  {
+  "word": "gelosia",
+  "gloss": "jealousy"
+ },
+ {
+  "word": "gelosie",
+  "gloss": "jealousies"
+ },
+ {
   "word": "geme",
   "gloss": "groans"
  },
  {
   "word": "genti",
   "gloss": "nations/peoples"
+ },
+ {
+  "word": "gettandosi",
+  "gloss": "throwing themselves"
  },
  {
   "word": "gettarono",
@@ -2996,8 +3620,16 @@
   "gloss": "you throw"
  },
  {
+  "word": "gettiamo",
+  "gloss": "we throw"
+ },
+ {
   "word": "gettò",
   "gloss": "threw"
+ },
+ {
+  "word": "gigli",
+  "gloss": "lilies"
  },
  {
   "word": "gioia",
@@ -3044,6 +3676,10 @@
   "gloss": "righteous"
  },
  {
+  "word": "giustificarsi",
+  "gloss": "justify himself"
+ },
+ {
   "word": "giustificati",
   "gloss": "justified"
  },
@@ -3064,12 +3700,24 @@
   "gloss": "the"
  },
  {
+  "word": "glielo",
+  "gloss": "it to him"
+ },
+ {
   "word": "gloria",
   "gloss": "glory"
  },
  {
   "word": "glorificarci",
   "gloss": "to glorify us"
+ },
+ {
+  "word": "glorificare",
+  "gloss": "glorify"
+ },
+ {
+  "word": "glorificavano",
+  "gloss": "glorified"
  },
  {
   "word": "godevano",
@@ -3082,6 +3730,10 @@
  {
   "word": "governatore",
   "gloss": null
+ },
+ {
+  "word": "gradite",
+  "gloss": "pleasing"
  },
  {
   "word": "gradito",
@@ -3132,12 +3784,28 @@
   "gloss": "flock"
  },
  {
+  "word": "grembo",
+  "gloss": "womb"
+ },
+ {
   "word": "grida",
   "gloss": "cries"
  },
  {
   "word": "gridò",
   "gloss": "cried out"
+ },
+ {
+  "word": "guadagna",
+  "gloss": "gains"
+ },
+ {
+  "word": "guancia",
+  "gloss": "cheek"
+ },
+ {
+  "word": "guarda",
+  "gloss": "look (upon)"
  },
  {
   "word": "guardia",
@@ -3150,6 +3818,10 @@
  {
   "word": "guarito",
   "gloss": "healed"
+ },
+ {
+  "word": "guidati",
+  "gloss": "led"
  },
  {
   "word": "guidato",
@@ -3208,6 +3880,10 @@
   "gloss": "to prevent"
  },
  {
+  "word": "impedite",
+  "gloss": "stop"
+ },
+ {
   "word": "impetuoso",
   "gloss": "rushing/mighty"
  },
@@ -3218,6 +3894,10 @@
  {
   "word": "imprese",
   "gloss": "deeds, feats"
+ },
+ {
+  "word": "impurità",
+  "gloss": "impurity"
  },
  {
   "word": "in",
@@ -3232,6 +3912,18 @@
   "gloss": "encounter/meeting"
  },
  {
+  "word": "incredulo",
+  "gloss": "unbelieving"
+ },
+ {
+  "word": "indietro",
+  "gloss": "back"
+ },
+ {
+  "word": "indipendentemente",
+  "gloss": "apart"
+ },
+ {
   "word": "indossare",
   "gloss": "to put on/wear"
  },
@@ -3240,12 +3932,24 @@
   "gloss": "you will wear"
  },
  {
+  "word": "indossiamo",
+  "gloss": "let us put on"
+ },
+ {
   "word": "infame",
   "gloss": "infamous"
  },
  {
   "word": "infatti",
   "gloss": "in fact"
+ },
+ {
+  "word": "inginocchiò",
+  "gloss": "knelt"
+ },
+ {
+  "word": "ingiuriose",
+  "gloss": "insulting"
  },
  {
   "word": "ingiusti",
@@ -3288,6 +3992,14 @@
   "gloss": "whole"
  },
  {
+  "word": "intero",
+  "gloss": "whole"
+ },
+ {
+  "word": "interrogarlo",
+  "gloss": "interrogate him"
+ },
+ {
   "word": "invece",
   "gloss": "instead"
  },
@@ -3316,6 +4028,10 @@
   "gloss": "invokes"
  },
  {
+  "word": "invocano",
+  "gloss": "they invoke"
+ },
+ {
   "word": "invocheranno",
   "gloss": "they will call upon"
  },
@@ -3340,16 +4056,32 @@
   "gloss": "blameless"
  },
  {
+  "word": "istruzione",
+  "gloss": "instruction"
+ },
+ {
   "word": "italiano",
   "gloss": "Italian"
+ },
+ {
+  "word": "l'accaduto",
+  "gloss": "the what happened"
  },
  {
   "word": "l'accesso",
   "gloss": "the access"
  },
  {
+  "word": "l'accoglie",
+  "gloss": "the welcomes"
+ },
+ {
   "word": "l'agricoltore",
   "gloss": "the farmer"
+ },
+ {
+  "word": "l'altra",
+  "gloss": "the other"
  },
  {
   "word": "l'altro",
@@ -3396,6 +4128,10 @@
   "gloss": null
  },
  {
+  "word": "l'ascolto",
+  "gloss": "the I listen"
+ },
+ {
   "word": "l'autorizzazione",
   "gloss": "the authorization"
  },
@@ -3416,8 +4152,16 @@
   "gloss": "the I have"
  },
  {
+  "word": "l'imposta",
+  "gloss": "the levy"
+ },
+ {
   "word": "l'incontro",
   "gloss": "the encounter/meeting"
+ },
+ {
+  "word": "l'intima",
+  "gloss": "the inward"
  },
  {
   "word": "l'ira",
@@ -3430,6 +4174,10 @@
  {
   "word": "l'isola",
   "gloss": null
+ },
+ {
+  "word": "l'un",
+  "gloss": "the a"
  },
  {
   "word": "l'unità",
@@ -3472,6 +4220,10 @@
   "gloss": "leave yourselves"
  },
  {
+  "word": "lasciato",
+  "gloss": "left"
+ },
+ {
   "word": "lasciàtelo",
   "gloss": "let him"
  },
@@ -3493,6 +4245,10 @@
  },
  {
   "word": "legati",
+  "gloss": "bound"
+ },
+ {
+  "word": "legato",
   "gloss": "bound"
  },
  {
@@ -3548,6 +4304,10 @@
   "gloss": "books"
  },
  {
+  "word": "lieti",
+  "gloss": "glad"
+ },
+ {
   "word": "lieto",
   "gloss": "glad"
  },
@@ -3558,6 +4318,10 @@
  {
   "word": "lingue",
   "gloss": "tongues/languages"
+ },
+ {
+  "word": "litigi",
+  "gloss": "quarrels"
  },
  {
   "word": "lo",
@@ -3584,6 +4348,10 @@
   "gloss": "you praise"
  },
  {
+  "word": "lontani",
+  "gloss": "far"
+ },
+ {
   "word": "lontano",
   "gloss": "far"
  },
@@ -3606,6 +4374,10 @@
  {
   "word": "luogo",
   "gloss": "place"
+ },
+ {
+  "word": "lussurie",
+  "gloss": "lusts"
  },
  {
   "word": "là",
@@ -3680,6 +4452,10 @@
   "gloss": "we eat"
  },
  {
+  "word": "mangiare",
+  "gloss": "to eat"
+ },
+ {
   "word": "mangiarono",
   "gloss": "ate"
  },
@@ -3708,6 +4484,10 @@
   "gloss": "to show, to manifest"
  },
  {
+  "word": "manifestata",
+  "gloss": "manifested"
+ },
+ {
   "word": "manifestazione",
   "gloss": "manifestation, showing"
  },
@@ -3718,6 +4498,10 @@
  {
   "word": "mano",
   "gloss": "hand"
+ },
+ {
+  "word": "mantello",
+  "gloss": "cloak"
  },
  {
   "word": "mattino",
@@ -3756,6 +4540,10 @@
   "gloss": null
  },
  {
+  "word": "messo",
+  "gloss": "put"
+ },
+ {
   "word": "metteranno",
   "gloss": "will put"
  },
@@ -3766,6 +4554,10 @@
  {
   "word": "mettetegli",
   "gloss": "put on him"
+ },
+ {
+  "word": "mettila",
+  "gloss": "put it"
  },
  {
   "word": "metto",
@@ -3808,6 +4600,10 @@
   "gloss": "threats"
  },
  {
+  "word": "ministro",
+  "gloss": "minister"
+ },
+ {
   "word": "minore",
   "gloss": "younger"
  },
@@ -3824,12 +4620,20 @@
   "gloss": "mercy"
  },
  {
+  "word": "misero",
+  "gloss": "put"
+ },
+ {
   "word": "missionari",
   "gloss": "missionaries"
  },
  {
   "word": "mistero",
   "gloss": null
+ },
+ {
+  "word": "misura",
+  "gloss": "measure"
  },
  {
   "word": "modo",
@@ -3880,6 +4684,10 @@
   "gloss": "mountain"
  },
  {
+  "word": "morire",
+  "gloss": "to die"
+ },
+ {
   "word": "morirà",
   "gloss": "will die"
  },
@@ -3894,6 +4702,18 @@
  {
   "word": "morto",
   "gloss": "dead"
+ },
+ {
+  "word": "morì",
+  "gloss": "died"
+ },
+ {
+  "word": "mostraci",
+  "gloss": "show us"
+ },
+ {
+  "word": "mostrare",
+  "gloss": "to show"
  },
  {
   "word": "mostrato",
@@ -3956,6 +4776,10 @@
   "gloss": "necessary"
  },
  {
+  "word": "necessità",
+  "gloss": "needs"
+ },
+ {
   "word": "nei",
   "gloss": "in the"
  },
@@ -3966,6 +4790,10 @@
  {
   "word": "nell'idolatria",
   "gloss": "in the idolatry"
+ },
+ {
+  "word": "nell'ospitalità",
+  "gloss": "in the hospitality"
  },
  {
   "word": "nella",
@@ -4072,6 +4900,10 @@
   "gloss": "or"
  },
  {
+  "word": "obbedito",
+  "gloss": "obeyed"
+ },
+ {
   "word": "occhi",
   "gloss": "eyes"
  },
@@ -4086,6 +4918,10 @@
  {
   "word": "odierà",
   "gloss": "will hate"
+ },
+ {
+  "word": "offri",
+  "gloss": "offer"
  },
  {
   "word": "offrire",
@@ -4112,12 +4948,20 @@
   "gloss": "oil"
  },
  {
+  "word": "onestamente",
+  "gloss": "honestly"
+ },
+ {
   "word": "opera",
   "gloss": "work"
  },
  {
   "word": "opere",
   "gloss": "works"
+ },
+ {
+  "word": "opposizione",
+  "gloss": "opposition"
  },
  {
   "word": "oppressi",
@@ -4136,6 +4980,14 @@
   "gloss": "ordered"
  },
  {
+  "word": "orge",
+  "gloss": "orgies"
+ },
+ {
+  "word": "ormai",
+  "gloss": "by now"
+ },
+ {
   "word": "oro",
   "gloss": "gold"
  },
@@ -4148,12 +5000,20 @@
   "gloss": "dark"
  },
  {
+  "word": "oserebbe",
+  "gloss": "would dare"
+ },
+ {
   "word": "ottenere",
   "gloss": "to obtain"
  },
  {
   "word": "ottengano",
   "gloss": "they may obtain"
+ },
+ {
+  "word": "ovunque",
+  "gloss": "everywhere"
  },
  {
   "word": "pace",
@@ -4176,6 +5036,10 @@
   "gloss": "pagans/Gentiles"
  },
  {
+  "word": "pagate",
+  "gloss": "you pay"
+ },
+ {
   "word": "pago",
   "gloss": "I pay"
  },
@@ -4188,8 +5052,20 @@
   "gloss": "loaves"
  },
  {
+  "word": "parabola",
+  "gloss": "parable"
+ },
+ {
+  "word": "parla",
+  "gloss": "speaks"
+ },
+ {
   "word": "parlare",
   "gloss": "to speak"
+ },
+ {
+  "word": "parlarvi",
+  "gloss": "speak to you"
  },
  {
   "word": "parlato",
@@ -4222,6 +5098,10 @@
  {
   "word": "partì",
   "gloss": "departed"
+ },
+ {
+  "word": "passandogli",
+  "gloss": "passing him"
  },
  {
   "word": "passare",
@@ -4292,6 +5172,10 @@
   "gloss": "to think"
  },
  {
+  "word": "pensi",
+  "gloss": "you think"
+ },
+ {
   "word": "pensieri",
   "gloss": "thoughts"
  },
@@ -4308,12 +5192,24 @@
   "gloss": "because"
  },
  {
+  "word": "perciò",
+  "gloss": "therefore"
+ },
+ {
   "word": "percorrevi",
   "gloss": "you were traveling"
  },
  {
+  "word": "percuote",
+  "gloss": "strikes"
+ },
+ {
   "word": "perde",
   "gloss": "loses"
+ },
+ {
+  "word": "perderà",
+  "gloss": "will lose"
  },
  {
   "word": "perdonate",
@@ -4348,6 +5244,10 @@
   "gloss": "persecuted"
  },
  {
+  "word": "perseveranti",
+  "gloss": "persevering"
+ },
+ {
   "word": "perseveranza",
   "gloss": "perseverance"
  },
@@ -4378,6 +5278,14 @@
  {
   "word": "petto",
   "gloss": "chest"
+ },
+ {
+  "word": "piacere",
+  "gloss": "please"
+ },
+ {
+  "word": "piaciuto",
+  "gloss": "pleased"
  },
  {
   "word": "piangete",
@@ -4418,6 +5326,10 @@
  {
   "word": "pietà",
   "gloss": "compassion"
+ },
+ {
+  "word": "pigri",
+  "gloss": "lazy"
  },
  {
   "word": "piuttosto",
@@ -4464,6 +5376,10 @@
   "gloss": "brought"
  },
  {
+  "word": "portavano",
+  "gloss": "brought"
+ },
+ {
   "word": "porte",
   "gloss": "doors/gates"
  },
@@ -4488,6 +5404,14 @@
   "gloss": "placed"
  },
  {
+  "word": "possedevano",
+  "gloss": "owned"
+ },
+ {
+  "word": "possiamo",
+  "gloss": "we can"
+ },
+ {
   "word": "possibile",
   "gloss": "possible"
  },
@@ -4498,6 +5422,10 @@
  {
   "word": "posto",
   "gloss": "place"
+ },
+ {
+  "word": "pota",
+  "gloss": "prunes"
  },
  {
   "word": "potenza",
@@ -4572,6 +5500,10 @@
   "gloss": "prayed"
  },
  {
+  "word": "premurosi",
+  "gloss": "eager"
+ },
+ {
   "word": "prenda",
   "gloss": "take"
  },
@@ -4634,6 +5566,10 @@
  {
   "word": "presto",
   "gloss": "soon"
+ },
+ {
+  "word": "presunzione",
+  "gloss": "presumption"
  },
  {
   "word": "preziosa",
@@ -4716,6 +5652,14 @@
   "gloss": "depth"
  },
  {
+  "word": "promessa",
+  "gloss": "promise"
+ },
+ {
+  "word": "promesse",
+  "gloss": "promises"
+ },
+ {
   "word": "promesso",
   "gloss": "promised"
  },
@@ -4754,6 +5698,10 @@
  {
   "word": "provata",
   "gloss": "tested/proven"
+ },
+ {
+  "word": "provengono",
+  "gloss": "come"
  },
  {
   "word": "provveduto",
@@ -4828,6 +5776,10 @@
   "gloss": "when"
  },
  {
+  "word": "quanti",
+  "gloss": "how many"
+ },
+ {
   "word": "quanto",
   "gloss": "how much"
  },
@@ -4856,12 +5808,20 @@
   "gloss": "that"
  },
  {
+  "word": "quelle",
+  "gloss": "those"
+ },
+ {
   "word": "quelli",
   "gloss": "those"
  },
  {
   "word": "quello",
   "gloss": "that"
+ },
+ {
+  "word": "quest'unica",
+  "gloss": "this one"
  },
  {
   "word": "questa",
@@ -4898,6 +5858,14 @@
  {
   "word": "radunati",
   "gloss": "gathered"
+ },
+ {
+  "word": "radunò",
+  "gloss": "gathered"
+ },
+ {
+  "word": "rallegravano",
+  "gloss": "rejoiced"
  },
  {
   "word": "rassicurati",
@@ -4952,12 +5920,20 @@
   "gloss": "making me"
  },
  {
+  "word": "rendendosi",
+  "gloss": "realizing"
+ },
+ {
   "word": "rendere",
   "gloss": "to give/render"
  },
  {
   "word": "rendiate",
   "gloss": "you may give"
+ },
+ {
+  "word": "rendo",
+  "gloss": "I give/render"
  },
  {
   "word": "reso",
@@ -4970,6 +5946,10 @@
  {
   "word": "respira",
   "gloss": "breathes"
+ },
+ {
+  "word": "resta",
+  "gloss": "remains"
  },
  {
   "word": "resto",
@@ -4996,12 +5976,20 @@
   "gloss": "sums up"
  },
  {
+  "word": "ricavato",
+  "gloss": "proceeds"
+ },
+ {
   "word": "ricchezza",
   "gloss": null
  },
  {
   "word": "ricco",
   "gloss": "rich"
+ },
+ {
+  "word": "riceve",
+  "gloss": "receives"
  },
  {
   "word": "ricevere",
@@ -5012,12 +6000,20 @@
   "gloss": "you will receive"
  },
  {
+  "word": "ricolmi",
+  "gloss": "filled"
+ },
+ {
   "word": "ricompensa",
   "gloss": "reward"
  },
  {
   "word": "riconobbero",
   "gloss": "recognized"
+ },
+ {
+  "word": "riconsegnò",
+  "gloss": "gave back"
  },
  {
   "word": "ricordando",
@@ -5042,6 +6038,10 @@
  {
   "word": "riferirlo",
   "gloss": "to report it"
+ },
+ {
+  "word": "rifiutare",
+  "gloss": "refuse"
  },
  {
   "word": "rifiutato",
@@ -5084,12 +6084,20 @@
   "gloss": "removed, rolled away"
  },
  {
+  "word": "rinascere",
+  "gloss": "be born again"
+ },
+ {
   "word": "ringrazio",
   "gloss": "I thank"
  },
  {
   "word": "rinnegamento",
   "gloss": null
+ },
+ {
+  "word": "rinneghi",
+  "gloss": "let him deny"
  },
  {
   "word": "rinnovando",
@@ -5104,8 +6112,16 @@
   "gloss": "to rise again"
  },
  {
+  "word": "risorgerà",
+  "gloss": "will rise again"
+ },
+ {
   "word": "risorto",
   "gloss": "risen"
+ },
+ {
+  "word": "rispetto",
+  "gloss": "respect"
  },
  {
   "word": "risponde",
@@ -5140,6 +6156,10 @@
   "gloss": "I consider"
  },
  {
+  "word": "riteniamo",
+  "gloss": "we hold"
+ },
+ {
   "word": "ritrovato",
   "gloss": "found again"
  },
@@ -5160,6 +6180,10 @@
   "gloss": "poured out"
  },
  {
+  "word": "rivisto",
+  "gloss": "seen again"
+ },
+ {
   "word": "rivolgiamo",
   "gloss": "we turn (to)"
  },
@@ -5170,6 +6194,14 @@
  {
   "word": "romano",
   "gloss": "Roman"
+ },
+ {
+  "word": "rotolo",
+  "gloss": "scroll"
+ },
+ {
+  "word": "rovina",
+  "gloss": "ruins"
  },
  {
   "word": "ruberai",
@@ -5194,6 +6226,10 @@
  {
   "word": "sacrificio",
   "gloss": "sacrifice"
+ },
+ {
+  "word": "saggio",
+  "gloss": "wise"
  },
  {
   "word": "sai",
@@ -5240,6 +6276,10 @@
   "gloss": "saved"
  },
  {
+  "word": "salverà",
+  "gloss": "will save"
+ },
+ {
   "word": "salvezza",
   "gloss": "salvation"
  },
@@ -5276,6 +6316,10 @@
   "gloss": "safe and sound"
  },
  {
+  "word": "santi",
+  "gloss": "holy"
+ },
+ {
   "word": "santificati",
   "gloss": "sanctified"
  },
@@ -5294,6 +6338,10 @@
  {
   "word": "sapendo",
   "gloss": "knowing"
+ },
+ {
+  "word": "sapete",
+  "gloss": "you know"
  },
  {
   "word": "sappiamo",
@@ -5352,6 +6400,14 @@
   "gloss": "gone down"
  },
  {
+  "word": "schiavo",
+  "gloss": "slave"
+ },
+ {
+  "word": "scoppiarono",
+  "gloss": "burst"
+ },
+ {
   "word": "scoppiò",
   "gloss": "burst out"
  },
@@ -5380,12 +6436,20 @@
   "gloss": "if"
  },
  {
+  "word": "seconda",
+  "gloss": "second"
+ },
+ {
   "word": "secondo",
   "gloss": "according to"
  },
  {
   "word": "sedermi",
   "gloss": "my sitting down"
+ },
+ {
+  "word": "sedette",
+  "gloss": "sat down"
  },
  {
   "word": "sedeva",
@@ -5404,8 +6468,16 @@
   "gloss": null
  },
  {
+  "word": "segua",
+  "gloss": "let him follow"
+ },
+ {
   "word": "segue",
   "gloss": "follows"
+ },
+ {
+  "word": "seguendo",
+  "gloss": "following"
  },
  {
   "word": "seguente",
@@ -5430,6 +6502,10 @@
  {
   "word": "seminano",
   "gloss": "they sow"
+ },
+ {
+  "word": "sempre",
+  "gloss": "always"
  },
  {
   "word": "seno",
@@ -5468,6 +6544,10 @@
   "gloss": "heard"
  },
  {
+  "word": "sentivano",
+  "gloss": "heard"
+ },
+ {
   "word": "sentì",
   "gloss": "heard"
  },
@@ -5496,6 +6576,14 @@
   "gloss": "servants"
  },
  {
+  "word": "servite",
+  "gloss": "serve"
+ },
+ {
+  "word": "servitore",
+  "gloss": "servant"
+ },
+ {
   "word": "servizio",
   "gloss": "service, ministry"
  },
@@ -5506,6 +6594,10 @@
  {
   "word": "sete",
   "gloss": "thirst"
+ },
+ {
+  "word": "setta",
+  "gloss": "sect"
  },
  {
   "word": "sette",
@@ -5616,8 +6708,16 @@
   "gloss": "only"
  },
  {
+  "word": "soltanto",
+  "gloss": "only"
+ },
+ {
   "word": "sommo",
   "gloss": "high/chief"
+ },
+ {
+  "word": "sonno",
+  "gloss": "sleep"
  },
  {
   "word": "sono",
@@ -5630,6 +6730,10 @@
  {
   "word": "sopra",
   "gloss": "above"
+ },
+ {
+  "word": "soprattutto",
+  "gloss": "above all"
  },
  {
   "word": "sorto",
@@ -5744,6 +6848,10 @@
   "gloss": "was"
  },
  {
+  "word": "stento",
+  "gloss": "difficulty"
+ },
+ {
   "word": "stessi",
   "gloss": "same"
  },
@@ -5780,6 +6888,10 @@
   "gloss": "slaughters, massacres"
  },
  {
+  "word": "strappa",
+  "gloss": "takes away"
+ },
+ {
   "word": "stretta",
   "gloss": "narrow"
  },
@@ -5790,6 +6902,10 @@
  {
   "word": "stupirono",
   "gloss": "were astonished"
+ },
+ {
+  "word": "stupore",
+  "gloss": "amazement"
  },
  {
   "word": "su",
@@ -5848,6 +6964,10 @@
   "gloss": "were begging"
  },
  {
+  "word": "svegliarvi",
+  "gloss": "wake up"
+ },
+ {
   "word": "svegliò",
   "gloss": "woke up"
  },
@@ -5856,8 +6976,20 @@
   "gloss": "wretched"
  },
  {
+  "word": "svolgono",
+  "gloss": "carry out"
+ },
+ {
   "word": "sé",
   "gloss": "himself/herself"
+ },
+ {
+  "word": "tacere",
+  "gloss": "keep silent"
+ },
+ {
+  "word": "taglia",
+  "gloss": "cuts off"
  },
  {
   "word": "tali",
@@ -5872,12 +7004,20 @@
   "gloss": "so much"
  },
  {
+  "word": "tasse",
+  "gloss": "taxes"
+ },
+ {
   "word": "tavola",
   "gloss": "table"
  },
  {
   "word": "te",
   "gloss": "you"
+ },
+ {
+  "word": "teli",
+  "gloss": "linen cloths"
  },
  {
   "word": "teme",
@@ -5904,12 +7044,20 @@
   "gloss": "time"
  },
  {
+  "word": "tendi",
+  "gloss": "reach out"
+ },
+ {
   "word": "tenebre",
   "gloss": "darkness"
  },
  {
   "word": "tenevano",
   "gloss": "were holding"
+ },
+ {
+  "word": "teniamo",
+  "gloss": "we hold"
  },
  {
   "word": "tentato",
@@ -5944,6 +7092,10 @@
   "gloss": "third"
  },
  {
+  "word": "tesoro",
+  "gloss": "treasure"
+ },
+ {
   "word": "tessuto",
   "gloss": "woven/knit"
  },
@@ -5954,6 +7106,14 @@
  {
   "word": "testimonianza",
   "gloss": "testimony"
+ },
+ {
+  "word": "testimoniare",
+  "gloss": "testify"
+ },
+ {
+  "word": "testimoniata",
+  "gloss": "attested"
  },
  {
   "word": "testimoniato",
@@ -6032,6 +7192,10 @@
   "gloss": "trembling"
  },
  {
+  "word": "tremila",
+  "gloss": "three thousand"
+ },
+ {
   "word": "tremò",
   "gloss": "trembled"
  },
@@ -6054,6 +7218,10 @@
  {
   "word": "tromba",
   "gloss": "trumpet"
+ },
+ {
+  "word": "trova",
+  "gloss": "finds"
  },
  {
   "word": "trovarono",
@@ -6100,6 +7268,10 @@
   "gloss": null
  },
  {
+  "word": "tunica",
+  "gloss": "tunic"
+ },
+ {
   "word": "tuo",
   "gloss": "your"
  },
@@ -6116,6 +7288,10 @@
   "gloss": "all"
  },
  {
+  "word": "tuttavia",
+  "gloss": "however"
+ },
+ {
   "word": "tutte",
   "gloss": "all"
  },
@@ -6126,6 +7302,10 @@
  {
   "word": "tutto",
   "gloss": "all"
+ },
+ {
+  "word": "ubriachezze",
+  "gloss": "drunkenness"
  },
  {
   "word": "uccelli",
@@ -6220,6 +7400,14 @@
   "gloss": "go"
  },
  {
+  "word": "vado",
+  "gloss": "I go"
+ },
+ {
+  "word": "vai",
+  "gloss": "you go"
+ },
+ {
   "word": "vale",
   "gloss": "is worth"
  },
@@ -6232,12 +7420,28 @@
   "gloss": "valley"
  },
  {
+  "word": "valutatevi",
+  "gloss": "value yourselves"
+ },
+ {
   "word": "vangelo",
   "gloss": "gospel"
  },
  {
+  "word": "vantaggio",
+  "gloss": "advantage"
+ },
+ {
   "word": "vantiamo",
   "gloss": "we boast"
+ },
+ {
+  "word": "vanto",
+  "gloss": "boasting"
+ },
+ {
+  "word": "vecchio",
+  "gloss": "old"
  },
  {
   "word": "vedendo",
@@ -6252,6 +7456,14 @@
   "gloss": "to see him"
  },
  {
+  "word": "vedervi",
+  "gloss": "see you"
+ },
+ {
+  "word": "vediamo",
+  "gloss": "we see"
+ },
+ {
   "word": "vedo",
   "gloss": "I see"
  },
@@ -6260,8 +7472,20 @@
   "gloss": null
  },
  {
+  "word": "veduto",
+  "gloss": "seen"
+ },
+ {
   "word": "vegliavano",
   "gloss": "were watching"
+ },
+ {
+  "word": "vendevano",
+  "gloss": "sold"
+ },
+ {
+  "word": "venduto",
+  "gloss": "sold"
  },
  {
   "word": "vengano",
@@ -6340,6 +7564,10 @@
   "gloss": "dressed/clothed"
  },
  {
+  "word": "vestiva",
+  "gloss": "was dressed"
+ },
+ {
   "word": "vi",
   "gloss": "you"
  },
@@ -6372,6 +7600,10 @@
   "gloss": "saw"
  },
  {
+  "word": "videro",
+  "gloss": "saw"
+ },
+ {
   "word": "vidi",
   "gloss": "I saw"
  },
@@ -6386,6 +7618,10 @@
  {
   "word": "vigilate",
   "gloss": "keep watch"
+ },
+ {
+  "word": "vincitori",
+  "gloss": "victors"
  },
  {
   "word": "vino",
@@ -6436,6 +7672,10 @@
   "gloss": "calf"
  },
  {
+  "word": "viva",
+  "gloss": "alive"
+ },
+ {
   "word": "vive",
   "gloss": "lives"
  },
@@ -6450,6 +7690,10 @@
  {
   "word": "vivere",
   "gloss": "to live"
+ },
+ {
+  "word": "vivi",
+  "gloss": "you live"
  },
  {
   "word": "vivo",
@@ -6472,8 +7716,20 @@
   "gloss": "you"
  },
  {
+  "word": "volendo",
+  "gloss": "wanting"
+ },
+ {
+  "word": "volete",
+  "gloss": "you want"
+ },
+ {
   "word": "volontà",
   "gloss": "will"
+ },
+ {
+  "word": "volta",
+  "gloss": "time"
  },
  {
   "word": "volte",

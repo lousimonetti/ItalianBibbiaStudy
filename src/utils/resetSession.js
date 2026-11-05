@@ -22,8 +22,14 @@ export function resetSession({
       // storage unavailable — nothing to clear
     }
   };
-  if (resetProgress) drop('progress');
+  if (resetProgress) {
+    drop('progress');
+    drop('tutor');
+  }
   if (resetStreak) drop('streak');
-  if (resetSrs) drop('srs');
+  if (resetSrs) {
+    drop('srs');
+    drop('verse-srs');
+  }
   if (resetJournal) drop('journal');
 }
