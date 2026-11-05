@@ -24,6 +24,8 @@ struct SettingsView: View {
 
                 VoiceSection()
 
+                TutorAISection()
+
                 Section("Program") {
                     LabeledContent("Start date", value: model.effectiveStartDate)
                     if let end = model.endDate {
@@ -135,6 +137,26 @@ struct SettingsView: View {
 // to choose there, while a native app sees every installed voice including the
 // Enhanced and Premium ones downloaded in Settings → Accessibility → Spoken
 // Content → Voices.
+// Shown only where Apple's on-device model can answer, and off until someone opts in. The
+// key sits outside the italian-bible-* prefix, so it stays out of backups: it describes
+// this device, and a restored backup may land on one with no such model.
+private struct TutorAISection: View {
+    @EnvironmentObject private var model: AppModel
+    @AppStorage("coursekit-tutor-ai") private var enabled = false
+
+    var body: some View {
+        if model.tutorAI.isAvailable {
+            Section {
+                Toggle("Conversa", isOn: $enabled)
+            } header: {
+                Text("On-device AI")
+            } footer: {
+                Text("Talk freely about each week's passage with Apple's on-device model. Replies can be wrong, and nothing is graded or saved.")
+            }
+        }
+    }
+}
+
 private struct VoiceSection: View {
     @EnvironmentObject private var model: AppModel
     @State private var selection: String = ""

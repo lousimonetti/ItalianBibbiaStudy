@@ -247,6 +247,142 @@ describe('VoiceTutor', () => {
     expect(button('Start over')).toBeTruthy();
   });
 
+  describe('interactive lessons', () => {
+    const lines = ['Il primo versetto qui.', 'Il secondo versetto qui.', 'Il terzo versetto qui.'];
+    const longWeek = {
+      n: 3,
+      vocab: [],
+      passage: { ref: 'Giovanni 1,1-3', verses: lines.map((t, i) => ({ n: i + 1, t, en: `English ${i}` })) },
+    };
+
+    it('fades the line after two clean repeats, keeps it out of the caption, and can show it', async () => {
+      render(<VoiceTutor week={longWeek} />);
+      start();
+      await speakAll();
+      await say(lines[0]);
+      await speakAll();
+      await say(lines[1]);
+      // Mid-speech on the third line: praise first, then the line itself.
+      while (speaking.length && speaking[0].text !== lines[2]) {
+        await act(async () => { finishSpeech(); });
+        await flush();
+      }
+      expect(speaking[0].text).toBe(lines[2]);
+      expect(screen.queryByText(lines[2])).toBeNull();
+      expect(document.querySelector('.tutor-caption')).toBeNull();
+      expect(document.querySelector('.tutor-faded .tutor-blank')).not.toBeNull();
+      fireEvent.click(button('Show text'));
+      expect(screen.queryByRole('button', { name: 'Show text' })).toBeNull();
+      expect(document.querySelector('.tutor-faded')).toBeNull();
+    });
+
+    it('answers a spoken word question and returns to the same step', async () => {
+      render(<VoiceTutor week={week} />);
+      start();
+      await speakAll();
+      await say('In principio era il Verbo');
+      await speakAll();
+      await say('che vuol dire principio?');
+      expect(document.querySelector('.tutor-glossed').textContent).toMatch(/principio/);
+      await speakAll();
+      expect(screen.getByText('Answer aloud')).toBeTruthy();
+      expect(activeRec?.started).toBe(true);
+    });
+
+    it('shows a hint after a wrong answer', async () => {
+      render(<VoiceTutor week={week} />);
+      start();
+      await speakAll();
+      await say('In principio era il Verbo');
+      await speakAll();
+      await say('non lo so');
+      expect(document.querySelector('.tutor-hint-line').textContent).toMatch(/In principio era il Verbo/);
+    });
+  });
+
+  describe('local AI', () => {
+    afterEach(() => vi.unstubAllGlobals());
+
+    it('shows no Conversa, and never contacts this computer, until someone opts in', async () => {
+      const fetchSpy = vi.fn();
+      vi.stubGlobal('fetch', fetchSpy);
+      render(<VoiceTutor week={week} />);
+      await flush();
+      expect(screen.queryByRole('button', { name: 'Conversa' })).toBeNull();
+      expect(fetchSpy).not.toHaveBeenCalled();
+    });
+
+    it('opening the setup panel still contacts nothing, until Check connection', async () => {
+      const fetchSpy = vi.fn();
+      vi.stubGlobal('fetch', fetchSpy);
+      render(<VoiceTutor week={week} />);
+      fireEvent.click(button('Talk freely with a local AI model (optional)'));
+      await flush();
+      expect(fetchSpy).not.toHaveBeenCalled();
+      expect(screen.getByText(/ollama pull gemma4:12b-mlx/)).toBeTruthy();
+    });
+
+    it('offers no setup on the compact Today card', () => {
+      render(<VoiceTutor week={week} compact />);
+      expect(screen.queryByRole('button', { name: /local AI/ })).toBeNull();
+    });
+
+    it('offers Conversa once opted in and the model is there', async () => {
+      localStorage.setItem('coursekit-tutor-ai', JSON.stringify({ enabled: true, model: 'gemma4:12b-mlx' }));
+      vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => ({ models: [{ name: 'gemma4:12b-mlx' }] }) })));
+      render(<VoiceTutor week={week} />);
+      await flush();
+      expect(button('Conversa')).toBeTruthy();
+    });
+
+    it('hides Conversa when the chosen model has gone', async () => {
+      localStorage.setItem('coursekit-tutor-ai', JSON.stringify({ enabled: true, model: 'gemma4:12b-mlx' }));
+      vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => ({ models: [{ name: 'other' }] }) })));
+      render(<VoiceTutor week={week} />);
+      await flush();
+      expect(screen.queryByRole('button', { name: 'Conversa' })).toBeNull();
+    });
+
+    it('hides Conversa when Ollama is off, and the lesson still works', async () => {
+      localStorage.setItem('coursekit-tutor-ai', JSON.stringify({ enabled: true, model: 'gemma4:12b-mlx' }));
+      vi.stubGlobal('fetch', vi.fn(async () => { throw new TypeError('Failed to fetch'); }));
+      render(<VoiceTutor week={week} />);
+      await flush();
+      expect(screen.queryByRole('button', { name: 'Conversa' })).toBeNull();
+      start();
+      await speakAll();
+      expect(activeRec?.started).toBe(true);
+    });
+
+    it('a lesson grades the same with AI turned on as off', async () => {
+      async function runLesson() {
+        render(<VoiceTutor week={week} />);
+        await flush();
+        start();
+        await speakAll();
+        await say('In principio era il Verbo');
+        await speakAll();
+        await say('non lo so');
+        await speakAll();
+        await say('il Verbo');
+        await speakAll();
+        await say('Verbo');
+        await speakAll();
+        const result = screen.getByRole('status').textContent;
+        cleanup();
+        return result;
+      }
+      const off = await runLesson();
+      localStorage.clear();
+      localStorage.setItem('coursekit-tutor-ai', JSON.stringify({ enabled: true, model: 'gemma4:12b-mlx' }));
+      const fetchSpy = vi.fn(async () => ({ ok: true, json: async () => ({ models: [{ name: 'gemma4:12b-mlx' }] }) }));
+      vi.stubGlobal('fetch', fetchSpy);
+      const on = await runLesson();
+      expect(on).toBe(off);
+      for (const [url] of fetchSpy.mock.calls) expect(String(url)).toMatch(/\/api\/tags$/);
+    });
+  });
+
   it('starting a second lesson stops the first', async () => {
     render(<><VoiceTutor week={week} /><VoiceTutor week={week} /></>);
     fireEvent.click(screen.getAllByRole('button', { name: 'Start lesson' })[0]);

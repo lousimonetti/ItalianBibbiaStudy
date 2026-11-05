@@ -23,6 +23,7 @@ private struct Fixture: Decodable {
         let kind: String; let lines: [Line]; let text: String; let en: String; let verseId: String
         let first: Bool; let q: String; let answers: [String]; let model: String
         let before: String; let answer: String; let after: String; let full: String
+        let hint: String; let hintEn: String
     }
     struct Lesson: Decodable { let week: Int; let steps: [Step] }
     struct Utterance: Decodable { let text: String; let en: String; let slow: Bool; let line: Int? }
@@ -36,19 +37,26 @@ private struct Fixture: Decodable {
         let command: String?; let on: Bool?; let reason: String?
     }
     struct Totals: Decodable { let ok: Int; let total: Int }
+    struct Glossed: Decodable { let word: String; let en: String }
     struct State: Decodable {
         let i: Int; let sub: Int; let phase: String; let attempt: Int; let stepOk: Bool?; let slow: Bool
         let typing: Bool; let silentStreak: Int; let pausedReason: String?; let then: String
         let queue: [Utterance]; let tone: String?; let heard: String?; let score: Int?; let words: [String]
         let totals: Totals; let missed: [String]; let recalled: [String]
         let wordMisses: [String: Int]; let focusWords: [String]
+        let support: Int; let passStreak: Int; let breakdowns: Int; let pieces: [String]; let pieceI: Int
+        let peek: Bool; let hinted: Bool; let glossed: Glossed?; let piece: Bool; let textLevel: Int
     }
     struct Turn: Decodable { let event: Event; let effects: [Effect]; let state: State }
     struct Run: Decodable { let week: Int; let policy: String; let turns: [Turn] }
+    struct OptionalText: Decodable { let text: String; let out: String? }
+    struct Gloss: Decodable { let word: String; let out: String? }
+    struct Letter: Decodable { let word: String; let out: String }
 
     let canon: [Canon]; let match: [Match]; let sentences: [TextList]; let chunks: [TextList]
     let refs: [Ref]; let badRefs: [BadRef]; let recall: [Recall]; let words: [Word]; let commands: [Command]
     let scores: [Score]; let focus: [Focus]; let even: [Even]; let lessons: [Lesson]; let runs: [Run]
+    let wordQuestions: [OptionalText]; let gloss: [Gloss]; let pieces: [TextList]; let letters: [Letter]
 }
 
 final class TutorFixtureTests: XCTestCase {
@@ -110,6 +118,25 @@ final class TutorFixtureTests: XCTestCase {
         for c in f.even { XCTAssertEqual(pickEvenly(Array(0..<c.n), max: c.max), c.out) }
     }
 
+    func testInteractiveHelpersMatchWeb() {
+        for c in f.wordQuestions { XCTAssertEqual(parseWordQuestion(c.text), c.out, c.text) }
+        XCTAssertGreaterThan(f.gloss.count, 300)
+        for c in f.gloss { XCTAssertEqual(glossWord(c.word), c.out, c.word) }
+        XCTAssertGreaterThan(f.pieces.count, 300)
+        for c in f.pieces { XCTAssertEqual(breakdownPieces(c.text), c.out, c.text) }
+        for c in f.letters { XCTAssertEqual(firstLetter(c.word), c.out, c.word) }
+    }
+
+    // A same-day resume saved before support and breakdowns existed must still load.
+    func testOlderResumePointStillDecodes() throws {
+        let json = #"{"i":3,"sub":0,"slow":false,"totals":{"ok":1,"total":1},"missed":[],"recalled":[],"wordMisses":{},"focusWords":[]}"#
+        let snap = try JSONDecoder().decode(TutorSnapshot.self, from: Data(json.utf8))
+        XCTAssertNil(snap.support)
+        let state = TutorState(lesson: TutorLesson(weekN: 1, steps: []), resume: snap)
+        XCTAssertEqual(state.support, 0)
+        XCTAssertEqual(state.breakdowns, 0)
+    }
+
     func testEveryLessonMatchesWeb() {
         XCTAssertEqual(f.lessons.count, 37)
         for lesson in f.lessons {
@@ -130,6 +157,8 @@ final class TutorFixtureTests: XCTestCase {
                 XCTAssertEqual(s.answer, e.answer, label)
                 XCTAssertEqual(s.after, e.after, label)
                 XCTAssertEqual(s.full, e.full, label)
+                XCTAssertEqual(s.hint, e.hint, label)
+                XCTAssertEqual(s.hintEn, e.hintEn, label)
             }
         }
     }
@@ -142,6 +171,7 @@ final class TutorFixtureTests: XCTestCase {
         case "micUnavailable": return .micUnavailable
         case "override": return .override
         case "resume": return .resume
+        case "showText": return .showText
         case "heard": return .heard(e.alternatives ?? [])
         case "typed": return .typed(e.text ?? "")
         case "setTyping": return .setTyping(e.on ?? false)
@@ -170,7 +200,16 @@ final class TutorFixtureTests: XCTestCase {
     }
 
     func testWholeLessonsReplayIdenticallyToWeb() {
-        XCTAssertGreaterThanOrEqual(f.runs.count, 15)
+        XCTAssertGreaterThanOrEqual(f.runs.count, 20)
+        // The replays must actually reach what they claim to pin.
+        let states = f.runs.flatMap { $0.turns.map(\.state) }
+        XCTAssertTrue(states.contains { $0.support == TUTOR_SUPPORT_MAX })
+        XCTAssertTrue(states.contains { !$0.pieces.isEmpty })
+        XCTAssertTrue(states.contains { $0.breakdowns == TUTOR_MAX_BREAKDOWNS })
+        XCTAssertTrue(states.contains { $0.hinted })
+        XCTAssertTrue(states.contains { $0.glossed != nil })
+        XCTAssertTrue(states.contains { $0.peek })
+        XCTAssertTrue(states.contains { $0.piece })
         for run in f.runs {
             let week = weeks.first { $0.n == run.week }!
             var state = TutorState(lesson: buildLesson(week))
@@ -202,6 +241,17 @@ final class TutorFixtureTests: XCTestCase {
                 XCTAssertEqual(state.recalled, e.recalled, label)
                 XCTAssertEqual(state.wordMisses, e.wordMisses, label)
                 XCTAssertEqual(state.focusWords, e.focusWords, label)
+                XCTAssertEqual(state.support, e.support, label)
+                XCTAssertEqual(state.passStreak, e.passStreak, label)
+                XCTAssertEqual(state.breakdowns, e.breakdowns, label)
+                XCTAssertEqual(state.pieces, e.pieces, label)
+                XCTAssertEqual(state.pieceI, e.pieceI, label)
+                XCTAssertEqual(state.peek, e.peek, label)
+                XCTAssertEqual(state.hinted, e.hinted, label)
+                XCTAssertEqual(state.glossed?.word, e.glossed?.word, label)
+                XCTAssertEqual(state.glossed?.en, e.glossed?.en, label)
+                XCTAssertEqual(state.feedback?.piece ?? false, e.piece, label)
+                XCTAssertEqual(state.textLevel, e.textLevel, label)
                 if result.effects.isEmpty, state.phase == .done { break }
             }
         }

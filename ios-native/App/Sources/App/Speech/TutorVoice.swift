@@ -34,7 +34,7 @@ final class TutorVoice {
         }
     }
 
-    func listen(language: String) async -> Heard {
+    func listen(language: String, onDevice: Bool = false) async -> Heard {
         cancelListening()
         return await withCheckedContinuation { (cont: CheckedContinuation<Heard, Never>) in
             var finished = false
@@ -58,7 +58,7 @@ final class TutorVoice {
                 .filter { !$0 }
                 .sink { [weak self] _ in self?.endFromRecognizer() }
                 .store(in: &bag)
-            recognizer.start(language: language)
+            recognizer.start(language: language, onDevice: onDevice)
             if let message = recognizer.errorMessage, !message.isEmpty {
                 finishTurn?(.micUnavailable)
                 return

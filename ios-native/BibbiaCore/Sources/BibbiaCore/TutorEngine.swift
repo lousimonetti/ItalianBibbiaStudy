@@ -11,6 +11,11 @@ public let TUTOR_MAX_REPEATS = 12
 public let TUTOR_MAX_FOCUS_WORDS = 3
 public let TUTOR_MAX_RECALLS = 2
 public let TUTOR_SILENT_LIMIT = 3
+public let TUTOR_SUPPORT_MAX = 3
+public let TUTOR_SUPPORT_RAISE_AFTER = 2
+public let TUTOR_MAX_BREAKDOWNS = 3
+public let TUTOR_MIN_BREAKDOWN_WORDS = 6
+private let MAX_ASKED_WORDS = 4
 
 private struct Line { let it: String; let en: String }
 
@@ -27,6 +32,11 @@ private enum L {
     static let tryAgain = Line(it: "Prova ancora.", en: "Try again.")
     static let answerIs = Line(it: "La risposta è:", en: "The answer is:")
     static let recall = Line(it: "Ascolta bene e di’ la parola che manca.", en: "Listen carefully and say the missing word.")
+    static let piecemeal = Line(it: "Proviamo un pezzo alla volta.", en: "Let's try one piece at a time.")
+    static let wholeLine = Line(it: "Ora tutta la frase.", en: "Now the whole sentence.")
+    static let hint = Line(it: "Ascolta di nuovo questa parte.", en: "Listen to this part again.")
+    static let startsWith = Line(it: "La parola comincia con:", en: "The word starts with:")
+    static let unknownWord = Line(it: "Non conosco questa parola.", en: "I don't know that word.")
     static let recap = Line(it: "La lezione è finita. Hai lavorato bene!", en: "The lesson is over. You've worked well!")
     static let praise = [
         Line(it: "Bene!", en: "Good!"), Line(it: "Ottimo!", en: "Excellent!"),
@@ -50,6 +60,60 @@ private func canon(_ s: String) -> String {
 }
 
 public func parseCommand(_ transcript: String) -> TutorCommand? { COMMANDS[canon(transcript)] }
+
+private let QUESTION_OPENERS: [[String]] = [
+    "che cosa vuol dire", "che cosa vuole dire", "che cosa significa",
+    "cosa vuol dire", "cosa vuole dire", "cosa significa",
+    "che vuol dire", "che vuole dire", "che significa",
+].map { $0.split(separator: " ").map(String.init) }
+
+private func trimMarks(_ text: String) -> String {
+    let marks: Set<Character> = ["?", "!", ".", ",", ";", ":", "…", "\"", "“", "”", "«", "»"]
+    var chars = Array(text)
+    while let c = chars.first, marks.contains(c) { chars.removeFirst() }
+    while let c = chars.last, marks.contains(c) { chars.removeLast() }
+    return String(chars)
+}
+
+/// The word a learner is asking about, or nil, kept in the form it was said, since the
+/// accents and apostrophes that canon() removes are what the glossary looks up.
+public func parseWordQuestion(_ transcript: String) -> String? {
+    let tokens = transcript.split(whereSeparator: \.isWhitespace).map { trimMarks(String($0)) }.filter { !$0.isEmpty }
+    let lower = tokens.map { $0.lowercased() }
+    var asked: [String]?
+    if lower.count >= 3, lower[0] == "what", lower[1] == "does", lower[lower.count - 1] == "mean" {
+        asked = Array(tokens[2..<(tokens.count - 1)])
+    } else if let opener = QUESTION_OPENERS.first(where: { lower.starts(with: $0) }) {
+        asked = Array(tokens[opener.count...])
+    }
+    guard var words = asked, !words.isEmpty else { return nil }
+    let leadIn = words.prefix(2).map { $0.lowercased() }.joined(separator: " ")
+    if leadIn == "la parola" || leadIn == "the word" { words = Array(words.dropFirst(2)) }
+    if words.isEmpty || words.count > MAX_ASKED_WORDS { return nil }
+    return words.joined(separator: " ")
+}
+
+private let tutorVocabIndex = VocabIndex(course: Course.shared)
+
+/// The English for a word or short phrase, from the same glossary as tap-to-translate.
+/// A phrase nothing matches falls back to its last word ("la luce" to "luce").
+public func glossWord(_ phrase: String) -> String? {
+    let last = phrase.split(whereSeparator: \.isWhitespace).last.map(String.init) ?? phrase
+    for candidate in phrase == last ? [phrase] : [phrase, last] {
+        if let en = tutorVocabIndex.lookup(candidate)?.en ?? CommonWords.shared.lookup(candidate) { return en }
+    }
+    return nil
+}
+
+/// Pieces for a line the learner can't get whole, or [] if it shouldn't be split.
+public func breakdownPieces(_ text: String) -> [String] {
+    let count = text.split(whereSeparator: \.isWhitespace).count
+    if count < TUTOR_MIN_BREAKDOWN_WORDS { return [] }
+    let pieces = verseChunks(text, maxWords: (count + 1) / 2, minWords: 2)
+    return pieces.count >= 2 ? pieces : []
+}
+
+public func firstLetter(_ word: String) -> String { word.first.map { String($0).uppercased() } ?? "" }
 
 public func scoreRepeat(target: String, heard: String) -> Int {
     scorePronunciation(target: canon(target), recognized: canon(heard))
@@ -82,6 +146,8 @@ public struct TutorStep: Equatable {
     public var answer = ""
     public var after = ""
     public var full = ""
+    public var hint = ""
+    public var hintEn = ""
 }
 
 public struct TutorLesson: Equatable {
@@ -141,6 +207,17 @@ private func buildRecalls(_ week: Week, _ rows: [ReadingRow]) -> [TutorStep] {
     return pickEvenly(perVerse, max: TUTOR_MAX_RECALLS)
 }
 
+// The shortest stretch of the passage that answers a question, to replay as a hint.
+private func hintFor(_ answers: [String], _ rows: [ReadingRow]) -> (hint: String, en: String) {
+    for row in rows {
+        if let chunk = verseChunks(row.t).first(where: { matchesSpoken(answers: answers, transcript: $0) }) {
+            return (chunk, row.en)
+        }
+    }
+    if let row = rows.first(where: { matchesSpoken(answers: answers, transcript: $0.t) }) { return (row.t, row.en) }
+    return ("", "")
+}
+
 public func buildLesson(_ week: Week) -> TutorLesson {
     let rows = verseRefs(week)
     if rows.isEmpty { return TutorLesson(weekN: week.n, steps: []) }
@@ -168,6 +245,9 @@ public func buildLesson(_ week: Week) -> TutorLesson {
         s.answers = q.answers
         s.model = q.model.isEmpty ? (q.answers.first ?? "") : q.model
         s.first = i == 0
+        let hint = hintFor(q.answers, rows)
+        s.hint = hint.hint
+        s.hintEn = hint.en
         steps.append(s)
     }
     for (i, r) in buildRecalls(week, rows).enumerated() {
@@ -211,6 +291,12 @@ public struct TutorFeedback: Equatable {
     public var heard: String
     public var score: Int?
     public var words: [String]
+    public var piece = false
+}
+
+public struct TutorGloss: Equatable {
+    public let word: String
+    public let en: String
 }
 
 public struct TutorTotals: Codable, Equatable {
@@ -228,6 +314,9 @@ public struct TutorSnapshot: Codable, Equatable {
     public var recalled: [String]
     public var wordMisses: [String: Int]
     public var focusWords: [String]
+    // Optional so a resume point saved before these existed still loads.
+    public var support: Int?
+    public var breakdowns: Int?
 }
 
 public struct TutorSummary: Equatable {
@@ -241,7 +330,7 @@ public struct TutorSummary: Equatable {
 }
 
 public enum TutorEvent: Equatable {
-    case start, spoken, noSpeech, micUnavailable, override, resume
+    case start, spoken, noSpeech, micUnavailable, override, resume, showText
     case heard([String])
     case typed(String)
     case setTyping(Bool)
@@ -275,6 +364,15 @@ public struct TutorState: Equatable {
     public var recalled: [String] = []
     public var wordMisses: [String: Int] = [:]
     public var focusWords: [String] = []
+    public var support = 0
+    public var passStreak = 0
+    public var supportDropped = false
+    public var breakdowns = 0
+    public var pieces: [String] = []
+    public var pieceI = 0
+    public var peek = false
+    public var hinted = false
+    public var glossed: TutorGloss?
 
     public init(lesson: TutorLesson, typing: Bool = false, resume: TutorSnapshot? = nil) {
         self.lesson = lesson
@@ -288,6 +386,8 @@ public struct TutorState: Equatable {
             recalled = resume.recalled
             wordMisses = resume.wordMisses
             focusWords = resume.focusWords
+            support = resume.support ?? 0
+            breakdowns = resume.breakdowns ?? 0
         }
     }
 
@@ -295,8 +395,17 @@ public struct TutorState: Equatable {
 
     public var snapshot: TutorSnapshot {
         TutorSnapshot(i: i, sub: sub, slow: slow, totals: totals, missed: missed, recalled: recalled,
-                      wordMisses: wordMisses, focusWords: focusWords)
+                      wordMisses: wordMisses, focusWords: focusWords, support: support, breakdowns: breakdowns)
     }
+
+    /// What the learner is being asked to say right now on a Repeat step: a piece
+    /// during a breakdown, otherwise the whole line.
+    public func repeatText(_ step: TutorStep) -> String { pieces.isEmpty ? step.text : pieces[pieceI] }
+
+    /// How much of a Repeat line to hide, on the same 0-3 scale as `support`. Any retry
+    /// or breakdown shows it all, since hiding text from someone already struggling
+    /// would only punish them.
+    public var textLevel: Int { attempt > 0 || peek || !pieces.isEmpty ? 0 : support }
 
     public var summaryScore: Int {
         totals.total == 0 ? 0 : Int((Double(totals.ok) / Double(totals.total) * 100).rounded())
@@ -328,7 +437,7 @@ private func prompt(_ state: TutorState, _ step: TutorStep, withIntro: Bool) -> 
         return (withIntro ? [TutorUtterance(L.listen)] : []) + lines
     case .repeat:
         return (withIntro && step.first ? [TutorUtterance(L.repeatAfter)] : [])
-            + [TutorUtterance(step.text, en: step.en, slow: slow)]
+            + [TutorUtterance(state.repeatText(step), en: step.en, slow: slow)]
     case .focus:
         return (withIntro && state.sub == 0 ? [TutorUtterance(L.focus)] : [])
             + [TutorUtterance(state.focusWords[state.sub], slow: slow)]
@@ -373,6 +482,12 @@ private func enter(_ state: TutorState, _ extra: [TutorEffect] = []) -> TutorRes
     var s = state
     s.attempt = 0
     s.stepOk = nil
+    s.pieces = []
+    s.pieceI = 0
+    s.peek = false
+    s.hinted = false
+    s.glossed = nil
+    s.supportDropped = false
     guard let step = s.step else { return (s, extra) }
     if step.kind == .focus {
         if s.sub == 0 && s.focusWords.isEmpty { s.focusWords = rankFocusWords(s.wordMisses) }
@@ -406,10 +521,11 @@ private func grade(_ state: TutorState, _ step: TutorStep, _ alternatives: [Stri
     -> (ok: Bool, heard: String, score: Int?) {
     let alts = alternatives.filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     if step.kind == .repeat {
+        let target = state.repeatText(step)
         var best = alts.first ?? ""
-        var score = best.isEmpty ? 0 : scoreRepeat(target: step.text, heard: best)
+        var score = best.isEmpty ? 0 : scoreRepeat(target: target, heard: best)
         for alt in alts {
-            let s = scoreRepeat(target: step.text, heard: alt)
+            let s = scoreRepeat(target: target, heard: alt)
             if s > score {
                 best = alt
                 score = s
@@ -425,16 +541,70 @@ private func grade(_ state: TutorState, _ step: TutorStep, _ alternatives: [Stri
     return (false, alts.first ?? "", nil)
 }
 
+private func praiseLine(_ state: TutorState) -> TutorUtterance {
+    TutorUtterance(L.praise[(state.i + state.sub + state.pieceI) % L.praise.count])
+}
+
+// Only an unaided first try earns less text next time.
+private func creditPass(_ state: TutorState, _ step: TutorStep) -> TutorState {
+    guard step.kind == .repeat else { return state }
+    var s = state
+    if s.attempt > 0 || s.peek {
+        s.passStreak = 0
+        return s
+    }
+    s.passStreak += 1
+    if s.passStreak >= TUTOR_SUPPORT_RAISE_AFTER {
+        s.passStreak = 0
+        s.support = min(TUTOR_SUPPORT_MAX, s.support + 1)
+    }
+    return s
+}
+
+// A piece gets one ungraded try and then the lesson moves along, finishing on the
+// whole line, which is the only try that counts.
+private func nextPiece(_ state: TutorState, _ step: TutorStep, ok: Bool, heard: String, score: Int?) -> TutorResult {
+    var s = state
+    let lead = ok ? [praiseLine(state)] : heard.isEmpty ? [TutorUtterance(L.notHeard)] : []
+    s.feedback = TutorFeedback(tone: ok ? .ok : heard.isEmpty ? .silent : .retry, heard: heard, score: score,
+                               words: [], piece: true)
+    if !heard.isEmpty { s.silentStreak = 0 }
+    s.then = .listen
+    if state.pieceI + 1 < state.pieces.count {
+        s.pieceI += 1
+        s.queue = lead + [TutorUtterance(state.pieces[s.pieceI], en: step.en, slow: true)]
+    } else {
+        s.pieces = []
+        s.pieceI = 0
+        s.queue = lead + [TutorUtterance(L.wholeLine), TutorUtterance(step.text, en: step.en, slow: true)]
+    }
+    return run(s)
+}
+
+// A question costs no attempt: answer it, then ask again what was being asked.
+private func onWordQuestion(_ state: TutorState, _ step: TutorStep, _ word: String) -> TutorResult {
+    var s = state
+    let en = glossWord(word)
+    s.silentStreak = 0
+    s.glossed = en.map { TutorGloss(word: word, en: $0) }
+    let answer = en.map { TutorUtterance(word, en: $0, slow: true) } ?? TutorUtterance(L.unknownWord)
+    s.queue = [answer] + prompt(state, step, withIntro: false)
+    s.then = .listen
+    return run(s)
+}
+
 private func onPass(_ state: TutorState, _ step: TutorStep, heard: String, score: Int?,
                     _ extra: [TutorEffect] = []) -> TutorResult {
     var s = state
-    let praise = TutorUtterance(L.praise[(s.i + s.sub) % L.praise.count])
+    let praise = praiseLine(state)
     let closing: [TutorUtterance]
     switch step.kind {
     case .ask: closing = [TutorUtterance(step.model)]
     case .recall: closing = [TutorUtterance(step.full, en: step.en)]
     default: closing = []
     }
+    s.pieces = []
+    s.pieceI = 0
     s.stepOk = true
     s.silentStreak = 0
     s.feedback = TutorFeedback(tone: .ok, heard: heard, score: score, words: [])
@@ -450,12 +620,31 @@ private func missedWords(_ step: TutorStep, heard: String) -> [String] {
         .filter { canon($0).count >= 3 }
 }
 
+// A nudge after a wrong answer. Silence gets none, since nothing was tried yet.
+private func wrongAnswerHint(_ step: TutorStep) -> [TutorUtterance] {
+    if step.kind == .ask, !step.hint.isEmpty {
+        return [TutorUtterance(L.hint), TutorUtterance(step.hint, en: step.hintEn)]
+    }
+    if step.kind == .recall {
+        return [TutorUtterance(L.startsWith), TutorUtterance(firstLetter(step.answer))]
+    }
+    return []
+}
+
 private func onFail(_ state: TutorState, _ step: TutorStep, heard: String, score: Int?) -> TutorResult {
     var s = state
     let silent = heard.isEmpty
     let prefix = silent ? [TutorUtterance(L.notHeard)] : []
     let words = step.kind == .repeat && !silent ? missedWords(step, heard: heard) : []
     for w in words { s.wordMisses[w, default: 0] += 1 }
+    if step.kind == .repeat, !silent {
+        s.passStreak = 0
+        // Silence isn't a miss, so it leaves the learner's support level alone.
+        if !s.supportDropped {
+            s.support = max(0, s.support - 1)
+            s.supportDropped = true
+        }
+    }
     s.feedback = TutorFeedback(tone: silent ? .silent : .retry, heard: heard, score: score, words: words)
     let retries = step.kind == .repeat ? TUTOR_MAX_RETRIES : 1
 
@@ -463,13 +652,26 @@ private func onFail(_ state: TutorState, _ step: TutorStep, heard: String, score
         s.attempt += 1
         s.then = .listen
         if step.kind == .repeat {
+            let pieces = !silent && state.attempt == 1 && state.breakdowns < TUTOR_MAX_BREAKDOWNS
+                ? breakdownPieces(step.text) : []
+            if let first = pieces.first {
+                // Leaves one attempt, for the whole line once the pieces are done.
+                s.attempt = retries
+                s.pieces = pieces
+                s.pieceI = 0
+                s.breakdowns += 1
+                s.queue = [TutorUtterance(L.piecemeal), TutorUtterance(first, en: step.en, slow: true)]
+                return run(s)
+            }
             let careful = words.isEmpty ? [] : [
                 TutorUtterance(L.careful),
                 TutorUtterance(words.prefix(2).joined(separator: ", "), slow: true),
             ]
             s.queue = prefix + [TutorUtterance(L.again)] + careful + [TutorUtterance(step.text, en: step.en, slow: true)]
         } else {
-            s.queue = prefix + [TutorUtterance(L.tryAgain)] + prompt(state, step, withIntro: false)
+            let hint = silent ? [] : wrongAnswerHint(step)
+            s.hinted = !hint.isEmpty
+            s.queue = prefix + hint + [TutorUtterance(L.tryAgain)] + prompt(state, step, withIntro: false)
         }
         return run(s)
     }
@@ -528,13 +730,26 @@ public func tutorNext(_ state: TutorState, _ event: TutorEvent) -> TutorResult {
         if case .heard(let alts) = event { alternatives = alts }
         else if case .typed(let text) = event { alternatives = [text] }
         else { alternatives = [] }
+        // The order matters. matchesSpoken accepts an answer inside a longer utterance,
+        // so "che vuol dire la luce?" would pass as the answer "luce" if graded first.
+        // On Repeat grading has to win instead: no verse in the course contains one of
+        // these phrases today, but a course could add one, and repeating it isn't asking.
+        let asked = parseWordQuestion(alternatives.first ?? "")
+        if let asked, step.kind != .repeat { return onWordQuestion(state, step, asked) }
         let result = grade(state, step, alternatives)
-        if result.ok { return onPass(state, step, heard: result.heard, score: result.score) }
+        let inPieces = !state.pieces.isEmpty
+        if result.ok {
+            return inPieces
+                ? nextPiece(state, step, ok: true, heard: result.heard, score: result.score)
+                : onPass(creditPass(state, step), step, heard: result.heard, score: result.score)
+        }
         var s = state
         if let command = parseCommand(alternatives.first ?? "") {
             s.silentStreak = 0
             return onCommand(s, command)
         }
+        if let asked { return onWordQuestion(state, step, asked) }
+        if inPieces { return nextPiece(state, step, ok: false, heard: result.heard, score: result.score) }
         if !result.heard.isEmpty { s.silentStreak = 0 }
         return onFail(s, step, heard: result.heard, score: result.score)
 
@@ -549,6 +764,7 @@ public func tutorNext(_ state: TutorState, _ event: TutorEvent) -> TutorResult {
             s.then = .listen
             return (s, [.cancel])
         }
+        if !state.pieces.isEmpty { return nextPiece(s, step, ok: false, heard: "", score: nil) }
         return onFail(s, step, heard: "", score: nil)
 
     case .micUnavailable:
@@ -570,7 +786,16 @@ public func tutorNext(_ state: TutorState, _ event: TutorEvent) -> TutorResult {
     case .override:
         guard let step = state.step, isInteractive(step.kind), state.stepOk != true,
               state.phase != .paused, state.phase != .idle else { return nothing }
+        if state.feedback?.piece == true { return nothing } // pieces are ungraded, so there is nothing to overturn
         return onPass(state, step, heard: state.feedback?.heard ?? "", score: state.feedback?.score, [.cancel])
+
+    case .showText:
+        guard state.step?.kind == .repeat, state.textLevel > 0 else { return nothing }
+        var s = state
+        s.peek = true
+        s.passStreak = 0
+        s.support = max(0, s.support - 1)
+        return (s, [])
 
     case .command(let command):
         if state.phase == .idle || state.phase == .paused {

@@ -25,3 +25,6 @@ dist-ssr
 
 # graphify knowledge-graph output (derived, regenerable via /graphify)
 graphify-out/
+
+# Local model evaluation output
+scripts/tutor-ai-eval/out/

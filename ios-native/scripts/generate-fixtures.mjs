@@ -262,7 +262,10 @@ const { readingLines, expandRef, verseRefs, splitSentences } = await import(join
 const { verseChunks } = await import(join(repoRoot, 'src/utils/verseChunks.js'));
 const { canonSpoken, matchesSpoken } = await import(join(repoRoot, 'src/utils/spokenAnswer.js'));
 const { verseTokens, fadeOrder, stageSizes, wordMatches } = await import(join(repoRoot, 'src/utils/verseRecall.js'));
-const { buildLesson, createTutor, next: tutorNext, parseCommand, scoreRepeat, rankFocusWords, pickEvenly } =
+const {
+  buildLesson, createTutor, next: tutorNext, parseCommand, scoreRepeat, rankFocusWords, pickEvenly,
+  parseWordQuestion, glossWord, breakdownPieces, repeatText, textLevel, firstLetter,
+} =
   await import(join(repoRoot, 'src/utils/tutorEngine.js'));
 
 const allWeeks = phases.flatMap((p) => p.weeks);
@@ -273,7 +276,7 @@ function stepJson(s) {
     kind: s.kind, lines: (s.lines ?? []).map((l) => ({ ref: l.ref, t: l.t, en: l.en })),
     text: s.text ?? '', en: s.en ?? '', verseId: s.verseId ?? '', first: !!s.first, q: s.q ?? '',
     answers: s.answers ?? [], model: s.model ?? '', before: s.before ?? '', answer: s.answer ?? '',
-    after: s.after ?? '', full: s.full ?? '',
+    after: s.after ?? '', full: s.full ?? '', hint: s.hint ?? '', hintEn: s.hintEn ?? '',
   };
 }
 const utter = (u) => ({ text: u.text, en: u.en, slow: u.rate === 'slow', line: u.line ?? null });
@@ -289,12 +292,14 @@ function stateJson(s) {
     tone: s.feedback?.tone ?? null, heard: s.feedback?.heard ?? null, score: s.feedback?.score ?? null,
     words: s.feedback?.words ?? [], totals: s.totals, missed: s.missed, recalled: s.recalled,
     wordMisses: s.wordMisses, focusWords: s.focusWords,
+    support: s.support, passStreak: s.passStreak, breakdowns: s.breakdowns, pieces: s.pieces, pieceI: s.pieceI,
+    peek: s.peek, hinted: s.hinted, glossed: s.glossed, piece: !!s.feedback?.piece, textLevel: textLevel(s),
   };
 }
 
 function rightAnswer(st) {
   const step = st.lesson.steps[st.i];
-  if (step.kind === 'repeat') return step.text;
+  if (step.kind === 'repeat') return repeatText(st, step);
   if (step.kind === 'ask') return step.answers[0];
   if (step.kind === 'recall') return step.answer;
   return st.focusWords[st.sub];
@@ -317,6 +322,33 @@ const POLICIES = {
     ];
     return cycle[n % cycle.length];
   },
+  // Good, then bad: support rises and falls, and retried passes earn no credit.
+  mixed: (st, n) => (n % 3 === 2 && st.lesson.steps[st.i].kind !== 'focus'
+    ? { type: 'heard', alternatives: ['la casa grande'] }
+    : { type: 'heard', alternatives: [rightAnswer(st)] }),
+  // Fails each line into its breakdown, gets the pieces right, then the whole line.
+  recovering: (st) => {
+    const step = st.lesson.steps[st.i];
+    const fail = step.kind === 'repeat' && !st.pieces.length && st.attempt < 2;
+    return { type: 'heard', alternatives: [fail ? 'la casa grande' : rightAnswer(st)] };
+  },
+  // Silence and overrides inside a breakdown.
+  quietPieces: (st, n) => {
+    if (!st.pieces.length) {
+      const step = st.lesson.steps[st.i];
+      return { type: 'heard', alternatives: [step.kind === 'repeat' && st.attempt >= 2 ? rightAnswer(st) : step.kind === 'repeat' ? 'la casa grande' : rightAnswer(st)] };
+    }
+    return n % 2 ? { type: 'noSpeech' } : { type: 'override' };
+  },
+  // Word questions, known and unknown, before every answer.
+  questions: (st, n) => [
+    { type: 'heard', alternatives: ['che vuol dire principio?'] },
+    { type: 'heard', alternatives: ['cosa significa pizza'] },
+    { type: 'typed', text: "What does l'uomo mean?" },
+    { type: 'heard', alternatives: [rightAnswer(st)] },
+  ][n % 4],
+  // Reveals the faded text before answering, whenever there is any to reveal.
+  peeking: (st) => (textLevel(st) > 0 ? { type: 'showText' } : { type: 'heard', alternatives: [rightAnswer(st)] }),
   stops: (st, n) => (n < 4 ? { type: 'heard', alternatives: [rightAnswer(st)] } : { type: 'heard', alternatives: ['basta'] }),
 };
 function replay(week, policy) {
@@ -350,9 +382,159 @@ write('tutor.json', {
   focus: [{ tenebre: 1, verbo: 3, luce: 1, vita: 1 }, { è: 2, e: 2, città: 2 }, {}].map((m) => ({ misses: m, out: rankFocusWords(m) })),
   even: [[8, 4], [37, 12], [3, 5], [13, 12]].map(([n, max]) => ({ n, max, out: pickEvenly(Array.from({ length: n }, (_, i) => i), max) })),
   lessons: allWeeks.map((w) => ({ week: w.n, steps: buildLesson(w).steps.map(stepJson) })),
+  wordQuestions: [
+    'Che vuol dire vinsero?', 'cosa significa la luce', 'che cosa vuol dire città', 'che cosa vuole dire «tenebre»?',
+    "cosa vuol dire l'uomo", 'che cosa vuol dire la parola città', 'What does tenebre mean?', 'what does the word tenebre mean',
+    'che vuol dire', 'what does mean', 'the word', 'la casa significa molto', 'che vuol dire la parola',
+    'che vuol dire questo versetto nel vangelo di oggi', '', 'what does a b c d e mean', '?',
+  ].map((text) => ({ text, out: parseWordQuestion(text) })),
+  gloss: [...new Set([
+    ...allWeeks.flatMap((w) => w.vocab.flatMap((t) => [t[0], t[4]?.form].filter(Boolean))),
+    ...allWeeks.flatMap((w) => buildLesson(w).steps.filter((s) => s.kind === 'recall').map((s) => s.answer)),
+    'la luce', 'vinsero', "l'uomo", 'pizza', 'una pizza', 'LUCE', 'il pane della vita',
+  ])].map((word) => ({ word, out: glossWord(word) })),
+  pieces: [...new Set(allWeeks.flatMap((w) => buildLesson(w).steps).filter((s) => s.kind === 'repeat').map((s) => s.text))]
+    .map((text) => ({ text, out: breakdownPieces(text) })),
+  letters: ['verbo', 'è', 'Àncora', ''].map((word) => ({ word, out: firstLetter(word) })),
   runs: [
     ...[1, 26, 37].map((n) => replay(allWeeks.find((w) => w.n === n), 'perfect')),
     ...[1, 26, 30].flatMap((n) => ['wrong', 'silent', 'commands', 'stops'].map((p) => replay(allWeeks.find((w) => w.n === n), p))),
+    ...[26].flatMap((n) => ['mixed', 'recovering', 'quietPieces', 'questions', 'peeking'].map((p) => replay(allWeeks.find((w) => w.n === n), p))),
+  ],
+});
+
+// ── Conversa: prompts for every week, sentence splitting, and whole conversations replayed
+// event by event against the real engine, with scripted model replies.
+const { conversaOpening, conversaSystem, passageText, trimHistory, translatePrompt } =
+  await import(join(repoRoot, 'src/utils/tutorPrompts.js'));
+const { cleanReply, pushDelta, flushBuffer } = await import(join(repoRoot, 'src/utils/sentenceStream.js'));
+const { createConversa, next: conversaNext, MAX_TURNS, STREAK_TURNS } = await import(join(repoRoot, 'src/utils/conversaEngine.js'));
+
+function streamOf(deltas) {
+  let buffer = '';
+  const out = [];
+  for (const d of deltas) {
+    const r = pushDelta(buffer, d);
+    out.push(...r.sentences);
+    buffer = r.buffer;
+  }
+  return { deltas, out: [...out, ...flushBuffer(buffer)] };
+}
+
+const convoUtter = (u) => ({ text: u.text, en: u.en, slow: u.rate === 'slow' });
+function convoEffect(e) {
+  if (e.type === 'speak') return { type: 'speak', utterance: convoUtter(e.utterance) };
+  if (e.type === 'finish') return { type: 'finish', summary: e.summary };
+  if (e.type === 'generate') return { type: 'generate', id: e.id, system: e.system, messages: e.messages };
+  return { type: e.type };
+}
+function convoState(s) {
+  return {
+    phase: s.phase, queue: s.queue.map(convoUtter), history: s.history, turns: s.turns, genId: s.genId,
+    generating: s.generating, regenerate: s.regenerate, buffer: s.buffer, reply: s.reply, lastReply: s.lastReply,
+    slow: s.slow, typing: s.typing, silentStreak: s.silentStreak, pausedReason: s.pausedReason, failure: s.failure,
+    closing: s.closing, glossed: s.glossed,
+  };
+}
+
+// A step is an event, or a name for a common one. 'drain' plays out queued speech, and
+// events with no id get the current generation's. `stale` uses the one before it.
+const heard = (text) => ({ type: 'heard', alternatives: [text] });
+const delta = (text, extra = {}) => ({ type: 'delta', text, ...extra });
+const GEN = { type: 'generated' };
+function conversation(name, weekN, steps, { typing = false, missedWords = [] } = {}) {
+  const week = allWeeks.find((w) => w.n === weekN);
+  const turns = [];
+  let cur = { state: createConversa(week, { typing, missedWords }) };
+  const apply = (event) => {
+    cur = conversaNext(cur.state, event);
+    turns.push({ event, effects: cur.effects.map(convoEffect), state: convoState(cur.state) });
+  };
+  const drain = () => { for (let g = 0; g < 100 && cur.state.phase === 'speaking'; g++) apply({ type: 'spoken' }); };
+  apply({ type: 'start' });
+  drain();
+  for (const step of steps) {
+    if (step === 'drain') { drain(); continue; }
+    const { stale, ...event } = step;
+    const needsId = ['delta', 'generated', 'failed'].includes(event.type);
+    apply(needsId ? { ...event, id: stale ? cur.state.genId - 1 : cur.state.genId } : event);
+  }
+  drain();
+  return { name, week: weekN, typing, missedWords, turns };
+}
+const oneTurn = (text, reply = 'Va bene. Che cosa pensi?') => [heard(text), delta(reply), GEN, 'drain'];
+
+write('conversa.json', {
+  prompts: allWeeks.flatMap((w) => [[], ['tenebre', 'città']].map((hard) => ({
+    week: w.n, hard, opening: conversaOpening(w), passage: passageText(w), system: conversaSystem(w, { missedWords: hard }),
+  }))),
+  trims: [
+    { messages: [], max: 100 },
+    { messages: [['user', 'x'.repeat(10)], ['assistant', 'x'.repeat(10)], ['user', 'x'.repeat(10)]], max: 100 },
+    { messages: [['user', 'x'.repeat(50)], ['assistant', 'x'.repeat(50)], ['user', 'x'.repeat(50)]], max: 60 },
+    { messages: [['user', 'x'.repeat(90)], ['assistant', 'x'.repeat(20)], ['user', 'x'.repeat(20)]], max: 45 },
+    { messages: [['assistant', 'Che cosa?'], ['user', 'Città è perché']], max: 1600 },
+    { messages: [['user', 'è'.repeat(50)]], max: 10 },
+  ].map(({ messages, max }) => {
+    const ms = messages.map(([role, content]) => ({ role, content }));
+    return { messages: ms, max, out: trimHistory(ms, max) };
+  }),
+  cleans: ['**Bene!** Questa è la `parola`.', '# Titolo', '- primo\n- secondo', '1. primo', '> citazione', "Va' e anche tu fa' così.", '_corsivo_ ~x~', '  a   b  ', '']
+    .map((input) => ({ input, out: cleanReply(input) })),
+  streams: [
+    ['Sì, è vero. Che ', 'cosa pensi? '], ['Bene.'], ['Bene.', ' Ora'], ['Giovanni 1,1.5 e poi.'], ['Primo.\n\n  Secondo.'],
+    ['Sì, è così. Perché?'], ['*** --- '], ['...'], ['Uno! Due? Tre; quattro.'], Array.from('La luce splende! Che cosa pensi?'),
+    ['**Bene!** Che', ' cosa pensi?'], ['«Pace a voi!». E poi.'], [''], [],
+  ].map(streamOf),
+  translate: { text: 'Che cosa hai letto?', system: translatePrompt('Che cosa hai letto?').system },
+  maxTurns: MAX_TURNS,
+  streakTurns: STREAK_TURNS,
+  runs: [
+    conversation('a plain turn', 1, oneTurn('La luce è bella.')),
+    conversation('hard words reach the prompt', 26, oneTurn('Paolo parla.'), { missedWords: ['tenebre'] }),
+    conversation('a reply in many pieces, speaking as it goes', 1, [
+      heard('Ciao'), delta('Sì, è '), delta('vero. Che '), { type: 'spoken' }, delta('cosa pensi? E '), delta('tu?'), GEN, 'drain',
+    ]),
+    conversation('markdown', 1, oneTurn('Ciao', '**Bene!** Che `cosa` pensi?')),
+    conversation('a stale stream changes nothing', 1, [
+      heard('Ciao'), { type: 'pause' }, delta('Tardi. ', { stale: true }), { type: 'generated', stale: true },
+      { type: 'failed', reason: 'error', stale: true }, { type: 'resume' }, delta('Nuovo. ', { stale: true }), delta('Nuovo. '), GEN, 'drain',
+    ]),
+    conversation('pausing a reply half way asks afresh', 1, [
+      heard('Ciao'), delta('Metà. '), { type: 'pause', reason: 'manual' }, { type: 'resume' }, delta('Intera. '), GEN, 'drain',
+    ]),
+    conversation('pausing a finished reply repeats the same sentence', 1, [
+      heard('Ciao'), delta('Uno. Due.'), GEN, { type: 'pause' }, { type: 'resume' }, 'drain',
+    ]),
+    conversation('failure, then retry', 1, [
+      heard('Ciao'), { type: 'failed', reason: 'error' }, 'drain', { type: 'retry' }, delta('Eccomi.'), GEN, 'drain',
+    ]),
+    conversation('refusal, then rephrase', 30, [
+      heard('Tutti hanno bisogno della grazia.'), { type: 'failed', reason: 'refused' }, 'drain', { type: 'rephrase' }, heard('Altro'), delta('Bene.'), GEN, 'drain',
+    ]),
+    conversation('an empty reply fails', 1, [heard('Ciao'), GEN, 'drain', { type: 'command', command: 'stop' }]),
+    conversation('a letterless reply fails', 1, [heard('Ciao'), delta('*** ---'), GEN, 'drain', { type: 'rephrase' }]),
+    conversation('failure mid-reply drops the rest', 1, [heard('Ciao'), delta('Uno. Due. '), { type: 'failed' }, 'drain']),
+    conversation('commands', 1, [
+      ...oneTurn('Ciao', 'Uno. Due.'), heard('ripeti'), 'drain', heard('più lentamente'), 'drain',
+      ...oneTurn('Altro'), { type: 'command', command: 'repeat' }, 'drain',
+      heard('avanti'), { type: 'command', command: 'repeat' }, delta('Nuovo.'), GEN, 'drain', heard('basta'),
+    ]),
+    conversation('a failed change of topic takes no turn away', 1, [
+      ...oneTurn('Ciao'), heard('avanti'), { type: 'failed' }, 'drain', { type: 'rephrase' }, { type: 'command', command: 'stop' },
+    ]),
+    conversation('word questions', 1, [
+      heard('che vuol dire principio?'), 'drain', heard('cosa significa pizza'), 'drain', ...oneTurn('Ciao'),
+    ]),
+    conversation('silence, then a pause, then resuming', 1, [
+      { type: 'noSpeech' }, 'drain', heard('   '), 'drain', { type: 'noSpeech' }, { type: 'resume' }, 'drain', ...oneTurn('Ciao'),
+    ]),
+    conversation('typing from the start', 1, [
+      heard('ignorato'), { type: 'typed', text: 'Ciao' }, delta('Bene.'), GEN, 'drain', { type: 'setTyping', on: false }, { type: 'setTyping', on: true },
+    ], { typing: true }),
+    conversation('the mic failing mid-way', 1, [{ type: 'micUnavailable' }, { type: 'typed', text: 'Ciao' }, delta('Bene.'), GEN, 'drain']),
+    conversation('all the way to the closing line', 1, Array.from({ length: MAX_TURNS }, (_, n) => oneTurn(`Turno ${n}`)).flat()),
+    conversation('a long conversation trims its history', 37, Array.from({ length: 8 }, (_, n) => oneTurn(`Turno ${n} ${'parola '.repeat(40)}`, `Risposta ${n}. ${'altra '.repeat(30)}fine.`)).flat()),
   ],
 });
 

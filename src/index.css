@@ -4138,6 +4138,54 @@ html.dark {
 .tutor-target-word { font-size: 24px; text-align: center; }
 .tutor-en { margin-top: 4px; font-size: 13px; font-weight: 400; color: var(--text-muted); }
 .tutor-blank { font-weight: 700; color: var(--accent); }
+.tutor-faded { line-height: 1.7; }
+.tutor-audio-only { font-size: 14px; font-weight: 400; font-style: italic; color: var(--text-muted); }
+.tutor-piece-label { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+.tutor-hint-line { margin-top: 6px; font-size: 14px; font-weight: 400; color: var(--text-muted); }
+.tutor-glossed { font-size: 13px; color: var(--text); overflow-wrap: anywhere; }
+.tutor-ai-link {
+  flex-basis: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 11px;
+  text-align: left;
+  color: var(--text-faint);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.tutor-ai-link:hover { color: var(--accent); }
+/* Ollama runs on a computer, so a phone has nothing to connect to. */
+@media (pointer: coarse) { .tutor-ai-link { display: none; } }
+.tutor-ai-setup {
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text);
+}
+.tutor-ai-setup ol { margin: 0; padding-left: 18px; }
+.tutor-ai-setup code {
+  display: block;
+  margin-top: 2px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: var(--accent-dim);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.tutor-ai-setup select { max-width: 100%; }
+.tutor-ai-error { color: var(--it-red); }
+.conversa-log { display: flex; flex-direction: column; gap: 8px; max-height: 340px; overflow-y: auto; }
+.conversa-turn { font-size: 15px; line-height: 1.5; color: var(--text); overflow-wrap: anywhere; }
+.conversa-turn-learner { align-self: flex-end; max-width: 85%; padding: 4px 10px; border-radius: 10px; background: var(--accent-dim); }
+.conversa-en { margin-top: 2px; font-size: 13px; color: var(--text-muted); }
+.conversa-note { font-size: 11px; color: var(--text-faint); }
 .tutor-caption { font-size: 13px; font-style: italic; color: var(--text-muted); }
 .tutor-caption-en { color: var(--text-faint); }
 .tutor-feedback { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: var(--text); }

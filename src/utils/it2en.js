@@ -1112,6 +1112,8 @@ const MAP = new Map(Object.entries({
   resuscitato: 'raised (from the dead)', arrestato: 'arrested',
   comandato: 'commanded', fissato: 'fixed/appointed',
   provveduto: 'provided', acquistato: 'bought/acquired',
+  proviamo: "let's try", pezzo: 'piece', frase: 'sentence',
+  conversazione: 'conversation', scusa: 'sorry/excuse me', riesco: 'I manage/I can',
   dimostrato: 'shown', piantato: 'planted', sepolti: 'buried',
   battezzati: 'baptized', persuaso: 'convinced', imparato: 'learned',
   sottomessa: 'submissive/subject', arrivato: 'arrived',

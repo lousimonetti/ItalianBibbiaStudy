@@ -1,7 +1,7 @@
 # plan-tutor.md: voice tutor, more verses, and the AI options
 
 Status (2026-11-05): **the scripted tutor, the added verses and verse practice are
-built on web and iOS. The AI options below are plans only; neither is built.**
+built on web and iOS, plus adaptive lessons and opt-in local Conversa. See the results below.**
 
 Real-microphone testing is still outstanding (see Verification).
 
@@ -96,80 +96,26 @@ simulator build.
 (especially that the first speech fires from the Start tap), and in the iOS app on a
 device (especially audio session switching and the 1.4 s silence cutoff).
 
-## AI options (plans only)
+## Interactive lessons (shipped, not yet committed)
 
-Both keep the rule from the `plan-siri.md` I5 spike: **AI explains and never grades.**
-`checkAnswer` and `matchesSpoken` stay the only graders, and nothing a model says reaches
-the SRS.
+Adaptive text fading, line breakdowns, tiered hints and spoken word questions (*che vuol dire...?*), on web and iOS, pinned by `tutor.json`. `PASS_SCORE` is still untuned against a real microphone, and adaptation depends on it.
 
-### Option A: iOS on-device explanations
+## Local AI: evaluation results and what shipped
 
-**Learner experience:** after a miss, a "Perché?" button gives a short English
-explanation, such as why *vinsero* rather than *hanno vinto*. Other devices see the same
-lesson without the button.
+The rule still holds: **AI explains and never grades.** Harness: `scripts/tutor-ai-eval/` and `ios-native/scripts/tutor-ai-eval.swift`. Counts of explanations with no factual error are one reader's judgment, not a mechanical score.
 
-**How it works**
-- A `TutorExplainer` protocol in `BibbiaCore`, taking the verse, its English, expected
-  text, heard text and the week's grammar note, with a no-op default so `swift test`
-  covers the fallback.
-- A `SystemLanguageModel` implementation in the app target, streaming its text.
-- The miss is already in `TutorState.feedback`, so the engine needs no change.
+| Check | Needed | Apple on-device | `gemma4:12b-mlx` |
+|---|---|---|---|
+| *Perche?* explanations, first prompt | 18 of 20 | about 3 | 15-16 |
+| *Perche?* explanations, tuned prompt | 18 of 20 | at most 10 (automatic filter) | 16-17, plus 9 of 10 held out |
+| False corrections of correct Italian | at most 1 | 0 | 0 (one automatic flag was "Si, e corretto", a confirmation) |
+| Median time to first sentence | at most 3 s | 0.77 s | 1.55 s |
+| Refused verses | under 5% | 6 of 294 | not run (Ollama skips this group) |
 
-**Constraints**
-- No key, server, entitlement or usage cost.
-- Needs A17 Pro or M-series with Apple Intelligence available. The 26.6 floor removes the
-  OS gate but not the hardware gate.
-- CI can't exercise the model, so evaluate on a fixed sample set locally.
+**Decision: *Perche?* did not reach the bar on either model, so it is off and has no UI.** `explainPrompt` remains only for the harness, to re-test future models. **Conversa shipped on both platforms**, opt-in. Apple's replies are visibly weaker than Gemma's, and it refuses some harmless text.
 
-**Check first:** whether the model handles Italian input, the quality of its explanations
-(the spike tested grading on 16 cases, not explanations), and whether its guardrails trip
-on biblical text.
+**Speed on an M5 MacBook Air, 24 GB, on charger:** thinking must be off (with it on, about 6 s and an empty reply); warming the model at the start takes the first reply from 3-4 s to about 1 s; context 2048 was as fast as 4096 and used about 3 GB less memory. Battery was not measured.
 
-**Size:** about 2-3 days.
+**Not verified:** a real microphone anywhere; on-device speech for Italian; Safari or the production HTTPS site reaching Ollama (Chrome may show a Local Network Access prompt); Conversa on a real iPhone.
 
-### Option B: web bring-your-own-key conversation
-
-**Learner experience:** an opt-in "Conversa" mode. The learner talks about the week's
-passage and the tutor replies aloud in simple Italian with gentle corrections. "Perché?"
-explanations also become available on the web.
-
-**How it works**
-- Recognized text, never audio, goes straight from the browser to Claude. The reply
-  streams in and is spoken sentence by sentence.
-- The official `@anthropic-ai/sdk` with `dangerouslyAllowBrowser: true`, dynamically
-  imported to stay out of the main bundle. Confirm browser access against current docs at
-  build time.
-- System prompt: the week's passage, vocabulary and grammar focus, the learner's level,
-  and short replies. Handle `refusal` stop reasons, and render replies as plain text.
-
-**Security and privacy (required)**
-- **Store the key outside `STORAGE_PREFIX-*`**, for example `coursekit-tutor-ai`.
-  `exportSnapshot()` collects every prefixed key, so a prefixed key would leak into QR
-  codes and backup files. Add a test proving it stays out.
-- The site has no Content-Security-Policy, and any XSS could read a key in `localStorage`.
-  Add a CSP in `staticwebapp.config.json` first, allowing only the services the app uses.
-- Tell users to create a dedicated key with a spending limit, and offer "forget key".
-- Disclose in About & privacy that transcripts go to Anthropic.
-- Record the exception in the CLAUDE.md constraints: a user-supplied runtime key, with no
-  server and no build secret.
-
-**Estimated cost** of a 20-turn conversation at about 2,000 input and 150 output tokens
-per turn, before caching (list prices cached 2026-10-06):
-
-| Model | Approximate cost |
-|---|---|
-| `claude-opus-5-5` | $0.22 |
-| `claude-haiku-5-5` | $0.006 |
-
-Choose the default model when building this, and measure real turns, since voice replies
-also need low latency.
-
-**On iOS later:** the key goes in the Keychain, not UserDefaults, which rides in backups.
-
-**Size:** about 1 week, including the CSP.
-
-### Recommendation
-
-Decide after using the scripted tutor. Option A adds the least risk but reaches only some
-devices. Option B is the only one offering real conversation everywhere, but asking for an
-API key suits you and technical users better than a public launch.
+**Option B (bring your own API key)** stays a separate, unscheduled idea: it would send transcripts to a cloud service.

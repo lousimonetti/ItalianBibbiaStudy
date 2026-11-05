@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { WordGloss } from './WordGloss';
-import { buildLesson, createTutor, next, snapshot } from '../utils/tutorEngine';
+import { Conversa } from './Conversa';
+import { TutorAiSetup } from './TutorAiSetup';
+import { buildLesson, createTutor, firstLetter, next, rankFocusWords, repeatText, snapshot, textLevel } from '../utils/tutorEngine';
+import { loadTutorAI } from '../utils/tutorAI';
+import { listModels } from '../utils/ollamaClient';
+import { stageParts } from '../utils/verseRecall';
 import { useTutorVoice } from '../hooks/useTutorVoice';
 import { useAudioSpeed } from '../hooks/useAudioSpeed';
 import { getSpeechRecognition } from '../utils/speech';
@@ -20,7 +25,25 @@ const STEP_LABEL = {
   recap: 'Finishing up',
 };
 
-function StepContent({ state, step }) {
+// A Repeat line with some or all of it hidden. Levels 1 and 2 blank a growing share of
+// the words, and level 3 is audio only.
+function FadedLine({ text, level }) {
+  if (level >= 3) return <div className="tutor-audio-only">Listen and repeat from memory</div>;
+  return (
+    <div className="tutor-faded">
+      {stageParts(text, level).map((part, i) => (
+        <span key={i}>
+          {i > 0 && ' '}
+          {part.pre}
+          {part.blank ? <span className="tutor-blank" aria-label="missing word">_____</span> : part.word}
+          {part.post}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function StepContent({ state, step, onShowText }) {
   const activeLine = state.queue[0]?.line;
   switch (step.kind) {
     case 'listen':
@@ -33,22 +56,43 @@ function StepContent({ state, step }) {
           ))}
         </div>
       );
-    case 'repeat':
+    case 'repeat': {
+      const level = textLevel(state);
       return (
         <div className="tutor-target">
-          <WordGloss text={step.text} />
+          {state.pieces.length > 0 && (
+            <div className="tutor-piece-label">Piece {state.pieceI + 1} of {state.pieces.length}</div>
+          )}
+          {level > 0 ? <FadedLine text={step.text} level={level} /> : <WordGloss text={repeatText(state, step)} />}
           {step.en && <div className="tutor-en">{step.en}</div>}
+          {level > 0 && <button type="button" className="qa-override" onClick={onShowText}>Show text</button>}
         </div>
       );
+    }
     case 'focus':
       return <div className="tutor-target tutor-target-word"><WordGloss text={state.focusWords[state.sub] ?? ''} /></div>;
     case 'ask':
-      return <div className="tutor-target"><WordGloss text={step.q} /></div>;
+      return (
+        <div className="tutor-target">
+          <WordGloss text={step.q} />
+          {state.hinted && step.hint && (
+            <div className="tutor-hint-line">Hint: <WordGloss text={step.hint} /></div>
+          )}
+        </div>
+      );
     case 'recall':
       return (
         <div className="tutor-target">
           {state.stepOk === null
-            ? <>{step.before} <span className="tutor-blank" aria-label="missing word">_____</span> {step.after}</>
+            ? (
+              <>
+                {step.before}{' '}
+                <span className="tutor-blank" aria-label="missing word">
+                  {state.hinted ? `${firstLetter(step.answer)}____` : '_____'}
+                </span>{' '}
+                {step.after}
+              </>
+            )
             : <WordGloss text={step.full} />}
           {step.en && <div className="tutor-en">{step.en}</div>}
         </div>
@@ -65,7 +109,7 @@ function Feedback({ feedback, onOverride }) {
     <div className={`tutor-feedback tutor-feedback-${feedback.tone}`}>
       <strong>{title}</strong>
       {feedback.heard && <span className="tutor-heard">Heard: “{feedback.heard}”</span>}
-      {feedback.tone !== 'ok' && feedback.heard && (
+      {feedback.tone !== 'ok' && feedback.heard && !feedback.piece && (
         <button type="button" className="qa-override" onClick={onOverride}>I said it right</button>
       )}
     </div>
@@ -112,6 +156,22 @@ export function VoiceTutor({ week, compact = false }) {
   const wakeRef = useRef(null);
   const { rate: normalRate } = useAudioSpeed();
   const dispatchRef = useRef(null);
+  const [aiSettings, setAiSettings] = useState(loadTutorAI);
+  const [aiReady, setAiReady] = useState(false);
+  const [showAiSetup, setShowAiSetup] = useState(false);
+  const [conversa, setConversa] = useState(false);
+  const [hardWords, setHardWords] = useState([]);
+
+  // Only someone who has opted in ever causes a request to localhost.
+  useEffect(() => {
+    if (!aiSettings.enabled || !aiSettings.model) return undefined;
+    let live = true;
+    listModels()
+      .then((models) => { if (live) setAiReady(models.includes(aiSettings.model)); })
+      .catch(() => { if (live) setAiReady(false); });
+    return () => { live = false; };
+  }, [aiSettings]);
+  const aiOn = aiSettings.enabled && aiReady;
 
   const voice = useTutorVoice({
     onPreempted: () => dispatchRef.current?.({ type: 'command', command: 'stop' }),
@@ -124,6 +184,7 @@ export function VoiceTutor({ week, compact = false }) {
 
   const finishLesson = useCallback((result) => {
     releaseWake();
+    setHardWords(rankFocusWords(stateRef.current?.wordMisses ?? {}));
     applyLessonToReview(result);
     if (result.total > 0) recordActivity('practiced');
     if (result.completed) {
@@ -200,6 +261,10 @@ export function VoiceTutor({ week, compact = false }) {
     dispatch({ type: 'start' });
   }
 
+  if (conversa) {
+    return <Conversa week={week} model={aiSettings.model} missedWords={hardWords} onClose={() => setConversa(false)} />;
+  }
+
   if (!state) {
     return (
       <div className={`tutor-card${compact ? ' tutor-card-compact' : ''}`}>
@@ -223,7 +288,19 @@ export function VoiceTutor({ week, compact = false }) {
           <button className={`tutor-btn${resume ? '' : ' tutor-btn-primary'}`} onClick={() => begin(false)}>
             {resume ? 'Start over' : summary || record ? 'Start again' : 'Start lesson'}
           </button>
+          {aiOn && <button className="tutor-btn" onClick={() => setConversa(true)}>Conversa</button>}
         </div>
+        {!compact && !showAiSetup && (
+          <button type="button" className="tutor-ai-link" onClick={() => setShowAiSetup(true)}>
+            {aiSettings.enabled ? 'Local AI settings' : 'Talk freely with a local AI model (optional)'}
+          </button>
+        )}
+        {showAiSetup && (
+          <TutorAiSetup
+            onChange={(settings) => { setAiReady(false); setAiSettings(settings); }}
+            onClose={() => setShowAiSetup(false)}
+          />
+        )}
       </div>
     );
   }
@@ -233,6 +310,9 @@ export function VoiceTutor({ week, compact = false }) {
   const interactive = ['repeat', 'focus', 'ask', 'recall'].includes(step?.kind);
   const paused = state.phase === 'paused';
   const send = (command) => dispatch({ type: 'command', command });
+  // The caption shows what is being spoken, which would give away a line the learner
+  // is meant to be saying from memory.
+  const hidesCaption = step?.kind === 'repeat' && textLevel(state) > 0 && caption?.text === step.text;
 
   return (
     <div className="tutor-panel" role="region" aria-label="Voice lesson">
@@ -249,9 +329,15 @@ export function VoiceTutor({ week, compact = false }) {
         </span>
       </div>
 
-      {step && <StepContent state={state} step={step} />}
+      {step && <StepContent state={state} step={step} onShowText={() => dispatch({ type: 'showText' })} />}
 
-      {caption && caption.en !== undefined && step?.kind !== 'listen' && (
+      {state.glossed && (
+        <div className="tutor-glossed" role="status">
+          <strong>{state.glossed.word}</strong>: {state.glossed.en}
+        </div>
+      )}
+
+      {caption && caption.en !== undefined && step?.kind !== 'listen' && !hidesCaption && (
         <div className="tutor-caption">
           {caption.text}
           {caption.en && caption.en !== step?.en && <span className="tutor-caption-en"> ({caption.en})</span>}
@@ -283,7 +369,8 @@ export function VoiceTutor({ week, compact = false }) {
 
       {!state.typing && (
         <div className="tutor-hint">
-          You can also say <em>ripeti</em>, <em>più lentamente</em>, <em>avanti</em> or <em>basta</em>.
+          You can also say <em>ripeti</em>, <em>più lentamente</em>, <em>avanti</em> or <em>basta</em>,
+          or ask <em>che vuol dire…?</em> about any word.
         </div>
       )}
       {state.typing && !getSpeechRecognition() && (

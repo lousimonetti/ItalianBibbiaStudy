@@ -508,7 +508,7 @@
 
 <!-- ═══════════════ VOICE LESSON + VERSES ═══════════════ -->
 <div class="flow-label">Voice lesson and verses</div>
-<p class="flow-desc">A hands-free spoken lesson on the week's passage, with verse practice and review alongside. — <span class="code-ref">Views/Tracker/VoiceTutorView.swift · VersePracticeView.swift</span></p>
+<p class="flow-desc">A hands-free spoken lesson on the week's passage that adapts as it goes: the text fades after clean repeats, a hard line is split into pieces, and a wrong answer gets a hint. Verse practice and review sit alongside, and Conversa (opt-in, Apple's on-device model) talks freely about the passage. — <span class="code-ref">Views/Tracker/VoiceTutorView.swift · ConversaView.swift · VersePracticeView.swift</span></p>
 <div class="screen-row">
   <div class="screen-group">
     <div class="phone">
@@ -522,6 +522,35 @@
     </div>
     <div class="screen-label">Lesson — one step at a time</div>
     <div class="code-ref">VoiceTutorView.swift</div>
+  </div>
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="navbar"><div class="large">Lezione guidata</div></div>
+      <div class="card">
+        <div class="cell"><b class="acc">Repeat after me</b><div class="sub">🎙 Your turn, speak now</div></div>
+        <div class="cell"><b class="it">_____ e vi _____ e _____ il _____ _____,</b><div class="sub">Blessed are you when men hate you…</div><div class="sub acc">Show text</div></div>
+        <div class="cell"><b>beati</b>: blessed<div class="sub">Answer to "che vuol dire beati?"</div></div>
+        <div class="cell">Pause · Repeat · Slower · Skip · Type instead</div>
+      </div>
+    </div>
+    <div class="screen-label">Adaptive — faded text, word questions</div>
+    <div class="code-ref">VoiceTutorView.swift · repeatLine · TutorEngine.textLevel</div>
+  </div>
+  <div class="screen-group">
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>🔋</span></div>
+      <div class="navbar"><div class="large">Conversa</div></div>
+      <div class="card">
+        <div class="cell"><span class="it">Chi ha peccato secondo Paolo?</span><div class="sub acc">In English</div></div>
+        <div class="cell" style="text-align:right"><span class="it">Tutti hanno peccato.</span></div>
+        <div class="cell"><span class="it">Sì, tutti hanno peccato. Cosa dice il testo sulla grazia?</span><div class="sub acc">In English</div></div>
+        <div class="cell">Pause · Repeat · Slower · New topic · Type instead</div>
+        <div class="cell"><div class="sub">AI replies come from Apple's on-device model and can be wrong. Nothing is graded or saved.</div></div>
+      </div>
+    </div>
+    <div class="screen-label">Conversa — opt-in in Settings, on-device</div>
+    <div class="code-ref">ConversaView.swift · ConversaEngine.swift · FoundationModelsTutorAI.swift</div>
   </div>
   <div class="screen-group">
     <div class="phone">

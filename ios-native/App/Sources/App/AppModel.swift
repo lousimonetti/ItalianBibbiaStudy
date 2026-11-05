@@ -99,6 +99,7 @@ final class AppModel: ObservableObject {
         return nil
     }
     lazy var vocabIndex = VocabIndex(course: course)
+    lazy var tutorAI: TutorAI = makeTutorAI()
 
     // Store shapes match the web localStorage values exactly.
     @Published private(set) var progress: [String: Bool] = [:]      // week n → done

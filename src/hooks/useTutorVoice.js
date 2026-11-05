@@ -72,7 +72,9 @@ export function useTutorVoice({ onPreempted } = {}) {
     window.speechSynthesis.speak(utter);
   }), [settle]);
 
-  const listen = useCallback(() => new Promise((resolve) => {
+  // `local` asks for on-device recognition. Only Conversa uses it: graded lessons keep
+  // the default recognizer, whose accuracy their pass thresholds were set against.
+  const listen = useCallback(({ local = false } = {}) => new Promise((resolve) => {
     const SR = getSpeechRecognition();
     if (!SR) {
       resolve({ type: 'micUnavailable' });
@@ -87,6 +89,7 @@ export function useTutorVoice({ onPreempted } = {}) {
     rec.lang = TTS_LANG;
     rec.interimResults = false;
     rec.maxAlternatives = 3;
+    if (local) rec.processLocally = true;
     const current = () => recRef.current === rec;
     const finish = (value) => {
       if (!current()) return;

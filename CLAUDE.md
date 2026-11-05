@@ -314,6 +314,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   each week, and verse review lives in Flashcards under `storageKey('verse-srs')`. Two AI
   options are planned, not built, in `plan-tutor.md`.
 
+- **Interactive tutor + local Conversa (`plan-tutor.md`): built, real-mic testing outstanding.** Adaptive fading, line breakdowns, hints and spoken word questions live in `tutorEngine.js` (Swift twin pinned by `tutor.json`). On Ask, Recall and Focus a word question is checked *before* grading, because `matchesSpoken` would otherwise accept the answer inside the question. *Conversa* (`conversaEngine.js`, `Conversa.jsx`, Swift `ConversaEngine.swift` + `conversa.json`) is opt-in, ungraded and unsaved: web talks only to Ollama at a fixed localhost address (`ollamaClient.js`), with its setting in `coursekit-tutor-ai`, outside sync backups, and nothing contacts localhost before opt-in; iOS uses Apple's on-device model behind the `TutorAI` protocol. This adds no backend. *Perche?* explanations failed evaluation and are off. Re-test any new model with `scripts/tutor-ai-eval/` before enabling them.
+
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
@@ -533,7 +535,7 @@ full Xcode instead — no `sudo`, no `xcode-select -s`:
 
 ```bash
 DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer \
-  swift test --package-path ios-native/BibbiaCore   # 187 tests
+  swift test --package-path ios-native/BibbiaCore   # 201 tests
 ```
 
 (The CLAUDE.md note that Swift "can't run in this sandbox" is about *remote*
@@ -650,7 +652,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **835 vitest tests across 70 files**, all passing.
+- **Tests:** `npm test` runs **997 vitest tests across 76 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,

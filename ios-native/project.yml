@@ -96,8 +96,9 @@ targets:
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
         NSMicrophoneUsageDescription: >-
-          The microphone lets you practice pronouncing Italian words and
-          sentences; audio is processed on-device and never uploaded.
+          The microphone lets you practice speaking Italian. Speech is
+          recognized by Apple's speech service, which may process it online.
+          This app doesn't store recordings.
         NSSpeechRecognitionUsageDescription: >-
           Speech recognition scores your Italian pronunciation. Recognition
           runs through Apple's speech service; no recordings are stored.

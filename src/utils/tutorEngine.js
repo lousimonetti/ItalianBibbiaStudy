@@ -9,6 +9,8 @@
 // answer questions, recall a missing word, recap.
 
 import { readingLines, splitSentences, verseRefs } from './keyVerses';
+import { lookupWord } from './vocabIndex';
+import { lookupCommon } from './it2en';
 import { verseChunks } from './verseChunks';
 import { canonSpoken, matchesSpoken, questionItems } from './spokenAnswer';
 import { scorePronunciation } from './pronunciation';
@@ -21,6 +23,10 @@ export const MAX_REPEATS = 12;    // keeps a lesson in the 5-8 minute range
 export const MAX_FOCUS_WORDS = 3;
 export const MAX_RECALLS = 2;
 export const SILENT_LIMIT = 3;    // silent turns in a row before pausing
+export const SUPPORT_MAX = 3;     // 0 shows the whole line; 3 is audio only
+export const SUPPORT_RAISE_AFTER = 2; // first-try passes in a row to fade the text further
+export const MAX_BREAKDOWNS = 3;  // lines split into pieces per lesson, to protect its length
+export const MIN_BREAKDOWN_WORDS = 6; // anything shorter is already short enough to say
 
 const COMMANDS = {
   ripeti: 'repeat', ancora: 'repeat', repeat: 'repeat', again: 'repeat',
@@ -36,6 +42,62 @@ const stripPunct = (w) => String(w).replace(/^[^\p{L}]+|[^\p{L}]+$/gu, '');
 // mistaken for one. The caller also grades first, so a right answer always wins.
 export function parseCommand(transcript) {
   return COMMANDS[canon(transcript)] ?? null;
+}
+
+const QUESTION_OPENERS = [
+  'che cosa vuol dire', 'che cosa vuole dire', 'che cosa significa',
+  'cosa vuol dire', 'cosa vuole dire', 'cosa significa',
+  'che vuol dire', 'che vuole dire', 'che significa',
+].map((o) => o.split(' '));
+const MAX_ASKED_WORDS = 4; // longer than this is a sentence, not a word being asked about
+
+const isTrimmedMark = (c) => '?!.,;:…"“”«»'.includes(c);
+
+function trimMarks(text) {
+  const chars = Array.from(text);
+  let start = 0;
+  let end = chars.length;
+  while (start < end && isTrimmedMark(chars[start])) start++;
+  while (end > start && isTrimmedMark(chars[end - 1])) end--;
+  return chars.slice(start, end).join('');
+}
+
+// The word a learner is asking about, or null. Kept in the form it was said, since
+// the accents and apostrophes that canon() removes are what the glossary looks up.
+export function parseWordQuestion(transcript) {
+  const tokens = String(transcript ?? '').trim().split(/\s+/).map(trimMarks).filter(Boolean);
+  const lower = tokens.map((t) => t.toLowerCase());
+  let asked = null;
+  if (lower[0] === 'what' && lower[1] === 'does' && lower.at(-1) === 'mean') {
+    asked = tokens.slice(2, -1);
+  } else {
+    const opener = QUESTION_OPENERS.find((o) => o.every((w, i) => lower[i] === w));
+    if (opener) asked = tokens.slice(opener.length);
+  }
+  if (!asked?.length) return null;
+  const leadIn = asked.slice(0, 2).map((t) => t.toLowerCase()).join(' ');
+  if (leadIn === 'la parola' || leadIn === 'the word') asked = asked.slice(2);
+  if (!asked.length || asked.length > MAX_ASKED_WORDS) return null;
+  return asked.join(' ');
+}
+
+// The English for a word or short phrase, from the same glossary as tap-to-translate.
+// A phrase nothing matches falls back to its last word ("la luce" to "luce").
+export function glossWord(phrase) {
+  const last = phrase.split(/\s+/).at(-1);
+  for (const candidate of phrase === last ? [phrase] : [phrase, last]) {
+    const en = lookupWord(candidate)?.en ?? lookupCommon(candidate);
+    if (en) return en;
+  }
+  return null;
+}
+
+// Pieces for a line the learner can't get whole, or [] if it shouldn't be split.
+export function breakdownPieces(text) {
+  const count = text.trim().split(/\s+/).filter(Boolean).length;
+  if (count < MIN_BREAKDOWN_WORDS) return [];
+  const pieces = verseChunks(text, { maxWords: Math.ceil(count / 2), minWords: 2 });
+  return pieces.length >= 2 ? pieces : [];
 }
 
 // Punctuation is stripped from both sides first: the recognizer returns none, and
@@ -105,6 +167,16 @@ function anchoredQuestions(week, lines) {
   return questionItems(week).filter((q) => matchesSpoken(q, text));
 }
 
+// The shortest stretch of the passage that answers a question, to replay as a hint.
+function hintFor(q, rows) {
+  for (const row of rows) {
+    const chunk = verseChunks(row.t).find((c) => matchesSpoken(q, c));
+    if (chunk) return { hint: chunk, hintEn: row.en };
+  }
+  const row = rows.find((r) => matchesSpoken(q, r.t));
+  return row ? { hint: row.t, hintEn: row.en } : { hint: '', hintEn: '' };
+}
+
 export function buildLesson(week) {
   const lines = readingLines(week);
   if (!lines.length) return { weekN: week?.n ?? null, steps: [] };
@@ -118,7 +190,7 @@ export function buildLesson(week) {
       ...pickEvenly(chunks, MAX_REPEATS).map((c, i) => ({ kind: 'repeat', ...c, first: i === 0 })),
       { kind: 'focus' },
       ...anchoredQuestions(week, lines).map((q, i) => ({
-        kind: 'ask', q: q.q, answers: q.answers, model: q.model || q.answers[0], first: i === 0,
+        kind: 'ask', q: q.q, answers: q.answers, model: q.model || q.answers[0], first: i === 0, ...hintFor(q, rows),
       })),
       ...buildRecalls(week, rows).map((r, i) => ({ ...r, first: i === 0 })),
       { kind: 'recap' },
@@ -137,6 +209,19 @@ export function rankFocusWords(wordMisses, max = MAX_FOCUS_WORDS) {
 
 const say = (line, en) => ({ text: line.it ?? line, en: line.en ?? en ?? '', rate: 'normal' });
 
+// What the learner is being asked to say right now: a piece during a breakdown,
+// otherwise the whole line.
+export function repeatText(state, step) {
+  return state.pieces.length ? state.pieces[state.pieceI] : step.text;
+}
+
+// How much of a Repeat line to hide, on the same 0-3 scale as `support`. Any retry
+// or breakdown shows it all, since hiding text from someone already struggling
+// would only punish them.
+export function textLevel(state) {
+  return state.attempt > 0 || state.peek || state.pieces.length ? 0 : state.support;
+}
+
 function prompt(state, step, withIntro) {
   const rate = state.slow ? 'slow' : 'normal';
   const speak = (text, en) => ({ text, en: en ?? '', rate });
@@ -149,7 +234,7 @@ function prompt(state, step, withIntro) {
         ...step.lines.flatMap((line, i) => splitSentences(line.t).map((text) => ({ ...speak(text, line.en), line: i }))),
       ];
     case 'repeat':
-      return [...(withIntro && step.first ? [say(L.repeat)] : []), speak(step.text, step.en)];
+      return [...(withIntro && step.first ? [say(L.repeat)] : []), speak(repeatText(state, step), step.en)];
     case 'focus': {
       const word = state.focusWords[state.sub];
       return [...(withIntro && state.sub === 0 ? [say(L.focus)] : []), speak(word)];
@@ -201,7 +286,9 @@ function run(state, extra = []) {
 }
 
 function enter(state, extra = []) {
-  let s = { ...state, attempt: 0, stepOk: null };
+  let s = {
+    ...state, attempt: 0, stepOk: null, pieces: [], pieceI: 0, peek: false, hinted: false, glossed: null, supportDropped: false,
+  };
   const step = currentStep(s);
   if (step.kind === 'focus') {
     const focusWords = s.sub === 0 && !s.focusWords.length ? rankFocusWords(s.wordMisses) : s.focusWords;
@@ -231,10 +318,11 @@ function advance(state, extra = []) {
 function grade(state, step, alternatives) {
   const alts = alternatives.filter((a) => String(a ?? '').trim());
   if (step.kind === 'repeat') {
+    const target = repeatText(state, step);
     let best = alts[0] ?? '';
-    let score = best ? scoreRepeat(step.text, best) : 0;
+    let score = best ? scoreRepeat(target, best) : 0;
     for (const alt of alts) {
-      const s = scoreRepeat(step.text, alt);
+      const s = scoreRepeat(target, alt);
       if (s > score) { best = alt; score = s; }
     }
     return { ok: score >= PASS_SCORE, heard: best, score };
@@ -246,7 +334,65 @@ function grade(state, step, alternatives) {
   return { ok: match !== undefined, heard: match ?? alts[0] ?? '', score: null };
 }
 
-const praise = (state) => TUTOR_PRAISE[(state.i + state.sub) % TUTOR_PRAISE.length];
+export const firstLetter = (word) => (Array.from(String(word))[0] ?? '').toUpperCase();
+
+const praise = (state) => TUTOR_PRAISE[(state.i + state.sub + state.pieceI) % TUTOR_PRAISE.length];
+
+// Only an unaided first try earns less text next time.
+function creditPass(state, step) {
+  if (step.kind !== 'repeat') return state;
+  if (state.attempt > 0 || state.peek) return { ...state, passStreak: 0 };
+  const passStreak = state.passStreak + 1;
+  return passStreak >= SUPPORT_RAISE_AFTER
+    ? { ...state, passStreak: 0, support: Math.min(SUPPORT_MAX, state.support + 1) }
+    : { ...state, passStreak };
+}
+
+// A piece gets one ungraded try and then the lesson moves along, finishing on the
+// whole line, which is the only try that counts.
+function nextPiece(state, step, result) {
+  const lead = result.ok ? [say(praise(state))] : result.heard ? [] : [say(L.notHeard)];
+  const feedback = {
+    tone: result.ok ? 'ok' : result.heard ? 'retry' : 'silent',
+    heard: result.heard,
+    score: result.score,
+    words: [],
+    piece: true,
+  };
+  const pieceI = state.pieceI + 1;
+  const silentStreak = result.heard ? 0 : state.silentStreak;
+  if (pieceI < state.pieces.length) {
+    return run({
+      ...state,
+      feedback,
+      silentStreak,
+      pieceI,
+      queue: [...lead, { text: state.pieces[pieceI], en: step.en, rate: 'slow' }],
+      then: 'listen',
+    });
+  }
+  return run({
+    ...state,
+    feedback,
+    silentStreak,
+    pieces: [],
+    pieceI: 0,
+    queue: [...lead, say(L.wholeLine), { text: step.text, en: step.en, rate: 'slow' }],
+    then: 'listen',
+  });
+}
+
+// A question costs no attempt: answer it, then ask again what was being asked.
+function onWordQuestion(state, step, word) {
+  const en = glossWord(word);
+  return run({
+    ...state,
+    silentStreak: 0,
+    glossed: en ? { word, en } : null,
+    queue: [...(en ? [{ text: word, en, rate: 'slow' }] : [say(L.unknownWord)]), ...prompt(state, step, false)],
+    then: 'listen',
+  });
+}
 
 function onPass(state, step, result, extra = []) {
   const closing = step.kind === 'ask'
@@ -254,6 +400,8 @@ function onPass(state, step, result, extra = []) {
     : step.kind === 'recall' ? [{ text: step.full, en: step.en, rate: 'normal' }] : [];
   return run({
     ...state,
+    pieces: [],
+    pieceI: 0,
     stepOk: true,
     silentStreak: 0,
     feedback: { tone: 'ok', heard: result.heard, score: result.score, words: [] },
@@ -269,6 +417,17 @@ function missedWords(step, heard) {
     .filter((w) => canon(w).length >= 3);
 }
 
+// A nudge after a wrong answer. Silence gets none, since nothing was tried yet.
+function wrongAnswerHint(step) {
+  if (step.kind === 'ask' && step.hint) {
+    return [say(L.hint), { text: step.hint, en: step.hintEn, rate: 'normal' }];
+  }
+  if (step.kind === 'recall') {
+    return [say(L.startsWith), { text: firstLetter(step.answer), en: '', rate: 'normal' }];
+  }
+  return [];
+}
+
 function onFail(state, step, result) {
   const silent = !result.heard;
   const prefix = silent ? [say(L.notHeard)] : [];
@@ -278,9 +437,14 @@ function onFail(state, step, result) {
     wordMisses = { ...wordMisses };
     for (const w of words) wordMisses[w] = (wordMisses[w] ?? 0) + 1;
   }
+  // Silence isn't a miss, so it leaves the learner's support level alone.
+  const dropSupport = step.kind === 'repeat' && !silent && !state.supportDropped;
   const base = {
     ...state,
     wordMisses,
+    passStreak: step.kind === 'repeat' && !silent ? 0 : state.passStreak,
+    support: dropSupport ? Math.max(0, state.support - 1) : state.support,
+    supportDropped: state.supportDropped || dropSupport,
     feedback: { tone: silent ? 'silent' : 'retry', heard: result.heard, score: result.score, words },
   };
   const retries = step.kind === 'repeat' ? MAX_RETRIES : 1;
@@ -288,15 +452,30 @@ function onFail(state, step, result) {
   if (state.attempt < retries) {
     const next = { ...base, attempt: state.attempt + 1 };
     if (step.kind === 'repeat') {
+      const pieces = !silent && state.attempt === 1 && state.breakdowns < MAX_BREAKDOWNS ? breakdownPieces(step.text) : [];
+      if (pieces.length) {
+        return run({
+          ...next,
+          // Leaves one attempt, for the whole line once the pieces are done.
+          attempt: retries,
+          pieces,
+          pieceI: 0,
+          breakdowns: state.breakdowns + 1,
+          queue: [say(L.piecemeal), { text: pieces[0], en: step.en, rate: 'slow' }],
+          then: 'listen',
+        });
+      }
       const slowModel = { text: step.text, en: step.en, rate: 'slow' };
       const careful = words.length
         ? [say(L.careful), { text: words.slice(0, 2).join(', '), en: '', rate: 'slow' }]
         : [];
       return run({ ...next, queue: [...prefix, say(L.again), ...careful, slowModel], then: 'listen' });
     }
+    const hint = silent ? [] : wrongAnswerHint(step);
     return run({
       ...next,
-      queue: [...prefix, say(L.tryAgain), ...prompt(state, step, false)],
+      hinted: hint.length > 0,
+      queue: [...prefix, ...hint, say(L.tryAgain), ...prompt(state, step, false)],
       then: 'listen',
     });
   }
@@ -351,13 +530,22 @@ export function createTutor(lesson, { typing = false, resume = null } = {}) {
     recalled: resume?.recalled ?? [],
     wordMisses: resume?.wordMisses ?? {},
     focusWords: resume?.focusWords ?? [],
+    support: resume?.support ?? 0,
+    passStreak: 0,
+    supportDropped: false,
+    breakdowns: resume?.breakdowns ?? 0,
+    pieces: [],
+    pieceI: 0,
+    peek: false,
+    hinted: false,
+    glossed: null,
   };
 }
 
 // The part of a lesson worth keeping for a same-day resume.
 export function snapshot(state) {
-  const { i, sub, slow, totals, missed, recalled, wordMisses, focusWords } = state;
-  return { i, sub, slow, totals, missed, recalled, wordMisses, focusWords };
+  const { i, sub, slow, totals, missed, recalled, wordMisses, focusWords, support, breakdowns } = state;
+  return { i, sub, slow, totals, missed, recalled, wordMisses, focusWords, support, breakdowns };
 }
 
 export function next(state, event) {
@@ -378,10 +566,21 @@ export function next(state, event) {
       if (state.phase !== 'listening' && state.phase !== 'typing') return nothing;
       const step = currentStep(state);
       const alternatives = event.type === 'typed' ? [event.text] : event.alternatives;
+      // The order matters. matchesSpoken accepts an answer inside a longer utterance,
+      // so "che vuol dire la luce?" would pass as the answer "luce" if graded first.
+      // On Repeat grading has to win instead: no verse in the course contains one of
+      // these phrases today, but a course could add one, and repeating it isn't asking.
+      const asked = parseWordQuestion(alternatives[0]);
+      if (asked && step.kind !== 'repeat') return onWordQuestion(state, step, asked);
       const result = grade(state, step, alternatives);
-      if (result.ok) return onPass(state, step, result);
+      const inPieces = state.pieces.length > 0;
+      if (result.ok) {
+        return inPieces ? nextPiece(state, step, result) : onPass(creditPass(state, step), step, result);
+      }
       const command = parseCommand(alternatives[0]);
       if (command) return onCommand({ ...state, silentStreak: 0 }, command);
+      if (asked) return onWordQuestion(state, step, asked);
+      if (inPieces) return nextPiece(state, step, result);
       return onFail({ ...state, silentStreak: result.heard ? 0 : state.silentStreak }, step, result);
     }
 
@@ -396,7 +595,9 @@ export function next(state, event) {
           effects: [{ type: 'cancel' }],
         };
       }
-      return onFail({ ...state, silentStreak }, step, { heard: '', score: null });
+      const quiet = { ...state, silentStreak };
+      if (state.pieces.length) return nextPiece(quiet, step, { ok: false, heard: '', score: null });
+      return onFail(quiet, step, { heard: '', score: null });
     }
 
     case 'micUnavailable': {
@@ -414,7 +615,13 @@ export function next(state, event) {
     case 'override': {
       const step = currentStep(state);
       if (!isInteractive(step) || state.stepOk === true || state.phase === 'paused' || state.phase === 'idle') return nothing;
+      if (state.feedback?.piece) return nothing; // pieces are ungraded, so there is nothing to overturn
       return onPass(state, step, { heard: state.feedback?.heard ?? '', score: state.feedback?.score ?? null }, [{ type: 'cancel' }]);
+    }
+
+    case 'showText': {
+      if (currentStep(state)?.kind !== 'repeat' || textLevel(state) === 0) return nothing;
+      return { state: { ...state, peek: true, passStreak: 0, support: Math.max(0, state.support - 1) }, effects: [] };
     }
 
     case 'command':

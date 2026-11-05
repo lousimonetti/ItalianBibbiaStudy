@@ -22,6 +22,10 @@ final class SpeechRecognizer: ObservableObject {
         SFSpeechRecognizer(locale: Locale(identifier: language)) != nil
     }
 
+    static func supportsOnDevice(language: String) -> Bool {
+        SFSpeechRecognizer(locale: Locale(identifier: language))?.supportsOnDeviceRecognition ?? false
+    }
+
     func requestPermission() async -> Bool {
         let speechOK: Bool = await withCheckedContinuation { cont in
             SFSpeechRecognizer.requestAuthorization { status in
@@ -40,7 +44,9 @@ final class SpeechRecognizer: ObservableObject {
         }
     }
 
-    func start(language: String) {
+    /// `onDevice` keeps audio on the device where this language supports it. Only Conversa
+    /// asks for it: graded exercises keep the recognizer their thresholds were set against.
+    func start(language: String, onDevice: Bool = false) {
         guard !isRecording else { return }
         transcript = ""
         errorMessage = nil
@@ -58,6 +64,7 @@ final class SpeechRecognizer: ObservableObject {
 
             let req = SFSpeechAudioBufferRecognitionRequest()
             req.shouldReportPartialResults = true
+            if onDevice, recognizer.supportsOnDeviceRecognition { req.requiresOnDeviceRecognition = true }
             request = req
 
             let inputNode = engine.inputNode
