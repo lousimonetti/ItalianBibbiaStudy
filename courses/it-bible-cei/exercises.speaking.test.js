@@ -37,6 +37,16 @@ describe('speaking layer authored data (P3)', () => {
     }
   });
 
+  // The voice tutor asks about the passage on screen. Questions on the week's wider
+  // reading stay in Rispondi subito, but every week needs enough the tutor can ask.
+  it('every week has at least three questions answerable from its own passage', () => {
+    for (const n of weeks) {
+      const text = EXERCISES[n].passage.verses.map((v) => v.t).join(' ');
+      const anchored = questionItems(EXERCISES[n]).filter((q) => matchesSpoken(q, text));
+      expect(anchored.length, `week ${n}`).toBeGreaterThanOrEqual(3);
+    }
+  });
+
   it('phrase lit glosses, when present, are non-empty strings', () => {
     for (const n of weeks) {
       for (const p of weekPhrases(EXERCISES[n])) {

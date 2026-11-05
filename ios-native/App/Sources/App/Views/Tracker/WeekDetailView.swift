@@ -19,9 +19,16 @@ struct WeekDetailView: View {
                     set: { _ in model.toggleWeek(week.n) }))
             }
 
+            VoiceTutorSection(week: week)
+
             if let passage = week.passage {
                 Section("Lettura — \(passage.ref) (\(passage.translation))") {
                     ReadingPassageView(passage: passage)
+                    NavigationLink {
+                        VersePracticeView(week: week)
+                    } label: {
+                        Label("Versetti: memorize, build, shadow", systemImage: "text.book.closed")
+                    }
                 }
             }
 

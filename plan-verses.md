@@ -11,6 +11,11 @@ tested. (2) is cheap *on iOS only*; on the web it is blocked by the
 no-backend constraint, and that is a product decision rather than an
 engineering one.
 
+**Status (2026-11-05): V1-V4 shipped on web and iOS; see `plan-tutor.md`, which also holds
+the current AI plans. Two notes below are out of date: passages are now verified against
+bibbiaedu.it rather than written from training recall (V7), and the iOS floor is 26.6, not
+16 (V5), so only the hardware gate remains.**
+
 **Headline recommendation:** ship the non-AI verse work first (V1–V4, days of
 work, every device). Put AI on iOS only, as the already-planned `plan-siri.md`
 P3 explanation feature (V5). Do not put AI in the web app unless you are

@@ -6,6 +6,8 @@ import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
 import { WordGloss } from './WordGloss';
 import { ReadingPassage } from './ReadingPassage';
+import { VoiceTutor } from './VoiceTutor';
+import { VersePractice } from './VersePractice';
 import { Comprehension } from './Comprehension';
 import { Dictogloss } from './Dictogloss';
 import { GrammarDrill } from './GrammarDrill';
@@ -84,8 +86,11 @@ export function WeekDetail({ week }) {
 
   return (
     <div className="detail-panel">
+      {/* A guided spoken lesson over everything below */}
+      <VoiceTutor week={week} />
       {/* Reading & comprehension (O2 / O5 / O4) */}
       <ReadingPassage week={week} />
+      <VersePractice week={week} />
       <Comprehension week={week} />
       <Dictogloss week={week} />
       {/* Spoken Q&A about the reading (S3) */}

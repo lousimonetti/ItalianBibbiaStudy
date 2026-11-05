@@ -56,9 +56,29 @@ final class Speaker: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         #endif
     }
 
-    func speak(_ text: String, language: String, rate: Float = Speaker.defaultRate) {
+    // Fires once when the current utterance ends, for the voice tutor, which has to
+    // know speech is over before it opens the mic. Matched by identity, because
+    // stopping an old utterance reports didCancel after the new one has been set up.
+    private var currentUtterance: ObjectIdentifier?
+    private var completion: (() -> Void)?
+
+    private func finish(_ id: ObjectIdentifier) {
+        guard id == currentUtterance else { return }
+        currentUtterance = nil
+        let done = completion
+        completion = nil
+        done?()
+    }
+
+    func speak(_ text: String, language: String, rate: Float = Speaker.defaultRate,
+               completion: (() -> Void)? = nil) {
         if synthesizer.isSpeaking { synthesizer.stopSpeaking(at: .immediate) }
         speakingText = text
+        // Replacing an utterance ends its turn too, so no caller is left waiting.
+        let replaced = self.completion
+        self.completion = completion
+        currentUtterance = nil
+        replaced?()
 
         // Configure the session off-main, then speak back on the main actor.
         // Only Sendable values cross the queue — AVSpeechUtterance and
@@ -85,10 +105,16 @@ final class Speaker: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     /// matters because session setup is asynchronous: without it, tapping a
     /// second line while the first is still being prepared would speak both.
     private func startUtterance(text: String, language: String, rate: Float) {
-        guard speakingText == text else { return }
+        guard speakingText == text else {
+            let done = completion
+            completion = nil
+            done?()
+            return
+        }
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = Speaker.voice(for: language)
         utterance.rate = rate
+        currentUtterance = ObjectIdentifier(utterance)
         synthesizer.speak(utterance)
     }
 
@@ -152,18 +178,32 @@ final class Speaker: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     func stop() {
         synthesizer.stopSpeaking(at: .immediate)
         speakingText = nil
+        currentUtterance = nil
+        let done = completion
+        completion = nil
+        done?()
     }
 
     func isSpeaking(_ text: String) -> Bool { speakingText == text }
 
     nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer,
                                        didFinish utterance: AVSpeechUtterance) {
-        Task { @MainActor in self.speakingText = nil }
+        let id = ObjectIdentifier(utterance)
+        Task { @MainActor in
+            if self.currentUtterance == id { self.speakingText = nil }
+            self.finish(id)
+        }
     }
 
     nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer,
                                        didCancel utterance: AVSpeechUtterance) {
-        Task { @MainActor in self.speakingText = nil }
+        let id = ObjectIdentifier(utterance)
+        Task { @MainActor in
+            // A cancel for a replaced utterance arrives after the new one is set up, and
+            // clearing speakingText then would stop the new one from ever being spoken.
+            if self.currentUtterance == id { self.speakingText = nil }
+            self.finish(id)
+        }
     }
 }
 

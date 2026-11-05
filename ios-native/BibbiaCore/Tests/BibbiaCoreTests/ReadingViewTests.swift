@@ -84,6 +84,6 @@ final class ReadingViewTests: XCTestCase {
                                "week \(week.n) verse \(verse.n) has no English")
             }
         }
-        XCTAssertEqual(verses, 199, "the course's authored verse count changed")
+        XCTAssertEqual(verses, 294, "the course's authored verse count changed")
     }
 }

@@ -3,6 +3,7 @@
 
     python3 scripts/verify-passages.py            # all weeks
     python3 scripts/verify-passages.py 26 27      # just these weeks
+    python3 scripts/verify-passages.py --show "Giovanni 1,6-8"   # print verse text
 
 For each `passage` in courses/it-bible-cei/exercises.js it expands the `ref`
 (e.g. "Atti 22,26-28; 23,11") into chapter/verse pairs, fetches those chapters,
@@ -12,6 +13,9 @@ stripped, so any DIFF it prints is a real wording difference.
 
 Needs network. Pages are slow (~30 s each), so chapters are cached in
 $TMPDIR/cei-cache. Exits 1 if any verse differs.
+
+--show is for authoring: new verse text must come from the site, never from
+memory. Stay within chapters the course already quotes.
 """
 import html, json, os, re, subprocess, sys, tempfile, time, urllib.request
 
@@ -85,6 +89,12 @@ def norm(t):
     return re.sub(r"\s*\[\s*$", "", t.strip())
 
 
+def show(ref):
+    book, exp = expand(ref)
+    for ch, v in exp:
+        print(f"{book} {ch},{v}\t{chapter(book, ch).get(v, '[not found]')}")
+
+
 def main(only):
     bad = 0
     for wk, p in passages().items():
@@ -110,4 +120,8 @@ def main(only):
 
 
 if __name__ == "__main__":
-    main(set(sys.argv[1:]))
+    if sys.argv[1:2] == ["--show"]:
+        for r in sys.argv[2:]:
+            show(r)
+    else:
+        main(set(sys.argv[1:]))

@@ -54,7 +54,7 @@ panel, driven by `config.licenses`; the Journal credits LanguageTool while the
 grammar check is on). Remaining human action: verify quotation scope /
 email the Fondazione for explicit permission (options below).
 
-`courses/it-bible-cei/exercises.js` ships 4–8 verses of **La Bibbia CEI 2008**
+`courses/it-bible-cei/exercises.js` ships about 8 verses (294 in total) of **La Bibbia CEI 2008**
 per week for all 37 weeks. The CEI translation is copyrighted (© Fondazione di
 Religione Santi Francesco d'Assisi e Caterina da Siena / CEI). Private
 personal use is one thing; *public distribution* on the open web and the App

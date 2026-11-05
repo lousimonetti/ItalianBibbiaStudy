@@ -39,6 +39,12 @@ struct TodayCardView: View {
                 checklistItem("square.and.pencil", "Scrivi", done: flags.journaled)
             }
 
+            if model.versesDue > 0 {
+                Label("\(model.versesDue) verses due in Flashcards", systemImage: "text.book.closed")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+
             if let n = model.currentWeekN, let week = model.course.week(n) {
                 NavigationLink(value: n) {
                     HStack {

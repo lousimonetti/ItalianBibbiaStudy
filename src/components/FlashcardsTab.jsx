@@ -4,6 +4,7 @@ import { PracticeMode } from './PracticeMode';
 import { PronunciationPractice } from './PronunciationPractice';
 import { TrapDrill } from './TrapDrill';
 import { VerbFormDrill } from './VerbFormDrill';
+import { VerseReview } from './VerseReview';
 import { TRAPS } from '../../course/traps';
 import { VERB_FORMS } from '../../course/verbForms';
 import { UiText } from '../i18n/UiText';
@@ -45,9 +46,9 @@ function AnkiLink({ href, label }) {
   );
 }
 
-export function FlashcardsTab() {
+export function FlashcardsTab({ initialMode = 'anki' }) {
   const [activePhase, setActivePhase] = useState(null);
-  const [mode, setMode] = useState('anki');
+  const [mode, setMode] = useState(initialMode);
 
   return (
     <div className="fc-wrap">
@@ -88,12 +89,19 @@ export function FlashcardsTab() {
             <UiText k="fc.verbforms" />
           </button>
         )}
+        <button
+          className={`fc-mode-btn${mode === 'verses' ? ' active' : ''}`}
+          onClick={() => setMode('verses')}
+        >
+          Verses
+        </button>
       </div>
 
       {mode === 'practice' && <PracticeMode />}
       {mode === 'pronunciation' && <PronunciationPractice />}
       {mode === 'traps' && <TrapDrill />}
       {mode === 'verbforms' && <VerbFormDrill />}
+      {mode === 'verses' && <VerseReview />}
 
       {mode === 'anki' && <>
 

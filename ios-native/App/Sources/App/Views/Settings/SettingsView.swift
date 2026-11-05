@@ -259,9 +259,9 @@ struct NewSessionView: View {
                 }
 
                 Section {
-                    Toggle("Reset week progress", isOn: $reset.progress)
+                    Toggle("Reset week progress and lesson scores", isOn: $reset.progress)
                     Toggle("Reset streak", isOn: $reset.streak)
-                    Toggle("Reset flashcard (SRS) history", isOn: $reset.srs)
+                    Toggle("Reset flashcard and verse review history", isOn: $reset.srs)
                     Toggle("Reset journal", isOn: $reset.journal)
                 } header: {
                     Text("Also reset")

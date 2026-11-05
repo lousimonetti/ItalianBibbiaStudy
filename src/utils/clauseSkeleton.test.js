@@ -433,7 +433,7 @@ describe('corpus sanity', () => {
   it('keeps the finite/participle overlap to the known ambiguous forms', () => {
     const both = [...new Set(words)].filter((w) => isFiniteVerb(w) && isParticiple(w));
     expect(both.sort()).toEqual([
-      'battezzati', 'chiuse', 'corse', 'dette', 'divise', 'perdonati', 'prese', 'presi',
+      'battezzati', 'chiuse', 'corse', 'dette', 'divise', 'perdonati', 'prese', 'presi', 'scese',
     ]);
   });
 

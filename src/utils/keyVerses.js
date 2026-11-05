@@ -56,6 +56,49 @@ export function hasEnglish(week) {
   return readingLines(week).some((l) => l.en);
 }
 
+// Expands a passage ref like "Atti 22,26-28; 23,11" into one full reference per
+// verse: ["Atti 22,26", "Atti 22,27", "Atti 22,28", "Atti 23,11"]. A verse number
+// alone is not an identity, because a passage can span chapters. Returns [] when
+// the ref cannot be parsed.
+export function expandRef(ref) {
+  const m = /^(.+?)\s+(\d.*)$/.exec(String(ref ?? '').trim());
+  if (!m) return [];
+  const [, book, rest] = m;
+  const out = [];
+  let chapter = null;
+  for (const raw of rest.split(';')) {
+    let part = raw.trim();
+    const comma = part.indexOf(',');
+    if (comma !== -1) {
+      chapter = part.slice(0, comma).trim();
+      part = part.slice(comma + 1);
+    }
+    if (chapter === null) return [];
+    for (const seg of part.split('.')) {
+      const [a, b] = seg.split('-').map((x) => Number.parseInt(x, 10));
+      if (!Number.isInteger(a)) return [];
+      const end = Number.isInteger(b) ? b : a;
+      for (let v = a; v <= end; v++) out.push(`${book} ${chapter},${v}`);
+    }
+  }
+  return out;
+}
+
+// Reading rows plus a stable `id` for storing per-verse state such as reviews.
+// Passage verses use their full reference; if the ref and the verses disagree, or
+// the reading is the example-sentence fallback, the id falls back to the week and
+// position so it stays unique.
+export function verseRefs(week) {
+  const rows = readingLines(week);
+  const refs = hasPassage(week) ? expandRef(week.passage.ref) : [];
+  const aligned = refs.length === rows.length;
+  return rows.map((row, i) => ({
+    ...row,
+    id: aligned ? refs[i] : `w${week.n}:${i + 1}`,
+    fullRef: aligned ? refs[i] : '',
+  }));
+}
+
 // Flat sentence strings (used by dictogloss). When an authored passage exists we
 // split its verses into sentences; otherwise each example sentence is one item.
 export function keyVerses(week) {
