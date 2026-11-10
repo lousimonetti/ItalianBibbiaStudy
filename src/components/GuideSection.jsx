@@ -96,26 +96,25 @@ export function GuideSection() {
 
           {/* Tool setup */}
           <GuidePanel title="Tool setup">
-            <Tool name="Babbel" badge="15 min/day">
-              <p>Babbel provides the scaffolded grammar and pronunciation drills that hold the rest of the study together. Do not skip ahead to match the Bible reading — the Babbel pacing is intentionally slower so grammar is absorbed before it's needed in the text.</p>
+            <Tool name="Lessons" badge="in this app">
+              <p>Each week has three short guided lessons, and they are the spine of the study. The first two teach the week's seven words and its grammar point; the third works through the passage. Press <strong>Continue</strong> on the Today card and it always opens the next one.</p>
               <ul>
-                <li>Download the Babbel app and set Italian as your target language.</li>
-                <li>Set a daily reminder for the same time each day — consistency beats length.</li>
-                <li>Complete exactly one lesson unit per session. If a unit feels too easy, note the grammar point and move on — don't skip the unit.</li>
+                <li>Do one lesson per sitting — about five minutes. Consistency beats length.</li>
+                <li>Take them in order: lesson 2 carries the grammar note the passage lesson relies on.</li>
+                <li>A missed exercise comes back once at the end of the lesson. That retry is practice; only your first attempt is scored.</li>
+                <li>When all three are done the week ticks itself. You can repeat any lesson from the week's row.</li>
               </ul>
             </Tool>
 
-            <Tool name="Anki" badge="10 min/day">
-              <p>Anki handles the vocabulary load so your reading time is spent on meaning, not decoding individual words. You build the deck yourself from what you encounter in the text — this is intentional.</p>
+            <Tool name="Review" badge="in this app">
+              <p>Review handles the vocabulary load so your reading time is spent on meaning, not decoding individual words. Every word a lesson teaches is scheduled for you; once the week's lessons are done, Continue turns into Review whenever cards are due.</p>
               <ul>
-                <li>Download Anki (desktop at ankiweb.net, or AnkiDroid / AnkiMobile for phone).</li>
-                <li>Create one deck called <strong>Italian Bible</strong>. Create a sub-deck called <strong>Teologia</strong> for theological terms (used in Phase 4).</li>
-                <li>Card format: Italian word on front, English + example sentence from the passage on back. Each week's vocab list gives you the example.</li>
-                <li>Add 5-8 cards per reading session (not all 7 at once). Smaller batches review sooner.</li>
-                <li>Review every card Anki surfaces that day before adding new ones. Never skip review to add new cards.</li>
-                <li>When you mark a card Again, write the word out by hand once before continuing.</li>
+                <li>Clear what is due before starting anything new — the schedule only works if you keep up with it.</li>
+                <li>The exercise changes as a word matures: a flip card at first, then a blank to fill in its sentence, then typing it from the English alone.</li>
+                <li>Grade yourself honestly. "Still learning" brings a word back within minutes; "Hard" keeps it but slows it down.</li>
+                <li>Prefer Anki? The same cards are downloadable as decks from the Anki tab in Study.</li>
               </ul>
-              <Tip>Irregular past participles (Week 10) deserve their own tag in Anki. You'll want to filter and drill them as a set before Phase 3.</Tip>
+              <Tip>Words you keep missing collect under "Parole difficili" on the review start screen, with a button to drill just those.</Tip>
             </Tool>
 
             <Tool name="iTalki" badge="5 review weeks">

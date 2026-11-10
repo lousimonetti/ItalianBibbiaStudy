@@ -316,8 +316,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **Interactive tutor + local Conversa (`plan-tutor.md`): built, real-mic testing outstanding.** Adaptive fading, line breakdowns, hints and spoken word questions live in `tutorEngine.js` (Swift twin pinned by `tutor.json`). On Ask, Recall and Focus a word question is checked *before* grading, because `matchesSpoken` would otherwise accept the answer inside the question. *Conversa* (`conversaEngine.js`, `Conversa.jsx`, Swift `ConversaEngine.swift` + `conversa.json`) is opt-in, ungraded and unsaved: web talks only to Ollama at a fixed localhost address (`ollamaClient.js`), with its setting in `coursekit-tutor-ai`, outside sync backups, and nothing contacts localhost before opt-in; iOS uses Apple's on-device model behind the `TutorAI` protocol. This adds no backend. *Perche?* explanations failed evaluation and are off. Re-test any new model with `scripts/tutor-ai-eval/` before enabling them.
 
-- **Guided lessons + Continue + smart review: built on web + iOS; the player itself has
-  not been exercised by hand on either.** The "one button, be walked through it"
+- **Guided lessons + Continue + smart review: built on web + iOS.** The web player has
+  been played end to end in headless Chrome at phone and desktop widths (both lesson
+  kinds, a wrong answer and its retry, the summary, the stores written); the iOS player
+  compiles and its Tracker entry points were checked in the simulator, but nobody has
+  tapped through an iOS lesson yet. The "one button, be walked through it"
   container. `src/utils/lessonPlan.js` turns each week into three deterministic lessons
   over data it already has: two word lessons (meet the word, match pairs, pick the
   meaning, fill the blank, type it) with the grammar tip and drills on the second, then
@@ -348,9 +351,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   the Today card, *Lezioni* section in the week, status ring + lesson nodes on the week
   rows);
   `AppModel.completeLesson` writes the same `lessons` / `srs` / `progress` keys as the
-  web, so finished lessons ride backups both ways. **Open:** the `resources` list in
-  the course config still presents Babbel and Anki as companion tools, and
-  `ios-native/design/figma-mockups.html` does not show the new screens.
+  web, so finished lessons ride backups both ways. The course no longer presents Babbel and Anki as required companions: `config.resources`,
+  the tagline, the `topicLabel` (now "Grammar focus"), the welcome card and the
+  Guide's tool setup describe the in-app Lessons and Review instead (Anki decks remain
+  as an optional download). The iOS week view folds its standalone exercises under
+  *More practice* like the web, and the design mockups carry the lesson flow (1b).
 
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder

@@ -358,8 +358,10 @@ export function LessonPlayer({ lesson, onClose, onComplete }) {
   function finish(finalRun) {
     const sum = summarize(finalRun);
     for (const { term, grade } of srsGrades(lesson, finalRun, getStore())) recordReview(term, grade);
-    const store = recordLesson(lesson.key, sum.pct);
+    // The streak first: recording the lesson announces itself, and listeners
+    // (the Today goals) re-read the streak when it does.
     recordActivity('practiced');
+    const store = recordLesson(lesson.key, sum.pct);
     setWeekDone(!!onComplete?.(lesson, store.done[lesson.key]?.times === 1));
     setSummary(sum);
   }

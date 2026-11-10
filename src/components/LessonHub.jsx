@@ -69,7 +69,13 @@ export function WeekLessonPath({ weekN }) {
         const finished = isDone(store, lesson.key);
         return (
           <span key={lesson.key} className="week-path-item">
-            {i > 0 && <span className={`week-path-link${finished ? ' done' : ''}`} aria-hidden="true" />}
+            {/* Green only once the lessons on both sides are done. */}
+            {i > 0 && (
+              <span
+                className={`week-path-link${finished && isDone(store, lessons[i - 1].key) ? ' done' : ''}`}
+                aria-hidden="true"
+              />
+            )}
             <button
               className={`week-path-node${finished ? ' done' : ''}`}
               onClick={() => setActive(lesson)}

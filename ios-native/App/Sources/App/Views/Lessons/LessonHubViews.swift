@@ -156,11 +156,13 @@ struct WeekLessonPath: View {
         let lessons = model.lessons(forWeek: weekN)
         if !lessons.isEmpty {
             HStack(spacing: 0) {
-                ForEach(lessons) { lesson in
+                ForEach(Array(lessons.enumerated()), id: \.element.id) { i, lesson in
                     let finished = model.lessonStore.isDone(lesson.key)
-                    if lesson.n > 1 {
+                    if i > 0 {
+                        // Green only once the lessons on both sides are done.
                         Rectangle()
-                            .fill(finished ? Color.accentColor : Color.secondary.opacity(0.3))
+                            .fill(finished && model.lessonStore.isDone(lessons[i - 1].key)
+                                  ? Color.accentColor : Color.secondary.opacity(0.3))
                             .frame(width: 8, height: 2)
                     }
                     // Borderless, so the tap belongs to the node and not to the

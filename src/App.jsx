@@ -37,6 +37,7 @@ import { VoicePicker } from './components/VoicePicker';
 import { SyncPanel } from './components/SyncPanel';
 import { VoiceTutor } from './components/VoiceTutor';
 import { ContinueCard } from './components/LessonHub';
+import { LESSONS_EVENT } from './utils/lessonStore';
 import { reachedVerseCards, verseStats } from './utils/verseReview';
 
 const TOTAL = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
@@ -238,6 +239,13 @@ function TodayCard({ currentWeekN, onOpenGame, onOpenVerses, onOpenReview }) {
   // due counts that lesson just changed.
   const [goalsRev, setGoalsRev] = useState(0);
   const lessonChanged = () => setGoalsRev((r) => r + 1);
+  // A lesson started from a week row never passes through the Continue card,
+  // so listen for the store's own event as well.
+  useEffect(() => {
+    const bump = () => setGoalsRev((r) => r + 1);
+    window.addEventListener(LESSONS_EVENT, bump);
+    return () => window.removeEventListener(LESSONS_EVENT, bump);
+  }, []);
   const week = currentWeekN ? ALL_WEEKS.find(w => w.n === currentWeekN) : null;
   // Day index is the offset within the program week, so it is correct for a
   // session that does not start on a Monday. The row labels come from the real

@@ -29,7 +29,7 @@ export function WelcomeCard() {
         <p className="welcome-intro">{config.brand.about}</p>
         <div className="welcome-sections">
           <div className="welcome-section">
-            <span className="welcome-section-label">Tools, used together</span>
+            <span className="welcome-section-label">How the course works</span>
             <ul className="welcome-list">
               {config.resources.map((r) => (
                 <li key={r.id}><strong>{r.name}</strong> — {r.desc}</li>
@@ -37,11 +37,11 @@ export function WelcomeCard() {
             </ul>
           </div>
           <div className="welcome-section">
-            <span className="welcome-section-label">Three sections in this app</span>
+            <span className="welcome-section-label">Where things are</span>
             <ul className="welcome-list">
-              <li><strong>Tracker</strong> — the weekly plan. Each week shows what to read, key vocabulary, a grammar focus, and a writing prompt. Check a week off when done.</li>
-              <li><strong>Flashcards</strong> — review the words you are due, right here in the browser. Pre-built Anki decks are also there to download.</li>
-              <li><strong>Journal</strong> — write a few sentences in Italian each week using the provided prompt. Notes save automatically in your browser.</li>
+              <li><strong>Today</strong> — the Continue button and the weekly plan. Each week has three lessons, the passage to read, its vocabulary, a grammar focus and a writing prompt, and ticks itself when its lessons are done.</li>
+              <li><strong>Study</strong> — review the words you are due, plus pronunciation, verse review and two daily games.</li>
+              <li><strong>Write</strong> — a few sentences in Italian each week using the provided prompt. Notes save automatically in your browser.</li>
             </ul>
           </div>
         </div>

@@ -13,9 +13,9 @@ export const config = {
 
   brand: {
     name: 'Italian Bible Study',
-    tagline: '37 weeks to Christmas 2026 — La Bibbia CEI 2008 + Babbel + Anki + iTalki',
+    tagline: '37 weeks to Christmas 2026 — La Bibbia CEI 2008 + daily lessons + iTalki',
     goal: 'Dec 25, 2026',
-    topicLabel: 'Babbel focus', // column header for each week's topic (week.b)
+    topicLabel: 'Grammar focus', // column header for each week's topic (week.b)
     accent: '#008C45',
     accentDim: '#d4edda',
     ribbon: ['#008C45', '#c8c4ba', '#CE2B37'], // the tricolore bar
@@ -109,10 +109,10 @@ export const config = {
   resources: [
     { id: 'text', name: 'La Bibbia CEI 2008', badge: 'Primary text', role: 'reading',
       desc: 'daily reading through John, Luke, Acts, Romans & Psalms. Rich, repetitive language that builds vocabulary naturally.' },
-    { id: 'grammar', name: 'Babbel', badge: '15 min/day', role: 'grammar',
-      desc: 'one short lesson per day for grammar and pronunciation structure.' },
-    { id: 'srs', name: 'Anki', badge: 'flashcards', role: 'flashcards',
-      desc: 'spaced-repetition flashcards for vocab. Pre-built decks are ready to download.' },
+    { id: 'grammar', name: 'Lessons', badge: 'in this app', role: 'grammar',
+      desc: "three short guided lessons a week — the week's new words, its grammar point, then the passage. Press Continue." },
+    { id: 'srs', name: 'Review', badge: 'in this app', role: 'flashcards',
+      desc: 'spaced-repetition review of every word the lessons teach. Anki decks are there to download if you prefer Anki.' },
     { id: 'talk', name: 'iTalki', badge: 'review weeks', role: 'conversation',
       desc: 'live conversation practice with a tutor, scheduled on review weeks (roughly monthly).' },
   ],
