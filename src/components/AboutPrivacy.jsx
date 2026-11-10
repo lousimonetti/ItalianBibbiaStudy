@@ -46,7 +46,9 @@ function AboutPrivacyModal({ onClose }) {
             The microphone is used only while a pronunciation, dictation or voice lesson
             exercise is running. Speech is processed by your browser's built-in speech service,
             which in some browsers, such as Chrome, sends audio to its provider and needs an
-            internet connection. The app itself never records or uploads audio. The camera is used only to scan a sync QR
+            internet connection. The app itself never records or uploads audio. If you turn on
+            the optional local AI conversation, your words go only to the Ollama program on your
+            own computer, and conversations aren't saved. The camera is used only to scan a sync QR
             code. Notifications, if you enable them, are generated locally on this device.
           </p>
 

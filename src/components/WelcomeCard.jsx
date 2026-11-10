@@ -40,13 +40,13 @@ export function WelcomeCard() {
             <span className="welcome-section-label">Three sections in this app</span>
             <ul className="welcome-list">
               <li><strong>Tracker</strong> — the weekly plan. Each week shows what to read, key vocabulary, a grammar focus, and a writing prompt. Check a week off when done.</li>
-              <li><strong>Flashcards</strong> — download pre-built Anki decks for any week or phase, then import into Anki on any device.</li>
+              <li><strong>Flashcards</strong> — review the words you are due, right here in the browser. Pre-built Anki decks are also there to download.</li>
               <li><strong>Journal</strong> — write a few sentences in Italian each week using the provided prompt. Notes save automatically in your browser.</li>
             </ul>
           </div>
         </div>
         <p className="welcome-tip">
-          Start on the <strong>Tracker</strong> tab &rarr; open the current week &rarr; follow the daily routine shown above.
+          Press <strong>Continue</strong> on the Today card: it starts the next short lesson, or your review when words are due.
           Dismiss this panel when you're ready.
         </p>
         <p className="welcome-tip">

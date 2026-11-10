@@ -2,7 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { PHASES } from '../data/studyData';
 import {
   buildLesson, createTutor, next, parseCommand, scoreRepeat, pickEvenly, rankFocusWords, snapshot,
-  PASS_SCORE, MAX_REPEATS, MAX_RECALLS, SILENT_LIMIT,
+  parseWordQuestion, glossWord, breakdownPieces, repeatText, textLevel, firstLetter,
+  PASS_SCORE, MAX_REPEATS, MAX_RECALLS, SILENT_LIMIT, SUPPORT_MAX, MAX_BREAKDOWNS,
 } from './tutorEngine';
 
 const week = {
@@ -380,5 +381,367 @@ describe('a full lesson for every week', () => {
       expect(r.state.missed).toEqual([]);
       expect(r.state.totals.ok).toBe(r.state.totals.total);
     }
+  });
+});
+
+const LONG = 'Egli era in principio presso Dio e tutto per mezzo di lui fu fatto.';
+const repeatLesson = (texts) => ({
+  weekN: 1,
+  steps: [
+    ...texts.map((text, i) => ({ kind: 'repeat', text, en: 'English', verseId: `V ${i}`, first: false })),
+    { kind: 'focus' },
+    { kind: 'recap' },
+  ],
+});
+const startLesson = (lesson, opts) => drain(next(createTutor(lesson, opts), { type: 'start' }));
+const hear = (r, ...alternatives) => drain(next(r.state, { type: 'heard', alternatives }));
+const hearOnly = (r, ...alternatives) => next(r.state, { type: 'heard', alternatives });
+
+describe('adaptive support', () => {
+  const lines = ['Il primo versetto qui.', 'Il secondo versetto qui.', 'Il terzo versetto qui.', 'Il quarto versetto qui.',
+    'Il quinto versetto qui.', 'Il sesto versetto qui.', 'Il settimo versetto qui.', 'Ottavo versetto ancora qui.'];
+
+  it('fades the text after two first-try passes in a row', () => {
+    let r = startLesson(repeatLesson(lines));
+    expect(r.state.support).toBe(0);
+    r = hear(r, lines[0]);
+    expect(r.state.support).toBe(0);
+    r = hear(r, lines[1]);
+    expect(r.state.support).toBe(1);
+    expect(textLevel(r.state)).toBe(1);
+  });
+
+  it('never fades past audio only', () => {
+    let r = startLesson(repeatLesson(lines));
+    for (const line of lines) r = hear(r, line);
+    expect(r.state.support).toBe(SUPPORT_MAX);
+  });
+
+  it('a miss gives text back, and shows all of it for the retry', () => {
+    let r = startLesson(repeatLesson(lines));
+    for (const line of lines.slice(0, 4)) r = hear(r, line);
+    expect(r.state.support).toBe(2);
+    r = hear(r, 'la casa grande');
+    expect(r.state.support).toBe(1);
+    expect(textLevel(r.state)).toBe(0);
+  });
+
+  it('drops only once per line, however many tries it takes', () => {
+    let r = startLesson(repeatLesson(lines));
+    for (const line of lines.slice(0, 4)) r = hear(r, line);
+    const i = r.state.i;
+    for (let n = 0; n < 3; n++) r = hear(r, 'la casa grande');
+    expect(r.state.i).toBe(i + 1);
+    expect(r.state.support).toBe(1);
+  });
+
+  it('silence is not a miss, so it keeps the support level', () => {
+    let r = startLesson(repeatLesson(lines));
+    for (const line of lines.slice(0, 2)) r = hear(r, line);
+    r = drain(next(r.state, { type: 'noSpeech' }));
+    expect(r.state.support).toBe(1);
+  });
+
+  it('a retried pass earns no credit toward fading', () => {
+    let r = startLesson(repeatLesson(lines));
+    r = hear(r, lines[0]);
+    expect(r.state.passStreak).toBe(1);
+    r = hear(r, 'la casa grande');
+    r = hear(r, lines[1]);
+    expect(r.state.passStreak).toBe(0);
+    expect(r.state.support).toBe(0);
+  });
+
+  it('Show text reveals the line, lowers support, and earns no credit', () => {
+    let r = startLesson(repeatLesson(lines));
+    for (const line of lines.slice(0, 4)) r = hear(r, line);
+    expect(textLevel(r.state)).toBe(2);
+    const shown = next(r.state, { type: 'showText' });
+    expect(shown.effects).toEqual([]);
+    expect(textLevel(shown.state)).toBe(0);
+    expect(shown.state.support).toBe(1);
+    const passed = drain(next(shown.state, { type: 'heard', alternatives: [lines[4]] }));
+    expect(passed.state.passStreak).toBe(0);
+    expect(passed.state.support).toBe(1);
+  });
+
+  it('Show text does nothing when the text is already showing', () => {
+    const r = startLesson(repeatLesson(lines));
+    expect(next(r.state, { type: 'showText' }).state).toBe(r.state);
+  });
+
+  it('support and breakdowns survive a same-day resume, and older resume data still loads', () => {
+    let r = startLesson(repeatLesson(lines));
+    for (const line of lines.slice(0, 2)) r = hear(r, line);
+    const snap = JSON.parse(JSON.stringify(snapshot(r.state)));
+    expect(createTutor(repeatLesson(lines), { resume: snap }).support).toBe(1);
+    const { support: _s, breakdowns: _b, ...older } = snap;
+    const restored = createTutor(repeatLesson(lines), { resume: older });
+    expect(restored.support).toBe(0);
+    expect(restored.breakdowns).toBe(0);
+  });
+
+  it('adapting never changes the score', () => {
+    let r = startLesson(repeatLesson(lines));
+    for (const line of lines) r = hear(r, line);
+    expect(r.state.totals).toEqual({ ok: lines.length, total: lines.length });
+  });
+});
+
+describe('breaking down a hard line', () => {
+  const pieces = breakdownPieces(LONG);
+
+  it('splits long lines only', () => {
+    expect(breakdownPieces('In principio era il Verbo.')).toEqual([]);
+    expect(pieces.length).toBeGreaterThanOrEqual(2);
+    expect(pieces.join(' ')).toBe(LONG);
+  });
+
+  it('splits every long line in the course into 2 to 4 pieces, losing nothing', () => {
+    const chunks = PHASES.flatMap((p) => p.weeks).flatMap((w) => buildLesson(w).steps)
+      .filter((s) => s.kind === 'repeat' && s.text.trim().split(/\s+/).length >= 6);
+    expect(chunks.length).toBeGreaterThan(100);
+    for (const { text } of chunks) {
+      const parts = breakdownPieces(text);
+      expect(parts.length, text).toBeGreaterThanOrEqual(2);
+      expect(parts.length, text).toBeLessThanOrEqual(4);
+      expect(parts.join(' ').replace(/\s+/g, ' ')).toBe(text.replace(/\s+/g, ' '));
+    }
+  });
+
+  it('starts after the second failed attempt, not the first', () => {
+    let r = startLesson(repeatLesson([LONG]));
+    r = hear(r, 'la casa grande');
+    expect(r.state.pieces).toEqual([]);
+    r = hear(r, 'la casa grande');
+    expect(r.state.pieces).toEqual(pieces);
+    expect(repeatText(r.state, r.state.lesson.steps[r.state.i])).toBe(pieces[0]);
+    expect(r.state.breakdowns).toBe(1);
+  });
+
+  it('counts only the final try at the whole line, and a pass there is a pass', () => {
+    let r = startLesson(repeatLesson([LONG]));
+    r = hear(r, 'la casa grande');
+    r = hear(r, 'la casa grande');
+    for (let n = 0; n < pieces.length; n++) {
+      expect(r.state.totals.total).toBe(0);
+      r = hear(r, 'la casa grande');
+    }
+    expect(r.state.pieces).toEqual([]);
+    expect(repeatText(r.state, r.state.lesson.steps[r.state.i])).toBe(LONG);
+    r = hear(r, LONG);
+    expect(r.state.totals).toEqual({ ok: 1, total: 1 });
+    expect(r.state.missed).toEqual([]);
+  });
+
+  it('a failed final try is one miss, however the pieces went', () => {
+    let r = startLesson(repeatLesson([LONG]));
+    r = hear(r, 'la casa grande');
+    r = hear(r, 'la casa grande');
+    for (const piece of pieces) r = hear(r, piece);
+    r = hear(r, 'la casa grande');
+    expect(r.state.totals).toEqual({ ok: 0, total: 1 });
+    expect(r.state.missed).toEqual(['V 0']);
+  });
+
+  it('pieces add no word misses to the tricky-words drill', () => {
+    let r = startLesson(repeatLesson([LONG]));
+    r = hear(r, 'la casa grande');
+    r = hear(r, 'la casa grande');
+    const before = r.state.wordMisses;
+    r = hear(r, 'qualcosa di diverso');
+    expect(r.state.wordMisses).toEqual(before);
+  });
+
+  it('silence on a piece moves on rather than sticking', () => {
+    let r = startLesson(repeatLesson([LONG]));
+    r = hear(r, 'la casa grande');
+    r = hear(r, 'la casa grande');
+    const pieceI = r.state.pieceI;
+    r = drain(next(r.state, { type: 'noSpeech' }));
+    expect(r.state.pieceI).toBe(pieceI + 1);
+    expect(r.state.silentStreak).toBe(1);
+  });
+
+  it('commands still work during a breakdown, and repeat replays the piece', () => {
+    let r = startLesson(repeatLesson([LONG]));
+    r = hear(r, 'la casa grande');
+    r = hear(r, 'la casa grande');
+    const again = next(r.state, { type: 'command', command: 'repeat' });
+    expect(again.state.queue.at(-1).text).toBe(pieces[0]);
+    const skipped = drain(next(r.state, { type: 'command', command: 'skip' }));
+    expect(skipped.state.pieces).toEqual([]);
+    expect(skipped.state.totals).toEqual({ ok: 0, total: 0 });
+  });
+
+  it('override can pass the whole line, but has nothing to overturn on a piece', () => {
+    let r = startLesson(repeatLesson([LONG]));
+    r = hear(r, 'la casa grande');
+    r = hear(r, 'la casa grande');
+    const passed = drain(next(r.state, { type: 'override' }));
+    expect(passed.state.totals).toEqual({ ok: 1, total: 1 });
+    expect(passed.state.pieces).toEqual([]);
+    const afterPiece = hear(r, 'qualcosa di diverso');
+    expect(afterPiece.state.feedback.piece).toBe(true);
+    expect(next(afterPiece.state, { type: 'override' }).state).toBe(afterPiece.state);
+  });
+
+  it('stops breaking lines down past the cap', () => {
+    const lesson = repeatLesson([LONG, LONG, LONG, LONG]);
+    let r = startLesson(lesson);
+    for (let line = 0; line < MAX_BREAKDOWNS; line++) {
+      r = hear(r, 'la casa grande');
+      r = hear(r, 'la casa grande');
+      for (let n = 0; n < pieces.length + 1; n++) r = hear(r, 'la casa grande');
+    }
+    expect(r.state.breakdowns).toBe(MAX_BREAKDOWNS);
+    r = hear(r, 'la casa grande');
+    r = hear(r, 'la casa grande');
+    expect(r.state.pieces).toEqual([]);
+    expect(r.state.attempt).toBe(2);
+  });
+
+  it('a silent second attempt does not start a breakdown', () => {
+    let r = startLesson(repeatLesson([LONG]));
+    r = hear(r, 'la casa grande');
+    r = drain(next(r.state, { type: 'noSpeech' }));
+    expect(r.state.pieces).toEqual([]);
+  });
+});
+
+describe('hints', () => {
+  it('finds a hint in the passage for every question the lesson asks', () => {
+    const asks = PHASES.flatMap((p) => p.weeks).flatMap((w) => buildLesson(w).steps).filter((s) => s.kind === 'ask');
+    expect(asks.length).toBeGreaterThan(100);
+    for (const a of asks) expect(a.hint, a.q).toBeTruthy();
+  });
+
+  it('after a wrong answer, replays the line holding the answer', () => {
+    const r = startedAt('ask');
+    const after = hearOnly(r, 'non lo so');
+    expect(after.state.hinted).toBe(true);
+    expect(spoken(after.state)).toContain('In principio era il Verbo.');
+    expect(spoken(after.state).at(-1)).toBe('Che cosa era in principio?');
+  });
+
+  it('silence gets no hint, since nothing was tried', () => {
+    const r = startedAt('ask');
+    const after = next(r.state, { type: 'noSpeech' });
+    expect(after.state.hinted).toBe(false);
+    expect(spoken(after.state)).not.toContain('In principio era il Verbo.');
+  });
+
+  it('recall gives the first letter, and does not give the word', () => {
+    const r = startedAt('recall');
+    const step = allSteps(r.state)[r.state.i];
+    const after = hearOnly(r, 'non lo so');
+    expect(after.state.hinted).toBe(true);
+    expect(spoken(after.state)).toContain(firstLetter(step.answer));
+    expect(spoken(after.state)).not.toContain(step.answer);
+  });
+
+  it('a hint clears on the next step', () => {
+    let r = startedAt('ask');
+    r = hear(r, 'non lo so');
+    r = hear(r, 'il Verbo');
+    expect(r.state.hinted).toBe(false);
+  });
+
+  it('firstLetter handles accented capitals', () => {
+    expect(firstLetter('verbo')).toBe('V');
+    expect(firstLetter('è')).toBe('È');
+  });
+});
+
+describe('spoken word questions', () => {
+  it('recognizes the question frames and keeps the word as said', () => {
+    expect(parseWordQuestion('Che vuol dire vinsero?')).toBe('vinsero');
+    expect(parseWordQuestion('cosa significa la luce')).toBe('la luce');
+    expect(parseWordQuestion('che cosa vuol dire città')).toBe('città');
+    expect(parseWordQuestion('che cosa vuole dire «tenebre»?')).toBe('tenebre');
+    expect(parseWordQuestion("cosa vuol dire l'uomo")).toBe("l'uomo");
+    expect(parseWordQuestion('che cosa vuol dire la parola città')).toBe('città');
+    expect(parseWordQuestion('What does tenebre mean?')).toBe('tenebre');
+    expect(parseWordQuestion('what does the word tenebre mean')).toBe('tenebre');
+  });
+
+  it('ignores anything that is not a question about a word', () => {
+    expect(parseWordQuestion('che vuol dire')).toBeNull();
+    expect(parseWordQuestion('what does mean')).toBeNull();
+    expect(parseWordQuestion('la casa significa molto')).toBeNull();
+    expect(parseWordQuestion('che vuol dire questo versetto nel vangelo di oggi')).toBeNull();
+    expect(parseWordQuestion('')).toBeNull();
+    expect(parseWordQuestion(null)).toBeNull();
+  });
+
+  it('answers from both glossaries, and says when it has no answer', () => {
+    expect(glossWord('la luce')).toBe('the light');
+    expect(glossWord('vinsero')).toBe('won/overcame');
+    expect(glossWord("l'uomo")).toBe('the man');
+    expect(glossWord('pizza')).toBeNull();
+  });
+
+  it('answers in place, using no attempt and repeating the prompt', () => {
+    const r = startedAt('ask');
+    const after = hearOnly(r, 'che vuol dire principio?');
+    expect(after.state.attempt).toBe(0);
+    expect(after.state.stepOk).toBeNull();
+    expect(after.state.glossed.word).toBe('principio');
+    expect(after.state.glossed.en).toBeTruthy();
+    expect(after.state.queue[0]).toMatchObject({ text: 'principio', rate: 'slow' });
+    expect(spoken(after.state).at(-1)).toBe('Che cosa era in principio?');
+    expect(drain(after).state.phase).toBe('listening');
+  });
+
+  it('asking about the answer never counts as giving it', () => {
+    const r = startedAt('ask');
+    const after = hearOnly(r, 'che vuol dire il Verbo?');
+    expect(after.state.stepOk).toBeNull();
+    expect(after.state.totals).toEqual({ ok: 0, total: 0 });
+    expect(after.state.glossed.word).toBe('il Verbo');
+  });
+
+  it('asking about the recall answer never counts as giving it', () => {
+    const r = startedAt('recall');
+    const step = allSteps(r.state)[r.state.i];
+    expect(hearOnly(r, `che vuol dire ${step.answer}`).state.stepOk).toBeNull();
+  });
+
+  it('on Repeat, a line containing the frame is graded as the line', () => {
+    const text = 'Andate a imparare che cosa vuol dire questo.';
+    const r = startLesson(repeatLesson([text]));
+    expect(hearOnly(r, text).state.stepOk).toBe(true);
+  });
+
+  it('on Repeat, a question that does not pass is answered and costs nothing', () => {
+    const r = startLesson(repeatLesson(['In principio era il Verbo.']));
+    const after = hearOnly(r, 'che vuol dire principio');
+    expect(after.state.attempt).toBe(0);
+    expect(after.state.wordMisses).toEqual({});
+    expect(after.state.glossed.word).toBe('principio');
+  });
+
+  it('an unknown word gets an honest answer, and the lesson carries on', () => {
+    const r = startedAt('ask');
+    const after = hearOnly(r, 'che vuol dire pizza?');
+    expect(after.state.glossed).toBeNull();
+    expect(spoken(after.state)[0]).toBe('Non conosco questa parola.');
+    expect(after.state.attempt).toBe(0);
+  });
+
+  it('works when typed too', () => {
+    const r = next(createTutor(buildLesson(week), { typing: true, resume: { i: buildLesson(week).steps.findIndex((s) => s.kind === 'ask') } }), { type: 'start' });
+    const typing = drain(r);
+    expect(typing.state.phase).toBe('typing');
+    const after = next(typing.state, { type: 'typed', text: 'cosa significa principio' });
+    expect(after.state.glossed.word).toBe('principio');
+    expect(drain(after).state.phase).toBe('typing');
+  });
+
+  it('the gloss clears when the step changes', () => {
+    let r = startedAt('ask');
+    r = hear(r, 'che vuol dire principio?');
+    r = hear(r, 'il Verbo');
+    expect(r.state.glossed).toBeNull();
   });
 });

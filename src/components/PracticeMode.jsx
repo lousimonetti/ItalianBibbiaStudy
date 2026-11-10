@@ -10,11 +10,13 @@ import { struggleList } from '../utils/wordStats';
 import { makeCloze, isClozeEligible } from '../utils/cloze';
 import { scrambleTokens, shuffleScramble, sameOrder, isScrambleEligible } from '../utils/scramble';
 import { checkAnswer } from '../utils/answer';
+import { mixStyles } from '../utils/reviewMix';
 import { recordActivity } from '../utils/streak';
 import { Confetti } from './Confetti';
 import { HAS_IPA } from '../utils/locale';
 
 const STYLES = [
+  { id: 'mixed', label: 'Smart mix', sub: 'picks the exercise per card' },
   { id: 'recognition', label: 'Recognition', sub: 'IT → EN, tap to reveal' },
   { id: 'recall', label: 'Recall', sub: 'EN → IT, type it' },
   { id: 'cloze', label: 'Cloze', sub: 'fill the blank' },
@@ -36,6 +38,15 @@ function shuffle(arr) {
 }
 
 const ALL_CARDS = buildCards(PHASES);
+
+// A session carries one style, or — for the smart mix — a style per card,
+// chosen from how well each card is known when the session starts.
+function makeSession(cards, style, store) {
+  return {
+    cards, index: 0, known: 0, again: [], style,
+    styles: style === 'mixed' ? mixStyles(cards, store) : null,
+  };
+}
 
 function SessionEnd({ known, total, againCount, onRestart, onDrillAgain }) {
   const pct = Math.round((known / total) * 100);
@@ -69,10 +80,17 @@ function SessionEnd({ known, total, againCount, onRestart, onDrillAgain }) {
   );
 }
 
-export function PracticeMode() {
+export function PracticeMode({ autoStart = false }) {
+  const { recordReview, buildSession, getStats, getStore, version } = useSrs();
   const [filter, setFilter] = useState('all');
-  const [style, setStyle] = useState('recognition');
-  const [session, setSession] = useState(null);
+  const [style, setStyle] = useState('mixed');
+  // `autoStart` (the Today card's Review button) opens straight into the due
+  // queue; with nothing due it falls through to the start screen.
+  const [session, setSession] = useState(() => {
+    if (!autoStart) return null;
+    const cards = buildSession(ALL_CARDS);
+    return cards.length ? makeSession(cards, 'mixed', getStore()) : null;
+  });
   const [flipped, setFlipped] = useState(false);
   const [typed, setTyped] = useState('');
   const [checked, setChecked] = useState(false);
@@ -82,7 +100,6 @@ export function PracticeMode() {
   // Listening is dictation: the first press replays rather than revealing, so
   // the learner always hears it at least twice before seeing the text.
   const [replays, setReplays] = useState(0);
-  const { recordReview, buildSession, getStats, getStore, version } = useSrs();
   const { getStore: getPronunStore, version: pronunVersion } = usePronunStats();
 
   const filtered = useMemo(
@@ -123,11 +140,13 @@ export function PracticeMode() {
       : style === 'sentence' ? sentenceCards : filtered;
 
   const activeCard = session && session.index < session.cards.length ? session.cards[session.index] : null;
+  // The exercise for the card on screen.
+  const curStyle = !session ? null : session.styles ? session.styles[session.index] : session.style;
   // Shuffled chips for the Build style — keyed on the card object so ordinary
   // re-renders don't reshuffle mid-card.
   const buildChips = useMemo(
-    () => (session?.style === 'build' && activeCard ? shuffleScramble(scrambleTokens(activeCard.ex)) : []),
-    [session?.style, activeCard]
+    () => (curStyle === 'build' && activeCard ? shuffleScramble(scrambleTokens(activeCard.ex)) : []),
+    [curStyle, activeCard]
   );
 
   function resetCardUi() {
@@ -141,18 +160,18 @@ export function PracticeMode() {
 
   function startSession(cards) {
     if (!cards.length) return;
-    setSession({ cards, index: 0, known: 0, again: [], style });
+    setSession(makeSession(cards, style, getStore()));
     resetCardUi();
   }
 
   function handleCheck() {
     const card = session.cards[session.index];
     // Listening is dictation — reveal and self-grade, no auto-verdict.
-    if (session.style === 'build') {
+    if (curStyle === 'build') {
       setCorrect(sameOrder(scrambleTokens(card.ex), picked.map(i => buildChips[i])));
-    } else if (session.style !== 'listening') {
-      const expected = session.style === 'cloze' ? makeCloze(card.it, card.ex, card.form).answer
-        : session.style === 'sentence' ? card.ex
+    } else if (curStyle !== 'listening') {
+      const expected = curStyle === 'cloze' ? makeCloze(card.it, card.ex, card.form).answer
+        : curStyle === 'sentence' ? card.ex
           : card.it;
       setCorrect(checkAnswer(expected, typed));
     }
@@ -198,11 +217,11 @@ export function PracticeMode() {
     const card = session.cards[session.index];
     const total = session.cards.length;
     const pct = (session.index / total) * 100;
-    const isTyped = session.style !== 'recognition';
-    const cloze = session.style === 'cloze' ? makeCloze(card.it, card.ex, card.form) : null;
+    const isTyped = curStyle !== 'recognition';
+    const cloze = curStyle === 'cloze' ? makeCloze(card.it, card.ex, card.form) : null;
     const showGrade = isTyped ? checked : flipped;
     // Listening: hold back the reveal until they've heard it at least twice.
-    const mustReplay = session.style === 'listening' && replays < 1;
+    const mustReplay = curStyle === 'listening' && replays < 1;
 
     return (
       <div className="prac-session">
@@ -217,7 +236,7 @@ export function PracticeMode() {
 
         {isTyped ? (
           <div className="prac-typed-card">
-            {session.style === 'listening' ? (
+            {curStyle === 'listening' ? (
               <div className="prac-listen-prompt">
                 <SpeakerButton word={card.ex} size={30} rate={listenRate} />
                 <div className="prac-listen-speeds">
@@ -231,13 +250,13 @@ export function PracticeMode() {
                   >Normal</button>
                 </div>
               </div>
-            ) : session.style === 'cloze' ? (
+            ) : curStyle === 'cloze' ? (
               <div className="prac-cloze-sentence">
                 {cloze.before}
                 <span className="prac-blank">{checked ? cloze.answer : '____'}</span>
                 {cloze.after}
               </div>
-            ) : session.style === 'build' ? (
+            ) : curStyle === 'build' ? (
               <div className="prac-build">
                 <div className={`prac-build-picked${checked ? (correct ? ' prac-build-ok' : ' prac-build-no') : ''}`}>
                   {picked.length === 0 && (
@@ -269,20 +288,20 @@ export function PracticeMode() {
                   )}
                 </div>
               </div>
-            ) : session.style === 'sentence' ? (
+            ) : curStyle === 'sentence' ? (
               <div className="prac-recall-prompt">{card.exEn}</div>
             ) : (
               <div className="prac-recall-prompt">{card.en}</div>
             )}
             <div className="prac-typed-sub">
-              {session.style === 'listening' ? 'Listen and type what you hear'
-                : session.style === 'cloze' ? `Fill the blank — ${card.en}`
-                : session.style === 'build' ? `Costruisci la frase — build the sentence (${card.it} · ${card.en})`
-                : session.style === 'sentence' ? 'Write the Italian sentence'
+              {curStyle === 'listening' ? 'Listen and type what you hear'
+                : curStyle === 'cloze' ? `Fill the blank — ${card.en}`
+                : curStyle === 'build' ? `Costruisci la frase — build the sentence (${card.it} · ${card.en})`
+                : curStyle === 'sentence' ? 'Write the Italian sentence'
                 : 'Type the Italian'}
             </div>
-            {session.style !== 'build' && <input
-              className={`prac-input${checked && session.style !== 'listening' ? (correct ? ' prac-input-correct' : ' prac-input-wrong') : ''}`}
+            {curStyle !== 'build' && <input
+              className={`prac-input${checked && curStyle !== 'listening' ? (correct ? ' prac-input-correct' : ' prac-input-wrong') : ''}`}
               value={typed}
               onChange={(e) => setTyped(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter' && !checked && !mustReplay && typed.trim()) handleCheck(); }}
@@ -293,12 +312,12 @@ export function PracticeMode() {
             />}
             {checked && (
               <div className="prac-typed-result">
-                {session.style !== 'listening' && (
+                {curStyle !== 'listening' && (
                   <span className={correct ? 'prac-result-ok' : 'prac-result-no'}>
                     {correct ? 'Correct!' : 'Not quite'}
                   </span>
                 )}
-                {session.style === 'listening' ? (
+                {curStyle === 'listening' ? (
                   <>
                     <span className="prac-answer prac-answer-sentence">{card.ex}</span>
                     {/* The sentence's own translation — NOT the headword gloss,
@@ -308,12 +327,12 @@ export function PracticeMode() {
                     <span className="prac-word-gloss">{card.it} — {card.en}</span>
                     <SpeakerButton word={card.ex} size={18} rate={listenRate} />
                   </>
-                ) : session.style === 'sentence' ? (
+                ) : curStyle === 'sentence' ? (
                   <>
                     <span className="prac-answer prac-answer-sentence">{card.ex}</span>
                     <SpeakerButton word={card.ex} size={18} />
                   </>
-                ) : session.style === 'build' ? (
+                ) : curStyle === 'build' ? (
                   <>
                     <span className="prac-answer prac-answer-sentence">{card.ex}</span>
                     <SpeakerButton word={card.ex} size={18} />
@@ -323,7 +342,7 @@ export function PracticeMode() {
                     <span className="prac-answer">{card.it}</span>
                     {HAS_IPA && card.ipa && <span className="prac-ipa">{card.ipa}</span>}
                     <SpeakerButton word={card.it} size={18} />
-                    {session.style === 'recall' && card.ex && (
+                    {curStyle === 'recall' && card.ex && (
                       <span className="prac-example">
                         &ldquo;{card.ex}&rdquo;{card.exEn ? ` — ${card.exEn}` : ''}
                       </span>
@@ -384,12 +403,12 @@ export function PracticeMode() {
                 className="prac-reveal-btn"
                 onClick={handleCheck}
                 disabled={
-                  session.style === 'build'
+                  curStyle === 'build'
                     ? picked.length !== buildChips.length
-                    : session.style !== 'listening' && !typed.trim()
+                    : curStyle !== 'listening' && !typed.trim()
                 }
               >
-                {session.style === 'listening' ? 'Reveal' : 'Check'}
+                {curStyle === 'listening' ? 'Reveal' : 'Check'}
               </button>
               )
             ) : (
@@ -416,6 +435,30 @@ export function PracticeMode() {
           device.
         </div>
       </div>
+
+      <div className="prac-srs-stats">
+        <span className="prac-srs-stat prac-srs-due">{srsStats.due} due</span>
+        <span className="prac-srs-stat prac-srs-new">{srsStats.new} new</span>
+        <span className="prac-srs-stat prac-srs-learned">{srsStats.learned} learned</span>
+      </div>
+
+      {activeQueue.length > 0 ? (
+        <button className="prac-go-btn" onClick={() => startSession(activeQueue)}>
+          Start — {activeQueue.length} card{activeQueue.length !== 1 ? 's' : ''}
+        </button>
+      ) : (
+        <div className="prac-caught-up">
+          <div className="prac-caught-up-msg">
+            All caught up — nothing due right now. Come back later, or:
+          </div>
+          <button
+            className="prac-go-btn prac-go-secondary"
+            onClick={() => startSession(shuffle(stylePool))}
+          >
+            Practice all {stylePool.length} anyway
+          </button>
+        </div>
+      )}
 
       <div className="prac-filter-label"><UiText k="prac.style" /></div>
       <div className="prac-style-grid">
@@ -469,30 +512,6 @@ export function PracticeMode() {
           );
         })}
       </div>
-
-      <div className="prac-srs-stats">
-        <span className="prac-srs-stat prac-srs-due">{srsStats.due} due</span>
-        <span className="prac-srs-stat prac-srs-new">{srsStats.new} new</span>
-        <span className="prac-srs-stat prac-srs-learned">{srsStats.learned} learned</span>
-      </div>
-
-      {activeQueue.length > 0 ? (
-        <button className="prac-go-btn" onClick={() => startSession(activeQueue)}>
-          Start — {activeQueue.length} card{activeQueue.length !== 1 ? 's' : ''}
-        </button>
-      ) : (
-        <div className="prac-caught-up">
-          <div className="prac-caught-up-msg">
-            All caught up — nothing due right now. Come back later, or:
-          </div>
-          <button
-            className="prac-go-btn prac-go-secondary"
-            onClick={() => startSession(shuffle(stylePool))}
-          >
-            Practice all {stylePool.length} anyway
-          </button>
-        </div>
-      )}
 
       <StrugglePanel
         struggles={struggles}

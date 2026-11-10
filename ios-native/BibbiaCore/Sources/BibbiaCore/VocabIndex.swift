@@ -29,6 +29,11 @@ public final class VocabIndex {
                     if !stripped.isEmpty, stripped != cleaned {
                         add(stripped, gloss)
                     }
+                    // The inflected form points back at its entry, so a conjugated
+                    // word in a sentence resolves, as it does on the web.
+                    if let form = card.form, clean(form) != cleaned, clean(form) != stripped {
+                        add(form, VocabGloss(it: form, en: card.en, ipa: ""))
+                    }
                 }
             }
         }

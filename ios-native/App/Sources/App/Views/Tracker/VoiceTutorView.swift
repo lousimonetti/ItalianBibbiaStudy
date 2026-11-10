@@ -79,7 +79,9 @@ final class TutorSession: ObservableObject {
 struct VoiceTutorSection: View {
     let week: Week
     @EnvironmentObject private var model: AppModel
+    @AppStorage("coursekit-tutor-ai") private var conversaEnabled = false
     @State private var presented: PresentedLesson?
+    @State private var showConversa = false
 
     private struct PresentedLesson: Identifiable {
         let id = UUID()
@@ -107,9 +109,15 @@ struct VoiceTutorSection: View {
                         presented = PresentedLesson(resume: nil)
                     }
                 }
+                if conversaEnabled, model.tutorAI.isAvailable {
+                    Button("Conversa") { showConversa = true }
+                }
             }
             .fullScreenCover(item: $presented) { lesson in
                 VoiceTutorView(week: week, resume: lesson.resume, model: model)
+            }
+            .fullScreenCover(isPresented: $showConversa) {
+                ConversaView(week: week, model: model)
             }
         }
     }
@@ -119,9 +127,14 @@ struct VoiceTutorView: View {
     @StateObject private var session: TutorSession
     @Environment(\.dismiss) private var dismiss
     @Environment(\.scenePhase) private var scenePhase
+    @EnvironmentObject private var model: AppModel
+    @AppStorage("coursekit-tutor-ai") private var conversaEnabled = false
     @State private var typed = ""
+    @State private var showConversa = false
+    private let week: Week
 
     init(week: Week, resume: TutorSnapshot?, model: AppModel) {
+        self.week = week
         _session = StateObject(wrappedValue: TutorSession(week: week, model: model, resume: resume))
     }
 
@@ -153,7 +166,8 @@ struct VoiceTutorView: View {
         NavigationStack {
             Group {
                 if let summary = session.summary {
-                    TutorSummaryView(summary: summary)
+                    TutorSummaryView(summary: summary, onConversa: conversaEnabled && model.tutorAI.isAvailable
+                                     ? { showConversa = true } : nil)
                 } else {
                     lesson
                 }
@@ -175,6 +189,9 @@ struct VoiceTutorView: View {
         .onChange(of: scenePhase) { _, phase in
             if phase != .active { session.send(.pause(nil)) }
         }
+        .fullScreenCover(isPresented: $showConversa) {
+            ConversaView(week: week, model: model, missedWords: rankFocusWords(state.wordMisses))
+        }
     }
 
     private var lesson: some View {
@@ -190,7 +207,10 @@ struct VoiceTutorView: View {
                     Text(status).font(.caption).foregroundStyle(.secondary)
                 }
                 content
-                if let caption = state.queue.first, state.step?.kind != .listen {
+                if let gloss = state.glossed {
+                    Text(verbatim: "\(gloss.word): \(gloss.en)").font(.footnote)
+                }
+                if let caption = state.queue.first, state.step?.kind != .listen, !hidesCaption(caption) {
                     Text(caption.en.isEmpty || caption.en == state.step?.en
                          ? caption.text : "\(caption.text) (\(caption.en))")
                         .font(.footnote).italic().foregroundStyle(.secondary)
@@ -199,7 +219,7 @@ struct VoiceTutorView: View {
                 if state.phase == .typing { typingField }
                 controls
                 if !state.typing {
-                    Text("You can also say ripeti, più lentamente, avanti or basta.")
+                    Text("You can also say ripeti, più lentamente, avanti or basta, or ask che vuol dire…? about any word.")
                         .font(.caption2).foregroundStyle(.secondary)
                 }
             }
@@ -225,7 +245,7 @@ struct VoiceTutorView: View {
                     }
                 }
             case .repeat:
-                target(step.text, en: step.en)
+                repeatLine(step)
             case .focus:
                 if state.sub < state.focusWords.count {
                     Text(state.focusWords[state.sub])
@@ -234,17 +254,68 @@ struct VoiceTutorView: View {
                 }
             case .ask:
                 target(step.q, en: "")
+                if state.hinted, !step.hint.isEmpty {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Hint").font(.caption.bold()).foregroundStyle(.secondary)
+                        WordGlossText(text: step.hint).font(.footnote)
+                    }
+                }
             case .recall:
-                target(state.stepOk == nil ? "\(step.before) _____ \(step.after)" : step.full, en: step.en)
+                if state.stepOk == nil {
+                    let blank = state.hinted ? "\(firstLetter(step.answer))____" : "_____"
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(verbatim: "\(step.before) \(blank) \(step.after)").font(.title3.weight(.medium))
+                        if !step.en.isEmpty { Text(verbatim: step.en).font(.footnote).foregroundStyle(.secondary) }
+                    }
+                } else {
+                    target(step.full, en: step.en)
+                }
             case .intro, .recap:
                 EmptyView()
             }
         }
     }
 
+    // The caption shows what is being spoken, which would give away a line the learner
+    // is meant to be saying from memory.
+    private func hidesCaption(_ caption: TutorUtterance) -> Bool {
+        state.step?.kind == .repeat && state.textLevel > 0 && caption.text == state.step?.text
+    }
+
+    // A Repeat line with some or all of it hidden. Levels 1 and 2 blank a growing share
+    // of the words, and level 3 is audio only.
+    @ViewBuilder private func repeatLine(_ step: TutorStep) -> some View {
+        let level = state.textLevel
+        if level == 0 {
+            VStack(alignment: .leading, spacing: 4) {
+                if !state.pieces.isEmpty {
+                    Text("Piece \(state.pieceI + 1) of \(state.pieces.count)")
+                        .font(.caption.bold()).foregroundStyle(.secondary)
+                }
+                target(state.repeatText(step), en: step.en)
+            }
+        } else {
+            VStack(alignment: .leading, spacing: 6) {
+                if level >= TUTOR_SUPPORT_MAX {
+                    Text("Listen and repeat from memory").font(.body).italic().foregroundStyle(.secondary)
+                } else {
+                    Text(verbatim: fadedLine(step.text, level: level)).font(.title3.weight(.medium))
+                }
+                if !step.en.isEmpty { Text(verbatim: step.en).font(.footnote).foregroundStyle(.secondary) }
+                Button("Show text") { session.send(.showText) }.font(.footnote)
+            }
+        }
+    }
+
+    private func fadedLine(_ text: String, level: Int) -> String {
+        stageParts(text, stage: level)
+            .map { "\($0.pre)\($0.blank ? "_____" : $0.word)\($0.post)" }
+            .joined(separator: " ")
+    }
+
     private func target(_ text: String, en: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(verbatim: text).font(.title3.weight(.medium))
+            WordGlossText(text: text).font(.title3.weight(.medium))
             if !en.isEmpty { Text(verbatim: en).font(.footnote).foregroundStyle(.secondary) }
         }
     }
@@ -257,7 +328,7 @@ struct VoiceTutorView: View {
                     .foregroundStyle(f.tone == .ok ? Color.accentColor : f.tone == .silent ? .secondary : .red)
                 if !f.heard.isEmpty {
                     Text(verbatim: "Heard: “\(f.heard)”").font(.footnote).italic().foregroundStyle(.secondary)
-                    if f.tone != .ok {
+                    if f.tone != .ok, !f.piece {
                         Button("I said it right") { session.send(.override) }.font(.footnote)
                     }
                 }
@@ -309,6 +380,7 @@ struct VoiceTutorView: View {
 
 private struct TutorSummaryView: View {
     let summary: TutorSummary
+    var onConversa: (() -> Void)?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -317,6 +389,9 @@ private struct TutorSummaryView: View {
             if !summary.missed.isEmpty {
                 Text("\(summary.missed.joined(separator: ", ")) will come back in verse review.")
                     .foregroundStyle(.secondary)
+            }
+            if let onConversa {
+                Button("Talk about it: Conversa", action: onConversa).buttonStyle(.bordered)
             }
             Spacer()
         }

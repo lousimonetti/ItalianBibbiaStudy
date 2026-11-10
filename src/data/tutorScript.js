@@ -15,6 +15,14 @@ export const TUTOR_LINES = {
   tryAgain: { it: 'Prova ancora.', en: 'Try again.' },
   answerIs: { it: 'La risposta è:', en: 'The answer is:' },
   recall: { it: 'Ascolta bene e di’ la parola che manca.', en: 'Listen carefully and say the missing word.' },
+  piecemeal: { it: 'Proviamo un pezzo alla volta.', en: "Let's try one piece at a time." },
+  wholeLine: { it: 'Ora tutta la frase.', en: 'Now the whole sentence.' },
+  hint: { it: 'Ascolta di nuovo questa parte.', en: 'Listen to this part again.' },
+  startsWith: { it: 'La parola comincia con:', en: 'The word starts with:' },
+  unknownWord: { it: 'Non conosco questa parola.', en: "I don't know that word." },
+  conversaClosing: { it: 'Grazie della conversazione. A presto!', en: 'Thanks for the conversation. See you soon!' },
+  conversaFailed: { it: 'Scusa, ora non riesco a rispondere.', en: "Sorry, I can't answer right now." },
+  conversaRefused: { it: 'Scusa, di questo non posso parlare.', en: "Sorry, I can't talk about that." },
   recap: { it: 'La lezione è finita. Hai lavorato bene!', en: "The lesson is over. You've worked well!" },
 };
 

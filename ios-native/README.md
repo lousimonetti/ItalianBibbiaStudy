@@ -34,7 +34,12 @@ strings — a test proves the computed labels reproduce all 37 authored
 correct for any start date.
 
 Also in the app: **Lezione guidata**, a spoken lesson on each week's passage, plus
-**Versetti** (memorize, build, shadow) and **verse review**. See `../plan-tutor.md`.
+**Versetti** (memorize, build, shadow) and **verse review**. The lesson adapts: text
+fades after clean repeats, a hard line is split into pieces, wrong answers get hints, and
+*che vuol dire…?* asks the glossary about any word. **Conversa** is an opt-in, ungraded
+conversation about the passage using Apple's on-device model (Settings → On-device AI,
+shown only where the model is available); `FoundationModelsTutorAI.swift` sits behind
+BibbiaCore's `TutorAI` protocol so tests run without it. See `../plan-tutor.md`.
 
 ## Design (Figma)
 
