@@ -4,6 +4,7 @@ import BibbiaCore
 struct WeekDetailView: View {
     let week: Week
     @EnvironmentObject private var model: AppModel
+    @State private var moreOpen = false
 
     var body: some View {
         List {
@@ -45,27 +46,55 @@ struct WeekDetailView: View {
                     .font(.callout)
             }
 
-            let drills = drillItems(week)
-            if !drills.isEmpty {
-                Section("Esercizi di grammatica") {
-                    ForEach(Array(drills.enumerated()), id: \.offset) { _, item in
-                        GrammarDrillRow(item: item)
+            // The standalone exercises. The lessons at the top already walk
+            // through the drills, the comprehension checks and the verses, so
+            // these are folded away as extra practice.
+            Section {
+                Button {
+                    withAnimation { moreOpen.toggle() }
+                } label: {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("More practice").font(.subheadline.weight(.semibold))
+                            Text("drills · comprehension · dictation")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        Image(systemName: "chevron.down")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                            .rotationEffect(.degrees(moreOpen ? 180 : 0))
                     }
+                    .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
+                .accessibilityValue(moreOpen ? "expanded" : "collapsed")
             }
 
-            let checks = comprehensionItems(week)
-            if !checks.isEmpty {
-                Section("Comprensione") {
-                    ForEach(Array(checks.enumerated()), id: \.offset) { _, item in
-                        ComprehensionRow(item: item)
+            if moreOpen {
+                let drills = drillItems(week)
+                if !drills.isEmpty {
+                    Section("Esercizi di grammatica") {
+                        ForEach(Array(drills.enumerated()), id: \.offset) { _, item in
+                            GrammarDrillRow(item: item)
+                        }
                     }
                 }
-            }
 
-            if let passage = week.passage, let verse = passage.verses.first {
-                Section("Dictogloss — ascolta e ricostruisci") {
-                    DictoglossView(sentence: verse.t)
+                let checks = comprehensionItems(week)
+                if !checks.isEmpty {
+                    Section("Comprensione") {
+                        ForEach(Array(checks.enumerated()), id: \.offset) { _, item in
+                            ComprehensionRow(item: item)
+                        }
+                    }
+                }
+
+                if let passage = week.passage, let verse = passage.verses.first {
+                    Section("Dictogloss — ascolta e ricostruisci") {
+                        DictoglossView(sentence: verse.t)
+                    }
                 }
             }
 

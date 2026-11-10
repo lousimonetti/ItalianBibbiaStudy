@@ -2,9 +2,9 @@
  "id": "it-bible-cei",
  "brand": {
   "name": "Italian Bible Study",
-  "tagline": "37 weeks to Christmas 2026 — La Bibbia CEI 2008 + Babbel + Anki + iTalki",
+  "tagline": "37 weeks to Christmas 2026 — La Bibbia CEI 2008 + daily lessons + iTalki",
   "goal": "Dec 25, 2026",
-  "topicLabel": "Babbel focus",
+  "topicLabel": "Grammar focus",
   "about": "A self-paced 37-week Italian language program — Easter to Christmas 2026. The Italian Bible (La Bibbia CEI 2008) is the primary reading text, supported by tools for grammar, vocabulary, and conversation."
  },
  "locale": {
@@ -70,17 +70,17 @@
   },
   {
    "id": "grammar",
-   "name": "Babbel",
-   "badge": "15 min/day",
+   "name": "Lessons",
+   "badge": "in this app",
    "role": "grammar",
-   "desc": "one short lesson per day for grammar and pronunciation structure."
+   "desc": "three short guided lessons a week — the week's new words, its grammar point, then the passage. Press Continue."
   },
   {
    "id": "srs",
-   "name": "Anki",
-   "badge": "flashcards",
+   "name": "Review",
+   "badge": "in this app",
    "role": "flashcards",
-   "desc": "spaced-repetition flashcards for vocab. Pre-built decks are ready to download."
+   "desc": "spaced-repetition review of every word the lessons teach. Anki decks are there to download if you prefer Anki."
   },
   {
    "id": "talk",
