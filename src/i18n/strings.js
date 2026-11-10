@@ -78,6 +78,12 @@ export const UI_STRINGS = {
   'detail.italki': { it: 'Spunti di conversazione iTalki', en: 'iTalki conversation starters' },
 
   // Flashcards mode toggle
+  'lesson.check': { it: 'Controlla', en: 'Check' },
+  'lesson.continue': { it: 'Continua', en: 'Continue' },
+  'lesson.start': { it: 'Inizia', en: 'Start' },
+  'lesson.redo': { it: 'Ripeti', en: 'Repeat' },
+  'today.continue': { it: 'Continua', en: 'Continue' },
+  'today.review': { it: 'Ripassa', en: 'Review' },
   'fc.anki': { it: 'Mazzi Anki', en: 'Anki Decks' },
   'fc.practice': { it: 'Pratica', en: 'Practice' },
   'fc.pronunciation': { it: 'Pronuncia', en: 'Pronunciation' },

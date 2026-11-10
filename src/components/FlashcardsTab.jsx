@@ -46,7 +46,7 @@ function AnkiLink({ href, label }) {
   );
 }
 
-export function FlashcardsTab({ initialMode = 'anki' }) {
+export function FlashcardsTab({ initialMode = 'practice', autoStart = false }) {
   const [activePhase, setActivePhase] = useState(null);
   const [mode, setMode] = useState(initialMode);
 
@@ -55,12 +55,6 @@ export function FlashcardsTab({ initialMode = 'anki' }) {
 
       {/* Mode toggle */}
       <div className="fc-mode-toggle">
-        <button
-          className={`fc-mode-btn${mode === 'anki' ? ' active' : ''}`}
-          onClick={() => setMode('anki')}
-        >
-          <UiText k="fc.anki" />
-        </button>
         <button
           className={`fc-mode-btn${mode === 'practice' ? ' active' : ''}`}
           onClick={() => setMode('practice')}
@@ -95,9 +89,16 @@ export function FlashcardsTab({ initialMode = 'anki' }) {
         >
           Verses
         </button>
+        {/* Anki export sits last: the in-app review is the default study path. */}
+        <button
+          className={`fc-mode-btn${mode === 'anki' ? ' active' : ''}`}
+          onClick={() => setMode('anki')}
+        >
+          <UiText k="fc.anki" />
+        </button>
       </div>
 
-      {mode === 'practice' && <PracticeMode />}
+      {mode === 'practice' && <PracticeMode autoStart={autoStart} />}
       {mode === 'pronunciation' && <PronunciationPractice />}
       {mode === 'traps' && <TrapDrill />}
       {mode === 'verbforms' && <VerbFormDrill />}

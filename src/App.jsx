@@ -36,6 +36,7 @@ import { AudioSpeedControl } from './components/AudioSpeedControl';
 import { VoicePicker } from './components/VoicePicker';
 import { SyncPanel } from './components/SyncPanel';
 import { VoiceTutor } from './components/VoiceTutor';
+import { ContinueCard } from './components/LessonHub';
 import { reachedVerseCards, verseStats } from './utils/verseReview';
 
 const TOTAL = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
@@ -231,8 +232,12 @@ function DailyGoals({ onOpenGame, onOpenVerses }) {
   );
 }
 
-function TodayCard({ currentWeekN, onOpenGame, onOpenVerses }) {
+function TodayCard({ currentWeekN, onOpenGame, onOpenVerses, onOpenReview }) {
   const [schedOpen, setSchedOpen] = useState(false);
+  // Bumped when a lesson closes, so the goals below re-read the streak and
+  // due counts that lesson just changed.
+  const [goalsRev, setGoalsRev] = useState(0);
+  const lessonChanged = () => setGoalsRev((r) => r + 1);
   const week = currentWeekN ? ALL_WEEKS.find(w => w.n === currentWeekN) : null;
   // Day index is the offset within the program week, so it is correct for a
   // session that does not start on a Monday. The row labels come from the real
@@ -251,7 +256,8 @@ function TodayCard({ currentWeekN, onOpenGame, onOpenVerses }) {
         </span>
         <span className="today-pre-sub">{TOTAL} weeks · {getSessionStartLabel()} → {getEndDateLabel()}</span>
         <SessionRow prominent />
-        <DailyGoals onOpenGame={onOpenGame} onOpenVerses={onOpenVerses} />
+        <ContinueCard currentWeekN={null} onOpenReview={onOpenReview} onChange={lessonChanged} />
+        <DailyGoals key={goalsRev} onOpenGame={onOpenGame} onOpenVerses={onOpenVerses} />
       </div>
     );
   }
@@ -264,6 +270,8 @@ function TodayCard({ currentWeekN, onOpenGame, onOpenVerses }) {
         <span className="today-date">{weekDateLabel(week)}</span>
       </div>
 
+      <ContinueCard currentWeekN={currentWeekN} onOpenReview={onOpenReview} onChange={lessonChanged} />
+
       <div className="today-task-row">
         <span className="today-day-label">{dayLabels[todayIdx]}</span>
         <span className="today-task-text">{todayTask.task}</span>
@@ -271,7 +279,7 @@ function TodayCard({ currentWeekN, onOpenGame, onOpenVerses }) {
 
       <VoiceTutor week={week} compact />
 
-      <DailyGoals onOpenGame={onOpenGame} onOpenVerses={onOpenVerses} />
+      <DailyGoals key={goalsRev} onOpenGame={onOpenGame} onOpenVerses={onOpenVerses} />
 
       <button className="today-sched-toggle" onClick={() => setSchedOpen(v => !v)}>
         <UiText k="today.fullSchedule" />
@@ -345,9 +353,14 @@ export default function App() {
   // Last view visited per group, so returning to a group lands where you left.
   const [lastView, setLastView] = useState({});
   const group = GROUPS.find((g) => g.views.some((v) => v.id === activeTab)) || GROUPS[0];
-  const [flashcardsMode, setFlashcardsMode] = useState('anki');
-  const openView = (id) => {
+  const [flashcardsMode, setFlashcardsMode] = useState('practice');
+  // Set only by the Today card's Review button: Flashcards then opens straight
+  // into a session. Any other navigation clears it, so coming back to the tab
+  // later lands on the start screen as usual.
+  const [autoReview, setAutoReview] = useState(false);
+  const openView = (id, { review = false } = {}) => {
     setActiveTab(id);
+    setAutoReview(review);
     const g = GROUPS.find((x) => x.views.some((v) => v.id === id));
     if (g) setLastView((m) => ({ ...m, [g.id]: id }));
   };
@@ -452,6 +465,7 @@ export default function App() {
             currentWeekN={currentWeekN}
             onOpenGame={() => openView('Game')}
             onOpenVerses={() => { setFlashcardsMode('verses'); openView('Flashcards'); }}
+            onOpenReview={() => { setFlashcardsMode('practice'); openView('Flashcards', { review: true }); }}
           />
           <Achievements />
           <GuideSection />
@@ -468,7 +482,7 @@ export default function App() {
       )}
 
       {/* Tab: Flashcards */}
-      {activeTab === 'Flashcards' && <FlashcardsTab initialMode={flashcardsMode} />}
+      {activeTab === 'Flashcards' && <FlashcardsTab initialMode={flashcardsMode} autoStart={autoReview} />}
 
       {/* Tab: Game */}
       {activeTab === 'Game' && <GameTab />}

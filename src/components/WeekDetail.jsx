@@ -7,6 +7,7 @@ import { SpeakerButton } from './SpeakerButton';
 import { WordGloss } from './WordGloss';
 import { ReadingPassage } from './ReadingPassage';
 import { VoiceTutor } from './VoiceTutor';
+import { WeekLessons } from './LessonHub';
 import { VersePractice } from './VersePractice';
 import { Comprehension } from './Comprehension';
 import { Dictogloss } from './Dictogloss';
@@ -86,6 +87,8 @@ export function WeekDetail({ week }) {
 
   return (
     <div className="detail-panel">
+      {/* The guided path through the week: short lessons, one exercise at a time */}
+      <WeekLessons week={week} />
       {/* A guided spoken lesson over everything below */}
       <VoiceTutor week={week} />
       {/* Reading & comprehension (O2 / O5 / O4) */}

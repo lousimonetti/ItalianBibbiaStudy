@@ -316,6 +316,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **Interactive tutor + local Conversa (`plan-tutor.md`): built, real-mic testing outstanding.** Adaptive fading, line breakdowns, hints and spoken word questions live in `tutorEngine.js` (Swift twin pinned by `tutor.json`). On Ask, Recall and Focus a word question is checked *before* grading, because `matchesSpoken` would otherwise accept the answer inside the question. *Conversa* (`conversaEngine.js`, `Conversa.jsx`, Swift `ConversaEngine.swift` + `conversa.json`) is opt-in, ungraded and unsaved: web talks only to Ollama at a fixed localhost address (`ollamaClient.js`), with its setting in `coursekit-tutor-ai`, outside sync backups, and nothing contacts localhost before opt-in; iOS uses Apple's on-device model behind the `TutorAI` protocol. This adds no backend. *Perche?* explanations failed evaluation and are off. Re-test any new model with `scripts/tutor-ai-eval/` before enabling them.
 
+- **Guided lessons + Continue + smart review: built on web, not yet seen in a real browser.**
+  The "one button, be walked through it" container. `src/utils/lessonPlan.js` turns each
+  week into three deterministic lessons over data it already has: two word lessons (meet
+  the word, match pairs, pick the meaning, fill the blank, type it) with the grammar tip
+  and drills on the second, then *Il brano* (rebuild two verses by ear, comprehension,
+  transforms, a recap of the week's words). `LessonPlayer.jsx` shows one step at a time
+  with a verdict footer; a missed step returns once at the end and only first attempts
+  score. **Only typed answers reach the SRS** (`srsGrades`), and a word that is scheduled
+  and not yet due is left alone, so repeating a lesson cannot inflate intervals.
+  Completion lives in `storageKey('lessons')` (`lessonStore.js`); `nextAction` drives the
+  Today card's **Continue** button (`LessonHub.jsx`): current week's next lesson, else
+  the review when cards are due, else next week early. Practice gained a default
+  **Smart mix** style (`reviewMix.js`: recognition, then cloze, then recall as a card
+  matures), Flashcards now opens on Practice with Anki last, and Continue's Review opens
+  straight into a session (`autoStart`). **Open:** no iOS twin (the `lessons` key is
+  web-only), weeks do not tick themselves when their lessons finish, and
+  `config.schedule.daily` still says "Babbel lesson" / "Anki".
+
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
@@ -398,7 +416,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `usePronunStats` — pronunciation attempts under key `italian-bible-pronun` (per-word `{ attempts, last, best, sum, avg, at }`); `record(term, score)`, `getStore()`. Recorded by Pronunciation mode; combined with the SRS store by `src/utils/wordStats.js` (`struggleList`) to drive the Practice "Parole difficili / words you struggle with" panel.
 - `useStreak` — daily streak + today's-goal flags under key `italian-bible-streak`; React glue over pure `src/utils/streak.js` (`{ last, current, best, today: { date, read, practiced, journaled } }`). The dashboard reads it on mount (`TodayCard` remounts on tab switch, picking up activity recorded elsewhere); `recordActivity(flag)` is called fire-and-forget from `PracticeMode` (`'practiced'`) and `JournalTab` (`'journaled'`), and `tickRead` marks the reading box.
 
-All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`, `-verse-srs`, `-tutor`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
+All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`, `-verse-srs`, `-tutor`, `-lessons`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
@@ -652,7 +670,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **997 vitest tests across 76 files**, all passing.
+- **Tests:** `npm test` runs **1040 vitest tests across 80 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
