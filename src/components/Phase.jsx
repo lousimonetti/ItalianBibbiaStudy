@@ -37,6 +37,7 @@ export function Phase({ phase, checked, onToggle, currentWeekN }) {
             <span>Dates</span>
             <span>Reading</span>
             <span>{config.brand.topicLabel}</span>
+            <span>Lessons</span>
             <span />
           </div>
           {phase.weeks.map((week) => (

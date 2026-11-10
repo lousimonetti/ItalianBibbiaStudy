@@ -116,6 +116,12 @@ final class AppModel: ObservableObject {
     @Published private(set) var verseSrsStore: SRSStore = [:]
     /// Voice lesson records and resume point (`italian-bible-tutor`, web shape).
     @Published private(set) var tutorStore = TutorStore()
+    /// Finished guided lessons (`italian-bible-lessons`, web shape).
+    @Published private(set) var lessonStore = LessonStore()
+    /// Every week's lessons. Deterministic, so built once on first use.
+    lazy var lessonPlans: [WeekPlan] = course.allWeeks.map {
+        WeekPlan(weekN: $0.n, lessons: weekLessons($0, articles: articles))
+    }
 
     var articles: [String] { course.locale.articles }
     var ttsLanguage: String { course.locale.target }
@@ -143,6 +149,7 @@ final class AppModel: ObservableObject {
         rosaryState = WebStore.loadJSON("rosary", as: RosaryState.self) ?? RosaryState()
         verseSrsStore = WebStore.loadJSON("verse-srs", as: SRSStore.self) ?? [:]
         tutorStore = WebStore.loadJSON("tutor", as: TutorStore.self) ?? TutorStore()
+        lessonStore = WebStore.loadJSON("lessons", as: LessonStore.self) ?? LessonStore()
         ensureSessionStart()
     }
 
@@ -270,6 +277,45 @@ final class AppModel: ObservableObject {
         }
     }
 
+    // ── Guided lessons ───────────────────────────────────────────────────────
+    func lessons(forWeek n: Int) -> [Lesson] {
+        lessonPlans.first { $0.weekN == n }?.lessons ?? []
+    }
+
+    var vocabDue: Int {
+        srsStats(cards: course.allVocab, store: srsStore, now: Date().timeIntervalSince1970 * 1000).due
+    }
+
+    /// What the Continue button does next.
+    var nextLesson: LessonAction {
+        nextLessonAction(plans: lessonPlans, store: lessonStore, currentWeekN: currentWeekN, due: vocabDue)
+    }
+
+    /// Record a finished lesson: the words typed from memory go to the SRS,
+    /// the lesson is marked done, and the day counts as practiced. Returns
+    /// true when this was the lesson that completed its week — the week is
+    /// then ticked. Only a first completion can tick, so a week the learner
+    /// unticked by hand stays unticked when they repeat a lesson.
+    @discardableResult
+    func completeLesson(_ lesson: Lesson, run: LessonRun) -> Bool {
+        let now = Date().timeIntervalSince1970 * 1000
+        let grades = lessonSrsGrades(lesson, run: run, store: srsStore, now: now)
+        if !grades.isEmpty {
+            for g in grades { srsStore[g.term] = srsReview(srsStore[g.term], grade: g.grade, now: now) }
+            WebStore.saveJSON("srs", srsStore)
+        }
+        let firstTime = !lessonStore.isDone(lesson.key)
+        lessonStore = lessonStore.completing(lesson.key, pct: run.summary.pct, date: todayStr())
+        WebStore.saveJSON("lessons", lessonStore)
+        recordActivity(.practiced)
+
+        guard firstTime, lessonStore.isWeekComplete(lessons(forWeek: lesson.weekN)),
+              !isWeekDone(lesson.weekN) else { return false }
+        progress[String(lesson.weekN)] = true
+        WebStore.saveJSON("progress", progress)
+        return true
+    }
+
     // ── Streak ───────────────────────────────────────────────────────────────
     func recordActivity(_ flag: StreakFlag) {
         streak = setFlag(streak, flag: flag, today: todayStr())
@@ -315,6 +361,8 @@ final class AppModel: ObservableObject {
             WebStore.saveJSON("progress", progress)
             tutorStore = TutorStore()
             WebStore.saveString("tutor", nil)
+            lessonStore = LessonStore()
+            WebStore.saveString("lessons", nil)
         }
         if reset.streak { streak = StreakData(); WebStore.saveJSON("streak", streak) }
         if reset.srs {

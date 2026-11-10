@@ -19,6 +19,8 @@ struct WeekDetailView: View {
                     set: { _ in model.toggleWeek(week.n) }))
             }
 
+            WeekLessonsSection(week: week)
+
             VoiceTutorSection(week: week)
 
             if let passage = week.passage {

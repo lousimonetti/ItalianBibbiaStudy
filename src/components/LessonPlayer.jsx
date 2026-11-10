@@ -298,7 +298,7 @@ function StepBody({ step, value, setValue, verdict, onPick, onMatchDone }) {
   }
 }
 
-function Summary({ lesson, summary, onClose }) {
+function Summary({ lesson, summary, weekDone, onClose }) {
   const cheer = summary.pct >= 90 ? 'Perfetto!' : summary.pct >= 70 ? 'Bravo!' : 'Continua così!';
   return (
     <div className="lesson-summary">
@@ -309,6 +309,9 @@ function Summary({ lesson, summary, onClose }) {
       <div className="lesson-summary-sub">
         {summary.correct} of {summary.graded} right first time
       </div>
+      {weekDone && (
+        <div className="lesson-week-done">✓ Week {lesson.weekN} complete — every lesson finished</div>
+      )}
       {lesson.words.length > 0 && (
         <>
           <div className="lesson-summary-sub">These words are now in your review:</div>
@@ -327,11 +330,14 @@ function Summary({ lesson, summary, onClose }) {
 // One exercise on screen at a time, a progress bar, a verdict after each
 // answer, a summary at the end. All decisions live in lessonPlan.js; this
 // component collects a value per step and carries out what the run says.
-export function LessonPlayer({ lesson, onClose }) {
+// `onComplete(lesson, firstTime)` runs once the lesson is recorded; returning
+// true tells the summary that this finished the whole week.
+export function LessonPlayer({ lesson, onClose, onComplete }) {
   const [run, setRun] = useState(() => startRun(lesson));
   const [value, setValue] = useState(null);
   const [verdict, setVerdict] = useState(null);
   const [summary, setSummary] = useState(null);
+  const [weekDone, setWeekDone] = useState(false);
   const { recordReview, getStore } = useSrs();
   const { rate } = useAudioSpeed();
   const step = currentStep(run);
@@ -352,8 +358,9 @@ export function LessonPlayer({ lesson, onClose }) {
   function finish(finalRun) {
     const sum = summarize(finalRun);
     for (const { term, grade } of srsGrades(lesson, finalRun, getStore())) recordReview(term, grade);
-    recordLesson(lesson.key, sum.pct);
+    const store = recordLesson(lesson.key, sum.pct);
     recordActivity('practiced');
+    setWeekDone(!!onComplete?.(lesson, store.done[lesson.key]?.times === 1));
     setSummary(sum);
   }
 
@@ -422,7 +429,7 @@ export function LessonPlayer({ lesson, onClose }) {
       </div>
 
       {summary ? (
-        <div className="lesson-body"><Summary lesson={lesson} summary={summary} onClose={onClose} /></div>
+        <div className="lesson-body"><Summary lesson={lesson} summary={summary} weekDone={weekDone} onClose={onClose} /></div>
       ) : (
         <>
           <div className="lesson-body" key={run.index}>

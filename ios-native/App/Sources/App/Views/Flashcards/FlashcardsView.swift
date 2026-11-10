@@ -1,10 +1,13 @@
 import SwiftUI
 import BibbiaCore
 
-// Practice hub — SRS stats, style picker (Recognition / Recall / Cloze /
-// Listening), the "Parole difficili" struggle panel, and Pronunciation.
+// Practice hub — SRS stats, style picker (Smart mix / Recognition / Recall /
+// Cloze / Listening), the "Parole difficili" struggle panel, and Pronunciation.
 
 enum PracticeStyle: String, CaseIterable, Identifiable {
+    /// Picks the exercise per card from how well it is known (BibbiaCore
+    /// `reviewStyle`): recognition, then cloze, then recall as it matures.
+    case mixed = "Smart mix"
     case recognition = "Recognition"
     case recall = "Recall"
     case cloze = "Cloze"
@@ -14,6 +17,7 @@ enum PracticeStyle: String, CaseIterable, Identifiable {
 
     var subtitle: String {
         switch self {
+        case .mixed: return "Picks the exercise for each card"
         case .recognition: return "IT → EN · flip the card"
         case .recall: return "EN → IT · type it"
         case .cloze: return "Fill the blank in the sentence"
@@ -27,7 +31,7 @@ struct FlashcardsView: View {
     // StartPracticeIntent sets a one-shot trigger here rather than calling into
     // the view; we consume and clear it (see Intents/AppRoute.swift).
     @EnvironmentObject private var route: AppRoute
-    @State private var style: PracticeStyle = .recognition
+    @State private var style: PracticeStyle = .mixed
     @State private var session: [VocabCard]?
 
     private var cards: [VocabCard] { model.course.allVocab }
@@ -54,12 +58,13 @@ struct FlashcardsView: View {
                 }
 
                 Section("Practice style") {
+                    // Five styles do not fit a segmented control on a phone.
                     Picker("Style", selection: $style) {
                         ForEach(PracticeStyle.allCases) { s in
                             Text(s.rawValue).tag(s)
                         }
                     }
-                    .pickerStyle(.segmented)
+                    .pickerStyle(.menu)
                     Text(style.subtitle)
                         .font(.caption)
                         .foregroundStyle(.secondary)

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { WeekDetail } from './WeekDetail';
 import { weekDateLabel } from '../utils/schedule';
+import { WeekStatus, WeekLessonPath } from './LessonHub';
 
 function ChevronIcon({ open }) {
   return (
@@ -14,22 +15,10 @@ function ChevronIcon({ open }) {
 export function WeekRow({ week, checked, onToggle, isCurrent }) {
   const [expanded, setExpanded] = useState(isCurrent);
 
-  const handleCheckbox = (e) => {
-    e.stopPropagation();
-    onToggle(week.n);
-  };
-
   return (
     <div id={`week-${week.n}`} className={`week-row${checked ? ' done' : ''}${isCurrent ? ' week-row--current' : ''}`}>
       <div className="week-main" onClick={() => setExpanded((v) => !v)}>
-        <label className="week-check-wrap" onClick={e => e.stopPropagation()}>
-          <input
-            type="checkbox"
-            checked={!!checked}
-            onChange={handleCheckbox}
-            aria-label={`Mark week ${week.n} complete`}
-          />
-        </label>
+        <WeekStatus weekN={week.n} checked={!!checked} />
         <div className="week-date">{weekDateLabel(week)}</div>
         <div className="week-reading">
           {week.r}
@@ -37,12 +26,13 @@ export function WeekRow({ week, checked, onToggle, isCurrent }) {
           {week.review && <span className="review-flag">iTalki</span>}
         </div>
         <div className="week-babbel">{week.b}</div>
+        <WeekLessonPath weekN={week.n} />
         <div className="expand-btn">
           <ChevronIcon open={expanded} />
         </div>
       </div>
 
-      {expanded && <WeekDetail week={week} />}
+      {expanded && <WeekDetail week={week} checked={checked} onToggle={onToggle} />}
     </div>
   );
 }

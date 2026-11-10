@@ -6,7 +6,7 @@ import { loadLessons } from '../utils/lessonStore';
 import { loadStreak, todayFlags } from '../utils/streak';
 import { storageKey } from '../utils/storageKey';
 import { LessonPlayer } from './LessonPlayer';
-import { ContinueCard, WeekLessons } from './LessonHub';
+import { ContinueCard, WeekLessons, WeekLessonPath, WeekStatus } from './LessonHub';
 
 const WEEK1 = PHASES[0].weeks[0];
 const LESSON = weekLessons(WEEK1)[0];
@@ -172,5 +172,85 @@ describe('WeekLessons', () => {
     expect(screen.getByRole('button', { name: /Repeat lesson 1/ })).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: /Start lesson 2/ }));
     expect(document.querySelector('.lesson-overlay')).toBeTruthy();
+  });
+});
+
+describe('finishing a week', () => {
+  const progress = () => JSON.parse(localStorage.getItem(storageKey('progress')) || '{}');
+  const preDone = (...keys) => localStorage.setItem(storageKey('lessons'), JSON.stringify({
+    done: Object.fromEntries(keys.map((k) => [k, { date: '2026-01-01', pct: 100, times: 1 }])),
+  }));
+  const playLesson3 = () => {
+    render(<WeekLessons week={WEEK1} />);
+    const passage = weekLessons(WEEK1).at(-1);
+    fireEvent.click(screen.getByRole('button', { name: /lesson 3/ }));
+    for (const step of passage.steps) {
+      if (step.kind === 'tf') {
+        fireEvent.click(screen.getByRole('button', { name: step.answer ? 'Vero' : 'Falso' }));
+        fireEvent.click(primary());
+      } else if (step.kind === 'mc') {
+        fireEvent.click(screen.getByRole('button', { name: step.options[step.answer] }));
+        fireEvent.click(primary());
+      } else answer(step);
+    }
+  };
+
+  it('ticks the week when its last lesson is finished', () => {
+    preDone('1.1', '1.2');
+    playLesson3();
+    expect(screen.getByText(/Week 1 complete/)).toBeTruthy();
+    expect(progress()).toEqual({ 1: true });
+    expect(screen.getByText('3 / 3 done')).toBeTruthy();
+  });
+
+  it('does not tick a week with lessons still open', () => {
+    preDone('1.1');
+    playLesson3();
+    expect(screen.queryByText(/Week 1 complete/)).toBeNull();
+    expect(progress()).toEqual({});
+  });
+
+  it('repeating a lesson does not re-tick a week the learner unticked', () => {
+    preDone('1.1', '1.2', '1.3');
+    localStorage.setItem(storageKey('progress'), JSON.stringify({ 1: false }));
+    playLesson3();
+    expect(progress()).toEqual({ 1: false });
+  });
+});
+
+describe('the path on a week row', () => {
+  const setDone = (...keys) => localStorage.setItem(storageKey('lessons'), JSON.stringify({
+    done: Object.fromEntries(keys.map((k) => [k, { date: '2026-01-01', pct: 100, times: 1 }])),
+  }));
+
+  it('shows one node per lesson, ticked when finished, and opens the lesson tapped', () => {
+    setDone('1.1');
+    render(<WeekLessonPath weekN={1} />);
+    const nodes = screen.getAllByRole('button');
+    expect(nodes.map((n) => n.textContent)).toEqual(['✓', '2', '3']);
+    fireEvent.click(screen.getByRole('button', { name: /Week 1, lesson 2/ }));
+    expect(screen.getByRole('dialog').getAttribute('aria-label')).toContain(weekLessons(WEEK1)[1].title);
+  });
+
+  it('a tap on a node does not reach the row behind it', () => {
+    const onRow = vi.fn();
+    render(<div onClick={onRow}><WeekLessonPath weekN={1} /></div>);
+    fireEvent.click(screen.getByRole('button', { name: /Week 1, lesson 1/ }));
+    expect(onRow).not.toHaveBeenCalled();
+  });
+
+  it('the status mark reports lessons done, then the completed week', () => {
+    setDone('1.1', '1.2');
+    const { rerender } = render(<WeekStatus weekN={1} checked={false} />);
+    expect(screen.getByRole('img').getAttribute('aria-label')).toBe('Week 1: 2 of 3 lessons done');
+    rerender(<WeekStatus weekN={1} checked />);
+    expect(screen.getByRole('img').getAttribute('aria-label')).toBe('Week 1 complete');
+  });
+
+  it('the open week keeps a manual override', () => {
+    const onToggle = vi.fn();
+    render(<WeekLessons week={WEEK1} checked={false} onToggle={onToggle} />);
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Mark week 1 complete' }));
+    expect(onToggle).toHaveBeenCalledWith(1);
   });
 });

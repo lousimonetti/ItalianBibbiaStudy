@@ -17,6 +17,7 @@ import { SpokenQA } from './SpokenQA';
 import { PhraseList } from './PhraseList';
 import { UiText } from '../i18n/UiText';
 import { HAS_IPA } from '../utils/locale';
+import { weekDayLabels } from '../utils/schedule';
 
 const ALL_WEEKS = PHASES.flatMap((p) => p.weeks);
 
@@ -81,23 +82,22 @@ function RecycledPanel({ words }) {
   );
 }
 
-export function WeekDetail({ week }) {
+export function WeekDetail({ week, checked, onToggle }) {
   const [ipaOpen, setIpaOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  // The days this week actually falls on — a session that starts midweek
+  // reads Wed…Tue, not the authored Mon–Sun.
+  const dayLabels = weekDayLabels(week.n);
   const recycled = recycledWords(week, ALL_WEEKS);
 
   return (
     <div className="detail-panel">
       {/* The guided path through the week: short lessons, one exercise at a time */}
-      <WeekLessons week={week} />
+      <WeekLessons week={week} checked={checked} onToggle={onToggle} />
       {/* A guided spoken lesson over everything below */}
       <VoiceTutor week={week} />
       {/* Reading & comprehension (O2 / O5 / O4) */}
       <ReadingPassage week={week} />
-      <VersePractice week={week} />
-      <Comprehension week={week} />
-      <Dictogloss week={week} />
-      {/* Spoken Q&A about the reading (S3) */}
-      <SpokenQA week={week} />
 
       <div className="detail-grid">
         {/* Vocabulary */}
@@ -162,9 +162,6 @@ export function WeekDetail({ week }) {
               <div className="grammar-title">{week.grammar.title}</div>
               {week.grammar.body}
             </div>
-            {/* Grammar drill (O3) + transformation drill (S2) */}
-            <GrammarDrill week={week} />
-            <TransformDrill week={week} />
           </div>
 
           {/* Writing prompt */}
@@ -181,6 +178,36 @@ export function WeekDetail({ week }) {
       {/* Fixed phrases (S1) */}
       <PhraseList week={week} />
 
+      {/* The standalone exercises. The lessons above already walk through the
+          drills, comprehension checks and verse rebuilds, so these are folded
+          away as extra practice rather than stacked as a wall. */}
+      <div className="more-practice">
+        <button
+          className="more-practice-toggle"
+          aria-expanded={moreOpen}
+          onClick={() => setMoreOpen((v) => !v)}
+        >
+          <span>More practice</span>
+          <span className="more-practice-sub">verses · comprehension · dictation · speaking · drills</span>
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"
+            style={{ transform: moreOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s', marginLeft: 'auto' }}>
+            <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+        {moreOpen && (
+          <div className="more-practice-body">
+            <VersePractice week={week} />
+            <Comprehension week={week} />
+            <Dictogloss week={week} />
+            {/* Spoken Q&A about the reading (S3) */}
+            <SpokenQA week={week} />
+            {/* Grammar drill (O3) + transformation drill (S2) */}
+            <GrammarDrill week={week} />
+            <TransformDrill week={week} />
+          </div>
+        )}
+      </div>
+
       {/* Passage note — grammar as exegesis */}
       <ExegesisPanel exegesis={week.exegesis} />
 
@@ -188,9 +215,9 @@ export function WeekDetail({ week }) {
       <div className="detail-section" style={{ marginTop: 14 }}>
         <div className="detail-label"><UiText k="detail.schedule" /></div>
         <div className="daily-box">
-          {DAILY.map(({ day, task }) => (
+          {DAILY.map(({ day, task }, i) => (
             <div className="daily-row" key={day}>
-              <span className="daily-day">{day}</span>
+              <span className="daily-day">{dayLabels[i]}</span>
               <span className="daily-task">{task}</span>
             </div>
           ))}

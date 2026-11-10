@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { PHASES } from '../data/studyData';
 import { buildCards } from '../../course/vocab';
 import { weekLessons } from '../utils/lessonPlan';
-import { loadLessons, isDone, weekProgress, nextAction } from '../utils/lessonStore';
+import { loadLessons, isDone, isWeekComplete, weekProgress, nextAction } from '../utils/lessonStore';
+import { useLessonStore } from '../hooks/useLessonStore';
+import { markWeekDone } from '../hooks/useProgress';
 import { useSrs } from '../hooks/useSrs';
 import { LessonPlayer } from './LessonPlayer';
 import { UiText } from '../i18n/UiText';
@@ -12,6 +14,77 @@ const ALL_CARDS = buildCards(PHASES);
 // Lessons are deterministic, so the whole course's plan is built once.
 const PLANS = ALL_WEEKS.map((week) => ({ weekN: week.n, lessons: weekLessons(week) }));
 const lessonsFor = (weekN) => PLANS.find((p) => p.weekN === weekN)?.lessons || [];
+
+// Finishing the last unfinished lesson of a week ticks the week. Only a first
+// completion can do it, so a week the learner unticked by hand stays unticked
+// when they repeat a lesson.
+function completeWeekIfDone(lesson, firstTime) {
+  if (!firstTime || !isWeekComplete(loadLessons(), lessonsFor(lesson.weekN))) return false;
+  markWeekDone(lesson.weekN);
+  return true;
+}
+
+// The leading mark on a week row: an empty ring, a ring filled in proportion
+// to the lessons done, or a tick once the week is complete. It reports; the
+// lessons are what get done. (The manual override lives in the open week.)
+export function WeekStatus({ weekN, checked }) {
+  const store = useLessonStore();
+  const { done, total } = weekProgress(store, lessonsFor(weekN));
+  const R = 8;
+  const C = 2 * Math.PI * R;
+  const label = checked ? `Week ${weekN} complete` : `Week ${weekN}: ${done} of ${total} lessons done`;
+  return (
+    <span className={`week-status${checked ? ' complete' : ''}`} role="img" aria-label={label} title={label}>
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+        <circle className="week-status-track" cx="11" cy="11" r={R} fill="none" strokeWidth="2.5" />
+        {checked ? (
+          <>
+            <circle className="week-status-full" cx="11" cy="11" r={R + 1.25} />
+            <path d="M7 11.2l2.7 2.7 5.3-5.6" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </>
+        ) : total > 0 && done > 0 && (
+          <circle
+            className="week-status-arc"
+            cx="11" cy="11" r={R} fill="none" strokeWidth="2.5" strokeLinecap="round"
+            strokeDasharray={`${(done / total) * C} ${C}`}
+            transform="rotate(-90 11 11)"
+          />
+        )}
+      </svg>
+    </span>
+  );
+}
+
+// The week's lessons as a short path of nodes on its row: 1 — 2 — 3, each one
+// a button that opens that lesson, filled in once it is finished.
+export function WeekLessonPath({ weekN }) {
+  const store = useLessonStore();
+  const [active, setActive] = useState(null);
+  const lessons = lessonsFor(weekN);
+  if (!lessons.length) return null;
+  return (
+    // Clicks stay here: the row behind it toggles the week open.
+    <span className="week-path" onClick={(e) => e.stopPropagation()}>
+      {lessons.map((lesson, i) => {
+        const finished = isDone(store, lesson.key);
+        return (
+          <span key={lesson.key} className="week-path-item">
+            {i > 0 && <span className={`week-path-link${finished ? ' done' : ''}`} aria-hidden="true" />}
+            <button
+              className={`week-path-node${finished ? ' done' : ''}`}
+              onClick={() => setActive(lesson)}
+              title={`${lesson.title} — ${lesson.sub}`}
+              aria-label={`Week ${weekN}, lesson ${lesson.n}: ${lesson.title}${finished ? ' (done — repeat)' : ''}`}
+            >
+              {finished ? '✓' : lesson.n}
+            </button>
+          </span>
+        );
+      })}
+      {active && <LessonPlayer lesson={active} onClose={() => setActive(null)} onComplete={completeWeekIfDone} />}
+    </span>
+  );
+}
 
 function PlayIcon() {
   return (
@@ -76,13 +149,12 @@ function ContinueInner({ currentWeekN, store, onStart, onOpenReview }) {
 
 // The Today card's primary action: one button that always knows what is next.
 export function ContinueCard({ currentWeekN, onOpenReview, onChange }) {
-  const [store, setStore] = useState(loadLessons);
+  const store = useLessonStore();
   const [active, setActive] = useState(null);
   const [rev, setRev] = useState(0);
 
   function close() {
     setActive(null);
-    setStore(loadLessons());
     setRev((r) => r + 1);
     onChange?.();
   }
@@ -96,14 +168,14 @@ export function ContinueCard({ currentWeekN, onOpenReview, onChange }) {
         onStart={setActive}
         onOpenReview={onOpenReview}
       />
-      {active && <LessonPlayer lesson={active} onClose={close} />}
+      {active && <LessonPlayer lesson={active} onClose={close} onComplete={completeWeekIfDone} />}
     </>
   );
 }
 
 // A week's lessons, each startable (or repeatable) on its own.
-export function WeekLessons({ week }) {
-  const [store, setStore] = useState(loadLessons);
+export function WeekLessons({ week, checked, onToggle }) {
+  const store = useLessonStore();
   const [active, setActive] = useState(null);
   const lessons = lessonsFor(week.n);
   if (!lessons.length) return null;
@@ -114,6 +186,19 @@ export function WeekLessons({ week }) {
       <div className="week-lessons-head">
         <span className="detail-label">Lessons</span>
         <span className="week-lessons-count">{done} / {total} done</span>
+        {/* The week ticks itself when its lessons are finished; this is the
+            override for a week done some other way (or ticked by mistake). */}
+        {onToggle && (
+          <label className="week-lessons-override">
+            <input
+              type="checkbox"
+              checked={!!checked}
+              onChange={() => onToggle(week.n)}
+              aria-label={`Mark week ${week.n} complete`}
+            />
+            Week complete
+          </label>
+        )}
       </div>
       {lessons.map((lesson) => {
         const finished = isDone(store, lesson.key);
@@ -135,10 +220,7 @@ export function WeekLessons({ week }) {
         );
       })}
       {active && (
-        <LessonPlayer
-          lesson={active}
-          onClose={() => { setActive(null); setStore(loadLessons()); }}
-        />
+        <LessonPlayer lesson={active} onClose={() => setActive(null)} onComplete={completeWeekIfDone} />
       )}
     </div>
   );
