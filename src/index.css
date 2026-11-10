@@ -883,7 +883,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 
 .col-header {
   display: grid;
-  grid-template-columns: 22px 96px 1fr 1fr 20px;
+  grid-template-columns: 22px 96px 1fr 1fr 124px 20px;
   gap: 10px;
   padding: 8px 16px;
   font-size: 11px;
@@ -897,7 +897,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 
 .week-main {
   display: grid;
-  grid-template-columns: 36px 96px 1fr 1fr 24px;
+  grid-template-columns: 22px 96px 1fr 1fr 124px 20px;
   gap: 10px;
   align-items: center;
   padding: 10px 16px;
@@ -1111,7 +1111,7 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
   .header-text h1 { font-size: 22px; }
 
   .col-header,
-  .week-main { grid-template-columns: 36px 1fr 24px; }
+  .week-main { grid-template-columns: 22px 1fr 110px 20px; }
   .col-header span:nth-child(2),
   .col-header span:nth-child(4) { display: none; }
   .week-date { display: none; }
@@ -4549,3 +4549,69 @@ html.dark {
 .lesson-summary-sub { font-size: 14px; color: var(--text-muted); }
 .lesson-summary-words { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 14px; }
 .lesson-summary .lesson-primary { margin-top: 10px; }
+.lesson-week-done { margin-top: 4px; font-size: 15px; font-weight: 700; color: var(--accent); }
+
+/* Week row: status ring + the lesson path */
+.week-status { display: flex; align-items: center; justify-content: center; }
+.week-status-track { stroke: var(--border); }
+.week-status-arc { stroke: var(--accent); }
+.week-status-full { fill: #008C45; }
+.week-path { display: inline-flex; align-items: center; cursor: default; }
+.week-path-item { display: inline-flex; align-items: center; }
+.week-path-link { width: 10px; height: 2px; background: var(--border); }
+.week-path-link.done { background: var(--accent); }
+.week-path-node {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.week-path-node:hover { border-color: var(--accent); color: var(--accent); }
+.week-path-node.done { color: #fff; background: #008C45; border-color: #008C45; }
+@media (pointer: coarse) {
+  .week-path-node { width: 34px; height: 34px; font-size: 13px; }
+}
+@media (max-width: 600px) {
+  .week-path-node { width: 30px; height: 30px; }
+  .week-path-link { width: 8px; }
+}
+.week-lessons-override {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.week-lessons-override input { accent-color: var(--accent); width: 15px; height: 15px; }
+.week-lessons-head { justify-content: flex-start; gap: 10px; }
+.week-lessons-head .week-lessons-count { margin-left: auto; }
+
+/* "More practice": the week's standalone exercises, folded away under the lessons */
+.more-practice { margin-top: 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.more-practice-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--text);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.more-practice-sub { font-size: 12px; font-weight: 400; color: var(--text-muted); }
+.more-practice-body { padding: 4px 12px 12px; display: flex; flex-direction: column; gap: 10px; }

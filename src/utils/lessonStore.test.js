@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import {
-  STORAGE_KEY, loadLessons, completeLesson, recordLesson, isDone, weekProgress, nextAction,
+  STORAGE_KEY, loadLessons, completeLesson, recordLesson, isDone, isWeekComplete, weekProgress, nextAction,
 } from './lessonStore';
 
 const plan = (weekN, count) => ({
@@ -31,6 +31,12 @@ describe('lesson store', () => {
     let s = completeLesson({ done: {} }, '1.1', 90, '2026-01-01');
     s = completeLesson(s, '1.1', 60, '2026-02-02');
     expect(s.done['1.1']).toEqual({ date: '2026-01-01', pct: 90, times: 2 });
+  });
+
+  it('a week is complete only when it has lessons and all are done', () => {
+    expect(isWeekComplete(doneStore('1.1', '1.2'), PLANS[0].lessons)).toBe(false);
+    expect(isWeekComplete(doneStore('1.1', '1.2', '1.3'), PLANS[0].lessons)).toBe(true);
+    expect(isWeekComplete(doneStore(), [])).toBe(false);
   });
 
   it('weekProgress counts finished lessons', () => {

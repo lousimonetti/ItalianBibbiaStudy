@@ -41,12 +41,12 @@ export const config = {
     startDate: '2026-04-13', // program start (local date)
     weeks: 37,               // total weeks — change this (and content.js) for an N-week course
     daily: [
-      { day: 'Mon', task: 'Babbel lesson + audio listen (no looking up)' },
-      { day: 'Tue', task: 'Read chapters with parallel text + Anki new words' },
+      { day: 'Mon', task: 'Lesson 1 — new words (press Continue) + listen to the passage audio, no looking up' },
+      { day: 'Tue', task: 'Read the chapters with parallel text + Lesson 2 — new words and grammar' },
       { day: 'Wed', task: "Re-read + write 3–5 sentences in Italian using this week's prompt → Journal tab" },
-      { day: 'Thu', task: 'Babbel lesson + full Anki review deck' },
-      { day: 'Fri', task: 'Read next chapter(s) + add vocab + write 2–3 more Italian sentences' },
-      { day: 'Sat', task: 'Anki review + listen to full passage audio again' },
+      { day: 'Thu', task: 'Lesson 3 — the passage + review your due cards' },
+      { day: 'Fri', task: 'Read next chapter(s) + write 2–3 more Italian sentences' },
+      { day: 'Sat', task: 'Review due cards + listen to the full passage audio again' },
       { day: 'Sun', task: 'Rest — or write a short journal entry in Italian' },
     ],
   },

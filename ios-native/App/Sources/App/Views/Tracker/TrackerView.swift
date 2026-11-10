@@ -67,15 +67,9 @@ private struct WeekRow: View {
         #endif
         NavigationLink(value: week.n) {
             HStack(spacing: 12) {
-                Button {
-                    model.toggleWeek(week.n)
-                } label: {
-                    Image(systemName: model.isWeekDone(week.n)
-                          ? "checkmark.circle.fill" : "circle")
-                        .foregroundStyle(model.isWeekDone(week.n) ? Color.accentColor : .secondary)
-                        .imageScale(.large)
-                }
-                .buttonStyle(.plain)
+                // Reports lesson progress; the week ticks itself when its
+                // lessons are done. The manual toggle is in the week detail.
+                WeekStatusRing(weekN: week.n)
 
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 6) {
@@ -102,6 +96,8 @@ private struct WeekRow: View {
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                 }
+                Spacer(minLength: 4)
+                WeekLessonPath(weekN: week.n)
             }
         }
     }

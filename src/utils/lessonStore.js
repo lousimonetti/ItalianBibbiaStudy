@@ -31,10 +31,15 @@ export function completeLesson(store, key, pct, date = todayStr()) {
   return { ...(store || empty()), done: { ...(store?.done || {}), [key]: entry } };
 }
 
+// Fired on window after every write, so open views (week rows, the Continue
+// card) can re-read without being threaded a callback.
+export const LESSONS_EVENT = 'coursekit:lessons';
+
 export function recordLesson(key, pct) {
   const next = completeLesson(loadLessons(), key, pct);
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    window.dispatchEvent(new Event(LESSONS_EVENT));
   } catch {
     // storage unavailable — degrade silently
   }
@@ -42,6 +47,11 @@ export function recordLesson(key, pct) {
 }
 
 export const isDone = (store, key) => !!store?.done?.[key];
+
+// True when the week has lessons and every one of them is finished.
+export function isWeekComplete(store, lessons) {
+  return lessons.length > 0 && lessons.every((l) => isDone(store, l.key));
+}
 
 export function weekProgress(store, lessons) {
   return { done: lessons.filter((l) => isDone(store, l.key)).length, total: lessons.length };

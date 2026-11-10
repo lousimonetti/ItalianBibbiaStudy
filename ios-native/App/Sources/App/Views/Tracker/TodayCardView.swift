@@ -1,8 +1,9 @@
 import SwiftUI
 import BibbiaCore
 
-// The "Today" card — streak flame, the 3-item daily checklist
-// (read · practice · write), and a jump to the current week.
+// The "Today" card — streak flame, the Continue button (next lesson or the
+// review), the 3-item daily checklist (read · practice · write), and a jump
+// to the current week.
 
 struct TodayCardView: View {
     @EnvironmentObject private var model: AppModel
@@ -31,6 +32,8 @@ struct TodayCardView: View {
                         .foregroundStyle(.secondary)
                 }
             }
+
+            ContinueCard()
 
             let flags = model.flagsToday
             HStack(spacing: 14) {

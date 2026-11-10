@@ -316,23 +316,41 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **Interactive tutor + local Conversa (`plan-tutor.md`): built, real-mic testing outstanding.** Adaptive fading, line breakdowns, hints and spoken word questions live in `tutorEngine.js` (Swift twin pinned by `tutor.json`). On Ask, Recall and Focus a word question is checked *before* grading, because `matchesSpoken` would otherwise accept the answer inside the question. *Conversa* (`conversaEngine.js`, `Conversa.jsx`, Swift `ConversaEngine.swift` + `conversa.json`) is opt-in, ungraded and unsaved: web talks only to Ollama at a fixed localhost address (`ollamaClient.js`), with its setting in `coursekit-tutor-ai`, outside sync backups, and nothing contacts localhost before opt-in; iOS uses Apple's on-device model behind the `TutorAI` protocol. This adds no backend. *Perche?* explanations failed evaluation and are off. Re-test any new model with `scripts/tutor-ai-eval/` before enabling them.
 
-- **Guided lessons + Continue + smart review: built on web, not yet seen in a real browser.**
-  The "one button, be walked through it" container. `src/utils/lessonPlan.js` turns each
-  week into three deterministic lessons over data it already has: two word lessons (meet
-  the word, match pairs, pick the meaning, fill the blank, type it) with the grammar tip
-  and drills on the second, then *Il brano* (rebuild two verses by ear, comprehension,
-  transforms, a recap of the week's words). `LessonPlayer.jsx` shows one step at a time
-  with a verdict footer; a missed step returns once at the end and only first attempts
-  score. **Only typed answers reach the SRS** (`srsGrades`), and a word that is scheduled
-  and not yet due is left alone, so repeating a lesson cannot inflate intervals.
-  Completion lives in `storageKey('lessons')` (`lessonStore.js`); `nextAction` drives the
-  Today card's **Continue** button (`LessonHub.jsx`): current week's next lesson, else
-  the review when cards are due, else next week early. Practice gained a default
-  **Smart mix** style (`reviewMix.js`: recognition, then cloze, then recall as a card
-  matures), Flashcards now opens on Practice with Anki last, and Continue's Review opens
-  straight into a session (`autoStart`). **Open:** no iOS twin (the `lessons` key is
-  web-only), weeks do not tick themselves when their lessons finish, and
-  `config.schedule.daily` still says "Babbel lesson" / "Anki".
+- **Guided lessons + Continue + smart review: built on web + iOS; the player itself has
+  not been exercised by hand on either.** The "one button, be walked through it"
+  container. `src/utils/lessonPlan.js` turns each week into three deterministic lessons
+  over data it already has: two word lessons (meet the word, match pairs, pick the
+  meaning, fill the blank, type it) with the grammar tip and drills on the second, then
+  *Il brano* (rebuild two verses by ear, comprehension, transforms, a recap of the week's
+  words). `LessonPlayer.jsx` shows one step at a time with a verdict footer; a missed step
+  returns once at the end and only first attempts score. **Only typed answers reach the
+  SRS** (`srsGrades`), and a word that is scheduled and not yet due is left alone, so
+  repeating a lesson cannot inflate intervals. Completion lives in `storageKey('lessons')`
+  (`lessonStore.js`, cleared with progress by New Session); `nextAction` drives the Today
+  card's **Continue** button (`LessonHub.jsx`): current week's next lesson, else the
+  review when cards are due, else next week early. **Finishing a week's last lesson ticks
+  the week** (`markWeekDone` in `useProgress.js`; first completions only, so a week
+  unticked by hand stays unticked on a repeat). **Each week row is a path**: a status
+  ring (lessons done, then a tick) and one tappable node per lesson that opens it; the
+  row checkbox is gone, and the manual "Week complete" override sits in the open week. Practice gained a default **Smart mix** style (`reviewMix.js`: recognition,
+  then cloze, then recall as a card matures), Flashcards opens on Practice with Anki
+  last, and Continue's Review opens straight into a session (`autoStart`). The week's
+  standalone exercises are folded under **More practice** in `WeekDetail`, and
+  `config.schedule.daily` now points at the in-app lessons and review.
+  **iOS twin:** `BibbiaCore/Lessons.swift` ports the plan, the run, the store, the
+  Continue decision and the smart mix, plus three helpers that had no Swift twin (the
+  seeded PRNG from `gameRandom.js`, `scramble.js`, and the strict `checkDrill` /
+  `checkTransform`). The plan is seeded, so the port must draw random numbers in the
+  same order as the JS: `lessons.json` records every step of every week from the real
+  JS and `LessonsTests.swift` compares them, so **a change to `lessonPlan.js` must be
+  mirrored in `Lessons.swift`** (and the fixture regenerated). App side:
+  `Views/Lessons/LessonPlayerView.swift` and `LessonHubViews.swift` (Continue card on
+  the Today card, *Lezioni* section in the week, status ring + lesson nodes on the week
+  rows);
+  `AppModel.completeLesson` writes the same `lessons` / `srs` / `progress` keys as the
+  web, so finished lessons ride backups both ways. **Open:** the `resources` list in
+  the course config still presents Babbel and Anki as companion tools, and
+  `ios-native/design/figma-mockups.html` does not show the new screens.
 
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
@@ -553,7 +571,7 @@ full Xcode instead — no `sudo`, no `xcode-select -s`:
 
 ```bash
 DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer \
-  swift test --package-path ios-native/BibbiaCore   # 201 tests
+  swift test --package-path ios-native/BibbiaCore   # 212 tests
 ```
 
 (The CLAUDE.md note that Swift "can't run in this sandbox" is about *remote*
@@ -670,7 +688,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **1040 vitest tests across 80 files**, all passing.
+- **Tests:** `npm test` runs **1048 vitest tests across 80 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,

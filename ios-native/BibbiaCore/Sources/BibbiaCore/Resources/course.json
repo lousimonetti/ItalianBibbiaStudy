@@ -32,11 +32,11 @@
   "daily": [
    {
     "day": "Mon",
-    "task": "Babbel lesson + audio listen (no looking up)"
+    "task": "Lesson 1 — new words (press Continue) + listen to the passage audio, no looking up"
    },
    {
     "day": "Tue",
-    "task": "Read chapters with parallel text + Anki new words"
+    "task": "Read the chapters with parallel text + Lesson 2 — new words and grammar"
    },
    {
     "day": "Wed",
@@ -44,15 +44,15 @@
    },
    {
     "day": "Thu",
-    "task": "Babbel lesson + full Anki review deck"
+    "task": "Lesson 3 — the passage + review your due cards"
    },
    {
     "day": "Fri",
-    "task": "Read next chapter(s) + add vocab + write 2–3 more Italian sentences"
+    "task": "Read next chapter(s) + write 2–3 more Italian sentences"
    },
    {
     "day": "Sat",
-    "task": "Anki review + listen to full passage audio again"
+    "task": "Review due cards + listen to the full passage audio again"
    },
    {
     "day": "Sun",

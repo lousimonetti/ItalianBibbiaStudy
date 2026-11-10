@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { storageKey } from '../utils/storageKey';
 
 const STORAGE_KEY = storageKey('progress');
@@ -20,8 +20,31 @@ function saveToStorage(data) {
   }
 }
 
+// Fired on window when a week is ticked from outside the hook.
+const PROGRESS_EVENT = 'coursekit:progress';
+
+// Tick a week from anywhere (finishing its last lesson does this). Sets, never
+// toggles — returns false when the week was already done.
+export function markWeekDone(weekNum) {
+  const data = loadFromStorage();
+  if (data[weekNum]) return false;
+  saveToStorage({ ...data, [weekNum]: true });
+  try {
+    window.dispatchEvent(new Event(PROGRESS_EVENT));
+  } catch {
+    // no window — nothing is listening
+  }
+  return true;
+}
+
 export function useProgress(total) {
   const [checked, setChecked] = useState(loadFromStorage);
+
+  useEffect(() => {
+    const reload = () => setChecked(loadFromStorage());
+    window.addEventListener(PROGRESS_EVENT, reload);
+    return () => window.removeEventListener(PROGRESS_EVENT, reload);
+  }, []);
 
   const toggle = useCallback((weekNum) => {
     setChecked((prev) => {

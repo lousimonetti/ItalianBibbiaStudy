@@ -19,8 +19,16 @@ struct PracticeSessionView: View {
     @State private var done = 0
     @State private var missed = Set<String>()
 
+    /// Smart mix only: the exercise chosen for each card when the session
+    /// opened. Fixed for the session, so a card that comes back after
+    /// "Still learning" is not suddenly a different exercise.
+    @State private var mixed: [String: PracticeStyle] = [:]
+
     private var card: VocabCard? { queue.first }
-    private var style: PracticeStyle { payload.style }
+    private var style: PracticeStyle {
+        guard payload.style == .mixed else { return payload.style }
+        return card.flatMap { mixed[$0.it] } ?? .recognition
+    }
 
     var body: some View {
         NavigationStack {
@@ -38,7 +46,17 @@ struct PracticeSessionView: View {
                     Button("Close") { dismiss() }
                 }
             }
-            .onAppear { queue = payload.cards }
+            .onAppear {
+                queue = payload.cards
+                guard payload.style == .mixed else { return }
+                for card in payload.cards {
+                    switch reviewStyle(for: card, state: model.srsStore[card.it], articles: model.articles) {
+                    case .recognition: mixed[card.it] = .recognition
+                    case .cloze: mixed[card.it] = .cloze
+                    case .recall: mixed[card.it] = .recall
+                    }
+                }
+            }
         }
     }
 
@@ -48,7 +66,7 @@ struct PracticeSessionView: View {
         VStack(spacing: 20) {
             Spacer()
             switch style {
-            case .recognition:
+            case .recognition, .mixed:
                 Text(card.it).font(.largeTitle.bold())
                 SpeakerButton(text: card.it)
                 if revealed {
@@ -67,7 +85,7 @@ struct PracticeSessionView: View {
                 }
             case .cloze:
                 if let cloze = makeCloze(term: card.it, example: card.ex,
-                                         articles: model.articles) {
+                                         articles: model.articles, form: card.form) {
                     clozeText(before: cloze.before,
                               answer: revealed ? cloze.answer : "____",
                               after: cloze.after)

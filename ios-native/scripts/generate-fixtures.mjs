@@ -40,7 +40,7 @@ const cards = phases.flatMap((p) => p.weeks.flatMap((w) => w.vocab))
   .map(([it, en, ex, ipa]) => ({ it, en, ex, ipa }));
 
 function write(name, obj) {
-  writeFileSync(join(outDir, name), JSON.stringify(obj, null, name === 'tutor.json' ? 0 : 1) + '\n');
+  writeFileSync(join(outDir, name), JSON.stringify(obj, null, name === 'tutor.json' || name === 'lessons.json' ? 0 : 1) + '\n');
   console.log(`wrote ${name}`);
 }
 
@@ -539,3 +539,134 @@ write('conversa.json', {
 });
 
 console.log('done');
+
+// ── Guided lessons: the seeded PRNG, the strict checkers, every week's full
+// lesson plan, replayed runs with their SRS grades, the Continue decision, and
+// the smart-mix style ladder. The plan is deterministic, so the Swift port has
+// to reproduce every shuffle — this pins it step for step.
+const { hashSeed, rngFor, shuffled } = await import(join(repoRoot, 'src/utils/gameRandom.js'));
+const { checkDrill } = await import(join(repoRoot, 'src/utils/answer.js'));
+const { checkTransform } = await import(join(repoRoot, 'src/utils/transformDrill.js'));
+const lessonPlan = await import(join(repoRoot, 'src/utils/lessonPlan.js'));
+const lessonStore = await import(join(repoRoot, 'src/utils/lessonStore.js'));
+const { styleFor } = await import(join(repoRoot, 'src/utils/reviewMix.js'));
+const { buildCards } = await import(join(repoRoot, 'course/vocab.js'));
+
+const lessonStepJson = (s) => ({
+  id: s.id, kind: s.kind, term: s.term ?? null, cardIt: s.card?.it ?? null,
+  direction: s.direction ?? null, prompt: s.prompt ?? null,
+  options: s.options ?? [],
+  answerIndex: s.kind === 'choice' || s.kind === 'mc' ? s.answer : null,
+  answerBool: s.kind === 'tf' ? s.answer : null,
+  pairs: (s.pairs ?? []).map((p) => `${p.it}=${p.en}`), left: s.left ?? [], right: s.right ?? [],
+  before: s.before ?? null,
+  answerText: s.kind === 'drill' ? s.a : s.kind === 'cloze' || s.kind === 'transform' ? s.answer : null,
+  after: s.after ?? null,
+  text: s.kind === 'build' ? s.text : s.kind === 'tf' || s.kind === 'mc' ? s.it : s.kind === 'transform' ? s.base : null,
+  en: s.en ?? null, chips: s.chips ?? [], audio: !!s.audio, partial: !!s.partial, ref: s.ref ?? null,
+  title: s.title ?? null, body: s.body ?? null, q: s.q ?? null, hint: s.hint ?? null,
+  explain: s.explain ?? null, instruction: s.instruction ?? null,
+});
+
+const allLessons = allWeeks.flatMap((w) => lessonPlan.weekLessons(w));
+
+function lessonRun(lesson, missIds, store, now) {
+  let run = lessonPlan.startRun(lesson);
+  while (!lessonPlan.isFinished(run)) {
+    const step = lessonPlan.currentStep(run);
+    const correct = lessonPlan.isGraded(step) ? (step.retry ? true : !missIds.includes(step.id)) : null;
+    run = lessonPlan.advance(run, correct);
+  }
+  return {
+    key: lesson.key, miss: missIds, store, now,
+    queue: run.queue.map((s) => `${s.id}${s.retry ? 'r' : ''}`),
+    first: Object.fromEntries(Object.entries(run.first).map(([k, v]) => [String(k), v])),
+    summary: lessonPlan.summarize(run),
+    grades: lessonPlan.srsGrades(lesson, run, store, now).map((g) => `${g.term}=${g.grade}`),
+  };
+}
+const idsOf = (lesson, kind) => lesson.steps.filter((s) => s.kind === kind).map((s) => s.id);
+const LESSON_NOW = 1_800_000_000_000;
+const runCases = [];
+for (const lesson of [allLessons[0], allLessons[1], allLessons[2], allLessons[40], allLessons.at(-1)]) {
+  runCases.push(lessonRun(lesson, [], {}, LESSON_NOW));
+  runCases.push(lessonRun(lesson, idsOf(lesson, 'recall'), {}, LESSON_NOW));
+  runCases.push(lessonRun(lesson, [...idsOf(lesson, 'cloze').slice(0, 1), ...idsOf(lesson, 'choice').slice(0, 1),
+    ...idsOf(lesson, 'build').slice(0, 1), ...idsOf(lesson, 'tf')], {}, LESSON_NOW));
+  const [a, b] = lesson.words;
+  if (a && b) {
+    runCases.push(lessonRun(lesson, [], {
+      [a]: { ease: 2.5, interval: 3, reps: 2, lapses: 0, due: LESSON_NOW + 1000 },
+      [b]: { ease: 2.5, interval: 1, reps: 1, lapses: 0, due: LESSON_NOW - 1000 },
+    }, LESSON_NOW));
+  }
+}
+
+const lessonPlans = allWeeks.map((w) => ({ weekN: w.n, lessons: lessonPlan.weekLessons(w) }));
+const keysOfWeek = (n) => lessonPlans.find((p) => p.weekN === n).lessons.map((l) => l.key);
+const nextCases = [
+  { done: [], currentWeekN: 1, due: 0 },
+  { done: ['1.1'], currentWeekN: 1, due: 7 },
+  { done: keysOfWeek(1), currentWeekN: 1, due: 7 },
+  { done: keysOfWeek(1), currentWeekN: 1, due: 0 },
+  { done: ['5.1'], currentWeekN: 5, due: 0 },
+  { done: keysOfWeek(37), currentWeekN: 37, due: 0 },
+  { done: keysOfWeek(37), currentWeekN: 37, due: 2 },
+  { done: ['1.1', '1.2'], currentWeekN: null, due: 5 },
+  { done: lessonPlans.flatMap((p) => p.lessons.map((l) => l.key)), currentWeekN: null, due: 5 },
+  { done: lessonPlans.flatMap((p) => p.lessons.map((l) => l.key)), currentWeekN: null, due: 0 },
+].map((c) => {
+  const store = c.done.reduce((s, k) => lessonStore.completeLesson(s, k, 100, '2026-01-01'), { done: {} });
+  const a = lessonStore.nextAction({ plans: lessonPlans, store, currentWeekN: c.currentWeekN, due: c.due });
+  return { ...c, out: { kind: a.kind, key: a.lesson?.key ?? null, ahead: !!a.ahead, due: a.due ?? null } };
+});
+
+const allDrills = allWeeks.flatMap((w) => w.drill ?? []);
+const drillCases = [
+  ...allDrills.flatMap((d) => [
+    { expected: d.a, given: d.a },
+    { expected: d.a, given: `  ${d.a.toUpperCase()}. ` },
+    { expected: d.a, given: normalize(d.a) },
+    { expected: d.a, given: `${d.a}x` },
+    { expected: d.a, given: d.a.slice(1) },
+  ]),
+  { expected: 'è', given: 'e' }, { expected: 'perché', given: 'perche' }, { expected: "l'uomo", given: 'l’uomo' },
+  { expected: 'abbiamo creduto', given: 'abbiamo  credutto' }, { expected: 'ha', given: '' },
+];
+const allTransforms = allWeeks.flatMap((w) => w.transform ?? []);
+const transformCases = allTransforms.flatMap((t) => [
+  { answer: t.answer, typed: t.answer },
+  { answer: t.answer, typed: t.base },
+  { answer: t.answer, typed: normalize(t.answer).replace(/[.,;:!?]/g, '').toUpperCase() },
+  { answer: t.answer, typed: `${t.answer} sì` },
+]);
+
+const mixCards = buildCards(phases).slice(0, 40);
+const mixStates = [null, { reps: 0, relearn: 0 }, { reps: 1, relearn: null }, { reps: 2, relearn: null },
+  { reps: 3 }, { reps: 4, relearn: null }, { reps: 9, relearn: 1 }];
+
+write('lessons.json', {
+  rng: ['lesson:1:1', 'lesson:37:3', '', 'città è', '2026-11-09'].map((seed) => {
+    const rng = rngFor(seed);
+    return {
+      seed, hash: hashSeed(seed),
+      values: [rng(), rng(), rng(), rng()],
+      shuffle: shuffled([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], rngFor(seed)),
+    };
+  }),
+  drill: drillCases.map((c) => ({ ...c, ok: checkDrill(c.expected, c.given) })),
+  transform: transformCases.map((c) => ({ ...c, ok: checkTransform({ answer: c.answer }, c.typed).correct })),
+  weeks: lessonPlans.map((p) => ({
+    n: p.weekN,
+    lessons: p.lessons.map((l) => ({
+      key: l.key, n: l.n, kind: l.kind, title: l.title, sub: l.sub, words: l.words, minutes: l.minutes,
+      steps: l.steps.map(lessonStepJson),
+    })),
+  })),
+  runs: runCases,
+  next: nextCases,
+  mix: mixCards.flatMap((card) => mixStates.map((st) => ({
+    it: card.it, reps: st?.reps ?? null, relearn: st?.relearn ?? null, hasState: !!st,
+    style: styleFor(card, st ?? undefined),
+  }))),
+});
