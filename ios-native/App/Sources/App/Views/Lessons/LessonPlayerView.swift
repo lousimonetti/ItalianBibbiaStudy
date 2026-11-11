@@ -9,23 +9,35 @@ import BibbiaCore
 // value per step and carries out what the run says.
 
 struct LessonPlayerView: View {
-    let lesson: Lesson
+    private let planned: Lesson
 
     @EnvironmentObject private var model: AppModel
     @Environment(\.dismiss) private var dismiss
 
+    // The plan is the same for everyone; what is dropped or repeated depends on
+    // the words this learner already knows or keeps missing (adaptLesson).
+    @State private var lesson: Lesson
     @State private var run: LessonRun
+    @State private var didAdapt = false
     @State private var value: LessonValue?
     @State private var verdict: LessonVerdict?
     @State private var summary: LessonSummary?
     @State private var weekDone = false
 
     init(lesson: Lesson) {
-        self.lesson = lesson
+        planned = lesson
+        _lesson = State(initialValue: lesson)
         _run = State(initialValue: LessonRun(lesson))
     }
 
     private var step: LessonStep? { run.current }
+
+    private func adaptedNote(_ a: LessonAdaptation) -> String {
+        var parts: [String] = []
+        if a.skipped > 0 { parts.append("Skipping \(a.skipped) word\(a.skipped == 1 ? "" : "s") you know well") }
+        if a.extra > 0 { parts.append("extra practice on \(a.extra)") }
+        return parts.joined(separator: " · ")
+    }
     private var ready: Bool { step.map { isLessonStepReady($0, value: value) } ?? false }
 
     var body: some View {
@@ -36,6 +48,12 @@ struct LessonPlayerView: View {
             } else if let step {
                 ScrollView {
                     VStack(spacing: 16) {
+                        if let a = lesson.adapted, run.index == 0 {
+                            Text(adaptedNote(a))
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.center)
+                        }
                         if step.retry {
                             Text("One more try at this one")
                                 .font(.caption.bold())
@@ -57,7 +75,15 @@ struct LessonPlayerView: View {
                 footer(step)
             }
         }
-        .onAppear { speakIfIntro(step) }
+        .onAppear {
+            // Once only: onAppear can fire again mid-lesson, which must not restart the run.
+            if !didAdapt {
+                didAdapt = true
+                let adapted = adaptLesson(planned, store: model.srsStore, now: Date().timeIntervalSince1970 * 1000)
+                if adapted != lesson { lesson = adapted; run = LessonRun(adapted) }
+            }
+            speakIfIntro(run.current)
+        }
         .onDisappear { Speaker.shared.stop() }
     }
 

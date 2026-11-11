@@ -25,6 +25,7 @@ import { transformItems, checkTransform } from './transformDrill';
 import { comprehensionItems } from './comprehension';
 import { passageLines } from './keyVerses';
 import { rngFor, shuffled } from './gameRandom';
+import { WEAK_EASE } from './wordStats';
 
 export const WORDS_PER_LESSON = 4;
 export const VERSES_PER_LESSON = 2;
@@ -161,6 +162,54 @@ function passageSteps(week, all, rng) {
 }
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'];
+
+// ── Adapting a lesson to what the learner already knows ─────────────────────
+// The plan itself stays deterministic (same lesson for everyone, same keys),
+// so adapting happens when a lesson is started, from the SRS store.
+//   known — seen at least KNOWN_REPS times, a KNOWN_DAYS+ interval, not due and
+//           not relearning: its steps are dropped (the match board stays).
+//   weak  — WEAK_LAPSES or more misses, or low ease: one extra recall at the end.
+export const KNOWN_REPS = 3;
+export const KNOWN_DAYS = 14;
+export const WEAK_LAPSES = 2;
+const ADAPTED_KINDS = new Set(['intro', 'choice', 'cloze', 'build', 'recall']);
+
+export function wordLevel(st, now = Date.now()) {
+  if (!st) return 'normal';
+  if ((st.lapses || 0) >= WEAK_LAPSES || (typeof st.ease === 'number' && st.ease < WEAK_EASE)) return 'weak';
+  if ((st.reps || 0) >= KNOWN_REPS && (st.interval || 0) >= KNOWN_DAYS && st.due > now && !st.relearn) return 'known';
+  return 'normal';
+}
+
+export function adaptLesson(lesson, store = {}, now = Date.now()) {
+  if (lesson?.kind !== 'words') return lesson;
+  const known = new Set();
+  const weak = [];
+  for (const term of lesson.words) {
+    const level = wordLevel(store[term], now);
+    if (level === 'known') known.add(term);
+    else if (level === 'weak') weak.push(term);
+  }
+  // Nothing to adapt, or nothing left to learn — keep the lesson whole.
+  if ((!known.size && !weak.length) || known.size === lesson.words.length) return lesson;
+
+  const steps = lesson.steps.filter((s) => !(known.has(s.term) && ADAPTED_KINDS.has(s.kind)));
+  const lastRecall = steps.map((s) => s.kind === 'recall' && !s.practice).lastIndexOf(true);
+  const extras = weak
+    .map((term) => {
+      const card = lesson.steps.find((s) => s.term === term && s.card)?.card;
+      return card ? { kind: 'recall', term, card, practice: true } : null;
+    })
+    .filter(Boolean);
+  steps.splice(lastRecall >= 0 ? lastRecall + 1 : steps.length, 0, ...extras);
+
+  return {
+    ...lesson,
+    steps: steps.map((s, id) => ({ ...s, id })),
+    minutes: Math.max(2, Math.round(steps.length / 3)),
+    adapted: { skipped: known.size, extra: extras.length },
+  };
+}
 
 function finish(week, n, kind, title, sub, words, steps) {
   return {
@@ -327,7 +376,7 @@ export function summarize(run) {
 export function srsGrades(lesson, run, store = {}, now = Date.now()) {
   const byTerm = new Map();
   for (const step of lesson?.steps || []) {
-    if (!TYPED.has(step.kind) || !(step.id in run.first)) continue;
+    if (!TYPED.has(step.kind) || step.practice || !(step.id in run.first)) continue;
     const entry = byTerm.get(step.term) || { recall: null, other: true };
     if (step.kind === 'recall') entry.recall = run.first[step.id];
     else entry.other = entry.other && run.first[step.id];

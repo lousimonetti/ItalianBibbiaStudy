@@ -357,8 +357,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   as an optional download). The iOS week view folds its standalone exercises under
   *More practice* like the web, and the design mockups carry the lesson flow (1b).
 
+- **Adaptive lessons + due badge: built on web + iOS.** `adaptLesson(lesson, srsStore)`
+  (`lessonPlan.js`, Swift twin in `Lessons.swift`) runs when a word lesson *starts*, so the
+  plan itself stays deterministic and the `lessons.json` fixture is untouched. A word seen 3+
+  times at a 14+ day interval, not due and not relearning, loses its intro/choice/fill/recall
+  steps (the match board stays); a word missed twice, or with ease under 2.2, gets one extra
+  recall at the end, marked `practice` so `srsGrades` ignores it. A lesson whose words are all
+  known is left whole, and the passage lesson is never adapted. The player shows a one-line
+  note on the first step. The adaptation is hand-mirrored in Swift (tests in
+  `AdaptLessonTests`), because it depends on the learner's SRS store. **Due badge:** the Study
+  tab (web) and Flashcards tab (iOS) show how many cards are due; on the web `useDueCount`
+  re-counts on the new `coursekit:srs` event, on lessons, on focus and every minute.
+
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
-  surfacing "N due" outside Practice, cloze lemmatization, configurable reminder
+  cloze lemmatization, configurable reminder
   hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
   sync follow-ups in `plan-sync.md` (multi-QR chunking for large snapshots,
   field-level merge, online auto-sync); fluency follow-ups from `opportunities.md`
@@ -576,7 +588,7 @@ full Xcode instead — no `sudo`, no `xcode-select -s`:
 
 ```bash
 DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer \
-  swift test --package-path ios-native/BibbiaCore   # 212 tests
+  swift test --package-path ios-native/BibbiaCore   # 218 tests
 ```
 
 (The CLAUDE.md note that Swift "can't run in this sandbox" is about *remote*
@@ -693,7 +705,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **1048 vitest tests across 80 files**, all passing.
+- **Tests:** `npm test` runs **1057 vitest tests across 81 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,

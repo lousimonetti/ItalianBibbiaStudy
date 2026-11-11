@@ -261,3 +261,77 @@ final class LessonsLogicTests: XCTestCase {
         XCTAssertFalse(store.isWeekComplete([]))
     }
 }
+
+// adaptLesson mirrors the web's adaptLesson (hand-mirrored: it depends on the
+// learner's SRS store, so it has no course-wide fixture).
+final class AdaptLessonTests: XCTestCase {
+    private let now = 1_800_000_000_000.0
+    private let day = 86_400_000.0
+
+    private var lesson: Lesson {
+        weekLessons(Course.shared.allWeeks[0], articles: Course.shared.locale.articles).first { $0.kind == .words }!
+    }
+    private var known: SRSCard { SRSCard(ease: 2.5, interval: 30, reps: 5, lapses: 0, due: now + 10 * day) }
+    private var weak: SRSCard { SRSCard(ease: 2.0, interval: 3, reps: 2, lapses: 3, due: now + day) }
+
+    func testNoHistoryLeavesLessonAlone() {
+        XCTAssertEqual(adaptLesson(lesson, store: [:], now: now), lesson)
+    }
+
+    func testClassifiesWords() {
+        XCTAssertEqual(wordLevel(nil, now: now), .normal)
+        XCTAssertEqual(wordLevel(known, now: now), .known)
+        var due = known; due.due = now - 1
+        XCTAssertEqual(wordLevel(due, now: now), .normal)
+        var relearning = known; relearning.relearn = 1
+        XCTAssertEqual(wordLevel(relearning, now: now), .normal)
+        XCTAssertEqual(wordLevel(weak, now: now), .weak)
+        var lapsed = known; lapsed.lapses = 2
+        XCTAssertEqual(wordLevel(lapsed, now: now), .weak)
+    }
+
+    func testKnownWordLosesItsStepsAndIdsAreRenumbered() {
+        let l = lesson
+        let a = l.words[0], b = l.words[1]
+        let out = adaptLesson(l, store: [a: known], now: now)
+        XCTAssertFalse(out.steps.contains { $0.term == a })
+        XCTAssertTrue(out.steps.contains { $0.term == b })
+        XCTAssertTrue(out.steps.contains { $0.kind == .match })
+        XCTAssertEqual(out.steps.map(\.id), Array(out.steps.indices))
+        XCTAssertEqual(out.adapted, LessonAdaptation(skipped: 1, extra: 0))
+        XCTAssertEqual(out.key, l.key)
+    }
+
+    func testWeakWordGetsOneExtraRecallAfterTheOthers() {
+        let l = lesson
+        let a = l.words[0]
+        let out = adaptLesson(l, store: [a: weak], now: now)
+        let extra = out.steps.filter { $0.practice }
+        XCTAssertEqual(extra.count, 1)
+        XCTAssertEqual(extra.first?.kind, .recall)
+        XCTAssertEqual(extra.first?.term, a)
+        XCTAssertEqual(out.steps.lastIndex { $0.kind == .recall }, out.steps.firstIndex { $0.practice })
+        XCTAssertEqual(out.adapted, LessonAdaptation(skipped: 0, extra: 1))
+    }
+
+    func testAllKnownKeepsWholeLessonAndPassageIsNeverAdapted() {
+        let l = lesson
+        let all = Dictionary(uniqueKeysWithValues: l.words.map { ($0, known) })
+        XCTAssertEqual(adaptLesson(l, store: all, now: now), l)
+        let brano = weekLessons(Course.shared.allWeeks[0], articles: Course.shared.locale.articles).first { $0.kind == .passage }!
+        XCTAssertEqual(adaptLesson(brano, store: [l.words[0]: known], now: now), brano)
+    }
+
+    func testExtraRecallDoesNotFeedTheSrs() {
+        let l = lesson
+        let a = l.words[0]
+        let out = adaptLesson(l, store: [a: weak], now: now)
+        var run = LessonRun(out)
+        while let step = run.current {
+            run = run.advanced(correct: step.isGraded ? true : nil)
+        }
+        var due = weak; due.due = now - 1
+        let grades = lessonSrsGrades(out, run: run, store: [a: due], now: now)
+        XCTAssertEqual(grades.filter { $0.term == a }.count, 1)
+    }
+}

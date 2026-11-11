@@ -16,6 +16,7 @@ struct ContentView: View {
                 .tag(AppRoute.Tab.tracker)
             FlashcardsView()
                 .tabItem { Label("Flashcards", systemImage: "rectangle.stack") }
+                .badge(model.vocabDue)
                 .tag(AppRoute.Tab.flashcards)
             JournalView()
                 .tabItem { Label("Journal", systemImage: "square.and.pencil") }

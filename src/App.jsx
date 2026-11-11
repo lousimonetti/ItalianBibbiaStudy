@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { PHASES, DAILY } from './data/studyData';
 import { config } from '../course/config';
+import { useDueCount } from './hooks/useDueCount';
 import { useProgress } from './hooks/useProgress';
 import { useInstallPrompt } from './hooks/useInstallPrompt';
 import { useTheme } from './hooks/useTheme';
@@ -373,6 +374,7 @@ export default function App() {
     if (g) setLastView((m) => ({ ...m, [g.id]: id }));
   };
   const currentWeekN = getCurrentWeekN();
+  const dueCount = useDueCount(ALL_CARDS);
 
   useEffect(() => {
     const up = () => setOnline(true);
@@ -458,6 +460,11 @@ export default function App() {
             >
               <Icon />
               <UiText k={`group.${id}`} />
+              {id === 'study' && dueCount > 0 && (
+                <span className="tab-badge" aria-label={`${dueCount} card${dueCount === 1 ? '' : 's'} due`}>
+                  {dueCount > 99 ? '99+' : dueCount}
+                </span>
+              )}
             </button>
           );
         })}
