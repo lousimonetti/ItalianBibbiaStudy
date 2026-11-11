@@ -184,13 +184,15 @@ public struct LessonStep: Equatable, Identifiable {
     public var explain: String?
     // transform
     public var instruction: String?
+    /// An extra showing added by adaptLesson: practice only, never graded into the SRS.
+    public var practice = false
 
     public init(_ kind: Kind) { self.kind = kind }
 
     /// Steps that only present something — no verdict, never re-queued.
     public var isGraded: Bool { kind != .intro && kind != .tip && kind != .match }
     /// Typed from memory: the only steps that are evidence of recall.
-    var isTyped: Bool { kind == .cloze || kind == .recall }
+    var isTyped: Bool { (kind == .cloze || kind == .recall) && !practice }
 }
 
 public struct Lesson: Equatable, Identifiable {
@@ -205,8 +207,15 @@ public struct Lesson: Equatable, Identifiable {
     public let words: [String]
     public let steps: [LessonStep]
     public let minutes: Int
+    /// Set when adaptLesson changed the plan for this learner.
+    public var adapted: LessonAdaptation? = nil
 
     public var id: String { key }
+}
+
+public struct LessonAdaptation: Equatable {
+    public let skipped: Int
+    public let extra: Int
 }
 
 /// Split into ceil(n / size) groups of near-equal length, larger first.
@@ -532,6 +541,60 @@ public func lessonSolution(_ step: LessonStep) -> LessonValue? {
         })
     case .intro, .tip, .match: return nil
     }
+}
+
+// ── Adapting a lesson to what the learner already knows ──────────────────────
+// Twin of adaptLesson in lessonPlan.js. The plan stays deterministic; this runs
+// when a lesson is started. A word seen KNOWN_REPS+ times at a KNOWN_DAYS+
+// interval, not due and not relearning, loses its steps (the match board stays);
+// a word missed WEAK_LAPSES+ times, or with low ease, gets one extra recall.
+
+public let KNOWN_REPS = 3
+public let KNOWN_DAYS = 14.0
+public let WEAK_LAPSES = 2
+
+public enum WordLevel: Equatable { case normal, known, weak }
+
+public func wordLevel(_ st: SRSCard?, now: Double) -> WordLevel {
+    guard let st else { return .normal }
+    if st.lapses >= WEAK_LAPSES || st.ease < WEAK_EASE { return .weak }
+    if st.reps >= KNOWN_REPS && st.interval >= KNOWN_DAYS && st.due > now && st.relearn == nil { return .known }
+    return .normal
+}
+
+public func adaptLesson(_ lesson: Lesson, store: SRSStore, now: Double) -> Lesson {
+    guard lesson.kind == .words else { return lesson }
+    var known = Set<String>()
+    var weak: [String] = []
+    for term in lesson.words {
+        switch wordLevel(store[term], now: now) {
+        case .known: known.insert(term)
+        case .weak: weak.append(term)
+        case .normal: break
+        }
+    }
+    if (known.isEmpty && weak.isEmpty) || known.count == lesson.words.count { return lesson }
+
+    let adaptedKinds: Set<LessonStep.Kind> = [.intro, .choice, .cloze, .build, .recall]
+    var steps = lesson.steps.filter { step in
+        !(step.term.map(known.contains) ?? false && adaptedKinds.contains(step.kind))
+    }
+    let extras: [LessonStep] = weak.compactMap { term in
+        guard let card = lesson.steps.first(where: { $0.term == term && $0.card != nil })?.card else { return nil }
+        var step = LessonStep(.recall)
+        step.term = term
+        step.card = card
+        step.practice = true
+        return step
+    }
+    let lastRecall = steps.lastIndex { $0.kind == .recall && !$0.practice }
+    steps.insert(contentsOf: extras, at: lastRecall.map { $0 + 1 } ?? steps.count)
+    for i in steps.indices { steps[i].id = i }
+
+    return Lesson(key: lesson.key, weekN: lesson.weekN, n: lesson.n, kind: lesson.kind,
+                  title: lesson.title, sub: lesson.sub, words: lesson.words, steps: steps,
+                  minutes: max(2, Int((Double(steps.count) / 3).rounded())),
+                  adapted: LessonAdaptation(skipped: known.count, extra: extras.count))
 }
 
 // ── A run through a lesson ───────────────────────────────────────────────────

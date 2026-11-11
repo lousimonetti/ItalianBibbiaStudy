@@ -4615,3 +4615,21 @@ html.dark {
 }
 .more-practice-sub { font-size: 12px; font-weight: 400; color: var(--text-muted); }
 .more-practice-body { padding: 4px 12px 12px; display: flex; flex-direction: column; gap: 10px; }
+
+/* Cards due, on the Study tab */
+.tab-btn { position: relative; }
+.tab-badge {
+  min-width: 18px; height: 18px; padding: 0 5px; margin-left: 4px;
+  border-radius: 9px; background: #c0392b; color: #fff;
+  font-size: 11px; font-weight: 700; line-height: 18px; text-align: center;
+}
+@media (max-width: 560px) {
+  .tab-badge { position: absolute; top: 2px; right: 6px; margin-left: 0; }
+}
+
+/* Lesson shortened or extended to fit what the learner knows */
+.lesson-adapted {
+  margin: 0 0 12px; padding: 6px 10px; border-radius: 8px;
+  background: var(--aside-band); color: var(--text-muted);
+  font-size: 13px; text-align: center;
+}

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
-  startRun, advance, currentStep, isFinished, progress, summarize,
+  startRun, advance, currentStep, isFinished, progress, summarize, adaptLesson,
   checkStep, isReady, isGraded, srsGrades,
 } from '../utils/lessonPlan';
 import { splitBlank } from '../utils/grammarDrill';
@@ -332,13 +332,16 @@ function Summary({ lesson, summary, weekDone, onClose }) {
 // component collects a value per step and carries out what the run says.
 // `onComplete(lesson, firstTime)` runs once the lesson is recorded; returning
 // true tells the summary that this finished the whole week.
-export function LessonPlayer({ lesson, onClose, onComplete }) {
+export function LessonPlayer({ lesson: planned, onClose, onComplete }) {
+  const { recordReview, getStore } = useSrs();
+  // The plan is the same for everyone; what is dropped or repeated depends on
+  // the words this learner already knows or keeps missing.
+  const [lesson] = useState(() => adaptLesson(planned, getStore()));
   const [run, setRun] = useState(() => startRun(lesson));
   const [value, setValue] = useState(null);
   const [verdict, setVerdict] = useState(null);
   const [summary, setSummary] = useState(null);
   const [weekDone, setWeekDone] = useState(false);
-  const { recordReview, getStore } = useSrs();
   const { rate } = useAudioSpeed();
   const step = currentStep(run);
 
@@ -436,6 +439,14 @@ export function LessonPlayer({ lesson, onClose, onComplete }) {
         <>
           <div className="lesson-body" key={run.index}>
             {step.retry && <div className="lesson-retry">One more try at this one</div>}
+            {lesson.adapted && run.index === 0 && (
+              <div className="lesson-adapted">
+                {[
+                  lesson.adapted.skipped > 0 && `Skipping ${lesson.adapted.skipped} word${lesson.adapted.skipped === 1 ? '' : 's'} you know well`,
+                  lesson.adapted.extra > 0 && `extra practice on ${lesson.adapted.extra}`,
+                ].filter(Boolean).join(' · ')}
+              </div>
+            )}
             <StepBody
               step={step}
               value={value}

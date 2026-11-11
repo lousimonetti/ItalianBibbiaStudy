@@ -3,6 +3,7 @@ import { PHASES } from '../data/studyData';
 import {
   weekLessons, balancedChunks, checkStep, solutionFor, isReady, isGraded,
   startRun, advance, currentStep, isFinished, progress, summarize, srsGrades,
+  adaptLesson, wordLevel,
 } from './lessonPlan';
 
 const WEEKS = PHASES.flatMap((p) => p.weeks);
@@ -181,5 +182,65 @@ describe('srsGrades', () => {
 
   it('an abandoned run grades only the words that reached their recall', () => {
     expect(srsGrades(lesson, startRun(lesson))).toEqual([]);
+  });
+});
+
+describe('adaptLesson', () => {
+  const NOW = Date.UTC(2026, 10, 10);
+  const DAYS = 86400000;
+  const week = PHASES[0].weeks[0];
+  const wordLesson = weekLessons(week).find((l) => l.kind === 'words');
+  const [a, b] = wordLesson.words;
+  const known = { reps: 5, interval: 30, ease: 2.5, lapses: 0, due: NOW + 10 * DAYS, relearn: null };
+  const weak = { reps: 2, interval: 3, ease: 2.0, lapses: 3, due: NOW + DAYS, relearn: null };
+
+  it('leaves a lesson alone for a learner with no history', () => {
+    expect(adaptLesson(wordLesson, {}, NOW)).toBe(wordLesson);
+  });
+
+  it('classifies words', () => {
+    expect(wordLevel(undefined, NOW)).toBe('normal');
+    expect(wordLevel(known, NOW)).toBe('known');
+    expect(wordLevel({ ...known, due: NOW - 1 }, NOW)).toBe('normal');
+    expect(wordLevel({ ...known, relearn: 1 }, NOW)).toBe('normal');
+    expect(wordLevel(weak, NOW)).toBe('weak');
+    expect(wordLevel({ ...known, lapses: 2 }, NOW)).toBe('weak');
+  });
+
+  it('drops the steps of a word the learner knows well, keeps the rest, renumbers', () => {
+    const out = adaptLesson(wordLesson, { [a]: known }, NOW);
+    expect(out.steps.some((s) => s.term === a)).toBe(false);
+    expect(out.steps.some((s) => s.term === b)).toBe(true);
+    expect(out.steps.some((s) => s.kind === 'match')).toBe(true);
+    expect(out.steps.map((s) => s.id)).toEqual(out.steps.map((_, i) => i));
+    expect(out.adapted).toEqual({ skipped: 1, extra: 0 });
+    expect(out.key).toBe(wordLesson.key);
+  });
+
+  it('adds one extra recall for a word the learner keeps missing, after the other recalls', () => {
+    const out = adaptLesson(wordLesson, { [a]: weak }, NOW);
+    const extra = out.steps.filter((s) => s.practice);
+    expect(extra).toHaveLength(1);
+    expect(extra[0]).toMatchObject({ kind: 'recall', term: a });
+    const recalls = out.steps.map((s) => s.kind === 'recall');
+    expect(out.steps.indexOf(extra[0])).toBe(recalls.lastIndexOf(true));
+    expect(out.adapted).toEqual({ skipped: 0, extra: 1 });
+  });
+
+  it('keeps the whole lesson when every word is already known', () => {
+    const store = Object.fromEntries(wordLesson.words.map((w) => [w, known]));
+    expect(adaptLesson(wordLesson, store, NOW)).toBe(wordLesson);
+  });
+
+  it('never adapts the passage lesson', () => {
+    const brano = weekLessons(week).find((l) => l.kind === 'passage');
+    expect(adaptLesson(brano, { [a]: known }, NOW)).toBe(brano);
+  });
+
+  it('the extra recall does not feed the SRS twice', () => {
+    const out = adaptLesson(wordLesson, { [a]: weak }, NOW);
+    const run = play(out);
+    const grades = srsGrades(out, run, { [a]: { ...weak, due: NOW - 1 } }, NOW);
+    expect(grades.filter((g) => g.term === a)).toHaveLength(1);
   });
 });

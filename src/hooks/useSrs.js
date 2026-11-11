@@ -4,6 +4,13 @@ import { storageKey } from '../utils/storageKey';
 
 const STORAGE_KEY = storageKey('srs');
 
+// Fired on window after every write, so a badge elsewhere can re-count.
+export const SRS_EVENT = 'coursekit:srs';
+
+export function loadSrsStore() {
+  return load();
+}
+
 function load() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
@@ -15,6 +22,7 @@ function load() {
 function save(store) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+    window.dispatchEvent(new Event(SRS_EVENT));
   } catch {
     // storage unavailable — degrade silently
   }
