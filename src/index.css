@@ -4633,3 +4633,5 @@ html.dark {
   background: var(--aside-band); color: var(--text-muted);
   font-size: 13px; text-align: center;
 }
+
+.today-streak-milestone { margin-left: 8px; font-weight: 700; color: var(--accent); }

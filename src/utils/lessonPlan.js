@@ -29,6 +29,9 @@ import { WEAK_EASE } from './wordStats';
 
 export const WORDS_PER_LESSON = 4;
 export const VERSES_PER_LESSON = 2;
+// Words per lesson heard before they are read: a pick-the-meaning step with the
+// Italian hidden and spoken instead.
+export const LISTEN_PER_LESSON = 2;
 
 // Steps that only present something — no verdict, never re-queued.
 const UNGRADED = new Set(['intro', 'tip', 'match']);
@@ -74,7 +77,7 @@ function wrongOptions(pool, correct, rng, n = 3) {
 }
 
 // direction 'it-en': see the Italian, pick the meaning. 'en-it': the reverse.
-function choiceStep(card, all, rng, direction) {
+function choiceStep(card, all, rng, direction, extra = {}) {
   const pick = direction === 'it-en' ? (c) => c.en : (c) => c.it;
   const correct = pick(card);
   const wrong = wrongOptions(all.map(pick), correct, rng);
@@ -87,6 +90,7 @@ function choiceStep(card, all, rng, direction) {
     prompt: direction === 'it-en' ? card.it : card.en,
     options,
     answer: options.indexOf(correct),
+    ...extra,
   };
 }
 
@@ -105,7 +109,7 @@ function sentenceStep(card, rng) {
   return buildStep(card.ex, card.exEn, rng, { term: card.it });
 }
 
-function wordSteps(words, all, rng) {
+function wordSteps(words, all, rng, listenRng) {
   const steps = words.map((card) => ({ kind: 'intro', term: card.it, card }));
   if (words.length >= 2) {
     const idx = words.map((_, i) => i);
@@ -117,6 +121,11 @@ function wordSteps(words, all, rng) {
     });
   }
   for (const card of shuffled(words, rng)) steps.push(choiceStep(card, all, rng, 'it-en'));
+  // Drawn from its own seeded stream, so adding these steps moved none of the
+  // random choices made for the steps around them.
+  for (const card of shuffled(words, listenRng).slice(0, LISTEN_PER_LESSON)) {
+    steps.push(choiceStep(card, all, listenRng, 'it-en', { audio: true }));
+  }
   for (const card of words) steps.push(sentenceStep(card, rng));
   for (const card of shuffled(words, rng)) steps.push({ kind: 'recall', term: card.it, card });
   return steps.filter(Boolean);
@@ -238,7 +247,8 @@ export function weekLessons(week) {
     const n = lessons.length + 1;
     const rng = rngFor(`lesson:${week.n}:${n}`);
     const last = i === chunks.length - 1;
-    const steps = [...wordSteps(words, all, rng), ...(last ? grammar : [])];
+    const listenRng = rngFor(`lesson:${week.n}:${n}:listen`);
+    const steps = [...wordSteps(words, all, rng, listenRng), ...(last ? grammar : [])];
     const title = chunks.length > 1 ? `Parole nuove ${ROMAN[i] || i + 1}` : 'Parole nuove';
     const sub = `${words.length} new word${words.length === 1 ? '' : 's'}${last && grammar.length ? ' + grammar' : ''}`;
     lessons.push(finish(week, n, 'words', title, sub, words, steps));

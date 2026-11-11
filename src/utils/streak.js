@@ -97,3 +97,39 @@ export function recordActivity(flag) {
   save(next);
   return next;
 }
+
+// ── Milestones ──────────────────────────────────────────────────────────────
+// A streak of one of these lengths is worth a moment. `streakStart` identifies
+// the run, so a streak that broke and reached the same length again counts as a
+// new one; the id of the last celebrated run is kept under its own key.
+export const MILESTONES = [3, 7, 14, 30, 60, 100, 150, 200, 300, 365];
+export const MILESTONE_KEY = storageKey('streak-celebrated');
+
+export function streakStart(last, current) {
+  const d = new Date(last + 'T00:00:00');
+  d.setDate(d.getDate() - (current - 1));
+  return todayStr(d);
+}
+
+// → { n, id } when `current` is a milestone not yet celebrated for this run.
+export function dueMilestone(store, current, seen) {
+  if (!store?.last || !MILESTONES.includes(current)) return null;
+  const id = `${current}@${streakStart(store.last, current)}`;
+  return id === seen ? null : { n: current, id };
+}
+
+export function loadCelebrated() {
+  try {
+    return localStorage.getItem(MILESTONE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+export function saveCelebrated(id) {
+  try {
+    localStorage.setItem(MILESTONE_KEY, id);
+  } catch {
+    // storage unavailable — degrade silently
+  }
+}

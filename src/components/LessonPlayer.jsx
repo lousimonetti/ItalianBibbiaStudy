@@ -43,7 +43,7 @@ function italianFor(step) {
     case 'drill': return step.q.replace(/_{2,}/, step.a);
     case 'transform': return step.answer;
     case 'build': return step.text;
-    case 'choice': return step.direction === 'en-it' ? step.term : '';
+    case 'choice': return step.direction === 'en-it' || step.audio ? step.term : '';
     default: return '';
   }
 }
@@ -215,11 +215,14 @@ function StepBody({ step, value, setValue, verdict, onPick, onMatchDone }) {
       return (
         <>
           <div className="lesson-instruction">
-            {step.direction === 'it-en' ? 'What does this mean?' : 'How do you say this in Italian?'}
+            {step.audio
+              ? 'Listen — what does it mean?'
+              : step.direction === 'it-en' ? 'What does this mean?' : 'How do you say this in Italian?'}
           </div>
           <div className="lesson-prompt">
-            {step.prompt}
-            {step.direction === 'it-en' && <SpeakerButton word={step.prompt} size={20} />}
+            {/* A listening step keeps the word hidden until it is answered. */}
+            {(!step.audio || verdict) && step.prompt}
+            {step.direction === 'it-en' && <SpeakerButton word={step.prompt} size={step.audio && !verdict ? 36 : 20} />}
           </div>
           <Options options={step.options} value={value} answer={step.answer} verdict={verdict} onPick={onPick} />
         </>
@@ -377,6 +380,7 @@ export function LessonPlayer({ lesson: planned, onClose, onComplete }) {
     if (isFinished(next)) { finish(next); return; }
     const upcoming = currentStep(next);
     if (upcoming.kind === 'intro') speak(upcoming.card.it, rate);
+    else if (upcoming.kind === 'choice' && upcoming.audio) speak(upcoming.term, rate);
   }
 
   function check(v = value) {

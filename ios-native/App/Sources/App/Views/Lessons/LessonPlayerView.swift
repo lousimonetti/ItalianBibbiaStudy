@@ -168,7 +168,7 @@ struct LessonPlayerView: View {
             return parts.before + a + parts.after
         case .transform: return step.answerText
         case .build: return step.text
-        case .choice: return step.direction == "en-it" ? step.term : nil
+        case .choice: return step.direction == "en-it" || step.audio ? step.term : nil
         default: return nil
         }
     }
@@ -216,8 +216,12 @@ struct LessonPlayerView: View {
 
     /// Say a new word as it appears — hearing it first is the point of the step.
     private func speakIfIntro(_ step: LessonStep?) {
-        guard let step, step.kind == .intro, let card = step.card else { return }
-        Speaker.shared.speak(card.it, language: model.ttsLanguage)
+        guard let step else { return }
+        if step.kind == .intro, let card = step.card {
+            Speaker.shared.speak(card.it, language: model.ttsLanguage)
+        } else if step.kind == .choice, step.audio, let term = step.term {
+            Speaker.shared.speak(term, language: model.ttsLanguage)
+        }
     }
 }
 
@@ -238,9 +242,13 @@ private struct LessonStepView: View {
         case .match: MatchBoard(step: step) { value = .done }
         case .tip: tip
         case .choice:
-            instruction(step.direction == "it-en" ? "What does this mean?" : "How do you say this in Italian?")
+            instruction(step.audio ? "Listen — what does it mean?"
+                        : step.direction == "it-en" ? "What does this mean?" : "How do you say this in Italian?")
             HStack(spacing: 8) {
-                Text(step.prompt ?? "").font(.title.bold()).multilineTextAlignment(.center)
+                // A listening step keeps the word hidden until it is answered.
+                if !step.audio || verdict != nil {
+                    Text(step.prompt ?? "").font(.title.bold()).multilineTextAlignment(.center)
+                }
                 if step.direction == "it-en" { SpeakerButton(text: step.prompt ?? "") }
             }
             options(step.options, answer: step.answerIndex, picked: pickedIndex) { onPick(.index($0)) }
