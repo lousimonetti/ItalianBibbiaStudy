@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   todayStr, dayBefore, withActivity, setFlag, currentStreak, todayFlags,
+  streakStart, dueMilestone,
 } from './streak.js';
 
 describe('date helpers', () => {
@@ -74,5 +75,28 @@ describe('todayFlags', () => {
     const s = { today: { date: '2026-06-20', read: true, practiced: false, journaled: false } };
     expect(todayFlags(s, '2026-06-20').read).toBe(true);
     expect(todayFlags(s, '2026-06-21')).toEqual({ date: '2026-06-21', read: false, practiced: false, journaled: false });
+  });
+});
+
+describe('streak milestones', () => {
+  it('names the run by its start, so a broken-and-rebuilt streak is new', () => {
+    expect(streakStart('2026-11-10', 7)).toBe('2026-11-04');
+    expect(streakStart('2026-11-10', 1)).toBe('2026-11-10');
+  });
+
+  it('is due on a milestone length not yet celebrated', () => {
+    const store = { last: '2026-11-10', current: 7 };
+    expect(dueMilestone(store, 7, null)).toEqual({ n: 7, id: '7@2026-11-04' });
+    expect(dueMilestone(store, 7, '7@2026-11-04')).toBeNull();
+  });
+
+  it('celebrates the same length again for a new run', () => {
+    const store = { last: '2026-12-20', current: 7 };
+    expect(dueMilestone(store, 7, '7@2026-11-04')).toEqual({ n: 7, id: '7@2026-12-14' });
+  });
+
+  it('ignores lengths that are not milestones and an empty store', () => {
+    expect(dueMilestone({ last: '2026-11-10', current: 8 }, 8, null)).toBeNull();
+    expect(dueMilestone({}, 7, null)).toBeNull();
   });
 });

@@ -253,7 +253,8 @@ private func wrongOptions(_ pool: [String], correct: String, rng: SeededRandom, 
     return Array((a + b).prefix(n))
 }
 
-private func choiceStep(_ card: VocabCard, all: [VocabCard], rng: SeededRandom, direction: String) -> LessonStep? {
+private func choiceStep(_ card: VocabCard, all: [VocabCard], rng: SeededRandom, direction: String,
+                        audio: Bool = false) -> LessonStep? {
     let pick: (VocabCard) -> String = direction == "it-en" ? { $0.en } : { $0.it }
     let correct = pick(card)
     let wrong = wrongOptions(all.map(pick), correct: correct, rng: rng)
@@ -265,6 +266,7 @@ private func choiceStep(_ card: VocabCard, all: [VocabCard], rng: SeededRandom, 
     step.prompt = direction == "it-en" ? card.it : card.en
     step.options = options
     step.answerIndex = options.firstIndex(of: correct)
+    step.audio = audio
     return step
 }
 
@@ -293,7 +295,11 @@ private func sentenceStep(_ card: VocabCard, articles: [String], rng: SeededRand
     return step
 }
 
-private func wordSteps(_ words: [VocabCard], all: [VocabCard], articles: [String], rng: SeededRandom) -> [LessonStep] {
+/// Words per lesson heard before they are read (LISTEN_PER_LESSON in lessonPlan.js).
+public let LISTEN_PER_LESSON = 2
+
+private func wordSteps(_ words: [VocabCard], all: [VocabCard], articles: [String], rng: SeededRandom,
+                       listenRng: SeededRandom) -> [LessonStep] {
     var steps: [LessonStep] = words.map { card in
         var s = LessonStep(.intro)
         s.term = card.it
@@ -310,6 +316,10 @@ private func wordSteps(_ words: [VocabCard], all: [VocabCard], articles: [String
     }
     for card in rng.shuffled(words) {
         if let s = choiceStep(card, all: all, rng: rng, direction: "it-en") { steps.append(s) }
+    }
+    // Its own seeded stream, so these steps move none of the random draws around them.
+    for card in listenRng.shuffled(words).prefix(LISTEN_PER_LESSON) {
+        if let s = choiceStep(card, all: all, rng: listenRng, direction: "it-en", audio: true) { steps.append(s) }
     }
     for card in words {
         if let s = sentenceStep(card, articles: articles, rng: rng) { steps.append(s) }
@@ -431,7 +441,8 @@ public func weekLessons(_ week: Week, articles: [String]) -> [Lesson] {
         let n = lessons.count + 1
         let rng = SeededRandom("lesson:\(week.n):\(n)")
         let last = i == chunks.count - 1
-        let steps = wordSteps(words, all: all, articles: articles, rng: rng) + (last ? grammar : [])
+        let listenRng = SeededRandom("lesson:\(week.n):\(n):listen")
+        let steps = wordSteps(words, all: all, articles: articles, rng: rng, listenRng: listenRng) + (last ? grammar : [])
         let title = chunks.count > 1
             ? "Parole nuove \(i < romanNumerals.count ? romanNumerals[i] : String(i + 1))"
             : "Parole nuove"

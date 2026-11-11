@@ -244,3 +244,32 @@ describe('adaptLesson', () => {
     expect(grades.filter((g) => g.term === a)).toHaveLength(1);
   });
 });
+
+describe('listening steps', () => {
+  const wordLessons = ALL.filter((l) => l.kind === 'words');
+
+  it('each word lesson hears up to two of its own words before reading them', () => {
+    for (const l of wordLessons) {
+      const listen = l.steps.filter((s) => s.kind === 'choice' && s.audio);
+      expect(listen.length).toBe(Math.min(2, l.words.length));
+      for (const s of listen) {
+        expect(l.words).toContain(s.term);
+        expect(s.direction).toBe('it-en');
+        expect(s.options.length).toBeGreaterThanOrEqual(2);
+      }
+      expect(new Set(listen.map((s) => s.term)).size).toBe(listen.length);
+    }
+  });
+
+  it('comes after the reading choices and before the fill-the-blank steps', () => {
+    for (const l of wordLessons) {
+      const kinds = l.steps.map((s) => (s.kind === 'choice' && s.audio ? 'listen' : s.kind));
+      expect(kinds.indexOf('listen')).toBeGreaterThan(kinds.indexOf('choice'));
+      expect(kinds.lastIndexOf('listen')).toBeLessThan(kinds.findIndex((k) => k === 'cloze' || k === 'build'));
+    }
+  });
+
+  it('the plan is still deterministic', () => {
+    expect(JSON.stringify(weekLessons(WEEKS[0]))).toBe(JSON.stringify(weekLessons(WEEKS[0])));
+  });
+});

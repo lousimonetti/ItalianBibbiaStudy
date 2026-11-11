@@ -369,9 +369,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   tab (web) and Flashcards tab (iOS) show how many cards are due; on the web `useDueCount`
   re-counts on the new `coursekit:srs` event, on lessons, on focus and every minute.
 
+- **Listening step + streak milestones.** Each word lesson now hears `LISTEN_PER_LESSON` (2)
+  of its words before reading them: a `choice` step with `audio: true`, the Italian hidden
+  and spoken, the word shown once answered. It draws from its own seeded stream
+  (`lesson:<week>:<n>:listen`), so no other step's random choices moved; the Swift twin does
+  the same and `lessons.json` was regenerated. **Streak milestones (web only; iOS has no
+  confetti anywhere):** reaching 3, 7, 14, 30, 60, 100... days celebrates once per run on the
+  Today card; the run is identified by its start date under `storageKey('streak-celebrated')`.
+  **Cloze lemmatization (issue #37) was assessed and not built:** of the 43 cards not
+  cloze-eligible, almost none are inflection problems (their examples use a different word,
+  such as `sepolcro` for `la tomba`, or a phrase), so a lemmatizer would not recover them and
+  would risk blanking the wrong word. Fixing those means editing the example or its `form`.
+
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
-  cloze lemmatization, configurable reminder
-  hour, streak-milestone confetti, the `generate-anki` duplication/non-determinism);
+  configurable reminder
+  hour, the `generate-anki` duplication/non-determinism);
   sync follow-ups in `plan-sync.md` (multi-QR chunking for large snapshots,
   field-level merge, online auto-sync); fluency follow-ups from `opportunities.md`
   (O12 adaptive new-card cap, O9 spaced writing retrieval, O6 morphological
@@ -705,7 +717,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **1057 vitest tests across 81 files**, all passing.
+- **Tests:** `npm test` runs **1064 vitest tests across 81 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,

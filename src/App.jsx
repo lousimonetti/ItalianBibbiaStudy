@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { PHASES, DAILY } from './data/studyData';
 import { config } from '../course/config';
+import { Confetti } from './components/Confetti';
 import { useDueCount } from './hooks/useDueCount';
 import { useProgress } from './hooks/useProgress';
 import { useInstallPrompt } from './hooks/useInstallPrompt';
@@ -23,7 +24,7 @@ import { SaintsTab } from './components/SaintsTab';
 import { GameTab } from './components/GameTab';
 import { SubNav } from './components/SubNav';
 import { loadGame, wordDay, quizDay } from './utils/gameStore';
-import { todayStr } from './utils/streak';
+import { todayStr, loadStreak, dueMilestone, loadCelebrated, saveCelebrated } from './utils/streak';
 import { WelcomeCard } from './components/WelcomeCard';
 import { useImmersion } from './i18n/ImmersionContext';
 import { UiText } from './i18n/UiText';
@@ -174,6 +175,14 @@ function GoalCheck({ done }) {
 
 function DailyGoals({ onOpenGame, onOpenVerses }) {
   const { current, best, flags, tickRead } = useStreak();
+  // A streak reaching 3, 7, 14, 30... days is celebrated once.
+  const [milestone, setMilestone] = useState(null);
+  useEffect(() => {
+    const due = dueMilestone(loadStreak(), current, loadCelebrated());
+    if (!due) return;
+    saveCelebrated(due.id);
+    setMilestone(due.n);
+  }, [current]);
   // Today's games, read once on mount like the streak itself (the Tracker
   // remounts on tab switch, so a game played elsewhere shows up on return).
   const [games] = useState(loadGame);
@@ -189,11 +198,13 @@ function DailyGoals({ onOpenGame, onOpenVerses }) {
   return (
     <div className="today-goals">
       <div className="today-streak" title="Consecutive days you've studied">
+        {milestone && <Confetti />}
         <FlameIcon />
         <span className="today-streak-num">{current}</span>
         <span className="today-streak-label">
           day{current === 1 ? '' : 's'} streak{best > current ? ` · best ${best}` : ''}
         </span>
+        {milestone && <span className="today-streak-milestone" role="status">{milestone} days in a row!</span>}
       </div>
       <div className="today-checklist">
         <button
