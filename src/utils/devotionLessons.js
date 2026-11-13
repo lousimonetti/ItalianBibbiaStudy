@@ -31,7 +31,7 @@ const WORD = /[A-Za-zÀ-ÿ]+(?:['’][A-Za-zÀ-ÿ]+)*/g;
 const wordsOf = (text) => String(text ?? '').match(WORD) || [];
 const escapeRe = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-function lesson(key, title, sub, label, steps, extra = {}) {
+export function lesson(key, title, sub, label, steps, extra = {}) {
   const list = steps.filter(Boolean);
   return {
     key,
@@ -49,7 +49,7 @@ function lesson(key, title, sub, label, steps, extra = {}) {
 // A pick-one step in the shape LessonPlayer's `choice` already plays. `term`
 // is the Italian the player speaks (before the answer for an `audio` step,
 // after it otherwise).
-function pickStep(prompt, correct, pool, rng, extra = {}) {
+export function pickStep(prompt, correct, pool, rng, extra = {}) {
   const wrong = wrongOptions(pool.filter((x) => x !== prompt), correct, rng);
   if (wrong.length < 2) return null;
   const options = shuffled([correct, ...wrong], rng);
@@ -64,7 +64,7 @@ function pickStep(prompt, correct, pool, rng, extra = {}) {
   };
 }
 
-function matchStep(pairs, rng, instruction = '') {
+export function matchStep(pairs, rng, instruction = '') {
   const seen = new Set();
   const unique = pairs.filter((p) => {
     if (seen.has(p.it) || seen.has(p.en)) return false;

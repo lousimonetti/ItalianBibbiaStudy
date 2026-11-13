@@ -236,7 +236,7 @@ function StepBody({ step, value, setValue, verdict, onPick, onMatchDone }) {
     case 'tip':
       return (
         <div className="lesson-tip">
-          <div className="lesson-eyebrow">Grammar</div>
+          <div className="lesson-eyebrow">{step.eyebrow || 'Grammar'}</div>
           <div className="lesson-tip-title">{step.title}</div>
           <p className="lesson-tip-body">{step.body}</p>
         </div>
@@ -401,10 +401,12 @@ export function LessonPlayer({ lesson: planned, onClose, onComplete }) {
     // (the Today goals) re-read the streak when it does.
     recordActivity('practiced');
     // A saint's-story lesson belongs to the day and is not recorded at all.
+    let firstTime = true;
     if (lesson.store !== 'none') {
       const store = recordLesson(lesson.key, sum.pct, lesson.store === 'devotion' ? DEVOTION_KEY : undefined);
-      setWeekDone(!!onComplete?.(lesson, store.done[lesson.key]?.times === 1));
+      firstTime = store.done[lesson.key]?.times === 1;
     }
+    setWeekDone(!!onComplete?.(lesson, firstTime));
     setSummary(sum);
   }
 
