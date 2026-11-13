@@ -92,7 +92,14 @@ async function fetchSummary(lang, title) {
   if (!resp.ok) return null;
   const data = await resp.json();
   if (!data?.extract || data.type === 'disambiguation') return null;
-  return { title: data.title, extract: data.extract, url: articleUrl(lang, data.title) };
+  return {
+    title: data.title,
+    extract: data.extract,
+    url: articleUrl(lang, data.title),
+    // The article's lead picture, when it has one. Only the address is kept;
+    // the picture itself needs a connection.
+    image: data.thumbnail?.source || '',
+  };
 }
 
 async function searchTitle(lang, term) {

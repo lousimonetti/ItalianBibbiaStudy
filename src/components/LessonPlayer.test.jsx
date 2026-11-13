@@ -2,7 +2,9 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, fireEvent, within, cleanup } from '@testing-library/react';
 import { PHASES } from '../data/studyData';
 import { weekLessons, solutionFor, isGraded } from '../utils/lessonPlan';
-import { loadLessons } from '../utils/lessonStore';
+import { loadLessons, DEVOTION_KEY } from '../utils/lessonStore';
+import { devotionSections } from '../../course/devotions';
+import { prayerLessons, saintLesson } from '../utils/devotionLessons';
 import { loadStreak, todayFlags } from '../utils/streak';
 import { storageKey } from '../utils/storageKey';
 import { LessonPlayer } from './LessonPlayer';
@@ -24,6 +26,7 @@ function answer(step, { wrong = false } = {}) {
   switch (step.kind) {
     case 'intro':
     case 'tip':
+    case 'line':
       break;
     case 'match':
       step.pairs.forEach((p) => {
@@ -252,5 +255,37 @@ describe('the path on a week row', () => {
     render(<WeekLessons week={WEEK1} checked={false} onToggle={onToggle} />);
     fireEvent.click(screen.getByRole('checkbox', { name: 'Mark week 1 complete' }));
     expect(onToggle).toHaveBeenCalledWith(1);
+  });
+});
+
+describe('a prayer or saint lesson in the same player', () => {
+  const PADRE = prayerLessons(devotionSections[0].prayers.find((p) => p.id === 'padre-nostro'))[0];
+
+  it('opens on the first line and is labelled with the prayer, not a week', () => {
+    render(<LessonPlayer lesson={PADRE} onClose={() => {}} />);
+    expect(document.querySelector('.lesson-word').textContent).toContain(PADRE.steps[0].it);
+    expect(document.querySelector('.lesson-top-label').textContent).toBe('Padre Nostro');
+  });
+
+  it('records in the devotion store only, and never touches the SRS', () => {
+    render(<LessonPlayer lesson={PADRE} onClose={() => {}} />);
+    playThrough(PADRE);
+    expect(screen.getByText(/Lesson complete/)).toBeTruthy();
+    expect(loadLessons(DEVOTION_KEY).done[PADRE.key]).toMatchObject({ pct: 100, times: 1 });
+    expect(loadLessons().done).toEqual({});
+    expect(srs()).toEqual({});
+    expect(todayFlags(loadStreak()).practiced).toBe(true);
+  });
+
+  it('a saint lesson ticks the streak but is recorded nowhere', () => {
+    const story = 'Francesco fu un religioso e poeta italiano. Fondò un ordine di frati e predicò la povertà. '
+      + 'Il santo ricevette le stimmate sul monte. Oggi molti pellegrini visitano la sua tomba nella basilica.';
+    const lesson = saintLesson('San Francesco', story);
+    render(<LessonPlayer lesson={lesson} onClose={() => {}} />);
+    playThrough(lesson);
+    expect(screen.getByText(/Lesson complete/)).toBeTruthy();
+    expect(loadLessons(DEVOTION_KEY).done).toEqual({});
+    expect(loadLessons().done).toEqual({});
+    expect(todayFlags(loadStreak()).practiced).toBe(true);
   });
 });

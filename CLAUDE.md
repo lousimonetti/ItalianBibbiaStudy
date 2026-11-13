@@ -381,6 +381,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   such as `sepolcro` for `la tomba`, or a phrase), so a lemmatizer would not recover them and
   would risk blanking the wrong word. Fixing those means editing the example or its `form`.
 
+- **Guided lessons + pictures in Prayers, Rosary and Saints: built on web only; no iOS
+  twin yet.** Each prayer has an *Impara* lesson, each set of mysteries an *Impara i misteri*
+  lesson, and a saint's story an *Esercizio* when its text yields enough words. Mysteries and
+  saints show Wikipedia pictures; prayers deliberately have none. Everything needed to change
+  or extend this is in the section **"Prayers, Rosary and Saints lessons: how to work on
+  them"** below. Read it before touching `devotionLessons.js`.
+
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   configurable reminder
   hour, the `generate-anki` duplication/non-determinism);
@@ -420,6 +427,170 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   like paraphrase — week 1's `le tenebre non la vinsero` is a likely case. This
   needs the real text, not recall, so it is documented rather than guessed at.
 
+## Prayers, Rosary and Saints lessons: how to work on them
+
+This section is written so that a model new to the repo can change this feature safely.
+Follow it literally. Where it says "must", a test or a real bug stands behind the rule.
+
+### What exists
+
+| Tab | Entry point | Lesson builder | Recorded as |
+|---|---|---|---|
+| Prayers | *Impara* button on each prayer card (`LearnRow` in `DevotionsTab.jsx`) | `prayerLessons(prayer)` → one lesson per ~5 lines | `prayer:<id>:<part>` |
+| Rosary | *Impara i misteri* on the start screen (`StartScreen` in `RosaryTab.jsx`) | `mysteryLesson(set)` → one lesson per set | `rosary:<setId>` |
+| Saints | *Esercizio* under the story (`SaintsTab.jsx`) | `saintLesson(name, extract)` → one lesson, or `null` | never recorded |
+
+All three builders live in `src/utils/devotionLessons.js`. They are pure functions: data in,
+a lesson object out, no React and no storage. **There is no second player.** They return
+lessons in the exact shape `src/components/LessonPlayer.jsx` already plays for the weekly
+lessons, and the run, scoring and retry logic is the existing code in
+`src/utils/lessonPlan.js` (`startRun`, `advance`, `checkStep`, `solutionFor`).
+
+### The lesson object
+
+```js
+{
+  key: 'prayer:padre-nostro:1',   // unique; also the storage key
+  kind: 'devotion',               // not 'words', so adaptLesson() leaves it alone
+  title, sub, label,              // label is the text in the player's top bar
+  words: [],                      // must stay empty: nothing here goes to the SRS
+  steps: [{ ...step, id }],       // id = position, assigned by lesson()
+  minutes,
+  store: 'devotion' | 'none',     // where LessonPlayer records completion
+}
+```
+
+`store: 'devotion'` records under `storageKey('devotion-lessons')` (`DEVOTION_KEY` in
+`lessonStore.js`). `store: 'none'` records nothing. A lesson with no `store` field is a weekly
+lesson and records under `storageKey('lessons')`. Do not put prayer lessons in `lessons`:
+New Session clears that key, and a prayer learned must stay learned.
+
+### The step kinds these lessons use
+
+| kind | Fields | Graded | Notes |
+|---|---|---|---|
+| `line` | `it`, `en`, `say`, optional `eyebrow`, `image`, `example`, `note` | no | Presents a line, a mystery or a word. `say` is spoken when the step appears. `image` is an English Wikipedia article title. |
+| `match` | `pairs: [{it, en}]`, `left`, `right`, optional `instruction` | no | Build it with `matchStep()`. It removes duplicate texts and caps the board at 5 pairs. |
+| `choice` | `prompt`, `options`, `answer` (index), `direction`, `term`, optional `audio`, `instruction`, `say`, `sentence` | yes | Build it with `pickStep()`. See the directions below. |
+| `cloze` | `before`, `answer`, `after`, `card: {it, en, ex, exEn}`, `strict: true`, `term` | yes | Typed. `card.en` is shown as the hint; `card.ex` is the full line spoken after the answer. |
+| `build` | made by `buildStep(text, en, rng, { audio: true })` | yes | Returns `null` unless the text has 4 to 12 words. Always `.filter(Boolean)`. |
+
+`choice` directions, which decide what the player shows:
+
+- `direction: 'it-en'` (default): the prompt is Italian and gets a speaker button.
+- `audio: true`: the prompt is hidden and `term` is spoken until the learner answers.
+- `direction: 'en-it'`: the prompt is English; `term` must be the Italian answer, because it
+  is what gets spoken after the verdict.
+- `direction: 'fill'`: the prompt is a sentence with `____`; no speaker (it would read the
+  blank aloud). Set `sentence: true` and `say` to the full sentence.
+- `instruction` replaces the default heading. `say` is what the verdict's speaker reads.
+
+`pickStep()` returns `null` when it cannot find two wrong options. `lesson()` drops `null`
+steps, so builders push results without checking.
+
+### Rules that must hold
+
+1. **Seeded randomness only.** Every shuffle uses `rngFor('<kind>:<id>')` from
+   `gameRandom.js`. Never call `Math.random()`. A lesson must be identical each time it is
+   opened; the "is deterministic" test checks this.
+2. **Nothing reaches the vocabulary SRS.** `srsGrades()` only grades a word that has a
+   `recall` step, and these lessons have none. Do not add `recall` or `intro` steps here, and
+   keep `words: []`. Prayer lines and words from a Wikipedia extract are not vocab cards.
+3. **A blank must not show its own answer.** `lineCloze()` skips a word that occurs twice in
+   the line (`al Padre e al Figlio`, `i secoli dei secoli`) and blanks the longest word that
+   occurs once. `storyWords()` only picks words that occur once in their sentence. Both have
+   tests that scan all the real data.
+4. **Short prayer blanks are graded exactly.** `checkStrict()` in `lessonPlan.js` demands an
+   exact match (case aside) for answers of six letters or fewer, because `del`, `dello` and
+   `della` are one edit apart and telling them apart is the exercise. Keep `strict: true` on
+   prayer `cloze` steps.
+5. **Never author Italian from memory for these tabs.** Prayer texts live in
+   `courses/it-bible-cei/devotions.js`, mysteries in `courses/it-bible-cei/rosary.js`. The
+   lessons only rearrange what is there.
+6. **Pictures are fetched, never bundled.** No image files go in the repo or the precache.
+   Only the picture's address is cached, under `coursekit-image-cache`. That key is
+   deliberately not `storageKey()`-prefixed, so it stays out of sync backups, like
+   `coursekit-saints-cache`.
+7. **A missing picture is silent.** `WikiImage` renders nothing when offline or when the
+   article has no picture. Never show a broken-image icon or a placeholder box.
+8. **Every online request must be named in `AboutPrivacy.jsx`.** If you add a new host or a
+   new kind of request, update the "Online services" paragraph and `config.licenses`.
+
+### Recipes
+
+**Add a prayer, or make an existing one teachable.** Add `lines: [{ it, en, blank? }]` to
+the prayer in `devotions.js`. A lesson appears automatically once it has two or more lines of
+two or more words. Choose `blank` for grammar (`sia`, `venga`, `dello`), and make sure it
+occurs once in its line. Then:
+
+```bash
+npx vitest run src/utils/glossCoverage.test.js   # add any missing words to src/utils/it2en.js
+node ios-native/scripts/export-course-json.mjs   # devotions are course content
+node ios-native/scripts/generate-fixtures.mjs
+```
+
+**Change a mystery's picture.** Edit its `wiki` field in `rosary.js` to another English
+Wikipedia article title, spelled exactly as the article is titled. Check that the article has
+a lead image before committing (one request for all titles; do not loop, the API rate-limits):
+
+```bash
+curl -s "https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&piprop=thumbnail&pithumbsize=480&redirects=1&format=json&formatversion=2&titles=Annunciation%7CPentecost"
+```
+
+Each page in the answer needs a `thumbnail.source`. Then re-run the two iOS scripts, because
+`rosary.js` is exported into `course.json`.
+
+**Change the wording of the mystery announcement.** `announcement()` in `src/utils/rosary.js`
+has a Swift twin, `rosaryAnnouncement` in `ios-native/BibbiaCore/Sources/BibbiaCore/Rosary.swift`.
+Change both, re-run `generate-fixtures.mjs` (it rewrites `rosary.json`), and add any new word
+to `it2en.js`. The verb is already plural for a plural mystery (`si contemplano le nozze di
+Cana`).
+
+**Add a step to a lesson.** Push it inside the builder, in the position you want. If it is a
+new *kind*, you must also: add a `case` to `StepBody` in `LessonPlayer.jsx`; add the kind to
+`UNGRADED` in `lessonPlan.js` if it has no right answer; handle it in `isReady`, `checkStep`
+and `solutionFor`; and handle it in the `answer()` helper of `LessonPlayer.test.jsx`. Prefer
+reusing `choice` with an `instruction` over inventing a kind.
+
+**Make the saint exercise appear more often.** It needs three words that are lowercase, occur
+once in a sentence of at most 260 characters, and have a gloss in the vocab index or in
+`it2en.js`. It appears on about a third of days (2 of 6 in the one sample measured), because
+Wikipedia summaries are short and `it2en.js` was built from the course's own text. The honest
+fix is adding common hagiography words to `it2en.js` (`teologo`, `monaco`, `martire`,
+`fondatore`). Do not lower the three-word minimum: a two-word lesson has no wrong options to
+offer. Grammar words that should never be picked go in `NOT_WORTH`.
+
+### How to verify a change
+
+```bash
+npm run lint
+npx vitest run src/utils/devotionLessons.test.js src/utils/wikiImage.test.js src/components/LessonPlayer.test.jsx
+npm test                                        # 1083 tests across 83 files
+```
+
+`devotionLessons.test.js` replays every step of every prayer and mystery lesson with its own
+solution, so a step that cannot be solved fails there. Tests cannot see layout or hear audio.
+For anything visible, run `scripts/play-devotion-lessons.mjs` (usage is in its header): it
+plays all three lessons in headless Chrome, screenshots each kind of step, and prints a
+`PROBLEM` line for a wrong verdict, horizontal overflow or a console error. Run it at 390x844
+and at 1280x800, then **open the screenshots and look at them**. It was last run clean at both
+widths. Nobody has listened to the audio.
+
+### Known limits (state them, do not paper over them)
+
+- **iOS has none of this.** A port means a Swift twin of `devotionLessons.js` in BibbiaCore,
+  a fixture generated from the real JS (the pattern `lessons.json` uses), and entry points in
+  `DevotionsView` and `RosaryView`. `LessonPlayerView.swift` would need the `line` step and
+  the `instruction` / `say` fields.
+- **Pictures are whatever each article leads with.** They can change without notice and a few
+  fit loosely (the Crowning with Thorns article leads with a painting of Christ carrying the
+  cross). Each has its own author and license, shown on its Wikimedia Commons page; the saint's
+  picture and the picture on a mystery's step of the guided Rosary link to their article, and
+  About & privacy says where pictures come from. The thumbnails and the pictures inside a
+  lesson carry no link. The licenses of the 20
+  mystery pictures have not been individually audited.
+- **The saint exercise is only as good as the summary text.** Its word choice is mechanical.
+
 ## Commands
 
 ```bash
@@ -428,7 +599,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 835 tests across 70 files, all green
+npm test             # vitest run — 1083 tests across 83 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -463,7 +634,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `usePronunStats` — pronunciation attempts under key `italian-bible-pronun` (per-word `{ attempts, last, best, sum, avg, at }`); `record(term, score)`, `getStore()`. Recorded by Pronunciation mode; combined with the SRS store by `src/utils/wordStats.js` (`struggleList`) to drive the Practice "Parole difficili / words you struggle with" panel.
 - `useStreak` — daily streak + today's-goal flags under key `italian-bible-streak`; React glue over pure `src/utils/streak.js` (`{ last, current, best, today: { date, read, practiced, journaled } }`). The dashboard reads it on mount (`TodayCard` remounts on tab switch, picking up activity recorded elsewhere); `recordActivity(flag)` is called fire-and-forget from `PracticeMode` (`'practiced'`) and `JournalTab` (`'journaled'`), and `tickRead` marks the reading box.
 
-All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`, `-verse-srs`, `-tutor`, `-lessons`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
+All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`, `-verse-srs`, `-tutor`, `-lessons`, `-devotion-lessons`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
@@ -717,7 +888,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **1064 vitest tests across 81 files**, all passing.
+- **Tests:** `npm test` runs **1083 vitest tests across 83 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,

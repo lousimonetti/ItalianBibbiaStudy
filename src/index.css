@@ -4635,3 +4635,38 @@ html.dark {
 }
 
 .today-streak-milestone { margin-left: 8px; font-weight: 700; color: var(--accent); }
+
+/* ── Guided lessons and pictures in Prayers, Rosary and Saints ───────────── */
+.devotion-learn {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin: 12px 0;
+}
+.devotion-tally {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 2px 14px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+.devotion-tally .bar-bg { flex: 1 1 120px; }
+
+.wiki-image {
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  background: var(--surface);
+}
+.lesson-image { width: auto; max-height: min(34vh, 260px); }
+.lesson-word--line { font-size: 24px; line-height: 1.35; text-align: center; }
+.rosary-image { width: auto; max-height: 220px; align-self: center; margin-bottom: 8px; }
+.rosary-mystery-list li::after { content: ''; display: block; clear: both; }
+.rosary-thumb { float: right; width: 44px; height: 44px; margin-left: 10px; border-radius: 8px; }
+.saints-image { width: auto; max-height: 240px; margin: 12px auto 0; }
+.wiki-image-link { align-self: center; }
+.saints-header a { display: block; }
+.rosary-credit { font-size: 11.5px; color: var(--text-faint); margin: 10px 2px 0; }

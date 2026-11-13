@@ -5,7 +5,7 @@ import {
   checkStep, isReady, isGraded, srsGrades,
 } from '../utils/lessonPlan';
 import { splitBlank } from '../utils/grammarDrill';
-import { recordLesson } from '../utils/lessonStore';
+import { recordLesson, DEVOTION_KEY } from '../utils/lessonStore';
 import { recordActivity } from '../utils/streak';
 import { useSrs } from '../hooks/useSrs';
 import { useAudioSpeed } from '../hooks/useAudioSpeed';
@@ -13,6 +13,7 @@ import { getSelectedVoice } from '../utils/voicePreference';
 import { TTS_LANG, HAS_IPA } from '../utils/locale';
 import { SpeakerButton } from './SpeakerButton';
 import { WordGloss } from './WordGloss';
+import { WikiImage } from './WikiImage';
 import { Confetti } from './Confetti';
 import { UiText } from '../i18n/UiText';
 
@@ -37,6 +38,7 @@ function speak(text, rate) {
 // The Italian worth hearing once a step is answered — the whole sentence where
 // there is one. Empty when the answer shown is English or a bare Vero/Falso.
 function italianFor(step) {
+  if (step.say) return step.say;
   switch (step.kind) {
     case 'cloze': return step.card.ex;
     case 'recall': return step.card.it;
@@ -68,6 +70,32 @@ function IntroStep({ step }) {
           {card.exEn && <span className="lesson-example-en">{card.exEn}</span>}
         </div>
       )}
+    </div>
+  );
+}
+
+// A prayer line, a mystery or a word from a story, presented before it is
+// practised: the Italian (spoken as it appears), its meaning, and whatever the
+// lesson attached — a picture, the sentence it came from, a note.
+function LineStep({ step }) {
+  return (
+    <div className="lesson-intro">
+      {step.eyebrow && <div className="lesson-eyebrow">{step.eyebrow}</div>}
+      {step.image && <WikiImage title={step.image} alt={step.en} className="lesson-image" />}
+      <div className={`lesson-word${step.it.length > 22 ? ' lesson-word--line' : ''}`}>
+        <span><WordGloss text={step.it} /></span>
+        <SpeakerButton word={step.say || step.it} size={24} />
+      </div>
+      <div className="lesson-meaning">{step.en}</div>
+      {step.example && (
+        <div className="lesson-example">
+          <span className="lesson-example-it">
+            <WordGloss text={step.example} />
+            <SpeakerButton word={step.example} size={16} />
+          </span>
+        </div>
+      )}
+      {step.note && <div className="lesson-prompt-sub">{step.note}</div>}
     </div>
   );
 }
@@ -116,7 +144,7 @@ function MatchStep({ step, onDone }) {
 
   return (
     <div className="lesson-match">
-      <div className="lesson-instruction">Match each word to its meaning</div>
+      <div className="lesson-instruction">{step.instruction || 'Match each word to its meaning'}</div>
       <div className="lesson-match-grid">
         <div className="lesson-match-col">{step.left.map((i) => tile('left', i, step.pairs[i].it))}</div>
         <div className="lesson-match-col">{step.right.map((i) => tile('right', i, step.pairs[i].en))}</div>
@@ -201,6 +229,8 @@ function StepBody({ step, value, setValue, verdict, onPick, onMatchDone }) {
   switch (step.kind) {
     case 'intro':
       return <IntroStep step={step} />;
+    case 'line':
+      return <LineStep step={step} />;
     case 'match':
       return <MatchStep step={step} onDone={onMatchDone} />;
     case 'tip':
@@ -217,9 +247,10 @@ function StepBody({ step, value, setValue, verdict, onPick, onMatchDone }) {
           <div className="lesson-instruction">
             {step.audio
               ? 'Listen — what does it mean?'
-              : step.direction === 'it-en' ? 'What does this mean?' : 'How do you say this in Italian?'}
+              : step.instruction
+                || (step.direction === 'it-en' ? 'What does this mean?' : 'How do you say this in Italian?')}
           </div>
-          <div className="lesson-prompt">
+          <div className={`lesson-prompt${step.sentence || step.prompt.length > 40 ? ' lesson-prompt-sentence' : ''}`}>
             {/* A listening step keeps the word hidden until it is answered. */}
             {(!step.audio || verdict) && step.prompt}
             {step.direction === 'it-en' && <SpeakerButton word={step.prompt} size={step.audio && !verdict ? 36 : 20} />}
@@ -357,7 +388,9 @@ export function LessonPlayer({ lesson: planned, onClose, onComplete }) {
 
   // Speak the first word; later ones are spoken from the tap that reveals them.
   useEffect(() => {
-    if (lesson.steps[0]?.kind === 'intro') speak(lesson.steps[0].card.it, rate);
+    const first = lesson.steps[0];
+    if (first?.kind === 'intro') speak(first.card.it, rate);
+    else if (first?.kind === 'line') speak(first.say, rate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -367,8 +400,11 @@ export function LessonPlayer({ lesson: planned, onClose, onComplete }) {
     // The streak first: recording the lesson announces itself, and listeners
     // (the Today goals) re-read the streak when it does.
     recordActivity('practiced');
-    const store = recordLesson(lesson.key, sum.pct);
-    setWeekDone(!!onComplete?.(lesson, store.done[lesson.key]?.times === 1));
+    // A saint's-story lesson belongs to the day and is not recorded at all.
+    if (lesson.store !== 'none') {
+      const store = recordLesson(lesson.key, sum.pct, lesson.store === 'devotion' ? DEVOTION_KEY : undefined);
+      setWeekDone(!!onComplete?.(lesson, store.done[lesson.key]?.times === 1));
+    }
     setSummary(sum);
   }
 
@@ -380,6 +416,7 @@ export function LessonPlayer({ lesson: planned, onClose, onComplete }) {
     if (isFinished(next)) { finish(next); return; }
     const upcoming = currentStep(next);
     if (upcoming.kind === 'intro') speak(upcoming.card.it, rate);
+    else if (upcoming.kind === 'line') speak(upcoming.say, rate);
     else if (upcoming.kind === 'choice' && upcoming.audio) speak(upcoming.term, rate);
   }
 
@@ -434,7 +471,7 @@ export function LessonPlayer({ lesson: planned, onClose, onComplete }) {
         >
           <div className="lesson-bar-fill" style={{ width: `${progress(run) * 100}%` }} />
         </div>
-        <span className="lesson-top-label">Week {lesson.weekN} · {lesson.title}</span>
+        <span className="lesson-top-label">{lesson.label || `Week ${lesson.weekN} · ${lesson.title}`}</span>
       </div>
 
       {summary ? (

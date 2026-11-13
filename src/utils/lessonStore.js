@@ -9,12 +9,15 @@ import { storageKey } from './storageKey';
 import { todayStr } from './streak';
 
 export const STORAGE_KEY = storageKey('lessons');
+// Prayer and Rosary lessons keep their own store: New Session clears the
+// course's lessons with its progress, and a prayer learned stays learned.
+export const DEVOTION_KEY = storageKey('devotion-lessons');
 
 const empty = () => ({ done: {} });
 
-export function loadLessons() {
+export function loadLessons(storageName = STORAGE_KEY) {
   try {
-    const raw = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    const raw = JSON.parse(localStorage.getItem(storageName));
     return raw && typeof raw.done === 'object' && raw.done ? raw : empty();
   } catch {
     return empty();
@@ -35,10 +38,10 @@ export function completeLesson(store, key, pct, date = todayStr()) {
 // card) can re-read without being threaded a callback.
 export const LESSONS_EVENT = 'coursekit:lessons';
 
-export function recordLesson(key, pct) {
-  const next = completeLesson(loadLessons(), key, pct);
+export function recordLesson(key, pct, storageName = STORAGE_KEY) {
+  const next = completeLesson(loadLessons(storageName), key, pct);
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    localStorage.setItem(storageName, JSON.stringify(next));
     window.dispatchEvent(new Event(LESSONS_EVENT));
   } catch {
     // storage unavailable — degrade silently

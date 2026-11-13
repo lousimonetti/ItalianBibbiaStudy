@@ -4,8 +4,13 @@ import { devotionSections } from '../../course/devotions';
 import { SpeakerButton } from './SpeakerButton';
 import { WordGloss } from './WordGloss';
 import { recordActivity, todayStr } from '../utils/streak';
+import { mysteryLesson, mysteryLessonKey } from '../utils/devotionLessons';
+import { DEVOTION_KEY, isDone } from '../utils/lessonStore';
+import { useLessonStore } from '../hooks/useLessonStore';
+import { LessonPlayer } from './LessonPlayer';
+import { WikiImage } from './WikiImage';
 import {
-  ORDINALS, setForDay, buildSteps, sectionSteps, capitalize,
+  ORDINALS, setForDay, buildSteps, sectionSteps, capitalize, announcementEn,
   loadRosary, resumeFor, savePosition, clearPosition, recordComplete,
 } from '../utils/rosary';
 
@@ -96,6 +101,7 @@ function MysteryStep({ step, set, showEn }) {
   const d = step.section;
   return (
     <div className="rosary-mystery">
+      <WikiImage title={step.mystery.wiki} alt={step.mystery.en} className="rosary-image" link />
       <span className="rosary-mystery-kicker">
         {capitalize(ORDINALS[d])} mistero {set.adjective}
       </span>
@@ -106,9 +112,7 @@ function MysteryStep({ step, set, showEn }) {
         <SpeakerButton word={step.text} size={16} />
       </p>
       {showEn && (
-        <p className="prayer-line-en">
-          In the {['first', 'second', 'third', 'fourth', 'fifth'][d]} {set.titleEn.replace(/ Mysteries$/, '').toLowerCase()} mystery we contemplate {step.mystery.en.replace(/^The /, 'the ')}.
-        </p>
+        <p className="prayer-line-en">{announcementEn(set, d)}</p>
       )}
       {step.mystery.fruitEn && (
         <p className="rosary-fruit">Fruit of the mystery: {step.mystery.fruitEn}</p>
@@ -119,6 +123,9 @@ function MysteryStep({ step, set, showEn }) {
 
 function StartScreen({ set, setSet, today, resume, stats, onBegin, onResume }) {
   const todaysSet = setForDay(new Date().getDay(), rosary.sets);
+  const store = useLessonStore(DEVOTION_KEY);
+  const [learning, setLearning] = useState(null);
+  const learned = isDone(store, mysteryLessonKey(set));
   return (
     <>
       {resume && (
@@ -151,6 +158,7 @@ function StartScreen({ set, setSet, today, resume, stats, onBegin, onResume }) {
         <ol className="rosary-mystery-list">
           {set.mysteries.map((m, i) => (
             <li key={i}>
+              <WikiImage title={m.wiki} alt="" className="rosary-thumb" />
               <span className="rosary-mystery-list-it">{capitalize(m.it)}</span>
               <span className="rosary-mystery-list-en">{m.en} · {m.ref}</span>
             </li>
@@ -159,7 +167,19 @@ function StartScreen({ set, setSet, today, resume, stats, onBegin, onResume }) {
         <button className="prac-known-btn rosary-begin" onClick={onBegin}>
           Inizia il Rosario · Begin
         </button>
+        <div className="devotion-learn">
+          <button className="continue-secondary" onClick={() => setLearning(mysteryLesson(set))}>
+            {learned ? 'Ripassa i misteri' : 'Impara i misteri'}
+          </button>
+          <span className="continue-sub">
+            {learned ? '✓ You know these five — review them' : 'A short lesson on these five, so you can follow the announcements'}
+          </span>
+        </div>
       </div>
+      {learning && <LessonPlayer lesson={learning} onClose={() => setLearning(null)} />}
+      <p className="rosary-credit">
+        Pictures: the lead image of each mystery's Wikipedia article, each under its own license.
+      </p>
       {stats.completed > 0 && (
         <p className="rosary-tally">
           Rosaries prayed in Italian: {stats.completed}{stats.last === today ? ' — including today' : ''}

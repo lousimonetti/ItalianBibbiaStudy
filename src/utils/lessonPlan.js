@@ -34,7 +34,9 @@ export const VERSES_PER_LESSON = 2;
 export const LISTEN_PER_LESSON = 2;
 
 // Steps that only present something — no verdict, never re-queued.
-const UNGRADED = new Set(['intro', 'tip', 'match']);
+// ('line' presents a prayer line, a mystery or a word from a story — see
+// devotionLessons.js.)
+const UNGRADED = new Set(['intro', 'tip', 'match', 'line']);
 // Steps where the learner produced the answer from memory by typing. Only
 // these are evidence of recall, so only these feed the SRS.
 const TYPED = new Set(['cloze', 'recall']);
@@ -69,7 +71,7 @@ const isCapitalized = (s) => /^[A-ZÀ-Þ]/.test(String(s || ''));
 
 // Up to `n` wrong options. Candidates sharing the right answer's initial case
 // come first: a capitalized answer among lowercase distractors answers itself.
-function wrongOptions(pool, correct, rng, n = 3) {
+export function wrongOptions(pool, correct, rng, n = 3) {
   const uniq = [...new Set(pool)].filter((x) => x && x !== correct);
   const same = uniq.filter((x) => isCapitalized(x) === isCapitalized(correct));
   const rest = uniq.filter((x) => !same.includes(x));
@@ -94,7 +96,7 @@ function choiceStep(card, all, rng, direction, extra = {}) {
   };
 }
 
-function buildStep(text, en, rng, extra = {}) {
+export function buildStep(text, en, rng, extra = {}) {
   const tokens = scrambleTokens(text);
   if (tokens.length < MIN_WORDS || tokens.length > MAX_WORDS) return null;
   return { kind: 'build', text, en: en || '', chips: shuffleScramble(tokens, rng), ...extra };
@@ -270,10 +272,19 @@ export function weekLessons(week) {
 // array of chip indices for build, an option index for choice/mc, a boolean
 // for tf, and `true` once a match board is cleared.
 
+// For prayer lines: del / dello / della sit within typo tolerance of each
+// other, and telling them apart is the exercise. Short answers must be exact
+// (case aside); longer ones get checkDrill's one-letter, accent-strict leeway.
+const bare = (s) => String(s ?? '').toLowerCase().replace(/[’`´]/g, "'").replace(/[.,;:!?"«»()]/g, '').trim();
+function checkStrict(expected, given) {
+  return bare(expected).length <= 6 ? bare(expected) === bare(given) : checkDrill(expected, given);
+}
+
 export function isReady(step, value) {
   switch (step?.kind) {
     case 'intro':
     case 'tip':
+    case 'line':
       return true;
     case 'match':
       return value === true;
@@ -294,7 +305,11 @@ export function isReady(step, value) {
 export function checkStep(step, value) {
   switch (step?.kind) {
     case 'cloze':
-      return { correct: checkAnswer(step.answer, value), answer: step.answer, note: step.card.exEn || '' };
+      return {
+        correct: (step.strict ? checkStrict : checkAnswer)(step.answer, value),
+        answer: step.answer,
+        note: step.card.exEn || '',
+      };
     case 'recall':
       return { correct: checkAnswer(step.card.it, value), answer: step.card.it, note: '' };
     case 'drill':

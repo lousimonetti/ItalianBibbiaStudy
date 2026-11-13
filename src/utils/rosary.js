@@ -18,8 +18,19 @@ export function setForDay(day, sets) {
 }
 
 // "Nel terzo mistero doloroso si contempla la coronazione di spine."
+// A plural mystery takes a plural verb: "si contemplano le nozze di Cana".
 export function announcement(set, index) {
-  return `Nel ${ORDINALS[index]} mistero ${set.adjective} si contempla ${set.mysteries[index].it}.`;
+  const mystery = set.mysteries[index].it;
+  const verb = /^(le|i|gli)\s/.test(mystery) ? 'si contemplano' : 'si contempla';
+  return `Nel ${ORDINALS[index]} mistero ${set.adjective} ${verb} ${mystery}.`;
+}
+
+const ORDINALS_EN = ['first', 'second', 'third', 'fourth', 'fifth'];
+
+// "In the third sorrowful mystery we contemplate the Crowning with Thorns."
+export function announcementEn(set, index) {
+  const kind = set.titleEn.replace(/ Mysteries$/, '').toLowerCase();
+  return `In the ${ORDINALS_EN[index]} ${kind} mystery we contemplate ${set.mysteries[index].en.replace(/^The /, 'the ')}.`;
 }
 
 export function capitalize(s) {
