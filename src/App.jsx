@@ -33,6 +33,8 @@ import { Achievements } from './components/Achievements';
 import { Reminders } from './components/Reminders';
 import { CalendarReminder } from './components/CalendarReminder';
 import { ThinkPrompt } from './components/ThinkPrompt';
+import { LearningTips } from './components/LearningTips';
+import { DailyVerse } from './components/DailyVerse';
 import { CoursePicker } from './components/CoursePicker';
 import { AudioSpeedControl } from './components/AudioSpeedControl';
 import { VoicePicker } from './components/VoicePicker';
@@ -237,6 +239,7 @@ function DailyGoals({ onOpenGame, onOpenVerses }) {
         </button>
       </div>
       <ThinkPrompt />
+      <LearningTips />
       <div className="today-reminders">
         <Reminders />
         <CalendarReminder />
@@ -277,6 +280,7 @@ function TodayCard({ currentWeekN, onOpenGame, onOpenVerses, onOpenReview }) {
         <span className="today-pre-sub">{TOTAL} weeks · {getSessionStartLabel()} → {getEndDateLabel()}</span>
         <SessionRow prominent />
         <ContinueCard currentWeekN={null} onOpenReview={onOpenReview} onChange={lessonChanged} />
+        <DailyVerse currentWeekN={null} onChange={lessonChanged} />
         <DailyGoals key={goalsRev} onOpenGame={onOpenGame} onOpenVerses={onOpenVerses} />
       </div>
     );
@@ -296,6 +300,8 @@ function TodayCard({ currentWeekN, onOpenGame, onOpenVerses, onOpenReview }) {
         <span className="today-day-label">{dayLabels[todayIdx]}</span>
         <span className="today-task-text">{todayTask.task}</span>
       </div>
+
+      <DailyVerse currentWeekN={currentWeekN} onChange={lessonChanged} />
 
       <VoiceTutor week={week} compact />
 

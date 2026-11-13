@@ -36,7 +36,7 @@ const BASE_EXERCISES = {
   // ── Phase 1: John ─────────────────────────────────────────────────────────
   1: {
     passage: {
-      ref: 'Giovanni 1,1-7.14',
+      ref: 'Giovanni 1,1-7.14.16-18',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: 'In principio era il Verbo, e il Verbo era presso Dio e il Verbo era Dio.',
@@ -55,6 +55,12 @@ const BASE_EXERCISES = {
           en: 'He came as a witness, to give testimony to the light, so that all might believe through him.' },
         { n: 14, t: 'E il Verbo si fece carne e venne ad abitare in mezzo a noi; e noi abbiamo contemplato la sua gloria, gloria come del Figlio unigenito che viene dal Padre, pieno di grazia e di verità.',
           en: 'And the Word became flesh and came to dwell among us; and we have contemplated his glory, glory as of the only-begotten Son who comes from the Father, full of grace and truth.' },
+        { n: 16, t: 'Dalla sua pienezza noi tutti abbiamo ricevuto: grazia su grazia.',
+          en: 'From his fullness we have all received: grace upon grace.' },
+        { n: 17, t: 'Perché la Legge fu data per mezzo di Mosè, la grazia e la verità vennero per mezzo di Gesù Cristo.',
+          en: 'For the Law was given through Moses; grace and truth came through Jesus Christ.' },
+        { n: 18, t: 'Dio, nessuno lo ha mai visto: il Figlio unigenito, che è Dio ed è nel seno del Padre, è lui che lo ha rivelato.',
+          en: 'God, no one has ever seen him: the only-begotten Son, who is God and is in the bosom of the Father, it is he who has revealed him.' },
       ],
     },
     drill: [
@@ -68,7 +74,7 @@ const BASE_EXERCISES = {
   },
   2: {
     passage: {
-      ref: 'Giovanni 3,1-6.8.16',
+      ref: 'Giovanni 3,1-8.16-18',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: 'Vi era tra i farisei un uomo di nome Nicodèmo, uno dei capi dei Giudei.',
@@ -83,10 +89,16 @@ const BASE_EXERCISES = {
           en: 'Jesus answered: "Truly, truly I tell you, if one is not born of water and Spirit, he cannot enter the kingdom of God.' },
         { n: 6, t: 'Quello che è nato dalla carne è carne, e quello che è nato dallo Spirito è spirito.',
           en: 'What is born of the flesh is flesh, and what is born of the Spirit is spirit.' },
+        { n: 7, t: 'Non meravigliarti se ti ho detto: dovete nascere dall\'alto.',
+          en: 'Do not be amazed that I said to you: you must be born from above.' },
         { n: 8, t: 'Il vento soffia dove vuole e ne senti la voce, ma non sai da dove viene né dove va: così è chiunque è nato dallo Spirito».',
           en: 'The wind blows where it wills and you hear its sound, but you do not know where it comes from or where it goes: so it is with everyone who is born of the Spirit".' },
         { n: 16, t: 'Dio infatti ha tanto amato il mondo da dare il Figlio unigenito, perché chiunque crede in lui non vada perduto, ma abbia la vita eterna.',
           en: 'For God so loved the world that he gave his only-begotten Son, so that whoever believes in him may not be lost, but may have eternal life.' },
+        { n: 17, t: 'Dio, infatti, non ha mandato il Figlio nel mondo per condannare il mondo, ma perché il mondo sia salvato per mezzo di lui.',
+          en: 'God, indeed, did not send the Son into the world to condemn the world, but so that the world might be saved through him.' },
+        { n: 18, t: 'Chi crede in lui non è condannato; ma chi non crede è già stato condannato, perché non ha creduto nel nome dell\'unigenito Figlio di Dio.',
+          en: 'Whoever believes in him is not condemned; but whoever does not believe has already been condemned, because he has not believed in the name of the only-begotten Son of God.' },
       ],
     },
     drill: [
@@ -100,7 +112,7 @@ const BASE_EXERCISES = {
   },
   3: {
     passage: {
-      ref: 'Giovanni 6,34-35.47-52',
+      ref: 'Giovanni 6,34-35.47-56',
       translation: 'CEI 2008',
       verses: [
         { n: 34, t: 'Allora gli dissero: «Signore, dacci sempre questo pane».',
@@ -119,6 +131,14 @@ const BASE_EXERCISES = {
           en: 'I am the living bread, come down from heaven. If anyone eats of this bread he will live for ever, and the bread that I will give is my flesh for the life of the world».' },
         { n: 52, t: 'Allora i Giudei si misero a discutere aspramente fra loro: «Come può costui darci la sua carne da mangiare?».',
           en: 'Then the Jews began to argue sharply among themselves: «How can this man give us his flesh to eat?».' },
+        { n: 53, t: 'Gesù disse loro: «In verità, in verità io vi dico: se non mangiate la carne del Figlio dell\'uomo e non bevete il suo sangue, non avete in voi la vita.',
+          en: 'Jesus said to them: «Truly, truly I say to you: if you do not eat the flesh of the Son of man and do not drink his blood, you do not have life in you.' },
+        { n: 54, t: 'Chi mangia la mia carne e beve il mio sangue ha la vita eterna e io lo risusciterò nell\'ultimo giorno.',
+          en: 'Whoever eats my flesh and drinks my blood has eternal life, and I will raise him up on the last day.' },
+        { n: 55, t: 'Perché la mia carne è vero cibo e il mio sangue vera bevanda.',
+          en: 'For my flesh is true food and my blood true drink.' },
+        { n: 56, t: 'Chi mangia la mia carne e beve il mio sangue rimane in me e io in lui.',
+          en: 'Whoever eats my flesh and drinks my blood remains in me and I in him.' },
       ],
     },
     drill: [
@@ -132,7 +152,7 @@ const BASE_EXERCISES = {
   },
   4: {
     passage: {
-      ref: 'Giovanni 8,12.29-32.34-36',
+      ref: 'Giovanni 8,12.29-36',
       translation: 'CEI 2008',
       verses: [
         { n: 12, t: 'Di nuovo Gesù parlò loro e disse: «Io sono la luce del mondo; chi segue me, non camminerà nelle tenebre, ma avrà la luce della vita».',
@@ -145,6 +165,8 @@ const BASE_EXERCISES = {
           en: 'Jesus then said to those Jews who had believed him: "If you remain in my word, you are truly my disciples;' },
         { n: 32, t: 'conoscerete la verità e la verità vi farà liberi».',
           en: 'you will know the truth, and the truth will make you free».' },
+        { n: 33, t: 'Gli risposero: «Noi siamo discendenti di Abramo e non siamo mai stati schiavi di nessuno. Come puoi dire: “Diventerete liberi”?».',
+          en: 'They answered him: «We are descendants of Abraham and have never been slaves of anyone. How can you say: “You will become free”?».' },
         { n: 34, t: 'Gesù rispose loro: «In verità, in verità io vi dico: chiunque commette il peccato è schiavo del peccato.',
           en: 'Jesus answered them: «Truly, truly I say to you: whoever commits sin is a slave of sin.' },
         { n: 35, t: 'Ora, lo schiavo non resta per sempre nella casa; il figlio vi resta per sempre.',
@@ -164,7 +186,7 @@ const BASE_EXERCISES = {
   },
   5: {
     passage: {
-      ref: 'Giovanni 11,24-27.35-36.43-44',
+      ref: 'Giovanni 11,24-27.35-36.43-45',
       translation: 'CEI 2008',
       verses: [
         { n: 24, t: 'Gli rispose Marta: «So che risorgerà nella risurrezione dell\'ultimo giorno».',
@@ -183,6 +205,8 @@ const BASE_EXERCISES = {
           en: 'Having said this, he cried out in a loud voice: «Lazarus, come out!».' },
         { n: 44, t: 'Il morto uscì, i piedi e le mani legati con bende, e il viso avvolto da un sudario. Gesù disse loro: «Liberàtelo e lasciàtelo andare».',
           en: 'The dead man came out, his feet and hands bound with bandages, and his face wrapped in a cloth. Jesus said to them: "Untie him and let him go".' },
+        { n: 45, t: 'Molti dei Giudei che erano venuti da Maria, alla vista di ciò che egli aveva compiuto, credettero in lui.',
+          en: 'Many of the Jews who had come to Mary, at the sight of what he had done, believed in him.' },
       ],
     },
     drill: [
@@ -196,7 +220,7 @@ const BASE_EXERCISES = {
   },
   6: {
     passage: {
-      ref: 'Giovanni 14,1-8',
+      ref: 'Giovanni 14,1-12',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: 'Non sia turbato il vostro cuore. Abbiate fede in Dio e abbiate fede anche in me.',
@@ -215,6 +239,14 @@ const BASE_EXERCISES = {
           en: 'If you have known me, you will know my Father too: from now on you know him and have seen him».' },
         { n: 8, t: 'Gli disse Filippo: «Signore, mostraci il Padre e ci basta».',
           en: 'Philip said to him: «Lord, show us the Father and that is enough for us».' },
+        { n: 9, t: 'Gli rispose Gesù: «Da tanto tempo sono con voi e tu non mi hai conosciuto, Filippo? Chi ha visto me, ha visto il Padre. Come puoi tu dire: “Mostraci il Padre”?',
+          en: 'Jesus answered him: «I have been with you so long and you have not known me, Philip? Whoever has seen me has seen the Father. How can you say: “Show us the Father”?' },
+        { n: 10, t: 'Non credi che io sono nel Padre e il Padre è in me? Le parole che io vi dico, non le dico da me stesso; ma il Padre, che rimane in me, compie le sue opere.',
+          en: 'Do you not believe that I am in the Father and the Father is in me? The words that I say to you, I do not say them of myself; but the Father, who remains in me, does his works.' },
+        { n: 11, t: 'Credete a me: io sono nel Padre e il Padre è in me. Se non altro, credetelo per le opere stesse.',
+          en: 'Believe me: I am in the Father and the Father is in me. If nothing else, believe it for the works themselves.' },
+        { n: 12, t: 'In verità, in verità io vi dico: chi crede in me, anch\'egli compirà le opere che io compio e ne compirà di più grandi di queste, perché io vado al Padre.',
+          en: 'Truly, truly I say to you: whoever believes in me, he too will do the works that I do, and will do greater ones than these, because I am going to the Father.' },
       ],
     },
     drill: [
@@ -228,25 +260,33 @@ const BASE_EXERCISES = {
   },
   7: {
     passage: {
-      ref: 'Giovanni 15,1-2.4-5.9.12-14',
+      ref: 'Giovanni 15,1-5.9-15',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: '«Io sono la vite vera e il Padre mio è l\'agricoltore.',
           en: '«I am the true vine and my Father is the farmer.' },
         { n: 2, t: 'Ogni tralcio che in me non porta frutto, lo taglia, e ogni tralcio che porta frutto, lo pota perché porti più frutto.',
           en: 'Every branch in me that bears no fruit, he cuts off, and every branch that bears fruit, he prunes so that it bears more fruit.' },
+        { n: 3, t: 'Voi siete già puri, a causa della parola che vi ho annunciato.',
+          en: 'You are already clean, because of the word that I have announced to you.' },
         { n: 4, t: 'Rimanete in me e io in voi. Come il tralcio non può portare frutto da se stesso se non rimane nella vite, così neanche voi se non rimanete in me.',
           en: 'Remain in me, and I in you. As the branch cannot bear fruit by itself unless it remains in the vine, so neither can you unless you remain in me.' },
         { n: 5, t: 'Io sono la vite, voi i tralci. Chi rimane in me, e io in lui, porta molto frutto, perché senza di me non potete far nulla.',
           en: 'I am the vine, you the branches. Whoever remains in me, and I in him, bears much fruit, because without me you can do nothing.' },
         { n: 9, t: 'Come il Padre ha amato me, anche io ho amato voi. Rimanete nel mio amore.',
           en: 'As the Father has loved me, I too have loved you. Remain in my love.' },
+        { n: 10, t: 'Se osserverete i miei comandamenti, rimarrete nel mio amore, come io ho osservato i comandamenti del Padre mio e rimango nel suo amore.',
+          en: 'If you keep my commandments, you will remain in my love, as I have kept the commandments of my Father and remain in his love.' },
+        { n: 11, t: 'Vi ho detto queste cose perché la mia gioia sia in voi e la vostra gioia sia piena.',
+          en: 'I have told you these things so that my joy may be in you and your joy may be full.' },
         { n: 12, t: 'Questo è il mio comandamento: che vi amiate gli uni gli altri come io ho amato voi.',
           en: 'This is my commandment: that you love one another as I have loved you.' },
         { n: 13, t: 'Nessuno ha un amore più grande di questo: dare la sua vita per i propri amici.',
           en: 'No one has a greater love than this: to give his life for his friends.' },
         { n: 14, t: 'Voi siete miei amici, se fate ciò che io vi comando.',
           en: 'You are my friends, if you do what I command you.' },
+        { n: 15, t: 'Non vi chiamo più servi, perché il servo non sa quello che fa il suo padrone; ma vi ho chiamato amici, perché tutto ciò che ho udito dal Padre mio l\'ho fatto conoscere a voi.',
+          en: 'I no longer call you servants, because the servant does not know what his master is doing; but I have called you friends, because everything that I have heard from my Father I have made known to you.' },
       ],
     },
     drill: [
@@ -260,7 +300,7 @@ const BASE_EXERCISES = {
   },
   8: {
     passage: {
-      ref: 'Giovanni 20,19-21.24-28',
+      ref: 'Giovanni 20,19-29',
       translation: 'CEI 2008',
       verses: [
         { n: 19, t: 'La sera di quel giorno, il primo della settimana, mentre erano chiuse le porte del luogo dove si trovavano i discepoli per timore dei Giudei, venne Gesù, stette in mezzo e disse loro: «Pace a voi!».',
@@ -269,6 +309,10 @@ const BASE_EXERCISES = {
           en: 'Having said this, he showed them his hands and his side. And the disciples rejoiced at seeing the Lord.' },
         { n: 21, t: 'Gesù disse loro di nuovo: «Pace a voi! Come il Padre ha mandato me, anche io mando voi».',
           en: 'Jesus said to them again: «Peace be with you! As the Father has sent me, so I also send you».' },
+        { n: 22, t: 'Detto questo, soffiò e disse loro: «Ricevete lo Spirito Santo.',
+          en: 'Having said this, he breathed and said to them: «Receive the Holy Spirit.' },
+        { n: 23, t: 'A coloro a cui perdonerete i peccati, saranno perdonati; a coloro a cui non perdonerete, non saranno perdonati».',
+          en: 'Those whose sins you forgive, they will be forgiven; those whose sins you do not forgive, they will not be forgiven».' },
         { n: 24, t: 'Tommaso, uno dei Dodici, chiamato Dìdimo, non era con loro quando venne Gesù.',
           en: 'Thomas, one of the Twelve, called Didymus, was not with them when Jesus came.' },
         { n: 25, t: 'Gli dicevano gli altri discepoli: «Abbiamo visto il Signore!». Ma egli disse loro: «Se non vedo nelle sue mani il segno dei chiodi e non metto il mio dito nel segno dei chiodi e non metto la mia mano nel suo fianco, io non credo».',
@@ -279,6 +323,8 @@ const BASE_EXERCISES = {
           en: 'Then he said to Thomas: «Put your finger here and look at my hands; reach out your hand and put it into my side; and do not be unbelieving, but believing!».' },
         { n: 28, t: 'Gli rispose Tommaso: «Mio Signore e mio Dio!».',
           en: 'Thomas answered him: "My Lord and my God!".' },
+        { n: 29, t: 'Gesù gli disse: «Perché mi hai veduto, tu hai creduto; beati quelli che non hanno visto e hanno creduto!».',
+          en: 'Jesus said to him: «Because you have seen me, you have believed; blessed are those who have not seen and have believed!».' },
       ],
     },
     drill: [
@@ -293,7 +339,7 @@ const BASE_EXERCISES = {
   // ── Phase 2: Luke ─────────────────────────────────────────────────────────
   9: {
     passage: {
-      ref: 'Luca 2,8-15',
+      ref: 'Luca 2,8-19',
       translation: 'CEI 2008',
       verses: [
         { n: 8, t: 'C\'erano in quella regione alcuni pastori che, pernottando all\'aperto, vegliavano tutta la notte facendo la guardia al loro gregge.',
@@ -312,6 +358,14 @@ const BASE_EXERCISES = {
           en: '«Glory to God in the highest heavens, and on earth peace to men, whom he loves».' },
         { n: 15, t: 'Appena gli angeli si furono allontanati da loro, verso il cielo, i pastori dicevano l\'un l\'altro: «Andiamo dunque fino a Betlemme, vediamo questo avvenimento che il Signore ci ha fatto conoscere».',
           en: 'As soon as the angels had gone away from them toward heaven, the shepherds said to one another: «Let us go then as far as Bethlehem, let us see this event which the Lord has made known to us».' },
+        { n: 16, t: 'Andarono, senza indugio, e trovarono Maria e Giuseppe e il bambino, adagiato nella mangiatoia.',
+          en: 'They went, without delay, and found Mary and Joseph and the child, laid in the manger.' },
+        { n: 17, t: 'E dopo averlo visto, riferirono ciò che del bambino era stato detto loro.',
+          en: 'And after seeing him, they reported what had been told them about the child.' },
+        { n: 18, t: 'Tutti quelli che udivano si stupirono delle cose dette loro dai pastori.',
+          en: 'All those who heard were amazed at the things told them by the shepherds.' },
+        { n: 19, t: 'Maria, da parte sua, custodiva tutte queste cose, meditandole nel suo cuore.',
+          en: 'Mary, for her part, kept all these things, pondering them in her heart.' },
       ],
     },
     drill: [
@@ -325,7 +379,7 @@ const BASE_EXERCISES = {
   },
   10: {
     passage: {
-      ref: 'Luca 4,1-4.18-21',
+      ref: 'Luca 4,1-4.18-22.24',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: 'Gesù, pieno di Spirito Santo, si allontanò dal Giordano ed era guidato dallo Spirito nel deserto,',
@@ -344,6 +398,10 @@ const BASE_EXERCISES = {
           en: 'He rolled up the scroll, gave it back to the attendant and sat down. In the synagogue, the eyes of all were fixed on him.' },
         { n: 21, t: 'Allora cominciò a dire loro: «Oggi si è compiuta questa Scrittura che voi avete ascoltato».',
           en: 'Then he began to say to them: «Today this Scripture that you have heard has been fulfilled».' },
+        { n: 22, t: 'Tutti gli davano testimonianza ed erano meravigliati delle parole di grazia che uscivano dalla sua bocca e dicevano: «Non è costui il figlio di Giuseppe?».',
+          en: 'All bore witness to him and were amazed at the words of grace that came from his mouth, and they said: «Is this not the son of Joseph?».' },
+        { n: 24, t: 'Poi aggiunse: «In verità io vi dico: nessun profeta è bene accetto nella sua patria.',
+          en: 'Then he added: «Truly I say to you: no prophet is welcome in his own homeland.' },
       ],
     },
     drill: [
@@ -357,7 +415,7 @@ const BASE_EXERCISES = {
   },
   11: {
     passage: {
-      ref: 'Luca 6,20-23.27-29.31',
+      ref: 'Luca 6,20-31',
       translation: 'CEI 2008',
       verses: [
         { n: 20, t: 'Ed egli, alzàti gli occhi verso i suoi discepoli, diceva: «Beati voi, poveri, perché vostro è il regno di Dio.',
@@ -368,12 +426,20 @@ const BASE_EXERCISES = {
           en: 'Blessed are you when men hate you, and when they ban you and insult you and reject your name as evil, because of the Son of Man.' },
         { n: 23, t: 'Rallegratevi in quel giorno ed esultate perché, ecco, la vostra ricompensa è grande nel cielo. Allo stesso modo infatti agivano i loro padri con i profeti.',
           en: 'Rejoice on that day and leap for joy, for behold, your reward is great in heaven. In the same way their fathers treated the prophets.' },
+        { n: 24, t: 'Ma guai a voi, ricchi, perché avete già ricevuto la vostra consolazione.',
+          en: 'But woe to you, the rich, because you have already received your consolation.' },
+        { n: 25, t: 'Guai a voi, che ora siete sazi, perché avrete fame. Guai a voi, che ora ridete, perché sarete nel dolore e piangerete.',
+          en: 'Woe to you who are now full, because you will be hungry. Woe to you who now laugh, because you will be in sorrow and will weep.' },
+        { n: 26, t: 'Guai, quando tutti gli uomini diranno bene di voi. Allo stesso modo infatti agivano i loro padri con i falsi profeti.',
+          en: 'Woe, when all men speak well of you. For in the same way their fathers acted with the false prophets.' },
         { n: 27, t: 'Ma a voi che ascoltate, io dico: amate i vostri nemici, fate del bene a quelli che vi odiano,',
           en: 'But to you who are listening I say: love your enemies, do good to those who hate you,' },
         { n: 28, t: 'benedite coloro che vi maledicono, pregate per coloro che vi trattano male.',
           en: 'bless those who curse you, pray for those who treat you badly.' },
         { n: 29, t: 'A chi ti percuote sulla guancia, offri anche l\'altra; a chi ti strappa il mantello, non rifiutare neanche la tunica.',
           en: 'To whoever strikes you on the cheek, offer the other too; from whoever takes your cloak, do not withhold even your tunic.' },
+        { n: 30, t: 'Da\' a chiunque ti chiede, e a chi prende le cose tue, non chiederle indietro.',
+          en: 'Give to everyone who asks you, and from the one who takes your things, do not ask for them back.' },
         { n: 31, t: 'E come volete che gli uomini facciano a voi, così anche voi fate a loro.',
           en: 'And as you want people to do to you, so you too do to them.' },
       ],
@@ -389,7 +455,7 @@ const BASE_EXERCISES = {
   },
   12: {
     passage: {
-      ref: 'Luca 9,18-25',
+      ref: 'Luca 9,18-27',
       translation: 'CEI 2008',
       verses: [
         { n: 18, t: 'Un giorno Gesù si trovava in un luogo solitario a pregare. I discepoli erano con lui ed egli pose loro questa domanda: «Le folle, chi dicono che io sia?».',
@@ -408,6 +474,10 @@ const BASE_EXERCISES = {
           en: 'Whoever wants to save his own life will lose it, but whoever loses his own life for my sake will save it.' },
         { n: 25, t: 'Infatti, quale vantaggio ha un uomo che guadagna il mondo intero, ma perde o rovina se stesso?',
           en: 'For what advantage does a man have who gains the whole world, but loses or ruins himself?' },
+        { n: 26, t: 'Chi si vergognerà di me e delle mie parole, di lui si vergognerà il Figlio dell\'uomo quando verrà nella gloria sua e del Padre e degli angeli santi.',
+          en: 'Whoever is ashamed of me and of my words, of him the Son of man will be ashamed when he comes in his glory and that of the Father and of the holy angels.' },
+        { n: 27, t: 'In verità io vi dico: vi sono alcuni, qui presenti, che non morranno prima di aver visto il regno di Dio».',
+          en: 'Truly I say to you: there are some, present here, who will not die before having seen the kingdom of God».' },
       ],
     },
     drill: [
@@ -421,7 +491,7 @@ const BASE_EXERCISES = {
   },
   13: {
     passage: {
-      ref: 'Luca 10,25-29.33.36-37',
+      ref: 'Luca 10,25-29.33-37',
       translation: 'CEI 2008',
       verses: [
         { n: 25, t: 'Ed ecco, un dottore della Legge si alzò per metterlo alla prova e chiese: «Maestro, che cosa devo fare per ereditare la vita eterna?».',
@@ -436,6 +506,10 @@ const BASE_EXERCISES = {
           en: 'But he, wanting to justify himself, said to Jesus: «And who is my neighbor?».' },
         { n: 33, t: 'Invece un Samaritano, che era in viaggio, passandogli accanto, vide e ne ebbe compassione.',
           en: 'But a Samaritan, who was on a journey, passing near him, saw him and had compassion.' },
+        { n: 34, t: 'Gli si fece vicino, gli fasciò le ferite, versandovi olio e vino; poi lo caricò sulla sua cavalcatura, lo portò in un albergo e si prese cura di lui.',
+          en: 'He came near him, bandaged his wounds, pouring oil and wine on them; then he loaded him on his own mount, took him to an inn and took care of him.' },
+        { n: 35, t: 'Il giorno seguente, tirò fuori due denari e li diede all\'albergatore, dicendo: «Abbi cura di lui; ciò che spenderai in più, te lo pagherò al mio ritorno».',
+          en: 'The following day, he took out two denarii and gave them to the innkeeper, saying: «Take care of him; whatever more you spend, I will pay you on my return».' },
         { n: 36, t: 'Chi di questi tre ti sembra sia stato prossimo di colui che è caduto nelle mani dei briganti?».',
           en: 'Which of these three, in your opinion, was a neighbor to the man who fell into the hands of the robbers?".' },
         { n: 37, t: 'Quello rispose: «Chi ha avuto compassione di lui». Gesù gli disse: «Va\' e anche tu fa\' così».',
@@ -453,7 +527,7 @@ const BASE_EXERCISES = {
   },
   14: {
     passage: {
-      ref: 'Luca 12,22-25.27.31-32.34',
+      ref: 'Luca 12,22-27.31-34',
       translation: 'CEI 2008',
       verses: [
         { n: 22, t: 'Poi disse ai suoi discepoli: «Per questo io vi dico: non preoccupatevi per la vita, di quello che mangerete; né per il corpo, di quello che indosserete.',
@@ -464,12 +538,16 @@ const BASE_EXERCISES = {
           en: 'Look at the ravens: they neither sow nor reap, they have no storeroom or barn, and yet God feeds them. How much more are you worth than the birds!' },
         { n: 25, t: 'Chi di voi, per quanto si preoccupi, può allungare anche di poco la propria vita?',
           en: 'Which of you, however much he worries, can add even a little to his life?' },
+        { n: 26, t: 'Se non potete fare neppure così poco, perché vi preoccupate per il resto?',
+          en: 'If you cannot do even so little, why do you worry about the rest?' },
         { n: 27, t: 'Guardate come crescono i gigli: non faticano e non filano. Eppure io vi dico: neanche Salomone, con tutta la sua gloria, vestiva come uno di loro.',
           en: 'Look how the lilies grow: they do not toil and they do not spin. Yet I say to you: not even Solomon, in all his glory, was dressed like one of them.' },
         { n: 31, t: 'Cercate piuttosto il suo regno, e queste cose vi saranno date in aggiunta.',
           en: 'Seek rather his kingdom, and these things will be given to you as well.' },
         { n: 32, t: 'Non temere, piccolo gregge, perché al Padre vostro è piaciuto dare a voi il Regno.',
           en: 'Do not be afraid, little flock, because it has pleased your Father to give you the Kingdom.' },
+        { n: 33, t: 'Vendete ciò che possedete e datelo in elemosina; fatevi borse che non invecchiano, un tesoro sicuro nei cieli, dove ladro non arriva e tarlo non consuma.',
+          en: 'Sell what you possess and give it as alms; make yourselves purses that do not grow old, a sure treasure in heaven, where no thief arrives and no moth consumes.' },
         { n: 34, t: 'Perché, dov\'è il vostro tesoro, là sarà anche il vostro cuore.',
           en: 'For where your treasure is, there your heart will be too.' },
       ],
@@ -485,7 +563,7 @@ const BASE_EXERCISES = {
   },
   15: {
     passage: {
-      ref: 'Luca 15,11-13.20-24',
+      ref: 'Luca 15,11-13.17-24',
       translation: 'CEI 2008',
       verses: [
         { n: 11, t: 'Disse ancora: «Un uomo aveva due figli.',
@@ -494,6 +572,12 @@ const BASE_EXERCISES = {
           en: 'The younger of the two said to his father: "Father, give me the share of the estate that belongs to me". And he divided his property between them.' },
         { n: 13, t: 'Pochi giorni dopo, il figlio più giovane, raccolte tutte le sue cose, partì per un paese lontano e là sperperò il suo patrimonio vivendo in modo dissoluto.',
           en: 'A few days later, the younger son, having gathered all his things, set off for a distant country, and there he squandered his inheritance living a dissolute life.' },
+        { n: 17, t: 'Allora ritornò in sé e disse: «Quanti salariati di mio padre hanno pane in abbondanza e io qui muoio di fame!',
+          en: 'Then he came back to himself and said: «How many of my father\'s hired men have bread in abundance, and I here am dying of hunger!' },
+        { n: 18, t: 'Mi alzerò, andrò da mio padre e gli dirò: Padre, ho peccato verso il Cielo e davanti a te;',
+          en: 'I will get up, I will go to my father and I will say to him: Father, I have sinned against Heaven and before you;' },
+        { n: 19, t: 'non sono più degno di essere chiamato tuo figlio. Trattami come uno dei tuoi salariati».',
+          en: 'I am no longer worthy to be called your son. Treat me as one of your hired men».' },
         { n: 20, t: 'Si alzò e tornò da suo padre. Quando era ancora lontano, suo padre lo vide, ebbe compassione, gli corse incontro, gli si gettò al collo e lo baciò.',
           en: 'He got up and went back to his father. While he was still far off, his father saw him, was moved with compassion, ran to meet him, threw his arms around his neck and kissed him.' },
         { n: 21, t: 'Il figlio gli disse: «Padre, ho peccato verso il Cielo e davanti a te; non sono più degno di essere chiamato tuo figlio».',
@@ -517,7 +601,7 @@ const BASE_EXERCISES = {
   },
   16: {
     passage: {
-      ref: 'Luca 18,9-14.16-17',
+      ref: 'Luca 18,9-17',
       translation: 'CEI 2008',
       verses: [
         { n: 9, t: 'Disse ancora questa parabola per alcuni che avevano l\'intima presunzione di essere giusti e disprezzavano gli altri:',
@@ -532,6 +616,8 @@ const BASE_EXERCISES = {
           en: 'The tax collector instead, standing at a distance, did not even dare to raise his eyes to heaven, but beat his breast saying: "O God, have mercy on me, a sinner".' },
         { n: 14, t: 'Io vi dico: questi, a differenza dell\'altro, tornò a casa sua giustificato, perché chiunque si esalta sarà umiliato, chi invece si umilia sarà esaltato».',
           en: 'I tell you: this man, unlike the other, went home justified, because whoever exalts himself will be humbled, while whoever humbles himself will be exalted».' },
+        { n: 15, t: 'Gli presentavano anche i bambini piccoli perché li toccasse, ma i discepoli, vedendo ciò, li rimproveravano.',
+          en: 'They were also bringing little children to him so that he might touch them, but the disciples, seeing this, rebuked them.' },
         { n: 16, t: 'Allora Gesù li chiamò a sé e disse: «Lasciate che i bambini vengano a me e non glielo impedite; a chi è come loro, infatti, appartiene il regno di Dio.',
           en: 'Then Jesus called them to himself and said: «Let the children come to me and do not stop them; for to those who are like them belongs the kingdom of God.' },
         { n: 17, t: 'In verità io vi dico: chi non accoglie il regno di Dio come l\'accoglie un bambino, non entrerà in esso».',
@@ -549,7 +635,7 @@ const BASE_EXERCISES = {
   },
   17: {
     passage: {
-      ref: 'Luca 19,1-6.9-10',
+      ref: 'Luca 19,1-10',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: 'Entrò nella città di Gerico e la stava attraversando,',
@@ -564,6 +650,10 @@ const BASE_EXERCISES = {
           en: 'When he reached the place, Jesus looked up and said to him: «Zacchaeus, come down at once, for today I must stay at your house».' },
         { n: 6, t: 'Scese in fretta e lo accolse pieno di gioia.',
           en: 'He came down quickly and welcomed him, full of joy.' },
+        { n: 7, t: 'Vedendo ciò, tutti mormoravano: «È entrato in casa di un peccatore!».',
+          en: 'Seeing this, everyone grumbled: «He has gone into the house of a sinner!».' },
+        { n: 8, t: 'Ma Zaccheo, alzatosi, disse al Signore: «Ecco, Signore, io do la metà di ciò che possiedo ai poveri e, se ho rubato a qualcuno, restituisco quattro volte tanto».',
+          en: 'But Zacchaeus, standing up, said to the Lord: «Look, Lord, I give half of what I possess to the poor and, if I have stolen from anyone, I give back four times as much».' },
         { n: 9, t: 'Gesù gli rispose: «Oggi per questa casa è venuta la salvezza, perché anch\'egli è figlio di Abramo.',
           en: 'Jesus answered him: "Today salvation has come to this house, because he too is a son of Abraham.' },
         { n: 10, t: 'Il Figlio dell\'uomo infatti è venuto a cercare e a salvare ciò che era perduto».',
@@ -581,7 +671,7 @@ const BASE_EXERCISES = {
   },
   18: {
     passage: {
-      ref: 'Luca 24,1-6.12.34',
+      ref: 'Luca 24,1-6.12.34-36',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: 'Il primo giorno della settimana, al mattino presto esse si recarono al sepolcro, portando con sé gli aromi che avevano preparato.',
@@ -600,6 +690,10 @@ const BASE_EXERCISES = {
           en: 'Peter, however, got up, ran to the tomb and, bending down, saw only the linen cloths. And he went back, full of amazement at what had happened.' },
         { n: 34, t: 'i quali dicevano: «Davvero il Signore è risorto ed è apparso a Simone!».',
           en: 'who said: "The Lord has truly risen and has appeared to Simon!".' },
+        { n: 35, t: 'Ed essi narravano ciò che era accaduto lungo la via e come l\'avevano riconosciuto nello spezzare il pane.',
+          en: 'And they told what had happened along the way and how they had recognized him in the breaking of the bread.' },
+        { n: 36, t: 'Mentre essi parlavano di queste cose, Gesù in persona stette in mezzo a loro e disse: «Pace a voi!».',
+          en: 'While they were speaking of these things, Jesus himself stood in the midst of them and said: «Peace to you!».' },
       ],
     },
     drill: [
@@ -614,7 +708,7 @@ const BASE_EXERCISES = {
   // ── Phase 3: Acts ─────────────────────────────────────────────────────────
   19: {
     passage: {
-      ref: 'Atti 2,1-4.37-39.41',
+      ref: 'Atti 2,1-4.37-44',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: 'Mentre stava compiendosi il giorno della Pentecoste, si trovavano tutti insieme nello stesso luogo.',
@@ -631,8 +725,16 @@ const BASE_EXERCISES = {
           en: 'And Peter said to them: "Repent and let each of you be baptized in the name of Jesus Christ, for the forgiveness of your sins, and you will receive the gift of the Holy Spirit.' },
         { n: 39, t: 'Per voi infatti è la promessa e per i vostri figli e per tutti quelli che sono lontani, quanti ne chiamerà il Signore Dio nostro».',
           en: 'For the promise is for you and for your children and for all those who are far away, as many as the Lord our God will call».' },
+        { n: 40, t: 'Con molte altre parole rendeva testimonianza e li esortava: «Salvatevi da questa generazione perversa!».',
+          en: 'With many other words he bore witness and urged them: «Save yourselves from this perverse generation!».' },
         { n: 41, t: 'Allora coloro che accolsero la sua parola furono battezzati e quel giorno furono aggiunte circa tremila persone.',
           en: 'Then those who accepted his word were baptized, and that day about three thousand people were added.' },
+        { n: 42, t: 'Erano perseveranti nell\'insegnamento degli apostoli e nella comunione, nello spezzare il pane e nelle preghiere.',
+          en: 'They were persevering in the teaching of the apostles and in communion, in the breaking of the bread and in the prayers.' },
+        { n: 43, t: 'Un senso di timore era in tutti, e prodigi e segni avvenivano per opera degli apostoli.',
+          en: 'A sense of awe was in everyone, and wonders and signs took place through the apostles.' },
+        { n: 44, t: 'Tutti i credenti stavano insieme e avevano ogni cosa in comune;',
+          en: 'All the believers stayed together and had everything in common;' },
       ],
     },
     drill: [
@@ -646,7 +748,7 @@ const BASE_EXERCISES = {
   },
   20: {
     passage: {
-      ref: 'Atti 4,11-12.20.31-35',
+      ref: 'Atti 4,11-12.20.31-37',
       translation: 'CEI 2008',
       verses: [
         { n: 11, t: 'Questo Gesù è la pietra, che è stata scartata da voi, costruttori, e che è diventata la pietra d\'angolo.',
@@ -665,6 +767,10 @@ const BASE_EXERCISES = {
           en: 'For no one among them was in need, because those who owned fields or houses sold them, brought the proceeds of what had been sold' },
         { n: 35, t: 'e lo deponevano ai piedi degli apostoli; poi veniva distribuito a ciascuno secondo il suo bisogno.',
           en: 'and laid it at the feet of the apostles; then it was distributed to each according to his need.' },
+        { n: 36, t: 'Così Giuseppe, soprannominato dagli apostoli Bàrnaba, che significa «figlio dell\'esortazione», un levita originario di Cipro,',
+          en: 'So Joseph, surnamed Barnabas by the apostles, which means «son of exhortation», a Levite native of Cyprus,' },
+        { n: 37, t: 'padrone di un campo, lo vendette e ne consegnò il ricavato deponendolo ai piedi degli apostoli.',
+          en: 'owner of a field, sold it and handed over the proceeds, laying them at the feet of the apostles.' },
       ],
     },
     drill: [
@@ -678,7 +784,7 @@ const BASE_EXERCISES = {
   },
   21: {
     passage: {
-      ref: 'Atti 9,1-6.17-18',
+      ref: 'Atti 9,1-6.17-20',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: 'Saulo, spirando ancora minacce e stragi contro i discepoli del Signore, si presentò al sommo sacerdote',
@@ -697,6 +803,10 @@ const BASE_EXERCISES = {
           en: 'Then Ananias went, entered the house, laid his hands on him and said: "Saul, brother, the Lord has sent me to you, that Jesus who appeared to you on the road you were traveling, so that you may regain your sight and be filled with the Holy Spirit".' },
         { n: 18, t: 'E subito gli caddero dagli occhi come delle squame e recuperò la vista. Si alzò e venne battezzato,',
           en: 'And immediately something like scales fell from his eyes and he regained his sight. He got up and was baptized,' },
+        { n: 19, t: 'poi prese cibo e le forze gli ritornarono. Rimase alcuni giorni insieme ai discepoli che erano a Damasco,',
+          en: 'then he took food and his strength returned to him. He stayed some days with the disciples who were in Damascus,' },
+        { n: 20, t: 'e subito nelle sinagoghe annunciava che Gesù è il Figlio di Dio.',
+          en: 'and at once in the synagogues he proclaimed that Jesus is the Son of God.' },
       ],
     },
     drill: [
@@ -710,7 +820,7 @@ const BASE_EXERCISES = {
   },
   22: {
     passage: {
-      ref: 'Atti 10,34-36.42-46',
+      ref: 'Atti 10,34-36.42-48',
       translation: 'CEI 2008',
       verses: [
         { n: 34, t: 'Pietro allora prese la parola e disse: «In verità sto rendendomi conto che Dio non fa preferenza di persone,',
@@ -729,6 +839,10 @@ const BASE_EXERCISES = {
           en: 'And the circumcised believers who had come with Peter were astonished that the gift of the Holy Spirit had been poured out even on the pagans;' },
         { n: 46, t: 'li sentivano infatti parlare in altre lingue e glorificare Dio. Allora Pietro disse:',
           en: 'for they heard them speaking in other tongues and glorifying God. Then Peter said:' },
+        { n: 47, t: '«Chi può impedire che siano battezzati nell\'acqua questi che hanno ricevuto, come noi, lo Spirito Santo?».',
+          en: '«Who can prevent these from being baptized in water, who have received the Holy Spirit as we have?».' },
+        { n: 48, t: 'E ordinò che fossero battezzati nel nome di Gesù Cristo. Quindi lo pregarono di fermarsi alcuni giorni.',
+          en: 'And he ordered that they be baptized in the name of Jesus Christ. Then they asked him to stay some days.' },
       ],
     },
     drill: [
@@ -742,13 +856,17 @@ const BASE_EXERCISES = {
   },
   23: {
     passage: {
-      ref: 'Atti 13,38-39.44-49',
+      ref: 'Atti 13,38-39.42-49',
       translation: 'CEI 2008',
       verses: [
         { n: 38, t: 'Vi sia dunque noto, fratelli, che per opera sua viene annunciato a voi il perdono dei peccati. Da tutte le cose da cui mediante la legge di Mosè non vi fu possibile essere giustificati,',
           en: 'Let it therefore be known to you, brothers, that through him the forgiveness of sins is proclaimed to you. From all the things from which you could not be justified by the law of Moses,' },
         { n: 39, t: 'per mezzo di lui chiunque crede è giustificato.',
           en: 'through him everyone who believes is justified.' },
+        { n: 42, t: 'Mentre uscivano, li esortavano ad annunciare loro queste cose il sabato seguente.',
+          en: 'As they were going out, they urged them to announce these things to them the following sabbath.' },
+        { n: 43, t: 'Sciolta l\'assemblea, molti Giudei e prosèliti credenti in Dio seguirono Paolo e Bàrnaba ed essi, intrattenendosi con loro, cercavano di persuaderli a perseverare nella grazia di Dio.',
+          en: 'When the assembly was dismissed, many Jews and God-fearing proselytes followed Paul and Barnabas, and they, conversing with them, tried to persuade them to persevere in the grace of God.' },
         { n: 44, t: 'Il sabato seguente quasi tutta la città si radunò per ascoltare la parola del Signore.',
           en: 'The following sabbath almost the whole city gathered to hear the word of the Lord.' },
         { n: 45, t: 'Quando videro quella moltitudine, i Giudei furono ricolmi di gelosia e con parole ingiuriose contrastavano le affermazioni di Paolo.',
@@ -774,7 +892,7 @@ const BASE_EXERCISES = {
   },
   24: {
     passage: {
-      ref: 'Atti 16,25-31.34',
+      ref: 'Atti 16,25-34',
       translation: 'CEI 2008',
       verses: [
         { n: 25, t: 'Verso mezzanotte Paolo e Sila, in preghiera, cantavano inni a Dio, mentre i prigionieri stavano ad ascoltarli.',
@@ -791,6 +909,10 @@ const BASE_EXERCISES = {
           en: 'then he led them outside and said: «Sirs, what must I do to be saved?».' },
         { n: 31, t: 'Risposero: «Credi nel Signore Gesù e sarai salvato tu e la tua famiglia».',
           en: 'They answered: «Believe in the Lord Jesus and you will be saved, you and your family».' },
+        { n: 32, t: 'E proclamarono la parola del Signore a lui e a tutti quelli della sua casa.',
+          en: 'And they proclaimed the word of the Lord to him and to all those of his house.' },
+        { n: 33, t: 'Egli li prese con sé, a quell\'ora della notte, ne lavò le piaghe e subito fu battezzato lui con tutti i suoi;',
+          en: 'He took them with him, at that hour of the night, washed their wounds and at once was baptized, he with all his own;' },
         { n: 34, t: 'poi li fece salire in casa, apparecchiò la tavola e fu pieno di gioia insieme a tutti i suoi per avere creduto in Dio.',
           en: 'then he brought them up into the house, set the table and was filled with joy together with all his household for having come to believe in God.' },
       ],
@@ -806,11 +928,17 @@ const BASE_EXERCISES = {
   },
   25: {
     passage: {
-      ref: 'Atti 20,24.28.33-38',
+      ref: 'Atti 20,24-28.33-38',
       translation: 'CEI 2008',
       verses: [
         { n: 24, t: 'Non ritengo in nessun modo preziosa la mia vita, purché conduca a termine la mia corsa e il servizio che mi fu affidato dal Signore Gesù, di dare testimonianza al vangelo della grazia di Dio.',
           en: 'I do not consider my life of any value to myself, provided I finish my course and the service that was entrusted to me by the Lord Jesus, to bear witness to the gospel of the grace of God.' },
+        { n: 25, t: 'E ora, ecco, io so che non vedrete più il mio volto, voi tutti tra i quali sono passato annunciando il Regno.',
+          en: 'And now, see, I know that you will no longer see my face, all of you among whom I have passed announcing the Kingdom.' },
+        { n: 26, t: 'Per questo attesto solennemente oggi, davanti a voi, che io sono innocente del sangue di tutti,',
+          en: 'For this reason I solemnly attest today, before you, that I am innocent of the blood of all,' },
+        { n: 27, t: 'perché non mi sono sottratto al dovere di annunciarvi tutta la volontà di Dio.',
+          en: 'because I did not shrink from the duty of announcing to you the whole will of God.' },
         { n: 28, t: 'Vegliate su voi stessi e su tutto il gregge, in mezzo al quale lo Spirito Santo vi ha costituiti come custodi per essere pastori della Chiesa di Dio, che si è acquistata con il sangue del proprio Figlio.',
           en: 'Keep watch over yourselves and over the whole flock, in which the Holy Spirit has appointed you as overseers to be shepherds of the Church of God, which he acquired with the blood of his own Son.' },
         { n: 33, t: 'Non ho desiderato né argento né oro né il vestito di nessuno.',
@@ -870,7 +998,7 @@ const BASE_EXERCISES = {
   },
   27: {
     passage: {
-      ref: 'Atti 26,12-19',
+      ref: 'Atti 26,12-20',
       translation: 'CEI 2008',
       verses: [
         { n: 12, t: 'In tali circostanze, mentre stavo andando a Damasco con il potere e l\'autorizzazione dei capi dei sacerdoti,',
@@ -889,6 +1017,8 @@ const BASE_EXERCISES = {
           en: 'to open their eyes, so that they may turn from darkness to light and from the power of Satan to God, and obtain forgiveness of sins and an inheritance among those who have been sanctified by faith in me".' },
         { n: 19, t: 'Perciò, o re Agrippa, io non ho disobbedito alla visione celeste,',
           en: 'Therefore, O King Agrippa, I did not disobey the heavenly vision,' },
+        { n: 20, t: 'ma, prima a quelli di Damasco, poi a quelli di Gerusalemme e in tutta la regione della Giudea e infine ai pagani, predicavo di pentirsi e di convertirsi a Dio, comportandosi in maniera degna della conversione.',
+          en: 'but, first to those of Damascus, then to those of Jerusalem and in the whole region of Judea and finally to the pagans, I preached that they should repent and turn to God, behaving in a manner worthy of conversion.' },
       ],
     },
     drill: [
@@ -902,7 +1032,7 @@ const BASE_EXERCISES = {
   },
   28: {
     passage: {
-      ref: 'Atti 28,20.22-25.28.30-31',
+      ref: 'Atti 28,20.22-28.30-31',
       translation: 'CEI 2008',
       verses: [
         { n: 20, t: 'Ecco perché vi ho chiamati: per vedervi e parlarvi, poiché è a causa della speranza d\'Israele che io sono legato da questa catena».',
@@ -915,6 +1045,10 @@ const BASE_EXERCISES = {
           en: 'Some were persuaded by what was said, others did not believe.' },
         { n: 25, t: 'Essendo in disaccordo fra di loro, se ne andavano via, mentre Paolo diceva quest\'unica parola: «Ha detto bene lo Spirito Santo, per mezzo del profeta Isaia, ai vostri padri:',
           en: 'Being in disagreement among themselves, they were leaving, while Paul said this one word: «The Holy Spirit spoke well, through the prophet Isaiah, to your fathers:' },
+        { n: 26, t: 'Va\' da questo popolo e di\': Udrete, sì, ma non comprenderete; guarderete, sì, ma non vedrete.',
+          en: 'Go to this people and say: You will hear, yes, but you will not understand; you will look, yes, but you will not see.' },
+        { n: 27, t: 'Perché il cuore di questo popolo è diventato insensibile, sono diventati duri di orecchi e hanno chiuso gli occhi, perché non vedano con gli occhi, non ascoltino con gli orecchi e non comprendano con il cuore e non si convertano, e io li guarisca!',
+          en: 'For the heart of this people has become insensitive, they have become hard of hearing and have closed their eyes, so that they may not see with their eyes, nor hear with their ears, nor understand with their heart and be converted, and I heal them!' },
         { n: 28, t: 'Sia dunque noto a voi che questa salvezza di Dio fu inviata alle nazioni, ed esse ascolteranno!».',
           en: 'Let it therefore be known to you that this salvation of God has been sent to the nations, and they will listen!".' },
         { n: 30, t: 'Paolo trascorse due anni interi nella casa che aveva preso in affitto e accoglieva tutti quelli che venivano da lui,',
@@ -935,7 +1069,7 @@ const BASE_EXERCISES = {
   // ── Phase 4: Romans + Psalms ──────────────────────────────────────────────
   29: {
     passage: {
-      ref: 'Romani 1,1-4.7-8.16-17',
+      ref: 'Romani 1,1-8.16-17',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: 'Paolo, servo di Cristo Gesù, apostolo per chiamata, scelto per annunciare il vangelo di Dio -',
@@ -946,6 +1080,10 @@ const BASE_EXERCISES = {
           en: 'and which concerns his Son, born of the seed of David according to the flesh,' },
         { n: 4, t: 'costituito Figlio di Dio con potenza, secondo lo Spirito di santità, in virtù della risurrezione dei morti, Gesù Cristo nostro Signore;',
           en: 'constituted Son of God with power, according to the Spirit of holiness, by virtue of the resurrection of the dead, Jesus Christ our Lord;' },
+        { n: 5, t: 'per mezzo di lui abbiamo ricevuto la grazia di essere apostoli, per suscitare l\'obbedienza della fede in tutte le genti, a gloria del suo nome,',
+          en: 'through him we have received the grace of being apostles, to bring about the obedience of faith among all the nations, to the glory of his name,' },
+        { n: 6, t: 'e tra queste siete anche voi, chiamati da Gesù Cristo -,',
+          en: 'and among these are you also, called by Jesus Christ -,' },
         { n: 7, t: 'a tutti quelli che sono a Roma, amati da Dio e santi per chiamata, grazia a voi e pace da Dio, Padre nostro, e dal Signore Gesù Cristo!',
           en: 'to all those who are in Rome, loved by God and saints by calling, grace to you and peace from God, our Father, and from the Lord Jesus Christ!' },
         { n: 8, t: 'Anzitutto rendo grazie al mio Dio per mezzo di Gesù Cristo riguardo a tutti voi, perché della vostra fede si parla nel mondo intero.',
@@ -967,7 +1105,7 @@ const BASE_EXERCISES = {
   },
   30: {
     passage: {
-      ref: 'Romani 3,21-28',
+      ref: 'Romani 3,21-31',
       translation: 'CEI 2008',
       verses: [
         { n: 21, t: 'Ora invece, indipendentemente dalla Legge, si è manifestata la giustizia di Dio, testimoniata dalla Legge e dai Profeti:',
@@ -986,6 +1124,12 @@ const BASE_EXERCISES = {
           en: 'Where then is the boasting? It has been excluded! By what law? That of works? No, but by the law of faith.' },
         { n: 28, t: 'Noi riteniamo infatti che l\'uomo è giustificato per la fede, indipendentemente dalle opere della Legge.',
           en: 'For we hold that a man is justified by faith, apart from the works of the Law.' },
+        { n: 29, t: 'Forse Dio è Dio soltanto dei Giudei? Non lo è anche delle genti? Certo, anche delle genti!',
+          en: 'Is God perhaps the God of the Jews only? Is he not also of the nations? Certainly, also of the nations!' },
+        { n: 30, t: 'Poiché unico è il Dio che giustificherà i circoncisi in virtù della fede e gli incirconcisi per mezzo della fede.',
+          en: 'For one is the God who will justify the circumcised by virtue of faith and the uncircumcised through faith.' },
+        { n: 31, t: 'Togliamo dunque ogni valore alla Legge mediante la fede? Nient\'affatto, anzi confermiamo la Legge.',
+          en: 'Do we then take all value from the Law through faith? Not at all; rather, we confirm the Law.' },
       ],
     },
     drill: [
@@ -999,7 +1143,7 @@ const BASE_EXERCISES = {
   },
   31: {
     passage: {
-      ref: 'Romani 5,1-8',
+      ref: 'Romani 5,1-11',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: 'Giustificati dunque per fede, noi siamo in pace con Dio per mezzo del Signore nostro Gesù Cristo.',
@@ -1018,6 +1162,12 @@ const BASE_EXERCISES = {
           en: 'Now, one is hardly willing to die for a righteous man; perhaps someone might dare to die for a good person.' },
         { n: 8, t: 'Ma Dio dimostra il suo amore verso di noi nel fatto che, mentre eravamo ancora peccatori, Cristo è morto per noi.',
           en: 'But God shows his love for us in that, while we were still sinners, Christ died for us.' },
+        { n: 9, t: 'A maggior ragione ora, giustificati nel suo sangue, saremo salvati dall\'ira per mezzo di lui.',
+          en: 'All the more now, justified in his blood, we will be saved from the wrath through him.' },
+        { n: 10, t: 'Se infatti, quand\'eravamo nemici, siamo stati riconciliati con Dio per mezzo della morte del Figlio suo, molto più, ora che siamo riconciliati, saremo salvati mediante la sua vita.',
+          en: 'For if, when we were enemies, we were reconciled with God through the death of his Son, much more, now that we are reconciled, will we be saved through his life.' },
+        { n: 11, t: 'Non solo, ma ci gloriamo pure in Dio, per mezzo del Signore nostro Gesù Cristo, grazie al quale ora abbiamo ricevuto la riconciliazione.',
+          en: 'Not only that, but we also boast in God, through our Lord Jesus Christ, thanks to whom we have now received reconciliation.' },
       ],
     },
     drill: [
@@ -1031,7 +1181,7 @@ const BASE_EXERCISES = {
   },
   32: {
     passage: {
-      ref: 'Romani 8,1-2.14.28.31.37-39',
+      ref: 'Romani 8,1-2.14.28-31.37-39',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: 'Ora, dunque, non c\'è nessuna condanna per quelli che sono in Cristo Gesù.',
@@ -1042,6 +1192,10 @@ const BASE_EXERCISES = {
           en: 'For all those who are led by the Spirit of God, these are children of God.' },
         { n: 28, t: 'Del resto, noi sappiamo che tutto concorre al bene, per quelli che amano Dio, per coloro che sono stati chiamati secondo il suo disegno.',
           en: 'Besides, we know that all things work together for good, for those who love God, for those who are called according to his purpose.' },
+        { n: 29, t: 'Poiché quelli che egli da sempre ha conosciuto, li ha anche predestinati a essere conformi all\'immagine del Figlio suo, perché egli sia il primogenito tra molti fratelli;',
+          en: 'For those whom he has always known, he has also predestined to be conformed to the image of his Son, so that he may be the firstborn among many brothers;' },
+        { n: 30, t: 'quelli poi che ha predestinato, li ha anche chiamati; quelli che ha chiamato, li ha anche giustificati; quelli che ha giustificato, li ha anche glorificati.',
+          en: 'and those whom he predestined, he also called; those whom he called, he also justified; those whom he justified, he also glorified.' },
         { n: 31, t: 'Che diremo dunque di queste cose? Se Dio è per noi, chi sarà contro di noi?',
           en: 'What then shall we say about these things? If God is for us, who will be against us?' },
         { n: 37, t: 'Ma in tutte queste cose noi siamo più che vincitori grazie a colui che ci ha amati.',
@@ -1063,13 +1217,15 @@ const BASE_EXERCISES = {
   },
   33: {
     passage: {
-      ref: 'Romani 10,9-10.12-17',
+      ref: 'Romani 10,9-17',
       translation: 'CEI 2008',
       verses: [
         { n: 9, t: 'Perché se con la tua bocca proclamerai: «Gesù è il Signore!», e con il tuo cuore crederai che Dio lo ha risuscitato dai morti, sarai salvo.',
           en: 'For if with your mouth you proclaim: "Jesus is Lord!", and with your heart you believe that God raised him from the dead, you will be saved.' },
         { n: 10, t: 'Con il cuore infatti si crede per ottenere la giustizia, e con la bocca si fa la professione di fede per avere la salvezza.',
           en: 'For with the heart one believes to obtain righteousness, and with the mouth one makes profession of faith to obtain salvation.' },
+        { n: 11, t: 'Dice infatti la Scrittura: Chiunque crede in lui non sarà deluso.',
+          en: 'For Scripture says: Whoever believes in him will not be disappointed.' },
         { n: 12, t: 'Poiché non c\'è distinzione fra Giudeo e Greco, dato che lui stesso è il Signore di tutti, ricco verso tutti quelli che lo invocano.',
           en: 'For there is no distinction between Jew and Greek, since he himself is the Lord of all, rich toward all those who call on him.' },
         { n: 13, t: 'Infatti: Chiunque invocherà il nome del Signore sarà salvato.',
@@ -1095,7 +1251,7 @@ const BASE_EXERCISES = {
   },
   34: {
     passage: {
-      ref: 'Romani 12,1-3.9-13',
+      ref: 'Romani 12,1-3.9-17',
       translation: 'CEI 2008',
       verses: [
         { n: 1, t: 'Vi esorto dunque, fratelli, per la misericordia di Dio, a offrire i vostri corpi come sacrificio vivente, santo e gradito a Dio; è questo il vostro culto spirituale.',
@@ -1114,6 +1270,14 @@ const BASE_EXERCISES = {
           en: 'Be joyful in hope, steadfast in tribulation, persevering in prayer.' },
         { n: 13, t: 'Condividete le necessità dei santi; siate premurosi nell\'ospitalità.',
           en: 'Share in the needs of the saints; be eager in hospitality.' },
+        { n: 14, t: 'Benedite coloro che vi perseguitano, benedite e non maledite.',
+          en: 'Bless those who persecute you; bless and do not curse.' },
+        { n: 15, t: 'Rallegratevi con quelli che sono nella gioia; piangete con quelli che sono nel pianto.',
+          en: 'Rejoice with those who are in joy; weep with those who are in tears.' },
+        { n: 16, t: 'Abbiate i medesimi sentimenti gli uni verso gli altri; non nutrite desideri di grandezza; volgetevi piuttosto a ciò che è umile. Non stimatevi sapienti da voi stessi.',
+          en: 'Have the same feelings towards one another; do not nurse desires for greatness; turn rather to what is humble. Do not think yourselves wise.' },
+        { n: 17, t: 'Non rendete a nessuno male per male. Cercate di compiere il bene davanti a tutti gli uomini.',
+          en: 'Repay no one evil for evil. Seek to do good before all men.' },
       ],
     },
     drill: [
@@ -1127,7 +1291,7 @@ const BASE_EXERCISES = {
   },
   35: {
     passage: {
-      ref: 'Romani 13,6-13',
+      ref: 'Romani 13,6-14',
       translation: 'CEI 2008',
       verses: [
         { n: 6, t: 'Per questo infatti voi pagate anche le tasse: quelli che svolgono questo compito sono a servizio di Dio.',
@@ -1146,6 +1310,8 @@ const BASE_EXERCISES = {
           en: 'The night is far gone, the day is near. So let us throw away the works of darkness and put on the armor of light.' },
         { n: 13, t: 'Comportiamoci onestamente, come in pieno giorno: non in mezzo a orge e ubriachezze, non fra lussurie e impurità, non in litigi e gelosie.',
           en: 'Let us behave honestly, as in broad daylight: not in orgies and drunkenness, not in lust and impurity, not in quarrels and jealousy.' },
+        { n: 14, t: 'Rivestitevi invece del Signore Gesù Cristo e non lasciatevi prendere dai desideri della carne.',
+          en: 'Clothe yourselves instead with the Lord Jesus Christ and do not let yourselves be taken by the desires of the flesh.' },
       ],
     },
     drill: [
@@ -1159,11 +1325,13 @@ const BASE_EXERCISES = {
   },
   36: {
     passage: {
-      ref: 'Romani 15,2.4-8.13-14',
+      ref: 'Romani 15,2-8.13-14',
       translation: 'CEI 2008',
       verses: [
         { n: 2, t: 'Ciascuno di noi cerchi di piacere al prossimo nel bene, per edificarlo.',
           en: 'Let each of us seek to please his neighbor for good, to build him up.' },
+        { n: 3, t: 'Anche Cristo infatti non cercò di piacere a se stesso, ma, come sta scritto: Gli insulti di chi ti insulta ricadano su di me.',
+          en: 'For Christ too did not seek to please himself, but, as it is written: May the insults of those who insult you fall on me.' },
         { n: 4, t: 'Tutto ciò che è stato scritto prima di noi, è stato scritto per nostra istruzione, perché, in virtù della perseveranza e della consolazione che provengono dalle Scritture, teniamo viva la speranza.',
           en: 'Everything written before us was written for our instruction, so that, by the perseverance and consolation that come from the Scriptures, we may keep hope alive.' },
         { n: 5, t: 'E il Dio della perseveranza e della consolazione vi conceda di avere gli uni verso gli altri gli stessi sentimenti, sull\'esempio di Cristo Gesù,',

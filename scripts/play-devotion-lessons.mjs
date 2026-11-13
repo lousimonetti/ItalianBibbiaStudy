@@ -1,4 +1,4 @@
-// Play the Prayers, Rosary and Saints lessons in a real browser and report
+// Play the daily-verse, Prayers, Rosary and Saints lessons in a real browser and report
 // anything broken. It answers every step with the plan's own solution (and one
 // deliberately wrong tap, to exercise the retry), takes a screenshot of each
 // kind of step, and prints PROBLEM lines for a step judged wrong, options that
@@ -17,6 +17,7 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 const [,, port, base, outDir, width = '390', height = '844', prayerId = 'padre-nostro'] = process.argv;
 mkdirSync(outDir, { recursive: true });
+if (!(+width > 0 && +height > 0)) { console.error('width and height must be two separate numbers, e.g. 390 844'); process.exit(1); }
 const tabs = await (await fetch(`http://127.0.0.1:${port}/json`)).json();
 const ws = new WebSocket(tabs.find((t) => t.type === 'page').webSocketDebuggerUrl);
 await new Promise((r) => (ws.onopen = r));
@@ -71,7 +72,7 @@ async function play(name) {
       const tall = await ev(`(() => { const b = __q('.lesson-body'); return b.scrollHeight - b.clientHeight; })()`);
       if (tall > 0) console.log(`note: ${kinds[idx]} body scrolls by ${tall}px`);
     }
-    if (kind === 'line') await ev(`__primary()`);
+    if (kind === 'line' || kind === 'tip') await ev(`__primary()`);
     else if (kind === 'match') {
       const pairs = await ev(`__lesson.steps[${idx}].pairs`);
       for (const p of pairs) {
@@ -108,6 +109,22 @@ async function play(name) {
   await shot(`${name}-summary`);
   await ev(`__q('.lesson-summary .lesson-primary').click()`); await sleep(400);
 }
+
+// ── Today: Versetto del giorno and Consiglio del giorno ──
+await ev(`(async () => { const dv = await import('/src/utils/dailyVerse.js'); const kv = await import('/src/utils/keyVerses.js'); const sd = await import('/src/data/studyData.js'); const sc = await import('/src/utils/schedule.js'); const st = await import('/src/utils/streak.js');
+  const weeks = sd.PHASES.flatMap((p) => p.weeks); const v = dv.verseForDay({ weeks, currentWeekN: sc.getCurrentWeekN(), dayIndex: sc.getTodayDayIndex(), dateStr: st.todayStr() });
+  window.__lesson = dv.verseLesson(v, kv.verseRefs(weeks.find((w) => w.n === v.weekN))); })()`);
+await ev(`__q('.daily-verse').scrollIntoView({block:'center'})`); await sleep(300);
+console.log('daily verse:', await ev(`__q('.daily-verse-ref')?.textContent`), '|', await ev(`__q('.daily-verse-it')?.textContent`));
+await ev(`__click('.daily-chip', 'EN')`); await ev(`__click('.daily-chip', 'Nel contesto')`).catch(() => {}); await sleep(200);
+await shot('today-verse'); console.log('today overflow px:', await overflow());
+await ev(`__q('.daily-verse-learn').click()`); await sleep(400);
+await play('verse');
+console.log('after verse:', await ev(`__q('.daily-verse-actions')?.innerText.replace(/\\n+/g,' | ')`), '| store:', await ev(`localStorage.getItem('italian-bible-daily-verse')`));
+await ev(`__click('.learning-tips .think-prompt-row', 'Consiglio')`); await sleep(200);
+await ev(`__q('.learning-tips-all').click()`); await sleep(100); await ev(`document.querySelectorAll('.learning-tips-cat')[1].click()`); await sleep(200);
+await ev(`__q('.learning-tips').scrollIntoView({block:'start'})`); await sleep(300);
+await shot('today-tips'); console.log('tips overflow px:', await overflow(), '| tips shown:', await ev(`document.querySelectorAll('.tip').length`));
 
 console.log('tabs:', await ev(`[...document.querySelectorAll('.tab-btn')].map((b) => b.textContent.trim()).join(' | ')`));
 await ev(`document.querySelectorAll('.tab-btn')[3].click()`); await sleep(500);
