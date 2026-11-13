@@ -66,7 +66,9 @@ export const config = {
     {
       name: 'Wikipedia',
       note: 'Saint-of-the-day stories are fetched from Wikipedia and are available under ' +
-        'the Creative Commons Attribution-ShareAlike license.',
+        'the Creative Commons Attribution-ShareAlike license. The pictures of saints and of ' +
+        'the Rosary mysteries are the lead images of their Wikipedia articles; each has its ' +
+        'own license and author, shown on its page at Wikimedia Commons.',
       url: 'https://creativecommons.org/licenses/by-sa/4.0/',
     },
     {

@@ -26,6 +26,9 @@ describe('announcement', () => {
       .toBe("Nel primo mistero gaudioso si contempla l'annunciazione dell'angelo a Maria.");
     expect(announcement(byId('dolorosi'), 2))
       .toBe('Nel terzo mistero doloroso si contempla la coronazione di spine.');
+    // A plural mystery takes a plural verb.
+    expect(announcement(byId('luminosi'), 1))
+      .toBe('Nel secondo mistero luminoso si contemplano le nozze di Cana.');
   });
 
   it('authors mysteries in their mid-sentence (lowercase) form', () => {

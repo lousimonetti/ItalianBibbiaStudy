@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
   saintForDate,
   addDays,
@@ -11,6 +11,8 @@ import {
 import { SpeakerButton } from './SpeakerButton';
 import { WordGloss } from './WordGloss';
 import { UiText } from '../i18n/UiText';
+import { saintLesson } from '../utils/devotionLessons';
+import { LessonPlayer } from './LessonPlayer';
 
 // Santo del giorno — the day's saint from the bundled calendar (offline), with
 // the hagiography fetched from Wikipedia at runtime: Italian first (every word
@@ -37,6 +39,8 @@ export function SaintsTab() {
   const [status, setStatus] = useState('loading'); // loading | ok | cached | offline
   const [story, setStory] = useState(null); // { it, en } | null
   const [enOpen, setEnOpen] = useState(false);
+  const [imageOk, setImageOk] = useState(true);
+  const [playing, setPlaying] = useState(false);
 
   const saint = saintForDate(date);
   const key = dateKey(date);
@@ -47,6 +51,8 @@ export function SaintsTab() {
     setStatus('loading');
     setStory(null);
     setEnOpen(false);
+    setImageOk(true);
+    setPlaying(false);
     const cached = loadCache()[key];
 
     fetchSaintStory(saint).then((fetched) => {
@@ -66,6 +72,14 @@ export function SaintsTab() {
     // saint derives from key; key is the real dependency.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
+
+  // The story is fetched text, so its exercise is built from whatever arrived.
+  const lesson = useMemo(
+    () => (story?.it ? saintLesson(saint.name, story.it.extract) : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [story],
+  );
+  const image = story?.it?.image || story?.en?.image || '';
 
   return (
     <div className="saints-wrap">
@@ -90,6 +104,18 @@ export function SaintsTab() {
           {saint.name}
           <SpeakerButton word={saint.name} size={20} />
         </h2>
+        {image && imageOk && (
+          <a href={(story.it || story.en).url} target="_blank" rel="noreferrer" title="Picture from this Wikipedia article">
+            <img
+              className="wiki-image saints-image"
+              src={image}
+              alt={saint.name}
+              loading="lazy"
+              referrerPolicy="no-referrer"
+              onError={() => setImageOk(false)}
+            />
+          </a>
+        )}
       </div>
 
       {status === 'loading' && (
@@ -124,6 +150,15 @@ export function SaintsTab() {
                   <SpeakerButton word={p} size={13} />
                 </p>
               ))}
+              {lesson && (
+                <div className="devotion-learn">
+                  <button className="continue-btn" onClick={() => setPlaying(true)}>Esercizio</button>
+                  <span className="continue-text">
+                    <span className="continue-title">Practise the words of this story</span>
+                    <span className="continue-sub">{lesson.sub} · about {lesson.minutes} min</span>
+                  </span>
+                </div>
+              )}
               <a className="saints-wiki-link" href={story.it.url} target="_blank" rel="noreferrer">
                 Leggi tutto su Wikipedia (italiano) →
               </a>
@@ -162,8 +197,10 @@ export function SaintsTab() {
         </>
       )}
 
+      {playing && lesson && <LessonPlayer lesson={lesson} onClose={() => setPlaying(false)} />}
+
       <div className="saints-credit">
-        Testi da Wikipedia (CC BY-SA) · calendario dei santi incluso nell'app
+        Testi da Wikipedia (CC BY-SA) · immagine dalla voce di Wikipedia, con licenza propria · calendario dei santi incluso nell'app
       </div>
     </div>
   );

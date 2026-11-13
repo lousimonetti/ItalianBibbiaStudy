@@ -8,6 +8,16 @@ import { recordActivity } from '../utils/streak';
 import { checkDrill } from '../utils/answer';
 import { TTS_LANG } from '../utils/locale';
 import { getSpeechRecognition, hasSpeechRecognition, releaseRecognition } from '../utils/speech';
+import { prayerLessons } from '../utils/devotionLessons';
+import { DEVOTION_KEY, isDone } from '../utils/lessonStore';
+import { useLessonStore } from '../hooks/useLessonStore';
+import { LessonPlayer } from './LessonPlayer';
+
+// Each prayer's guided lessons, built once (they are deterministic).
+const LESSONS = new Map(
+  devotionSections.flatMap((s) => s.prayers).map((p) => [p.id, prayerLessons(p)]),
+);
+const TEACHABLE = [...LESSONS.values()].filter((l) => l.length);
 
 // Memorized devotional texts — the strongest language material in the app, and
 // previously the least used: it was read-only text with one whole-prayer TTS
@@ -364,6 +374,69 @@ function RecallMode({ prayer }) {
   );
 }
 
+// The guided way in: one button that plays the prayer's next unfinished
+// lesson, and a node per part once a prayer is long enough to have several.
+function LearnRow({ prayer }) {
+  const store = useLessonStore(DEVOTION_KEY);
+  const [active, setActive] = useState(null);
+  const lessons = LESSONS.get(prayer.id) || [];
+  if (!lessons.length) return null;
+  const next = lessons.find((l) => !isDone(store, l.key));
+  const started = lessons.some((l) => isDone(store, l.key));
+  const target = next || lessons[0];
+
+  return (
+    <div className="devotion-learn">
+      <button className="continue-btn" onClick={() => setActive(target)}>
+        {!next ? 'Ripeti' : started ? 'Continua' : 'Impara'}
+      </button>
+      <span className="continue-text">
+        <span className="continue-title">
+          {!next ? '✓ Learned — repeat it any time' : 'Guided lesson: hear it, match it, rebuild it'}
+        </span>
+        <span className="continue-sub">{target.sub} · about {target.minutes} min</span>
+      </span>
+      {lessons.length > 1 && (
+        <span className="week-path">
+          {lessons.map((l, i) => {
+            const finished = isDone(store, l.key);
+            return (
+              <span key={l.key} className="week-path-item">
+                {i > 0 && (
+                  <span
+                    className={`week-path-link${finished && isDone(store, lessons[i - 1].key) ? ' done' : ''}`}
+                    aria-hidden="true"
+                  />
+                )}
+                <button
+                  className={`week-path-node${finished ? ' done' : ''}`}
+                  onClick={() => setActive(l)}
+                  aria-label={`${prayer.title}, part ${l.n}${finished ? ' (done — repeat)' : ''}`}
+                >
+                  {finished ? '✓' : l.n}
+                </button>
+              </span>
+            );
+          })}
+        </span>
+      )}
+      {active && <LessonPlayer lesson={active} onClose={() => setActive(null)} />}
+    </div>
+  );
+}
+
+function LearnedTally() {
+  const store = useLessonStore(DEVOTION_KEY);
+  const learned = TEACHABLE.filter((lessons) => lessons.every((l) => isDone(store, l.key))).length;
+  if (!TEACHABLE.length) return null;
+  return (
+    <div className="devotion-tally" role="status">
+      <div className="bar-bg"><div className="bar-fill" style={{ width: `${(learned / TEACHABLE.length) * 100}%` }} /></div>
+      <span>{learned} of {TEACHABLE.length} prayers learned</span>
+    </div>
+  );
+}
+
 const MODES = [
   { id: 'read', label: 'Read' },
   { id: 'shadow', label: 'Shadow' },
@@ -400,6 +473,8 @@ function PrayerCard({ prayer }) {
           )}
         </div>
       )}
+
+      <LearnRow prayer={prayer} />
 
       {hasLines && (
         <div className="prayer-modes">
@@ -466,10 +541,11 @@ export function DevotionsTab() {
       <div className="prayers-why">
         You already know these by heart in English — which makes them the easiest
         Italian you will ever understand, and the best material for building
-        chunks you can actually say. <strong>Read</strong> them line by line,
-        <strong> Shadow</strong> them aloud for pronunciation, or
-        <strong> Recall</strong> the word that carries the grammar.
+        chunks you can actually say. Press <strong>Impara</strong> to be walked
+        through a prayer, or <strong>Read</strong>, <strong>Shadow</strong> and
+        <strong> Recall</strong> it on your own.
       </div>
+      <LearnedTally />
       {devotionSections.map((section) => (
         <PrayerSection key={section.id} section={section} />
       ))}

@@ -114,7 +114,10 @@ public func jsWeekday(_ date: Date = Date(), calendar: Calendar = .current) -> I
 
 /// "Nel terzo mistero doloroso si contempla la coronazione di spine."
 public func rosaryAnnouncement(_ set: MysterySet, index: Int) -> String {
-    "Nel \(rosaryOrdinals[index]) mistero \(set.adjective) si contempla \(set.mysteries[index].it)."
+    // A plural mystery takes a plural verb: "si contemplano le nozze di Cana".
+    let mystery = set.mysteries[index].it
+    let plural = ["le ", "i ", "gli "].contains { mystery.hasPrefix($0) }
+    return "Nel \(rosaryOrdinals[index]) mistero \(set.adjective) \(plural ? "si contemplano" : "si contempla") \(mystery)."
 }
 
 /// Uppercase the first character only (keeps "L'ascensione di Gesù").

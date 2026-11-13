@@ -1251,6 +1251,7 @@ const MAP = new Map(Object.entries({
 
   // --- the Rosary: mystery announcements (Rosario tab) ---
   contempla: 'contemplates (si contempla: we contemplate)',
+  contemplano: 'they contemplate (si contemplano: we contemplate)',
   gaudioso: 'joyful', luminoso: 'luminous', doloroso: 'sorrowful',
   visita: 'visit', presentazione: 'presentation', ritrovamento: 'finding',
   nozze: 'wedding', cana: 'Cana', invito: 'invitation',

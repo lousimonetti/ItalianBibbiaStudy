@@ -37,8 +37,10 @@ function AboutPrivacyModal({ onClose }) {
             The app works fully offline, with two optional online features. The Journal's
             grammar check — off by default — sends the text of the entry you're checking to
             the <a href="https://languagetool.org" target="_blank" rel="noreferrer">LanguageTool</a>{' '}
-            public API and nothing else. The Saints tab fetches each day's story from
-            Wikipedia. No other network requests carry your data.
+            public API and nothing else. The Saints tab fetches each day's story and
+            picture from Wikipedia, and the Rosary tab fetches a picture for each mystery
+            from Wikipedia; those requests say which article is wanted and nothing about
+            you. No other network requests carry your data.
           </p>
 
           <h3>Device permissions</h3>
