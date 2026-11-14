@@ -206,7 +206,7 @@
 
 <!-- ═══════════════ FLOW 1 — FIRST OPEN ═══════════════ -->
 <div class="flow-label">1 · First open</div>
-<p class="flow-desc">A new install stamps <code style="color:#6e9e77">session-start</code> = today (week 1 begins now) and shows this one-time sheet. — <span class="code-ref">AppModel.ensureSessionStart() · ContentView.WelcomeView</span></p>
+<p class="flow-desc">A new install stamps <code style="color:#6e9e77">session-start</code> = today (week 1 begins now) and shows this one-time sheet. <b>Start lesson 1</b> dismisses it and opens the first lesson. — <span class="code-ref">AppModel.ensureSessionStart() · ContentView.WelcomeView</span></p>
 <div class="screen-row">
   <div class="screen-group">
     <div class="phone">
@@ -218,15 +218,15 @@
       <div class="sheet-back">
         <div class="sheet" style="height:66%">
           <div class="grabber"></div>
-          <div style="text-align:center; padding-top:18px">
-            <div style="font-size:30px; font-weight:800">Benvenuto! 🇮🇹</div>
-            <p class="sub" style="margin:12px 18px; line-height:1.5">A self-paced 37-week Italian language program — the Italian Bible (La Bibbia CEI 2008) is the primary reading text, supported by tools for grammar, vocabulary, and conversation.</p>
-            <div style="background:var(--accent-dim); border-radius:12px; padding:14px; margin:14px 6px">
-              <div style="font-size:15px; font-weight:700">Your 37-week journey starts today</div>
-              <div class="sub" style="margin-top:4px">Week 1 begins now — week 37 ends March 21, 2027.</div>
-            </div>
-            <div class="tiny" style="margin:0 14px">Prefer a different start date? Settings → New Session moves the calendar any time.</div>
-            <div class="btn full" style="margin:22px 6px 0">Iniziamo!</div>
+          <div style="padding:18px 8px 0">
+            <div class="acc" style="font-size:11px; font-weight:700; letter-spacing:.08em">BENVENUTO!</div>
+            <div style="font-size:22px; font-weight:800; line-height:1.2; margin-top:8px">Read the Bible in Italian, one short lesson at a time.</div>
+            <div style="font-size:13px; line-height:1.45; margin-top:12px"><b>1 · Learn.</b> A five-minute lesson teaches a few words from the week’s passage. You hear each one first.</div>
+            <div style="font-size:13px; line-height:1.45; margin-top:8px"><b>2 · Read.</b> Then read the passage itself. Tap any word for its meaning and its sound.</div>
+            <div style="font-size:13px; line-height:1.45; margin-top:8px"><b>3 · Remember.</b> Words come back for review just before you would forget them.</div>
+            <div class="tiny" style="margin-top:12px">Your 37 weeks started today and end March 21, 2027. Settings → New Session moves the calendar any time.</div>
+            <div class="pill" style="margin-top:18px">Start lesson 1</div>
+            <div class="acc" style="text-align:center; font-size:13px; margin-top:10px">Just look around</div>
           </div>
         </div>
       </div>
@@ -243,13 +243,15 @@
         <div class="card">
           <div class="cell">
             🔥 <b>1 day</b> &nbsp;<span class="tiny">best 1</span><span style="float:right" class="tiny">→ Mar 21, 2027</span>
-            <div style="display:flex; gap:16px; margin-top:10px; font-size:12px">
-              <span><span class="ring done">✓</span>Leggi</span>
-              <span class="sub">▢ Ripassa</span>
-              <span class="sub">▢ Scrivi</span>
-            </div>
+            <div class="tiny" style="margin-top:8px; letter-spacing:.35em">S M T W T F <b style="color:#CE2B37">●</b></div>
             <div class="pill" style="margin-top:10px">Continue</div>
             <div style="margin-top:7px"><b style="font-size:13px">Week 1 · Lesson 1 of 3 — Parole nuove I</b><div class="tiny">4 new words · about 6 min</div></div>
+            <div class="tiny" style="margin-top:10px"><b>Today's goals</b><span style="float:right">1 of 3</span></div>
+            <div style="display:flex; gap:6px; margin-top:6px; font-size:12px; text-align:center">
+              <span style="flex:1; background:var(--accent-dim); border-radius:8px; padding:8px 0">✓ Leggi</span>
+              <span style="flex:1; background:#f0efec; border-radius:8px; padding:8px 0">Ripassa</span>
+              <span style="flex:1; background:#f0efec; border-radius:8px; padding:8px 0">Scrivi</span>
+            </div>
             <div style="background:var(--accent-dim); border-radius:10px; padding:9px 12px; margin-top:10px">
               <b style="font-size:13px">Questa settimana · Week 1</b>
               <div class="tiny">John 1-2 — Greetings, nouns, basic articles</div>
@@ -271,14 +273,14 @@
         <div class="tab"><span class="ic">⚙️</span>Settings</div>
       </div>
     </div>
-    <div class="screen-label">Tracker — Today card + week list</div>
+    <div class="screen-label">Tracker — Today card (seven-day strip; each goal is a button to its screen) + week list</div>
     <div class="code-ref">Views/Tracker/TrackerView.swift · TodayCardView.swift</div>
   </div>
 </div>
 
 <!-- ═══════════════ FLOW 1b — GUIDED LESSONS ═══════════════ -->
 <div class="flow-label">1b · Guided lessons — Continue, play, finish</div>
-<p class="flow-desc">Each week is three short lessons built from its own data. Continue on the Today card always opens the next one; a week row shows them as a path of nodes and a ring that fills, then ticks. One exercise per screen, a verdict after each answer, a summary at the end. All decisions are BibbiaCore’s (<code style="color:#6e9e77">Lessons.swift</code>, pinned to the web by <code style="color:#6e9e77">lessons.json</code>). — <span class="code-ref">Views/Lessons/LessonPlayerView.swift · LessonHubViews.swift</span></p>
+<p class="flow-desc">Each week is three short lessons built from its own data. Continue on the Today card always opens the next one; a week row shows them as a path of nodes and a ring that fills, then ticks. One exercise per screen, a verdict after each answer (the praise varies: Giusto, Esatto, Ottimo…), a red “3 di fila” badge from three right in a row, short answer sounds with a speaker switch in the top bar, and a summary at the end. All decisions are BibbiaCore’s (<code style="color:#6e9e77">Lessons.swift</code>, pinned to the web by <code style="color:#6e9e77">lessons.json</code>). — <span class="code-ref">Views/Lessons/LessonPlayerView.swift · LessonHubViews.swift</span></p>
 <div class="screen-row">
   <div class="screen-group">
     <div class="phone">
@@ -380,6 +382,7 @@
         <div class="sub" style="margin-top:6px">Lesson complete — Il brano</div>
         <div style="font-size:50px; font-weight:800; margin-top:6px">92%</div>
         <div class="sub">12 of 13 right first time</div>
+        <div class="tiny" style="margin-top:8px"><b>9</b> in a row &nbsp;·&nbsp; <span style="color:#CE2B37">🔥 <b>4</b> days streak</span></div>
         <div class="acc" style="font-weight:700; font-size:13px; margin-top:10px">✓ Week 2 complete — every lesson finished</div>
         <div class="btn full" style="margin-top:22px">Continue</div>
       </div>

@@ -397,6 +397,45 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   verses" inside the how-to section below. iOS has the longer passages (they are course
   data) but not the daily verse or the tips.
 
+- **First run, tappable goals, livelier lessons: built on web + iOS.** Three changes aimed
+  at "obvious and fun", found by walking the app as a newcomer.
+  **First run:** `WelcomeCard` is now three lines and one button. *Start lesson 1* stamps
+  `session-start` to today **only for a new learner** (no override and no finished lesson;
+  anyone else keeps their dates), then `NextLessonLauncher` (`LessonHub.jsx`) opens the
+  lesson. Before this a newcomer on the reference calendar landed in whatever week the
+  shared calendar had reached (week 31 in November). "Join the shared calendar" keeps the
+  old behaviour; the long explanation is folded under *How the course works*. This matches
+  what iOS already does at first open. `Phase` is keyed on the session start so the new
+  current week opens.
+  **Today card:** every goal row is a button that goes to the thing it names (passage,
+  review, journal, games); the ticks still come from doing the thing there. *Read today's
+  passage* jumps to the week's passage and only ticks directly when no passage is on
+  screen. A seven-day strip (`weekStrip` in `streak.js`) shows the current run; the store
+  keeps only the run's length and last day, so an earlier broken run is not drawn. The
+  day's `DAILY` task row was removed from the card (it competed with Continue); the tasks
+  are still under *Full weekly schedule*.
+  **Lessons:** right answers in a row are counted (first tries only; a miss or a retry
+  step resets) and called out from three (`3 di fila`), praise varies by step position,
+  and `src/utils/sfx.js` plays short Web Audio tones (no audio files). The switch is the
+  speaker in the lesson's top bar, kept in `storageKey('sound')`. The summary shows the
+  best run and the day streak. None of this changes grading or what reaches the SRS.
+  Nobody has listened to the sounds on a real device; headless Chrome only confirmed
+  that they are scheduled.
+  **iOS twin:** the praise, the run rule and the sound choice live in
+  `src/utils/lessonFeedback.js` and `BibbiaCore/LessonFeedback.swift`; `weekStrip` is in
+  `Streak.swift`. The `lessonFeedback.json` and `weekStrip.json` fixtures pin both (and the
+  note table of `sfx.js`) to the JS, so **a change to the praise list, `COMBO_MIN`, the
+  notes or the strip must be made on both sides**. `LessonSound.wavData()` renders the
+  notes to an in-memory WAV that `App/SoundEffects.swift` plays through `AVAudioPlayer`;
+  the switch is the same `sound` key with the same `on` / `off` values, so it rides
+  backups. `WelcomeView` (in `ContentView.swift`) has the same three lines and a *Start
+  lesson 1* button; the lesson is presented from the sheet's `onDismiss`, because one
+  presentation cannot begin while another is ending. iOS needs no calendar choice there
+  (it already starts at first open). The Today card's three goals are buttons (week,
+  practice, journal); iOS has no games row because it has no games. The welcome sheet
+  and Today card were checked in the simulator; **nobody has tapped through the iOS
+  lesson player's new badge, sounds or summary yet**.
+
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   configurable reminder
   hour, the `generate-anki` duplication/non-determinism);
@@ -574,7 +613,7 @@ offer. Grammar words that should never be picked go in `NOT_WORTH`.
 ```bash
 npm run lint
 npx vitest run src/utils/devotionLessons.test.js src/utils/wikiImage.test.js src/components/LessonPlayer.test.jsx
-npm test                                        # 1094 tests across 85 files
+npm test                                        # 1116 tests across 88 files
 ```
 
 `devotionLessons.test.js` replays every step of every prayer and mystery lesson with its own
@@ -673,7 +712,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 1094 tests across 85 files, all green
+npm test             # vitest run — 1116 tests across 88 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -708,7 +747,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `usePronunStats` — pronunciation attempts under key `italian-bible-pronun` (per-word `{ attempts, last, best, sum, avg, at }`); `record(term, score)`, `getStore()`. Recorded by Pronunciation mode; combined with the SRS store by `src/utils/wordStats.js` (`struggleList`) to drive the Practice "Parole difficili / words you struggle with" panel.
 - `useStreak` — daily streak + today's-goal flags under key `italian-bible-streak`; React glue over pure `src/utils/streak.js` (`{ last, current, best, today: { date, read, practiced, journaled } }`). The dashboard reads it on mount (`TodayCard` remounts on tab switch, picking up activity recorded elsewhere); `recordActivity(flag)` is called fire-and-forget from `PracticeMode` (`'practiced'`) and `JournalTab` (`'journaled'`), and `tickRead` marks the reading box.
 
-All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`, `-verse-srs`, `-tutor`, `-lessons`, `-devotion-lessons`, `-daily-verse`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
+All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`, `-verse-srs`, `-tutor`, `-lessons`, `-devotion-lessons`, `-daily-verse`, `-sound`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
@@ -845,7 +884,7 @@ full Xcode instead — no `sudo`, no `xcode-select -s`:
 
 ```bash
 DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer \
-  swift test --package-path ios-native/BibbiaCore   # 218 tests
+  swift test --package-path ios-native/BibbiaCore   # 222 tests
 ```
 
 (The CLAUDE.md note that Swift "can't run in this sandbox" is about *remote*
@@ -962,7 +1001,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **1094 vitest tests across 85 files**, all passing.
+- **Tests:** `npm test` runs **1116 vitest tests across 88 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,

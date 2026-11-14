@@ -24,7 +24,7 @@ import { SaintsTab } from './components/SaintsTab';
 import { GameTab } from './components/GameTab';
 import { SubNav } from './components/SubNav';
 import { loadGame, wordDay, quizDay } from './utils/gameStore';
-import { todayStr, loadStreak, dueMilestone, loadCelebrated, saveCelebrated } from './utils/streak';
+import { todayStr, loadStreak, dueMilestone, loadCelebrated, saveCelebrated, weekStrip } from './utils/streak';
 import { WelcomeCard } from './components/WelcomeCard';
 import { useImmersion } from './i18n/ImmersionContext';
 import { UiText } from './i18n/UiText';
@@ -40,7 +40,7 @@ import { AudioSpeedControl } from './components/AudioSpeedControl';
 import { VoicePicker } from './components/VoicePicker';
 import { SyncPanel } from './components/SyncPanel';
 import { VoiceTutor } from './components/VoiceTutor';
-import { ContinueCard } from './components/LessonHub';
+import { ContinueCard, NextLessonLauncher } from './components/LessonHub';
 import { LESSONS_EVENT } from './utils/lessonStore';
 import { reachedVerseCards, verseStats } from './utils/verseReview';
 
@@ -175,7 +175,22 @@ function GoalCheck({ done }) {
   );
 }
 
-function DailyGoals({ onOpenGame, onOpenVerses }) {
+function GoalRow({ done, onClick, pill, children }) {
+  return (
+    <button className={`today-goal today-goal-action${done ? ' done' : ''}`} onClick={onClick}>
+      <GoalCheck done={done} />
+      <span className="today-goal-label">{children}</span>
+      {pill && <span className="today-due-pill">{pill}</span>}
+      <svg className="today-goal-go" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <path d="M4 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </button>
+  );
+}
+
+// The streak and today's goals. Every goal is a button that goes to the thing
+// it names; the ticks come from doing it there.
+function DailyGoals({ onOpenGame, onOpenVerses, onOpenReview, onOpenJournal, onOpenPassage }) {
   const { current, best, flags, tickRead } = useStreak();
   // A streak reaching 3, 7, 14, 30... days is celebrated once.
   const [milestone, setMilestone] = useState(null);
@@ -197,47 +212,60 @@ function DailyGoals({ onOpenGame, onOpenVerses }) {
   const { getStats } = useSrs();
   const due = getStats(ALL_CARDS).due;
   const [versesDue] = useState(() => verseStats(reachedVerseCards()).due);
+  const [strip] = useState(() => weekStrip(loadStreak()));
+  const doneCount = [flags.read, flags.practiced, flags.journaled, gamesLeft === 0].filter(Boolean).length;
   return (
     <div className="today-goals">
-      <div className="today-streak" title="Consecutive days you've studied">
-        {milestone && <Confetti />}
-        <FlameIcon />
-        <span className="today-streak-num">{current}</span>
-        <span className="today-streak-label">
-          day{current === 1 ? '' : 's'} streak{best > current ? ` · best ${best}` : ''}
-        </span>
-        {milestone && <span className="today-streak-milestone" role="status">{milestone} days in a row!</span>}
+      <div className="today-goals-head">
+        <div className="today-streak" title="Consecutive days you've studied">
+          {milestone && <Confetti />}
+          <FlameIcon />
+          <span className="today-streak-num">{current}</span>
+          <span className="today-streak-label">
+            day{current === 1 ? '' : 's'} streak{best > current ? ` · best ${best}` : ''}
+          </span>
+          {milestone && <span className="today-streak-milestone" role="status">{milestone} days in a row!</span>}
+        </div>
+        <div className="today-strip" role="img" aria-label={`${strip.filter((d) => d.done).length} of the last 7 days studied`}>
+          {strip.map((d) => (
+            <span
+              key={d.date}
+              className={`today-strip-day${d.done ? ' done' : ''}${d.today ? ' today' : ''}`}
+            >
+              {d.label}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="today-checklist-head">
+        <span>Today&apos;s goals</span>
+        <span className={`today-checklist-count${doneCount === 4 ? ' all' : ''}`}>{doneCount} of 4</span>
       </div>
       <div className="today-checklist">
-        <button
-          className={`today-goal today-goal-action${flags.read ? ' done' : ''}`}
-          onClick={tickRead}
-          disabled={flags.read}
-        >
-          <GoalCheck done={flags.read} /> Read today's passage
-        </button>
-        <div className={`today-goal${flags.practiced ? ' done' : ''}`}>
-          <GoalCheck done={flags.practiced} /> Review flashcards
-          {due > 0 && <span className="today-due-pill">{due} due</span>}
-        </div>
+        {/* Goes to the passage, whose own "mark as read" ticks this. With no
+            week on screen to go to, the tap ticks it directly. */}
+        <GoalRow done={flags.read} onClick={() => { if (!onOpenPassage?.()) tickRead(); }}>
+          Read today&apos;s passage
+        </GoalRow>
+        <GoalRow done={flags.practiced} onClick={onOpenReview} pill={due > 0 ? `${due} due` : null}>
+          Review your words
+        </GoalRow>
         {versesDue > 0 && (
-          <button className="today-goal today-goal-action" onClick={onOpenVerses} disabled={!onOpenVerses}>
-            <GoalCheck done={false} /> Review verses
-            <span className="today-due-pill">{versesDue} due</span>
-          </button>
+          <GoalRow done={false} onClick={onOpenVerses} pill={`${versesDue} due`}>Review verses</GoalRow>
         )}
-        <div className={`today-goal${flags.journaled ? ' done' : ''}`}>
-          <GoalCheck done={flags.journaled} /> Write a line in Italian
-        </div>
-        <button
-          className={`today-goal today-goal-action${gamesLeft === 0 ? ' done' : ''}`}
-          onClick={onOpenGame}
-          disabled={!onOpenGame}
-        >
-          <GoalCheck done={gamesLeft === 0} /> Play today's word &amp; challenge
-          {gamesLeft > 0 && <span className="today-due-pill">{gamesLeft} to play</span>}
-        </button>
+        <GoalRow done={flags.journaled} onClick={onOpenJournal}>Write a line in Italian</GoalRow>
+        <GoalRow done={gamesLeft === 0} onClick={onOpenGame} pill={gamesLeft > 0 ? `${gamesLeft} to play` : null}>
+          Play today&apos;s word &amp; challenge
+        </GoalRow>
       </div>
+    </div>
+  );
+}
+
+// The optional extras under the goals: a thinking prompt, a tip, reminders.
+function DailyExtras() {
+  return (
+    <div className="today-extras">
       <ThinkPrompt />
       <LearningTips />
       <div className="today-reminders">
@@ -248,7 +276,7 @@ function DailyGoals({ onOpenGame, onOpenVerses }) {
   );
 }
 
-function TodayCard({ currentWeekN, onOpenGame, onOpenVerses, onOpenReview }) {
+function TodayCard({ currentWeekN, onOpenReview, ...nav }) {
   const [schedOpen, setSchedOpen] = useState(false);
   // Bumped when a lesson closes, so the goals below re-read the streak and
   // due counts that lesson just changed.
@@ -267,7 +295,6 @@ function TodayCard({ currentWeekN, onOpenGame, onOpenVerses, onOpenReview }) {
   // dates of that week rather than the authored Mon–Sun text, so a Wednesday
   // start reads Wed…Tue instead of mislabelling itself.
   const todayIdx = getTodayDayIndex();
-  const todayTask = DAILY[todayIdx];
   const dayLabels = weekDayLabels(currentWeekN ?? 1);
 
   if (!week) {
@@ -280,8 +307,9 @@ function TodayCard({ currentWeekN, onOpenGame, onOpenVerses, onOpenReview }) {
         <span className="today-pre-sub">{TOTAL} weeks · {getSessionStartLabel()} → {getEndDateLabel()}</span>
         <SessionRow prominent />
         <ContinueCard currentWeekN={null} onOpenReview={onOpenReview} onChange={lessonChanged} />
+        <DailyGoals key={goalsRev} onOpenReview={onOpenReview} {...nav} />
         <DailyVerse currentWeekN={null} onChange={lessonChanged} />
-        <DailyGoals key={goalsRev} onOpenGame={onOpenGame} onOpenVerses={onOpenVerses} />
+        <DailyExtras />
       </div>
     );
   }
@@ -296,16 +324,13 @@ function TodayCard({ currentWeekN, onOpenGame, onOpenVerses, onOpenReview }) {
 
       <ContinueCard currentWeekN={currentWeekN} onOpenReview={onOpenReview} onChange={lessonChanged} />
 
-      <div className="today-task-row">
-        <span className="today-day-label">{dayLabels[todayIdx]}</span>
-        <span className="today-task-text">{todayTask.task}</span>
-      </div>
+      <DailyGoals key={goalsRev} onOpenReview={onOpenReview} {...nav} />
 
       <DailyVerse currentWeekN={currentWeekN} onChange={lessonChanged} />
 
       <VoiceTutor week={week} compact />
 
-      <DailyGoals key={goalsRev} onOpenGame={onOpenGame} onOpenVerses={onOpenVerses} />
+      <DailyExtras />
 
       <button className="today-sched-toggle" onClick={() => setSchedOpen(v => !v)}>
         <UiText k="today.fullSchedule" />
@@ -391,6 +416,17 @@ export default function App() {
     if (g) setLastView((m) => ({ ...m, [g.id]: id }));
   };
   const currentWeekN = getCurrentWeekN();
+  // Set by the welcome card's start button: opens the next lesson directly.
+  const [launching, setLaunching] = useState(false);
+  // Scroll to this week's passage. False when it is not on screen to go to
+  // (no current week, or the week was folded shut), so the caller can fall back.
+  const openPassage = () => {
+    const el = document.querySelector(`#week-${currentWeekN} .reading-box`);
+    if (!el) return false;
+    // A plain jump: a smooth scroll over a page this long takes seconds.
+    el.scrollIntoView({ block: 'start' });
+    return true;
+  };
   const dueCount = useDueCount(ALL_CARDS);
 
   useEffect(() => {
@@ -461,7 +497,10 @@ export default function App() {
         </div>
       </div>
 
-      <WelcomeCard />
+      <WelcomeCard currentWeekN={currentWeekN} onBegin={() => { openView('Tracker'); setLaunching(true); }} />
+      {launching && (
+        <NextLessonLauncher currentWeekN={currentWeekN} onClose={() => setLaunching(false)} />
+      )}
 
       {/* Primary navigation: 4 destinations */}
       <div className="tab-bar" role="tablist">
@@ -498,12 +537,14 @@ export default function App() {
             onOpenGame={() => openView('Game')}
             onOpenVerses={() => { setFlashcardsMode('verses'); openView('Flashcards'); }}
             onOpenReview={() => { setFlashcardsMode('practice'); openView('Flashcards', { review: true }); }}
+            onOpenJournal={() => openView('Journal')}
+            onOpenPassage={openPassage}
           />
           <Achievements />
           <GuideSection />
           {PHASES.map((phase) => (
             <Phase
-              key={phase.id}
+              key={`${phase.id}@${getSessionStart()}`}
               phase={phase}
               checked={checked}
               onToggle={toggle}

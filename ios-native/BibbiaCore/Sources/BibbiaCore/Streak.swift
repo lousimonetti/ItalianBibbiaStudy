@@ -122,3 +122,47 @@ public func todayFlags(_ store: StreakData, today: String) -> TodayFlags {
     if let t = store.today, t.date == today { return t }
     return TodayFlags(date: today)
 }
+
+/// One day of the Today card's seven-day strip.
+public struct StreakDay: Codable, Equatable, Identifiable {
+    public var date: String
+    /// The weekday's initial (S M T W T F S).
+    public var label: String
+    public var today: Bool
+    public var done: Bool
+    public var id: String { date }
+}
+
+private let dayLetters = ["S", "M", "T", "W", "T", "F", "S"]
+
+private func localDate(_ dateStr: String, calendar: Calendar) -> Date? {
+    let parts = dateStr.split(separator: "-").compactMap { Int($0) }
+    guard parts.count == 3 else { return nil }
+    return calendar.date(from: DateComponents(year: parts[0], month: parts[1], day: parts[2]))
+}
+
+/// The last seven days ending today, oldest first (mirrors weekStrip()). A day
+/// is `done` when it falls inside the current run of active days. The store
+/// keeps only the run's length and last day, so days from an earlier, broken
+/// run are not shown as done. Pure.
+public func weekStrip(_ store: StreakData, today: String, calendar: Calendar = .current) -> [StreakDay] {
+    guard let end = localDate(today, calendar: calendar) else { return [] }
+    let run = currentStreak(store, today: today)
+    var first: String?
+    if run > 0, let last = store.last, let lastDate = localDate(last, calendar: calendar),
+       let start = calendar.date(byAdding: .day, value: -(run - 1), to: lastDate) {
+        first = todayStr(start, calendar: calendar)
+    }
+    return (0..<7).compactMap { i in
+        guard let d = calendar.date(byAdding: .day, value: i - 6, to: end) else { return nil }
+        let date = todayStr(d, calendar: calendar)
+        let done: Bool = {
+            guard let first, let last = store.last else { return false }
+            return date >= first && date <= last
+        }()
+        return StreakDay(date: date,
+                         label: dayLetters[calendar.component(.weekday, from: d) - 1],
+                         today: date == today,
+                         done: done)
+    }
+}

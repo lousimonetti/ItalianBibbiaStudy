@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   todayStr, dayBefore, withActivity, setFlag, currentStreak, todayFlags,
-  streakStart, dueMilestone,
+  streakStart, dueMilestone, weekStrip,
 } from './streak.js';
 
 describe('date helpers', () => {
@@ -98,5 +98,31 @@ describe('streak milestones', () => {
   it('ignores lengths that are not milestones and an empty store', () => {
     expect(dueMilestone({ last: '2026-11-10', current: 8 }, 8, null)).toBeNull();
     expect(dueMilestone({}, 7, null)).toBeNull();
+  });
+});
+
+describe('weekStrip', () => {
+  it('is seven days ending today, oldest first', () => {
+    const days = weekStrip({}, '2026-11-14'); // a Saturday
+    expect(days.map((d) => d.date)).toEqual([
+      '2026-11-08', '2026-11-09', '2026-11-10', '2026-11-11', '2026-11-12', '2026-11-13', '2026-11-14',
+    ]);
+    expect(days.map((d) => d.label).join('')).toBe('SMTWTFS');
+    expect(days.filter((d) => d.today).map((d) => d.date)).toEqual(['2026-11-14']);
+    expect(days.some((d) => d.done)).toBe(false);
+  });
+  it('marks the days of the current run, including today', () => {
+    const days = weekStrip({ last: '2026-11-14', current: 3 }, '2026-11-14');
+    expect(days.filter((d) => d.done).map((d) => d.date)).toEqual(['2026-11-12', '2026-11-13', '2026-11-14']);
+  });
+  it('leaves today open when the run ended yesterday', () => {
+    const days = weekStrip({ last: '2026-11-13', current: 2 }, '2026-11-14');
+    expect(days.filter((d) => d.done).map((d) => d.date)).toEqual(['2026-11-12', '2026-11-13']);
+  });
+  it('shows nothing for a broken run', () => {
+    expect(weekStrip({ last: '2026-11-11', current: 5 }, '2026-11-14').some((d) => d.done)).toBe(false);
+  });
+  it('caps a long run at the seven days shown', () => {
+    expect(weekStrip({ last: '2026-11-14', current: 40 }, '2026-11-14').every((d) => d.done)).toBe(true);
   });
 });

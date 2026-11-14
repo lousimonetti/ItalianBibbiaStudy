@@ -30,7 +30,9 @@ const { scorePronunciation, normalize } = await import(join(repoRoot, 'src/utils
 const { canonical, checkAnswer } = await import(join(repoRoot, 'src/utils/answer.js'));
 const { makeCloze } = await import(join(repoRoot, 'src/utils/cloze.js'));
 const { review } = await import(join(repoRoot, 'src/utils/srs.js'));
-const { setFlag, currentStreak, todayFlags } = await import(join(repoRoot, 'src/utils/streak.js'));
+const { setFlag, currentStreak, todayFlags, weekStrip } = await import(join(repoRoot, 'src/utils/streak.js'));
+const lessonFeedback = await import(join(repoRoot, 'src/utils/lessonFeedback.js'));
+const { SOUNDS } = await import(join(repoRoot, 'src/utils/sfx.js'));
 const { diffReconstruction } = await import(join(repoRoot, 'src/utils/dictogloss.js'));
 const { tokenize } = await import(join(repoRoot, 'src/utils/vocabIndex.js'));
 const { lookupCommon } = await import(join(repoRoot, 'src/utils/it2en.js'));
@@ -123,6 +125,35 @@ write('srs.json', seqs.map((grades) => {
   });
   return { grades, now0: T0, stepMs: 86400000, states };
 }));
+
+// ── The Today card's seven-day strip ──
+write('weekStrip.json', [
+  { store: {}, today: '2026-11-14' },
+  { store: { last: '2026-11-14', current: 3, best: 3 }, today: '2026-11-14' },
+  { store: { last: '2026-11-13', current: 2, best: 5 }, today: '2026-11-14' },
+  { store: { last: '2026-11-11', current: 5, best: 5 }, today: '2026-11-14' },
+  { store: { last: '2026-11-14', current: 40, best: 40 }, today: '2026-11-14' },
+  { store: { last: '2026-03-02', current: 4, best: 4 }, today: '2026-03-02' },
+  { store: { last: '2027-01-01', current: 2, best: 2 }, today: '2027-01-02' },
+].map((sc) => ({ ...sc, days: weekStrip(sc.store, sc.today) })));
+
+// ── Lesson feedback: praise, the run of right answers, the sound table ──
+{
+  const answers = [true, true, true, false, true, true, true, true, true, true, false, true];
+  const retries = [false, false, false, false, false, true, false, false, false, false, false, false];
+  let combo = 0;
+  write('lessonFeedback.json', {
+    comboMin: lessonFeedback.COMBO_MIN,
+    praise: Array.from({ length: 12 }, (_, i) => lessonFeedback.praiseFor(i)),
+    run: answers.map((correct, i) => {
+      combo = lessonFeedback.nextCombo(combo, correct, retries[i]);
+      return { correct, retry: retries[i], combo, sound: lessonFeedback.soundFor(correct, combo) };
+    }),
+    sounds: Object.entries(SOUNDS).map(([name, notes]) => ({
+      name, notes: notes.map(([freq, start, length, wave]) => ({ freq, start, length, wave })),
+    })),
+  });
+}
 
 // ── Streak scenarios (explicit `today` strings → timezone-independent) ──
 // Each scenario replays `ops` (setFlag calls) from an empty store, then checks

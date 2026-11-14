@@ -1,0 +1,362 @@
+[
+ {
+  "store": {},
+  "today": "2026-11-14",
+  "days": [
+   {
+    "date": "2026-11-08",
+    "label": "S",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-09",
+    "label": "M",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-10",
+    "label": "T",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-11",
+    "label": "W",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-12",
+    "label": "T",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-13",
+    "label": "F",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-14",
+    "label": "S",
+    "today": true,
+    "done": false
+   }
+  ]
+ },
+ {
+  "store": {
+   "last": "2026-11-14",
+   "current": 3,
+   "best": 3
+  },
+  "today": "2026-11-14",
+  "days": [
+   {
+    "date": "2026-11-08",
+    "label": "S",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-09",
+    "label": "M",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-10",
+    "label": "T",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-11",
+    "label": "W",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-12",
+    "label": "T",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-11-13",
+    "label": "F",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-11-14",
+    "label": "S",
+    "today": true,
+    "done": true
+   }
+  ]
+ },
+ {
+  "store": {
+   "last": "2026-11-13",
+   "current": 2,
+   "best": 5
+  },
+  "today": "2026-11-14",
+  "days": [
+   {
+    "date": "2026-11-08",
+    "label": "S",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-09",
+    "label": "M",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-10",
+    "label": "T",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-11",
+    "label": "W",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-12",
+    "label": "T",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-11-13",
+    "label": "F",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-11-14",
+    "label": "S",
+    "today": true,
+    "done": false
+   }
+  ]
+ },
+ {
+  "store": {
+   "last": "2026-11-11",
+   "current": 5,
+   "best": 5
+  },
+  "today": "2026-11-14",
+  "days": [
+   {
+    "date": "2026-11-08",
+    "label": "S",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-09",
+    "label": "M",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-10",
+    "label": "T",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-11",
+    "label": "W",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-12",
+    "label": "T",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-13",
+    "label": "F",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-11-14",
+    "label": "S",
+    "today": true,
+    "done": false
+   }
+  ]
+ },
+ {
+  "store": {
+   "last": "2026-11-14",
+   "current": 40,
+   "best": 40
+  },
+  "today": "2026-11-14",
+  "days": [
+   {
+    "date": "2026-11-08",
+    "label": "S",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-11-09",
+    "label": "M",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-11-10",
+    "label": "T",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-11-11",
+    "label": "W",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-11-12",
+    "label": "T",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-11-13",
+    "label": "F",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-11-14",
+    "label": "S",
+    "today": true,
+    "done": true
+   }
+  ]
+ },
+ {
+  "store": {
+   "last": "2026-03-02",
+   "current": 4,
+   "best": 4
+  },
+  "today": "2026-03-02",
+  "days": [
+   {
+    "date": "2026-02-24",
+    "label": "T",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-02-25",
+    "label": "W",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-02-26",
+    "label": "T",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-02-27",
+    "label": "F",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-02-28",
+    "label": "S",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-03-01",
+    "label": "S",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2026-03-02",
+    "label": "M",
+    "today": true,
+    "done": true
+   }
+  ]
+ },
+ {
+  "store": {
+   "last": "2027-01-01",
+   "current": 2,
+   "best": 2
+  },
+  "today": "2027-01-02",
+  "days": [
+   {
+    "date": "2026-12-27",
+    "label": "S",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-12-28",
+    "label": "M",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-12-29",
+    "label": "T",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-12-30",
+    "label": "W",
+    "today": false,
+    "done": false
+   },
+   {
+    "date": "2026-12-31",
+    "label": "T",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2027-01-01",
+    "label": "F",
+    "today": false,
+    "done": true
+   },
+   {
+    "date": "2027-01-02",
+    "label": "S",
+    "today": true,
+    "done": false
+   }
+  ]
+ }
+]

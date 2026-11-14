@@ -8,6 +8,10 @@ struct ContentView: View {
     @EnvironmentObject private var route: AppRoute
     // Same persisted flag family the web app uses (`italian-bible-welcome-seen`).
     @State private var showWelcome = WebStore.loadString("welcome-seen") == nil
+    // Set by the welcome sheet's start button; the lesson opens once the sheet
+    // has gone, because one presentation cannot begin while another is ending.
+    @State private var startAfterWelcome = false
+    @State private var firstLesson: Lesson?
 
     var body: some View {
         TabView(selection: $route.tab) {
@@ -39,61 +43,99 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showWelcome, onDismiss: {
             WebStore.saveString("welcome-seen", "1")
+            if startAfterWelcome, case .lesson(let lesson, _) = model.nextLesson {
+                route.tab = .tracker
+                firstLesson = lesson
+            }
+            startAfterWelcome = false
         }) {
-            WelcomeView()
+            WelcomeView { startAfterWelcome = true }
+        }
+        .fullScreenCover(item: $firstLesson) { lesson in
+            LessonPlayerView(lesson: lesson)
         }
     }
 }
 
-// First-launch welcome — tells a new user their program started today
-// (AppModel.ensureSessionStart stamped the session-start on this first open)
-// and where to change the date.
+// First-launch welcome: what this is in three lines, and one button that
+// opens the first lesson. The calendar needs no choice here — the program
+// started today (AppModel.ensureSessionStart stamped it on this first open).
+// Twin of the web's WelcomeCard.
 private struct WelcomeView: View {
+    /// Called when the learner asks to start; the sheet then dismisses itself.
+    let onStart: () -> Void
+
     @EnvironmentObject private var model: AppModel
     @Environment(\.dismiss) private var dismiss
 
-    var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            Text("Benvenuto! 🇮🇹")
-                .font(.largeTitle.bold())
-            Text(model.course.brand.about)
-                .font(.callout)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
+    private let steps: [(String, String)] = [
+        ("Learn", "A five-minute lesson teaches a few words from the week’s passage. You hear each one first."),
+        ("Read", "Then read the passage itself. Tap any word for its meaning and its sound."),
+        ("Remember", "Words come back for review just before you would forget them."),
+    ]
 
-            VStack(spacing: 6) {
-                Text("Your \(model.course.schedule.weeks)-week journey starts today")
-                    .font(.headline)
+    private var startLabel: String {
+        if case .lesson(let lesson, _) = model.nextLesson, lesson.weekN == 1, lesson.n == 1 {
+            return "Start lesson 1"
+        }
+        return "Continue my lessons"
+    }
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                Text("BENVENUTO!")
+                    .font(.caption.bold())
+                    .tracking(1)
+                    .foregroundStyle(.tint)
+                Text("Read the Bible in Italian, one short lesson at a time.")
+                    .font(.title.bold())
+                VStack(alignment: .leading, spacing: 14) {
+                    ForEach(Array(steps.enumerated()), id: \.offset) { i, step in
+                        HStack(alignment: .top, spacing: 12) {
+                            Text("\(i + 1)")
+                                .font(.footnote.bold())
+                                .foregroundStyle(.tint)
+                                .frame(width: 26, height: 26)
+                                .background(Circle().fill(Color.accentColor.opacity(0.15)))
+                                .accessibilityHidden(true)
+                            Text("\(Text(step.0 + ".").bold()) \(step.1)")
+                                .font(.callout)
+                        }
+                    }
+                }
                 if let end = model.endDate {
-                    Text("Week 1 begins now — week \(model.course.schedule.weeks) ends \(end.formatted(date: .long, time: .omitted)).")
-                        .font(.subheadline)
+                    Text("Your \(model.course.schedule.weeks) weeks started today and end \(end.formatted(date: .long, time: .omitted)). Settings → New Session moves the calendar any time.")
+                        .font(.footnote)
                         .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
                 }
             }
-            .padding()
+            .padding(24)
+            .padding(.top, 16)
+            .frame(maxWidth: 560, alignment: .leading)
             .frame(maxWidth: .infinity)
-            .background(RoundedRectangle(cornerRadius: 12)
-                .fill(Color.accentColor.opacity(0.12)))
-
-            Text("Prefer a different start date? Settings → New Session moves the calendar any time.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-
-            Spacer()
-            Button {
-                dismiss()
-            } label: {
-                Text("Iniziamo!")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.borderedProminent)
         }
-        .padding(24)
-        .interactiveDismissDisabled(false)
+        .safeAreaInset(edge: .bottom) {
+            VStack(spacing: 10) {
+                Button {
+                    onStart()
+                    dismiss()
+                } label: {
+                    Text(startLabel)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, minHeight: 34)
+                }
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.capsule)
+                Button("Just look around") { dismiss() }
+                    .font(.subheadline)
+            }
+            .padding(.horizontal, 24)
+            .padding(.vertical, 12)
+            .frame(maxWidth: 560)
+            .frame(maxWidth: .infinity)
+            .background(.bar)
+        }
     }
 }
 

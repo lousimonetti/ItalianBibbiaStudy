@@ -73,6 +73,31 @@ export function todayFlags(store, today = todayStr()) {
   return s.today && s.today.date === today ? s.today : freshToday(today);
 }
 
+// Pure: the last seven days ending today, oldest first, for the Today card's
+// strip. A day is `done` when it falls inside the current run of active days.
+// The store keeps only the run's length and last day, so days from an earlier,
+// broken run are not shown as done.
+const DAY_LETTERS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+export function weekStrip(store, today = todayStr()) {
+  const s = normalize(store);
+  const run = currentStreak(s, today);
+  const first = run > 0 ? streakStart(s.last, run) : null;
+  const days = [];
+  const d = new Date(today + 'T00:00:00');
+  d.setDate(d.getDate() - 6);
+  for (let i = 0; i < 7; i++) {
+    const date = todayStr(d);
+    days.push({
+      date,
+      label: DAY_LETTERS[d.getDay()],
+      today: date === today,
+      done: !!first && date >= first && date <= s.last,
+    });
+    d.setDate(d.getDate() + 1);
+  }
+  return days;
+}
+
 // ── localStorage wrappers ───────────────────────────────────────────────────
 export function loadStreak() {
   try {
