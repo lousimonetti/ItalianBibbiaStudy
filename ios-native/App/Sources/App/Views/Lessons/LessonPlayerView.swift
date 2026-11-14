@@ -23,6 +23,10 @@ struct LessonPlayerView: View {
     @State private var verdict: LessonVerdict?
     @State private var summary: LessonSummary?
     @State private var weekDone = false
+    // Right answers in a row, first tries only. A miss or a retry step ends it.
+    @State private var combo = 0
+    @State private var bestCombo = 0
+    @State private var soundOn = SoundEffects.isOn
 
     init(lesson: Lesson) {
         planned = lesson
@@ -44,7 +48,8 @@ struct LessonPlayerView: View {
         VStack(spacing: 0) {
             topBar
             if let summary {
-                ScrollView { LessonSummaryView(lesson: lesson, summary: summary, weekDone: weekDone) { dismiss() } }
+                ScrollView { LessonSummaryView(lesson: lesson, summary: summary, weekDone: weekDone,
+                                               bestCombo: bestCombo, streak: model.streakCount) { dismiss() } }
             } else if let step {
                 ScrollView {
                     VStack(spacing: 16) {
@@ -100,11 +105,36 @@ struct LessonPlayerView: View {
                 ProgressView(value: summary == nil ? run.progress : 1)
                     .tint(.accentColor)
                     .animation(.easeOut(duration: 0.25), value: run.index)
+                Button {
+                    soundOn.toggle()
+                    SoundEffects.isOn = soundOn
+                } label: {
+                    Image(systemName: soundOn ? "speaker.wave.2" : "speaker.slash")
+                        .foregroundStyle(.secondary)
+                        .frame(width: 44, height: 44)
+                }
+                .accessibilityLabel(soundOn ? "Answer sounds on — turn off" : "Answer sounds off — turn on")
             }
-            Text("Week \(lesson.weekN) · \(lesson.title)")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .padding(.leading, 56)
+            HStack {
+                Text("Week \(lesson.weekN) · \(lesson.title)")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Spacer()
+                if summary == nil, combo >= LESSON_COMBO_MIN {
+                    Label("\(combo) di fila", systemImage: "flame.fill")
+                        .font(.caption.bold())
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 3)
+                        .background(Capsule().fill(Color.red))
+                        .transition(.scale.combined(with: .opacity))
+                        .id(combo)
+                        .accessibilityLabel("\(combo) right in a row")
+                }
+            }
+            .padding(.leading, 56)
+            .padding(.trailing, 8)
+            .animation(.spring(duration: 0.3), value: combo)
         }
         .padding(.horizontal, 8)
         .padding(.bottom, 6)
@@ -116,7 +146,7 @@ struct LessonPlayerView: View {
         VStack(alignment: .leading, spacing: 10) {
             if let verdict, let correct = verdict.correct {
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(correct ? "Giusto!" : "Non proprio")
+                    Text(correct ? lessonPraise(run.index) : "Non proprio")
                         .font(.headline)
                         .foregroundStyle(correct ? Color.accentColor : Color.red)
                     if !verdict.answer.isEmpty {
@@ -190,7 +220,11 @@ struct LessonPlayerView: View {
         guard let step, verdict == nil, isLessonStepReady(step, value: v) else { return }
         let result = checkLessonStep(step, value: v, articles: model.articles)
         verdict = result
-        if result.correct == true { Haptics.success() } else { Haptics.error() }
+        let correct = result.correct == true
+        combo = nextLessonCombo(combo, correct: correct, retry: step.retry)
+        bestCombo = max(bestCombo, combo)
+        SoundEffects.play(.forAnswer(correct: correct, combo: combo))
+        if correct { Haptics.success() } else { Haptics.error() }
     }
 
     /// Tapping an option is the answer — no separate Check press.
@@ -208,6 +242,7 @@ struct LessonPlayerView: View {
         if next.isFinished {
             weekDone = model.completeLesson(lesson, run: next)
             summary = next.summary
+            SoundEffects.play(.done)
             Haptics.success()
         } else {
             speakIfIntro(next.current)
@@ -560,6 +595,7 @@ private struct MatchBoard: View {
             left = nil
             right = nil
             Haptics.light()
+            SoundEffects.play(.match)
             if matched.count == step.pairs.count { onDone() }
         } else {
             wrong = true
@@ -577,7 +613,17 @@ private struct LessonSummaryView: View {
     let lesson: Lesson
     let summary: LessonSummary
     let weekDone: Bool
+    let bestCombo: Int
+    let streak: Int
     let onClose: () -> Void
+
+    private func stat<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
+        content()
+            .font(.footnote)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 5)
+            .background(Capsule().fill(Color(.secondarySystemBackground)))
+    }
 
     var body: some View {
         VStack(spacing: 10) {
@@ -591,6 +637,21 @@ private struct LessonSummaryView: View {
             Text("\(summary.correct) of \(summary.graded) right first time")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
+            HStack(spacing: 8) {
+                if bestCombo >= LESSON_COMBO_MIN {
+                    stat { Text("\(Text("\(bestCombo)").bold()) in a row") }
+                }
+                if streak > 0 {
+                    stat {
+                        Label {
+                            Text("\(Text("\(streak)").bold()) day\(streak == 1 ? "" : "s") streak")
+                        } icon: {
+                            Image(systemName: "flame.fill")
+                        }
+                        .foregroundStyle(.red)
+                    }
+                }
+            }
             if weekDone {
                 Label("Week \(lesson.weekN) complete — every lesson finished", systemImage: "checkmark.seal.fill")
                     .font(.subheadline.bold())

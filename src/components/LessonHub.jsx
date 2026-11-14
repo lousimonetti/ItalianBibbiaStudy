@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PHASES } from '../data/studyData';
 import { buildCards } from '../../course/vocab';
 import { weekLessons } from '../utils/lessonPlan';
@@ -230,4 +230,20 @@ export function WeekLessons({ week, checked, onToggle }) {
       )}
     </div>
   );
+}
+
+// Plays whatever Continue would start, without the card around it. The welcome
+// screen uses it so a newcomer's first tap lands inside a lesson. Words due for
+// review are ignored here: someone pressing "start" wants the lesson.
+export function NextLessonLauncher({ currentWeekN, onClose }) {
+  const [lesson] = useState(() => {
+    const action = nextAction({ plans: PLANS, store: loadLessons(), currentWeekN, due: 0 });
+    return action.kind === 'lesson' ? action.lesson : null;
+  });
+  useEffect(() => {
+    if (!lesson) onClose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  if (!lesson) return null;
+  return <LessonPlayer lesson={lesson} onClose={onClose} onComplete={completeWeekIfDone} />;
 }

@@ -6,7 +6,9 @@ import {
 } from '../utils/lessonPlan';
 import { splitBlank } from '../utils/grammarDrill';
 import { recordLesson, DEVOTION_KEY } from '../utils/lessonStore';
-import { recordActivity } from '../utils/streak';
+import { recordActivity, currentStreak } from '../utils/streak';
+import { playSfx, soundOn, setSoundOn } from '../utils/sfx';
+import { praiseFor, COMBO_MIN, nextCombo, soundFor } from '../utils/lessonFeedback';
 import { useSrs } from '../hooks/useSrs';
 import { useAudioSpeed } from '../hooks/useAudioSpeed';
 import { getSelectedVoice } from '../utils/voicePreference';
@@ -48,6 +50,27 @@ function italianFor(step) {
     case 'choice': return step.direction === 'en-it' || step.audio ? step.term : '';
     default: return '';
   }
+}
+
+function FlameIcon({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M8.5 1c.5 2-1 3-1.8 4.2C5.6 7 5 8.2 5 9.7a3 3 0 006 .1c0-1-.4-1.9-1-2.6.2.9-.4 1.6-1 1.8.7-1.3-.1-2.8-1.5-4.1C8.4 3.4 9 2 8.5 1z" />
+    </svg>
+  );
+}
+
+function SoundIcon({ on }) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2 6h2.5L8 3v10L4.5 10H2V6z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+      {on ? (
+        <path d="M10.5 5.5a3.5 3.5 0 010 5M12.3 3.8a6 6 0 010 8.4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      ) : (
+        <path d="M10.8 6l3.4 4M14.2 6l-3.4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      )}
+    </svg>
+  );
 }
 
 function IntroStep({ step }) {
@@ -116,6 +139,7 @@ function MatchStep({ step, onDone }) {
     if (next.left === next.right) {
       const all = [...matched, idx];
       setMatched(all);
+      playSfx('match');
       setSel({ left: null, right: null });
       if (all.length === step.pairs.length) onDone();
     } else {
@@ -332,7 +356,7 @@ function StepBody({ step, value, setValue, verdict, onPick, onMatchDone }) {
   }
 }
 
-function Summary({ lesson, summary, weekDone, onClose }) {
+function Summary({ lesson, summary, weekDone, bestCombo, streak, onClose }) {
   const cheer = summary.pct >= 90 ? 'Perfetto!' : summary.pct >= 70 ? 'Bravo!' : 'Continua così!';
   return (
     <div className="lesson-summary">
@@ -342,6 +366,18 @@ function Summary({ lesson, summary, weekDone, onClose }) {
       <div className="lesson-score">{summary.pct}%</div>
       <div className="lesson-summary-sub">
         {summary.correct} of {summary.graded} right first time
+      </div>
+      <div className="lesson-stats">
+        {bestCombo >= COMBO_MIN && (
+          <span className="lesson-stat">
+            <span className="lesson-stat-num">{bestCombo}</span> in a row
+          </span>
+        )}
+        {streak > 0 && (
+          <span className="lesson-stat lesson-stat--streak">
+            <FlameIcon /> <span className="lesson-stat-num">{streak}</span> day{streak === 1 ? '' : 's'} streak
+          </span>
+        )}
       </div>
       {weekDone && (
         <div className="lesson-week-done">✓ Week {lesson.weekN} complete — every lesson finished</div>
@@ -376,6 +412,11 @@ export function LessonPlayer({ lesson: planned, onClose, onComplete }) {
   const [verdict, setVerdict] = useState(null);
   const [summary, setSummary] = useState(null);
   const [weekDone, setWeekDone] = useState(false);
+  // Right answers in a row, first tries only. A miss or a retry step ends it.
+  const [combo, setCombo] = useState(0);
+  const [bestCombo, setBestCombo] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [sound, setSound] = useState(soundOn);
   const { rate } = useAudioSpeed();
   const step = currentStep(run);
 
@@ -399,7 +440,8 @@ export function LessonPlayer({ lesson: planned, onClose, onComplete }) {
     for (const { term, grade } of srsGrades(lesson, finalRun, getStore())) recordReview(term, grade);
     // The streak first: recording the lesson announces itself, and listeners
     // (the Today goals) re-read the streak when it does.
-    recordActivity('practiced');
+    setStreak(currentStreak(recordActivity('practiced')));
+    playSfx('done');
     // A saint's-story lesson belongs to the day and is not recorded at all.
     let firstTime = true;
     if (lesson.store !== 'none') {
@@ -424,7 +466,18 @@ export function LessonPlayer({ lesson: planned, onClose, onComplete }) {
 
   function check(v = value) {
     if (!step || verdict || !isReady(step, v)) return;
-    setVerdict(checkStep(step, v));
+    const result = checkStep(step, v);
+    setVerdict(result);
+    const inARow = nextCombo(combo, result.correct, step.retry);
+    setCombo(inARow);
+    if (inARow > bestCombo) setBestCombo(inARow);
+    playSfx(soundFor(result.correct, inARow));
+    if (!result.correct) navigator.vibrate?.(60);
+  }
+
+  function toggleSound() {
+    setSoundOn(!sound);
+    setSound(!sound);
   }
 
   // Tapping an option is the answer — no separate Check press.
@@ -473,11 +526,25 @@ export function LessonPlayer({ lesson: planned, onClose, onComplete }) {
         >
           <div className="lesson-bar-fill" style={{ width: `${progress(run) * 100}%` }} />
         </div>
+        <button
+          className="lesson-sound"
+          onClick={toggleSound}
+          aria-pressed={sound}
+          aria-label={sound ? 'Answer sounds on — turn off' : 'Answer sounds off — turn on'}
+          title={sound ? 'Answer sounds: on' : 'Answer sounds: off'}
+        >
+          <SoundIcon on={sound} />
+        </button>
         <span className="lesson-top-label">{lesson.label || `Week ${lesson.weekN} · ${lesson.title}`}</span>
+        {!summary && combo >= COMBO_MIN && (
+          <span className="lesson-combo" key={combo} role="status">
+            <FlameIcon size={13} /> {combo} di fila
+          </span>
+        )}
       </div>
 
       {summary ? (
-        <div className="lesson-body"><Summary lesson={lesson} summary={summary} weekDone={weekDone} onClose={onClose} /></div>
+        <div className="lesson-body"><Summary lesson={lesson} summary={summary} weekDone={weekDone} bestCombo={bestCombo} streak={streak} onClose={onClose} /></div>
       ) : (
         <>
           <div className="lesson-body" key={run.index}>
@@ -503,7 +570,7 @@ export function LessonPlayer({ lesson: planned, onClose, onComplete }) {
           <div className={`lesson-footer${verdict ? (verdict.correct ? ' correct' : ' wrong') : ''}`}>
             {verdict && (
               <div className="lesson-verdict" role="status">
-                <span className="lesson-verdict-head">{verdict.correct ? 'Giusto!' : 'Non proprio'}</span>
+                <span className="lesson-verdict-head">{verdict.correct ? praiseFor(run.index) : 'Non proprio'}</span>
                 {verdict.answer && (
                   <span className="lesson-verdict-answer">
                     {verdict.answer}

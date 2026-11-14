@@ -13,7 +13,7 @@ the web Sync panel imports into iOS Settings → Sync, and vice versa.
 
 | Tab | Features |
 |-----|----------|
-| **Tracker** | Today card (streak 🔥 + read/practice/write checklist), 4 phases × 37 weeks, achievements grid, week detail with CEI 2008 reading passage (every word tappable for gloss/IPA/audio; an **EN chip** per verse an **Inglese** cycle — off / English under each verse / English only — and a **Struttura** overlay that marks conjugated verbs, two-word verbs, bare participles and asides, with a legend and a per-verse verb count), vocab with TTS speakers, grammar note, fill-in-the-blank drills, comprehension checks (T/F + multiple choice), dictogloss, writing prompt, iTalki starters |
+| **Tracker** | Today card (streak 🔥 with a seven-day strip + read/practice/write goals, each a button to its screen), 4 phases × 37 weeks, achievements grid, week detail with CEI 2008 reading passage (every word tappable for gloss/IPA/audio; an **EN chip** per verse an **Inglese** cycle — off / English under each verse / English only — and a **Struttura** overlay that marks conjugated verbs, two-word verbs, bare participles and asides, with a legend and a per-verse verb count), vocab with TTS speakers, grammar note, fill-in-the-blank drills, comprehension checks (T/F + multiple choice), dictogloss, writing prompt, iTalki starters |
 | **Flashcards** | SM-2 spaced repetition (same scheduler + store format as the web), 4 practice styles — Recognition, Recall (typed), Cloze, Listening — daily new-card cap, "Parole difficili" struggle list with drill button, Pronunciation + Shadowing scored by on-device speech recognition |
 | **Journal** | Per-week entries with writing scaffold (starters + tap-to-insert vocab chips), LanguageTool grammar check, Markdown export via share sheet |
 | **Settings** | Light/dark theme, **New Session** (start/restart the 37 weeks from any date, optional resets), daily reminder (real local notification), backup export/import, About |
@@ -24,7 +24,8 @@ notifications, `AVSpeechSynthesizer` TTS, `SFSpeechRecognizer` scoring.
 **First open = day 1.** A new install stamps a `session-start` override at
 first launch, so the 37-week program begins the day the user first opens the
 app (the course config's fixed `startDate` is only the web reference
-deploy's calendar). A one-time welcome sheet says so and points at
+deploy's calendar). A one-time welcome sheet says so, offers **Start lesson 1** (which opens
+the first lesson directly) and points at
 Settings → New Session, which can move the calendar to any date later; a
 backup import that carries its own `session-start` wins. Every week's
 displayed date range is **computed** from the effective start date

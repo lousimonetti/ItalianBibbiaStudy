@@ -1,0 +1,190 @@
+{
+ "comboMin": 3,
+ "praise": [
+  "Giusto!",
+  "Esatto!",
+  "Ottimo!",
+  "Benissimo!",
+  "Perfetto!",
+  "Giusto!",
+  "Esatto!",
+  "Ottimo!",
+  "Benissimo!",
+  "Perfetto!",
+  "Giusto!",
+  "Esatto!"
+ ],
+ "run": [
+  {
+   "correct": true,
+   "retry": false,
+   "combo": 1,
+   "sound": "correct"
+  },
+  {
+   "correct": true,
+   "retry": false,
+   "combo": 2,
+   "sound": "correct"
+  },
+  {
+   "correct": true,
+   "retry": false,
+   "combo": 3,
+   "sound": "combo"
+  },
+  {
+   "correct": false,
+   "retry": false,
+   "combo": 0,
+   "sound": "wrong"
+  },
+  {
+   "correct": true,
+   "retry": false,
+   "combo": 1,
+   "sound": "correct"
+  },
+  {
+   "correct": true,
+   "retry": true,
+   "combo": 0,
+   "sound": "correct"
+  },
+  {
+   "correct": true,
+   "retry": false,
+   "combo": 1,
+   "sound": "correct"
+  },
+  {
+   "correct": true,
+   "retry": false,
+   "combo": 2,
+   "sound": "correct"
+  },
+  {
+   "correct": true,
+   "retry": false,
+   "combo": 3,
+   "sound": "combo"
+  },
+  {
+   "correct": true,
+   "retry": false,
+   "combo": 4,
+   "sound": "correct"
+  },
+  {
+   "correct": false,
+   "retry": false,
+   "combo": 0,
+   "sound": "wrong"
+  },
+  {
+   "correct": true,
+   "retry": false,
+   "combo": 1,
+   "sound": "correct"
+  }
+ ],
+ "sounds": [
+  {
+   "name": "correct",
+   "notes": [
+    {
+     "freq": 659.25,
+     "start": 0,
+     "length": 0.09,
+     "wave": "sine"
+    },
+    {
+     "freq": 987.77,
+     "start": 0.08,
+     "length": 0.14,
+     "wave": "sine"
+    }
+   ]
+  },
+  {
+   "name": "wrong",
+   "notes": [
+    {
+     "freq": 196,
+     "start": 0,
+     "length": 0.12,
+     "wave": "triangle"
+    },
+    {
+     "freq": 155.56,
+     "start": 0.1,
+     "length": 0.2,
+     "wave": "triangle"
+    }
+   ]
+  },
+  {
+   "name": "match",
+   "notes": [
+    {
+     "freq": 880,
+     "start": 0,
+     "length": 0.07,
+     "wave": "sine"
+    }
+   ]
+  },
+  {
+   "name": "combo",
+   "notes": [
+    {
+     "freq": 659.25,
+     "start": 0,
+     "length": 0.08,
+     "wave": "sine"
+    },
+    {
+     "freq": 830.61,
+     "start": 0.07,
+     "length": 0.08,
+     "wave": "sine"
+    },
+    {
+     "freq": 1318.5,
+     "start": 0.14,
+     "length": 0.18,
+     "wave": "sine"
+    }
+   ]
+  },
+  {
+   "name": "done",
+   "notes": [
+    {
+     "freq": 523.25,
+     "start": 0,
+     "length": 0.12,
+     "wave": "sine"
+    },
+    {
+     "freq": 659.25,
+     "start": 0.11,
+     "length": 0.12,
+     "wave": "sine"
+    },
+    {
+     "freq": 783.99,
+     "start": 0.22,
+     "length": 0.12,
+     "wave": "sine"
+    },
+    {
+     "freq": 1046.5,
+     "start": 0.33,
+     "length": 0.3,
+     "wave": "sine"
+    }
+   ]
+  }
+ ]
+}

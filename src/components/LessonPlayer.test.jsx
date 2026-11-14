@@ -289,3 +289,59 @@ describe('a prayer or saint lesson in the same player', () => {
     expect(todayFlags(loadStreak()).practiced).toBe(true);
   });
 });
+
+describe('LessonPlayer: answer streak and sounds', () => {
+  const combo = () => document.querySelector('.lesson-combo');
+
+  // Answer without pressing Continue, so the verdict stays on screen.
+  function answerOnly(step, wrong = false) {
+    const body = document.querySelector('.lesson-body');
+    if (step.kind === 'choice') {
+      const label = step.options[wrong ? (step.answer + 1) % step.options.length : step.answer];
+      fireEvent.click(within(body).getByRole('button', { name: label }));
+    } else {
+      fireEvent.change(within(body).getByLabelText('Your answer'), { target: { value: wrong ? 'zzzzzz' : solutionFor(step) } });
+      fireEvent.click(primary());
+    }
+  }
+
+  it('calls out three right answers in a row, and a miss ends the run', () => {
+    render(<LessonPlayer lesson={LESSON} onClose={() => {}} />);
+    const graded = LESSON.steps.filter(isGraded);
+    for (const step of LESSON.steps) {
+      if (isGraded(step)) break;
+      answer(step);
+    }
+    answerOnly(graded[0]);
+    expect(combo()).toBeNull();
+    fireEvent.click(primary());
+    answerOnly(graded[1]);
+    expect(combo()).toBeNull();
+    fireEvent.click(primary());
+    answerOnly(graded[2]);
+    expect(combo().textContent).toContain('3 di fila');
+    fireEvent.click(primary());
+    answerOnly(graded[3], true);
+    expect(combo()).toBeNull();
+    fireEvent.click(primary());
+    answerOnly(graded[4]);
+    expect(combo()).toBeNull();
+  });
+
+  it('shows the best run and the day streak on the summary', () => {
+    render(<LessonPlayer lesson={LESSON} onClose={() => {}} />);
+    playThrough(LESSON);
+    const stats = document.querySelector('.lesson-stats').textContent;
+    expect(stats).toContain(`${LESSON.steps.filter(isGraded).length} in a row`);
+    expect(stats).toContain('1 day streak');
+  });
+
+  it('remembers the sound switch', () => {
+    render(<LessonPlayer lesson={LESSON} onClose={() => {}} />);
+    const toggle = screen.getByRole('button', { name: /answer sounds on/i });
+    expect(toggle.getAttribute('aria-pressed')).toBe('true');
+    fireEvent.click(toggle);
+    expect(localStorage.getItem(storageKey('sound'))).toBe('off');
+    expect(screen.getByRole('button', { name: /answer sounds off/i }).getAttribute('aria-pressed')).toBe('false');
+  });
+});
