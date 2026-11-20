@@ -16,6 +16,7 @@ export const UI_STRINGS = {
   'group.write': { it: 'Scrivi', en: 'Write' },
   'group.pray': { it: 'Preghiera', en: 'Pray' },
   'tab.game': { it: 'Gioco', en: 'Game' },
+  'tab.kids': { it: 'Bambini', en: 'Kids' },
 
   // Saints tab
   'saints.ofTheDay': { it: 'Il santo del giorno', en: 'Saint of the day' },
