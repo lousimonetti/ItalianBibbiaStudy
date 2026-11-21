@@ -5047,3 +5047,76 @@ html.dark {
   .kids-option.right, .kids-option.nope, .kids-mem-card.matched { animation: none; }
   .kids-exit.holding .kids-exit-fill { transition: none; }
 }
+
+/* ── Liturgia del giorno (Saints tab) ───────────────────────────────────────── */
+:root {
+  --lit-viola: #6a3d9a; --lit-bianco: #f6f2e6; --lit-rosso: #c3272b;
+  --lit-verde: #2e7d32; --lit-rosaceo: #d98aa6; --lit-none: transparent;
+}
+html.dark {
+  --lit-viola: #9b72cf; --lit-bianco: #ece6d4; --lit-rosso: #e0464a;
+  --lit-verde: #4caf50; --lit-rosaceo: #e7a3bb;
+}
+.liturgy-card {
+  position: relative; display: flex; flex-direction: column; gap: 8px;
+  padding: 14px 16px 12px 20px; border-radius: 12px; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+}
+/* The day's colour as a band down the left edge; the word is always in a chip too. */
+.liturgy-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+  background: var(--lit-none);
+}
+.liturgy-card--viola::before { background: var(--lit-viola); }
+.liturgy-card--bianco::before { background: var(--lit-bianco); box-shadow: inset -1px 0 0 var(--border); }
+.liturgy-card--rosso::before { background: var(--lit-rosso); }
+.liturgy-card--verde::before { background: var(--lit-verde); }
+.liturgy-card--rosaceo::before { background: var(--lit-rosaceo); }
+.liturgy-card--none::before { background: var(--border); }
+.liturgy-name {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-size: 18px; font-weight: 700; color: var(--text); line-height: 1.3;
+}
+.liturgy-name-en { font-size: 12px; color: var(--text-muted); margin-top: -4px; }
+.liturgy-note { font-size: 13px; color: var(--text-body); line-height: 1.45; }
+.liturgy-note-en { color: var(--text-faint); font-style: italic; }
+.liturgy-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.liturgy-chip {
+  display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px;
+  font-size: 12px; font-weight: 600; color: var(--text); background: var(--bg); border: 1px solid var(--border);
+}
+.liturgy-chip-en { font-weight: 500; color: var(--text-muted); }
+.liturgy-chip--precetto { border-color: var(--accent); background: var(--accent-dim); }
+.liturgy-swatch {
+  display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18);
+}
+.liturgy-swatch--viola { background: var(--lit-viola); }
+.liturgy-swatch--bianco { background: var(--lit-bianco); }
+.liturgy-swatch--rosso { background: var(--lit-rosso); }
+.liturgy-swatch--verde { background: var(--lit-verde); }
+.liturgy-swatch--rosaceo { background: var(--lit-rosaceo); }
+.liturgy-swatch--none { background: transparent; box-shadow: inset 0 0 0 1px var(--border); }
+.liturgy-upcoming-toggle {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 32px;
+  padding: 0; border: none; background: none; color: var(--accent); font: inherit;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.liturgy-upcoming { list-style: none; display: flex; flex-direction: column; border-top: 1px solid var(--border-subtle); }
+.liturgy-upcoming-row {
+  width: 100%; display: grid; grid-template-columns: 10px 84px 1fr auto; align-items: center; gap: 10px;
+  min-height: 40px; padding: 6px 2px; border: none; border-bottom: 1px solid var(--border-subtle);
+  background: none; font: inherit; text-align: left; cursor: pointer; color: var(--text);
+}
+.liturgy-upcoming-row:hover { background: var(--bg); }
+.liturgy-upcoming-date { font-size: 12px; color: var(--text-muted); text-transform: capitalize; }
+.liturgy-upcoming-name { font-size: 13px; font-weight: 600; line-height: 1.3; }
+.liturgy-upcoming-rank { font-size: 11px; color: var(--text-faint); }
+@media (max-width: 420px) {
+  .liturgy-upcoming-row { grid-template-columns: 10px 1fr; row-gap: 2px; }
+  .liturgy-upcoming-date { grid-column: 2; }
+  .liturgy-upcoming-name { grid-column: 2; }
+  .liturgy-upcoming-rank { grid-column: 2; }
+}
+.saints-also { font-size: 13px; color: var(--text-body); margin-top: 8px; }
+.saints-also-en { color: var(--text-faint); font-style: italic; }
