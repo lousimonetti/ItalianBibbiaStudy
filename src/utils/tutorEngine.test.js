@@ -678,7 +678,7 @@ describe('spoken word questions', () => {
     expect(glossWord('la luce')).toBe('the light');
     expect(glossWord('vinsero')).toBe('won/overcame');
     expect(glossWord("l'uomo")).toBe('the man');
-    expect(glossWord('pizza')).toBeNull();
+    expect(glossWord('ombrellone')).toBeNull();
   });
 
   it('answers in place, using no attempt and repeating the prompt', () => {
@@ -723,7 +723,7 @@ describe('spoken word questions', () => {
 
   it('an unknown word gets an honest answer, and the lesson carries on', () => {
     const r = startedAt('ask');
-    const after = hearOnly(r, 'che vuol dire pizza?');
+    const after = hearOnly(r, 'che vuol dire ombrellone?');
     expect(after.state.glossed).toBeNull();
     expect(spoken(after.state)[0]).toBe('Non conosco questa parola.');
     expect(after.state.attempt).toBe(0);

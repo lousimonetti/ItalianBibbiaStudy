@@ -72,6 +72,14 @@ export const config = {
       url: 'https://creativecommons.org/licenses/by-sa/4.0/',
     },
     {
+      name: 'Tatoeba',
+      note: 'Most example sentences in the Parole di base deck were written by native Italian ' +
+        'speakers on Tatoeba (tatoeba.org), with their English translations, and are used under ' +
+        'the Creative Commons Attribution 2.0 France license. Each sentence keeps its Tatoeba ' +
+        'number in the course data, and a few English lines were reworded.',
+      url: 'https://creativecommons.org/licenses/by/2.0/fr/',
+    },
+    {
       name: 'LanguageTool',
       note: 'The optional Journal grammar check is powered by the LanguageTool public API.',
       url: 'https://languagetool.org',
