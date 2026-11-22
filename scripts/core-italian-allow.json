@@ -1,0 +1,8 @@
+[
+  { "term": "triste", "check": "agreement", "match": "storia triste", "reason": "Morph-it lists triste only as feminine plural; it is singular, both genders (tristi is the plural)." },
+  { "term": "la Bibbia", "check": "lexicon", "match": "Bibbia", "reason": "A proper noun Morph-it does not list." },
+  { "term": "la parrocchia", "check": "frequency", "reason": "Parish life is a deliberate domain; its words are rarer in film subtitles than in a churchgoer's week." },
+  { "term": "l'omelia", "check": "frequency", "reason": "Parish life, as above." },
+  { "term": "la comunione", "check": "frequency", "reason": "Parish life, as above." },
+  { "term": "il salmo", "check": "frequency", "reason": "Parish life, as above." }
+]
