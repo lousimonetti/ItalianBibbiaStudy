@@ -6,6 +6,7 @@ import { devotionSections } from '../../course/devotions';
 import { rosary } from '../../course/rosary';
 import { announcement } from './rosary';
 import { TUTOR_LINES, TUTOR_PRAISE } from '../data/tutorScript';
+import { CORE_VOCAB } from '../../course/core';
 
 // Guards tap-to-translate coverage: every word a learner can tap in the
 // course's connected text (writing prompts, vocab example sentences, reading
@@ -35,6 +36,13 @@ describe('gloss coverage of course text', () => {
   it('covers every word in the vocab example sentences', () => {
     const missing = weeks.flatMap((w) =>
       w.vocab.flatMap(([, , ex]) => unglossed(ex).map((word) => `w${w.n}: ${word}`)));
+    expect(missing).toEqual([]);
+  });
+
+  // The everyday core deck (Parole di base) shows its examples through the
+  // same Practice cards, and Sentence mode reads them out word by word.
+  it('covers every word in the core deck examples', () => {
+    const missing = CORE_VOCAB.flatMap(([term, , ex]) => unglossed(ex).map((word) => `${term}: ${word}`));
     expect(missing).toEqual([]);
   });
 

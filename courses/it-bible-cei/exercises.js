@@ -1993,7 +1993,121 @@ const SPEAKING = {
   },
 };
 
-// Merge the speaking layer onto the base exercises by week number.
+// Grammar gaps (REVIEW-fluency.md B3). The weekly syllabus never taught five
+// things that are everywhere in both Scripture and speech: indirect object
+// pronouns, ne, the imperative with its pronouns, combined pronouns, and the
+// impersonal si. Each is taught here as a passage note on a week whose
+// verified passage already shows the form, quoted verbatim, with two drill
+// items and two transforms appended to that week's own. No new CEI text.
+const GRAMMAR_GAPS = {
+  3: {
+    exegesis: {
+      title: 'Chi ne mangia: the word for "of it"',
+      body: "Verse 50 says «chi ne mangia non muoia»: whoever eats of it. Ne stands for a phrase with di, here «di questo pane». English often drops it (whoever eats [of it]); Italian cannot, above all with a number or a quantity: «Quanti figli hai? Ne ho due», I have two (of them). Like the other object pronouns, ne goes before the conjugated verb. Its partner is ci, which you already use in c'è: ci means there, or about it. Ne answers \"of it, some\"; ci answers \"there\".",
+      forms: [
+        { it: 'chi ne mangia', gloss: 'whoever eats of it', note: 'ne = di questo pane.' },
+        { it: 'ne ho due', gloss: 'I have two (of them)', note: 'Required with a number or quantity.' },
+        { it: "c'è", gloss: 'there is', note: "ci = there; it shortens to c' before è." },
+      ],
+    },
+    drill: [
+      { q: 'perché chi ___ mangia non muoia.', a: 'ne', hint: 'of it (di questo pane) → ne' },
+      { q: 'Quanti figli hai? ___ ho due.', a: 'Ne', hint: 'of them, with a number → ne' },
+    ],
+    transform: [
+      { instruction: 'Sostituisci con «ne»', base: 'Ho due figli.', answer: 'Ne ho due.' },
+      { instruction: 'Sostituisci con «ne»', base: 'Compro tre mele.', answer: 'Ne compro tre.' },
+    ],
+  },
+  5: {
+    exegesis: {
+      title: 'Gli rispose Marta, Gesù le disse',
+      body: "Verses 24 to 27 are a dialogue held together by two small words. «Gli rispose Marta»: Martha answered him. «Gesù le disse»: Jesus said to her. Gli (to him) and le (to her) are indirect object pronouns, and they stand before the verb. The CEI also puts the verb before the subject (gli rispose Marta), an ordinary order in Italian narrative that English cannot copy. Two traps for an English speaker: le (to her) looks like the plural article le, and in everyday Italian gli also means to them («gli ho scritto»: I wrote to him, or to them). Formal Le is to you. With a verb of saying, answering, giving or asking, the person usually arrives as gli or le.",
+      forms: [
+        { it: 'gli rispose', gloss: 'answered him', note: 'gli = a lui (and, in speech, a loro).' },
+        { it: 'le disse', gloss: 'said to her', note: 'le = a lei; formal Le = a Lei, to you.' },
+        { it: 'gli ho scritto', gloss: 'I wrote to him / to them', note: 'Before the verb, also in the past.' },
+      ],
+    },
+    drill: [
+      { q: 'Gesù ___ disse: «Io sono la risurrezione e la vita».', a: 'le', hint: 'to her (Martha) → le' },
+      { q: '___ rispose Marta.', a: 'Gli', hint: 'to him (Jesus) → gli' },
+    ],
+    transform: [
+      { instruction: 'Usa un pronome', base: 'Marta rispose a Gesù.', answer: 'Marta gli rispose.' },
+      { instruction: 'Usa un pronome', base: 'Gesù parlò a Marta.', answer: 'Gesù le parlò.' },
+    ],
+  },
+  14: {
+    exegesis: {
+      title: 'Vendete, datelo, fatevi: the imperative',
+      body: "Verse 33 is three commands in a row. Vendete (sell) is the voi imperative, and it looks exactly like the present: voi vendete, you sell. Only the context makes it a command. Datelo (give it) shows the rule English speakers never guess: with an imperative, the pronoun is joined to the end of the verb, date + lo. Fatevi (make for yourselves) does the same with a reflexive pronoun. For one person, -are verbs end in -a (ascolta!, guarda!) and -ere and -ire verbs in -i (scendi, dormi). A negative command to one person uses the infinitive: «Non temere, piccolo gregge» in verse 32 is do not be afraid, said to one flock.",
+      forms: [
+        { it: 'vendete', gloss: 'sell (to several people)', note: 'Same form as the present; context makes it a command.' },
+        { it: 'datelo', gloss: 'give it', note: 'date + lo: the pronoun joins the end of the imperative.' },
+        { it: 'non temere', gloss: 'do not be afraid', note: 'A negative command to one person: non + infinitive.' },
+      ],
+    },
+    drill: [
+      { q: 'Vendete ciò che possedete e ___ in elemosina.', a: 'datelo', hint: 'give it → date + lo' },
+      { q: 'Non ___, piccolo gregge.', a: 'temere', hint: 'negative command to one: non + infinitive' },
+    ],
+    transform: [
+      { instruction: 'Di’ a una persona sola', base: 'Vendete ciò che possedete.', answer: 'Vendi ciò che possiedi.' },
+      { instruction: 'Rendi negativo', base: 'Abbi paura.', answer: 'Non avere paura.' },
+    ],
+  },
+  16: {
+    exegesis: {
+      title: 'Non glielo impedite: two pronouns in one word',
+      body: "In verse 16 Jesus says «non glielo impedite»: do not stop them. When two object pronouns meet, the one that means to whom comes first and changes its vowel. Mi, ti, ci and vi become me, te, ce and ve (me lo, te lo). Gli and le both become glie- and are written as one word with the next pronoun: glielo, gliela, gliene. So «do il libro a mio fratello» becomes «glielo do», I give it to him; glielo would also serve for to her, because it does not show which. The good Samaritan uses the same pattern in week 13: «te lo pagherò», I will pay it to you.",
+      forms: [
+        { it: 'glielo', gloss: 'it to him / to her / to them', note: 'gli or le + lo, written as one word.' },
+        { it: 'te lo', gloss: 'it to you', note: 'ti + lo: ti becomes te.' },
+        { it: 'me lo', gloss: 'it to me', note: 'mi + lo: mi becomes me.' },
+      ],
+    },
+    drill: [
+      { q: 'Lasciate che i bambini vengano a me e non ___ impedite.', a: 'glielo', hint: 'it, to them → glielo' },
+      { q: 'ciò che spenderai in più, ___ pagherò al mio ritorno.', a: 'te lo', hint: 'it, to you → ti + lo = te lo' },
+    ],
+    transform: [
+      { instruction: 'Usa due pronomi', base: 'Do il libro a mio fratello.', answer: 'Glielo do.' },
+      { instruction: 'Usa due pronomi', base: 'Mi dai il tuo numero?', answer: 'Me lo dai?' },
+    ],
+  },
+  35: {
+    exegesis: {
+      title: 'A chi si devono le tasse: the Italian "one"',
+      body: "Verse 7 says «a chi si devono le tasse»: to whom taxes are owed. This si has nothing to do with doing something to yourself. It makes the verb impersonal or passive: no one in particular owes; taxes are owed. The verb agrees with the thing, so si devono le tasse (plural) but si deve il rispetto (singular). Everyday Italian uses this constantly: «in Italia si mangia tardi» (people eat late), «qui si parla italiano» (Italian is spoken here), «come si dice?» (how do you say it?). When an English speaker reaches for you, one, people or a passive, the Italian is usually si.",
+      forms: [
+        { it: 'si devono le tasse', gloss: 'taxes are owed', note: 'Plural verb, because le tasse is plural.' },
+        { it: 'si mangia', gloss: 'people eat, one eats', note: 'Impersonal: no one in particular.' },
+        { it: 'come si dice?', gloss: 'how do you say it?', note: 'The question to ask any Italian.' },
+      ],
+    },
+    drill: [
+      { q: 'a chi si ___ le tasse, date le tasse;', a: 'devono', hint: 'the verb agrees with le tasse (plural)' },
+      { q: 'In Italia si ___ tardi.', a: 'mangia', hint: 'impersonal si + third person singular' },
+    ],
+    transform: [
+      { instruction: 'Usa il «si» impersonale', base: 'Qui la gente parla italiano.', answer: 'Qui si parla italiano.' },
+      { instruction: 'Usa il «si» impersonale', base: 'Qui la gente vende le mele.', answer: 'Qui si vendono le mele.' },
+    ],
+  },
+};
+
+// Merge a later layer onto a week: its arrays are appended, other fields set.
+function layer(base, extra) {
+  if (!extra) return base;
+  const out = { ...base };
+  for (const [k, v] of Object.entries(extra)) {
+    out[k] = Array.isArray(v) && Array.isArray(base[k]) ? [...base[k], ...v] : v;
+  }
+  return out;
+}
+
+// Merge the speaking layer, then the grammar gaps, onto the base exercises.
 export const EXERCISES = Object.fromEntries(
-  Object.keys(BASE_EXERCISES).map((n) => [n, { ...BASE_EXERCISES[n], ...(SPEAKING[n] || {}) }])
+  Object.keys(BASE_EXERCISES).map((n) => [n, layer({ ...BASE_EXERCISES[n], ...(SPEAKING[n] || {}) }, GRAMMAR_GAPS[n])])
 );

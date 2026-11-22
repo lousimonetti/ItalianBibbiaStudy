@@ -331,6 +331,12 @@ A known weakness of word-pair SRS is that learners learn to associate cards rath
 
 ## Next steps (post O1–O5)
 
+> **See also `REVIEW-fluency.md` (2026-11-22)**, which re-checks the whole app against
+> the methods for becoming fluent rather than against this list. It built a core
+> vocabulary deck, sentence mining, five missing grammar points and conversation prep,
+> and its section 4 ranks what is still missing; O8, O9, O10, O12 and O15 below appear
+> there in that ranking.
+
 O1–O5 are shipped. The remaining open items in priority order:
 
 1. **O12 (Adaptive New-Card Cap)** — One function change in `srs.js`

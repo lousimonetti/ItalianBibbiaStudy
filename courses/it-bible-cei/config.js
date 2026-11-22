@@ -115,7 +115,25 @@ export const config = {
       desc: "three short guided lessons a week — the week's new words, its grammar point, then the passage. Press Continue." },
     { id: 'srs', name: 'Review', badge: 'in this app', role: 'flashcards',
       desc: 'spaced-repetition review of every word the lessons teach. Anki decks are there to download if you prefer Anki.' },
-    { id: 'talk', name: 'iTalki', badge: 'review weeks', role: 'conversation',
-      desc: 'live conversation practice with a tutor, scheduled on review weeks (roughly monthly).' },
+    { id: 'talk', name: 'Conversation', badge: 'every week or two', role: 'conversation',
+      desc: 'talk with a tutor (iTalki or similar) or a language partner. Each week has a "Prepare for a conversation" sheet to bring, and a place to save what you learned.' },
+  ],
+
+  // Real Italian to listen to outside the app (REVIEW-fluency.md B4). Links
+  // only: the app fetches nothing from them, so About & privacy is unchanged.
+  // Optional; a course without it hides the list. Check each URL before adding.
+  listening: [
+    { name: 'Liturgia del giorno (CEI)', url: 'https://www.chiesacattolica.it/liturgia-del-giorno/',
+      desc: "the day's Mass readings in the same CEI translation the course reads. Read tomorrow's Gospel the night before." },
+    { name: 'Vatican News in italiano', url: 'https://www.vaticannews.va/it.html',
+      desc: 'news of the Church in Italian, written and spoken.' },
+    { name: 'Vatican News podcast', url: 'https://www.vaticannews.va/it/podcast.html',
+      desc: 'short Italian audio programmes; listen first without the text.' },
+    { name: 'TV2000', url: 'https://www.tv2000.it/',
+      desc: 'Italian Catholic television, with Mass and prayer broadcasts: liturgy you already know the shape of.' },
+    { name: 'Podcast Italiano', url: 'https://www.podcastitaliano.com/',
+      desc: 'a podcast made for learners of Italian, with episodes at several levels.' },
+    { name: 'RaiPlay Sound', url: 'https://www.raiplaysound.it/',
+      desc: 'Italian public radio and podcasts, for when native speed feels possible.' },
   ],
 };

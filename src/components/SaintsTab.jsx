@@ -174,7 +174,7 @@ export function SaintsTab() {
               </div>
               {paragraphs(story.it.extract).map((p, i) => (
                 <p className="saints-para" key={i}>
-                  <WordGloss text={p} />
+                  <WordGloss text={p} source={saint.name} />
                   <SpeakerButton word={p} size={13} />
                 </p>
               ))}

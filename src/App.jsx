@@ -18,7 +18,7 @@ import { DevotionsTab } from './components/DevotionsTab';
 import { devotionSections } from '../course/devotions';
 import { RosaryTab } from './components/RosaryTab';
 import { rosary } from '../course/rosary';
-import { buildCards } from '../course/vocab';
+import { allReviewCards } from './utils/decks';
 import { useSrs } from './hooks/useSrs';
 import { SaintsTab } from './components/SaintsTab';
 import { GameTab } from './components/GameTab';
@@ -49,7 +49,6 @@ import { reachedVerseCards, verseStats } from './utils/verseReview';
 
 const TOTAL = PHASES.reduce((sum, p) => sum + p.weeks.length, 0);
 const ALL_WEEKS = PHASES.flatMap(p => p.weeks);
-const ALL_CARDS = buildCards(PHASES);
 // The Devotions tab only exists for courses that ship devotional texts.
 const HAS_DEVOTIONS = devotionSections.length > 0;
 // The Rosary prays the course's devotions, so it needs both.
@@ -215,7 +214,7 @@ function DailyGoals({ onOpenGame, onOpenVerses, onOpenReview, onOpenJournal, onO
   // inside the Practice tab, so nothing anywhere else pulled the learner back
   // into a review — the cheapest retention win available.
   const { getStats } = useSrs();
-  const due = getStats(ALL_CARDS).due;
+  const due = getStats(allReviewCards()).due;
   const [versesDue] = useState(() => verseStats(reachedVerseCards()).due);
   const [strip] = useState(() => weekStrip(loadStreak()));
   const doneCount = [flags.read, flags.practiced, flags.journaled, gamesLeft === 0].filter(Boolean).length;
@@ -438,7 +437,7 @@ export default function App() {
     el.scrollIntoView({ block: 'start' });
     return true;
   };
-  const dueCount = useDueCount(ALL_CARDS);
+  const dueCount = useDueCount(allReviewCards);
 
   useEffect(() => {
     const up = () => setOnline(true);

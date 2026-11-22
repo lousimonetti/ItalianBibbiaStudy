@@ -15,6 +15,7 @@ import { devotionSections as itBibleDevotions } from './it-bible-cei/devotions.j
 import { rosary as itBibleRosary } from './it-bible-cei/rosary.js';
 import { kids as itBibleKids } from './it-bible-cei/kids.js';
 import { VERB_FORMS as itBibleVerbForms, FORM_CATEGORIES as itBibleFormCategories } from './it-bible-cei/verbForms.js';
+import { CORE_VOCAB as itBibleCore, CORE_DOMAINS as itBibleCoreDomains } from './it-bible-cei/coreVocab.js';
 
 // `traps`/`trapCategories` are optional — the "Trappole" drill hides for
 // courses that don't ship a contrastive dataset.
@@ -33,6 +34,10 @@ const COURSES = [
     // Optional: reading-tense recognition data. The drill hides without it.
     verbForms: itBibleVerbForms,
     formCategories: itBibleFormCategories,
+    // Optional: an everyday core deck (Parole di base) beside the course's
+    // own vocabulary. The deck hides without it.
+    core: itBibleCore,
+    coreDomains: itBibleCoreDomains,
   },
   // { config: myConfig, phases: myPhases },
 ];
