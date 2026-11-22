@@ -1,6 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { PHASES } from '../data/studyData';
-import { buildCards } from '../../course/vocab';
+import { COURSE_CARDS, CORE_CARDS, hasCoreDeck, mineCards, allReviewCards } from '../utils/decks';
+import { CORE_DOMAINS } from '../../course/core';
+import { MINED_EVENT, loadMined, forgetWord, editWord } from '../utils/mined';
 import { IPAGuide } from './IPAGuide';
 import { SpeakerButton } from './SpeakerButton';
 import { UiText } from '../i18n/UiText';
@@ -37,7 +39,24 @@ function shuffle(arr) {
   return a;
 }
 
-const ALL_CARDS = buildCards(PHASES);
+// The decks Practice can review (src/utils/decks.js). All share one SRS store
+// and one daily new-card cap.
+const DECKS = [
+  { id: 'course', label: 'Corso', sub: 'this course’s words, week by week' },
+  ...(hasCoreDeck() ? [{ id: 'core', label: 'Parole di base', sub: 'everyday core words' }] : []),
+  { id: 'mine', label: 'Mie parole', sub: 'words you saved' },
+];
+
+// Approximate IPA (computed, not authored) is marked like the gloss popover does.
+function Ipa({ card }) {
+  if (!HAS_IPA || !card.ipa) return null;
+  return (
+    <span className="prac-ipa">
+      {card.ipa}
+      {card.ipaApprox && <span className="gloss-pop-approx" title="Auto-generated approximate pronunciation"> ≈</span>}
+    </span>
+  );
+}
 
 // A session carries one style, or — for the smart mix — a style per card,
 // chosen from how well each card is known when the session starts.
@@ -82,13 +101,23 @@ function SessionEnd({ known, total, againCount, onRestart, onDrillAgain }) {
 
 export function PracticeMode({ autoStart = false }) {
   const { recordReview, buildSession, getStats, getStore, version } = useSrs();
+  const [deck, setDeck] = useState('course');
   const [filter, setFilter] = useState('all');
+  // Saved words change while Practice is open (the gloss popover, the
+  // after-conversation notes), so the list is re-read on MINED_EVENT.
+  const [minedVersion, setMinedVersion] = useState(0);
+  useEffect(() => {
+    const bump = () => setMinedVersion((v) => v + 1);
+    window.addEventListener(MINED_EVENT, bump);
+    return () => window.removeEventListener(MINED_EVENT, bump);
+  }, []);
   const [style, setStyle] = useState('mixed');
   // `autoStart` (the Today card's Review button) opens straight into the due
   // queue; with nothing due it falls through to the start screen.
   const [session, setSession] = useState(() => {
     if (!autoStart) return null;
-    const cards = buildSession(ALL_CARDS);
+    // Every deck at once: the button promises "the cards that are due".
+    const cards = buildSession(allReviewCards());
     return cards.length ? makeSession(cards, 'mixed', getStore()) : null;
   });
   const [flipped, setFlipped] = useState(false);
@@ -102,9 +131,13 @@ export function PracticeMode({ autoStart = false }) {
   const [replays, setReplays] = useState(0);
   const { getStore: getPronunStore, version: pronunVersion } = usePronunStats();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const deckCards = useMemo(() => (deck === 'core' ? CORE_CARDS : deck === 'mine' ? mineCards() : COURSE_CARDS), [deck, minedVersion]);
+  // Course cards filter by phase, core cards by domain.
   const filtered = useMemo(
-    () => (filter === 'all' ? ALL_CARDS : ALL_CARDS.filter(c => c.phaseId === filter)),
-    [filter]
+    () => (filter === 'all' ? deckCards
+      : deckCards.filter(c => (deck === 'core' ? c.domain : c.phaseId) === filter)),
+    [filter, deck, deckCards]
   );
 
   // Cloze only works on cards whose example literally contains the term.
@@ -340,7 +373,7 @@ export function PracticeMode({ autoStart = false }) {
                 ) : (
                   <>
                     <span className="prac-answer">{card.it}</span>
-                    {HAS_IPA && card.ipa && <span className="prac-ipa">{card.ipa}</span>}
+                    <Ipa card={card} />
                     <SpeakerButton word={card.it} size={18} />
                     {curStyle === 'recall' && card.ex && (
                       <span className="prac-example">
@@ -367,7 +400,7 @@ export function PracticeMode({ autoStart = false }) {
               </div>
               <div className="prac-face prac-back">
                 <span className="prac-translation">{card.en}</span>
-                {HAS_IPA && <span className="prac-ipa">{card.ipa}</span>}
+                <Ipa card={card} />
                 <SpeakerButton word={card.it} size={18} />
                 {card.ex && (
                   <span className="prac-example">
@@ -379,7 +412,7 @@ export function PracticeMode({ autoStart = false }) {
           </div>
         )}
 
-        <div className="prac-card-meta">Week {card.weekN} · {card.reading}</div>
+        <div className="prac-card-meta">{card.meta || `Week ${card.weekN} · ${card.reading}`}</div>
 
         {showGrade ? (
           <div className="prac-actions prac-actions-3">
@@ -436,13 +469,30 @@ export function PracticeMode({ autoStart = false }) {
         </div>
       </div>
 
+      <div className="prac-filter-label">Deck</div>
+      <div className="prac-style-grid prac-deck-grid" role="group" aria-label="Deck">
+        {DECKS.map(d => (
+          <button
+            key={d.id}
+            className={`prac-style-btn${deck === d.id ? ' prac-style-active' : ''}`}
+            aria-pressed={deck === d.id}
+            onClick={() => { setDeck(d.id); setFilter('all'); }}
+          >
+            <span className="prac-style-name">{d.label}</span>
+            <span className="prac-style-sub">{d.sub}</span>
+          </button>
+        ))}
+      </div>
+
+      {deck === 'mine' && <MinedList />}
+
       <div className="prac-srs-stats">
         <span className="prac-srs-stat prac-srs-due">{srsStats.due} due</span>
         <span className="prac-srs-stat prac-srs-new">{srsStats.new} new</span>
         <span className="prac-srs-stat prac-srs-learned">{srsStats.learned} learned</span>
       </div>
 
-      {activeQueue.length > 0 ? (
+      {deckCards.length === 0 ? null : activeQueue.length > 0 ? (
         <button className="prac-go-btn" onClick={() => startSession(activeQueue)}>
           Start — {activeQueue.length} card{activeQueue.length !== 1 ? 's' : ''}
         </button>
@@ -487,31 +537,50 @@ export function PracticeMode({ autoStart = false }) {
         })}
       </div>
 
-      <div className="prac-filter-label"><UiText k="prac.chooseCards" /></div>
-      <div className="prac-filter-grid">
-        <button
-          className={`prac-filter-btn${filter === 'all' ? ' prac-filter-active' : ''}`}
-          onClick={() => setFilter('all')}
-        >
-          <span className="prac-filter-name">All phases</span>
-          <span className="prac-filter-count">{ALL_CARDS.length} cards</span>
-        </button>
-        {PHASES.map(p => {
-          const count = ALL_CARDS.filter(c => c.phaseId === p.id).length;
-          return (
+      {deck !== 'mine' && (
+        <>
+          <div className="prac-filter-label"><UiText k="prac.chooseCards" /></div>
+          <div className="prac-filter-grid">
             <button
-              key={p.id}
-              className={`prac-filter-btn${filter === p.id ? ' prac-filter-active' : ''}`}
-              onClick={() => setFilter(p.id)}
-              style={filter === p.id ? { borderColor: p.badgeColor, background: p.badgeBg, color: p.badgeColor } : {}}
+              className={`prac-filter-btn${filter === 'all' ? ' prac-filter-active' : ''}`}
+              onClick={() => setFilter('all')}
             >
-              <span className="prac-filter-name">{p.title.replace(/: .+/, '')}</span>
-              <span className="prac-filter-sub">{p.book}</span>
-              <span className="prac-filter-count">{count} cards</span>
+              <span className="prac-filter-name">{deck === 'core' ? 'All topics' : 'All phases'}</span>
+              <span className="prac-filter-count">{deckCards.length} cards</span>
             </button>
-          );
-        })}
-      </div>
+            {deck === 'core'
+              ? Object.entries(CORE_DOMAINS).map(([id, label]) => {
+                const count = deckCards.filter(c => c.domain === id).length;
+                if (!count) return null;
+                return (
+                  <button
+                    key={id}
+                    className={`prac-filter-btn${filter === id ? ' prac-filter-active' : ''}`}
+                    onClick={() => setFilter(id)}
+                  >
+                    <span className="prac-filter-name">{label}</span>
+                    <span className="prac-filter-count">{count} cards</span>
+                  </button>
+                );
+              })
+              : PHASES.map(p => {
+                const count = deckCards.filter(c => c.phaseId === p.id).length;
+                return (
+                  <button
+                    key={p.id}
+                    className={`prac-filter-btn${filter === p.id ? ' prac-filter-active' : ''}`}
+                    onClick={() => setFilter(p.id)}
+                    style={filter === p.id ? { borderColor: p.badgeColor, background: p.badgeBg, color: p.badgeColor } : {}}
+                  >
+                    <span className="prac-filter-name">{p.title.replace(/: .+/, '')}</span>
+                    <span className="prac-filter-sub">{p.book}</span>
+                    <span className="prac-filter-count">{count} cards</span>
+                  </button>
+                );
+              })}
+          </div>
+        </>
+      )}
 
       <StrugglePanel
         struggles={struggles}
@@ -527,6 +596,47 @@ export function PracticeMode({ autoStart = false }) {
 
       {HAS_IPA && <IPAKeyPanel />}
     </div>
+  );
+}
+
+// "Mie parole": the saved words, with a way to fix a meaning or drop a word.
+// A word saved without a meaning is listed but not reviewed until it has one.
+function MinedList() {
+  const [list, setList] = useState(loadMined);
+  useEffect(() => {
+    const reload = () => setList(loadMined());
+    window.addEventListener(MINED_EVENT, reload);
+    return () => window.removeEventListener(MINED_EVENT, reload);
+  }, []);
+  if (!list.length) {
+    return (
+      <div className="prac-mined-empty">
+        No saved words yet. While you read a passage, a prayer or a saint’s story,
+        tap a word you want to keep and choose <strong>Save to My words</strong>.
+        It is saved with the sentence you met it in, and reviewed here.
+      </div>
+    );
+  }
+  return (
+    <details className="prac-mined">
+      <summary>{list.length} saved word{list.length !== 1 ? 's' : ''}: edit or remove</summary>
+      <ul className="prac-mined-list">
+        {list.map((e) => (
+          <li key={e.it} className="prac-mined-item">
+            <span className="prac-mined-it">{e.it}</span>
+            <input
+              className="prac-mined-en"
+              aria-label={`Meaning of ${e.it}`}
+              placeholder="add a meaning to review it"
+              defaultValue={e.en}
+              onBlur={(ev) => { if (ev.target.value.trim() !== e.en) editWord(e.it, { en: ev.target.value.trim() }); }}
+            />
+            {e.ex && <span className="prac-mined-ex">{e.ex}</span>}
+            <button type="button" className="prac-mined-del" aria-label={`Remove ${e.it}`} onClick={() => forgetWord(e.it)}>×</button>
+          </li>
+        ))}
+      </ul>
+    </details>
   );
 }
 

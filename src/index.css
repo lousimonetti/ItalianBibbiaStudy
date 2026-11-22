@@ -4862,3 +4862,65 @@ html.dark {
 /* Room above the passage when the Today goal jumps to it, so its title and
    view toggles stay in sight. */
 .reading-box { scroll-margin-top: 120px; }
+
+/* "Mie parole" (sentence mining, REVIEW-fluency.md B2) */
+.gloss-pop-save {
+  margin-top: 4px;
+  align-self: flex-start;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  cursor: pointer;
+  min-height: 28px;
+}
+.gloss-pop-save:hover { background: var(--accent-dim); }
+.gloss-pop-saved { margin-top: 4px; font-size: 12px; color: var(--text-muted); }
+.prac-deck-grid { margin-bottom: 12px; }
+.prac-mined-empty {
+  margin: 4px 0 12px;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-body);
+  background: var(--border-subtle);
+  border-radius: 10px;
+}
+.prac-mined {
+  margin: 4px 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+.prac-mined summary { cursor: pointer; color: var(--text-muted); }
+.prac-mined-list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.prac-mined-item {
+  display: grid;
+  grid-template-columns: minmax(70px, auto) 1fr auto;
+  gap: 4px 8px;
+  align-items: center;
+}
+.prac-mined-it { font-weight: 600; color: var(--text); }
+.prac-mined-en {
+  min-width: 0;
+  padding: 4px 6px;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.prac-mined-ex { grid-column: 1 / -1; font-size: 12px; color: var(--text-faint); font-style: italic; }
+.prac-mined-del {
+  width: 32px; height: 32px;
+  font-size: 18px; line-height: 1;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}

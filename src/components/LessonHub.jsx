@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { PHASES } from '../data/studyData';
-import { buildCards } from '../../course/vocab';
+import { allReviewCards } from '../utils/decks';
 import { weekLessons } from '../utils/lessonPlan';
 import { loadLessons, isDone, isWeekComplete, weekProgress, nextAction } from '../utils/lessonStore';
 import { useLessonStore } from '../hooks/useLessonStore';
@@ -10,7 +10,6 @@ import { LessonPlayer } from './LessonPlayer';
 import { UiText } from '../i18n/UiText';
 
 const ALL_WEEKS = PHASES.flatMap((p) => p.weeks);
-const ALL_CARDS = buildCards(PHASES);
 // Lessons are deterministic, so the whole course's plan is built once.
 const PLANS = ALL_WEEKS.map((week) => ({ weekN: week.n, lessons: weekLessons(week) }));
 const lessonsFor = (weekN) => PLANS.find((p) => p.weekN === weekN)?.lessons || [];
@@ -104,7 +103,7 @@ function PlayIcon() {
 // so the count reflects the words that lesson just scheduled.
 function ContinueInner({ currentWeekN, store, onStart, onOpenReview }) {
   const { getStats } = useSrs();
-  const due = getStats(ALL_CARDS).due;
+  const due = getStats(allReviewCards()).due;
   const action = nextAction({ plans: PLANS, store, currentWeekN, due });
 
   if (action.kind === 'done') {

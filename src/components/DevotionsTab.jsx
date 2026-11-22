@@ -89,7 +89,7 @@ function ReadMode({ prayer }) {
     // No line alignment authored — fall back to the whole-text view.
     return (
       <>
-        <p className="prayer-text-it"><WordGloss text={prayer.it} /></p>
+        <p className="prayer-text-it"><WordGloss text={prayer.it} source={prayer.title} /></p>
         <button
           className={`prayer-translation-toggle${showEn ? ' open' : ''}`}
           onClick={() => setShowEn((v) => !v)}
@@ -117,7 +117,7 @@ function ReadMode({ prayer }) {
         {prayer.lines.map((line, i) => (
           <li className="prayer-line" key={i}>
             <span className="prayer-line-it">
-              <WordGloss text={line.it} />
+              <WordGloss text={line.it} source={prayer.title} />
               <SpeakerButton word={line.it} size={13} />
             </span>
             {showEn && <span className="prayer-line-en">{line.en}</span>}

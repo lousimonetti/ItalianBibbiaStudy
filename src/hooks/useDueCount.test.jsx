@@ -33,4 +33,22 @@ describe('useDueCount', () => {
     });
     expect(screen.getByTestId('due').textContent).toBe('1');
   });
+
+  it('accepts a function and re-counts when a saved word changes', async () => {
+    const { MINED_EVENT } = await import('../utils/mined');
+    let cards = [{ it: 'la luce' }];
+    localStorage.setItem(KEY, JSON.stringify({
+      'la luce': { due: Date.now() - 1000 },
+      pietra: { due: Date.now() - 1000 },
+    }));
+    function FnProbe() {
+      return <span data-testid="due-fn">{useDueCount(() => cards)}</span>;
+    }
+    render(<FnProbe />);
+    expect(screen.getByTestId('due-fn').textContent).toBe('1');
+    cards = [{ it: 'la luce' }, { it: 'pietra' }];
+    act(() => { window.dispatchEvent(new Event(MINED_EVENT)); });
+    expect(screen.getByTestId('due-fn').textContent).toBe('2');
+  });
 });
+

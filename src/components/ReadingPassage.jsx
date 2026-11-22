@@ -227,7 +227,7 @@ export function ReadingPassage({ week }) {
               <span className="reading-text">
                 {soloEn
                   ? <span className="reading-en-solo">{line.en}</span>
-                  : <WordGloss text={line.t} roles={skeleton && !englishOnly ? analyses[i].tokens : null} />}
+                  : <WordGloss text={line.t} roles={skeleton && !englishOnly ? analyses[i].tokens : null} source={`Week ${week.n}`} />}
                 {showEn && <span className="reading-en">{line.en}</span>}
               </span>
               {english === 'off' && line.en && (

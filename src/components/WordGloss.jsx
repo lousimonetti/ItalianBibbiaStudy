@@ -4,6 +4,8 @@ import { HAS_IPA } from '../utils/locale';
 import { toIPA } from '../utils/it2ipa';
 import { lookupCommon } from '../utils/it2en';
 import { GlossPopover } from './GlossPopover';
+import { sentenceAt, mineWord, loadMined, hasEntry } from '../utils/mined';
+import { deckOf } from '../utils/decks';
 
 const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
@@ -20,11 +22,20 @@ const canGlossUnknown = ttsSupported || HAS_IPA;
 // a parallel array of { role, dim } that adds structural classes on top of the
 // gloss affordance, so the reader keeps tap-to-translate while the skeleton view
 // is on. It lines up index-for-index because both sides call the same tokenize().
-export function WordGloss({ text, roles = null }) {
+//
+// A word that is not already a card can be saved to "Mie parole" with the
+// sentence it appears in (src/utils/mined.js). `source` (optional) names where
+// the text comes from ("Giovanni 3,16"), shown on the saved card.
+export function WordGloss({ text, roles = null, source = '' }) {
   const [openKey, setOpenKey] = useState(null);
+  const [savedNow, setSavedNow] = useState(() => new Set());
 
   const tokens = useMemo(() => {
+    let offset = 0;
     return tokenize(text).map((tok) => {
+      const at = offset;
+      offset += tok.text.length;
+      if (tok.isWord) tok = { ...tok, at };
       if (!tok.isWord) return { ...tok, entry: null };
       const vocab = lookupWord(tok.text);
       if (vocab) return { ...tok, entry: vocab };
@@ -55,6 +66,26 @@ export function WordGloss({ text, roles = null }) {
       document.removeEventListener('keydown', onKey);
     };
   }, [openKey]);
+
+  // The saved term: lowercased, unless it is capitalized mid-sentence (a name).
+  const termFor = (tok) => {
+    const sentence = sentenceAt(text, tok.at);
+    const startsSentence = sentence && text.indexOf(sentence) === tok.at;
+    return /^[A-ZÀ-Ý]/.test(tok.text) && !startsSentence ? tok.text : tok.text.toLowerCase();
+  };
+
+  const saveFor = (tok) => {
+    const term = termFor(tok);
+    if (deckOf(term) === 'core') return { state: 'core' };
+    if (savedNow.has(term) || hasEntry(loadMined(), term)) return { state: 'saved' };
+    return {
+      state: 'ready',
+      onSave: () => {
+        mineWord({ it: term, en: tok.entry.en, ex: sentenceAt(text, tok.at), src: source });
+        setSavedNow((s) => new Set(s).add(term));
+      },
+    };
+  };
 
   // Structural classes for token i, when a skeleton analysis was supplied.
   const skel = (i) => {
@@ -90,7 +121,7 @@ export function WordGloss({ text, roles = null }) {
             >
               {tok.text}
             </button>
-            {open && <GlossPopover entry={tok.entry} />}
+            {open && <GlossPopover entry={tok.entry} save={isVocab ? null : saveFor(tok)} />}
           </span>
         );
       })}

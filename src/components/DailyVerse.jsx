@@ -44,7 +44,7 @@ export function DailyVerse({ currentWeekN, onChange }) {
         <p className="daily-verse-context"><WordGloss text={verse.prev.t} /></p>
       )}
       <p className="daily-verse-it">
-        <WordGloss text={verse.t} />
+        <WordGloss text={verse.t} source="Versetto del giorno" />
         <SpeakerButton word={verse.t} size={16} />
       </p>
       {showEn && verse.en && <p className="daily-verse-en">{verse.en}</p>}
