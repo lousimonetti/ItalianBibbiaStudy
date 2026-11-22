@@ -23,6 +23,11 @@ export const TRAP_CATEGORIES = {
   verbprep: { it: 'Verbi senza preposizione', en: 'no preposition needed' },
   ridotta: { it: 'Relative ridotte', en: 'participle instead of "che è stato…"' },
   ipotassi: { it: 'Subordinare, non incollare', en: 'subordinate it, don\'t chain it with "e"' },
+  // Added with the grammar-gap notes (REVIEW-fluency.md B3).
+  ne: { it: 'Il pronome ne', en: 'ne for "of it / some"' },
+  combinati: { it: 'Pronomi combinati', en: 'two pronouns together: glielo, me lo' },
+  imperativo: { it: 'Imperativo e pronomi', en: 'the pronoun joins the end of a command' },
+  siimp: { it: 'Il si impersonale', en: '"people / one / you" in general → si' },
 };
 
 export const TRAPS = [
@@ -302,4 +307,38 @@ export const TRAPS = [
     wrongs: ["i costruttori scartarono la pietra e è diventata la pietra d'angolo",
              "la pietra che i costruttori scartarono e è diventata la pietra d'angolo"],
     note: 'The relative clause sits INSIDE the sentence; the main verb (è diventata) comes after it. Adding e turns one sentence into two and breaks the grammar.' },
+
+  // ── ne: required with a quantity (REVIEW-fluency.md B3, week 3) ───────────
+  { trap: 'ne', en: 'I have two (of them)', it: 'Ne ho due',
+    wrongs: ['ho due', 'li ho due'],
+    note: 'English can drop "of them"; Italian cannot. With a number or a quantity, ne stands for the thing counted: ne ho due.' },
+  { trap: 'ne', en: 'I want three (of them)', it: 'Ne voglio tre',
+    wrongs: ['voglio tre', 'le voglio tre', 'li voglio tre'],
+    note: 'Lo/la/li/le take the whole thing; ne takes a part of it. Three of them → ne voglio tre.' },
+  // ── combined pronouns (week 16: non glielo impedite) ───────────────────────
+  { trap: 'combinati', en: 'I give it to him', it: 'Glielo do',
+    wrongs: ['lo gli do', 'gli lo do', 'glie lo do'],
+    note: 'The "to whom" pronoun comes first and gli becomes glie-, joined to lo in one word: glielo.' },
+  { trap: 'combinati', en: 'Can you tell it to me?', it: 'Me lo puoi dire?',
+    alt: ['puoi dirmelo?', 'me lo puoi dire'],
+    wrongs: ['mi lo puoi dire?', 'lo mi puoi dire?', 'mi lo puoi dire'],
+    note: 'Before lo, la, li, le and ne, mi becomes me (and ti → te, ci → ce, vi → ve): me lo.' },
+  // ── imperative + pronoun (week 14: datelo, fatevi) ─────────────────────────
+  { trap: 'imperativo', en: 'Sell it! (to several people)', it: 'Vendetelo!',
+    alt: ['vendetelo'],
+    wrongs: ['lo vendete!', 'lo vendete', 'vendete lo'],
+    note: 'With an imperative the pronoun is glued to the end: vendete + lo = vendetelo (like datelo in Luke 12,33). "Lo vendete" is a statement: you sell it.' },
+  { trap: 'imperativo', en: 'Tell me! (to one person)', it: 'Dimmi!',
+    alt: ['dimmi'],
+    wrongs: ['mi di!', 'di mi!', 'dici mi'],
+    note: "Di' (tell) is one syllable, so the pronoun doubles its consonant when it joins: di' + mi = dimmi. Same with fammi, dammi." },
+  // ── impersonal si (week 35: a chi si devono le tasse) ─────────────────────
+  { trap: 'siimp', en: 'How do you say this in Italian? (in general)', it: 'Come si dice questo in italiano?',
+    alt: ['come si dice in italiano?', 'come si dice questo in italiano'],
+    wrongs: ['come dici questo in italiano?', 'come tu dici questo in italiano?'],
+    note: 'English "you" here means anyone. Italian makes that impersonal with si: come si dice? "Come dici?" asks one person what they said.' },
+  { trap: 'siimp', en: 'People eat late here', it: 'Qui si mangia tardi',
+    alt: ['si mangia tardi qui', 'qui la gente mangia tardi', 'qui le persone mangiano tardi'],
+    wrongs: ['qui la gente mangiano tardi', 'qui persone mangiano tardi'],
+    note: 'The natural Italian is si: qui si mangia tardi. If you do say la gente, it is singular: la gente mangia.' },
 ];

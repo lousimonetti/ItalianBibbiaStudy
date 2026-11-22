@@ -1512,6 +1512,16 @@
        "q": "Sono io il ___ della vita.",
        "a": "pane",
        "hint": "bread (il pane)"
+      },
+      {
+       "q": "perché chi ___ mangia non muoia.",
+       "a": "ne",
+       "hint": "of it (di questo pane) → ne"
+      },
+      {
+       "q": "Quanti figli hai? ___ ho due.",
+       "a": "Ne",
+       "hint": "of them, with a number → ne"
       }
      ],
      "comprehension": [
@@ -1550,6 +1560,16 @@
        "instruction": "Metti al futuro",
        "base": "Chi viene a me non ha fame.",
        "answer": "Chi viene a me non avrà fame."
+      },
+      {
+       "instruction": "Sostituisci con «ne»",
+       "base": "Ho due figli.",
+       "answer": "Ne ho due."
+      },
+      {
+       "instruction": "Sostituisci con «ne»",
+       "base": "Compro tre mele.",
+       "answer": "Ne compro tre."
       }
      ],
      "questions": [
@@ -1924,6 +1944,16 @@
        "q": "Gesù scoppiò in ___.",
        "a": "pianto",
        "hint": "piangere → il pianto (weeping)"
+      },
+      {
+       "q": "Gesù ___ disse: «Io sono la risurrezione e la vita».",
+       "a": "le",
+       "hint": "to her (Martha) → le"
+      },
+      {
+       "q": "___ rispose Marta.",
+       "a": "Gli",
+       "hint": "to him (Jesus) → gli"
       }
      ],
      "comprehension": [
@@ -1965,6 +1995,16 @@
        "instruction": "Rendi negativa",
        "base": "Chi crede in me morirà in eterno.",
        "answer": "Chi crede in me non morirà in eterno."
+      },
+      {
+       "instruction": "Usa un pronome",
+       "base": "Marta rispose a Gesù.",
+       "answer": "Marta gli rispose."
+      },
+      {
+       "instruction": "Usa un pronome",
+       "base": "Gesù parlò a Marta.",
+       "answer": "Gesù le parlò."
       }
      ],
      "questions": [
@@ -3894,6 +3934,16 @@
        "q": "___ granai più grandi.",
        "a": "Costruirò",
        "hint": "costruire → futuro (I will build)"
+      },
+      {
+       "q": "Vendete ciò che possedete e ___ in elemosina.",
+       "a": "datelo",
+       "hint": "give it → date + lo"
+      },
+      {
+       "q": "Non ___, piccolo gregge.",
+       "a": "temere",
+       "hint": "negative command to one: non + infinitive"
       }
      ],
      "comprehension": [
@@ -3931,6 +3981,16 @@
        "instruction": "Rendi negativa",
        "base": "La vita dipende dalla ricchezza.",
        "answer": "La vita non dipende dalla ricchezza."
+      },
+      {
+       "instruction": "Di’ a una persona sola",
+       "base": "Vendete ciò che possedete.",
+       "answer": "Vendi ciò che possiedi."
+      },
+      {
+       "instruction": "Rendi negativo",
+       "base": "Abbi paura.",
+       "answer": "Non avere paura."
       }
      ],
      "questions": [
@@ -4309,6 +4369,16 @@
        "q": "Lasciate che i ___ vengano a me.",
        "a": "bambini",
        "hint": "children (i bambini)"
+      },
+      {
+       "q": "Lasciate che i bambini vengano a me e non ___ impedite.",
+       "a": "glielo",
+       "hint": "it, to them → glielo"
+      },
+      {
+       "q": "ciò che spenderai in più, ___ pagherò al mio ritorno.",
+       "a": "te lo",
+       "hint": "it, to you → ti + lo = te lo"
       }
      ],
      "comprehension": [
@@ -4351,6 +4421,16 @@
        "instruction": "Metti al plurale",
        "base": "L'uomo salì al tempio a pregare.",
        "answer": "Gli uomini salirono al tempio a pregare."
+      },
+      {
+       "instruction": "Usa due pronomi",
+       "base": "Do il libro a mio fratello.",
+       "answer": "Glielo do."
+      },
+      {
+       "instruction": "Usa due pronomi",
+       "base": "Mi dai il tuo numero?",
+       "answer": "Me lo dai?"
       }
      ],
      "questions": [
@@ -8312,6 +8392,16 @@
        "q": "Il mio ___ viene dal Signore.",
        "a": "soccorso",
        "hint": "my help (Psalm 121)"
+      },
+      {
+       "q": "a chi si ___ le tasse, date le tasse;",
+       "a": "devono",
+       "hint": "the verb agrees with le tasse (plural)"
+      },
+      {
+       "q": "In Italia si ___ tardi.",
+       "a": "mangia",
+       "hint": "impersonal si + third person singular"
       }
      ],
      "comprehension": [
@@ -8348,6 +8438,16 @@
        "instruction": "Rendi negativa",
        "base": "La carità fa male al prossimo.",
        "answer": "La carità non fa male al prossimo."
+      },
+      {
+       "instruction": "Usa il «si» impersonale",
+       "base": "Qui la gente parla italiano.",
+       "answer": "Qui si parla italiano."
+      },
+      {
+       "instruction": "Usa il «si» impersonale",
+       "base": "Qui la gente vende le mele.",
+       "answer": "Qui si vendono le mele."
       }
      ],
      "questions": [
