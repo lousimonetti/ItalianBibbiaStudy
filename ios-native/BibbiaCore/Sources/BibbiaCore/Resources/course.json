@@ -84,10 +84,10 @@
   },
   {
    "id": "talk",
-   "name": "iTalki",
-   "badge": "review weeks",
+   "name": "Conversation",
+   "badge": "every week or two",
    "role": "conversation",
-   "desc": "live conversation practice with a tutor, scheduled on review weeks (roughly monthly)."
+   "desc": "talk with a tutor (iTalki or similar) or a language partner. Each week has a \"Prepare for a conversation\" sheet to bring, and a place to save what you learned."
   }
  ],
  "devotions": [

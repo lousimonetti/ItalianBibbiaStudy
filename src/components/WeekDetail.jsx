@@ -15,6 +15,7 @@ import { GrammarDrill } from './GrammarDrill';
 import { TransformDrill } from './TransformDrill';
 import { SpokenQA } from './SpokenQA';
 import { PhraseList } from './PhraseList';
+import { ConversationPrep } from './ConversationPrep';
 import { UiText } from '../i18n/UiText';
 import { HAS_IPA } from '../utils/locale';
 import { weekDayLabels } from '../utils/schedule';
@@ -210,6 +211,9 @@ export function WeekDetail({ week, checked, onToggle }) {
 
       {/* Passage note — grammar as exegesis */}
       <ExegesisPanel exegesis={week.exegesis} />
+
+      {/* Conversation prep, after-conversation notes, real listening (B4) */}
+      <ConversationPrep week={week} />
 
       {/* Daily schedule */}
       <div className="detail-section" style={{ marginTop: 14 }}>

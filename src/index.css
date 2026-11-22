@@ -4866,6 +4866,7 @@ html.dark {
 /* "Mie parole" (sentence mining, REVIEW-fluency.md B2) */
 .gloss-pop-save {
   margin-top: 4px;
+  white-space: nowrap;
   align-self: flex-start;
   padding: 4px 8px;
   font-size: 12px;
@@ -4924,3 +4925,25 @@ html.dark {
   border-radius: 6px;
   cursor: pointer;
 }
+
+/* Prepare for a conversation (REVIEW-fluency.md B4) */
+.convo { margin-top: 14px; }
+.convo-body { padding: 4px 2px 8px; display: flex; flex-direction: column; gap: 14px; }
+.convo-why { margin: 0; font-size: 13px; line-height: 1.5; color: var(--text-body); }
+.convo-label { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); margin: 14px 0 6px; }
+.convo-label:first-child { margin-top: 0; }
+.convo-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.convo-line { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; font-size: 14px; }
+.convo-it { color: var(--text); }
+.convo-en { flex-basis: 100%; font-size: 12px; color: var(--text-faint); }
+.convo-copy { margin-top: 10px; }
+.convo-after { display: flex; flex-direction: column; gap: 8px; }
+.convo-input {
+  width: 100%; box-sizing: border-box; min-height: 40px; padding: 8px 10px;
+  font: inherit; font-size: 14px; color: var(--text);
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+}
+.convo-save { align-self: flex-start; }
+.convo-msg { font-size: 13px; color: var(--accent); }
+.convo-res { font-size: 13px; line-height: 1.5; color: var(--text-body); }
+.convo-res a { color: var(--accent); font-weight: 600; }
