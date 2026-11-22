@@ -374,7 +374,7 @@ const POLICIES = {
   // Word questions, known and unknown, before every answer.
   questions: (st, n) => [
     { type: 'heard', alternatives: ['che vuol dire principio?'] },
-    { type: 'heard', alternatives: ['cosa significa pizza'] },
+    { type: 'heard', alternatives: ['cosa significa ombrellone'] },
     { type: 'typed', text: "What does l'uomo mean?" },
     { type: 'heard', alternatives: [rightAnswer(st)] },
   ][n % 4],
@@ -555,7 +555,7 @@ write('conversa.json', {
       ...oneTurn('Ciao'), heard('avanti'), { type: 'failed' }, 'drain', { type: 'rephrase' }, { type: 'command', command: 'stop' },
     ]),
     conversation('word questions', 1, [
-      heard('che vuol dire principio?'), 'drain', heard('cosa significa pizza'), 'drain', ...oneTurn('Ciao'),
+      heard('che vuol dire principio?'), 'drain', heard('cosa significa ombrellone'), 'drain', ...oneTurn('Ciao'),
     ]),
     conversation('silence, then a pause, then resuming', 1, [
       { type: 'noSpeech' }, 'drain', heard('   '), 'drain', { type: 'noSpeech' }, { type: 'resume' }, 'drain', ...oneTurn('Ciao'),
