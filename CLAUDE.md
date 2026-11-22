@@ -436,6 +436,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   and Today card were checked in the simulator; **nobody has tapped through the iOS
   lesson player's new badge, sounds or summary yet**.
 
+- **Fluency review (`REVIEW-fluency.md`): review written, top tier built on web only.**
+  Measured the app against the best-evidenced methods for becoming fluent (goal: Scripture
+  first, everyday conversation too). Strong on retrieval, grammar, noticing, automatization
+  and habit; four large gaps were built:
+  **B1 Parole di base**, an everyday core deck of 497 words in 13 topics
+  (`courses/it-bible-cei/coreVocab.js`, optional registry field `core` → `course/core.js`,
+  cards built in `src/utils/decks.js`). Practice gained a deck chooser (Corso / Parole di
+  base / Mie parole). **All decks share the one `srs` store**, keyed by term, so one daily
+  new-card cap covers everything; `coreVocab.test.js` forbids a core term that is also a
+  course term (any case, with or without its article) and requires every cloze to blank a
+  whole word (`makeCloze` matches substrings, so a short word like `in` could otherwise
+  land inside `macchina`). Core IPA is computed with `toIPA` and flagged approximate. The
+  core deck is **not** in the weekly lessons (`lessonPlan.js` is Swift-pinned). 384 words
+  were added to `it2en.js` and `glossCoverage.test.js` covers the core examples; adding a
+  core row means adding its unglossed words there too.
+  **B2 Mie parole** (sentence mining): `WordGloss` offers *Save to My words* on any word
+  that is not already a card (`deckOf()` in `decks.js`), saving the word with its sentence
+  (`sentenceAt`) and an optional `source` prop, under `storageKey('mined')`
+  (`src/utils/mined.js`, `MINED_EVENT`). A saved word with no meaning is listed but not
+  reviewed until one is filled in. `useDueCount` now also accepts a function, because the
+  saved list changes while the app is open.
+  **B3** five grammar points the syllabus never taught (ne, gli/le, the imperative,
+  combined pronouns, impersonal si), each a passage note on a week whose verified passage
+  already shows the form (weeks 3, 5, 14, 16, 35), plus drills and transforms in a
+  `GRAMMAR_GAPS` layer at the bottom of `exercises.js` (arrays are appended, not replaced)
+  and 8 trap items in 4 new categories. No new CEI text.
+  **B4** *Prepare for a conversation* in each week (`ConversationPrep.jsx`,
+  `src/utils/conversationPrep.js`): a copyable sheet for a tutor, an after-conversation form
+  that saves to My words, and `config.listening` links (links only; nothing is fetched, so
+  About & privacy is unchanged). **None of B1/B2/B4 has an iOS twin yet**; the B1 and B3
+  data reach iOS through `course.json`. Ranked remaining gaps (progress check, error log,
+  post-course mode, minimal pairs…) are in the review's section 4.
+
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   configurable reminder
   hour, the `generate-anki` duplication/non-determinism);
@@ -613,7 +646,7 @@ offer. Grammar words that should never be picked go in `NOT_WORTH`.
 ```bash
 npm run lint
 npx vitest run src/utils/devotionLessons.test.js src/utils/wikiImage.test.js src/components/LessonPlayer.test.jsx
-npm test                                        # 1116 tests across 88 files
+npm test                                        # 1148 tests across 94 files
 ```
 
 `devotionLessons.test.js` replays every step of every prayer and mystery lesson with its own
@@ -712,7 +745,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 1116 tests across 88 files, all green
+npm test             # vitest run — 1148 tests across 94 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -747,7 +780,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `usePronunStats` — pronunciation attempts under key `italian-bible-pronun` (per-word `{ attempts, last, best, sum, avg, at }`); `record(term, score)`, `getStore()`. Recorded by Pronunciation mode; combined with the SRS store by `src/utils/wordStats.js` (`struggleList`) to drive the Practice "Parole difficili / words you struggle with" panel.
 - `useStreak` — daily streak + today's-goal flags under key `italian-bible-streak`; React glue over pure `src/utils/streak.js` (`{ last, current, best, today: { date, read, practiced, journaled } }`). The dashboard reads it on mount (`TodayCard` remounts on tab switch, picking up activity recorded elsewhere); `recordActivity(flag)` is called fire-and-forget from `PracticeMode` (`'practiced'`) and `JournalTab` (`'journaled'`), and `tickRead` marks the reading box.
 
-All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`, `-verse-srs`, `-tutor`, `-lessons`, `-devotion-lessons`, `-daily-verse`, `-sound`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
+All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`, `-verse-srs`, `-tutor`, `-lessons`, `-devotion-lessons`, `-daily-verse`, `-sound`, `-mined`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
@@ -1001,7 +1034,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **1116 vitest tests across 88 files**, all passing.
+- **Tests:** `npm test` runs **1148 vitest tests across 94 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
