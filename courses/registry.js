@@ -13,6 +13,7 @@ import { phases as itBiblePhases } from './it-bible-cei/content.js';
 import { TRAPS as itBibleTraps, TRAP_CATEGORIES as itBibleTrapCategories } from './it-bible-cei/contrastive.js';
 import { devotionSections as itBibleDevotions } from './it-bible-cei/devotions.js';
 import { rosary as itBibleRosary } from './it-bible-cei/rosary.js';
+import { kids as itBibleKids } from './it-bible-cei/kids.js';
 import { VERB_FORMS as itBibleVerbForms, FORM_CATEGORIES as itBibleFormCategories } from './it-bible-cei/verbForms.js';
 import { CORE_VOCAB as itBibleCore, CORE_DOMAINS as itBibleCoreDomains } from './it-bible-cei/coreVocab.js';
 
@@ -28,6 +29,8 @@ const COURSES = [
     devotions: itBibleDevotions,
     // Optional: the guided Rosary (mysteries + ids of the devotions it prays).
     rosary: itBibleRosary,
+    // Optional: the children's corner (picture words + prayer ids).
+    kids: itBibleKids,
     // Optional: reading-tense recognition data. The drill hides without it.
     verbForms: itBibleVerbForms,
     formCategories: itBibleFormCategories,

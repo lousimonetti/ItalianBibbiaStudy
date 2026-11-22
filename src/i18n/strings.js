@@ -16,9 +16,13 @@ export const UI_STRINGS = {
   'group.write': { it: 'Scrivi', en: 'Write' },
   'group.pray': { it: 'Preghiera', en: 'Pray' },
   'tab.game': { it: 'Gioco', en: 'Game' },
+  'tab.kids': { it: 'Bambini', en: 'Kids' },
 
   // Saints tab
   'saints.ofTheDay': { it: 'Il santo del giorno', en: 'Saint of the day' },
+  'saints.feastOfTheDay': { it: 'La festa del giorno', en: 'Feast of the day' },
+  'saints.liturgy': { it: 'Liturgia del giorno', en: 'Liturgy of the day' },
+  'saints.upcoming': { it: 'Prossime feste', en: 'Coming feasts' },
 
   // Game tab
   'game.word': { it: 'Parola', en: 'Word' },

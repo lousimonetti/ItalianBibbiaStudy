@@ -468,6 +468,59 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   About & privacy is unchanged). **None of B1/B2/B4 has an iOS twin yet**; the B1 and B3
   data reach iOS through `course.json`. Ranked remaining gaps (progress check, error log,
   post-course mode, minimal pairs…) are in the review's section 4.
+- **Bambini (children's corner): built on web only; no iOS twin.** A *Kids* view in
+  the Study group so a small child can play along while a parent studies. All by ear
+  and by picture (emoji, so no image files and no network), so it works before a child
+  can read. 64 words in 8 themes (Creation, Noah's ark, Christmas, With Jesus, family,
+  colours, numbers 1-10, kind words) in `courses/it-bible-cei/kids.js`, resolved via
+  `course/kids.js` and an optional registry field `kids` (the view hides without it).
+  Activities: *Guarda e ascolta* (one big picture, tap to hear), *Ascolta e trova*
+  (hear a word, tap its picture out of 3; a wrong tap fades and says *Riprova!*, there
+  is no fail state), *Trova le coppie* (4-pair memory, each flip speaks), a sticker
+  album (a word becomes a sticker the first time it is found by ear or matched), and
+  *Preghiamo insieme*, which plays the course's own devotion `lines` one at a time
+  with a pause to repeat (prayer text is referenced by id, never copied). TTS runs at
+  0.75. Praise is gender-neutral (*Evviva!*, not *Bravo/Brava*). *Full screen for
+  little ones* covers the whole app; only holding *Grown-ups: hold to exit* for
+  `HOLD_MS` (1.5 s) leaves it, and the lock is stored so a reload reopens the Kids
+  view locked (`App.jsx` reads it at start). Store: `storageKey('kids')` =
+  `{ found, stars, locked }`. **Deliberately isolated:** nothing here touches the SRS,
+  the study streak, lessons or progress, because a child's taps are not evidence of
+  the parent's recall. Pure logic in `src/utils/kids.js` (rounds, memory flip rules,
+  store) with `kids.test.js` (which also checks the data's invariants) and
+  `KidsTab.test.jsx`. Checked in headless Chrome at 390 and 1280 wide, light and dark;
+  nobody has played it with a child or listened to it on a real device.
+
+- **Liturgia del giorno (liturgical calendar in the Saints tab): built on web only.**
+  A card at the top of the Saints tab gives the day's celebration as the Church in
+  Italy keeps it: name, rank (Solennità / Festa / Domenica / Feria...), season, the
+  Missal's colour (a band, a swatch and the word), Sunday year A/B/C and weekday cycle
+  I/II, and "Giorno di precetto" on Sundays and Italy's six holy days (01-01, 01-06,
+  08-15, 11-01, 12-08, 12-25). *Prossime feste* lists the coming great days and jumps
+  the tab to one. All computed offline: data in `src/data/liturgicalCalendar.js`
+  (`FIXED` solemnities and feasts incl. Italy's and Europe's patrons, `MOVABLE` ones by
+  Easter offset or rule, with the `prec` row of the Table of Liturgical Days), logic in
+  `src/utils/liturgy.js` (Gregorian computus, seasons, Roman-numbered Sundays and
+  weeks, Ordinary Time after Pentecost counted back from Christ the King = 34,
+  precedence, transfers). **Italian usage:** Epiphany stays on 6 January (Baptism is the
+  Sunday after it), Ascension is on the 7th Sunday of Easter, Corpus Domini on the
+  Sunday after Trinity. **Transfers:** a solemnity that loses to a privileged day moves
+  to the next day not taken by rank 1-8 (the Monday); the Annunciation in Holy Week or
+  the Easter Octave goes to the Monday after Divine Mercy Sunday; St Joseph in Holy
+  Week to the Saturday before Palm Sunday; Holy Family is Dec 30 when no Sunday falls
+  in the Octave; a feast that loses is omitted that year (a feast of the Lord does
+  replace a Sunday in Ordinary Time). Two solemnities on one day (Sacred Heart vs June
+  24 or 29) are both shown, because the real outcome is set by decree each time. On a
+  great day that is not the saint of the day (Pentecost, Christ the King, a moved
+  feast) `storySubject()` makes the fetched Wikipedia story the feast's, the saint is
+  named underneath, and the story is cached under `MM-DD:<title>`. The saint card says
+  where its feast falls when it moved or was omitted (`movedThisYear`, with
+  `SAINTS_ALIASES` for the Dec 30 Holy Family entry). Tests: `liturgy.test.js` (known
+  Easter dates incl. 2285-03-22, every 2026 movable date, the 2024/2035/2030 transfers,
+  and a sweep of every day 2020-2040) and `SaintsTab.test.jsx`. **Known limits:**
+  memorials are not ranked (except the two movable Marian ones); Immaculate Conception
+  on an Advent Sunday follows the universal rule (moves to Monday; next case Dec 8
+  2030) and should be checked against the CEI calendar; diocesan propers are absent.
 
 - **Open backlog:** GitHub issue #37 (future enhancements — touch tap-to-reveal,
   configurable reminder
@@ -646,7 +699,7 @@ offer. Grammar words that should never be picked go in `NOT_WORTH`.
 ```bash
 npm run lint
 npx vitest run src/utils/devotionLessons.test.js src/utils/wikiImage.test.js src/components/LessonPlayer.test.jsx
-npm test                                        # 1148 tests across 94 files
+npm test                                        # 1214 tests across 98 files
 ```
 
 `devotionLessons.test.js` replays every step of every prayer and mystery lesson with its own
@@ -745,7 +798,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 1148 tests across 94 files, all green
+npm test             # vitest run — 1214 tests across 98 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -780,7 +833,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `usePronunStats` — pronunciation attempts under key `italian-bible-pronun` (per-word `{ attempts, last, best, sum, avg, at }`); `record(term, score)`, `getStore()`. Recorded by Pronunciation mode; combined with the SRS store by `src/utils/wordStats.js` (`struggleList`) to drive the Practice "Parole difficili / words you struggle with" panel.
 - `useStreak` — daily streak + today's-goal flags under key `italian-bible-streak`; React glue over pure `src/utils/streak.js` (`{ last, current, best, today: { date, read, practiced, journaled } }`). The dashboard reads it on mount (`TodayCard` remounts on tab switch, picking up activity recorded elsewhere); `recordActivity(flag)` is called fire-and-forget from `PracticeMode` (`'practiced'`) and `JournalTab` (`'journaled'`), and `tickRead` marks the reading box.
 
-All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`, `-verse-srs`, `-tutor`, `-lessons`, `-devotion-lessons`, `-daily-verse`, `-sound`, `-mined`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
+All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`, `-verse-srs`, `-tutor`, `-lessons`, `-devotion-lessons`, `-daily-verse`, `-sound`, `-kids`, `-mined`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
@@ -1034,7 +1087,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **1148 vitest tests across 94 files**, all passing.
+- **Tests:** `npm test` runs **1214 vitest tests across 98 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,

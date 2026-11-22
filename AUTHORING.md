@@ -162,6 +162,14 @@ deck downloads are still generated for the default course only.)*
   prayer `lines: [{ it, en, blank? }]` is what unlocks the modes — line-aligned
   reading, spoken shadowing scored by the pronunciation engine, and chunk cloze
   on the word named by `blank`.
+- **Children's corner** (`courses/<id>/kids.js`, `export const kids`) is
+  optional: `{ themes: [{ id, it, en, pic, words: [{ it, en, pic }] }],
+  prayers: [<devotion ids>] }`. Supply it (and register it as `kids` in
+  `courses/registry.js`) and a *Kids* view appears under Study; omit it and the
+  view hides. `pic` is one emoji. Keep every word's `it` unique across the file
+  and every `pic` unique within a theme, with at least 6 words per theme;
+  `src/utils/kids.test.js` checks all three. `prayers` must name devotions that
+  have `lines`.
 - **Non-Latin / RTL scripts** (Greek, Hebrew, Arabic): the word tokenizer and
   article-stripping assume Latin-ish words — a known limit.
 - **Accent color** lives in `src/index.css` (`--accent` for light + dark), not

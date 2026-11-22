@@ -13,6 +13,8 @@ import { WordGloss } from './WordGloss';
 import { UiText } from '../i18n/UiText';
 import { saintLesson } from '../utils/devotionLessons';
 import { LessonPlayer } from './LessonPlayer';
+import { LiturgyCard } from './LiturgyCard';
+import { liturgyFor, movedThisYear, storySubject } from '../utils/liturgy';
 
 // Santo del giorno — the day's saint from the bundled calendar (offline), with
 // the hagiography fetched from Wikipedia at runtime: Italian first (every word
@@ -42,9 +44,19 @@ export function SaintsTab() {
   const [imageOk, setImageOk] = useState(true);
   const [playing, setPlaying] = useState(false);
 
-  const saint = saintForDate(date);
+  const day = saintForDate(date);
   const key = dateKey(date);
-  const isToday = dateKey(new Date()) === key;
+  const isToday = dateKey(new Date()) === key && date.getFullYear() === new Date().getFullYear();
+  // The day's liturgy. On a great day that is not already the saint of the day
+  // (Pentecost, Christ the King, a feast moved onto another date) the story is
+  // the feast's, and the saint is named underneath.
+  const cel = liturgyFor(date);
+  const saint = storySubject(cel, day);
+  const remembered = saint.feast ? day : null;
+  const moved = saint.feast ? null : movedThisYear(key, date.getFullYear());
+  // A movable feast falls on a different date each year, so its story is
+  // cached under its own title; a saint keeps the plain date key.
+  const cacheKey = saint.feast ? `${key}:${saint.it}` : key;
 
   useEffect(() => {
     let alive = true;
@@ -53,14 +65,14 @@ export function SaintsTab() {
     setEnOpen(false);
     setImageOk(true);
     setPlaying(false);
-    const cached = loadCache()[key];
+    const cached = loadCache()[cacheKey];
 
     fetchSaintStory(saint).then((fetched) => {
       if (!alive) return;
       if (fetched.it || fetched.en) {
         setStory(fetched);
         setStatus('ok');
-        saveToCache(key, fetched);
+        saveToCache(cacheKey, fetched);
       } else if (cached) {
         setStory(cached);
         setStatus('cached');
@@ -69,9 +81,9 @@ export function SaintsTab() {
       }
     });
     return () => { alive = false; };
-    // saint derives from key; key is the real dependency.
+    // saint derives from cacheKey; cacheKey is the real dependency.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key]);
+  }, [cacheKey]);
 
   // The story is fetched text, so its exercise is built from whatever arrived.
   const lesson = useMemo(
@@ -97,9 +109,13 @@ export function SaintsTab() {
         <button className="saints-nav-btn" onClick={() => setDate(d => addDays(d, 1))} aria-label="Next day">›</button>
       </div>
 
+      <LiturgyCard cel={cel} date={date} hideName={!!saint.feast || cel.wiki?.it === day.it} onSelect={(d) => setDate(d)} />
+
       {/* Saint header */}
       <div className="saints-header">
-        <div className="saints-kicker" title="Saint of the day"><UiText k="saints.ofTheDay" /></div>
+        <div className="saints-kicker" title={saint.feast ? 'Feast of the day' : 'Saint of the day'}>
+          <UiText k={saint.feast ? 'saints.feastOfTheDay' : 'saints.ofTheDay'} />
+        </div>
         <h2 className="saints-name">
           {saint.name}
           <SpeakerButton word={saint.name} size={20} />
@@ -115,6 +131,18 @@ export function SaintsTab() {
               onError={() => setImageOk(false)}
             />
           </a>
+        )}
+        {remembered && (
+          <p className="saints-also">
+            Si ricorda anche: {remembered.name} <span className="saints-also-en">also remembered today</span>
+          </p>
+        )}
+        {moved && (
+          <p className="saints-also">
+            {moved.omitted
+              ? <>Quest&apos;anno cede il posto a: {moved.by} <span className="saints-also-en">not celebrated this year; the Sunday takes precedence</span></>
+              : <>Quest&apos;anno si celebra {fmtDate(moved.to)} <span className="saints-also-en">celebrated on another day this year</span></>}
+          </p>
         )}
       </div>
 

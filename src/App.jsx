@@ -22,6 +22,9 @@ import { allReviewCards } from './utils/decks';
 import { useSrs } from './hooks/useSrs';
 import { SaintsTab } from './components/SaintsTab';
 import { GameTab } from './components/GameTab';
+import { KidsTab } from './components/KidsTab';
+import { kids } from '../course/kids';
+import { allWords, loadKids } from './utils/kids';
 import { SubNav } from './components/SubNav';
 import { loadGame, wordDay, quizDay } from './utils/gameStore';
 import { todayStr, loadStreak, dueMilestone, loadCelebrated, saveCelebrated, weekStrip } from './utils/streak';
@@ -50,6 +53,8 @@ const ALL_WEEKS = PHASES.flatMap(p => p.weeks);
 const HAS_DEVOTIONS = devotionSections.length > 0;
 // The Rosary prays the course's devotions, so it needs both.
 const HAS_ROSARY = HAS_DEVOTIONS && !!rosary;
+// The children's corner only exists for courses that ship kids' words.
+const HAS_KIDS = allWords(kids).length > 0;
 
 function DownloadIcon() {
   return (
@@ -360,7 +365,11 @@ const GROUPS = [
   { id: 'today', Icon: TrackerIcon, views: [{ id: 'Tracker', Icon: TrackerIcon }] },
   {
     id: 'study', Icon: CardsIcon,
-    views: [{ id: 'Flashcards', Icon: CardsIcon }, { id: 'Game', Icon: GameIcon }],
+    views: [
+      { id: 'Flashcards', Icon: CardsIcon },
+      { id: 'Game', Icon: GameIcon },
+      ...(HAS_KIDS ? [{ id: 'Kids', Icon: GameIcon }] : []),
+    ],
   },
   { id: 'write', Icon: JournalIcon, views: [{ id: 'Journal', Icon: JournalIcon }] },
   {
@@ -399,7 +408,9 @@ export default function App() {
   const { theme, toggleTheme } = useTheme();
   const { immersive, toggle: toggleImmersion } = useImmersion();
   const [online, setOnline] = useState(navigator.onLine);
-  const [activeTab, setActiveTab] = useState('Tracker');
+  // A child left in full-screen kids mode stays there after a reload; only a
+  // grown-up holding the exit button leaves it.
+  const [activeTab, setActiveTab] = useState(() => (HAS_KIDS && loadKids().locked ? 'Kids' : 'Tracker'));
   // Last view visited per group, so returning to a group lands where you left.
   const [lastView, setLastView] = useState({});
   const group = GROUPS.find((g) => g.views.some((v) => v.id === activeTab)) || GROUPS[0];
@@ -558,6 +569,9 @@ export default function App() {
 
       {/* Tab: Game */}
       {activeTab === 'Game' && <GameTab />}
+
+      {/* Tab: Kids */}
+      {activeTab === 'Kids' && HAS_KIDS && <KidsTab />}
 
       {/* Tab: Journal */}
       {activeTab === 'Journal' && <JournalTab />}
