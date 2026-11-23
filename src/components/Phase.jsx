@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { WeekRow } from './WeekRow';
 import { config } from '../../course/config';
+import { ProgressCheck } from './ProgressCheck';
 
 function ChevronIcon({ open }) {
   return (
@@ -49,6 +50,7 @@ export function Phase({ phase, checked, onToggle, currentWeekN }) {
               isCurrent={week.n === currentWeekN}
             />
           ))}
+          <ProgressCheck phase={phase} currentWeekN={currentWeekN} />
         </>
       )}
     </div>

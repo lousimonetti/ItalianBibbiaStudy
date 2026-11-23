@@ -733,6 +733,73 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 .ach-name { font-size: 12px; font-weight: 600; color: var(--text); }
 .ach-name-en { font-size: 10px; color: var(--text-muted); }
 
+/* Progress check (REVIEW-fluency.md section 4, item 1) */
+.pc-panel {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin: 10px 12px 12px;
+  overflow: hidden;
+}
+.pc-toggle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--surface);
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+  text-align: left;
+}
+.pc-toggle:hover { background: var(--bg); }
+.pc-title { font-size: 14px; font-weight: 600; }
+.pc-sub { font-size: 12px; color: var(--text-muted); }
+.pc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 4px 14px 16px;
+  background: var(--surface);
+}
+.pc-section { display: flex; flex-direction: column; gap: 8px; }
+.pc-section-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.pc-level { font-weight: 400; color: var(--text-muted); }
+.pc-cov { display: flex; flex-direction: column; gap: 5px; }
+.pc-cov-head { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; color: var(--text-body); }
+.pc-cov-head strong { color: var(--accent); }
+.pc-bar { height: 8px; border-radius: 999px; background: var(--border-subtle); overflow: hidden; }
+.pc-bar-fill { height: 100%; background: var(--accent); border-radius: 999px; }
+.pc-small { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+.pc-note { font-size: 12px; color: var(--text-faint); line-height: 1.5; }
+.pc-learn { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.pc-chip {
+  font-size: 13px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--accent-dim);
+  color: var(--text);
+}
+.pc-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.pc-item { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--text-body); }
+.pc-choices { display: flex; flex-wrap: wrap; gap: 6px; }
+.pc-choice, .pc-btn {
+  font: inherit;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+}
+.pc-choice.on { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.pc-btn { align-self: flex-start; }
+.pc-btn-primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.pc-btn:disabled { opacity: 0.5; cursor: default; }
+.pc-actions { display: flex; gap: 8px; }
+
 /* Daily goals + streak (D1) */
 .today-goals {
   display: flex;

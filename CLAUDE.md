@@ -483,6 +483,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   article-gender errors and 24% of adjective-ending errors, so the checks are not proof.
   Details are in `REVIEW-fluency.md` under B1. Tests that need a word with no gloss now
   use `ombrellone`, because `pizza` gained one.
+- **Progress check (*Verifica dei progressi*): built on web only; no iOS twin.** Gap 1 of
+  `REVIEW-fluency.md` section 4: nothing told a learner whether the course was working. A
+  collapsible card at the bottom of each open phase on the Tracker (`ProgressCheck.jsx`,
+  placed by `Phase.jsx`) shows three things. **Reading:** the share of the phase's passages,
+  and in the phase that holds it the next week's passage, made of words the learner has
+  reviewed to maturity, plus up to 8 *words to learn first*. `passageCoverage()` in
+  `src/utils/progressCheck.js` maps each running word to an SRS key (course vocab via
+  `lookupWord`, lemma for a `form`; core via the new `lookupCoreTerm` in `decks.js`; then
+  Mie parole), and counts a word as known with `isWellKnown()` (`KNOWN_REPS`/`KNOWN_DAYS`
+  from `lessonPlan.js`, but ignoring `due`, so a mature word stays known on its due day).
+  **The percentage counts only words some card teaches**: about half of each passage
+  (articles, names, verb forms no card covers) has no card, and the card says so rather
+  than claiming to measure every word. Short grammar words (3 letters or fewer, bare) are
+  counted but not listed. **Speaking:** finished fluency sprints are now kept
+  (`src/utils/sprintStore.js`, `storageKey('sprints')`, last 200), and the card shows the
+  median first-round words per minute on the phase's weeks against the previous phase.
+  **Self-check:** 5 "I can..." statements per phase in `courses/it-bible-cei/canDo.js`
+  (optional registry field `canDo` → `course/canDo.js`), in English on purpose so no new
+  Italian needs checking, our own wording modelled on CEFR levels (the level shown is a rough
+  guide, not a test result); answers *not yet / with help / yes* are kept with a date under
+  `storageKey('checks')`, so a repeat shows the change. New Session clears `sprints` and
+  `checks` with progress. Nothing grades into the SRS or ticks the streak. Reading speed
+  (O15) is not measured: nothing times reading yet. Tests: `progressCheck.test.js`,
+  `sprintStore.test.js`, `ProgressCheck.test.jsx`, `FluencySprint.test.jsx`.
+
 - **Bambini (children's corner): built on web only; no iOS twin.** A *Kids* view in
   the Study group so a small child can play along while a parent studies. All by ear
   and by picture (emoji, so no image files and no network), so it works before a child
@@ -714,7 +739,7 @@ offer. Grammar words that should never be picked go in `NOT_WORTH`.
 ```bash
 npm run lint
 npx vitest run src/utils/devotionLessons.test.js src/utils/wikiImage.test.js src/components/LessonPlayer.test.jsx
-npm test                                        # 1215 tests across 98 files
+npm test                                        # 1245 tests across 102 files
 ```
 
 `devotionLessons.test.js` replays every step of every prayer and mystery lesson with its own
@@ -813,7 +838,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 1215 tests across 98 files, all green
+npm test             # vitest run — 1245 tests across 102 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -848,7 +873,7 @@ The `prebuild` hook runs `patch-sqljs.cjs` then `generate-anki.cjs` automaticall
 - `usePronunStats` — pronunciation attempts under key `italian-bible-pronun` (per-word `{ attempts, last, best, sum, avg, at }`); `record(term, score)`, `getStore()`. Recorded by Pronunciation mode; combined with the SRS store by `src/utils/wordStats.js` (`struggleList`) to drive the Practice "Parole difficili / words you struggle with" panel.
 - `useStreak` — daily streak + today's-goal flags under key `italian-bible-streak`; React glue over pure `src/utils/streak.js` (`{ last, current, best, today: { date, read, practiced, journaled } }`). The dashboard reads it on mount (`TodayCard` remounts on tab switch, picking up activity recorded elsewhere); `recordActivity(flag)` is called fire-and-forget from `PracticeMode` (`'practiced'`) and `JournalTab` (`'journaled'`), and `tickRead` marks the reading box.
 
-All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`, `-verse-srs`, `-tutor`, `-lessons`, `-devotion-lessons`, `-daily-verse`, `-sound`, `-kids`, `-mined`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
+All persisted keys are **per-course namespaced** via `storageKey(name)` (`src/utils/storageKey.js`), which prefixes with `config.storagePrefix` (the reference course keeps `'italian-bible'`, so existing data needs no migration; a scaffolded course gets its own prefix). Keys in use: `-progress`, `-journal`, `-theme`, `-immersion`, `-srs`, `-pronun`, `-streak`, `-reminders`, `-welcome-seen`, `-session-start`, `-reading-view`, `-game`, `-rosary`, `-verse-srs`, `-tutor`, `-lessons`, `-devotion-lessons`, `-daily-verse`, `-sound`, `-kids`, `-mined`, `-sprints`, `-checks`. New persisted state should use `storageKey('…')`, never a hardcoded literal.
 
 **Immersion mode / i18n** (`src/i18n/`): "Modalità immersione" flips UI *chrome* (tab labels, section headers, key buttons) to Italian, with the English shown as a hover/long-press `title` gloss — the comprehensibility guard. Default is English (off), so non-immersive output is byte-identical to before. Pieces: `strings.js` (`{ key: { it, en } }` chrome map — chrome only, never user content), `ImmersionContext.js` (context + `useImmersion` hook + persisted key `italian-bible-immersion`), `ImmersionProvider.jsx` (provider, wrapped around `<App>` in `main.jsx`), and `UiText.jsx` (`<UiText k="tab.tracker" />` — renders `en` when off, `it`+title when on). The context has a sensible default value, so components render English even without the provider (tests rely on this). **Lint gotcha:** the context/hook live in a `.js` file and the provider in a `.jsx` file on purpose — keeping a non-component export (the hook) out of the `.jsx` satisfies `react-refresh/only-export-components`.
 
@@ -1102,7 +1127,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **1215 vitest tests across 98 files**, all passing.
+- **Tests:** `npm test` runs **1245 vitest tests across 102 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
