@@ -466,15 +466,15 @@ export default function App() {
           <h1>{renderBrandName(config.brand.name)}</h1>
           <p className="tagline">{taglineText()}</p>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+        <div className="header-actions">
           <CoursePicker />
           <AudioSpeedControl />
           <VoicePicker />
           <SyncPanel />
           {canInstall && (
-            <button className="install-btn" onClick={install} aria-label="Install app">
+            <button className="install-btn" onClick={install} aria-label="Install app" title="Add to Home Screen">
               <DownloadIcon />
-              Add to Home Screen
+              <span className="install-btn-label">Add to Home Screen</span>
             </button>
           )}
           <button
