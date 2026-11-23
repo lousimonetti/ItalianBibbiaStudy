@@ -29,12 +29,15 @@ export function buildCoreCards(tuples, domains = {}) {
   return tuples.map((tuple) => {
     const card = parseVocab(tuple);
     const domain = tuple[4]?.domain || '';
+    // 'tatoeba:<it>/<en>' for a native speaker's sentence, 'authored' otherwise.
+    const src = tuple[4]?.src || 'authored';
     const ipa = card.ipa || (HAS_IPA ? approxIPA(card.it) : '');
     return {
       ...card,
       ipa,
       ipaApprox: !card.ipa && !!ipa,
       domain,
+      src,
       deck: 'core',
       meta: domains[domain] ? `Parole di base · ${domains[domain]}` : 'Parole di base',
     };

@@ -97,6 +97,74 @@ conversation after church. Every word has an example sentence and its English.
   now covers the core examples.
 - Not added to the weekly lessons, because `lessonPlan.js` is pinned to its Swift twin.
 
+#### How the core deck's Italian was checked
+
+The first version of the deck used example sentences written for it, not taken from a
+source, and no native speaker was available to read them. A wrong example is worse than
+none, so the sentences were checked and, where possible, replaced, without a human.
+
+**Native sentences first.** 469 of the 497 rows (94%) now use a sentence by an Italian
+native speaker from Tatoeba (tatoeba.org, CC BY 2.0 FR), copied verbatim:
+- 464 of them with the linked English translation (2 English lines reworded, marked `*`);
+- 3 with an English of our own, because no English link was usable.
+
+The candidates were proposed by `scripts/check-core-italian.mjs --candidates`. A sentence
+qualified only when all of these held:
+- its author declares Italian as a native language;
+- no reviewer has marked it wrong;
+- it is 4-12 words long;
+- every word is in the lexicon;
+- it contains no personal names;
+- for nouns, the headword follows an article or preposition, so `la messa` does not match
+  the participle in "si è messa".
+
+The ranking preferred reviewed sentences, sentences first written in Italian (not
+translated from English), and common words. Each row was then chosen by hand: the
+headword had to carry the card's sense, the English had to be accurate, and the content
+had to suit the course. "In principio Dio creò il cielo e la terra" was skipped, because
+it is the CEI text of Genesis 1:1. Each row keeps its ids
+(`src: 'tatoeba:<it>/<en>'`), and the source is credited in About & privacy. A spot-check
+of 10 random rows against the live site matched exactly, Italian and English.
+
+**28 rows keep our sentence.** No native candidate had the card's sense in these rows
+(`piano` as "slowly", `fa` as "ago", `il papa` outside the idiom "ogni morte di papa"), or
+they are parish-life words Tatoeba barely has (`l'omelia`, `il salmo`). Each passed the
+checks below. One independent reviewer, a fresh model with no authoring context, also read
+them; it found no grammar errors and suggested three changes in usage, all taken:
+- "L'omelia di oggi è stata breve", not "era breve";
+- "ci sono le confessioni", not "c'è la confessione";
+- a note that the Italian third floor is the American fourth.
+
+A model's read adds flags; it does not certify anything.
+
+**Mechanical checks on every row** (`npm run check-core-italian`, which exits non-zero on any
+unexplained flag; the six allowed flags and their reasons are in
+`scripts/core-italian-allow.json`):
+- every word is a real form in Morph-it!, an Italian lexicon of about 500,000 forms;
+- a headword's article matches the noun's gender and number;
+- `form` is an inflection of the headword;
+- articles and determiners agree with the noun or adjective after them, and adjectives
+  agree with their noun, inside a clause;
+- no uncontracted preposition and article ("a il" for "al");
+- the headword is among the 8,000 most frequent lemmas (parish words excepted);
+- LanguageTool. It found nothing, but on a test it caught a typo ("erore") and missed "La
+  ragazzo", "a il mercato" and "ho andato". On Italian it works here as a spell-checker
+  and nothing more.
+
+**What the checks would catch**, measured by planting one error in each real sentence:
+
+| Planted error | Caught |
+|---|---|
+| Misspelling | 98% (400 of 408) |
+| Uncontracted preposition ("a il") | 100% (24 of 24) |
+| Wrong article gender | 68% (198 of 293) |
+| Wrong adjective ending | 24% (5 of 21) |
+
+So a wrong article or adjective can still slip through the mechanical checks, which is why
+most rows are native sentences rather than checked ones. **No tool can confirm that a
+sentence sounds natural.** For the 469 Tatoeba rows a native speaker wrote it. For the 28
+authored rows only the checks above and one model's read stand behind it.
+
 ### B2. Mie parole, sentence mining
 
 Tap any word that is not already a card and choose **Save to My words**. It is saved with
@@ -158,8 +226,9 @@ Not built in this pass. Ranked by learning gain for the effort.
 8. **Smaller items**: an adaptive new-card cap (O12); considering FSRS in place of SM-2,
    which needs fewer reviews for the same retention; human-voice audio where licensing
    allows.
-9. **iOS twins of B1 to B4.** The core deck data and the B3 notes reach iOS through
-   `course.json`, but there is no deck chooser, no Save to My words and no conversation
+9. **iOS twins of B1 to B4.** The B3 notes reach iOS through `course.json`; the core
+   deck does not, because `export-course-json.mjs` does not export it (an earlier
+   version of this review said it did). There is no deck chooser, no Save to My words and no conversation
    section on iOS yet. Saved words written by the web app sit in the shared `srs` and
    `mined` keys and survive a backup round trip, but iOS does not show them.
 

@@ -65,6 +65,18 @@ describe('core vocabulary data', () => {
   it('labels its computed IPA as approximate', () => {
     expect(CORE_CARDS.every((c) => !c.ipa || c.ipaApprox)).toBe(true);
   });
+
+  // Every example says where it came from: a Tatoeba sentence by a native
+  // speaker (Italian id, English id, '*' when the English was reworded), or
+  // our own. scripts/check-core-italian.mjs checks both kinds.
+  it('records the source of every example, mostly native speakers', () => {
+    const bad = CORE_CARDS.filter((c) => !/^(authored|tatoeba:\d+(\/\d+)?\*?)$/.test(c.src));
+    expect(bad.map((c) => `${c.it}: ${c.src}`)).toEqual([]);
+    const ids = CORE_CARDS.filter((c) => c.src !== 'authored').map((c) => c.src.split(/[:/*]/)[1]);
+    expect(ids.length).toBeGreaterThan(0.85 * CORE_CARDS.length);
+    const repeated = ids.filter((id, i) => ids.indexOf(id) !== i);
+    expect(repeated.length).toBeLessThan(10); // a sentence may serve two cards, rarely
+  });
 });
 
 describe('deckOf', () => {

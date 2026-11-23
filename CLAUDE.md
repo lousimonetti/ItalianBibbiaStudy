@@ -465,9 +465,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   **B4** *Prepare for a conversation* in each week (`ConversationPrep.jsx`,
   `src/utils/conversationPrep.js`): a copyable sheet for a tutor, an after-conversation form
   that saves to My words, and `config.listening` links (links only; nothing is fetched, so
-  About & privacy is unchanged). **None of B1/B2/B4 has an iOS twin yet**; the B1 and B3
-  data reach iOS through `course.json`. Ranked remaining gaps (progress check, error log,
-  post-course mode, minimal pairs…) are in the review's section 4.
+  About & privacy is unchanged). **None of B1/B2/B4 has an iOS twin yet**; the B3 notes
+  reach iOS through `course.json`, but the core deck does not (`export-course-json.mjs`
+  does not export it). Ranked remaining gaps (progress check, error log, post-course
+  mode, minimal pairs…) are in the review's section 4.
+  **Core deck Italian, checked without a human:** 469 of 497 examples are verbatim
+  sentences by native speakers from Tatoeba (CC BY 2.0 FR, credited in `config.licenses`;
+  each row's `src` is `tatoeba:<it id>/<en id>`, `*` = English reworded), and 28 are our
+  own (`src` absent, read as `'authored'`). `npm run check-core-italian`
+  (`scripts/check-core-italian.mjs`) downloads Morph-it!, a frequency list and the Tatoeba
+  exports into the gitignored `scripts/.cache/`, checks every row (lexicon, article and
+  gender, `form`, agreement, contractions, frequency, LanguageTool) and exits non-zero on
+  any flag not explained in `scripts/core-italian-allow.json`; `--candidates` proposes
+  native sentences for a row. **When you add or change a core row, run it, and prefer a
+  native candidate.** LanguageTool's free Italian check is only a spell-checker
+  (it misses "La ragazzo"), and the script's own self-test catches 68% of planted
+  article-gender errors and 24% of adjective-ending errors, so the checks are not proof.
+  Details are in `REVIEW-fluency.md` under B1. Tests that need a word with no gloss now
+  use `ombrellone`, because `pizza` gained one.
 - **Bambini (children's corner): built on web only; no iOS twin.** A *Kids* view in
   the Study group so a small child can play along while a parent studies. All by ear
   and by picture (emoji, so no image files and no network), so it works before a child
@@ -699,7 +714,7 @@ offer. Grammar words that should never be picked go in `NOT_WORTH`.
 ```bash
 npm run lint
 npx vitest run src/utils/devotionLessons.test.js src/utils/wikiImage.test.js src/components/LessonPlayer.test.jsx
-npm test                                        # 1214 tests across 98 files
+npm test                                        # 1215 tests across 98 files
 ```
 
 `devotionLessons.test.js` replays every step of every prayer and mystery lesson with its own
@@ -798,7 +813,7 @@ npm run build        # prebuild → generate-anki → vite build → dist/
 npm run preview      # serve dist/ at http://localhost:4173 (service worker active)
 npm run lint         # eslint (flat config; clean as of Phase 0)
 npm run generate-anki  # regenerate all .apkg files in public/anki/ (also runs via prebuild)
-npm test             # vitest run — 1214 tests across 98 files, all green
+npm test             # vitest run — 1215 tests across 98 files, all green
 npm run test:watch   # vitest in watch mode
 npm run validate-course  # validate course/ (config + content) against the schema
 npm run new-course -- --weeks 40 --phases 4 --id my-course --force  # scaffold a blank course
@@ -1087,7 +1102,7 @@ active production. In rough priority order:
   count is hardcoded in a few UI strings (e.g. "259 cards" in
   `PracticeMode.jsx` / `PronunciationPractice.jsx` / `FlashcardsTab.jsx`); if
   vocab counts change, update those strings too — they are not computed.
-- **Tests:** `npm test` runs **1214 vitest tests across 98 files**, all passing.
+- **Tests:** `npm test` runs **1215 vitest tests across 98 files**, all passing.
   Pure-logic modules each have a sibling `*.test.js`: `srs`, `wordStats`,
   `cloze`, `answer`, `streak`, `achievements`, `reminders`, `vocabIndex`,
   `pronunciation`, `it2ipa`, `syncSnapshot`, `schedule`, `studyData`,
