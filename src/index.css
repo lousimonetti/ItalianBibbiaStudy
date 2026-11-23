@@ -148,6 +148,13 @@ body {
 .title-accent { color: var(--accent); }
 .tagline { font-size: 13px; color: var(--text-muted); margin-top: 10px; }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 .install-btn {
   display: flex;
   align-items: center;
@@ -1150,6 +1157,12 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
   .app-header { flex-wrap: wrap; }
   .header-text h1 { font-size: 22px; }
 
+  /* The button row may wrap under the title, and the install button keeps
+     only its icon, so the header never makes the page scroll sideways. */
+  .header-actions { flex-shrink: 1; min-width: 0; max-width: 100%; flex-wrap: wrap; }
+  .install-btn-label { display: none; }
+  .install-btn { padding: 7px 9px; }
+
   .col-header,
   .week-main { grid-template-columns: 22px 1fr 110px 20px; }
   .col-header span:nth-child(2),
@@ -1206,7 +1219,6 @@ html.dark .session-target-warn { background: #2b2410; color: #e0c877; border-col
 @media (max-width: 380px) {
   body { padding-left: 12px; padding-right: 12px; }
   .phase-book { display: none; }
-  .install-btn { font-size: 11px; padding: 6px 10px; }
 }
 
 /* Bigger touch targets on touch devices */
