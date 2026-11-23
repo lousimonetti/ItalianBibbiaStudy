@@ -71,6 +71,13 @@ const coreIndex = (() => {
   return m;
 })();
 
+// The core card a word of running text belongs to (its term, without article,
+// or its example form), or null. Used to match passage words to SRS keys.
+export function lookupCoreTerm(word) {
+  if (!word) return null;
+  return coreIndex.get(word.toLowerCase().replace(/’/g, "'")) || null;
+}
+
 // Is this word already studied in a deck? 'course' | 'core' | null. Used to
 // decide whether a tapped word can be saved to "Mie parole".
 export function deckOf(word) {

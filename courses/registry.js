@@ -14,6 +14,7 @@ import { TRAPS as itBibleTraps, TRAP_CATEGORIES as itBibleTrapCategories } from 
 import { devotionSections as itBibleDevotions } from './it-bible-cei/devotions.js';
 import { rosary as itBibleRosary } from './it-bible-cei/rosary.js';
 import { kids as itBibleKids } from './it-bible-cei/kids.js';
+import { canDo as itBibleCanDo } from './it-bible-cei/canDo.js';
 import { VERB_FORMS as itBibleVerbForms, FORM_CATEGORIES as itBibleFormCategories } from './it-bible-cei/verbForms.js';
 import { CORE_VOCAB as itBibleCore, CORE_DOMAINS as itBibleCoreDomains } from './it-bible-cei/coreVocab.js';
 
@@ -31,6 +32,8 @@ const COURSES = [
     rosary: itBibleRosary,
     // Optional: the children's corner (picture words + prayer ids).
     kids: itBibleKids,
+    // Optional: per-phase "can I do this yet?" statements for the progress check.
+    canDo: itBibleCanDo,
     // Optional: reading-tense recognition data. The drill hides without it.
     verbForms: itBibleVerbForms,
     formCategories: itBibleFormCategories,

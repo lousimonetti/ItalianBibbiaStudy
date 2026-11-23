@@ -204,11 +204,13 @@ be read the night before Mass.
 
 Not built in this pass. Ranked by learning gain for the effort.
 
-1. **A progress check.** Per phase: a short CEFR can-do self-assessment, plus measures the
-   app can compute itself: the share of next week's passage made of words the learner has
-   reviewed to maturity (the 95-98% coverage threshold, made visible), reading speed (O15),
-   and the trend in fluency-sprint WPM. Without it, nobody can tell whether the course is
-   working.
+1. **A progress check.** *Built since (web only):* *Verifica dei progressi* at the foot of
+   each phase on the Tracker shows the share of the phase's passages, and of next week's,
+   made of words the learner has reviewed to maturity (the 95-98% coverage threshold, made
+   visible), the trend in fluency-sprint words per minute (sprints are now kept), and a
+   short can-do self-check per phase modelled on CEFR levels. The coverage counts only
+   words some card teaches, about half of each passage, and says so. Still missing: reading
+   speed (O15), because nothing times reading yet, and an iOS twin.
 2. **Error log and rewrite** (O10 plus Swain). Keep each accepted LanguageTool correction
    as a before/after pair and bring it back as a "correct your own sentence" drill.
 3. **Life after week 37.** A continuation mode: SRS and My words carry on; suggest a

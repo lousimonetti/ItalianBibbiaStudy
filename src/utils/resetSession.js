@@ -26,6 +26,8 @@ export function resetSession({
     drop('progress');
     drop('tutor');
     drop('lessons');
+    drop('sprints');
+    drop('checks');
   }
   if (resetStreak) drop('streak');
   if (resetSrs) {

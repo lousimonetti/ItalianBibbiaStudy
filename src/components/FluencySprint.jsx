@@ -3,6 +3,7 @@ import { TTS_LANG } from '../utils/locale';
 import { getSpeechRecognition, hasSpeechRecognition } from '../utils/speech';
 import { ROUNDS, countWords, summarizeRounds, sprintDelta } from '../utils/fluencySprint';
 import { recordActivity } from '../utils/streak';
+import { recordSprint } from '../utils/sprintStore';
 
 // Nation's 4/3/2 fluency sprint on the week's journal prompt: speak on the
 // same topic three times — 60s, 45s, 30s. The shrinking limit forces faster
@@ -81,7 +82,10 @@ export function FluencySprint({ week, onInsert }) {
     const text = bufRef.current.trim();
     setTranscripts(ts => [...ts, text]);
     if (text) recordActivity('practiced');
-    setPhase(roundIdx + 1 < ROUNDS.length ? 'between' : 'done');
+    const last = roundIdx + 1 >= ROUNDS.length;
+    // A finished run is kept so the progress check can show the trend.
+    if (last) recordSprint({ weekN: week?.n, rounds: summarizeRounds([...transcripts, text]) });
+    setPhase(last ? 'done' : 'between');
   }
 
   function reset() {
